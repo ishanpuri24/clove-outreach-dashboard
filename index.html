@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#f6f3ee" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#13161a" media="(prefers-color-scheme: dark)" />
+  <meta name="description" content="Clove Dental outreach operations dashboard." />
+  <title>Clove Dental Outreach</title>
+  <!--
+    Single-file static dashboard for the Clove Dental outreach
+    automation. Data is generated from the recurring task's run
+    history (see scripts/build_snapshot.py) and embedded below.
+    The page intentionally has no runtime dependencies and is
+    safe to host on any static origin (GitHub Pages, Netlify
+    drop, Vercel static, S3, etc.).
+
+    Design notes:
+      - Mobile-first; cards stack at <=720px, grid at wider.
+      - Theme toggle is in-memory (data-theme on <html>); browser-
+        persistent storage is intentionally not used.
+      - Charts are drawn with inline SVG. No external libraries.
+      - Touch targets are >=44px. Focus rings are always visible.
+      - No emoji, no AI-gradient aesthetic.
+  -->
+  <style>
+    /* -------- Tokens -------- */
+    :root {
+      --bg: #f6f3ee;          /* warm neutral light */
+      --surface: #ffffff;
+      --surface-2: #f0ece4;
+      --border: #d9d2c4;
+      --text: #1c1f24;
+      --text-muted: #5a6068;
+      --accent: #2f5d50;       /* clove green, healthcare-warm */
+      --accent-weak: #d6e3dc;
+      --warn: #a45a2a;
+      --danger: #9b2c2c;
+      --good: #2f7a4d;
+      --focus: #1f4f8b;
+      --shadow: 0 1px 2px rgba(20, 24, 30, 0.06),
+                0 1px 0 rgba(20, 24, 30, 0.03);
+      --radius: 10px;
+    }
+    :root[data-theme="dark"] {
+      --bg: #13161a;
+      --surface: #1b1f24;
+      --surface-2: #232830;
+      --border: #303843;
+      --text: #ecebe6;
+      --text-muted: #9aa3ad;
+      --accent: #7fb89f;
+      --accent-weak: #1f3a32;
+      --warn: #d8a26a;
+      --danger: #e08585;
+      --good: #79c79a;
+      --focus: #8fb4e6;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
+                0 1px 0 rgba(0, 0, 0, 0.3);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #13161a;
+        --surface: #1b1f24;
+        --surface-2: #232830;
+        --border: #303843;
+        --text: #ecebe6;
+        --text-muted: #9aa3ad;
+        --accent: #7fb89f;
+        --accent-weak: #1f3a32;
+        --warn: #d8a26a;
+        --danger: #e08585;
+        --good: #79c79a;
+        --focus: #8fb4e6;
+      }
+    }
+
+    /* -------- Base -------- */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   "Inter", "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.45;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a {
+      color: var(--focus);
+      text-underline-offset: 2px;
+    }
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+    }
+    button {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    /* -------- Layout -------- */
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    @media (min-width: 720px) {
+      .page { padding: 28px; }
+    }
+
+    header.top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+    }
+    .brand .mark {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 1.05rem;       /* never huge */
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .brand .sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .toggle {
+      min-height: 44px;
+      min-width: 44px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .toggle[aria-pressed="true"] {
+      background: var(--accent-weak);
+      border-color: var(--accent);
+    }
+
+    section {
+      margin: 22px 0;
+    }
+    h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: var(--text);
+      letter-spacing: -0.005em;
+    }
+    .section-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: -8px 0 12px;
+    }
+
+    /* -------- Cards & grids -------- */
+    .grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 560px) {
+      .grid.kpi { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+      .grid.kpi { grid-template-columns: repeat(4, 1fr); }
+      .grid.two { grid-template-columns: 1fr 1fr; }
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+    .kpi-card .label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .kpi-card .value {
+      font-size: 1.6rem;       /* keep below "hero" */
+      font-weight: 600;
+      margin-top: 4px;
+      letter-spacing: -0.01em;
+    }
+    .kpi-card .hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      font-size: 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+    }
+    .pill .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--text-muted);
+      display: inline-block;
+    }
+    .pill.good .dot { background: var(--good); }
+    .pill.warn .dot { background: var(--warn); }
+    .pill.danger .dot { background: var(--danger); }
+    .pill.accent .dot { background: var(--accent); }
+
+    /* -------- Tables -------- */
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    th {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: var(--surface-2);
+      position: sticky;
+      top: 0;
+    }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
+                   "Liberation Mono", monospace;
+      font-size: 13px;
+    }
+    /* Long opaque tokens (sheet IDs, commit SHAs, raw URLs) live in
+       the exec status card and would otherwise blow out the page at
+       narrow widths. Allow breaks anywhere inside the card so the
+       page itself never overflows on a 390px viewport. Tables keep
+       their own .table-wrap horizontal scroll. */
+    .exec-card { overflow-wrap: anywhere; word-break: break-word; }
+    .exec-card a { overflow-wrap: anywhere; word-break: break-word; }
+
+    /* -------- Lists -------- */
+    ul.checks {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    ul.checks li {
+      position: relative;
+      padding: 6px 0 6px 22px;
+      border-bottom: 1px dashed var(--border);
+      font-size: 14px;
+    }
+    ul.checks li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 13px;
+      width: 10px; height: 10px;
+      border: 2px solid var(--accent);
+      border-radius: 2px;
+    }
+    ul.checks li:last-child { border-bottom: 0; }
+
+    .stack > * + * { margin-top: 8px; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+    /* -------- Charts -------- */
+    .chart {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+    .chart .axis-text {
+      font-size: 11px;
+      fill: var(--text-muted);
+    }
+    .chart .grid-line {
+      stroke: var(--border);
+      stroke-width: 1;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .legend .swatch {
+      display: inline-block;
+      width: 12px; height: 12px; border-radius: 3px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    footer.foot {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .updated {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Skip link for keyboard / screen reader users */
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+    }
+    .skip:focus {
+      left: 12px; top: 12px;
+      padding: 8px 12px;
+      background: var(--surface);
+      border: 1px solid var(--focus);
+      border-radius: 6px;
+      z-index: 100;
+    }
+
+    @media print {
+      body { background: #fff; color: #000; }
+      .top-actions { display: none; }
+      .card { break-inside: avoid; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip">Skip to content</a>
+  <div class="page">
+    <header class="top">
+      <div class="brand">
+        <span class="mark" aria-hidden="true">CD</span>
+        <div>
+          <h1>Clove Dental Outreach</h1>
+          <div class="sub">Patient-acquisition operations dashboard</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span id="status-pill" class="pill accent" aria-live="polite">
+          <span class="dot"></span>
+          <span id="status-text">Loading</span>
+        </span>
+        <button id="theme-toggle" class="toggle" aria-pressed="false"
+                aria-label="Toggle dark mode">
+          Dark mode
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Executive status -->
+      <section aria-labelledby="exec">
+        <h2 id="exec">Executive status</h2>
+        <div class="card exec-card">
+          <div class="row" style="justify-content: space-between;">
+            <div class="stack" style="min-width: 220px;">
+              <div><strong>Latest run:</strong>
+                <span id="exec-date" class="mono"></span></div>
+              <div><strong>Sender:</strong>
+                <span id="exec-sender" class="mono"></span></div>
+              <div><strong>Schedule:</strong>
+                <span id="exec-schedule"></span></div>
+              <div><strong>Task ID:</strong>
+                <span id="exec-task" class="mono"></span></div>
+            </div>
+            <div class="stack" style="min-width: 220px;">
+              <div><strong>Source of truth:</strong>
+                <a id="exec-sheet" href="#" target="_blank" rel="noopener">Google Sheet</a>
+              </div>
+              <div><strong>Zoho writeback:</strong>
+                <span id="exec-zoho"></span></div>
+              <div><strong>GitHub repo:</strong>
+                <a id="exec-gh" href="#" target="_blank" rel="noopener">marketing-os</a>
+              </div>
+              <div><strong>Pre-dashboard baseline:</strong>
+                <span id="exec-commit" class="mono"></span></div>
+              <div><strong>Dashboard build:</strong>
+                <span id="exec-build-commit" class="mono"></span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KPIs -->
+      <section aria-labelledby="kpi">
+        <h2 id="kpi">Key indicators</h2>
+        <div class="grid kpi" id="kpi-grid"></div>
+      </section>
+
+      <!-- Trend -->
+      <section aria-labelledby="trend">
+        <h2 id="trend">Daily send and reply trend</h2>
+        <div class="section-meta">Bars are emails sent per weekday;
+          the line is cumulative sends. Capacity ceiling is 12/day.</div>
+        <div class="card">
+          <svg id="trend-chart" class="chart"
+               role="img" aria-label="Daily send and cumulative trend"></svg>
+          <div class="legend">
+            <span><span class="swatch" style="background: var(--accent);"></span>Sent that weekday</span>
+            <span><span class="swatch" style="background: var(--warn);"></span>Cumulative sends</span>
+            <span><span class="swatch" style="background: var(--border);"></span>Daily cap (12)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reply mix + channel mix -->
+      <section aria-labelledby="mix">
+        <h2 id="mix">Reply classification and channel mix</h2>
+        <div class="grid two">
+          <div class="card">
+            <div class="section-meta">Reply signals to date,
+              classified per the safety policy.</div>
+            <svg id="reply-chart" class="chart"
+                 role="img" aria-label="Reply classification bar chart"></svg>
+          </div>
+          <div class="card">
+            <div class="section-meta">Channel mix of the latest sent batch
+              (approximated from org names; Sheet's Category column is authoritative).</div>
+            <svg id="channel-chart" class="chart"
+                 role="img" aria-label="Channel mix bar chart"></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Latest batch -->
+      <section aria-labelledby="batch">
+        <h2 id="batch">Latest sent batch</h2>
+        <div class="card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>#</th><th>Organization</th><th>Email (public)</th></tr>
+              </thead>
+              <tbody id="batch-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Replies -->
+      <section aria-labelledby="replies">
+        <h2 id="replies">Reply insights</h2>
+        <div class="card">
+          <div id="replies-empty" class="section-meta" hidden>
+            No reply signals yet for the loaded history window.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Organization</th>
+                  <th>Bucket</th>
+                  <th>Summary</th>
+                  <th>Suggested next action</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="replies-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Guardrails + focus -->
+      <section aria-labelledby="guard">
+        <h2 id="guard">Guardrails and focus</h2>
+        <div class="grid two">
+          <div class="card">
+            <div class="section-meta">Hard rules. Code paths must
+              fail closed if they would violate any of these.</div>
+            <ul class="checks" id="guardrails-list"></ul>
+          </div>
+          <div class="card">
+            <div class="section-meta">Channel priority for sourcing
+              and follow-up. Tier 1 channels are the highest-fit
+              audiences for the seminar offer.</div>
+            <div class="stack">
+              <div>
+                <div><strong>Tier 1 (priority)</strong></div>
+                <ul class="checks" id="tier1-list"></ul>
+              </div>
+              <div>
+                <div><strong>Tier 2 (limited test)</strong></div>
+                <ul class="checks" id="tier2-list"></ul>
+              </div>
+              <div>
+                <div><strong>Deprioritized</strong></div>
+                <ul class="checks" id="depri-list"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Next actions -->
+      <section aria-labelledby="next">
+        <h2 id="next">Next recommended actions</h2>
+        <div class="card">
+          <ul class="checks" id="next-list"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div>Snapshot generated <span id="generated" class="updated mono"></span>.
+        Regenerate with
+        <span class="mono">python apps/outreach-dashboard/scripts/build_snapshot.py</span>.</div>
+      <div>This dashboard is a static snapshot view. The Google Sheet remains the source of truth.
+        A live-refresh task would require explicit operator approval because each run consumes credits.</div>
+    </footer>
+  </div>
+
+  <script id="snapshot-data" type="application/json">/* SNAPSHOT_START */
+window.__SNAPSHOT__ = {"generated_at": "2026-04-30T15:18:20+00:00", "task": {"id": "a3b9de2f", "schedule": "Weekdays 08:30 America/Los_Angeles", "sender": "ip@clovedds.com", "daily_cap": 12}, "sources": {"sheet_url": "(redacted - private operations sheet)", "sheet_id": "(redacted)", "tabs": ["Leads", "Adjacent Referral Leads", "Daily Outreach Log", "Reply Insights"]}, "kpis": {"total_sends": 84, "weekdays_run": 7, "latest_date": "2026-04-29", "latest_sends": 12, "latest_cap_usage_pct": 100, "latest_new_contacts_found": 7, "total_reply_signals": 5, "positive_warm_replies": 1, "bounces": 1, "ccs_used_on_initial": 0}, "daily": [{"date": "2026-04-21", "sent": 12, "cap": 12, "new_contacts_found": 53, "replies": 2, "cumulative": 12, "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."}, {"date": "2026-04-22", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 0, "cumulative": 24, "next_focus": "Continue health-adjacent and wellness/property/community mix."}, {"date": "2026-04-23", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 2, "cumulative": 36, "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."}, {"date": "2026-04-24", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 1, "cumulative": 48, "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."}, {"date": "2026-04-27", "sent": 12, "cap": 12, "new_contacts_found": 6, "replies": 0, "cumulative": 60, "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."}, {"date": "2026-04-28", "sent": 12, "cap": 12, "new_contacts_found": 9, "replies": 0, "cumulative": 72, "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."}, {"date": "2026-04-29", "sent": 12, "cap": 12, "new_contacts_found": 7, "replies": 0, "cumulative": 84, "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."}], "reply_mix": {"Positive": 1, "Neutral": 3, "Not Interested / Unsubscribe": 0, "Bounce": 1, "Other": 0}, "replies": [{"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Geriatric Care Managers / Caregiver Resource", "Classification": "Positive", "Status": "Needs monitoring", "Bucket": "Positive"}, {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Senior Living", "Classification": "Neutral - Recycle Later", "Status": "Recycle later", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Church / Community", "Classification": "Neutral - Advertising / Referral", "Status": "Logged", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Employer / HR", "Classification": "Bounce", "Status": "Suppressed", "Bucket": "Bounce"}, {"Date": "2026-04-24", "Organization": "(redacted)", "Category": "Gyms / Fitness", "Classification": "Neutral - Reviewing Partnerships", "Status": "Monitor next week", "Bucket": "Neutral"}], "latest_batch_summary": {"size": 12, "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown."}, "channel_mix_latest": {"Senior Living / Assisted": 3, "Home Care / Hospice / Health": 9, "Caregiver / Senior Resource": 0, "Health-Adjacent (Chiro/PT/Wellness)": 0, "Property / Apartments": 0, "Faith / Community": 0, "Schools / PTA / Rec": 0, "Chambers / Civic": 0, "Other": 0}, "channel_mix_total": {"Senior Living / Assisted": 9, "Home Care / Hospice / Health": 15, "Caregiver / Senior Resource": 3, "Health-Adjacent (Chiro/PT/Wellness)": 19, "Property / Apartments": 5, "Faith / Community": 10, "Schools / PTA / Rec": 7, "Chambers / Civic": 7, "Other": 9}, "zoho": {"status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.", "stage": "Staged - dedupe/dry-run pending approval", "writeback_live": false}, "github": {"source_repo_visibility": "private", "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"}, "guardrails": ["Maximum 12 one-to-one new emails per weekday", "Initial outreach sent only from ip@clovedds.com", "No CC or BCC on initial outreach", "aryaan@clovedds.com is CC'd only after a positive reply or scheduling/ops handoff", "No auto-reply to interested prospects; route to operator with suggested draft", "Suppress bounces, opt-outs, and not-interested permanently", "Public verified emails only; never invent or guess email patterns", "Google Sheet is the source of truth; Zoho writeback remains staged"], "next_actions": ["Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval.", "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email", "Approve dedupe + dry-run plan before enabling Zoho live writeback"], "focus_priority": {"tier_1": ["Senior living / assisted / memory care / independent living", "Home care / home health / hospice / VNA", "Caregiver resource centers and senior placement", "Adult day programs and senior centers"], "tier_2_test_only": ["Health-adjacent (chiro, PT, pharmacy, wellness)", "Employer/HR with senior caregiver populations"], "deprioritized": ["Generic chambers, churches, schools/PTAs, and community centers"]}, "_sanitization": {"policy": "Public dashboard exposes only aggregate metrics, category/status summaries, and operating guardrails. Individual prospect emails, reply sender names/addresses, free-text summaries, the operations Google Sheet ID, and recipient-level batch details are removed.", "removed_fields": ["sources.sheet_url", "sources.sheet_id", "replies[].Email From", "replies[].Summary", "replies[].Suggested Next Action", "replies[].Owner", "replies[].Organization (replaced with redacted)", "latest_batch (replaced with size-only summary)", "next_actions free-text references to specific prospects", "daily[].next_focus references to specific prospect names"]}};
+/* SNAPSHOT_END */</script>
+  <script>
+    // Static snapshot is injected by build_snapshot.py. Fall back to
+    // fetch() so a developer can iterate on the HTML alone (served
+    // through any static origin) without running the build script.
+    (function () {
+      "use strict";
+
+      function $(id) { return document.getElementById(id); }
+      function el(tag, attrs, children) {
+        var n = document.createElement(tag);
+        if (attrs) {
+          Object.keys(attrs).forEach(function (k) {
+            if (k === "class") n.className = attrs[k];
+            else if (k === "text") n.textContent = attrs[k];
+            else if (k === "html") n.innerHTML = attrs[k];
+            else n.setAttribute(k, attrs[k]);
+          });
+        }
+        if (children) {
+          children.forEach(function (c) {
+            if (c == null) return;
+            n.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+          });
+        }
+        return n;
+      }
+
+      // -------- Theme toggle (in-memory only) --------
+      var root = document.documentElement;
+      var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      function applyTheme(dark) {
+        root.setAttribute("data-theme", dark ? "dark" : "light");
+        var btn = $("theme-toggle");
+        btn.setAttribute("aria-pressed", dark ? "true" : "false");
+        btn.textContent = dark ? "Light mode" : "Dark mode";
+      }
+      applyTheme(prefersDark);
+      $("theme-toggle").addEventListener("click", function () {
+        applyTheme(root.getAttribute("data-theme") !== "dark");
+        // Re-render charts because grid colors are theme-dependent.
+        if (window.__RENDER__) window.__RENDER__();
+      });
+
+      // -------- Helpers --------
+      function fmtNum(n) {
+        if (n == null || isNaN(n)) return "-";
+        return Number(n).toLocaleString();
+      }
+      function fmtDate(s) { return s || "-"; }
+      function pillFor(bucket) {
+        var c = "pill";
+        if (bucket === "Positive") c += " good";
+        else if (bucket === "Bounce" ||
+                 bucket === "Not Interested / Unsubscribe") c += " danger";
+        else if (bucket === "Neutral") c += " warn";
+        else c += " accent";
+        return el("span", { "class": c }, [
+          el("span", { "class": "dot" }), bucket
+        ]);
+      }
+      function statusFromZoho(zoho) {
+        if (!zoho) return ["accent", "Operational"];
+        if (zoho.writeback_live) return ["good", "Zoho live"];
+        return ["warn", "Zoho staged"];
+      }
+
+      // -------- Charts (inline SVG, no libs) --------
+      function clearSvg(svg) {
+        while (svg.firstChild) svg.removeChild(svg.firstChild);
+      }
+      function svgEl(name, attrs) {
+        var n = document.createElementNS("http://www.w3.org/2000/svg", name);
+        if (attrs) {
+          Object.keys(attrs).forEach(function (k) {
+            n.setAttribute(k, attrs[k]);
+          });
+        }
+        return n;
+      }
+      function cssVar(name) {
+        return getComputedStyle(document.documentElement)
+          .getPropertyValue(name).trim();
+      }
+
+      function renderTrend(daily) {
+        var svg = $("trend-chart");
+        clearSvg(svg);
+        if (!daily || !daily.length) return;
+        var rect = svg.getBoundingClientRect();
+        var W = Math.max(320, Math.floor(rect.width));
+        var H = 220;
+        var padL = 36, padR = 36, padT = 14, padB = 28;
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+        var n = daily.length;
+        var maxBar = 12;
+        var maxLine = daily[daily.length - 1].cumulative || 1;
+        var bw = (W - padL - padR) / n * 0.6;
+        var step = (W - padL - padR) / n;
+
+        // Y grid (left axis 0..12)
+        var ticks = [0, 3, 6, 9, 12];
+        ticks.forEach(function (t) {
+          var y = padT + (H - padT - padB) * (1 - t / maxBar);
+          svg.appendChild(svgEl("line", {
+            x1: padL, x2: W - padR, y1: y, y2: y,
+            "class": "grid-line"
+          }));
+          var lbl = svgEl("text", {
+            x: 4, y: y + 4, "class": "axis-text"
+          });
+          lbl.textContent = t;
+          svg.appendChild(lbl);
+        });
+
+        // Cap line at 12
+        var capY = padT + (H - padT - padB) * (1 - maxBar / maxBar);
+        svg.appendChild(svgEl("line", {
+          x1: padL, x2: W - padR, y1: capY, y2: capY,
+          stroke: cssVar("--border"),
+          "stroke-dasharray": "4 4",
+          "stroke-width": "1"
+        }));
+
+        // Bars + x labels
+        daily.forEach(function (d, i) {
+          var x = padL + step * i + (step - bw) / 2;
+          var h = (H - padT - padB) * (d.sent / maxBar);
+          var y = (H - padB) - h;
+          svg.appendChild(svgEl("rect", {
+            x: x, y: y, width: bw, height: h,
+            fill: cssVar("--accent"),
+            rx: "2"
+          }));
+          var t = svgEl("text", {
+            x: padL + step * i + step / 2,
+            y: H - 8,
+            "text-anchor": "middle",
+            "class": "axis-text"
+          });
+          t.textContent = (d.date || "").slice(5); // MM-DD
+          svg.appendChild(t);
+        });
+
+        // Cumulative line on right axis
+        var cumMax = Math.max(maxLine, 1);
+        var pts = daily.map(function (d, i) {
+          var x = padL + step * i + step / 2;
+          var y = padT + (H - padT - padB) * (1 - d.cumulative / cumMax);
+          return [x, y];
+        });
+        var path = "M" + pts.map(function (p) { return p.join(","); }).join(" L");
+        svg.appendChild(svgEl("path", {
+          d: path,
+          fill: "none",
+          stroke: cssVar("--warn"),
+          "stroke-width": "2"
+        }));
+        pts.forEach(function (p) {
+          svg.appendChild(svgEl("circle", {
+            cx: p[0], cy: p[1], r: 3,
+            fill: cssVar("--warn")
+          }));
+        });
+
+        // Right axis labels at 0/half/max
+        [0, Math.round(cumMax / 2), cumMax].forEach(function (t) {
+          var y = padT + (H - padT - padB) * (1 - t / cumMax);
+          var lbl = svgEl("text", {
+            x: W - 4, y: y + 4,
+            "text-anchor": "end",
+            "class": "axis-text"
+          });
+          lbl.textContent = t;
+          svg.appendChild(lbl);
+        });
+      }
+
+      function renderHBar(svgId, data, opts) {
+        // data: [{label, value}]
+        var svg = $(svgId);
+        clearSvg(svg);
+        var rect = svg.getBoundingClientRect();
+        var W = Math.max(320, Math.floor(rect.width));
+        var rows = data.length || 1;
+        var H = Math.max(180, rows * 28 + 24);
+        svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+        svg.style.height = H + "px";
+        var max = Math.max.apply(null, data.map(function (d) { return d.value; }).concat([1]));
+        var labelW = 200;
+        var padL = 8, padR = 36, padT = 8, padB = 8;
+        data.forEach(function (d, i) {
+          var y = padT + i * 28;
+          // label
+          var lbl = svgEl("text", {
+            x: padL, y: y + 18, "class": "axis-text"
+          });
+          lbl.textContent = d.label;
+          svg.appendChild(lbl);
+          // bar bg
+          var x0 = padL + labelW;
+          var bw = W - x0 - padR;
+          svg.appendChild(svgEl("rect", {
+            x: x0, y: y + 6, width: bw, height: 14,
+            fill: cssVar("--surface-2"), rx: 3
+          }));
+          var v = bw * (d.value / max);
+          svg.appendChild(svgEl("rect", {
+            x: x0, y: y + 6, width: v, height: 14,
+            fill: opts && opts.color ? opts.color : cssVar("--accent"),
+            rx: 3
+          }));
+          var vlbl = svgEl("text", {
+            x: x0 + v + 4, y: y + 18, "class": "axis-text"
+          });
+          vlbl.textContent = d.value;
+          svg.appendChild(vlbl);
+        });
+      }
+
+      // -------- Renderers --------
+      function renderKpis(s) {
+        var k = s.kpis || {};
+        var cap = (s.task && s.task.daily_cap) || 12;
+        var items = [
+          { label: "Total sends", value: fmtNum(k.total_sends),
+            hint: k.weekdays_run + " weekdays run" },
+          { label: "Latest sends", value: fmtNum(k.latest_sends),
+            hint: k.latest_cap_usage_pct + "% of " + cap + "/day cap" },
+          { label: "Reply signals", value: fmtNum(k.total_reply_signals),
+            hint: k.positive_warm_replies + " positive / warm, " +
+                  k.bounces + " bounces" },
+          { label: "New contacts found (latest)", value: fmtNum(k.latest_new_contacts_found),
+            hint: "CCs used on initial outreach: " + k.ccs_used_on_initial }
+        ];
+        var grid = $("kpi-grid");
+        grid.innerHTML = "";
+        items.forEach(function (it) {
+          grid.appendChild(el("div", { "class": "card kpi-card" }, [
+            el("div", { "class": "label", text: it.label }),
+            el("div", { "class": "value", text: it.value }),
+            el("div", { "class": "hint", text: it.hint })
+          ]));
+        });
+      }
+
+      function renderExec(s) {
+        var k = s.kpis || {}, t = s.task || {}, src = s.sources || {};
+        $("exec-date").textContent = fmtDate(k.latest_date);
+        $("exec-sender").textContent = t.sender || "-";
+        $("exec-schedule").textContent = t.schedule || "-";
+        $("exec-task").textContent = t.id || "-";
+        var sheet = $("exec-sheet");
+        sheet.href = src.sheet_url || "#";
+        sheet.textContent = "Google Sheet (id: " + (src.sheet_id || "-") + ")";
+        $("exec-zoho").textContent = (s.zoho && s.zoho.stage) || "-";
+        var gh = $("exec-gh");
+        var repo = (s.github && s.github.repo) || "ishanpuri24/marketing-os";
+        gh.href = "https://github.com/" + repo;
+        gh.textContent = repo;
+        $("exec-commit").textContent =
+          (s.github && s.github.latest_commit_before_dashboard) || "-";
+        $("exec-build-commit").textContent =
+          (s.github && s.github.dashboard_build_commit) || "-";
+        var pillStatus = statusFromZoho(s.zoho);
+        var pill = $("status-pill");
+        pill.className = "pill " + pillStatus[0];
+        $("status-text").textContent = pillStatus[1];
+      }
+
+      function renderBatch(s) {
+        var body = $("batch-body");
+        body.innerHTML = "";
+        (s.latest_batch || []).forEach(function (row, i) {
+          body.appendChild(el("tr", null, [
+            el("td", { "class": "mono", text: String(i + 1) }),
+            el("td", { text: row.org }),
+            el("td", { "class": "mono", text: row.email })
+          ]));
+        });
+      }
+
+      function renderReplies(s) {
+        var body = $("replies-body");
+        body.innerHTML = "";
+        var replies = s.replies || [];
+        $("replies-empty").hidden = replies.length > 0;
+        replies.forEach(function (r) {
+          var pill = pillFor(r.Bucket || "Other");
+          body.appendChild(el("tr", null, [
+            el("td", { "class": "mono", text: r.Date || "" }),
+            el("td", { text: r.Organization || "" }),
+            el("td", null, [pill]),
+            el("td", { text: r.Summary || "" }),
+            el("td", { text: r["Suggested Next Action"] || "" }),
+            el("td", { text: r.Status || "" })
+          ]));
+        });
+      }
+
+      function renderLists(s) {
+        function fill(id, items) {
+          var ul = $(id);
+          ul.innerHTML = "";
+          (items || []).forEach(function (t) {
+            if (!t) return;
+            ul.appendChild(el("li", { text: t }));
+          });
+        }
+        fill("guardrails-list", s.guardrails);
+        fill("next-list", s.next_actions);
+        var fp = s.focus_priority || {};
+        fill("tier1-list", fp.tier_1);
+        fill("tier2-list", fp.tier_2_test_only);
+        fill("depri-list", fp.deprioritized);
+      }
+
+      function renderMix(s) {
+        var rm = s.reply_mix || {};
+        var rmData = Object.keys(rm).map(function (k) {
+          return { label: k, value: rm[k] };
+        });
+        renderHBar("reply-chart", rmData, { color: cssVar("--accent") });
+
+        var cm = s.channel_mix_latest || {};
+        var cmData = Object.keys(cm)
+          .map(function (k) { return { label: k, value: cm[k] }; })
+          .filter(function (d) { return d.value > 0; });
+        renderHBar("channel-chart", cmData, { color: cssVar("--accent") });
+      }
+
+      function renderAll(s) {
+        renderExec(s);
+        renderKpis(s);
+        renderTrend(s.daily || []);
+        renderMix(s);
+        renderBatch(s);
+        renderReplies(s);
+        renderLists(s);
+        $("generated").textContent = s.generated_at || "";
+      }
+
+      function boot(snapshot) {
+        if (!snapshot) {
+          $("status-text").textContent = "Snapshot missing";
+          $("status-pill").className = "pill danger";
+          return;
+        }
+        window.__RENDER__ = function () { renderAll(snapshot); };
+        renderAll(snapshot);
+        // Re-render on resize so charts reflow.
+        var t;
+        window.addEventListener("resize", function () {
+          clearTimeout(t);
+          t = setTimeout(window.__RENDER__, 120);
+        });
+      }
+
+      if (window.__SNAPSHOT__) {
+        boot(window.__SNAPSHOT__);
+      } else {
+        // Fallback: try to fetch the JSON. Works only on http(s).
+        fetch("data/snapshot.json", { cache: "no-store" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(boot)
+          .catch(function () { boot(null); });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+{
+  "generated_at": "2026-04-30T15:18:20+00:00",
+  "task": {
+    "id": "a3b9de2f",
+    "schedule": "Weekdays 08:30 America/Los_Angeles",
+    "sender": "ip@clovedds.com",
+    "daily_cap": 12
+  },
+  "sources": {
+    "sheet_url": "(redacted - private operations sheet)",
+    "sheet_id": "(redacted)",
+    "tabs": [
+      "Leads",
+      "Adjacent Referral Leads",
+      "Daily Outreach Log",
+      "Reply Insights"
+    ]
+  },
+  "kpis": {
+    "total_sends": 84,
+    "weekdays_run": 7,
+    "latest_date": "2026-04-29",
+    "latest_sends": 12,
+    "latest_cap_usage_pct": 100,
+    "latest_new_contacts_found": 7,
+    "total_reply_signals": 5,
+    "positive_warm_replies": 1,
+    "bounces": 1,
+    "ccs_used_on_initial": 0
+  },
+  "daily": [
+    {"date": "2026-04-21", "sent": 12, "cap": 12, "new_contacts_found": 53, "replies": 2, "cumulative": 12, "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."},
+    {"date": "2026-04-22", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 0, "cumulative": 24, "next_focus": "Continue health-adjacent and wellness/property/community mix."},
+    {"date": "2026-04-23", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 2, "cumulative": 36, "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."},
+    {"date": "2026-04-24", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 1, "cumulative": 48, "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."},
+    {"date": "2026-04-27", "sent": 12, "cap": 12, "new_contacts_found": 6, "replies": 0, "cumulative": 60, "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."},
+    {"date": "2026-04-28", "sent": 12, "cap": 12, "new_contacts_found": 9, "replies": 0, "cumulative": 72, "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."},
+    {"date": "2026-04-29", "sent": 12, "cap": 12, "new_contacts_found": 7, "replies": 0, "cumulative": 84, "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."}
+  ],
+  "reply_mix": {
+    "Positive": 1,
+    "Neutral": 3,
+    "Not Interested / Unsubscribe": 0,
+    "Bounce": 1,
+    "Other": 0
+  },
+  "replies": [
+    {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Geriatric Care Managers / Caregiver Resource", "Classification": "Positive", "Status": "Needs monitoring", "Bucket": "Positive"},
+    {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Senior Living", "Classification": "Neutral - Recycle Later", "Status": "Recycle later", "Bucket": "Neutral"},
+    {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Church / Community", "Classification": "Neutral - Advertising / Referral", "Status": "Logged", "Bucket": "Neutral"},
+    {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Employer / HR", "Classification": "Bounce", "Status": "Suppressed", "Bucket": "Bounce"},
+    {"Date": "2026-04-24", "Organization": "(redacted)", "Category": "Gyms / Fitness", "Classification": "Neutral - Reviewing Partnerships", "Status": "Monitor next week", "Bucket": "Neutral"}
+  ],
+  "latest_batch_summary": {
+    "size": 12,
+    "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown."
+  },
+  "channel_mix_latest": {
+    "Senior Living / Assisted": 3,
+    "Home Care / Hospice / Health": 9,
+    "Caregiver / Senior Resource": 0,
+    "Health-Adjacent (Chiro/PT/Wellness)": 0,
+    "Property / Apartments": 0,
+    "Faith / Community": 0,
+    "Schools / PTA / Rec": 0,
+    "Chambers / Civic": 0,
+    "Other": 0
+  },
+  "channel_mix_total": {
+    "Senior Living / Assisted": 9,
+    "Home Care / Hospice / Health": 15,
+    "Caregiver / Senior Resource": 3,
+    "Health-Adjacent (Chiro/PT/Wellness)": 19,
+    "Property / Apartments": 5,
+    "Faith / Community": 10,
+    "Schools / PTA / Rec": 7,
+    "Chambers / Civic": 7,
+    "Other": 9
+  },
+  "zoho": {
+    "status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.",
+    "stage": "Staged - dedupe/dry-run pending approval",
+    "writeback_live": false
+  },
+  "github": {
+    "source_repo_visibility": "private",
+    "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"
+  },
+  "guardrails": [
+    "Maximum 12 one-to-one new emails per weekday",
+    "Initial outreach sent only from ip@clovedds.com",
+    "No CC or BCC on initial outreach",
+    "aryaan@clovedds.com is CC'd only after a positive reply or scheduling/ops handoff",
+    "No auto-reply to interested prospects; route to operator with suggested draft",
+    "Suppress bounces, opt-outs, and not-interested permanently",
+    "Public verified emails only; never invent or guess email patterns",
+    "Google Sheet is the source of truth; Zoho writeback remains staged"
+  ],
+  "next_actions": [
+    "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval.",
+    "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email",
+    "Approve dedupe + dry-run plan before enabling Zoho live writeback"
+  ],
+  "focus_priority": {
+    "tier_1": [
+      "Senior living / assisted / memory care / independent living",
+      "Home care / home health / hospice / VNA",
+      "Caregiver resource centers and senior placement",
+      "Adult day programs and senior centers"
+    ],
+    "tier_2_test_only": [
+      "Health-adjacent (chiro, PT, pharmacy, wellness)",
+      "Employer/HR with senior caregiver populations"
+    ],
+    "deprioritized": [
+      "Generic chambers, churches, schools/PTAs, and community centers"
+    ]
+  },
+  "_sanitization": {
+    "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, and operating guardrails. Individual prospect emails, reply sender names/addresses, free-text summaries, the operations Google Sheet ID, and recipient-level batch details are removed.",
+    "removed_fields": [
+      "sources.sheet_url",
+      "sources.sheet_id",
+      "replies[].Email From",
+      "replies[].Summary",
+      "replies[].Suggested Next Action",
+      "replies[].Owner",
+      "replies[].Organization (replaced with redacted)",
+      "latest_batch (replaced with size-only summary)",
+      "next_actions free-text references to specific prospects",
+      "daily[].next_focus references to specific prospect names"
+    ]
+  }
+}
