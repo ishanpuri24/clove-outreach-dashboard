@@ -56,14 +56,30 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
         })
     out["replies"] = cleaned_replies
 
-    batch = out.pop("latest_batch", []) or []
-    out["latest_batch_summary"] = {
-        "size": len(batch),
-        "note": (
-            "Recipient-level details are not exposed in the public "
-            "dashboard. See channel_mix_latest for category breakdown."
-        ),
-    }
+    batch = out.pop("latest_batch", None)
+    if batch is not None:
+        out["latest_batch_summary"] = {
+            "size": len(batch),
+            "note": (
+                "Recipient-level details are not exposed in the public "
+                "dashboard. See channel_mix_latest for category breakdown."
+            ),
+        }
+
+    followups = out.get("human_followups") or []
+    cleaned_followups = []
+    for f in followups:
+        cleaned_followups.append({
+            "id": f.get("id", ""),
+            "priority": f.get("priority", ""),
+            "due": f.get("due", ""),
+            "channel": f.get("channel", ""),
+            "action": f.get("action", ""),
+            "status": f.get("status", ""),
+            "note": f.get("note", ""),
+        })
+    if followups:
+        out["human_followups"] = cleaned_followups
 
     gh = out.get("github", {})
     gh.pop("latest_commit_before_dashboard", None)

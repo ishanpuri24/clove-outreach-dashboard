@@ -26,7 +26,9 @@
     "total_reply_signals": 6,
     "positive_warm_replies": 2,
     "bounces": 1,
-    "ccs_used_on_initial": 0
+    "ccs_used_on_initial": 0,
+    "reply_rate_pct": 6.25,
+    "positive_rate_pct": 2.08
   },
   "daily": [
     {
@@ -185,6 +187,236 @@
     "Chambers / Civic": 7,
     "Other": 9
   },
+  "channel_scorecard": [
+    {
+      "channel": "Caregiver / Senior Resource",
+      "sends": 7,
+      "positive": 2,
+      "neutral": 0,
+      "bounce": 0,
+      "tier": "Tier 1",
+      "confidence": "High",
+      "signal": "Strong",
+      "note": "Both positive replies to date came from this channel, including a materials-requested signal. Highest reply yield per send. Continue prioritizing sourcing here."
+    },
+    {
+      "channel": "Senior Living / Assisted",
+      "sends": 13,
+      "positive": 0,
+      "neutral": 1,
+      "bounce": 0,
+      "tier": "Tier 1",
+      "confidence": "Medium",
+      "signal": "Warming",
+      "note": "Sustained engagement with one recycle-later signal. Public-email coverage remains the bottleneck; phone/form follow-up recommended for high-fit no-email targets."
+    },
+    {
+      "channel": "Home Care / Hospice / Health",
+      "sends": 19,
+      "positive": 0,
+      "neutral": 0,
+      "bounce": 0,
+      "tier": "Tier 1",
+      "confidence": "Medium",
+      "signal": "Quiet",
+      "note": "Largest tier-1 volume but no replies yet. Test a hospice oral-comfort resource angle and a shorter subject line variant before scaling further."
+    },
+    {
+      "channel": "Health-Adjacent (Chiro/PT/Wellness)",
+      "sends": 19,
+      "positive": 0,
+      "neutral": 1,
+      "bounce": 0,
+      "tier": "Tier 2",
+      "confidence": "Low",
+      "signal": "Marginal",
+      "note": "One reviewing-partnerships neutral. Hold at limited test volume; do not crowd out tier-1 sourcing capacity."
+    },
+    {
+      "channel": "Faith / Community",
+      "sends": 10,
+      "positive": 0,
+      "neutral": 1,
+      "bounce": 0,
+      "tier": "Deprioritized",
+      "confidence": "Low",
+      "signal": "Off-pattern",
+      "note": "Single advertising/referral neutral. Continue deprioritization unless a partner-fit referral pathway emerges."
+    },
+    {
+      "channel": "Property / Apartments",
+      "sends": 5,
+      "positive": 0,
+      "neutral": 0,
+      "bounce": 0,
+      "tier": "Tier 2",
+      "confidence": "Low",
+      "signal": "Untested",
+      "note": "Volume too low to score. Pause unless decision-maker public emails can be sourced cleanly."
+    },
+    {
+      "channel": "Employer / HR",
+      "sends": 0,
+      "positive": 0,
+      "neutral": 0,
+      "bounce": 1,
+      "tier": "Tier 2",
+      "confidence": "Low",
+      "signal": "Suppressed",
+      "note": "Only signal so far is a hard bounce. Suppress address; do not expand without verified-email sourcing."
+    },
+    {
+      "channel": "Chambers / Civic",
+      "sends": 7,
+      "positive": 0,
+      "neutral": 0,
+      "bounce": 0,
+      "tier": "Deprioritized",
+      "confidence": "Low",
+      "signal": "Quiet",
+      "note": "No replies. Keep deprioritized; not a senior-decision-maker channel."
+    },
+    {
+      "channel": "Schools / PTA / Rec",
+      "sends": 7,
+      "positive": 0,
+      "neutral": 0,
+      "bounce": 0,
+      "tier": "Deprioritized",
+      "confidence": "Low",
+      "signal": "Quiet",
+      "note": "No replies. Keep deprioritized; off-thesis for the seminar offer."
+    }
+  ],
+  "experiments": [
+    {
+      "id": "EXP-01",
+      "title": "Shorter subject line",
+      "hypothesis": "Trimming the subject to under 45 characters lifts open and reply rate in tier-1 senior channels.",
+      "channel": "Senior Living / Assisted, Caregiver / Senior Resource",
+      "status": "Queued",
+      "next_step": "Author A/B variant and reserve next 6 tier-1 sends for the shorter subject."
+    },
+    {
+      "id": "EXP-02",
+      "title": "Materials-first senior follow-up",
+      "hypothesis": "Leading the follow-up with the seminar materials packet (no second ask) converts the prior positive materials request into a scheduled session.",
+      "channel": "Caregiver / Senior Resource",
+      "status": "Active - operator drafting",
+      "next_step": "Operator sends materials packet today; CC ops only after positive engagement, per guardrail."
+    },
+    {
+      "id": "EXP-03",
+      "title": "Hospice oral-comfort resource angle",
+      "hypothesis": "A clinical resource framing (oral comfort for end-of-life patients) outperforms generic seminar pitch in hospice/home-health.",
+      "channel": "Home Care / Hospice / Health",
+      "status": "Queued",
+      "next_step": "Draft resource-led variant; reserve next 4 hospice sends for this angle."
+    },
+    {
+      "id": "EXP-04",
+      "title": "Phone/form follow-up for no-email high-fit",
+      "hypothesis": "High-fit senior-living and home-care orgs without a public email convert via phone or contact-form follow-up at meaningfully higher rates than waiting for email enrichment.",
+      "channel": "Senior Living / Assisted, Home Care / Hospice / Health",
+      "status": "Active - manual",
+      "next_step": "Operator works the no-email shortlist daily; log outcomes back to the Sheet."
+    },
+    {
+      "id": "EXP-05",
+      "title": "Reply-rate baseline lock",
+      "hypothesis": "Holding subject and body constant for 20 sends per tier-1 channel produces a stable reply-rate baseline to compare future copy tests against.",
+      "channel": "All Tier 1",
+      "status": "Backlog",
+      "next_step": "Define control copy; lock variant rotation cadence after EXP-01 and EXP-03 complete."
+    }
+  ],
+  "queue_health": {
+    "ready_public_emails": 0,
+    "target_buffer": 18,
+    "shortage_risk": "High",
+    "dedupe_exclusions_latest": 3,
+    "sourcing_goal_next_run": "Source at least 18 verified senior/caregiver/home-health public emails before tomorrow's 08:30 PT run to clear the recovery-run pattern.",
+    "warnings": [
+      "Tracker showed zero New rows with public emails this morning before recovery enrichment.",
+      "Three senior-resource organizations excluded by dedupe in latest batch; widen the org pool before reusing the same shortlist.",
+      "Capacity at full cap masks that the buffer is depleted; sourcing must lead, not follow, the run."
+    ]
+  },
+  "human_followups": [
+    {
+      "id": "FU-01",
+      "priority": "P0",
+      "due": "2026-05-01",
+      "channel": "Caregiver / Senior Resource",
+      "action": "Send approved senior concerns materials packet to the prior-scan positive materials request.",
+      "status": "Operator drafting",
+      "note": "Identity redacted in public mirror; tracked by reply ID in private Sheet."
+    },
+    {
+      "id": "FU-02",
+      "priority": "P1",
+      "due": "2026-05-04",
+      "channel": "Senior Living / Assisted",
+      "action": "Phone or contact-form follow-up for high-fit no-email senior homes from this week's shortlist.",
+      "status": "Queued",
+      "note": "Operator-only; do not auto-message."
+    },
+    {
+      "id": "FU-03",
+      "priority": "P1",
+      "due": "2026-05-04",
+      "channel": "Home Care / Hospice / Health",
+      "action": "Phone or contact-form follow-up for high-fit no-email home-care and hospice targets.",
+      "status": "Queued",
+      "note": "Pair with EXP-03 framing where appropriate."
+    },
+    {
+      "id": "FU-04",
+      "priority": "P2",
+      "due": "2026-05-05",
+      "channel": "Caregiver / Senior Resource",
+      "action": "Monitor first positive reply for movement; nudge only if no response within five business days.",
+      "status": "Watching",
+      "note": "No auto-replies; operator owns cadence."
+    }
+  ],
+  "guardrail_status": [
+    {
+      "rule": "Daily cap of 12 one-to-one new emails per weekday",
+      "status": "OK",
+      "evidence": "Latest run sent 12 of 12; no day in the loaded window exceeded the cap."
+    },
+    {
+      "rule": "Initial outreach sent only from ip@clovedds.com",
+      "status": "OK",
+      "evidence": "Sender locked in task config; no alternate sender observed in the window."
+    },
+    {
+      "rule": "No CC and no BCC on initial outreach",
+      "status": "OK",
+      "evidence": "CCs used on initial outreach: 0."
+    },
+    {
+      "rule": "No auto-reply to interested prospects; operator drafts each reply",
+      "status": "OK",
+      "evidence": "Both positive signals routed to human follow-up; zero automated replies sent."
+    },
+    {
+      "rule": "Suppress bounces, opt-outs, and not-interested permanently",
+      "status": "OK",
+      "evidence": "One bounce in window; address suppressed and not retried."
+    },
+    {
+      "rule": "Public verified emails only; never invent or guess address patterns",
+      "status": "OK",
+      "evidence": "Latest run rebuilt the queue from verified public sources after the morning tracker showed no New rows."
+    },
+    {
+      "rule": "Google Sheet remains source of truth; Zoho writeback staged",
+      "status": "OK",
+      "evidence": "Zoho writeback held pending staged dedupe and dry-run approval."
+    }
+  ],
   "zoho": {
     "status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.",
     "stage": "Staged - dedupe/dry-run pending approval",
@@ -226,7 +458,7 @@
     ]
   },
   "_sanitization": {
-    "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, and operating guardrails. Individual prospect emails, reply sender names/addresses, free-text summaries, the operations Google Sheet ID, and recipient-level batch details are removed.",
+    "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, and operating guardrails. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, and private operations-repo commit hashes are removed.",
     "removed_fields": [
       "sources.sheet_url",
       "sources.sheet_id",
@@ -237,7 +469,9 @@
       "replies[].Organization (replaced with redacted)",
       "latest_batch (replaced with size-only summary)",
       "next_actions free-text references to specific prospects",
-      "daily[].next_focus references to specific prospect names"
+      "daily[].next_focus references to specific prospect names",
+      "human_followups[] redacted to action and channel only; identities live in private Sheet",
+      "private operations-repo commit hashes"
     ]
   }
 }

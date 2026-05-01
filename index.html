@@ -10,34 +10,36 @@
   <title>Clove Dental Outreach</title>
   <!--
     Single-file static dashboard for the Clove Dental outreach
-    automation. Data is generated from the recurring task's run
-    history (see scripts/build_snapshot.py) and embedded below.
-    The page intentionally has no runtime dependencies and is
-    safe to host on any static origin (GitHub Pages, Netlify
-    drop, Vercel static, S3, etc.).
+    automation. Data is the sanitized public mirror of the private
+    operations snapshot (see scripts/build_snapshot.py) and is
+    embedded below. The page intentionally has no runtime
+    dependencies and is safe to host on any static origin
+    (GitHub Pages, Vercel static, Netlify drop, S3, etc.).
 
     Design notes:
-      - Mobile-first; cards stack at <=720px, grid at wider.
-      - Theme toggle is in-memory (data-theme on <html>); browser-
-        persistent storage is intentionally not used.
+      - Mobile-first; cards stack at narrow widths, grids at wider.
+      - Theme toggle is in-memory; no persistent storage.
       - Charts are drawn with inline SVG. No external libraries.
-      - Touch targets are >=44px. Focus rings are always visible.
-      - No emoji, no AI-gradient aesthetic.
+      - Touch targets are at least 44px. Focus rings are visible.
+      - No emoji. Public mirror redacts identities and free text.
   -->
   <style>
     /* -------- Tokens -------- */
     :root {
-      --bg: #f6f3ee;          /* warm neutral light */
+      --bg: #f6f3ee;
       --surface: #ffffff;
       --surface-2: #f0ece4;
       --border: #d9d2c4;
       --text: #1c1f24;
-      --text-muted: #5a6068;
-      --accent: #2f5d50;       /* clove green, healthcare-warm */
+      --text-muted: #56606b;
+      --accent: #2f5d50;
       --accent-weak: #d6e3dc;
       --warn: #a45a2a;
+      --warn-weak: #f5e3d2;
       --danger: #9b2c2c;
+      --danger-weak: #f3d8d8;
       --good: #2f7a4d;
+      --good-weak: #d6ead8;
       --focus: #1f4f8b;
       --shadow: 0 1px 2px rgba(20, 24, 30, 0.06),
                 0 1px 0 rgba(20, 24, 30, 0.03);
@@ -49,12 +51,15 @@
       --surface-2: #232830;
       --border: #303843;
       --text: #ecebe6;
-      --text-muted: #9aa3ad;
+      --text-muted: #a8b1bb;
       --accent: #7fb89f;
       --accent-weak: #1f3a32;
       --warn: #d8a26a;
+      --warn-weak: #3a2c1c;
       --danger: #e08585;
+      --danger-weak: #3a2222;
       --good: #79c79a;
+      --good-weak: #1f3a2a;
       --focus: #8fb4e6;
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.4),
                 0 1px 0 rgba(0, 0, 0, 0.3);
@@ -66,12 +71,15 @@
         --surface-2: #232830;
         --border: #303843;
         --text: #ecebe6;
-        --text-muted: #9aa3ad;
+        --text-muted: #a8b1bb;
         --accent: #7fb89f;
         --accent-weak: #1f3a32;
         --warn: #d8a26a;
+        --warn-weak: #3a2c1c;
         --danger: #e08585;
+        --danger-weak: #3a2222;
         --good: #79c79a;
+        --good-weak: #1f3a2a;
         --focus: #8fb4e6;
       }
     }
@@ -88,6 +96,7 @@
       line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      overflow-x: hidden;
     }
     a {
       color: var(--focus);
@@ -107,7 +116,7 @@
     .page {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 16px;
+      padding: 14px;
     }
     @media (min-width: 720px) {
       .page { padding: 28px; }
@@ -119,9 +128,9 @@
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
-      padding-bottom: 16px;
+      padding-bottom: 14px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .brand {
       display: flex;
@@ -142,7 +151,7 @@
     }
     .brand h1 {
       margin: 0;
-      font-size: 1.05rem;       /* never huge */
+      font-size: 1.05rem;
       font-weight: 600;
       letter-spacing: -0.005em;
     }
@@ -170,20 +179,18 @@
       border-color: var(--accent);
     }
 
-    section {
-      margin: 22px 0;
-    }
+    section { margin: 22px 0; }
     h2 {
       font-size: 1rem;
       font-weight: 600;
-      margin: 0 0 12px;
+      margin: 0 0 10px;
       color: var(--text);
       letter-spacing: -0.005em;
     }
     .section-meta {
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text-muted);
-      margin: -8px 0 12px;
+      margin: -4px 0 12px;
     }
 
     /* -------- Cards & grids -------- */
@@ -194,10 +201,12 @@
     }
     @media (min-width: 560px) {
       .grid.kpi { grid-template-columns: repeat(2, 1fr); }
+      .grid.cards-2 { grid-template-columns: repeat(2, 1fr); }
     }
     @media (min-width: 900px) {
       .grid.kpi { grid-template-columns: repeat(4, 1fr); }
       .grid.two { grid-template-columns: 1fr 1fr; }
+      .grid.cards-3 { grid-template-columns: repeat(3, 1fr); }
     }
     .card {
       background: var(--surface);
@@ -205,6 +214,18 @@
       border-radius: var(--radius);
       padding: 14px 16px;
       box-shadow: var(--shadow);
+      min-width: 0;
+    }
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.005em;
+    }
+    .card .desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin: 0 0 10px;
     }
     .kpi-card .label {
       font-size: 12px;
@@ -213,7 +234,7 @@
       letter-spacing: 0.04em;
     }
     .kpi-card .value {
-      font-size: 1.6rem;       /* keep below "hero" */
+      font-size: 1.6rem;
       font-weight: 600;
       margin-top: 4px;
       letter-spacing: -0.01em;
@@ -234,15 +255,20 @@
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
+      white-space: nowrap;
     }
     .pill .dot {
       width: 8px; height: 8px; border-radius: 50%;
       background: var(--text-muted);
       display: inline-block;
     }
+    .pill.good { background: var(--good-weak); border-color: var(--good); }
     .pill.good .dot { background: var(--good); }
+    .pill.warn { background: var(--warn-weak); border-color: var(--warn); }
     .pill.warn .dot { background: var(--warn); }
+    .pill.danger { background: var(--danger-weak); border-color: var(--danger); }
     .pill.danger .dot { background: var(--danger); }
+    .pill.accent { background: var(--accent-weak); border-color: var(--accent); }
     .pill.accent .dot { background: var(--accent); }
 
     /* -------- Tables -------- */
@@ -276,13 +302,7 @@
                    "Liberation Mono", monospace;
       font-size: 13px;
     }
-    /* Long opaque tokens (sheet IDs, commit SHAs, raw URLs) live in
-       the exec status card and would otherwise blow out the page at
-       narrow widths. Allow breaks anywhere inside the card so the
-       page itself never overflows on a 390px viewport. Tables keep
-       their own .table-wrap horizontal scroll. */
     .exec-card { overflow-wrap: anywhere; word-break: break-word; }
-    .exec-card a { overflow-wrap: anywhere; word-break: break-word; }
 
     /* -------- Lists -------- */
     ul.checks {
@@ -308,6 +328,50 @@
 
     .stack > * + * { margin-top: 8px; }
     .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+    /* -------- Scorecard / experiment / followup item cards -------- */
+    .item {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: var(--surface-2);
+    }
+    .item + .item { margin-top: 8px; }
+    .item .item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .item .item-title {
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: -0.005em;
+    }
+    .item .item-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .item .item-body {
+      font-size: 13.5px;
+      margin-top: 6px;
+      color: var(--text);
+    }
+    .item .item-stats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+    .item .item-stats strong {
+      color: var(--text);
+      font-weight: 600;
+    }
 
     /* -------- Charts -------- */
     .chart {
@@ -345,11 +409,8 @@
       font-size: 12px;
       color: var(--text-muted);
     }
-    .updated {
-      font-variant-numeric: tabular-nums;
-    }
+    .updated { font-variant-numeric: tabular-nums; }
 
-    /* Skip link for keyboard / screen reader users */
     .skip {
       position: absolute;
       left: -9999px;
@@ -367,7 +428,7 @@
     @media print {
       body { background: #fff; color: #000; }
       .top-actions { display: none; }
-      .card { break-inside: avoid; box-shadow: none; }
+      .card, .item { break-inside: avoid; box-shadow: none; }
     }
   </style>
 </head>
@@ -399,30 +460,27 @@
       <section aria-labelledby="exec">
         <h2 id="exec">Executive status</h2>
         <div class="card exec-card">
-          <div class="row" style="justify-content: space-between;">
-            <div class="stack" style="min-width: 220px;">
+          <div class="grid cards-2">
+            <div class="stack">
               <div><strong>Latest run:</strong>
                 <span id="exec-date" class="mono"></span></div>
               <div><strong>Sender:</strong>
                 <span id="exec-sender" class="mono"></span></div>
               <div><strong>Schedule:</strong>
                 <span id="exec-schedule"></span></div>
-              <div><strong>Task ID:</strong>
-                <span id="exec-task" class="mono"></span></div>
+              <div><strong>Daily cap:</strong>
+                <span id="exec-cap" class="mono"></span></div>
             </div>
-            <div class="stack" style="min-width: 220px;">
+            <div class="stack">
               <div><strong>Source of truth:</strong>
-                <a id="exec-sheet" href="#" target="_blank" rel="noopener">Google Sheet</a>
-              </div>
+                <span id="exec-sheet"></span></div>
               <div><strong>Zoho writeback:</strong>
                 <span id="exec-zoho"></span></div>
-              <div><strong>GitHub repo:</strong>
-                <a id="exec-gh" href="#" target="_blank" rel="noopener">marketing-os</a>
+              <div><strong>Public mirror:</strong>
+                <a id="exec-gh" href="#" target="_blank" rel="noopener">dashboard repo</a>
               </div>
-              <div><strong>Pre-dashboard baseline:</strong>
-                <span id="exec-commit" class="mono"></span></div>
-              <div><strong>Dashboard build:</strong>
-                <span id="exec-build-commit" class="mono"></span></div>
+              <div><strong>Sanitization:</strong>
+                <span id="exec-sanitization"></span></div>
             </div>
           </div>
         </div>
@@ -434,11 +492,29 @@
         <div class="grid kpi" id="kpi-grid"></div>
       </section>
 
+      <!-- Queue health / tomorrow readiness -->
+      <section aria-labelledby="queue">
+        <h2 id="queue">Queue health and tomorrow readiness</h2>
+        <div class="section-meta">Forward-looking risk view: whether
+          there is enough sourced public-email supply to fill the
+          next weekday run without recovery enrichment.</div>
+        <div class="card" id="queue-card"></div>
+      </section>
+
+      <!-- Channel scorecard -->
+      <section aria-labelledby="scorecard">
+        <h2 id="scorecard">Channel scorecard</h2>
+        <div class="section-meta">Reply signal and current confidence
+          per channel. Tier reflects the seminar offer's fit.
+          Confidence reflects sample size and signal stability.</div>
+        <div class="card" id="scorecard-card"></div>
+      </section>
+
       <!-- Trend -->
       <section aria-labelledby="trend">
         <h2 id="trend">Daily send and reply trend</h2>
         <div class="section-meta">Bars are emails sent per weekday;
-          the line is cumulative sends. Capacity ceiling is 12/day.</div>
+          the line is cumulative sends. Capacity ceiling is 12 per day.</div>
         <div class="card">
           <svg id="trend-chart" class="chart"
                role="img" aria-label="Daily send and cumulative trend"></svg>
@@ -452,7 +528,7 @@
 
       <!-- Reply mix + channel mix -->
       <section aria-labelledby="mix">
-        <h2 id="mix">Reply classification and channel mix</h2>
+        <h2 id="mix">Reply mix and latest channel mix</h2>
         <div class="grid two">
           <div class="card">
             <div class="section-meta">Reply signals to date,
@@ -461,27 +537,30 @@
                  role="img" aria-label="Reply classification bar chart"></svg>
           </div>
           <div class="card">
-            <div class="section-meta">Channel mix of the latest sent batch
-              (approximated from org names; Sheet's Category column is authoritative).</div>
+            <div class="section-meta">Channel mix of the latest sent batch.
+              The Sheet's Category column remains authoritative.</div>
             <svg id="channel-chart" class="chart"
                  role="img" aria-label="Channel mix bar chart"></svg>
           </div>
         </div>
       </section>
 
-      <!-- Latest batch -->
-      <section aria-labelledby="batch">
-        <h2 id="batch">Latest sent batch</h2>
-        <div class="card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>#</th><th>Organization</th><th>Email (public)</th></tr>
-              </thead>
-              <tbody id="batch-body"></tbody>
-            </table>
-          </div>
-        </div>
+      <!-- Outreach experiment board -->
+      <section aria-labelledby="experiments">
+        <h2 id="experiments">Outreach experiment board</h2>
+        <div class="section-meta">Active and queued copy and channel
+          tests. Each experiment names a hypothesis, the channel,
+          and the next operator step.</div>
+        <div class="card" id="experiments-card"></div>
+      </section>
+
+      <!-- Human follow-ups -->
+      <section aria-labelledby="followups">
+        <h2 id="followups">Human follow-up queue</h2>
+        <div class="section-meta">Action items for the operator.
+          Identities are redacted in the public mirror; the private
+          Sheet links each item to the underlying reply.</div>
+        <div class="card" id="followups-card"></div>
       </section>
 
       <!-- Replies -->
@@ -496,10 +575,8 @@
               <thead>
                 <tr>
                   <th>Date</th>
-                  <th>Organization</th>
+                  <th>Category</th>
                   <th>Bucket</th>
-                  <th>Summary</th>
-                  <th>Suggested next action</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -509,32 +586,30 @@
         </div>
       </section>
 
-      <!-- Guardrails + focus -->
+      <!-- Guardrail status -->
       <section aria-labelledby="guard">
-        <h2 id="guard">Guardrails and focus</h2>
-        <div class="grid two">
-          <div class="card">
-            <div class="section-meta">Hard rules. Code paths must
-              fail closed if they would violate any of these.</div>
-            <ul class="checks" id="guardrails-list"></ul>
-          </div>
-          <div class="card">
-            <div class="section-meta">Channel priority for sourcing
-              and follow-up. Tier 1 channels are the highest-fit
-              audiences for the seminar offer.</div>
-            <div class="stack">
-              <div>
-                <div><strong>Tier 1 (priority)</strong></div>
-                <ul class="checks" id="tier1-list"></ul>
-              </div>
-              <div>
-                <div><strong>Tier 2 (limited test)</strong></div>
-                <ul class="checks" id="tier2-list"></ul>
-              </div>
-              <div>
-                <div><strong>Deprioritized</strong></div>
-                <ul class="checks" id="depri-list"></ul>
-              </div>
+        <h2 id="guard">Guardrail status</h2>
+        <div class="section-meta">Each rule lists current status
+          and the evidence used to verify it for the loaded window.</div>
+        <div class="card" id="guardrail-status-card"></div>
+      </section>
+
+      <!-- Focus tiers -->
+      <section aria-labelledby="focus">
+        <h2 id="focus">Channel priority tiers</h2>
+        <div class="card">
+          <div class="stack">
+            <div>
+              <div><strong>Tier 1 (priority)</strong></div>
+              <ul class="checks" id="tier1-list"></ul>
+            </div>
+            <div>
+              <div><strong>Tier 2 (limited test)</strong></div>
+              <ul class="checks" id="tier2-list"></ul>
+            </div>
+            <div>
+              <div><strong>Deprioritized</strong></div>
+              <ul class="checks" id="depri-list"></ul>
             </div>
           </div>
         </div>
@@ -551,20 +626,18 @@
 
     <footer class="foot">
       <div>Snapshot generated <span id="generated" class="updated mono"></span>.
-        Regenerate with
-        <span class="mono">python apps/outreach-dashboard/scripts/build_snapshot.py</span>.</div>
-      <div>This dashboard is a static snapshot view. The Google Sheet remains the source of truth.
-        A live-refresh task would require explicit operator approval because each run consumes credits.</div>
+        The Google Sheet remains the source of truth.</div>
+      <div>This is a sanitized public mirror. Prospect identities,
+        reply senders, free-text reply bodies, the operations Sheet
+        identifier, and private repo commits are intentionally not
+        exposed here.</div>
     </footer>
   </div>
 
   <script id="snapshot-data" type="application/json">/* SNAPSHOT_START */
-window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id": "a3b9de2f", "schedule": "Weekdays 08:30 America/Los_Angeles", "sender": "ip@clovedds.com", "daily_cap": 12}, "sources": {"sheet_url": "(redacted - private operations sheet)", "sheet_id": "(redacted)", "tabs": ["Leads", "Adjacent Referral Leads", "Daily Outreach Log", "Reply Insights"]}, "kpis": {"total_sends": 96, "weekdays_run": 8, "latest_date": "2026-05-01", "latest_sends": 12, "latest_cap_usage_pct": 100, "latest_new_contacts_found": 12, "total_reply_signals": 6, "positive_warm_replies": 2, "bounces": 1, "ccs_used_on_initial": 0}, "daily": [{"date": "2026-04-21", "sent": 12, "cap": 12, "new_contacts_found": 53, "replies": 2, "cumulative": 12, "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."}, {"date": "2026-04-22", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 0, "cumulative": 24, "next_focus": "Continue health-adjacent and wellness/property/community mix."}, {"date": "2026-04-23", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 2, "cumulative": 36, "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."}, {"date": "2026-04-24", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 1, "cumulative": 48, "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."}, {"date": "2026-04-27", "sent": 12, "cap": 12, "new_contacts_found": 6, "replies": 0, "cumulative": 60, "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."}, {"date": "2026-04-28", "sent": 12, "cap": 12, "new_contacts_found": 9, "replies": 0, "cumulative": 72, "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."}, {"date": "2026-04-29", "sent": 12, "cap": 12, "new_contacts_found": 7, "replies": 0, "cumulative": 84, "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."}, {"date": "2026-05-01", "sent": 12, "cap": 12, "new_contacts_found": 12, "replies": 0, "cumulative": 96, "next_focus": "Recovery run completed at full cap after enriching verified senior/caregiver public-email contacts and applying dedupe exclusions; route prior-batch positive materials request to operator follow-up."}], "reply_mix": {"Positive": 2, "Neutral": 3, "Not Interested / Unsubscribe": 0, "Bounce": 1, "Other": 0}, "replies": [{"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Geriatric Care Managers / Caregiver Resource", "Classification": "Positive", "Status": "Needs monitoring", "Bucket": "Positive"}, {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Senior Living", "Classification": "Neutral - Recycle Later", "Status": "Recycle later", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Church / Community", "Classification": "Neutral - Advertising / Referral", "Status": "Logged", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Employer / HR", "Classification": "Bounce", "Status": "Suppressed", "Bucket": "Bounce"}, {"Date": "2026-04-24", "Organization": "(redacted)", "Category": "Gyms / Fitness", "Classification": "Neutral - Reviewing Partnerships", "Status": "Monitor next week", "Bucket": "Neutral"}, {"Date": "2026-04-30", "Organization": "(redacted)", "Category": "Senior Concerns / Caregiver Resource", "Classification": "Positive - Materials Requested", "Status": "Needs human follow-up", "Bucket": "Positive"}], "latest_batch_summary": {"size": 12, "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown. 2026-05-01 was a recovery run after the morning's tracker showed no New rows with public emails; verified public-email contacts were enriched and deduped against prior partial-run sends and three excluded senior-resource organizations."}, "channel_mix_latest": {"Senior Living / Assisted": 4, "Home Care / Hospice / Health": 4, "Caregiver / Senior Resource": 4, "Health-Adjacent (Chiro/PT/Wellness)": 0, "Property / Apartments": 0, "Faith / Community": 0, "Schools / PTA / Rec": 0, "Chambers / Civic": 0, "Other": 0}, "channel_mix_total": {"Senior Living / Assisted": 13, "Home Care / Hospice / Health": 19, "Caregiver / Senior Resource": 7, "Health-Adjacent (Chiro/PT/Wellness)": 19, "Property / Apartments": 5, "Faith / Community": 10, "Schools / PTA / Rec": 7, "Chambers / Civic": 7, "Other": 9}, "zoho": {"status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.", "stage": "Staged - dedupe/dry-run pending approval", "writeback_live": false}, "github": {"source_repo_visibility": "private", "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"}, "guardrails": ["Maximum 12 one-to-one new emails per weekday", "Initial outreach sent only from ip@clovedds.com", "No CC or BCC on initial outreach", "aryaan@clovedds.com is CC'd only after a positive reply or scheduling/ops handoff", "No auto-reply to interested prospects; route to operator with suggested draft", "Suppress bounces, opt-outs, and not-interested permanently", "Public verified emails only; never invent or guess email patterns", "Google Sheet is the source of truth; Zoho writeback remains staged"], "next_actions": ["Operator follow-up on the prior-scan positive materials request (senior concerns / caregiver resource) using the approved seminar materials packet.", "Continue senior/caregiver public-email sourcing to keep a healthy New-row buffer ahead of each weekday run and avoid recovery enrichments.", "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email.", "Approve dedupe + dry-run plan before enabling Zoho live writeback."], "focus_priority": {"tier_1": ["Senior living / assisted / memory care / independent living", "Home care / home health / hospice / VNA", "Caregiver resource centers and senior placement", "Adult day programs and senior centers"], "tier_2_test_only": ["Health-adjacent (chiro, PT, pharmacy, wellness)", "Employer/HR with senior caregiver populations"], "deprioritized": ["Generic chambers, churches, schools/PTAs, and community centers"]}, "_sanitization": {"policy": "Public dashboard exposes only aggregate metrics, category/status summaries, and operating guardrails. Individual prospect emails, reply sender names/addresses, free-text summaries, the operations Google Sheet ID, and recipient-level batch details are removed.", "removed_fields": ["sources.sheet_url", "sources.sheet_id", "replies[].Email From", "replies[].Summary", "replies[].Suggested Next Action", "replies[].Owner", "replies[].Organization (replaced with redacted)", "latest_batch (replaced with size-only summary)", "next_actions free-text references to specific prospects", "daily[].next_focus references to specific prospect names"]}};
+window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id": "a3b9de2f", "schedule": "Weekdays 08:30 America/Los_Angeles", "sender": "ip@clovedds.com", "daily_cap": 12}, "sources": {"sheet_url": "(redacted - private operations sheet)", "sheet_id": "(redacted)", "tabs": ["Leads", "Adjacent Referral Leads", "Daily Outreach Log", "Reply Insights"]}, "kpis": {"total_sends": 96, "weekdays_run": 8, "latest_date": "2026-05-01", "latest_sends": 12, "latest_cap_usage_pct": 100, "latest_new_contacts_found": 12, "total_reply_signals": 6, "positive_warm_replies": 2, "bounces": 1, "ccs_used_on_initial": 0, "reply_rate_pct": 6.25, "positive_rate_pct": 2.08}, "daily": [{"date": "2026-04-21", "sent": 12, "cap": 12, "new_contacts_found": 53, "replies": 2, "cumulative": 12, "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."}, {"date": "2026-04-22", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 0, "cumulative": 24, "next_focus": "Continue health-adjacent and wellness/property/community mix."}, {"date": "2026-04-23", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 2, "cumulative": 36, "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."}, {"date": "2026-04-24", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 1, "cumulative": 48, "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."}, {"date": "2026-04-27", "sent": 12, "cap": 12, "new_contacts_found": 6, "replies": 0, "cumulative": 60, "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."}, {"date": "2026-04-28", "sent": 12, "cap": 12, "new_contacts_found": 9, "replies": 0, "cumulative": 72, "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."}, {"date": "2026-04-29", "sent": 12, "cap": 12, "new_contacts_found": 7, "replies": 0, "cumulative": 84, "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."}, {"date": "2026-05-01", "sent": 12, "cap": 12, "new_contacts_found": 12, "replies": 0, "cumulative": 96, "next_focus": "Recovery run completed at full cap after enriching verified senior/caregiver public-email contacts and applying dedupe exclusions; route prior-batch positive materials request to operator follow-up."}], "reply_mix": {"Positive": 2, "Neutral": 3, "Not Interested / Unsubscribe": 0, "Bounce": 1, "Other": 0}, "replies": [{"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Geriatric Care Managers / Caregiver Resource", "Classification": "Positive", "Status": "Needs monitoring", "Bucket": "Positive"}, {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Senior Living", "Classification": "Neutral - Recycle Later", "Status": "Recycle later", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Church / Community", "Classification": "Neutral - Advertising / Referral", "Status": "Logged", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Employer / HR", "Classification": "Bounce", "Status": "Suppressed", "Bucket": "Bounce"}, {"Date": "2026-04-24", "Organization": "(redacted)", "Category": "Gyms / Fitness", "Classification": "Neutral - Reviewing Partnerships", "Status": "Monitor next week", "Bucket": "Neutral"}, {"Date": "2026-04-30", "Organization": "(redacted)", "Category": "Senior Concerns / Caregiver Resource", "Classification": "Positive - Materials Requested", "Status": "Needs human follow-up", "Bucket": "Positive"}], "latest_batch_summary": {"size": 12, "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown. 2026-05-01 was a recovery run after the morning's tracker showed no New rows with public emails; verified public-email contacts were enriched and deduped against prior partial-run sends and three excluded senior-resource organizations."}, "channel_mix_latest": {"Senior Living / Assisted": 4, "Home Care / Hospice / Health": 4, "Caregiver / Senior Resource": 4, "Health-Adjacent (Chiro/PT/Wellness)": 0, "Property / Apartments": 0, "Faith / Community": 0, "Schools / PTA / Rec": 0, "Chambers / Civic": 0, "Other": 0}, "channel_mix_total": {"Senior Living / Assisted": 13, "Home Care / Hospice / Health": 19, "Caregiver / Senior Resource": 7, "Health-Adjacent (Chiro/PT/Wellness)": 19, "Property / Apartments": 5, "Faith / Community": 10, "Schools / PTA / Rec": 7, "Chambers / Civic": 7, "Other": 9}, "channel_scorecard": [{"channel": "Caregiver / Senior Resource", "sends": 7, "positive": 2, "neutral": 0, "bounce": 0, "tier": "Tier 1", "confidence": "High", "signal": "Strong", "note": "Both positive replies to date came from this channel, including a materials-requested signal. Highest reply yield per send. Continue prioritizing sourcing here."}, {"channel": "Senior Living / Assisted", "sends": 13, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Tier 1", "confidence": "Medium", "signal": "Warming", "note": "Sustained engagement with one recycle-later signal. Public-email coverage remains the bottleneck; phone/form follow-up recommended for high-fit no-email targets."}, {"channel": "Home Care / Hospice / Health", "sends": 19, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Tier 1", "confidence": "Medium", "signal": "Quiet", "note": "Largest tier-1 volume but no replies yet. Test a hospice oral-comfort resource angle and a shorter subject line variant before scaling further."}, {"channel": "Health-Adjacent (Chiro/PT/Wellness)", "sends": 19, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Tier 2", "confidence": "Low", "signal": "Marginal", "note": "One reviewing-partnerships neutral. Hold at limited test volume; do not crowd out tier-1 sourcing capacity."}, {"channel": "Faith / Community", "sends": 10, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Off-pattern", "note": "Single advertising/referral neutral. Continue deprioritization unless a partner-fit referral pathway emerges."}, {"channel": "Property / Apartments", "sends": 5, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Tier 2", "confidence": "Low", "signal": "Untested", "note": "Volume too low to score. Pause unless decision-maker public emails can be sourced cleanly."}, {"channel": "Employer / HR", "sends": 0, "positive": 0, "neutral": 0, "bounce": 1, "tier": "Tier 2", "confidence": "Low", "signal": "Suppressed", "note": "Only signal so far is a hard bounce. Suppress address; do not expand without verified-email sourcing."}, {"channel": "Chambers / Civic", "sends": 7, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Quiet", "note": "No replies. Keep deprioritized; not a senior-decision-maker channel."}, {"channel": "Schools / PTA / Rec", "sends": 7, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Quiet", "note": "No replies. Keep deprioritized; off-thesis for the seminar offer."}], "experiments": [{"id": "EXP-01", "title": "Shorter subject line", "hypothesis": "Trimming the subject to under 45 characters lifts open and reply rate in tier-1 senior channels.", "channel": "Senior Living / Assisted, Caregiver / Senior Resource", "status": "Queued", "next_step": "Author A/B variant and reserve next 6 tier-1 sends for the shorter subject."}, {"id": "EXP-02", "title": "Materials-first senior follow-up", "hypothesis": "Leading the follow-up with the seminar materials packet (no second ask) converts the prior positive materials request into a scheduled session.", "channel": "Caregiver / Senior Resource", "status": "Active - operator drafting", "next_step": "Operator sends materials packet today; CC ops only after positive engagement, per guardrail."}, {"id": "EXP-03", "title": "Hospice oral-comfort resource angle", "hypothesis": "A clinical resource framing (oral comfort for end-of-life patients) outperforms generic seminar pitch in hospice/home-health.", "channel": "Home Care / Hospice / Health", "status": "Queued", "next_step": "Draft resource-led variant; reserve next 4 hospice sends for this angle."}, {"id": "EXP-04", "title": "Phone/form follow-up for no-email high-fit", "hypothesis": "High-fit senior-living and home-care orgs without a public email convert via phone or contact-form follow-up at meaningfully higher rates than waiting for email enrichment.", "channel": "Senior Living / Assisted, Home Care / Hospice / Health", "status": "Active - manual", "next_step": "Operator works the no-email shortlist daily; log outcomes back to the Sheet."}, {"id": "EXP-05", "title": "Reply-rate baseline lock", "hypothesis": "Holding subject and body constant for 20 sends per tier-1 channel produces a stable reply-rate baseline to compare future copy tests against.", "channel": "All Tier 1", "status": "Backlog", "next_step": "Define control copy; lock variant rotation cadence after EXP-01 and EXP-03 complete."}], "queue_health": {"ready_public_emails": 0, "target_buffer": 18, "shortage_risk": "High", "dedupe_exclusions_latest": 3, "sourcing_goal_next_run": "Source at least 18 verified senior/caregiver/home-health public emails before tomorrow's 08:30 PT run to clear the recovery-run pattern.", "warnings": ["Tracker showed zero New rows with public emails this morning before recovery enrichment.", "Three senior-resource organizations excluded by dedupe in latest batch; widen the org pool before reusing the same shortlist.", "Capacity at full cap masks that the buffer is depleted; sourcing must lead, not follow, the run."]}, "human_followups": [{"id": "FU-01", "priority": "P0", "due": "2026-05-01", "channel": "Caregiver / Senior Resource", "action": "Send approved senior concerns materials packet to the prior-scan positive materials request.", "status": "Operator drafting", "note": "Identity redacted in public mirror; tracked by reply ID in private Sheet."}, {"id": "FU-02", "priority": "P1", "due": "2026-05-04", "channel": "Senior Living / Assisted", "action": "Phone or contact-form follow-up for high-fit no-email senior homes from this week's shortlist.", "status": "Queued", "note": "Operator-only; do not auto-message."}, {"id": "FU-03", "priority": "P1", "due": "2026-05-04", "channel": "Home Care / Hospice / Health", "action": "Phone or contact-form follow-up for high-fit no-email home-care and hospice targets.", "status": "Queued", "note": "Pair with EXP-03 framing where appropriate."}, {"id": "FU-04", "priority": "P2", "due": "2026-05-05", "channel": "Caregiver / Senior Resource", "action": "Monitor first positive reply for movement; nudge only if no response within five business days.", "status": "Watching", "note": "No auto-replies; operator owns cadence."}], "guardrail_status": [{"rule": "Daily cap of 12 one-to-one new emails per weekday", "status": "OK", "evidence": "Latest run sent 12 of 12; no day in the loaded window exceeded the cap."}, {"rule": "Initial outreach sent only from ip@clovedds.com", "status": "OK", "evidence": "Sender locked in task config; no alternate sender observed in the window."}, {"rule": "No CC and no BCC on initial outreach", "status": "OK", "evidence": "CCs used on initial outreach: 0."}, {"rule": "No auto-reply to interested prospects; operator drafts each reply", "status": "OK", "evidence": "Both positive signals routed to human follow-up; zero automated replies sent."}, {"rule": "Suppress bounces, opt-outs, and not-interested permanently", "status": "OK", "evidence": "One bounce in window; address suppressed and not retried."}, {"rule": "Public verified emails only; never invent or guess address patterns", "status": "OK", "evidence": "Latest run rebuilt the queue from verified public sources after the morning tracker showed no New rows."}, {"rule": "Google Sheet remains source of truth; Zoho writeback staged", "status": "OK", "evidence": "Zoho writeback held pending staged dedupe and dry-run approval."}], "zoho": {"status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.", "stage": "Staged - dedupe/dry-run pending approval", "writeback_live": false}, "github": {"source_repo_visibility": "private", "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"}, "guardrails": ["Maximum 12 one-to-one new emails per weekday", "Initial outreach sent only from ip@clovedds.com", "No CC or BCC on initial outreach", "aryaan@clovedds.com is CC'd only after a positive reply or scheduling/ops handoff", "No auto-reply to interested prospects; route to operator with suggested draft", "Suppress bounces, opt-outs, and not-interested permanently", "Public verified emails only; never invent or guess email patterns", "Google Sheet is the source of truth; Zoho writeback remains staged"], "next_actions": ["Operator follow-up on the prior-scan positive materials request (senior concerns / caregiver resource) using the approved seminar materials packet.", "Continue senior/caregiver public-email sourcing to keep a healthy New-row buffer ahead of each weekday run and avoid recovery enrichments.", "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email.", "Approve dedupe + dry-run plan before enabling Zoho live writeback."], "focus_priority": {"tier_1": ["Senior living / assisted / memory care / independent living", "Home care / home health / hospice / VNA", "Caregiver resource centers and senior placement", "Adult day programs and senior centers"], "tier_2_test_only": ["Health-adjacent (chiro, PT, pharmacy, wellness)", "Employer/HR with senior caregiver populations"], "deprioritized": ["Generic chambers, churches, schools/PTAs, and community centers"]}, "_sanitization": {"policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, and operating guardrails. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, and private operations-repo commit hashes are removed.", "removed_fields": ["sources.sheet_url", "sources.sheet_id", "replies[].Email From", "replies[].Summary", "replies[].Suggested Next Action", "replies[].Owner", "replies[].Organization (replaced with redacted)", "latest_batch (replaced with size-only summary)", "next_actions free-text references to specific prospects", "daily[].next_focus references to specific prospect names", "human_followups[] redacted to action and channel only; identities live in private Sheet", "private operations-repo commit hashes"]}};
 /* SNAPSHOT_END */</script>
   <script>
-    // Static snapshot is injected by build_snapshot.py. Fall back to
-    // fetch() so a developer can iterate on the HTML alone (served
-    // through any static origin) without running the build script.
     (function () {
       "use strict";
 
@@ -600,7 +673,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
       applyTheme(prefersDark);
       $("theme-toggle").addEventListener("click", function () {
         applyTheme(root.getAttribute("data-theme") !== "dark");
-        // Re-render charts because grid colors are theme-dependent.
         if (window.__RENDER__) window.__RENDER__();
       });
 
@@ -609,7 +681,12 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
         if (n == null || isNaN(n)) return "-";
         return Number(n).toLocaleString();
       }
+      function fmtPct(n) {
+        if (n == null || isNaN(n)) return "-";
+        return (Math.round(Number(n) * 100) / 100) + "%";
+      }
       function fmtDate(s) { return s || "-"; }
+
       function pillFor(bucket) {
         var c = "pill";
         if (bucket === "Positive") c += " good";
@@ -621,10 +698,67 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
           el("span", { "class": "dot" }), bucket
         ]);
       }
-      function statusFromZoho(zoho) {
-        if (!zoho) return ["accent", "Operational"];
-        if (zoho.writeback_live) return ["good", "Zoho live"];
-        return ["warn", "Zoho staged"];
+      function pillForSignal(signal) {
+        var s = (signal || "").toLowerCase();
+        var c = "pill";
+        if (s === "strong") c += " good";
+        else if (s === "warming") c += " good";
+        else if (s === "marginal" || s === "off-pattern") c += " warn";
+        else if (s === "suppressed") c += " danger";
+        else c += " accent";
+        return el("span", { "class": c }, [
+          el("span", { "class": "dot" }), signal || "-"
+        ]);
+      }
+      function pillForRisk(level) {
+        var l = (level || "").toLowerCase();
+        var c = "pill";
+        if (l === "high") c += " danger";
+        else if (l === "medium") c += " warn";
+        else if (l === "low") c += " good";
+        else c += " accent";
+        return el("span", { "class": c }, [
+          el("span", { "class": "dot" }), level || "-"
+        ]);
+      }
+      function pillForStatusOk(status) {
+        var c = "pill";
+        var s = (status || "").toLowerCase();
+        if (s === "ok") c += " good";
+        else if (s === "warn") c += " warn";
+        else if (s === "fail") c += " danger";
+        else c += " accent";
+        return el("span", { "class": c }, [
+          el("span", { "class": "dot" }), status || "-"
+        ]);
+      }
+      function pillForExp(status) {
+        var s = (status || "").toLowerCase();
+        var c = "pill";
+        if (s.indexOf("active") === 0) c += " good";
+        else if (s.indexOf("queued") === 0) c += " warn";
+        else if (s.indexOf("backlog") === 0) c += " accent";
+        else c += " accent";
+        return el("span", { "class": c }, [
+          el("span", { "class": "dot" }), status || "-"
+        ]);
+      }
+      function pillForPriority(p) {
+        var c = "pill";
+        if (p === "P0") c += " danger";
+        else if (p === "P1") c += " warn";
+        else if (p === "P2") c += " accent";
+        else c += " accent";
+        return el("span", { "class": c }, [
+          el("span", { "class": "dot" }), p || "-"
+        ]);
+      }
+      function statusFromQueue(q) {
+        if (!q) return ["accent", "Operational"];
+        var risk = (q.shortage_risk || "").toLowerCase();
+        if (risk === "high") return ["danger", "Sourcing shortage"];
+        if (risk === "medium") return ["warn", "Sourcing tight"];
+        return ["good", "Queue healthy"];
       }
 
       // -------- Charts (inline SVG, no libs) --------
@@ -660,7 +794,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
         var bw = (W - padL - padR) / n * 0.6;
         var step = (W - padL - padR) / n;
 
-        // Y grid (left axis 0..12)
         var ticks = [0, 3, 6, 9, 12];
         ticks.forEach(function (t) {
           var y = padT + (H - padT - padB) * (1 - t / maxBar);
@@ -675,7 +808,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
           svg.appendChild(lbl);
         });
 
-        // Cap line at 12
         var capY = padT + (H - padT - padB) * (1 - maxBar / maxBar);
         svg.appendChild(svgEl("line", {
           x1: padL, x2: W - padR, y1: capY, y2: capY,
@@ -684,7 +816,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
           "stroke-width": "1"
         }));
 
-        // Bars + x labels
         daily.forEach(function (d, i) {
           var x = padL + step * i + (step - bw) / 2;
           var h = (H - padT - padB) * (d.sent / maxBar);
@@ -700,11 +831,10 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
             "text-anchor": "middle",
             "class": "axis-text"
           });
-          t.textContent = (d.date || "").slice(5); // MM-DD
+          t.textContent = (d.date || "").slice(5);
           svg.appendChild(t);
         });
 
-        // Cumulative line on right axis
         var cumMax = Math.max(maxLine, 1);
         var pts = daily.map(function (d, i) {
           var x = padL + step * i + step / 2;
@@ -725,7 +855,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
           }));
         });
 
-        // Right axis labels at 0/half/max
         [0, Math.round(cumMax / 2), cumMax].forEach(function (t) {
           var y = padT + (H - padT - padB) * (1 - t / cumMax);
           var lbl = svgEl("text", {
@@ -739,7 +868,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
       }
 
       function renderHBar(svgId, data, opts) {
-        // data: [{label, value}]
         var svg = $(svgId);
         clearSvg(svg);
         var rect = svg.getBoundingClientRect();
@@ -749,17 +877,15 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
         svg.setAttribute("viewBox", "0 0 " + W + " " + H);
         svg.style.height = H + "px";
         var max = Math.max.apply(null, data.map(function (d) { return d.value; }).concat([1]));
-        var labelW = 200;
-        var padL = 8, padR = 36, padT = 8, padB = 8;
+        var labelW = Math.min(220, Math.max(140, Math.floor(W * 0.45)));
+        var padL = 8, padR = 36, padT = 8;
         data.forEach(function (d, i) {
           var y = padT + i * 28;
-          // label
           var lbl = svgEl("text", {
             x: padL, y: y + 18, "class": "axis-text"
           });
           lbl.textContent = d.label;
           svg.appendChild(lbl);
-          // bar bg
           var x0 = padL + labelW;
           var bw = W - x0 - padR;
           svg.appendChild(svgEl("rect", {
@@ -788,12 +914,13 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
           { label: "Total sends", value: fmtNum(k.total_sends),
             hint: k.weekdays_run + " weekdays run" },
           { label: "Latest sends", value: fmtNum(k.latest_sends),
-            hint: k.latest_cap_usage_pct + "% of " + cap + "/day cap" },
+            hint: k.latest_cap_usage_pct + "% of " + cap + " per day cap" },
           { label: "Reply signals", value: fmtNum(k.total_reply_signals),
-            hint: k.positive_warm_replies + " positive / warm, " +
+            hint: (k.reply_rate_pct != null ? fmtPct(k.reply_rate_pct) + " reply rate, " : "") +
+                  k.positive_warm_replies + " positive, " +
                   k.bounces + " bounces" },
           { label: "New contacts found (latest)", value: fmtNum(k.latest_new_contacts_found),
-            hint: "CCs used on initial outreach: " + k.ccs_used_on_initial }
+            hint: "CCs on initial outreach: " + k.ccs_used_on_initial }
         ];
         var grid = $("kpi-grid");
         grid.innerHTML = "";
@@ -807,38 +934,185 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
       }
 
       function renderExec(s) {
-        var k = s.kpis || {}, t = s.task || {}, src = s.sources || {};
+        var k = s.kpis || {}, t = s.task || {};
         $("exec-date").textContent = fmtDate(k.latest_date);
         $("exec-sender").textContent = t.sender || "-";
         $("exec-schedule").textContent = t.schedule || "-";
-        $("exec-task").textContent = t.id || "-";
-        var sheet = $("exec-sheet");
-        sheet.href = src.sheet_url || "#";
-        sheet.textContent = "Google Sheet (id: " + (src.sheet_id || "-") + ")";
+        $("exec-cap").textContent = (t.daily_cap || 12) + " per weekday";
+        $("exec-sheet").textContent = "Google Sheet (private; redacted in public mirror)";
         $("exec-zoho").textContent = (s.zoho && s.zoho.stage) || "-";
         var gh = $("exec-gh");
-        var repo = (s.github && s.github.repo) || "ishanpuri24/marketing-os";
+        var repo = (s.github && s.github.dashboard_repo) || "ishanpuri24/clove-outreach-dashboard";
         gh.href = "https://github.com/" + repo;
         gh.textContent = repo;
-        $("exec-commit").textContent =
-          (s.github && s.github.latest_commit_before_dashboard) || "-";
-        $("exec-build-commit").textContent =
-          (s.github && s.github.dashboard_build_commit) || "-";
-        var pillStatus = statusFromZoho(s.zoho);
+        $("exec-sanitization").textContent =
+          "Identities, reply text, Sheet ID, and private commits are not exposed";
+        var pillStatus = statusFromQueue(s.queue_health);
         var pill = $("status-pill");
         pill.className = "pill " + pillStatus[0];
         $("status-text").textContent = pillStatus[1];
       }
 
-      function renderBatch(s) {
-        var body = $("batch-body");
-        body.innerHTML = "";
-        (s.latest_batch || []).forEach(function (row, i) {
-          body.appendChild(el("tr", null, [
-            el("td", { "class": "mono", text: String(i + 1) }),
-            el("td", { text: row.org }),
-            el("td", { "class": "mono", text: row.email })
+      function renderQueue(s) {
+        var card = $("queue-card");
+        card.innerHTML = "";
+        var q = s.queue_health;
+        if (!q) {
+          card.appendChild(el("div", { "class": "section-meta",
+            text: "Queue health data not available." }));
+          return;
+        }
+        var head = el("div", { "class": "row",
+          "style": "justify-content: space-between;" }, [
+          el("div", { "class": "stack" }, [
+            el("div", null, [
+              el("strong", { text: "Shortage risk: " }),
+              pillForRisk(q.shortage_risk)
+            ]),
+            el("div", { "class": "item-meta",
+              text: "Ready public emails: " + fmtNum(q.ready_public_emails) +
+                    " of target buffer " + fmtNum(q.target_buffer) +
+                    "; dedupe exclusions latest: " + fmtNum(q.dedupe_exclusions_latest)
+            })
+          ])
+        ]);
+        card.appendChild(head);
+        if (q.sourcing_goal_next_run) {
+          card.appendChild(el("div", {
+            "class": "item",
+            "style": "margin-top: 10px;"
+          }, [
+            el("div", { "class": "item-title",
+              text: "Sourcing goal before next run" }),
+            el("div", { "class": "item-body",
+              text: q.sourcing_goal_next_run })
           ]));
+        }
+        if (q.warnings && q.warnings.length) {
+          var ul = el("ul", { "class": "checks",
+            "style": "margin-top: 10px;" });
+          q.warnings.forEach(function (w) {
+            ul.appendChild(el("li", { text: w }));
+          });
+          card.appendChild(el("div", { "class": "item-meta",
+            "style": "margin-top: 10px;",
+            text: "Warnings" }));
+          card.appendChild(ul);
+        }
+      }
+
+      function renderScorecard(s) {
+        var card = $("scorecard-card");
+        card.innerHTML = "";
+        var rows = s.channel_scorecard || [];
+        if (!rows.length) {
+          card.appendChild(el("div", { "class": "section-meta",
+            text: "Channel scorecard not available." }));
+          return;
+        }
+        rows.forEach(function (r) {
+          var head = el("div", { "class": "item-head" }, [
+            el("div", { "class": "item-title", text: r.channel }),
+            el("div", { "class": "row" }, [
+              el("span", { "class": "pill accent" }, [
+                el("span", { "class": "dot" }), r.tier || "-"
+              ]),
+              pillForSignal(r.signal)
+            ])
+          ]);
+          var stats = el("div", { "class": "item-stats" }, [
+            el("span", null, [el("strong", { text: fmtNum(r.sends) }), " sends"]),
+            el("span", null, [el("strong", { text: fmtNum(r.positive) }), " positive"]),
+            el("span", null, [el("strong", { text: fmtNum(r.neutral) }), " neutral"]),
+            el("span", null, [el("strong", { text: fmtNum(r.bounce) }), " bounce"]),
+            el("span", null, [el("strong", { text: r.confidence || "-" }), " confidence"])
+          ]);
+          var item = el("div", { "class": "item" }, [
+            head,
+            stats,
+            el("div", { "class": "item-body", text: r.note || "" })
+          ]);
+          card.appendChild(item);
+        });
+      }
+
+      function renderExperiments(s) {
+        var card = $("experiments-card");
+        card.innerHTML = "";
+        var rows = s.experiments || [];
+        if (!rows.length) {
+          card.appendChild(el("div", { "class": "section-meta",
+            text: "No experiments queued." }));
+          return;
+        }
+        rows.forEach(function (r) {
+          var head = el("div", { "class": "item-head" }, [
+            el("div", null, [
+              el("span", { "class": "mono", text: r.id + "  " }),
+              el("span", { "class": "item-title", text: r.title })
+            ]),
+            pillForExp(r.status)
+          ]);
+          var meta = el("div", { "class": "item-meta",
+            text: "Channel: " + (r.channel || "-") });
+          var hyp = el("div", { "class": "item-body",
+            text: "Hypothesis: " + (r.hypothesis || "-") });
+          var step = el("div", { "class": "item-body",
+            text: "Next step: " + (r.next_step || "-") });
+          card.appendChild(el("div", { "class": "item" },
+            [head, meta, hyp, step]));
+        });
+      }
+
+      function renderFollowups(s) {
+        var card = $("followups-card");
+        card.innerHTML = "";
+        var rows = s.human_followups || [];
+        if (!rows.length) {
+          card.appendChild(el("div", { "class": "section-meta",
+            text: "No human follow-ups queued." }));
+          return;
+        }
+        rows.forEach(function (r) {
+          var head = el("div", { "class": "item-head" }, [
+            el("div", null, [
+              el("span", { "class": "mono", text: r.id + "  " }),
+              el("span", { "class": "item-title", text: r.action || "-" })
+            ]),
+            el("div", { "class": "row" }, [
+              pillForPriority(r.priority),
+              el("span", { "class": "pill accent" }, [
+                el("span", { "class": "dot" }),
+                r.status || "-"
+              ])
+            ])
+          ]);
+          var meta = el("div", { "class": "item-meta",
+            text: "Channel: " + (r.channel || "-") +
+                  "    Due: " + (r.due || "-") });
+          var note = el("div", { "class": "item-body", text: r.note || "" });
+          card.appendChild(el("div", { "class": "item" },
+            [head, meta, note]));
+        });
+      }
+
+      function renderGuardrailStatus(s) {
+        var card = $("guardrail-status-card");
+        card.innerHTML = "";
+        var rows = s.guardrail_status || [];
+        if (!rows.length) {
+          card.appendChild(el("div", { "class": "section-meta",
+            text: "Guardrail status not available." }));
+          return;
+        }
+        rows.forEach(function (r) {
+          var head = el("div", { "class": "item-head" }, [
+            el("div", { "class": "item-title", text: r.rule }),
+            pillForStatusOk(r.status)
+          ]);
+          var ev = el("div", { "class": "item-body",
+            text: r.evidence || "" });
+          card.appendChild(el("div", { "class": "item" }, [head, ev]));
         });
       }
 
@@ -851,10 +1125,8 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
           var pill = pillFor(r.Bucket || "Other");
           body.appendChild(el("tr", null, [
             el("td", { "class": "mono", text: r.Date || "" }),
-            el("td", { text: r.Organization || "" }),
+            el("td", { text: r.Category || "" }),
             el("td", null, [pill]),
-            el("td", { text: r.Summary || "" }),
-            el("td", { text: r["Suggested Next Action"] || "" }),
             el("td", { text: r.Status || "" })
           ]));
         });
@@ -863,13 +1135,13 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
       function renderLists(s) {
         function fill(id, items) {
           var ul = $(id);
+          if (!ul) return;
           ul.innerHTML = "";
           (items || []).forEach(function (t) {
             if (!t) return;
             ul.appendChild(el("li", { text: t }));
           });
         }
-        fill("guardrails-list", s.guardrails);
         fill("next-list", s.next_actions);
         var fp = s.focus_priority || {};
         fill("tier1-list", fp.tier_1);
@@ -894,10 +1166,14 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
       function renderAll(s) {
         renderExec(s);
         renderKpis(s);
+        renderQueue(s);
+        renderScorecard(s);
         renderTrend(s.daily || []);
         renderMix(s);
-        renderBatch(s);
+        renderExperiments(s);
+        renderFollowups(s);
         renderReplies(s);
+        renderGuardrailStatus(s);
         renderLists(s);
         $("generated").textContent = s.generated_at || "";
       }
@@ -910,7 +1186,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
         }
         window.__RENDER__ = function () { renderAll(snapshot); };
         renderAll(snapshot);
-        // Re-render on resize so charts reflow.
         var t;
         window.addEventListener("resize", function () {
           clearTimeout(t);
@@ -921,7 +1196,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-01T16:00:00+00:00", "task": {"id
       if (window.__SNAPSHOT__) {
         boot(window.__SNAPSHOT__);
       } else {
-        // Fallback: try to fetch the JSON. Works only on http(s).
         fetch("data/snapshot.json", { cache: "no-store" })
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(boot)
