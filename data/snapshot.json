@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-30T15:18:20+00:00",
+  "generated_at": "2026-05-01T16:00:00+00:00",
   "task": {
     "id": "a3b9de2f",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17,48 +17,156 @@
     ]
   },
   "kpis": {
-    "total_sends": 84,
-    "weekdays_run": 7,
-    "latest_date": "2026-04-29",
+    "total_sends": 96,
+    "weekdays_run": 8,
+    "latest_date": "2026-05-01",
     "latest_sends": 12,
     "latest_cap_usage_pct": 100,
-    "latest_new_contacts_found": 7,
-    "total_reply_signals": 5,
-    "positive_warm_replies": 1,
+    "latest_new_contacts_found": 12,
+    "total_reply_signals": 6,
+    "positive_warm_replies": 2,
     "bounces": 1,
     "ccs_used_on_initial": 0
   },
   "daily": [
-    {"date": "2026-04-21", "sent": 12, "cap": 12, "new_contacts_found": 53, "replies": 2, "cumulative": 12, "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."},
-    {"date": "2026-04-22", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 0, "cumulative": 24, "next_focus": "Continue health-adjacent and wellness/property/community mix."},
-    {"date": "2026-04-23", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 2, "cumulative": 36, "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."},
-    {"date": "2026-04-24", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 1, "cumulative": 48, "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."},
-    {"date": "2026-04-27", "sent": 12, "cap": 12, "new_contacts_found": 6, "replies": 0, "cumulative": 60, "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."},
-    {"date": "2026-04-28", "sent": 12, "cap": 12, "new_contacts_found": 9, "replies": 0, "cumulative": 72, "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."},
-    {"date": "2026-04-29", "sent": 12, "cap": 12, "new_contacts_found": 7, "replies": 0, "cumulative": 84, "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."}
+    {
+      "date": "2026-04-21",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 53,
+      "replies": 2,
+      "cumulative": 12,
+      "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."
+    },
+    {
+      "date": "2026-04-22",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 0,
+      "replies": 0,
+      "cumulative": 24,
+      "next_focus": "Continue health-adjacent and wellness/property/community mix."
+    },
+    {
+      "date": "2026-04-23",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 0,
+      "replies": 2,
+      "cumulative": 36,
+      "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."
+    },
+    {
+      "date": "2026-04-24",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 0,
+      "replies": 1,
+      "cumulative": 48,
+      "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."
+    },
+    {
+      "date": "2026-04-27",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 6,
+      "replies": 0,
+      "cumulative": 60,
+      "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."
+    },
+    {
+      "date": "2026-04-28",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 9,
+      "replies": 0,
+      "cumulative": 72,
+      "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."
+    },
+    {
+      "date": "2026-04-29",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 7,
+      "replies": 0,
+      "cumulative": 84,
+      "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."
+    },
+    {
+      "date": "2026-05-01",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 12,
+      "replies": 0,
+      "cumulative": 96,
+      "next_focus": "Recovery run completed at full cap after enriching verified senior/caregiver public-email contacts and applying dedupe exclusions; route prior-batch positive materials request to operator follow-up."
+    }
   ],
   "reply_mix": {
-    "Positive": 1,
+    "Positive": 2,
     "Neutral": 3,
     "Not Interested / Unsubscribe": 0,
     "Bounce": 1,
     "Other": 0
   },
   "replies": [
-    {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Geriatric Care Managers / Caregiver Resource", "Classification": "Positive", "Status": "Needs monitoring", "Bucket": "Positive"},
-    {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Senior Living", "Classification": "Neutral - Recycle Later", "Status": "Recycle later", "Bucket": "Neutral"},
-    {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Church / Community", "Classification": "Neutral - Advertising / Referral", "Status": "Logged", "Bucket": "Neutral"},
-    {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Employer / HR", "Classification": "Bounce", "Status": "Suppressed", "Bucket": "Bounce"},
-    {"Date": "2026-04-24", "Organization": "(redacted)", "Category": "Gyms / Fitness", "Classification": "Neutral - Reviewing Partnerships", "Status": "Monitor next week", "Bucket": "Neutral"}
+    {
+      "Date": "2026-04-21",
+      "Organization": "(redacted)",
+      "Category": "Geriatric Care Managers / Caregiver Resource",
+      "Classification": "Positive",
+      "Status": "Needs monitoring",
+      "Bucket": "Positive"
+    },
+    {
+      "Date": "2026-04-21",
+      "Organization": "(redacted)",
+      "Category": "Senior Living",
+      "Classification": "Neutral - Recycle Later",
+      "Status": "Recycle later",
+      "Bucket": "Neutral"
+    },
+    {
+      "Date": "2026-04-23",
+      "Organization": "(redacted)",
+      "Category": "Church / Community",
+      "Classification": "Neutral - Advertising / Referral",
+      "Status": "Logged",
+      "Bucket": "Neutral"
+    },
+    {
+      "Date": "2026-04-23",
+      "Organization": "(redacted)",
+      "Category": "Employer / HR",
+      "Classification": "Bounce",
+      "Status": "Suppressed",
+      "Bucket": "Bounce"
+    },
+    {
+      "Date": "2026-04-24",
+      "Organization": "(redacted)",
+      "Category": "Gyms / Fitness",
+      "Classification": "Neutral - Reviewing Partnerships",
+      "Status": "Monitor next week",
+      "Bucket": "Neutral"
+    },
+    {
+      "Date": "2026-04-30",
+      "Organization": "(redacted)",
+      "Category": "Senior Concerns / Caregiver Resource",
+      "Classification": "Positive - Materials Requested",
+      "Status": "Needs human follow-up",
+      "Bucket": "Positive"
+    }
   ],
   "latest_batch_summary": {
     "size": 12,
-    "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown."
+    "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown. 2026-05-01 was a recovery run after the morning's tracker showed no New rows with public emails; verified public-email contacts were enriched and deduped against prior partial-run sends and three excluded senior-resource organizations."
   },
   "channel_mix_latest": {
-    "Senior Living / Assisted": 3,
-    "Home Care / Hospice / Health": 9,
-    "Caregiver / Senior Resource": 0,
+    "Senior Living / Assisted": 4,
+    "Home Care / Hospice / Health": 4,
+    "Caregiver / Senior Resource": 4,
     "Health-Adjacent (Chiro/PT/Wellness)": 0,
     "Property / Apartments": 0,
     "Faith / Community": 0,
@@ -67,9 +175,9 @@
     "Other": 0
   },
   "channel_mix_total": {
-    "Senior Living / Assisted": 9,
-    "Home Care / Hospice / Health": 15,
-    "Caregiver / Senior Resource": 3,
+    "Senior Living / Assisted": 13,
+    "Home Care / Hospice / Health": 19,
+    "Caregiver / Senior Resource": 7,
     "Health-Adjacent (Chiro/PT/Wellness)": 19,
     "Property / Apartments": 5,
     "Faith / Community": 10,
@@ -97,9 +205,10 @@
     "Google Sheet is the source of truth; Zoho writeback remains staged"
   ],
   "next_actions": [
-    "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval.",
-    "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email",
-    "Approve dedupe + dry-run plan before enabling Zoho live writeback"
+    "Operator follow-up on the prior-scan positive materials request (senior concerns / caregiver resource) using the approved seminar materials packet.",
+    "Continue senior/caregiver public-email sourcing to keep a healthy New-row buffer ahead of each weekday run and avoid recovery enrichments.",
+    "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email.",
+    "Approve dedupe + dry-run plan before enabling Zoho live writeback."
   ],
   "focus_priority": {
     "tier_1": [
