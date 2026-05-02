@@ -183,9 +183,20 @@ fail the build if any of the following is true:
 - Either file contains forbidden patterns: Google Sheet URLs/IDs,
   GitHub PATs (`ghp_...`, `github_pat_...`), generic secret keys
   (`sk-...`), JWTs, AWS access keys (`AKIA...`), `mailto:` links,
-  any non-operator email address, or any unexpected
-  `clovedds.com` address other than `ip@clovedds.com` and
-  `aryaan@clovedds.com`.
+  Google Ads manager or customer account identifiers (the dashed
+  `NNN-NNN-NNNN` form or the undashed 10-digit API form), any
+  non-operator email address, or any unexpected `clovedds.com`
+  address other than `ip@clovedds.com` and `aryaan@clovedds.com`.
+- The required `google_ads_insights` block is missing or omits any
+  of `title`, `lookback`, `data_freshness`, `automation_status`,
+  `coverage`, `totals`, `risk_summary`, `campaign_groups`,
+  `campaigns`, `recommended_actions`, or `operator_notes`. The
+  validator also rejects account-id keys
+  (`manager_customer_id`, `customer_id`, `account_id`, etc.) at
+  the top level or inside `campaign_groups[]`, requires
+  `coverage.office_label_policy` to declare office mapping as
+  pending, and requires `totals` to expose numeric `campaigns`,
+  `cost_usd`, `clicks`, `conversions`, and `avg_cpc_usd`.
 
 If the validator passes, the snapshot is safe to publish. If it
 fails, fix the upstream sanitization before pushing - do not edit

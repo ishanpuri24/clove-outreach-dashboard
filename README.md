@@ -116,6 +116,14 @@ re-injects the JSON into `index.html` after every sanitization, and
   property, faith/community, schools, chambers, other).
 - Channel scorecard: per-channel sends, replies by bucket, tier,
   confidence, and signal label, with a short qualitative note.
+- Google Ads Waste Watch: aggregated 30-day spend, clicks,
+  conversions, average CPC, and CPA across the linked office's paid
+  search and Performance Max campaigns, with per-campaign risk
+  flags and recommended actions. Manager-account and customer
+  account identifiers are intentionally never exposed; offices
+  appear under a mapping-pending placeholder until the remaining
+  customer IDs are linked. A data-freshness timestamp is shown and
+  daily automation is noted as pending user confirmation.
 - Experiment backlog and queue health with sourcing goals and
   warnings.
 - Operator follow-up queue, redacted to action and channel only.
@@ -137,6 +145,11 @@ prospects or internal operational data:
 - No private operations-repo commit hashes.
 - No tokens, API keys, or other credentials.
 - No `mailto:` links to private prospects.
+- No Google Ads manager-account or customer-account identifiers
+  (neither the dashed `NNN-NNN-NNNN` form nor the undashed 10-digit
+  API form). Office labels surface only as a mapping-pending
+  placeholder; campaign names are the safest grouping shown in the
+  Google Ads Waste Watch section.
 
 Each `replies` entry in `data/snapshot.json` is reduced to its date,
 category, classification bucket, and status. The latest batch is
@@ -163,6 +176,17 @@ The contract enforced by the validator is:
 - No `docs.google.com/spreadsheets/d/...` URLs, no Google Sheet IDs,
   no GitHub PATs, no API keys, no JWTs, no AWS access keys, and no
   `mailto:` links may appear anywhere in those files.
+- No Google Ads manager or customer account identifiers (dashed
+  `NNN-NNN-NNNN` or undashed 10-digit API form) may appear anywhere
+  in `data/snapshot.json` or `index.html`.
+- `google_ads_insights` is required and must include `title`,
+  `lookback`, `data_freshness`, `automation_status`, `coverage`,
+  `totals`, `risk_summary`, `campaign_groups`, `campaigns`,
+  `recommended_actions`, and `operator_notes`. Account-id keys
+  (`manager_customer_id`, `customer_id`, `account_id`, etc.) are
+  rejected at both the top level and inside `campaign_groups[]`.
+  `coverage.office_label_policy` must explicitly state that office
+  mapping is pending until the remaining customer IDs are linked.
 
 The validator (see below) enforces all of the above on every run.
 

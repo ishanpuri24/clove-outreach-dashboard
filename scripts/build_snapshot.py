@@ -8,14 +8,15 @@ mirror is produced by:
   1. Running the private builder to generate the unsanitized snapshot.
   2. Passing the result through ``sanitize_for_public()`` below to
      strip recipient-level data, reply senders, free-text summaries,
-     and the internal Google Sheet identifier.
+     the internal Google Sheet identifier, and Google Ads
+     manager/customer account identifiers.
   3. Writing the sanitized snapshot to ``data/snapshot.json`` and
      re-injecting the JSON between the ``/* SNAPSHOT_START */`` and
      ``/* SNAPSHOT_END */`` markers in ``index.html``.
 
-The public dashboard never receives raw replies, recipient emails, or
-the operations sheet URL. See ``README.md`` for the full list of
-fields that are dropped.
+The public dashboard never receives raw replies, recipient emails,
+the operations sheet URL, or any Google Ads account/customer IDs.
+See ``README.md`` for the full list of fields that are dropped.
 """
 
 from __future__ import annotations
@@ -88,6 +89,26 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
     gh["source_repo_visibility"] = "private"
     gh["dashboard_repo"] = "ishanpuri24/clove-outreach-dashboard"
     out["github"] = gh
+
+    ads = out.get("google_ads_insights")
+    if isinstance(ads, dict):
+        forbidden_account_keys = (
+            "manager_customer_id",
+            "manager_account_id",
+            "customer_id",
+            "customer_ids",
+            "account_id",
+            "account_ids",
+            "login_customer_id",
+            "account_label",
+        )
+        for key in forbidden_account_keys:
+            ads.pop(key, None)
+        for group in ads.get("campaign_groups") or []:
+            if isinstance(group, dict):
+                for key in forbidden_account_keys:
+                    group.pop(key, None)
+        out["google_ads_insights"] = ads
 
     return out
 

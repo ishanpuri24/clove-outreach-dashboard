@@ -61,7 +61,31 @@ REQUIRED_TOP_LEVEL_SECTIONS = [
     "guardrails",
     "next_actions",
     "focus_priority",
+    "google_ads_insights",
     "_sanitization",
+]
+
+REQUIRED_GOOGLE_ADS_FIELDS = [
+    "title",
+    "lookback",
+    "data_freshness",
+    "automation_status",
+    "coverage",
+    "totals",
+    "risk_summary",
+    "campaign_groups",
+    "campaigns",
+    "recommended_actions",
+    "operator_notes",
+]
+
+REQUIRED_GOOGLE_ADS_TOTALS = [
+    "campaigns",
+    "cost_usd",
+    "clicks",
+    "conversions",
+    "avg_cpc_usd",
+    "cpa_usd",
 ]
 
 REQUIRED_KPI_FIELDS = [
@@ -109,6 +133,15 @@ FORBIDDEN_PATTERNS: list[tuple[str, str]] = [
     (r"mailto:", "mailto link in public mirror"),
     # AWS access keys.
     (r"\bAKIA[0-9A-Z]{16}\b", "AWS access key id"),
+    # Google Ads customer / manager account IDs. The dashed shape
+    # (NNN-NNN-NNNN) is the canonical Google Ads UI form; the
+    # undashed 10-digit shape is the API form. Both must be redacted
+    # in the public mirror.
+    (r"\b\d{3}-\d{3}-\d{4}\b", "Google Ads dashed customer/manager id"),
+    (
+        r"(?<![\d-])(?:customers/)?\d{10}(?![\d-])",
+        "Google Ads undashed 10-digit customer id",
+    ),
 ]
 
 
@@ -240,6 +273,100 @@ def check_latest_batch_redacted(snap: dict[str, Any]) -> None:
         _fail("latest_batch_summary.size is required.")
 
 
+def check_google_ads_insights(snap: dict[str, Any]) -> None:
+    ads = snap.get("google_ads_insights")
+    if not isinstance(ads, dict):
+        _fail("snapshot.json google_ads_insights must be an object.")
+    missing = [k for k in REQUIRED_GOOGLE_ADS_FIELDS if k not in ads]
+    if missing:
+        _fail(
+            "snapshot.json google_ads_insights missing required "
+            f"fields: {missing}"
+        )
+
+    forbidden_account_keys = {
+        "manager_customer_id",
+        "manager_account_id",
+        "customer_id",
+        "customer_ids",
+        "account_id",
+        "account_ids",
+        "login_customer_id",
+    }
+    leaked = forbidden_account_keys.intersection(ads.keys())
+    if leaked:
+        _fail(
+            "google_ads_insights exposes forbidden account-id fields "
+            f"{sorted(leaked)}; account identifiers must never appear "
+            "in the public mirror."
+        )
+    for idx, group in enumerate(ads.get("campaign_groups") or []):
+        if not isinstance(group, dict):
+            _fail(f"google_ads_insights.campaign_groups[{idx}] is not an object")
+        leaked_g = forbidden_account_keys.intersection(group.keys())
+        if leaked_g:
+            _fail(
+                f"google_ads_insights.campaign_groups[{idx}] exposes "
+                f"forbidden account-id fields {sorted(leaked_g)}."
+            )
+
+    totals = ads.get("totals") or {}
+    missing_totals = [k for k in REQUIRED_GOOGLE_ADS_TOTALS if k not in totals]
+    if missing_totals:
+        _fail(
+            "google_ads_insights.totals missing required fields: "
+            f"{missing_totals}"
+        )
+    numeric_totals = [
+        "campaigns",
+        "cost_usd",
+        "clicks",
+        "conversions",
+        "avg_cpc_usd",
+    ]
+    for field in numeric_totals:
+        if not isinstance(totals.get(field), (int, float)):
+            _fail(
+                f"google_ads_insights.totals['{field}'] must be numeric."
+            )
+    cpa = totals.get("cpa_usd")
+    if cpa is not None and not isinstance(cpa, (int, float)):
+        _fail("google_ads_insights.totals['cpa_usd'] must be numeric or null.")
+
+    campaigns = ads.get("campaigns")
+    if not isinstance(campaigns, list) or not campaigns:
+        _fail("google_ads_insights.campaigns must be a non-empty list.")
+    required_campaign_fields = {
+        "campaign_name",
+        "channel",
+        "cost_usd",
+        "clicks",
+        "conversions",
+        "avg_cpc_usd",
+        "conversion_rate_pct",
+        "risk",
+        "recommended_action",
+    }
+    for idx, c in enumerate(campaigns):
+        if not isinstance(c, dict):
+            _fail(f"google_ads_insights.campaigns[{idx}] is not an object")
+        missing_c = required_campaign_fields - c.keys()
+        if missing_c:
+            _fail(
+                f"google_ads_insights.campaigns[{idx}] missing required "
+                f"fields: {sorted(missing_c)}"
+            )
+
+    coverage = ads.get("coverage") or {}
+    label_policy = (coverage.get("office_label_policy") or "").lower()
+    if "mapping pending" not in label_policy and "pending" not in label_policy:
+        _fail(
+            "google_ads_insights.coverage.office_label_policy must "
+            "explicitly state that office mapping is pending until "
+            "remaining customer IDs are linked."
+        )
+
+
 def check_github_section_redacted(snap: dict[str, Any]) -> None:
     gh = snap.get("github") or {}
     forbidden = {
@@ -323,6 +450,7 @@ def main() -> int:
         check_replies_redacted(snap)
         check_latest_batch_redacted(snap)
         check_github_section_redacted(snap)
+        check_google_ads_insights(snap)
 
         snapshot_text = DATA_FILE.read_text(encoding="utf-8")
         if not INDEX_HTML.exists():

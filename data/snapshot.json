@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-01T16:00:00+00:00",
+  "generated_at": "2026-05-02T00:00:00+00:00",
   "task": {
     "id": "a3b9de2f",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -457,8 +457,185 @@
       "Generic chambers, churches, schools/PTAs, and community centers"
     ]
   },
+  "google_ads_insights": {
+    "title": "Google Ads Waste Watch",
+    "subtitle": "Paid media office watch for the first linked Google Ads child account. Manager-account, customer-IDs, and account labels are intentionally not exposed in the public mirror.",
+    "lookback": "LAST_30_DAYS",
+    "data_freshness": "2026-05-02T00:00:00+00:00",
+    "automation_status": "Manual refresh. Daily automation pending user confirmation; no scheduled job is active.",
+    "coverage": {
+      "linked_offices": 1,
+      "offices_pending_link": "remaining",
+      "office_label_policy": "First linked office account - mapping pending. Office identifiers and account IDs are never exposed in the public mirror; campaign-name groupings are used as a safer office hint where available.",
+      "next_step": "Link the remaining office customer IDs under the manager account so each office can be reported as its own row in this section."
+    },
+    "totals": {
+      "campaigns": 8,
+      "cost_usd": 7735.37,
+      "clicks": 1371,
+      "conversions": 141.99,
+      "avg_cpc_usd": 5.64,
+      "cpa_usd": 54.48,
+      "phone_calls": 142
+    },
+    "risk_summary": {
+      "high": 2,
+      "monitor": 5,
+      "low_volume_no_conversions": 1,
+      "high_cost_share_pct": 44.86,
+      "note": "High-risk campaigns currently absorb the largest share of spend without matching conversion volume. Prioritize search-query review and negative-keyword sweeps before raising any budget."
+    },
+    "campaign_groups": [
+      {
+        "group": "First linked office - mapping pending",
+        "office_label": "First linked office account - mapping pending",
+        "office_hint": "Inferred from campaign-name prefixes (JZ-Search, PMAX, Insurance, General-Search, Emergency).",
+        "campaigns": 8,
+        "cost_usd": 7735.37,
+        "conversions": 141.99,
+        "note": "Account ID intentionally omitted from public mirror. Office mapping resolves once the remaining customer IDs are linked under the manager account."
+      }
+    ],
+    "campaigns": [
+      {
+        "campaign_name": "JZ-Search-Clove",
+        "channel": "SEARCH",
+        "cost_usd": 1880.05,
+        "clicks": 182,
+        "conversions": 11.0,
+        "avg_cpc_usd": 10.33,
+        "conversion_rate_pct": 6.04,
+        "cpa_usd": 170.91,
+        "risk": "High",
+        "flags": [
+          "High CPC vs account average",
+          "CPA more than triple account average"
+        ],
+        "recommended_action": "Review search queries and ad-group targeting. Add negatives for low-intent terms; isolate brand vs non-brand traffic before sustaining spend."
+      },
+      {
+        "campaign_name": "JZ-Search-Cam - Dentical",
+        "channel": "SEARCH",
+        "cost_usd": 1589.43,
+        "clicks": 391,
+        "conversions": 6.0,
+        "avg_cpc_usd": 4.07,
+        "conversion_rate_pct": 1.53,
+        "cpa_usd": 264.91,
+        "risk": "High",
+        "flags": [
+          "Conversion rate under 2 pct on highest-click search campaign",
+          "CPA roughly five times account average"
+        ],
+        "recommended_action": "Audit landing page and offer fit. Pause or rebuild if no conversion-rate lift after a one-week negative-keyword sweep."
+      },
+      {
+        "campaign_name": "PMAX - gbp 8/1/2025",
+        "channel": "PERFORMANCE_MAX",
+        "cost_usd": 1960.51,
+        "clicks": 394,
+        "conversions": 29.0,
+        "avg_cpc_usd": 4.98,
+        "conversion_rate_pct": 7.36,
+        "cpa_usd": 67.6,
+        "risk": "Monitor",
+        "flags": [
+          "Largest single line of spend"
+        ],
+        "recommended_action": "Hold spend. Validate asset-group performance against the Insurance Performance Max benchmark; pull placements report weekly."
+      },
+      {
+        "campaign_name": "Insurance",
+        "channel": "SEARCH",
+        "cost_usd": 895.72,
+        "clicks": 153,
+        "conversions": 29.02,
+        "avg_cpc_usd": 5.85,
+        "conversion_rate_pct": 18.97,
+        "cpa_usd": 30.87,
+        "risk": "Monitor",
+        "flags": [
+          "Strong conversion rate; consider scaling carefully"
+        ],
+        "recommended_action": "Continue. Test a measured budget lift only after confirming CPA holds for two consecutive weeks."
+      },
+      {
+        "campaign_name": "General-Search-15/10",
+        "channel": "SEARCH",
+        "cost_usd": 561.14,
+        "clicks": 76,
+        "conversions": 12.98,
+        "avg_cpc_usd": 7.38,
+        "conversion_rate_pct": 17.08,
+        "cpa_usd": 43.22,
+        "risk": "Monitor",
+        "flags": [
+          "Healthy conversion rate; CPC running above account average"
+        ],
+        "recommended_action": "Maintain. Trim high-CPC keywords that do not convert in a 14-day window."
+      },
+      {
+        "campaign_name": "Insurance-Performance Max-15/4/26",
+        "channel": "PERFORMANCE_MAX",
+        "cost_usd": 503.82,
+        "clicks": 151,
+        "conversions": 50.99,
+        "avg_cpc_usd": 3.34,
+        "conversion_rate_pct": 33.77,
+        "cpa_usd": 9.88,
+        "risk": "Monitor",
+        "flags": [
+          "Best CPA and conversion rate in the account"
+        ],
+        "recommended_action": "Protect. Use as the benchmark when reviewing JZ-Search-Cam and the older PMAX line."
+      },
+      {
+        "campaign_name": "Emergency - 3/10/26",
+        "channel": "SEARCH",
+        "cost_usd": 303.12,
+        "clicks": 13,
+        "conversions": 3.0,
+        "avg_cpc_usd": 23.32,
+        "conversion_rate_pct": 23.08,
+        "cpa_usd": 101.04,
+        "risk": "Monitor",
+        "flags": [
+          "Very high CPC; thin click volume"
+        ],
+        "recommended_action": "Monitor. Acceptable for emergency intent but verify call-tracking attribution before increasing budget."
+      },
+      {
+        "campaign_name": "JZ-Search-Clove - Spanish",
+        "channel": "SEARCH",
+        "cost_usd": 41.59,
+        "clicks": 11,
+        "conversions": 0.0,
+        "avg_cpc_usd": 3.78,
+        "conversion_rate_pct": 0.0,
+        "cpa_usd": null,
+        "risk": "Low volume / no conversions",
+        "flags": [
+          "Zero conversions",
+          "Volume too low to evaluate"
+        ],
+        "recommended_action": "Hold at minimum spend or pause. Revisit only with a Spanish-language landing page and call routing."
+      }
+    ],
+    "recommended_actions": [
+      "Cut or rebuild JZ-Search-Cam - Dentical: 1.53 pct conversion rate and CPA over 260 USD on the largest search-click base in the account.",
+      "Run a negative-keyword and search-query sweep on JZ-Search-Clove before sustaining spend at a 10 USD CPC.",
+      "Use Insurance-Performance Max-15/4/26 as the conversion-rate benchmark when judging the older PMAX - gbp line.",
+      "Pause or down-weight JZ-Search-Clove - Spanish until a Spanish landing page and call routing are in place.",
+      "Link the remaining office customer IDs under the manager account so this section can break out spend and CPA per office."
+    ],
+    "operator_notes": [
+      "Data is pulled directly from the Google Ads API for the LAST_30_DAYS window; all customer and manager account IDs are intentionally omitted from the public mirror.",
+      "Daily automation is pending user confirmation. Until then, this section is refreshed manually alongside the rest of the snapshot.",
+      "Office labels will replace the placeholder once the remaining customer IDs are linked and a private mapping table is in place."
+    ]
+  },
   "_sanitization": {
-    "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, and operating guardrails. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, and private operations-repo commit hashes are removed.",
+    "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
     "removed_fields": [
       "sources.sheet_url",
       "sources.sheet_id",
@@ -471,7 +648,10 @@
       "next_actions free-text references to specific prospects",
       "daily[].next_focus references to specific prospect names",
       "human_followups[] redacted to action and channel only; identities live in private Sheet",
-      "private operations-repo commit hashes"
+      "private operations-repo commit hashes",
+      "google_ads_insights manager_customer_id (never exposed)",
+      "google_ads_insights child customer_id values (never exposed)",
+      "google_ads_insights account_label raw text (replaced with mapping-pending placeholder)"
     ]
   }
 }
