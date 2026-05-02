@@ -180,12 +180,48 @@
     }
 
     section { margin: 22px 0; }
+    section[hidden] { display: none; }
     h2 {
       font-size: 1rem;
       font-weight: 600;
       margin: 0 0 10px;
       color: var(--text);
       letter-spacing: -0.005em;
+    }
+
+    /* -------- Tabs -------- */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      border-bottom: 1px solid var(--border);
+      margin: 6px 0 18px;
+    }
+    .tab {
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 8px 8px 0 0;
+      border: 1px solid transparent;
+      border-bottom: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 14px;
+      letter-spacing: -0.005em;
+    }
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      border-color: var(--border);
+      color: var(--text);
+      box-shadow: 0 -1px 0 var(--surface);
+      position: relative;
+      top: 1px;
+    }
+    .tab-panel { outline: none; }
+    .tab-meta {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin: 0 0 14px;
     }
     .section-meta {
       font-size: 12.5px;
@@ -456,184 +492,256 @@
     </header>
 
     <main id="main">
-      <!-- Executive status -->
-      <section aria-labelledby="exec">
-        <h2 id="exec">Executive status</h2>
-        <div class="card exec-card">
-          <div class="grid cards-2">
-            <div class="stack">
-              <div><strong>Latest run:</strong>
-                <span id="exec-date" class="mono"></span></div>
-              <div><strong>Sender:</strong>
-                <span id="exec-sender" class="mono"></span></div>
-              <div><strong>Schedule:</strong>
-                <span id="exec-schedule"></span></div>
-              <div><strong>Daily cap:</strong>
-                <span id="exec-cap" class="mono"></span></div>
-            </div>
-            <div class="stack">
-              <div><strong>Source of truth:</strong>
-                <span id="exec-sheet"></span></div>
-              <div><strong>Zoho writeback:</strong>
-                <span id="exec-zoho"></span></div>
-              <div><strong>Public mirror:</strong>
-                <a id="exec-gh" href="#" target="_blank" rel="noopener">dashboard repo</a>
+      <div class="tabs" role="tablist" aria-label="Dashboard sections">
+        <button class="tab" role="tab" id="tab-ads"
+                aria-controls="panel-ads" aria-selected="true">
+          Google Ads
+        </button>
+        <button class="tab" role="tab" id="tab-outreach"
+                aria-controls="panel-outreach" aria-selected="false">
+          B2B Outreach
+        </button>
+      </div>
+
+      <!-- =================== Google Ads tab =================== -->
+      <div id="panel-ads" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-ads" tabindex="0">
+        <p class="tab-meta">
+          Paid media performance for the linked Google Ads child account
+          over the last 30 days. Recommendations are dashboard-only; no
+          changes are pushed to the live account from this view.
+          Manager-account, customer IDs, and account labels are
+          intentionally not exposed in the public mirror.
+        </p>
+
+        <!-- Ads coverage / mapping notice -->
+        <section aria-labelledby="ads">
+          <h2 id="ads">
+            <span id="ads-title">Google Ads Waste Watch</span>
+          </h2>
+          <div class="section-meta" id="ads-subtitle"></div>
+          <div class="card" id="ads-coverage-card"></div>
+        </section>
+
+        <!-- Ads KPIs -->
+        <section aria-labelledby="ads-kpi">
+          <h2 id="ads-kpi">Key paid media indicators</h2>
+          <div class="grid kpi" id="ads-kpi-grid"></div>
+        </section>
+
+        <!-- Risk + budget shift -->
+        <section aria-labelledby="ads-risk">
+          <h2 id="ads-risk">Risk and budget shift guidance</h2>
+          <div class="section-meta">High-risk spend identifies waste to
+            review; budget shift guidance only applies after call and
+            booking quality is verified.</div>
+          <div class="grid two">
+            <div class="card" id="ads-risk-card"></div>
+            <div class="card" id="ads-budget-card"></div>
+          </div>
+        </section>
+
+        <!-- Campaign decisions -->
+        <section aria-labelledby="ads-campaigns">
+          <h2 id="ads-campaigns">Campaign decisions</h2>
+          <div class="section-meta">Each campaign lists priority, the
+            decision, what to change, why, and concrete next steps.
+            Order: high-priority first, then protect, then monitor.</div>
+          <div class="card" id="ads-campaigns-card"></div>
+        </section>
+
+        <!-- Ad-group action list -->
+        <section aria-labelledby="ads-adgroups">
+          <h2 id="ads-adgroups">Ad-group action list</h2>
+          <div class="section-meta">Highest-priority ad-group fixes
+            inside the campaigns above. Use this as the working punch
+            list when reviewing search terms and bids.</div>
+          <div class="card" id="ads-adgroups-card"></div>
+        </section>
+
+        <!-- Recommended actions / notes -->
+        <section aria-labelledby="ads-actions">
+          <h2 id="ads-actions">Recommended actions and operator notes</h2>
+          <div class="card" id="ads-actions-card"></div>
+        </section>
+      </div>
+
+      <!-- =================== B2B Outreach tab =================== -->
+      <div id="panel-outreach" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-outreach" tabindex="0" hidden>
+        <p class="tab-meta">
+          B2B email outreach status for the seminar offer. Identities,
+          reply text, the operations Sheet ID, and private repo
+          commits are not exposed in the public mirror.
+        </p>
+
+        <!-- Executive status -->
+        <section aria-labelledby="exec">
+          <h2 id="exec">Executive status</h2>
+          <div class="card exec-card">
+            <div class="grid cards-2">
+              <div class="stack">
+                <div><strong>Latest run:</strong>
+                  <span id="exec-date" class="mono"></span></div>
+                <div><strong>Sender:</strong>
+                  <span id="exec-sender" class="mono"></span></div>
+                <div><strong>Schedule:</strong>
+                  <span id="exec-schedule"></span></div>
+                <div><strong>Daily cap:</strong>
+                  <span id="exec-cap" class="mono"></span></div>
               </div>
-              <div><strong>Sanitization:</strong>
-                <span id="exec-sanitization"></span></div>
+              <div class="stack">
+                <div><strong>Source of truth:</strong>
+                  <span id="exec-sheet"></span></div>
+                <div><strong>Zoho writeback:</strong>
+                  <span id="exec-zoho"></span></div>
+                <div><strong>Public mirror:</strong>
+                  <a id="exec-gh" href="#" target="_blank" rel="noopener">dashboard repo</a>
+                </div>
+                <div><strong>Sanitization:</strong>
+                  <span id="exec-sanitization"></span></div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- KPIs -->
-      <section aria-labelledby="kpi">
-        <h2 id="kpi">Key indicators</h2>
-        <div class="grid kpi" id="kpi-grid"></div>
-      </section>
+        <!-- KPIs -->
+        <section aria-labelledby="kpi">
+          <h2 id="kpi">Key indicators</h2>
+          <div class="grid kpi" id="kpi-grid"></div>
+        </section>
 
-      <!-- Queue health / tomorrow readiness -->
-      <section aria-labelledby="queue">
-        <h2 id="queue">Queue health and tomorrow readiness</h2>
-        <div class="section-meta">Forward-looking risk view: whether
-          there is enough sourced public-email supply to fill the
-          next weekday run without recovery enrichment.</div>
-        <div class="card" id="queue-card"></div>
-      </section>
+        <!-- Queue health / tomorrow readiness -->
+        <section aria-labelledby="queue">
+          <h2 id="queue">Queue health and tomorrow readiness</h2>
+          <div class="section-meta">Forward-looking risk view: whether
+            there is enough sourced public-email supply to fill the
+            next weekday run without recovery enrichment.</div>
+          <div class="card" id="queue-card"></div>
+        </section>
 
-      <!-- Channel scorecard -->
-      <section aria-labelledby="scorecard">
-        <h2 id="scorecard">Channel scorecard</h2>
-        <div class="section-meta">Reply signal and current confidence
-          per channel. Tier reflects the seminar offer's fit.
-          Confidence reflects sample size and signal stability.</div>
-        <div class="card" id="scorecard-card"></div>
-      </section>
+        <!-- Channel scorecard -->
+        <section aria-labelledby="scorecard">
+          <h2 id="scorecard">Channel scorecard</h2>
+          <div class="section-meta">Reply signal and current confidence
+            per channel. Tier reflects the seminar offer's fit.
+            Confidence reflects sample size and signal stability.</div>
+          <div class="card" id="scorecard-card"></div>
+        </section>
 
-      <!-- Google Ads Waste Watch -->
-      <section aria-labelledby="ads">
-        <h2 id="ads">
-          <span id="ads-title">Google Ads Waste Watch</span>
-        </h2>
-        <div class="section-meta" id="ads-subtitle"></div>
-        <div class="card" id="ads-coverage-card"></div>
-        <div class="grid kpi" id="ads-kpi-grid" style="margin-top:12px;"></div>
-        <div class="card" id="ads-campaigns-card" style="margin-top:12px;"></div>
-        <div class="card" id="ads-actions-card" style="margin-top:12px;"></div>
-      </section>
-
-      <!-- Trend -->
-      <section aria-labelledby="trend">
-        <h2 id="trend">Daily send and reply trend</h2>
-        <div class="section-meta">Bars are emails sent per weekday;
-          the line is cumulative sends. Capacity ceiling is 12 per day.</div>
-        <div class="card">
-          <svg id="trend-chart" class="chart"
-               role="img" aria-label="Daily send and cumulative trend"></svg>
-          <div class="legend">
-            <span><span class="swatch" style="background: var(--accent);"></span>Sent that weekday</span>
-            <span><span class="swatch" style="background: var(--warn);"></span>Cumulative sends</span>
-            <span><span class="swatch" style="background: var(--border);"></span>Daily cap (12)</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Reply mix + channel mix -->
-      <section aria-labelledby="mix">
-        <h2 id="mix">Reply mix and latest channel mix</h2>
-        <div class="grid two">
+        <!-- Trend -->
+        <section aria-labelledby="trend">
+          <h2 id="trend">Daily send and reply trend</h2>
+          <div class="section-meta">Bars are emails sent per weekday;
+            the line is cumulative sends. Capacity ceiling is 12 per day.</div>
           <div class="card">
-            <div class="section-meta">Reply signals to date,
-              classified per the safety policy.</div>
-            <svg id="reply-chart" class="chart"
-                 role="img" aria-label="Reply classification bar chart"></svg>
+            <svg id="trend-chart" class="chart"
+                 role="img" aria-label="Daily send and cumulative trend"></svg>
+            <div class="legend">
+              <span><span class="swatch" style="background: var(--accent);"></span>Sent that weekday</span>
+              <span><span class="swatch" style="background: var(--warn);"></span>Cumulative sends</span>
+              <span><span class="swatch" style="background: var(--border);"></span>Daily cap (12)</span>
+            </div>
           </div>
+        </section>
+
+        <!-- Reply mix + channel mix -->
+        <section aria-labelledby="mix">
+          <h2 id="mix">Reply mix and latest channel mix</h2>
+          <div class="grid two">
+            <div class="card">
+              <div class="section-meta">Reply signals to date,
+                classified per the safety policy.</div>
+              <svg id="reply-chart" class="chart"
+                   role="img" aria-label="Reply classification bar chart"></svg>
+            </div>
+            <div class="card">
+              <div class="section-meta">Channel mix of the latest sent batch.
+                The Sheet's Category column remains authoritative.</div>
+              <svg id="channel-chart" class="chart"
+                   role="img" aria-label="Channel mix bar chart"></svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- Outreach experiment board -->
+        <section aria-labelledby="experiments">
+          <h2 id="experiments">Outreach experiment board</h2>
+          <div class="section-meta">Active and queued copy and channel
+            tests. Each experiment names a hypothesis, the channel,
+            and the next operator step.</div>
+          <div class="card" id="experiments-card"></div>
+        </section>
+
+        <!-- Human follow-ups -->
+        <section aria-labelledby="followups">
+          <h2 id="followups">Human follow-up queue</h2>
+          <div class="section-meta">Action items for the operator.
+            Identities are redacted in the public mirror; the private
+            Sheet links each item to the underlying reply.</div>
+          <div class="card" id="followups-card"></div>
+        </section>
+
+        <!-- Replies -->
+        <section aria-labelledby="replies">
+          <h2 id="replies">Reply insights</h2>
           <div class="card">
-            <div class="section-meta">Channel mix of the latest sent batch.
-              The Sheet's Category column remains authoritative.</div>
-            <svg id="channel-chart" class="chart"
-                 role="img" aria-label="Channel mix bar chart"></svg>
-          </div>
-        </div>
-      </section>
-
-      <!-- Outreach experiment board -->
-      <section aria-labelledby="experiments">
-        <h2 id="experiments">Outreach experiment board</h2>
-        <div class="section-meta">Active and queued copy and channel
-          tests. Each experiment names a hypothesis, the channel,
-          and the next operator step.</div>
-        <div class="card" id="experiments-card"></div>
-      </section>
-
-      <!-- Human follow-ups -->
-      <section aria-labelledby="followups">
-        <h2 id="followups">Human follow-up queue</h2>
-        <div class="section-meta">Action items for the operator.
-          Identities are redacted in the public mirror; the private
-          Sheet links each item to the underlying reply.</div>
-        <div class="card" id="followups-card"></div>
-      </section>
-
-      <!-- Replies -->
-      <section aria-labelledby="replies">
-        <h2 id="replies">Reply insights</h2>
-        <div class="card">
-          <div id="replies-empty" class="section-meta" hidden>
-            No reply signals yet for the loaded history window.
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Category</th>
-                  <th>Bucket</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody id="replies-body"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- Guardrail status -->
-      <section aria-labelledby="guard">
-        <h2 id="guard">Guardrail status</h2>
-        <div class="section-meta">Each rule lists current status
-          and the evidence used to verify it for the loaded window.</div>
-        <div class="card" id="guardrail-status-card"></div>
-      </section>
-
-      <!-- Focus tiers -->
-      <section aria-labelledby="focus">
-        <h2 id="focus">Channel priority tiers</h2>
-        <div class="card">
-          <div class="stack">
-            <div>
-              <div><strong>Tier 1 (priority)</strong></div>
-              <ul class="checks" id="tier1-list"></ul>
+            <div id="replies-empty" class="section-meta" hidden>
+              No reply signals yet for the loaded history window.
             </div>
-            <div>
-              <div><strong>Tier 2 (limited test)</strong></div>
-              <ul class="checks" id="tier2-list"></ul>
-            </div>
-            <div>
-              <div><strong>Deprioritized</strong></div>
-              <ul class="checks" id="depri-list"></ul>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Category</th>
+                    <th>Bucket</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="replies-body"></tbody>
+              </table>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Next actions -->
-      <section aria-labelledby="next">
-        <h2 id="next">Next recommended actions</h2>
-        <div class="card">
-          <ul class="checks" id="next-list"></ul>
-        </div>
-      </section>
+        <!-- Guardrail status -->
+        <section aria-labelledby="guard">
+          <h2 id="guard">Guardrail status</h2>
+          <div class="section-meta">Each rule lists current status
+            and the evidence used to verify it for the loaded window.</div>
+          <div class="card" id="guardrail-status-card"></div>
+        </section>
+
+        <!-- Focus tiers -->
+        <section aria-labelledby="focus">
+          <h2 id="focus">Channel priority tiers</h2>
+          <div class="card">
+            <div class="stack">
+              <div>
+                <div><strong>Tier 1 (priority)</strong></div>
+                <ul class="checks" id="tier1-list"></ul>
+              </div>
+              <div>
+                <div><strong>Tier 2 (limited test)</strong></div>
+                <ul class="checks" id="tier2-list"></ul>
+              </div>
+              <div>
+                <div><strong>Deprioritized</strong></div>
+                <ul class="checks" id="depri-list"></ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next actions -->
+        <section aria-labelledby="next">
+          <h2 id="next">Next recommended outreach actions</h2>
+          <div class="card">
+            <ul class="checks" id="next-list"></ul>
+          </div>
+        </section>
+      </div>
     </main>
 
     <footer class="foot">
@@ -647,7 +755,7 @@
   </div>
 
   <script id="snapshot-data" type="application/json">/* SNAPSHOT_START */
-window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id": "a3b9de2f", "schedule": "Weekdays 08:30 America/Los_Angeles", "sender": "ip@clovedds.com", "daily_cap": 12}, "sources": {"sheet_url": "(redacted - private operations sheet)", "sheet_id": "(redacted)", "tabs": ["Leads", "Adjacent Referral Leads", "Daily Outreach Log", "Reply Insights"]}, "kpis": {"total_sends": 96, "weekdays_run": 8, "latest_date": "2026-05-01", "latest_sends": 12, "latest_cap_usage_pct": 100, "latest_new_contacts_found": 12, "total_reply_signals": 6, "positive_warm_replies": 2, "bounces": 1, "ccs_used_on_initial": 0, "reply_rate_pct": 6.25, "positive_rate_pct": 2.08}, "daily": [{"date": "2026-04-21", "sent": 12, "cap": 12, "new_contacts_found": 53, "replies": 2, "cumulative": 12, "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."}, {"date": "2026-04-22", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 0, "cumulative": 24, "next_focus": "Continue health-adjacent and wellness/property/community mix."}, {"date": "2026-04-23", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 2, "cumulative": 36, "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."}, {"date": "2026-04-24", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 1, "cumulative": 48, "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."}, {"date": "2026-04-27", "sent": 12, "cap": 12, "new_contacts_found": 6, "replies": 0, "cumulative": 60, "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."}, {"date": "2026-04-28", "sent": 12, "cap": 12, "new_contacts_found": 9, "replies": 0, "cumulative": 72, "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."}, {"date": "2026-04-29", "sent": 12, "cap": 12, "new_contacts_found": 7, "replies": 0, "cumulative": 84, "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."}, {"date": "2026-05-01", "sent": 12, "cap": 12, "new_contacts_found": 12, "replies": 0, "cumulative": 96, "next_focus": "Recovery run completed at full cap after enriching verified senior/caregiver public-email contacts and applying dedupe exclusions; route prior-batch positive materials request to operator follow-up."}], "reply_mix": {"Positive": 2, "Neutral": 3, "Not Interested / Unsubscribe": 0, "Bounce": 1, "Other": 0}, "replies": [{"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Geriatric Care Managers / Caregiver Resource", "Classification": "Positive", "Status": "Needs monitoring", "Bucket": "Positive"}, {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Senior Living", "Classification": "Neutral - Recycle Later", "Status": "Recycle later", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Church / Community", "Classification": "Neutral - Advertising / Referral", "Status": "Logged", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Employer / HR", "Classification": "Bounce", "Status": "Suppressed", "Bucket": "Bounce"}, {"Date": "2026-04-24", "Organization": "(redacted)", "Category": "Gyms / Fitness", "Classification": "Neutral - Reviewing Partnerships", "Status": "Monitor next week", "Bucket": "Neutral"}, {"Date": "2026-04-30", "Organization": "(redacted)", "Category": "Senior Concerns / Caregiver Resource", "Classification": "Positive - Materials Requested", "Status": "Needs human follow-up", "Bucket": "Positive"}], "latest_batch_summary": {"size": 12, "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown. 2026-05-01 was a recovery run after the morning's tracker showed no New rows with public emails; verified public-email contacts were enriched and deduped against prior partial-run sends and three excluded senior-resource organizations."}, "channel_mix_latest": {"Senior Living / Assisted": 4, "Home Care / Hospice / Health": 4, "Caregiver / Senior Resource": 4, "Health-Adjacent (Chiro/PT/Wellness)": 0, "Property / Apartments": 0, "Faith / Community": 0, "Schools / PTA / Rec": 0, "Chambers / Civic": 0, "Other": 0}, "channel_mix_total": {"Senior Living / Assisted": 13, "Home Care / Hospice / Health": 19, "Caregiver / Senior Resource": 7, "Health-Adjacent (Chiro/PT/Wellness)": 19, "Property / Apartments": 5, "Faith / Community": 10, "Schools / PTA / Rec": 7, "Chambers / Civic": 7, "Other": 9}, "channel_scorecard": [{"channel": "Caregiver / Senior Resource", "sends": 7, "positive": 2, "neutral": 0, "bounce": 0, "tier": "Tier 1", "confidence": "High", "signal": "Strong", "note": "Both positive replies to date came from this channel, including a materials-requested signal. Highest reply yield per send. Continue prioritizing sourcing here."}, {"channel": "Senior Living / Assisted", "sends": 13, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Tier 1", "confidence": "Medium", "signal": "Warming", "note": "Sustained engagement with one recycle-later signal. Public-email coverage remains the bottleneck; phone/form follow-up recommended for high-fit no-email targets."}, {"channel": "Home Care / Hospice / Health", "sends": 19, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Tier 1", "confidence": "Medium", "signal": "Quiet", "note": "Largest tier-1 volume but no replies yet. Test a hospice oral-comfort resource angle and a shorter subject line variant before scaling further."}, {"channel": "Health-Adjacent (Chiro/PT/Wellness)", "sends": 19, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Tier 2", "confidence": "Low", "signal": "Marginal", "note": "One reviewing-partnerships neutral. Hold at limited test volume; do not crowd out tier-1 sourcing capacity."}, {"channel": "Faith / Community", "sends": 10, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Off-pattern", "note": "Single advertising/referral neutral. Continue deprioritization unless a partner-fit referral pathway emerges."}, {"channel": "Property / Apartments", "sends": 5, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Tier 2", "confidence": "Low", "signal": "Untested", "note": "Volume too low to score. Pause unless decision-maker public emails can be sourced cleanly."}, {"channel": "Employer / HR", "sends": 0, "positive": 0, "neutral": 0, "bounce": 1, "tier": "Tier 2", "confidence": "Low", "signal": "Suppressed", "note": "Only signal so far is a hard bounce. Suppress address; do not expand without verified-email sourcing."}, {"channel": "Chambers / Civic", "sends": 7, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Quiet", "note": "No replies. Keep deprioritized; not a senior-decision-maker channel."}, {"channel": "Schools / PTA / Rec", "sends": 7, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Quiet", "note": "No replies. Keep deprioritized; off-thesis for the seminar offer."}], "experiments": [{"id": "EXP-01", "title": "Shorter subject line", "hypothesis": "Trimming the subject to under 45 characters lifts open and reply rate in tier-1 senior channels.", "channel": "Senior Living / Assisted, Caregiver / Senior Resource", "status": "Queued", "next_step": "Author A/B variant and reserve next 6 tier-1 sends for the shorter subject."}, {"id": "EXP-02", "title": "Materials-first senior follow-up", "hypothesis": "Leading the follow-up with the seminar materials packet (no second ask) converts the prior positive materials request into a scheduled session.", "channel": "Caregiver / Senior Resource", "status": "Active - operator drafting", "next_step": "Operator sends materials packet today; CC ops only after positive engagement, per guardrail."}, {"id": "EXP-03", "title": "Hospice oral-comfort resource angle", "hypothesis": "A clinical resource framing (oral comfort for end-of-life patients) outperforms generic seminar pitch in hospice/home-health.", "channel": "Home Care / Hospice / Health", "status": "Queued", "next_step": "Draft resource-led variant; reserve next 4 hospice sends for this angle."}, {"id": "EXP-04", "title": "Phone/form follow-up for no-email high-fit", "hypothesis": "High-fit senior-living and home-care orgs without a public email convert via phone or contact-form follow-up at meaningfully higher rates than waiting for email enrichment.", "channel": "Senior Living / Assisted, Home Care / Hospice / Health", "status": "Active - manual", "next_step": "Operator works the no-email shortlist daily; log outcomes back to the Sheet."}, {"id": "EXP-05", "title": "Reply-rate baseline lock", "hypothesis": "Holding subject and body constant for 20 sends per tier-1 channel produces a stable reply-rate baseline to compare future copy tests against.", "channel": "All Tier 1", "status": "Backlog", "next_step": "Define control copy; lock variant rotation cadence after EXP-01 and EXP-03 complete."}], "queue_health": {"ready_public_emails": 0, "target_buffer": 18, "shortage_risk": "High", "dedupe_exclusions_latest": 3, "sourcing_goal_next_run": "Source at least 18 verified senior/caregiver/home-health public emails before tomorrow's 08:30 PT run to clear the recovery-run pattern.", "warnings": ["Tracker showed zero New rows with public emails this morning before recovery enrichment.", "Three senior-resource organizations excluded by dedupe in latest batch; widen the org pool before reusing the same shortlist.", "Capacity at full cap masks that the buffer is depleted; sourcing must lead, not follow, the run."]}, "human_followups": [{"id": "FU-01", "priority": "P0", "due": "2026-05-01", "channel": "Caregiver / Senior Resource", "action": "Send approved senior concerns materials packet to the prior-scan positive materials request.", "status": "Operator drafting", "note": "Identity redacted in public mirror; tracked by reply ID in private Sheet."}, {"id": "FU-02", "priority": "P1", "due": "2026-05-04", "channel": "Senior Living / Assisted", "action": "Phone or contact-form follow-up for high-fit no-email senior homes from this week's shortlist.", "status": "Queued", "note": "Operator-only; do not auto-message."}, {"id": "FU-03", "priority": "P1", "due": "2026-05-04", "channel": "Home Care / Hospice / Health", "action": "Phone or contact-form follow-up for high-fit no-email home-care and hospice targets.", "status": "Queued", "note": "Pair with EXP-03 framing where appropriate."}, {"id": "FU-04", "priority": "P2", "due": "2026-05-05", "channel": "Caregiver / Senior Resource", "action": "Monitor first positive reply for movement; nudge only if no response within five business days.", "status": "Watching", "note": "No auto-replies; operator owns cadence."}], "guardrail_status": [{"rule": "Daily cap of 12 one-to-one new emails per weekday", "status": "OK", "evidence": "Latest run sent 12 of 12; no day in the loaded window exceeded the cap."}, {"rule": "Initial outreach sent only from ip@clovedds.com", "status": "OK", "evidence": "Sender locked in task config; no alternate sender observed in the window."}, {"rule": "No CC and no BCC on initial outreach", "status": "OK", "evidence": "CCs used on initial outreach: 0."}, {"rule": "No auto-reply to interested prospects; operator drafts each reply", "status": "OK", "evidence": "Both positive signals routed to human follow-up; zero automated replies sent."}, {"rule": "Suppress bounces, opt-outs, and not-interested permanently", "status": "OK", "evidence": "One bounce in window; address suppressed and not retried."}, {"rule": "Public verified emails only; never invent or guess address patterns", "status": "OK", "evidence": "Latest run rebuilt the queue from verified public sources after the morning tracker showed no New rows."}, {"rule": "Google Sheet remains source of truth; Zoho writeback staged", "status": "OK", "evidence": "Zoho writeback held pending staged dedupe and dry-run approval."}], "zoho": {"status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.", "stage": "Staged - dedupe/dry-run pending approval", "writeback_live": false}, "github": {"source_repo_visibility": "private", "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"}, "guardrails": ["Maximum 12 one-to-one new emails per weekday", "Initial outreach sent only from ip@clovedds.com", "No CC or BCC on initial outreach", "aryaan@clovedds.com is CC'd only after a positive reply or scheduling/ops handoff", "No auto-reply to interested prospects; route to operator with suggested draft", "Suppress bounces, opt-outs, and not-interested permanently", "Public verified emails only; never invent or guess email patterns", "Google Sheet is the source of truth; Zoho writeback remains staged"], "next_actions": ["Operator follow-up on the prior-scan positive materials request (senior concerns / caregiver resource) using the approved seminar materials packet.", "Continue senior/caregiver public-email sourcing to keep a healthy New-row buffer ahead of each weekday run and avoid recovery enrichments.", "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email.", "Approve dedupe + dry-run plan before enabling Zoho live writeback."], "focus_priority": {"tier_1": ["Senior living / assisted / memory care / independent living", "Home care / home health / hospice / VNA", "Caregiver resource centers and senior placement", "Adult day programs and senior centers"], "tier_2_test_only": ["Health-adjacent (chiro, PT, pharmacy, wellness)", "Employer/HR with senior caregiver populations"], "deprioritized": ["Generic chambers, churches, schools/PTAs, and community centers"]}, "google_ads_insights": {"title": "Google Ads Waste Watch", "subtitle": "Paid media office watch for the first linked Google Ads child account. Manager-account, customer-IDs, and account labels are intentionally not exposed in the public mirror.", "lookback": "LAST_30_DAYS", "data_freshness": "2026-05-02T00:00:00+00:00", "automation_status": "Manual refresh. Daily automation pending user confirmation; no scheduled job is active.", "coverage": {"linked_offices": 1, "offices_pending_link": "remaining", "office_label_policy": "First linked office account - mapping pending. Office identifiers and account IDs are never exposed in the public mirror; campaign-name groupings are used as a safer office hint where available.", "next_step": "Link the remaining office customer IDs under the manager account so each office can be reported as its own row in this section."}, "totals": {"campaigns": 8, "cost_usd": 7735.37, "clicks": 1371, "conversions": 141.99, "avg_cpc_usd": 5.64, "cpa_usd": 54.48, "phone_calls": 142}, "risk_summary": {"high": 2, "monitor": 5, "low_volume_no_conversions": 1, "high_cost_share_pct": 44.86, "note": "High-risk campaigns currently absorb the largest share of spend without matching conversion volume. Prioritize search-query review and negative-keyword sweeps before raising any budget."}, "campaign_groups": [{"group": "First linked office - mapping pending", "office_label": "First linked office account - mapping pending", "office_hint": "Inferred from campaign-name prefixes (JZ-Search, PMAX, Insurance, General-Search, Emergency).", "campaigns": 8, "cost_usd": 7735.37, "conversions": 141.99, "note": "Account ID intentionally omitted from public mirror. Office mapping resolves once the remaining customer IDs are linked under the manager account."}], "campaigns": [{"campaign_name": "JZ-Search-Clove", "channel": "SEARCH", "cost_usd": 1880.05, "clicks": 182, "conversions": 11.0, "avg_cpc_usd": 10.33, "conversion_rate_pct": 6.04, "cpa_usd": 170.91, "risk": "High", "flags": ["High CPC vs account average", "CPA more than triple account average"], "recommended_action": "Review search queries and ad-group targeting. Add negatives for low-intent terms; isolate brand vs non-brand traffic before sustaining spend."}, {"campaign_name": "JZ-Search-Cam - Dentical", "channel": "SEARCH", "cost_usd": 1589.43, "clicks": 391, "conversions": 6.0, "avg_cpc_usd": 4.07, "conversion_rate_pct": 1.53, "cpa_usd": 264.91, "risk": "High", "flags": ["Conversion rate under 2 pct on highest-click search campaign", "CPA roughly five times account average"], "recommended_action": "Audit landing page and offer fit. Pause or rebuild if no conversion-rate lift after a one-week negative-keyword sweep."}, {"campaign_name": "PMAX - gbp 8/1/2025", "channel": "PERFORMANCE_MAX", "cost_usd": 1960.51, "clicks": 394, "conversions": 29.0, "avg_cpc_usd": 4.98, "conversion_rate_pct": 7.36, "cpa_usd": 67.6, "risk": "Monitor", "flags": ["Largest single line of spend"], "recommended_action": "Hold spend. Validate asset-group performance against the Insurance Performance Max benchmark; pull placements report weekly."}, {"campaign_name": "Insurance", "channel": "SEARCH", "cost_usd": 895.72, "clicks": 153, "conversions": 29.02, "avg_cpc_usd": 5.85, "conversion_rate_pct": 18.97, "cpa_usd": 30.87, "risk": "Monitor", "flags": ["Strong conversion rate; consider scaling carefully"], "recommended_action": "Continue. Test a measured budget lift only after confirming CPA holds for two consecutive weeks."}, {"campaign_name": "General-Search-15/10", "channel": "SEARCH", "cost_usd": 561.14, "clicks": 76, "conversions": 12.98, "avg_cpc_usd": 7.38, "conversion_rate_pct": 17.08, "cpa_usd": 43.22, "risk": "Monitor", "flags": ["Healthy conversion rate; CPC running above account average"], "recommended_action": "Maintain. Trim high-CPC keywords that do not convert in a 14-day window."}, {"campaign_name": "Insurance-Performance Max-15/4/26", "channel": "PERFORMANCE_MAX", "cost_usd": 503.82, "clicks": 151, "conversions": 50.99, "avg_cpc_usd": 3.34, "conversion_rate_pct": 33.77, "cpa_usd": 9.88, "risk": "Monitor", "flags": ["Best CPA and conversion rate in the account"], "recommended_action": "Protect. Use as the benchmark when reviewing JZ-Search-Cam and the older PMAX line."}, {"campaign_name": "Emergency - 3/10/26", "channel": "SEARCH", "cost_usd": 303.12, "clicks": 13, "conversions": 3.0, "avg_cpc_usd": 23.32, "conversion_rate_pct": 23.08, "cpa_usd": 101.04, "risk": "Monitor", "flags": ["Very high CPC; thin click volume"], "recommended_action": "Monitor. Acceptable for emergency intent but verify call-tracking attribution before increasing budget."}, {"campaign_name": "JZ-Search-Clove - Spanish", "channel": "SEARCH", "cost_usd": 41.59, "clicks": 11, "conversions": 0.0, "avg_cpc_usd": 3.78, "conversion_rate_pct": 0.0, "cpa_usd": null, "risk": "Low volume / no conversions", "flags": ["Zero conversions", "Volume too low to evaluate"], "recommended_action": "Hold at minimum spend or pause. Revisit only with a Spanish-language landing page and call routing."}], "recommended_actions": ["Cut or rebuild JZ-Search-Cam - Dentical: 1.53 pct conversion rate and CPA over 260 USD on the largest search-click base in the account.", "Run a negative-keyword and search-query sweep on JZ-Search-Clove before sustaining spend at a 10 USD CPC.", "Use Insurance-Performance Max-15/4/26 as the conversion-rate benchmark when judging the older PMAX - gbp line.", "Pause or down-weight JZ-Search-Clove - Spanish until a Spanish landing page and call routing are in place.", "Link the remaining office customer IDs under the manager account so this section can break out spend and CPA per office."], "operator_notes": ["Data is pulled directly from the Google Ads API for the LAST_30_DAYS window; all customer and manager account IDs are intentionally omitted from the public mirror.", "Daily automation is pending user confirmation. Until then, this section is refreshed manually alongside the rest of the snapshot.", "Office labels will replace the placeholder once the remaining customer IDs are linked and a private mapping table is in place."]}, "_sanitization": {"policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.", "removed_fields": ["sources.sheet_url", "sources.sheet_id", "replies[].Email From", "replies[].Summary", "replies[].Suggested Next Action", "replies[].Owner", "replies[].Organization (replaced with redacted)", "latest_batch (replaced with size-only summary)", "next_actions free-text references to specific prospects", "daily[].next_focus references to specific prospect names", "human_followups[] redacted to action and channel only; identities live in private Sheet", "private operations-repo commit hashes", "google_ads_insights manager_customer_id (never exposed)", "google_ads_insights child customer_id values (never exposed)", "google_ads_insights account_label raw text (replaced with mapping-pending placeholder)"]}};
+window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id": "a3b9de2f", "schedule": "Weekdays 08:30 America/Los_Angeles", "sender": "ip@clovedds.com", "daily_cap": 12}, "sources": {"sheet_url": "(redacted - private operations sheet)", "sheet_id": "(redacted)", "tabs": ["Leads", "Adjacent Referral Leads", "Daily Outreach Log", "Reply Insights"]}, "kpis": {"total_sends": 96, "weekdays_run": 8, "latest_date": "2026-05-01", "latest_sends": 12, "latest_cap_usage_pct": 100, "latest_new_contacts_found": 12, "total_reply_signals": 6, "positive_warm_replies": 2, "bounces": 1, "ccs_used_on_initial": 0, "reply_rate_pct": 6.25, "positive_rate_pct": 2.08}, "daily": [{"date": "2026-04-21", "sent": 12, "cap": 12, "new_contacts_found": 53, "replies": 2, "cumulative": 12, "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."}, {"date": "2026-04-22", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 0, "cumulative": 24, "next_focus": "Continue health-adjacent and wellness/property/community mix."}, {"date": "2026-04-23", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 2, "cumulative": 36, "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."}, {"date": "2026-04-24", "sent": 12, "cap": 12, "new_contacts_found": 0, "replies": 1, "cumulative": 48, "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."}, {"date": "2026-04-27", "sent": 12, "cap": 12, "new_contacts_found": 6, "replies": 0, "cumulative": 60, "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."}, {"date": "2026-04-28", "sent": 12, "cap": 12, "new_contacts_found": 9, "replies": 0, "cumulative": 72, "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."}, {"date": "2026-04-29", "sent": 12, "cap": 12, "new_contacts_found": 7, "replies": 0, "cumulative": 84, "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."}, {"date": "2026-05-01", "sent": 12, "cap": 12, "new_contacts_found": 12, "replies": 0, "cumulative": 96, "next_focus": "Recovery run completed at full cap after enriching verified senior/caregiver public-email contacts and applying dedupe exclusions; route prior-batch positive materials request to operator follow-up."}], "reply_mix": {"Positive": 2, "Neutral": 3, "Not Interested / Unsubscribe": 0, "Bounce": 1, "Other": 0}, "replies": [{"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Geriatric Care Managers / Caregiver Resource", "Classification": "Positive", "Status": "Needs monitoring", "Bucket": "Positive"}, {"Date": "2026-04-21", "Organization": "(redacted)", "Category": "Senior Living", "Classification": "Neutral - Recycle Later", "Status": "Recycle later", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Church / Community", "Classification": "Neutral - Advertising / Referral", "Status": "Logged", "Bucket": "Neutral"}, {"Date": "2026-04-23", "Organization": "(redacted)", "Category": "Employer / HR", "Classification": "Bounce", "Status": "Suppressed", "Bucket": "Bounce"}, {"Date": "2026-04-24", "Organization": "(redacted)", "Category": "Gyms / Fitness", "Classification": "Neutral - Reviewing Partnerships", "Status": "Monitor next week", "Bucket": "Neutral"}, {"Date": "2026-04-30", "Organization": "(redacted)", "Category": "Senior Concerns / Caregiver Resource", "Classification": "Positive - Materials Requested", "Status": "Needs human follow-up", "Bucket": "Positive"}], "latest_batch_summary": {"size": 12, "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown. 2026-05-01 was a recovery run after the morning's tracker showed no New rows with public emails; verified public-email contacts were enriched and deduped against prior partial-run sends and three excluded senior-resource organizations."}, "channel_mix_latest": {"Senior Living / Assisted": 4, "Home Care / Hospice / Health": 4, "Caregiver / Senior Resource": 4, "Health-Adjacent (Chiro/PT/Wellness)": 0, "Property / Apartments": 0, "Faith / Community": 0, "Schools / PTA / Rec": 0, "Chambers / Civic": 0, "Other": 0}, "channel_mix_total": {"Senior Living / Assisted": 13, "Home Care / Hospice / Health": 19, "Caregiver / Senior Resource": 7, "Health-Adjacent (Chiro/PT/Wellness)": 19, "Property / Apartments": 5, "Faith / Community": 10, "Schools / PTA / Rec": 7, "Chambers / Civic": 7, "Other": 9}, "channel_scorecard": [{"channel": "Caregiver / Senior Resource", "sends": 7, "positive": 2, "neutral": 0, "bounce": 0, "tier": "Tier 1", "confidence": "High", "signal": "Strong", "note": "Both positive replies to date came from this channel, including a materials-requested signal. Highest reply yield per send. Continue prioritizing sourcing here."}, {"channel": "Senior Living / Assisted", "sends": 13, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Tier 1", "confidence": "Medium", "signal": "Warming", "note": "Sustained engagement with one recycle-later signal. Public-email coverage remains the bottleneck; phone/form follow-up recommended for high-fit no-email targets."}, {"channel": "Home Care / Hospice / Health", "sends": 19, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Tier 1", "confidence": "Medium", "signal": "Quiet", "note": "Largest tier-1 volume but no replies yet. Test a hospice oral-comfort resource angle and a shorter subject line variant before scaling further."}, {"channel": "Health-Adjacent (Chiro/PT/Wellness)", "sends": 19, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Tier 2", "confidence": "Low", "signal": "Marginal", "note": "One reviewing-partnerships neutral. Hold at limited test volume; do not crowd out tier-1 sourcing capacity."}, {"channel": "Faith / Community", "sends": 10, "positive": 0, "neutral": 1, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Off-pattern", "note": "Single advertising/referral neutral. Continue deprioritization unless a partner-fit referral pathway emerges."}, {"channel": "Property / Apartments", "sends": 5, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Tier 2", "confidence": "Low", "signal": "Untested", "note": "Volume too low to score. Pause unless decision-maker public emails can be sourced cleanly."}, {"channel": "Employer / HR", "sends": 0, "positive": 0, "neutral": 0, "bounce": 1, "tier": "Tier 2", "confidence": "Low", "signal": "Suppressed", "note": "Only signal so far is a hard bounce. Suppress address; do not expand without verified-email sourcing."}, {"channel": "Chambers / Civic", "sends": 7, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Quiet", "note": "No replies. Keep deprioritized; not a senior-decision-maker channel."}, {"channel": "Schools / PTA / Rec", "sends": 7, "positive": 0, "neutral": 0, "bounce": 0, "tier": "Deprioritized", "confidence": "Low", "signal": "Quiet", "note": "No replies. Keep deprioritized; off-thesis for the seminar offer."}], "experiments": [{"id": "EXP-01", "title": "Shorter subject line", "hypothesis": "Trimming the subject to under 45 characters lifts open and reply rate in tier-1 senior channels.", "channel": "Senior Living / Assisted, Caregiver / Senior Resource", "status": "Queued", "next_step": "Author A/B variant and reserve next 6 tier-1 sends for the shorter subject."}, {"id": "EXP-02", "title": "Materials-first senior follow-up", "hypothesis": "Leading the follow-up with the seminar materials packet (no second ask) converts the prior positive materials request into a scheduled session.", "channel": "Caregiver / Senior Resource", "status": "Active - operator drafting", "next_step": "Operator sends materials packet today; CC ops only after positive engagement, per guardrail."}, {"id": "EXP-03", "title": "Hospice oral-comfort resource angle", "hypothesis": "A clinical resource framing (oral comfort for end-of-life patients) outperforms generic seminar pitch in hospice/home-health.", "channel": "Home Care / Hospice / Health", "status": "Queued", "next_step": "Draft resource-led variant; reserve next 4 hospice sends for this angle."}, {"id": "EXP-04", "title": "Phone/form follow-up for no-email high-fit", "hypothesis": "High-fit senior-living and home-care orgs without a public email convert via phone or contact-form follow-up at meaningfully higher rates than waiting for email enrichment.", "channel": "Senior Living / Assisted, Home Care / Hospice / Health", "status": "Active - manual", "next_step": "Operator works the no-email shortlist daily; log outcomes back to the Sheet."}, {"id": "EXP-05", "title": "Reply-rate baseline lock", "hypothesis": "Holding subject and body constant for 20 sends per tier-1 channel produces a stable reply-rate baseline to compare future copy tests against.", "channel": "All Tier 1", "status": "Backlog", "next_step": "Define control copy; lock variant rotation cadence after EXP-01 and EXP-03 complete."}], "queue_health": {"ready_public_emails": 0, "target_buffer": 18, "shortage_risk": "High", "dedupe_exclusions_latest": 3, "sourcing_goal_next_run": "Source at least 18 verified senior/caregiver/home-health public emails before tomorrow's 08:30 PT run to clear the recovery-run pattern.", "warnings": ["Tracker showed zero New rows with public emails this morning before recovery enrichment.", "Three senior-resource organizations excluded by dedupe in latest batch; widen the org pool before reusing the same shortlist.", "Capacity at full cap masks that the buffer is depleted; sourcing must lead, not follow, the run."]}, "human_followups": [{"id": "FU-01", "priority": "P0", "due": "2026-05-01", "channel": "Caregiver / Senior Resource", "action": "Send approved senior concerns materials packet to the prior-scan positive materials request.", "status": "Operator drafting", "note": "Identity redacted in public mirror; tracked by reply ID in private Sheet."}, {"id": "FU-02", "priority": "P1", "due": "2026-05-04", "channel": "Senior Living / Assisted", "action": "Phone or contact-form follow-up for high-fit no-email senior homes from this week's shortlist.", "status": "Queued", "note": "Operator-only; do not auto-message."}, {"id": "FU-03", "priority": "P1", "due": "2026-05-04", "channel": "Home Care / Hospice / Health", "action": "Phone or contact-form follow-up for high-fit no-email home-care and hospice targets.", "status": "Queued", "note": "Pair with EXP-03 framing where appropriate."}, {"id": "FU-04", "priority": "P2", "due": "2026-05-05", "channel": "Caregiver / Senior Resource", "action": "Monitor first positive reply for movement; nudge only if no response within five business days.", "status": "Watching", "note": "No auto-replies; operator owns cadence."}], "guardrail_status": [{"rule": "Daily cap of 12 one-to-one new emails per weekday", "status": "OK", "evidence": "Latest run sent 12 of 12; no day in the loaded window exceeded the cap."}, {"rule": "Initial outreach sent only from ip@clovedds.com", "status": "OK", "evidence": "Sender locked in task config; no alternate sender observed in the window."}, {"rule": "No CC and no BCC on initial outreach", "status": "OK", "evidence": "CCs used on initial outreach: 0."}, {"rule": "No auto-reply to interested prospects; operator drafts each reply", "status": "OK", "evidence": "Both positive signals routed to human follow-up; zero automated replies sent."}, {"rule": "Suppress bounces, opt-outs, and not-interested permanently", "status": "OK", "evidence": "One bounce in window; address suppressed and not retried."}, {"rule": "Public verified emails only; never invent or guess address patterns", "status": "OK", "evidence": "Latest run rebuilt the queue from verified public sources after the morning tracker showed no New rows."}, {"rule": "Google Sheet remains source of truth; Zoho writeback staged", "status": "OK", "evidence": "Zoho writeback held pending staged dedupe and dry-run approval."}], "zoho": {"status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.", "stage": "Staged - dedupe/dry-run pending approval", "writeback_live": false}, "github": {"source_repo_visibility": "private", "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"}, "guardrails": ["Maximum 12 one-to-one new emails per weekday", "Initial outreach sent only from ip@clovedds.com", "No CC or BCC on initial outreach", "aryaan@clovedds.com is CC'd only after a positive reply or scheduling/ops handoff", "No auto-reply to interested prospects; route to operator with suggested draft", "Suppress bounces, opt-outs, and not-interested permanently", "Public verified emails only; never invent or guess email patterns", "Google Sheet is the source of truth; Zoho writeback remains staged"], "next_actions": ["Operator follow-up on the prior-scan positive materials request (senior concerns / caregiver resource) using the approved seminar materials packet.", "Continue senior/caregiver public-email sourcing to keep a healthy New-row buffer ahead of each weekday run and avoid recovery enrichments.", "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email.", "Approve dedupe + dry-run plan before enabling Zoho live writeback."], "focus_priority": {"tier_1": ["Senior living / assisted / memory care / independent living", "Home care / home health / hospice / VNA", "Caregiver resource centers and senior placement", "Adult day programs and senior centers"], "tier_2_test_only": ["Health-adjacent (chiro, PT, pharmacy, wellness)", "Employer/HR with senior caregiver populations"], "deprioritized": ["Generic chambers, churches, schools/PTAs, and community centers"]}, "google_ads_insights": {"title": "Google Ads Waste Watch", "subtitle": "Paid media office watch for the linked Google Ads child account. Manager-account, customer IDs, and account labels are intentionally not exposed in the public mirror. Recommendations are dashboard-only and do not change the live account.", "lookback": "LAST_30_DAYS", "data_freshness": "2026-05-02T00:00:00+00:00", "automation_status": "Manual refresh. Daily automation pending user confirmation; no scheduled job is active.", "coverage": {"linked_offices": 1, "offices_pending_link": "remaining", "office_label_policy": "First linked office account - mapping pending. Office identifiers and account IDs are never exposed in the public mirror; campaign-name groupings are used as a safer office hint where available.", "next_step": "Link the remaining office customer IDs under the manager account so each office can be reported as its own row in this section."}, "totals": {"campaigns": 8, "cost_usd": 7735.37, "clicks": 1371, "conversions": 141.99, "avg_cpc_usd": 5.64, "cpa_usd": 54.48, "phone_calls": 142}, "risk_summary": {"high": 2, "monitor": 5, "protect": 2, "low_volume_no_conversions": 1, "high_priority_campaigns": 2, "protect_campaigns": 2, "monitor_campaigns": 3, "high_risk_spend_usd": 3469.48, "high_risk_spend_share_pct": 44.86, "high_cost_share_pct": 44.86, "note": "High-risk campaigns currently absorb the largest share of spend without matching conversion volume. Prioritize search-query review and negative-keyword sweeps before raising any budget."}, "recommended_budget_shift": {"from": ["JZ-Search-Cam - Dentical", "JZ-Search-Clove high-CPC ad groups"], "to": ["Insurance-Performance Max-15/4/26 after quality check", "Insurance search exact-match winners"], "guardrail": "Do not shift budget until call/booking quality is verified; then move in small weekly increments.", "estimated_waste_to_review_usd": 3469.48, "estimated_waste_share_pct": 44.9}, "campaign_groups": [{"group": "First linked office - mapping pending", "office_label": "First linked office account - mapping pending", "office_hint": "Inferred from campaign-name prefixes (JZ-Search, PMAX, Insurance, General-Search, Emergency).", "campaigns": 8, "cost_usd": 7735.37, "conversions": 141.99, "note": "Account ID intentionally omitted from public mirror. Office mapping resolves once the remaining customer IDs are linked under the manager account."}], "campaigns": [{"campaign_name": "JZ-Search-Clove", "channel": "SEARCH", "status": "LIMITED", "cost_usd": 1880.05, "clicks": 182, "conversions": 11.0, "avg_cpc_usd": 10.33, "conversion_rate_pct": 6.04, "cpa_usd": 170.91, "phone_calls": 5, "spend_share_pct": 24.3, "risk": "High", "flags": ["High CPC vs account average", "CPA more than triple account average"], "recommended_action": "Tighten immediately: pause or bid-cap high-CPC insurance/provider ad groups, then rebuild around appointment intent.", "decision_detail": {"priority": "High", "decision": "Tighten immediately", "what_to_change": "Pause or bid-cap the high-CPC insurance/provider ad groups, then rebuild around appointment intent.", "why": "CPA $170.91 and CPC $10.33 are elevated; the campaign uses 24.3% of spend with only 11 conversions.", "next_steps": ["Pause zero-conversion ad groups with CPC above $15 until search terms are reviewed.", "Separate insurance research terms from booking terms.", "Add negatives around plan directories, member login, jobs, free-only, and generic provider-list searches.", "Route emergency/appointment terms to location-specific pages with click-to-call above the fold."]}}, {"campaign_name": "JZ-Search-Cam - Dentical", "channel": "SEARCH", "status": "LIMITED", "cost_usd": 1589.43, "clicks": 391, "conversions": 6.0, "avg_cpc_usd": 4.07, "conversion_rate_pct": 1.53, "cpa_usd": 264.91, "phone_calls": 4, "spend_share_pct": 20.5, "risk": "High", "flags": ["Conversion rate under 2% on highest-click search campaign", "CPA roughly 5x account average"], "recommended_action": "Cut or rebuild: reduce budget 50-75% or pause while rebuilding around high-intent Denti-Cal appointment terms.", "decision_detail": {"priority": "High", "decision": "Cut or rebuild", "what_to_change": "Reduce budget 50-75% or pause while rebuilding into high-intent Denti-Cal appointment terms only.", "why": "CPA $264.91 is far above account CPA $54.48; conversion rate is 1.5% on $1,589.43 spend.", "next_steps": ["Pull search terms and add negatives for eligibility, coverage-only, provider-list, job, and informational queries.", "Split exact-match appointment/provider intent from exploratory terms.", "Use a Denti-Cal-specific landing page with accepted insurance, same-day appointment CTA, and call tracking.", "Hold budget increases until CPA is near the office account average for two consecutive weeks."]}}, {"campaign_name": "PMAX - gbp 8/1/2025", "channel": "PERFORMANCE_MAX", "status": "LIMITED", "cost_usd": 1960.51, "clicks": 394, "conversions": 29.0, "avg_cpc_usd": 4.98, "conversion_rate_pct": 7.36, "cpa_usd": 67.6, "phone_calls": 43, "spend_share_pct": 25.3, "risk": "Monitor", "flags": ["Largest single line of spend"], "recommended_action": "Monitor: hold spend, audit search-term and conversion quality weekly against the Insurance PMax benchmark.", "decision_detail": {"priority": "Monitor", "decision": "Monitor", "what_to_change": "No immediate budget cut; continue search-term and conversion-quality review.", "why": "Performance does not currently meet high-risk thresholds.", "next_steps": ["Review weekly for CPA drift, conversion quality, and limited status causes.", "Compare asset-group performance against Insurance PMax (benchmark CPA)."]}}, {"campaign_name": "Insurance", "channel": "SEARCH", "status": "LIMITED", "cost_usd": 895.72, "clicks": 153, "conversions": 29.02, "avg_cpc_usd": 5.85, "conversion_rate_pct": 18.97, "cpa_usd": 30.87, "phone_calls": 28, "spend_share_pct": 11.6, "risk": "Protect", "flags": ["Strong conversion rate; below-average CPA"], "recommended_action": "Protect: keep budget stable; mine converting search terms for exact-match expansion.", "decision_detail": {"priority": "Protect", "decision": "Protect", "what_to_change": "Keep budget stable; mine converting search terms for exact-match expansion.", "why": "CPA $30.87 is below account average with 19.0% conversion rate.", "next_steps": ["Promote high-converting insurance terms into exact match.", "Add negatives from non-converting plan-directory searches.", "Use this campaign as the search benchmark before scaling weaker campaigns."]}}, {"campaign_name": "General-Search-15/10", "channel": "SEARCH", "status": "LIMITED", "cost_usd": 561.14, "clicks": 76, "conversions": 12.98, "avg_cpc_usd": 7.38, "conversion_rate_pct": 17.08, "cpa_usd": 43.22, "phone_calls": 15, "spend_share_pct": 7.3, "risk": "Monitor", "flags": ["Healthy conversion rate; CPC running above account average"], "recommended_action": "Scale carefully: keep active but cap spend increases; expand only from search terms that convert below account CPA.", "decision_detail": {"priority": "Monitor", "decision": "Scale carefully", "what_to_change": "Keep active but cap spend increases; expand only from search terms that convert below account CPA.", "why": "CPA $43.22 is slightly below account average and conversion rate is 17.1%.", "next_steps": ["Split best-performing service terms into exact-match ad groups.", "Keep broad/phrase spend constrained until search terms prove appointment intent.", "Add office-level landing pages for location-modified queries."]}}, {"campaign_name": "Insurance-Performance Max-15/4/26", "channel": "PERFORMANCE_MAX", "status": "LIMITED", "cost_usd": 503.82, "clicks": 151, "conversions": 50.99, "avg_cpc_usd": 3.34, "conversion_rate_pct": 33.77, "cpa_usd": 9.88, "phone_calls": 47, "spend_share_pct": 6.5, "risk": "Protect", "flags": ["Best CPA and conversion rate in the account"], "recommended_action": "Protect and verify quality: keep active; consider shifting budget here only after call/booking quality is confirmed.", "decision_detail": {"priority": "Protect", "decision": "Protect and verify quality", "what_to_change": "Keep active; consider shifting budget from high-risk search only after call/booking quality is confirmed.", "why": "CPA $9.88, conversion rate 33.8%, and 47 phone calls are strongest in the current account snapshot.", "next_steps": ["Check conversion action quality so form fills and calls reflect real appointments.", "Review PMax asset groups and search themes for insurance intent.", "Increase budget gradually only if booked appointments track with reported conversions."]}}, {"campaign_name": "Emergency - 3/10/26", "channel": "SEARCH", "status": "LIMITED", "cost_usd": 303.12, "clicks": 13, "conversions": 3.0, "avg_cpc_usd": 23.32, "conversion_rate_pct": 23.08, "cpa_usd": 101.04, "phone_calls": 0, "spend_share_pct": 3.9, "risk": "Monitor", "flags": ["Very high CPC; thin click volume"], "recommended_action": "Audit tracking before scaling: confirm calls and booked appointments are captured correctly.", "decision_detail": {"priority": "Monitor", "decision": "Audit tracking before scaling", "what_to_change": "Do not scale yet; confirm calls and booked appointments are captured correctly.", "why": "CPC $23.32 is high, but reported conversion rate is 23.1% on low volume.", "next_steps": ["Verify call conversion tracking and missed-call handling.", "Use emergency-specific ad copy with same-day availability.", "Bid only during staffed hours unless after-hours call capture is reliable."]}}, {"campaign_name": "JZ-Search-Clove - Spanish", "channel": "SEARCH", "status": "ELIGIBLE", "cost_usd": 41.59, "clicks": 11, "conversions": 0.0, "avg_cpc_usd": 3.78, "conversion_rate_pct": 0.0, "cpa_usd": null, "phone_calls": 0, "spend_share_pct": 0.5, "risk": "Low volume / no conversions", "flags": ["Zero conversions", "Volume too low to evaluate"], "recommended_action": "Keep as test or pause: hold tiny budget unless Spanish landing page and call handling are ready.", "decision_detail": {"priority": "Low", "decision": "Keep as test or pause", "what_to_change": "Pause unless Spanish landing page, call handling, and ad copy are ready; otherwise keep a tiny test budget.", "why": "Spend is low but no conversions were recorded.", "next_steps": ["Confirm Spanish-language phone coverage.", "Build a Spanish landing page before adding budget.", "Use exact-match local appointment terms for the next test."]}}], "ad_group_recommendations": [{"ad_group_name": "dentical", "campaign_name": "JZ-Search-Cam - Dentical", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 1589.43, "clicks": 391, "conversions": 6.0, "impressions": 8658, "phone_calls": 4, "avg_cpc_usd": 4.07, "conversion_rate_pct": 1.5, "cpa_usd": 264.91, "risk_detail": {"priority": "High", "decision": "Rebuild Denti-Cal intent", "what_to_change": "Reduce or pause while rebuilding around appointment-ready Denti-Cal/Medi-Cal terms and a dedicated insurance landing page.", "why": "$1,589.43 spend, 391 clicks, 6.00 conversions, $4.07 CPC, 1.5% CVR, $264.91 CPA."}}, {"ad_group_name": "delta dental ppo providers #2", "campaign_name": "JZ-Search-Clove", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 534.91, "clicks": 30, "conversions": 1.0, "impressions": 418, "phone_calls": 1, "avg_cpc_usd": 17.83, "conversion_rate_pct": 3.3, "cpa_usd": 534.91, "risk_detail": {"priority": "High", "decision": "Cut bids or rebuild", "what_to_change": "Cut bids 30-50% or move proven terms into a new exact-match ad group with a dedicated landing page.", "why": "$534.91 spend, 30 clicks, 1.00 conversions, $17.83 CPC, 3.3% CVR, $534.91 CPA."}}, {"ad_group_name": "insurance list", "campaign_name": "JZ-Search-Clove", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 125.66, "clicks": 12, "conversions": 0.0, "impressions": 149, "phone_calls": 0, "avg_cpc_usd": 10.47, "conversion_rate_pct": 0.0, "cpa_usd": null, "risk_detail": {"priority": "High", "decision": "Pause pending review", "what_to_change": "Pause this ad group until search terms are reviewed; only relaunch exact-match booking/provider terms.", "why": "$125.66 spend, 12 clicks, 0.00 conversions, $10.47 CPC, 0.0% CVR, no CPA because conversions are zero."}}, {"ad_group_name": "delta dental ppo dentists #2", "campaign_name": "JZ-Search-Clove", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 103.83, "clicks": 8, "conversions": 0.0, "impressions": 83, "phone_calls": 0, "avg_cpc_usd": 12.98, "conversion_rate_pct": 0.0, "cpa_usd": null, "risk_detail": {"priority": "High", "decision": "Pause pending review", "what_to_change": "Pause this ad group until search terms are reviewed; only relaunch exact-match booking/provider terms.", "why": "$103.83 spend, 8 clicks, 0.00 conversions, $12.98 CPC, 0.0% CVR, no CPA because conversions are zero."}}, {"ad_group_name": "Dentical", "campaign_name": "General-Search-15/10", "status": "PAUSED", "primary_status": "PAUSED", "cost_usd": 102.59, "clicks": 13, "conversions": 3.98, "impressions": 203, "phone_calls": 2, "avg_cpc_usd": 7.89, "conversion_rate_pct": 30.7, "cpa_usd": 25.75, "risk_detail": {"priority": "High", "decision": "Rebuild Denti-Cal intent", "what_to_change": "Reduce or pause while rebuilding around appointment-ready Denti-Cal/Medi-Cal terms and a dedicated insurance landing page.", "why": "$102.59 spend, 13 clicks, 3.98 conversions, $7.89 CPC, 30.7% CVR, $25.75 CPA."}}, {"ad_group_name": "emergency dental office near me", "campaign_name": "JZ-Search-Clove", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 88.88, "clicks": 8, "conversions": 0.0, "impressions": 91, "phone_calls": 0, "avg_cpc_usd": 11.11, "conversion_rate_pct": 0.0, "cpa_usd": null, "risk_detail": {"priority": "High", "decision": "Pause pending review", "what_to_change": "Pause this ad group until search terms are reviewed; only relaunch exact-match booking/provider terms.", "why": "$88.88 spend, 8 clicks, 0.00 conversions, $11.11 CPC, 0.0% CVR, no CPA because conversions are zero."}}, {"ad_group_name": "Delta Care USA", "campaign_name": "Insurance", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 564.94, "clicks": 106, "conversions": 19.02, "impressions": 1333, "phone_calls": 12, "avg_cpc_usd": 5.33, "conversion_rate_pct": 17.9, "cpa_usd": 29.71, "risk_detail": {"priority": "Protect", "decision": "Protect", "what_to_change": "Keep active and mine converting queries for exact-match expansion.", "why": "$564.94 spend, 106 clicks, 19.02 conversions, $5.33 CPC, 17.9% CVR, $29.71 CPA."}}, {"ad_group_name": "Anthem Blue Cross", "campaign_name": "Insurance", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 268.1, "clicks": 37, "conversions": 8.0, "impressions": 362, "phone_calls": 14, "avg_cpc_usd": 7.25, "conversion_rate_pct": 21.6, "cpa_usd": 33.51, "risk_detail": {"priority": "Protect", "decision": "Protect", "what_to_change": "Keep active and mine converting queries for exact-match expansion.", "why": "$268.10 spend, 37 clicks, 8.00 conversions, $7.25 CPC, 21.6% CVR, $33.51 CPA."}}, {"ad_group_name": "Medical/Medicare/Deltacare", "campaign_name": "JZ-Search-Clove", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 821.37, "clicks": 103, "conversions": 9.0, "impressions": 1568, "phone_calls": 3, "avg_cpc_usd": 7.97, "conversion_rate_pct": 8.7, "cpa_usd": 91.26, "risk_detail": {"priority": "Monitor", "decision": "Split intent", "what_to_change": "Split Medicare, Denti-Cal, and appointment intent into separate ad groups; add negatives for plan research.", "why": "$821.37 spend, 103 clicks, 9.00 conversions, $7.97 CPC, 8.7% CVR, $91.26 CPA."}}, {"ad_group_name": "Emergency - Core", "campaign_name": "Emergency - 3/10/26", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 303.12, "clicks": 13, "conversions": 3.0, "impressions": 198, "phone_calls": 0, "avg_cpc_usd": 23.32, "conversion_rate_pct": 23.1, "cpa_usd": 101.04, "risk_detail": {"priority": "Monitor", "decision": "Audit tracking", "what_to_change": "Keep active, but verify call tracking and review search terms weekly before scaling.", "why": "$303.12 spend, 13 clicks, 3.00 conversions, $23.32 CPC, 23.1% CVR, $101.04 CPA."}}, {"ad_group_name": "Location targeting", "campaign_name": "General-Search-15/10", "status": "ENABLED", "primary_status": "ELIGIBLE", "cost_usd": 254.97, "clicks": 30, "conversions": 3.0, "impressions": 502, "phone_calls": 5, "avg_cpc_usd": 8.5, "conversion_rate_pct": 10.0, "cpa_usd": 84.99, "risk_detail": {"priority": "Monitor", "decision": "Monitor", "what_to_change": "Keep active, but review search terms and conversion quality weekly.", "why": "$254.97 spend, 30 clicks, 3.00 conversions, $8.50 CPC, 10.0% CVR, $84.99 CPA."}}], "office_mapping_needed": ["Add friendly office names for each linked child account so the dashboard can rank waste by office.", "Additional child accounts can be appended privately to the daily job without exposing IDs publicly.", "Office names are awaiting mapping; office identifiers and account IDs remain private and are not shown."], "recommended_actions": ["Pause pending review: zero-conversion JZ-Search-Clove ad groups with CPC above $10 (insurance list, delta dental ppo dentists #2, emergency dental office near me).", "Cut or rebuild JZ-Search-Cam - Dentical: 1.53% conversion rate and CPA over $260 on the largest search-click base in the account.", "Tighten JZ-Search-Clove immediately: bid-cap or pause delta dental ppo providers #2 ($17.83 CPC, $534.91 CPA) and rebuild around appointment intent.", "Protect Insurance and Insurance-Performance Max-15/4/26 as benchmarks; mine converting Delta Care USA and Anthem Blue Cross queries for exact-match expansion.", "Audit tracking on Emergency - 3/10/26 (call conversion tracking and after-hours call capture) before scaling on $23.32 CPC.", "Hold or pause JZ-Search-Clove - Spanish until a Spanish landing page and Spanish-language call handling are ready.", "Shift budget only after quality guardrails: do not move spend from high-risk search to Insurance PMax until call/booking quality is verified, then move in small weekly increments.", "Link the remaining office customer IDs under the manager account so this section can break out spend and CPA per office."], "operator_notes": ["Data is pulled directly from the Google Ads API for the LAST_30_DAYS window; all customer and manager account IDs are intentionally omitted from the public mirror.", "Daily automation is pending user confirmation. Until then, this section is refreshed manually alongside the rest of the snapshot.", "Office labels will replace the placeholder once the remaining customer IDs are linked and a private mapping table is in place.", "These are dashboard-only recommendations. No changes are pushed to the live Google Ads account from this view."]}, "_sanitization": {"policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign and ad-group metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.", "removed_fields": ["sources.sheet_url", "sources.sheet_id", "replies[].Email From", "replies[].Summary", "replies[].Suggested Next Action", "replies[].Owner", "replies[].Organization (replaced with redacted)", "latest_batch (replaced with size-only summary)", "next_actions free-text references to specific prospects", "daily[].next_focus references to specific prospect names", "human_followups[] redacted to action and channel only; identities live in private Sheet", "private operations-repo commit hashes", "google_ads_insights manager_customer_id (never exposed)", "google_ads_insights child customer_id values (never exposed)", "google_ads_insights account_label raw text (replaced with mapping-pending placeholder)", "google_ads_insights ad_group internal IDs (never exposed)"]}};
 /* SNAPSHOT_END */</script>
   <script>
     (function () {
@@ -727,10 +835,24 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
         var c = "pill";
         if (l === "high") c += " danger";
         else if (l === "medium") c += " warn";
+        else if (l === "monitor") c += " warn";
+        else if (l === "protect") c += " good";
         else if (l === "low") c += " good";
         else c += " accent";
         return el("span", { "class": c }, [
           el("span", { "class": "dot" }), level || "-"
+        ]);
+      }
+      function pillForPriorityWord(p) {
+        var s = (p || "").toLowerCase();
+        var c = "pill";
+        if (s === "high") c += " danger";
+        else if (s === "monitor") c += " warn";
+        else if (s === "protect") c += " good";
+        else if (s === "low") c += " accent";
+        else c += " accent";
+        return el("span", { "class": c }, [
+          el("span", { "class": "dot" }), p || "-"
         ]);
       }
       function pillForStatusOk(status) {
@@ -1183,17 +1305,32 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
         });
       }
 
+      function priorityRank(p) {
+        var s = (p || "").toLowerCase();
+        if (s === "high") return 0;
+        if (s === "protect") return 1;
+        if (s === "monitor") return 2;
+        if (s === "low") return 3;
+        return 4;
+      }
+
       function renderAdsInsights(s) {
         var ads = s.google_ads_insights || null;
         var titleEl = $("ads-title");
         var subEl = $("ads-subtitle");
         var covCard = $("ads-coverage-card");
         var kpiGrid = $("ads-kpi-grid");
+        var riskCard = $("ads-risk-card");
+        var budgetCard = $("ads-budget-card");
         var campCard = $("ads-campaigns-card");
+        var adgroupsCard = $("ads-adgroups-card");
         var actCard = $("ads-actions-card");
         covCard.innerHTML = "";
         kpiGrid.innerHTML = "";
+        if (riskCard) riskCard.innerHTML = "";
+        if (budgetCard) budgetCard.innerHTML = "";
         campCard.innerHTML = "";
+        if (adgroupsCard) adgroupsCard.innerHTML = "";
         actCard.innerHTML = "";
         if (!ads) {
           subEl.textContent = "Google Ads insights not available in this snapshot.";
@@ -1225,29 +1362,43 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
           text: ads.automation_status || "" });
         var covNext = el("div", { "class": "item-body",
           text: coverage.next_step || "" });
+        var officeNotice = el("div", { "class": "item-body",
+          text: "Office mapping notice: office names are awaiting " +
+                "mapping. Office identifiers and account IDs remain " +
+                "private and are not shown in the public mirror." });
         covCard.appendChild(el("div", { "class": "item" },
-          [covHead, covMeta, covBody, covNext]));
+          [covHead, covMeta, covBody, covNext, officeNotice]));
 
+        var highRiskSpend = risk.high_risk_spend_usd != null
+          ? risk.high_risk_spend_usd
+          : (ads.recommended_budget_shift &&
+             ads.recommended_budget_shift.estimated_waste_to_review_usd);
+        var highRiskShare = risk.high_risk_spend_share_pct != null
+          ? risk.high_risk_spend_share_pct
+          : risk.high_cost_share_pct;
         var kpiItems = [
-          { label: "Campaigns", value: fmtNum(totals.campaigns),
-            hint: "in linked office account" },
           { label: "Spend (30d)", value: fmtUsd(totals.cost_usd),
             hint: "all campaigns, USD" },
-          { label: "Conversions", value: fmtNum(totals.conversions),
-            hint: "30-day window" },
-          { label: "CPA", value: fmtUsd(totals.cpa_usd),
-            hint: "cost per conversion" },
-          { label: "Avg CPC", value: fmtUsd(totals.avg_cpc_usd),
-            hint: "blended across campaigns" },
           { label: "Clicks", value: fmtNum(totals.clicks),
             hint: "30-day window" },
-          { label: "High-risk campaigns",
-            value: fmtNum(risk.high),
-            hint: "flagged for review" },
+          { label: "Conversions", value: fmtNum(totals.conversions),
+            hint: "30-day window" },
+          { label: "Avg CPC", value: fmtUsd(totals.avg_cpc_usd),
+            hint: "blended across campaigns" },
+          { label: "CPA", value: fmtUsd(totals.cpa_usd),
+            hint: "cost per conversion" },
+          { label: "Phone calls", value: fmtNum(totals.phone_calls),
+            hint: "30-day window" },
+          { label: "High-priority campaigns",
+            value: fmtNum(risk.high_priority_campaigns != null
+              ? risk.high_priority_campaigns : risk.high),
+            hint: "tighten or rebuild" },
           { label: "High-risk spend share",
-            value: (risk.high_cost_share_pct != null
-              ? fmtPct(risk.high_cost_share_pct) : "-"),
-            hint: "of 30-day spend" }
+            value: (highRiskShare != null
+              ? fmtPct(highRiskShare) : "-"),
+            hint: (highRiskSpend != null
+              ? fmtUsd(highRiskSpend) + " to review"
+              : "of 30-day spend") }
         ];
         kpiItems.forEach(function (it) {
           kpiGrid.appendChild(el("div", { "class": "card kpi-card" }, [
@@ -1257,12 +1408,81 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
           ]));
         });
 
-        var campaigns = ads.campaigns || [];
+        if (riskCard) {
+          riskCard.appendChild(el("div", { "class": "item-title",
+            text: "Risk summary" }));
+          var riskList = el("ul", { "class": "checks",
+            style: "margin-top:6px;" }, [
+            el("li", { text: "High-priority: " +
+              fmtNum(risk.high_priority_campaigns != null
+                ? risk.high_priority_campaigns : risk.high) +
+              " campaign(s)" }),
+            el("li", { text: "Protect: " +
+              fmtNum(risk.protect_campaigns != null
+                ? risk.protect_campaigns : risk.protect) + " campaign(s)" }),
+            el("li", { text: "Monitor: " +
+              fmtNum(risk.monitor_campaigns != null
+                ? risk.monitor_campaigns : risk.monitor) + " campaign(s)" }),
+            el("li", { text: "Spend to review: " +
+              fmtUsd(highRiskSpend) +
+              (highRiskShare != null
+                ? " (" + fmtPct(highRiskShare) + " of 30-day spend)"
+                : "") })
+          ]);
+          riskCard.appendChild(riskList);
+          if (risk.note) {
+            riskCard.appendChild(el("div", { "class": "item-body",
+              style: "margin-top:8px;", text: risk.note }));
+          }
+        }
+
+        if (budgetCard) {
+          var bs = ads.recommended_budget_shift || null;
+          budgetCard.appendChild(el("div", { "class": "item-title",
+            text: "Recommended budget shift" }));
+          if (!bs) {
+            budgetCard.appendChild(el("div", { "class": "item-body",
+              text: "No budget-shift guidance in this snapshot." }));
+          } else {
+            var fromList = el("ul", { "class": "checks" },
+              (bs.from || []).map(function (t) {
+                return el("li", { text: t });
+              }));
+            var toList = el("ul", { "class": "checks" },
+              (bs.to || []).map(function (t) {
+                return el("li", { text: t });
+              }));
+            budgetCard.appendChild(el("div", { "class": "item-meta",
+              style: "margin-top:6px;",
+              text: "Shift from (high-risk waste)" }));
+            budgetCard.appendChild(fromList);
+            budgetCard.appendChild(el("div", { "class": "item-meta",
+              style: "margin-top:6px;",
+              text: "Shift to (after quality check)" }));
+            budgetCard.appendChild(toList);
+            if (bs.guardrail) {
+              budgetCard.appendChild(el("div", { "class": "item-body",
+                style: "margin-top:8px;",
+                text: "Guardrail: " + bs.guardrail }));
+            }
+          }
+        }
+
+        var campaigns = (ads.campaigns || []).slice().sort(function (a, b) {
+          var pa = priorityRank((a.decision_detail && a.decision_detail.priority)
+            || a.risk);
+          var pb = priorityRank((b.decision_detail && b.decision_detail.priority)
+            || b.risk);
+          if (pa !== pb) return pa - pb;
+          return (b.cost_usd || 0) - (a.cost_usd || 0);
+        });
         if (!campaigns.length) {
           campCard.appendChild(el("div", { "class": "section-meta",
             text: "No Google Ads campaigns in the loaded window." }));
         } else {
           campaigns.forEach(function (c) {
+            var dd = c.decision_detail || {};
+            var priority = dd.priority || c.risk || "-";
             var head = el("div", { "class": "item-head" }, [
               el("div", { "class": "item-title", text: c.campaign_name }),
               el("div", { "class": "row" }, [
@@ -1270,9 +1490,17 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
                   el("span", { "class": "dot" }),
                   c.channel || "-"
                 ]),
-                pillForRisk(c.risk)
+                pillForPriorityWord(priority)
               ])
             ]);
+            var decisionPill = dd.decision
+              ? el("div", { "class": "row", style: "margin-top:6px;" }, [
+                  el("span", { "class": "pill warn" }, [
+                    el("span", { "class": "dot" }),
+                    "Decision: " + dd.decision
+                  ])
+                ])
+              : null;
             var stats = el("div", { "class": "item-stats" }, [
               el("span", null, [
                 el("strong", { text: fmtUsd(c.cost_usd) }), " spend"]),
@@ -1289,9 +1517,17 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
               el("span", null, [
                 el("strong", { text: (c.cpa_usd != null
                   ? fmtUsd(c.cpa_usd) : "-") }),
-                " CPA"])
+                " CPA"]),
+              el("span", null, [
+                el("strong", { text: fmtNum(c.phone_calls) }), " calls"]),
+              el("span", null, [
+                el("strong", { text: (c.spend_share_pct != null
+                  ? fmtPct(c.spend_share_pct) : "-") }),
+                " spend share"])
             ]);
-            var children = [head, stats];
+            var children = [head];
+            if (decisionPill) children.push(decisionPill);
+            children.push(stats);
             if (c.flags && c.flags.length) {
               var flagRow = el("div", { "class": "row",
                 style: "margin-top:6px;" }, c.flags.map(function (f) {
@@ -1301,17 +1537,101 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
               }));
               children.push(flagRow);
             }
-            children.push(el("div", { "class": "item-body",
-              text: "Recommended action: " +
-                (c.recommended_action || "-") }));
+            if (dd.what_to_change) {
+              children.push(el("div", { "class": "item-body",
+                text: "What to change: " + dd.what_to_change }));
+            } else if (c.recommended_action) {
+              children.push(el("div", { "class": "item-body",
+                text: "Recommended action: " + c.recommended_action }));
+            }
+            if (dd.why) {
+              children.push(el("div", { "class": "item-body",
+                text: "Why: " + dd.why }));
+            }
+            if (dd.next_steps && dd.next_steps.length) {
+              var nsLabel = el("div", { "class": "item-meta",
+                style: "margin-top:6px;", text: "Next steps" });
+              var ns = el("ul", { "class": "checks" },
+                dd.next_steps.map(function (t) {
+                  return el("li", { text: t });
+                }));
+              children.push(nsLabel);
+              children.push(ns);
+            }
             campCard.appendChild(el("div", { "class": "item" }, children));
           });
+        }
+
+        if (adgroupsCard) {
+          var adgroups = (ads.ad_group_recommendations || []).slice()
+            .sort(function (a, b) {
+              var pa = priorityRank(
+                (a.risk_detail && a.risk_detail.priority) || "");
+              var pb = priorityRank(
+                (b.risk_detail && b.risk_detail.priority) || "");
+              if (pa !== pb) return pa - pb;
+              return (b.cost_usd || 0) - (a.cost_usd || 0);
+            });
+          if (!adgroups.length) {
+            adgroupsCard.appendChild(el("div", { "class": "section-meta",
+              text: "No ad-group recommendations in this snapshot." }));
+          } else {
+            adgroups.forEach(function (g) {
+              var rd = g.risk_detail || {};
+              var head = el("div", { "class": "item-head" }, [
+                el("div", null, [
+                  el("span", { "class": "item-title", text: g.ad_group_name }),
+                  el("div", { "class": "item-meta",
+                    text: "in " + (g.campaign_name || "-") +
+                          " (" + (g.status || "-") + ")" })
+                ]),
+                el("div", { "class": "row" }, [
+                  pillForPriorityWord(rd.priority || ""),
+                  rd.decision
+                    ? el("span", { "class": "pill warn" }, [
+                        el("span", { "class": "dot" }), rd.decision
+                      ])
+                    : null
+                ])
+              ]);
+              var stats = el("div", { "class": "item-stats" }, [
+                el("span", null, [
+                  el("strong", { text: fmtUsd(g.cost_usd) }), " spend"]),
+                el("span", null, [
+                  el("strong", { text: fmtNum(g.clicks) }), " clicks"]),
+                el("span", null, [
+                  el("strong", { text: fmtNum(g.conversions) }), " conv"]),
+                el("span", null, [
+                  el("strong", { text: fmtUsd(g.avg_cpc_usd) }), " CPC"]),
+                el("span", null, [
+                  el("strong", { text: (g.conversion_rate_pct != null
+                    ? fmtPct(g.conversion_rate_pct) : "-") }),
+                  " CVR"]),
+                el("span", null, [
+                  el("strong", { text: (g.cpa_usd != null
+                    ? fmtUsd(g.cpa_usd) : "-") }),
+                  " CPA"]),
+                el("span", null, [
+                  el("strong", { text: fmtNum(g.phone_calls) }), " calls"])
+              ]);
+              var children = [head, stats];
+              if (rd.what_to_change) {
+                children.push(el("div", { "class": "item-body",
+                  text: "What to change: " + rd.what_to_change }));
+              }
+              if (rd.why) {
+                children.push(el("div", { "class": "item-body",
+                  text: "Why: " + rd.why }));
+              }
+              adgroupsCard.appendChild(el("div", { "class": "item" }, children));
+            });
+          }
         }
 
         var ra = ads.recommended_actions || [];
         var notes = ads.operator_notes || [];
         actCard.appendChild(el("div", { "class": "section-meta",
-          text: "Operator recommendations and notes" }));
+          text: "Operator recommendations" }));
         var ul = el("ul", { "class": "checks" }, ra.map(function (t) {
           return el("li", { text: t });
         }));
@@ -1343,6 +1663,38 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
         $("generated").textContent = s.generated_at || "";
       }
 
+      function setupTabs() {
+        var tabs = Array.prototype.slice.call(
+          document.querySelectorAll('[role="tab"]'));
+        function activate(target) {
+          tabs.forEach(function (t) {
+            var sel = t.id === target.id;
+            t.setAttribute("aria-selected", sel ? "true" : "false");
+            var panelId = t.getAttribute("aria-controls");
+            var panel = document.getElementById(panelId);
+            if (panel) panel.hidden = !sel;
+          });
+          if (window.__RENDER__) {
+            setTimeout(window.__RENDER__, 0);
+          }
+        }
+        tabs.forEach(function (t) {
+          t.addEventListener("click", function () { activate(t); });
+          t.addEventListener("keydown", function (ev) {
+            var i = tabs.indexOf(t);
+            if (ev.key === "ArrowRight") {
+              ev.preventDefault();
+              tabs[(i + 1) % tabs.length].focus();
+              activate(tabs[(i + 1) % tabs.length]);
+            } else if (ev.key === "ArrowLeft") {
+              ev.preventDefault();
+              tabs[(i - 1 + tabs.length) % tabs.length].focus();
+              activate(tabs[(i - 1 + tabs.length) % tabs.length]);
+            }
+          });
+        });
+      }
+
       function boot(snapshot) {
         if (!snapshot) {
           $("status-text").textContent = "Snapshot missing";
@@ -1351,6 +1703,7 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
         }
         window.__RENDER__ = function () { renderAll(snapshot); };
         renderAll(snapshot);
+        setupTabs();
         var t;
         window.addEventListener("resize", function () {
           clearTimeout(t);

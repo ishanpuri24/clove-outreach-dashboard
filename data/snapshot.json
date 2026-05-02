@@ -459,7 +459,7 @@
   },
   "google_ads_insights": {
     "title": "Google Ads Waste Watch",
-    "subtitle": "Paid media office watch for the first linked Google Ads child account. Manager-account, customer-IDs, and account labels are intentionally not exposed in the public mirror.",
+    "subtitle": "Paid media office watch for the linked Google Ads child account. Manager-account, customer IDs, and account labels are intentionally not exposed in the public mirror. Recommendations are dashboard-only and do not change the live account.",
     "lookback": "LAST_30_DAYS",
     "data_freshness": "2026-05-02T00:00:00+00:00",
     "automation_status": "Manual refresh. Daily automation pending user confirmation; no scheduled job is active.",
@@ -481,9 +481,28 @@
     "risk_summary": {
       "high": 2,
       "monitor": 5,
+      "protect": 2,
       "low_volume_no_conversions": 1,
+      "high_priority_campaigns": 2,
+      "protect_campaigns": 2,
+      "monitor_campaigns": 3,
+      "high_risk_spend_usd": 3469.48,
+      "high_risk_spend_share_pct": 44.86,
       "high_cost_share_pct": 44.86,
       "note": "High-risk campaigns currently absorb the largest share of spend without matching conversion volume. Prioritize search-query review and negative-keyword sweeps before raising any budget."
+    },
+    "recommended_budget_shift": {
+      "from": [
+        "JZ-Search-Cam - Dentical",
+        "JZ-Search-Clove high-CPC ad groups"
+      ],
+      "to": [
+        "Insurance-Performance Max-15/4/26 after quality check",
+        "Insurance search exact-match winners"
+      ],
+      "guardrail": "Do not shift budget until call/booking quality is verified; then move in small weekly increments.",
+      "estimated_waste_to_review_usd": 3469.48,
+      "estimated_waste_share_pct": 44.9
     },
     "campaign_groups": [
       {
@@ -500,142 +519,486 @@
       {
         "campaign_name": "JZ-Search-Clove",
         "channel": "SEARCH",
+        "status": "LIMITED",
         "cost_usd": 1880.05,
         "clicks": 182,
         "conversions": 11.0,
         "avg_cpc_usd": 10.33,
         "conversion_rate_pct": 6.04,
         "cpa_usd": 170.91,
+        "phone_calls": 5,
+        "spend_share_pct": 24.3,
         "risk": "High",
         "flags": [
           "High CPC vs account average",
           "CPA more than triple account average"
         ],
-        "recommended_action": "Review search queries and ad-group targeting. Add negatives for low-intent terms; isolate brand vs non-brand traffic before sustaining spend."
+        "recommended_action": "Tighten immediately: pause or bid-cap high-CPC insurance/provider ad groups, then rebuild around appointment intent.",
+        "decision_detail": {
+          "priority": "High",
+          "decision": "Tighten immediately",
+          "what_to_change": "Pause or bid-cap the high-CPC insurance/provider ad groups, then rebuild around appointment intent.",
+          "why": "CPA $170.91 and CPC $10.33 are elevated; the campaign uses 24.3% of spend with only 11 conversions.",
+          "next_steps": [
+            "Pause zero-conversion ad groups with CPC above $15 until search terms are reviewed.",
+            "Separate insurance research terms from booking terms.",
+            "Add negatives around plan directories, member login, jobs, free-only, and generic provider-list searches.",
+            "Route emergency/appointment terms to location-specific pages with click-to-call above the fold."
+          ]
+        }
       },
       {
         "campaign_name": "JZ-Search-Cam - Dentical",
         "channel": "SEARCH",
+        "status": "LIMITED",
         "cost_usd": 1589.43,
         "clicks": 391,
         "conversions": 6.0,
         "avg_cpc_usd": 4.07,
         "conversion_rate_pct": 1.53,
         "cpa_usd": 264.91,
+        "phone_calls": 4,
+        "spend_share_pct": 20.5,
         "risk": "High",
         "flags": [
-          "Conversion rate under 2 pct on highest-click search campaign",
-          "CPA roughly five times account average"
+          "Conversion rate under 2% on highest-click search campaign",
+          "CPA roughly 5x account average"
         ],
-        "recommended_action": "Audit landing page and offer fit. Pause or rebuild if no conversion-rate lift after a one-week negative-keyword sweep."
+        "recommended_action": "Cut or rebuild: reduce budget 50-75% or pause while rebuilding around high-intent Denti-Cal appointment terms.",
+        "decision_detail": {
+          "priority": "High",
+          "decision": "Cut or rebuild",
+          "what_to_change": "Reduce budget 50-75% or pause while rebuilding into high-intent Denti-Cal appointment terms only.",
+          "why": "CPA $264.91 is far above account CPA $54.48; conversion rate is 1.5% on $1,589.43 spend.",
+          "next_steps": [
+            "Pull search terms and add negatives for eligibility, coverage-only, provider-list, job, and informational queries.",
+            "Split exact-match appointment/provider intent from exploratory terms.",
+            "Use a Denti-Cal-specific landing page with accepted insurance, same-day appointment CTA, and call tracking.",
+            "Hold budget increases until CPA is near the office account average for two consecutive weeks."
+          ]
+        }
       },
       {
         "campaign_name": "PMAX - gbp 8/1/2025",
         "channel": "PERFORMANCE_MAX",
+        "status": "LIMITED",
         "cost_usd": 1960.51,
         "clicks": 394,
         "conversions": 29.0,
         "avg_cpc_usd": 4.98,
         "conversion_rate_pct": 7.36,
         "cpa_usd": 67.6,
+        "phone_calls": 43,
+        "spend_share_pct": 25.3,
         "risk": "Monitor",
         "flags": [
           "Largest single line of spend"
         ],
-        "recommended_action": "Hold spend. Validate asset-group performance against the Insurance Performance Max benchmark; pull placements report weekly."
+        "recommended_action": "Monitor: hold spend, audit search-term and conversion quality weekly against the Insurance PMax benchmark.",
+        "decision_detail": {
+          "priority": "Monitor",
+          "decision": "Monitor",
+          "what_to_change": "No immediate budget cut; continue search-term and conversion-quality review.",
+          "why": "Performance does not currently meet high-risk thresholds.",
+          "next_steps": [
+            "Review weekly for CPA drift, conversion quality, and limited status causes.",
+            "Compare asset-group performance against Insurance PMax (benchmark CPA)."
+          ]
+        }
       },
       {
         "campaign_name": "Insurance",
         "channel": "SEARCH",
+        "status": "LIMITED",
         "cost_usd": 895.72,
         "clicks": 153,
         "conversions": 29.02,
         "avg_cpc_usd": 5.85,
         "conversion_rate_pct": 18.97,
         "cpa_usd": 30.87,
-        "risk": "Monitor",
+        "phone_calls": 28,
+        "spend_share_pct": 11.6,
+        "risk": "Protect",
         "flags": [
-          "Strong conversion rate; consider scaling carefully"
+          "Strong conversion rate; below-average CPA"
         ],
-        "recommended_action": "Continue. Test a measured budget lift only after confirming CPA holds for two consecutive weeks."
+        "recommended_action": "Protect: keep budget stable; mine converting search terms for exact-match expansion.",
+        "decision_detail": {
+          "priority": "Protect",
+          "decision": "Protect",
+          "what_to_change": "Keep budget stable; mine converting search terms for exact-match expansion.",
+          "why": "CPA $30.87 is below account average with 19.0% conversion rate.",
+          "next_steps": [
+            "Promote high-converting insurance terms into exact match.",
+            "Add negatives from non-converting plan-directory searches.",
+            "Use this campaign as the search benchmark before scaling weaker campaigns."
+          ]
+        }
       },
       {
         "campaign_name": "General-Search-15/10",
         "channel": "SEARCH",
+        "status": "LIMITED",
         "cost_usd": 561.14,
         "clicks": 76,
         "conversions": 12.98,
         "avg_cpc_usd": 7.38,
         "conversion_rate_pct": 17.08,
         "cpa_usd": 43.22,
+        "phone_calls": 15,
+        "spend_share_pct": 7.3,
         "risk": "Monitor",
         "flags": [
           "Healthy conversion rate; CPC running above account average"
         ],
-        "recommended_action": "Maintain. Trim high-CPC keywords that do not convert in a 14-day window."
+        "recommended_action": "Scale carefully: keep active but cap spend increases; expand only from search terms that convert below account CPA.",
+        "decision_detail": {
+          "priority": "Monitor",
+          "decision": "Scale carefully",
+          "what_to_change": "Keep active but cap spend increases; expand only from search terms that convert below account CPA.",
+          "why": "CPA $43.22 is slightly below account average and conversion rate is 17.1%.",
+          "next_steps": [
+            "Split best-performing service terms into exact-match ad groups.",
+            "Keep broad/phrase spend constrained until search terms prove appointment intent.",
+            "Add office-level landing pages for location-modified queries."
+          ]
+        }
       },
       {
         "campaign_name": "Insurance-Performance Max-15/4/26",
         "channel": "PERFORMANCE_MAX",
+        "status": "LIMITED",
         "cost_usd": 503.82,
         "clicks": 151,
         "conversions": 50.99,
         "avg_cpc_usd": 3.34,
         "conversion_rate_pct": 33.77,
         "cpa_usd": 9.88,
-        "risk": "Monitor",
+        "phone_calls": 47,
+        "spend_share_pct": 6.5,
+        "risk": "Protect",
         "flags": [
           "Best CPA and conversion rate in the account"
         ],
-        "recommended_action": "Protect. Use as the benchmark when reviewing JZ-Search-Cam and the older PMAX line."
+        "recommended_action": "Protect and verify quality: keep active; consider shifting budget here only after call/booking quality is confirmed.",
+        "decision_detail": {
+          "priority": "Protect",
+          "decision": "Protect and verify quality",
+          "what_to_change": "Keep active; consider shifting budget from high-risk search only after call/booking quality is confirmed.",
+          "why": "CPA $9.88, conversion rate 33.8%, and 47 phone calls are strongest in the current account snapshot.",
+          "next_steps": [
+            "Check conversion action quality so form fills and calls reflect real appointments.",
+            "Review PMax asset groups and search themes for insurance intent.",
+            "Increase budget gradually only if booked appointments track with reported conversions."
+          ]
+        }
       },
       {
         "campaign_name": "Emergency - 3/10/26",
         "channel": "SEARCH",
+        "status": "LIMITED",
         "cost_usd": 303.12,
         "clicks": 13,
         "conversions": 3.0,
         "avg_cpc_usd": 23.32,
         "conversion_rate_pct": 23.08,
         "cpa_usd": 101.04,
+        "phone_calls": 0,
+        "spend_share_pct": 3.9,
         "risk": "Monitor",
         "flags": [
           "Very high CPC; thin click volume"
         ],
-        "recommended_action": "Monitor. Acceptable for emergency intent but verify call-tracking attribution before increasing budget."
+        "recommended_action": "Audit tracking before scaling: confirm calls and booked appointments are captured correctly.",
+        "decision_detail": {
+          "priority": "Monitor",
+          "decision": "Audit tracking before scaling",
+          "what_to_change": "Do not scale yet; confirm calls and booked appointments are captured correctly.",
+          "why": "CPC $23.32 is high, but reported conversion rate is 23.1% on low volume.",
+          "next_steps": [
+            "Verify call conversion tracking and missed-call handling.",
+            "Use emergency-specific ad copy with same-day availability.",
+            "Bid only during staffed hours unless after-hours call capture is reliable."
+          ]
+        }
       },
       {
         "campaign_name": "JZ-Search-Clove - Spanish",
         "channel": "SEARCH",
+        "status": "ELIGIBLE",
         "cost_usd": 41.59,
         "clicks": 11,
         "conversions": 0.0,
         "avg_cpc_usd": 3.78,
         "conversion_rate_pct": 0.0,
         "cpa_usd": null,
+        "phone_calls": 0,
+        "spend_share_pct": 0.5,
         "risk": "Low volume / no conversions",
         "flags": [
           "Zero conversions",
           "Volume too low to evaluate"
         ],
-        "recommended_action": "Hold at minimum spend or pause. Revisit only with a Spanish-language landing page and call routing."
+        "recommended_action": "Keep as test or pause: hold tiny budget unless Spanish landing page and call handling are ready.",
+        "decision_detail": {
+          "priority": "Low",
+          "decision": "Keep as test or pause",
+          "what_to_change": "Pause unless Spanish landing page, call handling, and ad copy are ready; otherwise keep a tiny test budget.",
+          "why": "Spend is low but no conversions were recorded.",
+          "next_steps": [
+            "Confirm Spanish-language phone coverage.",
+            "Build a Spanish landing page before adding budget.",
+            "Use exact-match local appointment terms for the next test."
+          ]
+        }
       }
     ],
+    "ad_group_recommendations": [
+      {
+        "ad_group_name": "dentical",
+        "campaign_name": "JZ-Search-Cam - Dentical",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 1589.43,
+        "clicks": 391,
+        "conversions": 6.0,
+        "impressions": 8658,
+        "phone_calls": 4,
+        "avg_cpc_usd": 4.07,
+        "conversion_rate_pct": 1.5,
+        "cpa_usd": 264.91,
+        "risk_detail": {
+          "priority": "High",
+          "decision": "Rebuild Denti-Cal intent",
+          "what_to_change": "Reduce or pause while rebuilding around appointment-ready Denti-Cal/Medi-Cal terms and a dedicated insurance landing page.",
+          "why": "$1,589.43 spend, 391 clicks, 6.00 conversions, $4.07 CPC, 1.5% CVR, $264.91 CPA."
+        }
+      },
+      {
+        "ad_group_name": "delta dental ppo providers #2",
+        "campaign_name": "JZ-Search-Clove",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 534.91,
+        "clicks": 30,
+        "conversions": 1.0,
+        "impressions": 418,
+        "phone_calls": 1,
+        "avg_cpc_usd": 17.83,
+        "conversion_rate_pct": 3.3,
+        "cpa_usd": 534.91,
+        "risk_detail": {
+          "priority": "High",
+          "decision": "Cut bids or rebuild",
+          "what_to_change": "Cut bids 30-50% or move proven terms into a new exact-match ad group with a dedicated landing page.",
+          "why": "$534.91 spend, 30 clicks, 1.00 conversions, $17.83 CPC, 3.3% CVR, $534.91 CPA."
+        }
+      },
+      {
+        "ad_group_name": "insurance list",
+        "campaign_name": "JZ-Search-Clove",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 125.66,
+        "clicks": 12,
+        "conversions": 0.0,
+        "impressions": 149,
+        "phone_calls": 0,
+        "avg_cpc_usd": 10.47,
+        "conversion_rate_pct": 0.0,
+        "cpa_usd": null,
+        "risk_detail": {
+          "priority": "High",
+          "decision": "Pause pending review",
+          "what_to_change": "Pause this ad group until search terms are reviewed; only relaunch exact-match booking/provider terms.",
+          "why": "$125.66 spend, 12 clicks, 0.00 conversions, $10.47 CPC, 0.0% CVR, no CPA because conversions are zero."
+        }
+      },
+      {
+        "ad_group_name": "delta dental ppo dentists #2",
+        "campaign_name": "JZ-Search-Clove",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 103.83,
+        "clicks": 8,
+        "conversions": 0.0,
+        "impressions": 83,
+        "phone_calls": 0,
+        "avg_cpc_usd": 12.98,
+        "conversion_rate_pct": 0.0,
+        "cpa_usd": null,
+        "risk_detail": {
+          "priority": "High",
+          "decision": "Pause pending review",
+          "what_to_change": "Pause this ad group until search terms are reviewed; only relaunch exact-match booking/provider terms.",
+          "why": "$103.83 spend, 8 clicks, 0.00 conversions, $12.98 CPC, 0.0% CVR, no CPA because conversions are zero."
+        }
+      },
+      {
+        "ad_group_name": "Dentical",
+        "campaign_name": "General-Search-15/10",
+        "status": "PAUSED",
+        "primary_status": "PAUSED",
+        "cost_usd": 102.59,
+        "clicks": 13,
+        "conversions": 3.98,
+        "impressions": 203,
+        "phone_calls": 2,
+        "avg_cpc_usd": 7.89,
+        "conversion_rate_pct": 30.7,
+        "cpa_usd": 25.75,
+        "risk_detail": {
+          "priority": "High",
+          "decision": "Rebuild Denti-Cal intent",
+          "what_to_change": "Reduce or pause while rebuilding around appointment-ready Denti-Cal/Medi-Cal terms and a dedicated insurance landing page.",
+          "why": "$102.59 spend, 13 clicks, 3.98 conversions, $7.89 CPC, 30.7% CVR, $25.75 CPA."
+        }
+      },
+      {
+        "ad_group_name": "emergency dental office near me",
+        "campaign_name": "JZ-Search-Clove",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 88.88,
+        "clicks": 8,
+        "conversions": 0.0,
+        "impressions": 91,
+        "phone_calls": 0,
+        "avg_cpc_usd": 11.11,
+        "conversion_rate_pct": 0.0,
+        "cpa_usd": null,
+        "risk_detail": {
+          "priority": "High",
+          "decision": "Pause pending review",
+          "what_to_change": "Pause this ad group until search terms are reviewed; only relaunch exact-match booking/provider terms.",
+          "why": "$88.88 spend, 8 clicks, 0.00 conversions, $11.11 CPC, 0.0% CVR, no CPA because conversions are zero."
+        }
+      },
+      {
+        "ad_group_name": "Delta Care USA",
+        "campaign_name": "Insurance",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 564.94,
+        "clicks": 106,
+        "conversions": 19.02,
+        "impressions": 1333,
+        "phone_calls": 12,
+        "avg_cpc_usd": 5.33,
+        "conversion_rate_pct": 17.9,
+        "cpa_usd": 29.71,
+        "risk_detail": {
+          "priority": "Protect",
+          "decision": "Protect",
+          "what_to_change": "Keep active and mine converting queries for exact-match expansion.",
+          "why": "$564.94 spend, 106 clicks, 19.02 conversions, $5.33 CPC, 17.9% CVR, $29.71 CPA."
+        }
+      },
+      {
+        "ad_group_name": "Anthem Blue Cross",
+        "campaign_name": "Insurance",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 268.1,
+        "clicks": 37,
+        "conversions": 8.0,
+        "impressions": 362,
+        "phone_calls": 14,
+        "avg_cpc_usd": 7.25,
+        "conversion_rate_pct": 21.6,
+        "cpa_usd": 33.51,
+        "risk_detail": {
+          "priority": "Protect",
+          "decision": "Protect",
+          "what_to_change": "Keep active and mine converting queries for exact-match expansion.",
+          "why": "$268.10 spend, 37 clicks, 8.00 conversions, $7.25 CPC, 21.6% CVR, $33.51 CPA."
+        }
+      },
+      {
+        "ad_group_name": "Medical/Medicare/Deltacare",
+        "campaign_name": "JZ-Search-Clove",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 821.37,
+        "clicks": 103,
+        "conversions": 9.0,
+        "impressions": 1568,
+        "phone_calls": 3,
+        "avg_cpc_usd": 7.97,
+        "conversion_rate_pct": 8.7,
+        "cpa_usd": 91.26,
+        "risk_detail": {
+          "priority": "Monitor",
+          "decision": "Split intent",
+          "what_to_change": "Split Medicare, Denti-Cal, and appointment intent into separate ad groups; add negatives for plan research.",
+          "why": "$821.37 spend, 103 clicks, 9.00 conversions, $7.97 CPC, 8.7% CVR, $91.26 CPA."
+        }
+      },
+      {
+        "ad_group_name": "Emergency - Core",
+        "campaign_name": "Emergency - 3/10/26",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 303.12,
+        "clicks": 13,
+        "conversions": 3.0,
+        "impressions": 198,
+        "phone_calls": 0,
+        "avg_cpc_usd": 23.32,
+        "conversion_rate_pct": 23.1,
+        "cpa_usd": 101.04,
+        "risk_detail": {
+          "priority": "Monitor",
+          "decision": "Audit tracking",
+          "what_to_change": "Keep active, but verify call tracking and review search terms weekly before scaling.",
+          "why": "$303.12 spend, 13 clicks, 3.00 conversions, $23.32 CPC, 23.1% CVR, $101.04 CPA."
+        }
+      },
+      {
+        "ad_group_name": "Location targeting",
+        "campaign_name": "General-Search-15/10",
+        "status": "ENABLED",
+        "primary_status": "ELIGIBLE",
+        "cost_usd": 254.97,
+        "clicks": 30,
+        "conversions": 3.0,
+        "impressions": 502,
+        "phone_calls": 5,
+        "avg_cpc_usd": 8.5,
+        "conversion_rate_pct": 10.0,
+        "cpa_usd": 84.99,
+        "risk_detail": {
+          "priority": "Monitor",
+          "decision": "Monitor",
+          "what_to_change": "Keep active, but review search terms and conversion quality weekly.",
+          "why": "$254.97 spend, 30 clicks, 3.00 conversions, $8.50 CPC, 10.0% CVR, $84.99 CPA."
+        }
+      }
+    ],
+    "office_mapping_needed": [
+      "Add friendly office names for each linked child account so the dashboard can rank waste by office.",
+      "Additional child accounts can be appended privately to the daily job without exposing IDs publicly.",
+      "Office names are awaiting mapping; office identifiers and account IDs remain private and are not shown."
+    ],
     "recommended_actions": [
-      "Cut or rebuild JZ-Search-Cam - Dentical: 1.53 pct conversion rate and CPA over 260 USD on the largest search-click base in the account.",
-      "Run a negative-keyword and search-query sweep on JZ-Search-Clove before sustaining spend at a 10 USD CPC.",
-      "Use Insurance-Performance Max-15/4/26 as the conversion-rate benchmark when judging the older PMAX - gbp line.",
-      "Pause or down-weight JZ-Search-Clove - Spanish until a Spanish landing page and call routing are in place.",
+      "Pause pending review: zero-conversion JZ-Search-Clove ad groups with CPC above $10 (insurance list, delta dental ppo dentists #2, emergency dental office near me).",
+      "Cut or rebuild JZ-Search-Cam - Dentical: 1.53% conversion rate and CPA over $260 on the largest search-click base in the account.",
+      "Tighten JZ-Search-Clove immediately: bid-cap or pause delta dental ppo providers #2 ($17.83 CPC, $534.91 CPA) and rebuild around appointment intent.",
+      "Protect Insurance and Insurance-Performance Max-15/4/26 as benchmarks; mine converting Delta Care USA and Anthem Blue Cross queries for exact-match expansion.",
+      "Audit tracking on Emergency - 3/10/26 (call conversion tracking and after-hours call capture) before scaling on $23.32 CPC.",
+      "Hold or pause JZ-Search-Clove - Spanish until a Spanish landing page and Spanish-language call handling are ready.",
+      "Shift budget only after quality guardrails: do not move spend from high-risk search to Insurance PMax until call/booking quality is verified, then move in small weekly increments.",
       "Link the remaining office customer IDs under the manager account so this section can break out spend and CPA per office."
     ],
     "operator_notes": [
       "Data is pulled directly from the Google Ads API for the LAST_30_DAYS window; all customer and manager account IDs are intentionally omitted from the public mirror.",
       "Daily automation is pending user confirmation. Until then, this section is refreshed manually alongside the rest of the snapshot.",
-      "Office labels will replace the placeholder once the remaining customer IDs are linked and a private mapping table is in place."
+      "Office labels will replace the placeholder once the remaining customer IDs are linked and a private mapping table is in place.",
+      "These are dashboard-only recommendations. No changes are pushed to the live Google Ads account from this view."
     ]
   },
   "_sanitization": {
-    "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
+    "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign and ad-group metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
     "removed_fields": [
       "sources.sheet_url",
       "sources.sheet_id",
@@ -651,7 +1014,8 @@
       "private operations-repo commit hashes",
       "google_ads_insights manager_customer_id (never exposed)",
       "google_ads_insights child customer_id values (never exposed)",
-      "google_ads_insights account_label raw text (replaced with mapping-pending placeholder)"
+      "google_ads_insights account_label raw text (replaced with mapping-pending placeholder)",
+      "google_ads_insights ad_group internal IDs (never exposed)"
     ]
   }
 }
