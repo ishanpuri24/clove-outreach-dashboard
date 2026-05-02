@@ -123,7 +123,9 @@ re-injects the JSON into `index.html` after every sanitization, and
   account identifiers are intentionally never exposed; offices
   appear under a mapping-pending placeholder until the remaining
   customer IDs are linked. A data-freshness timestamp is shown and
-  daily automation is noted as pending user confirmation.
+  the section is included in the consolidated weekday patient-
+  acquisition operating loop, with dashboard-only recommendations
+  and no Google Ads changes made without explicit confirmation.
 - Experiment backlog and queue health with sourcing goals and
   warnings.
 - Operator follow-up queue, redacted to action and channel only.

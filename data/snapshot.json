@@ -462,7 +462,7 @@
     "subtitle": "Paid media office watch for the linked Google Ads child account. Manager-account, customer IDs, and account labels are intentionally not exposed in the public mirror. Recommendations are dashboard-only and do not change the live account.",
     "lookback": "LAST_30_DAYS",
     "data_freshness": "2026-05-02T00:00:00+00:00",
-    "automation_status": "Manual refresh. Daily automation pending user confirmation; no scheduled job is active.",
+    "automation_status": "Included in the consolidated weekday patient-acquisition operating loop; recommendations are dashboard-only and no Google Ads changes are made without explicit confirmation.",
     "coverage": {
       "linked_offices": 1,
       "offices_pending_link": "remaining",
@@ -992,7 +992,7 @@
     ],
     "operator_notes": [
       "Data is pulled directly from the Google Ads API for the LAST_30_DAYS window; all customer and manager account IDs are intentionally omitted from the public mirror.",
-      "Daily automation is pending user confirmation. Until then, this section is refreshed manually alongside the rest of the snapshot.",
+      "Refreshed as part of the consolidated weekday patient-acquisition operating loop; recommendations remain dashboard-only and no Google Ads changes are made without explicit confirmation.",
       "Office labels will replace the placeholder once the remaining customer IDs are linked and a private mapping table is in place.",
       "These are dashboard-only recommendations. No changes are pushed to the live Google Ads account from this view."
     ]
