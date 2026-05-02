@@ -409,6 +409,221 @@
       font-weight: 600;
     }
 
+    /* -------- Priority strip (above-the-fold actions) -------- */
+    .priority-strip {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg,
+        var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--border);
+      border-left: 6px solid var(--danger);
+      box-shadow: var(--shadow);
+    }
+    .priority-strip .ps-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .priority-strip h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.005em;
+    }
+    .priority-strip .ps-meta {
+      color: var(--text-muted);
+      font-size: 12.5px;
+      margin-bottom: 10px;
+    }
+    .priority-strip .ps-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 720px) {
+      .priority-strip .ps-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    .priority-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--danger);
+      border-radius: 8px;
+      padding: 12px 12px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 0;
+    }
+    .priority-card.is-protect { border-left-color: var(--good); }
+    .priority-card.is-monitor { border-left-color: var(--warn); }
+    .priority-card .pc-head {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .priority-card .pc-rank {
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: var(--danger);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+    .priority-card.is-protect .pc-rank { background: var(--good); }
+    .priority-card.is-monitor .pc-rank { background: var(--warn); }
+    .priority-card .pc-title {
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -0.005em;
+    }
+    .priority-card .pc-action {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .priority-card .pc-why {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .priority-card .pc-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .priority-card .pc-stats strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* -------- Priority pills with shape (color-blind friendly) -------- */
+    .pill.priority {
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+    }
+    .pill.priority::before {
+      content: "";
+      width: 0; height: 0;
+      display: inline-block;
+      margin-right: 2px;
+    }
+    .pill.priority.is-high {
+      background: var(--danger-weak);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .pill.priority.is-high::before {
+      /* Triangle = high priority (shape, not just color) */
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 8px solid var(--danger);
+    }
+    .pill.priority.is-monitor {
+      background: var(--warn-weak);
+      border-color: var(--warn);
+      color: var(--warn);
+    }
+    .pill.priority.is-monitor::before {
+      /* Square = monitor */
+      width: 8px; height: 8px;
+      background: var(--warn);
+    }
+    .pill.priority.is-protect {
+      background: var(--good-weak);
+      border-color: var(--good);
+      color: var(--good);
+    }
+    .pill.priority.is-protect::before {
+      /* Circle = protect */
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--good);
+    }
+    .pill.priority.is-low {
+      background: var(--surface-2);
+      border-color: var(--border);
+      color: var(--text-muted);
+    }
+    .pill.priority.is-low::before {
+      width: 8px; height: 2px;
+      background: var(--text-muted);
+    }
+    :root[data-theme="dark"] .pill.priority.is-high,
+    :root[data-theme="dark"] .pill.priority.is-monitor,
+    :root[data-theme="dark"] .pill.priority.is-protect {
+      color: var(--text);
+    }
+
+    /* -------- Action callout block on each campaign/ad-group item -------- */
+    .item.has-priority {
+      border-left: 4px solid var(--border);
+    }
+    .item.has-priority.is-high { border-left-color: var(--danger); }
+    .item.has-priority.is-monitor { border-left-color: var(--warn); }
+    .item.has-priority.is-protect { border-left-color: var(--good); }
+    .item.has-priority.is-low { border-left-color: var(--text-muted); }
+    .action-callout {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .action-callout .ac-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .action-callout .ac-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .item.has-priority.is-high .action-callout {
+      background: var(--danger-weak);
+      border-color: var(--danger);
+    }
+    .item.has-priority.is-monitor .action-callout {
+      background: var(--warn-weak);
+      border-color: var(--warn);
+    }
+    .item.has-priority.is-protect .action-callout {
+      background: var(--good-weak);
+      border-color: var(--good);
+    }
+
+    /* -------- Compact ad-group action table -------- */
+    .adgroup-table th, .adgroup-table td {
+      padding: 8px 10px;
+      vertical-align: middle;
+    }
+    .adgroup-table .col-priority { width: 1%; white-space: nowrap; }
+    .adgroup-table .col-action { font-weight: 600; }
+    .adgroup-table tr.is-high td {
+      background: color-mix(in srgb, var(--danger-weak) 60%, transparent);
+    }
+    .adgroup-table tr.is-monitor td {
+      background: color-mix(in srgb, var(--warn-weak) 50%, transparent);
+    }
+    .adgroup-table tr.is-protect td {
+      background: color-mix(in srgb, var(--good-weak) 50%, transparent);
+    }
+
     /* -------- Charts -------- */
     .chart {
       width: 100%;
@@ -514,6 +729,26 @@
           intentionally not exposed in the public mirror.
         </p>
 
+        <!-- Above-the-fold priority strip: do this first -->
+        <section aria-labelledby="ads-priority"
+                 class="priority-strip" id="ads-priority-strip">
+          <div class="ps-head">
+            <h2 id="ads-priority">Do this first</h2>
+            <span class="pill priority is-high" aria-hidden="true">
+              Priority actions
+            </span>
+            <span class="pill" id="ads-priority-count"
+                  aria-live="polite"></span>
+          </div>
+          <div class="ps-meta">
+            Top dashboard-only recommendations from the latest
+            30-day Google Ads snapshot. Shape, color, and rank
+            label all encode priority for accessibility. No changes
+            are pushed to the live account.
+          </div>
+          <div class="ps-grid" id="ads-priority-grid"></div>
+        </section>
+
         <!-- Ads coverage / mapping notice -->
         <section aria-labelledby="ads">
           <h2 id="ads">
@@ -541,22 +776,24 @@
           </div>
         </section>
 
-        <!-- Campaign decisions -->
+        <!-- Ad-group action list (action-first, scannable table) -->
+        <section aria-labelledby="ads-adgroups">
+          <h2 id="ads-adgroups">Ad-group action punch list</h2>
+          <div class="section-meta">Highest-priority ad-group fixes,
+            sorted by priority then spend. The action column comes
+            first so the next move is obvious at a glance. Priority
+            uses a shape, color, and label so the meaning does not
+            depend on color alone.</div>
+          <div class="card" id="ads-adgroups-card"></div>
+        </section>
+
+        <!-- Campaign decisions (full detail per campaign) -->
         <section aria-labelledby="ads-campaigns">
           <h2 id="ads-campaigns">Campaign decisions</h2>
           <div class="section-meta">Each campaign lists priority, the
             decision, what to change, why, and concrete next steps.
             Order: high-priority first, then protect, then monitor.</div>
           <div class="card" id="ads-campaigns-card"></div>
-        </section>
-
-        <!-- Ad-group action list -->
-        <section aria-labelledby="ads-adgroups">
-          <h2 id="ads-adgroups">Ad-group action list</h2>
-          <div class="section-meta">Highest-priority ad-group fixes
-            inside the campaigns above. Use this as the working punch
-            list when reviewing search terms and bids.</div>
-          <div class="card" id="ads-adgroups-card"></div>
         </section>
 
         <!-- Recommended actions / notes -->
@@ -1314,6 +1551,150 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
         return 4;
       }
 
+      function priorityKey(p) {
+        var s = (p || "").toLowerCase();
+        if (s === "high") return "high";
+        if (s === "protect") return "protect";
+        if (s === "monitor") return "monitor";
+        if (s === "low") return "low";
+        if (s.indexOf("low") >= 0) return "low";
+        return "low";
+      }
+
+      function priorityLabel(p) {
+        var key = priorityKey(p);
+        if (key === "high") return "High";
+        if (key === "protect") return "Protect";
+        if (key === "monitor") return "Monitor";
+        return "Low";
+      }
+
+      function pillForPriorityShape(p) {
+        var key = priorityKey(p);
+        var span = el("span", {
+          "class": "pill priority is-" + key,
+          "aria-label": "Priority: " + priorityLabel(p)
+        }, [priorityLabel(p)]);
+        return span;
+      }
+
+      function buildPriorityCards(ads) {
+        var picks = [];
+        var seenCampaigns = {};
+        var campaigns = (ads.campaigns || []).slice().sort(function (a, b) {
+          var pa = priorityRank((a.decision_detail && a.decision_detail.priority)
+            || a.risk);
+          var pb = priorityRank((b.decision_detail && b.decision_detail.priority)
+            || b.risk);
+          if (pa !== pb) return pa - pb;
+          return (b.cost_usd || 0) - (a.cost_usd || 0);
+        });
+        campaigns.forEach(function (c) {
+          var dd = c.decision_detail || {};
+          var pri = dd.priority || c.risk || "";
+          if (priorityKey(pri) !== "high") return;
+          if (seenCampaigns[c.campaign_name]) return;
+          seenCampaigns[c.campaign_name] = true;
+          picks.push({
+            kind: "campaign",
+            priority: "High",
+            title: c.campaign_name,
+            action: dd.decision || c.recommended_action || "Tighten",
+            detail: dd.what_to_change || c.recommended_action || "",
+            why: dd.why || "",
+            stats: [
+              { strong: fmtUsd(c.cost_usd), label: "spend (30d)" },
+              { strong: (c.cpa_usd != null ? fmtUsd(c.cpa_usd) : "-"),
+                label: "CPA" },
+              { strong: fmtUsd(c.avg_cpc_usd), label: "CPC" }
+            ]
+          });
+        });
+        // Add top protect items (anchors / benchmarks).
+        campaigns.forEach(function (c) {
+          var dd = c.decision_detail || {};
+          var pri = dd.priority || c.risk || "";
+          if (priorityKey(pri) !== "protect") return;
+          if (picks.length >= 5) return;
+          if (seenCampaigns[c.campaign_name]) return;
+          seenCampaigns[c.campaign_name] = true;
+          picks.push({
+            kind: "campaign",
+            priority: "Protect",
+            title: c.campaign_name,
+            action: dd.decision || c.recommended_action || "Protect",
+            detail: dd.what_to_change || c.recommended_action || "",
+            why: dd.why || "",
+            stats: [
+              { strong: (c.cpa_usd != null ? fmtUsd(c.cpa_usd) : "-"),
+                label: "CPA" },
+              { strong: (c.conversion_rate_pct != null
+                ? fmtPct(c.conversion_rate_pct) : "-"),
+                label: "CVR" },
+              { strong: fmtNum(c.phone_calls), label: "calls" }
+            ]
+          });
+        });
+        return picks.slice(0, 6);
+      }
+
+      function renderPriorityStrip(ads) {
+        var strip = $("ads-priority-strip");
+        var grid = $("ads-priority-grid");
+        var counter = $("ads-priority-count");
+        if (!strip || !grid) return;
+        grid.innerHTML = "";
+        if (!ads) {
+          strip.hidden = true;
+          if (counter) counter.textContent = "";
+          return;
+        }
+        var picks = buildPriorityCards(ads);
+        if (!picks.length) {
+          strip.hidden = true;
+          if (counter) counter.textContent = "";
+          return;
+        }
+        strip.hidden = false;
+        var highCount = picks.filter(function (p) {
+          return priorityKey(p.priority) === "high";
+        }).length;
+        if (counter) {
+          counter.textContent = highCount + " high-priority, " +
+            (picks.length - highCount) + " protect";
+        }
+        picks.forEach(function (p, idx) {
+          var key = priorityKey(p.priority);
+          var card = el("div", { "class": "priority-card is-" + key }, [
+            el("div", { "class": "pc-head" }, [
+              el("span", { "class": "pc-rank",
+                "aria-hidden": "true",
+                text: String(idx + 1) }),
+              pillForPriorityShape(p.priority),
+              el("span", { "class": "pc-title", text: p.title })
+            ]),
+            el("div", { "class": "pc-action",
+              text: "Action: " + p.action }),
+            (p.detail
+              ? el("div", { "class": "pc-why", text: p.detail })
+              : null),
+            (p.why
+              ? el("div", { "class": "pc-why", text: "Why: " + p.why })
+              : null),
+            (p.stats && p.stats.length
+              ? el("div", { "class": "pc-stats" },
+                  p.stats.map(function (st) {
+                    return el("span", null, [
+                      el("strong", { text: st.strong }),
+                      " " + st.label
+                    ]);
+                  }))
+              : null)
+          ]);
+          grid.appendChild(card);
+        });
+      }
+
       function renderAdsInsights(s) {
         var ads = s.google_ads_insights || null;
         var titleEl = $("ads-title");
@@ -1332,6 +1713,7 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
         campCard.innerHTML = "";
         if (adgroupsCard) adgroupsCard.innerHTML = "";
         actCard.innerHTML = "";
+        renderPriorityStrip(ads);
         if (!ads) {
           subEl.textContent = "Google Ads insights not available in this snapshot.";
           return;
@@ -1483,6 +1865,7 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
           campaigns.forEach(function (c) {
             var dd = c.decision_detail || {};
             var priority = dd.priority || c.risk || "-";
+            var pkey = priorityKey(priority);
             var head = el("div", { "class": "item-head" }, [
               el("div", { "class": "item-title", text: c.campaign_name }),
               el("div", { "class": "row" }, [
@@ -1490,15 +1873,16 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
                   el("span", { "class": "dot" }),
                   c.channel || "-"
                 ]),
-                pillForPriorityWord(priority)
+                pillForPriorityShape(priority)
               ])
             ]);
-            var decisionPill = dd.decision
-              ? el("div", { "class": "row", style: "margin-top:6px;" }, [
-                  el("span", { "class": "pill warn" }, [
-                    el("span", { "class": "dot" }),
-                    "Decision: " + dd.decision
-                  ])
+            var actionText = dd.what_to_change ||
+              c.recommended_action || dd.decision || "";
+            var actionCallout = actionText
+              ? el("div", { "class": "action-callout" }, [
+                  el("div", { "class": "ac-label",
+                    text: "Action: " + (dd.decision || "Recommended") }),
+                  el("div", { "class": "ac-text", text: actionText })
                 ])
               : null;
             var stats = el("div", { "class": "item-stats" }, [
@@ -1526,7 +1910,7 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
                 " spend share"])
             ]);
             var children = [head];
-            if (decisionPill) children.push(decisionPill);
+            if (actionCallout) children.push(actionCallout);
             children.push(stats);
             if (c.flags && c.flags.length) {
               var flagRow = el("div", { "class": "row",
@@ -1536,13 +1920,6 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
                 ]);
               }));
               children.push(flagRow);
-            }
-            if (dd.what_to_change) {
-              children.push(el("div", { "class": "item-body",
-                text: "What to change: " + dd.what_to_change }));
-            } else if (c.recommended_action) {
-              children.push(el("div", { "class": "item-body",
-                text: "Recommended action: " + c.recommended_action }));
             }
             if (dd.why) {
               children.push(el("div", { "class": "item-body",
@@ -1558,7 +1935,9 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
               children.push(nsLabel);
               children.push(ns);
             }
-            campCard.appendChild(el("div", { "class": "item" }, children));
+            campCard.appendChild(el("div", {
+              "class": "item has-priority is-" + pkey
+            }, children));
           });
         }
 
@@ -1576,55 +1955,71 @@ window.__SNAPSHOT__ = {"generated_at": "2026-05-02T00:00:00+00:00", "task": {"id
             adgroupsCard.appendChild(el("div", { "class": "section-meta",
               text: "No ad-group recommendations in this snapshot." }));
           } else {
+            var wrap = el("div", { "class": "table-wrap" });
+            var table = el("table", { "class": "adgroup-table" });
+            var thead = el("thead", null, [
+              el("tr", null, [
+                el("th", { "class": "col-priority", text: "Priority" }),
+                el("th", { "class": "col-action", text: "Action" }),
+                el("th", { text: "Ad group" }),
+                el("th", { text: "Spend" }),
+                el("th", { text: "CPA" }),
+                el("th", { text: "CPC" }),
+                el("th", { text: "CVR" }),
+                el("th", { text: "Calls" })
+              ])
+            ]);
+            var tbody = el("tbody");
             adgroups.forEach(function (g) {
               var rd = g.risk_detail || {};
-              var head = el("div", { "class": "item-head" }, [
-                el("div", null, [
-                  el("span", { "class": "item-title", text: g.ad_group_name }),
-                  el("div", { "class": "item-meta",
-                    text: "in " + (g.campaign_name || "-") +
-                          " (" + (g.status || "-") + ")" })
-                ]),
-                el("div", { "class": "row" }, [
-                  pillForPriorityWord(rd.priority || ""),
-                  rd.decision
-                    ? el("span", { "class": "pill warn" }, [
-                        el("span", { "class": "dot" }), rd.decision
-                      ])
-                    : null
-                ])
-              ]);
-              var stats = el("div", { "class": "item-stats" }, [
-                el("span", null, [
-                  el("strong", { text: fmtUsd(g.cost_usd) }), " spend"]),
-                el("span", null, [
-                  el("strong", { text: fmtNum(g.clicks) }), " clicks"]),
-                el("span", null, [
-                  el("strong", { text: fmtNum(g.conversions) }), " conv"]),
-                el("span", null, [
-                  el("strong", { text: fmtUsd(g.avg_cpc_usd) }), " CPC"]),
-                el("span", null, [
-                  el("strong", { text: (g.conversion_rate_pct != null
-                    ? fmtPct(g.conversion_rate_pct) : "-") }),
-                  " CVR"]),
-                el("span", null, [
-                  el("strong", { text: (g.cpa_usd != null
-                    ? fmtUsd(g.cpa_usd) : "-") }),
-                  " CPA"]),
-                el("span", null, [
-                  el("strong", { text: fmtNum(g.phone_calls) }), " calls"])
-              ]);
-              var children = [head, stats];
-              if (rd.what_to_change) {
-                children.push(el("div", { "class": "item-body",
-                  text: "What to change: " + rd.what_to_change }));
-              }
+              var pkey = priorityKey(rd.priority || "");
+              var row = el("tr", { "class": "is-" + pkey });
+              row.appendChild(el("td", { "class": "col-priority" }, [
+                pillForPriorityShape(rd.priority || "")
+              ]));
+              row.appendChild(el("td", { "class": "col-action" }, [
+                el("div", { text: rd.decision ||
+                  rd.what_to_change || "-" }),
+                rd.what_to_change && rd.decision
+                  ? el("div", { "class": "item-meta",
+                      text: rd.what_to_change })
+                  : null
+              ]));
+              row.appendChild(el("td", null, [
+                el("div", { text: g.ad_group_name }),
+                el("div", { "class": "item-meta",
+                  text: "in " + (g.campaign_name || "-") +
+                        " (" + (g.status || "-") + ")" })
+              ]));
+              row.appendChild(el("td", { "class": "mono",
+                text: fmtUsd(g.cost_usd) }));
+              row.appendChild(el("td", { "class": "mono",
+                text: (g.cpa_usd != null ? fmtUsd(g.cpa_usd) : "-") }));
+              row.appendChild(el("td", { "class": "mono",
+                text: fmtUsd(g.avg_cpc_usd) }));
+              row.appendChild(el("td", { "class": "mono",
+                text: (g.conversion_rate_pct != null
+                  ? fmtPct(g.conversion_rate_pct) : "-") }));
+              row.appendChild(el("td", { "class": "mono",
+                text: fmtNum(g.phone_calls) }));
+              tbody.appendChild(row);
               if (rd.why) {
-                children.push(el("div", { "class": "item-body",
-                  text: "Why: " + rd.why }));
+                var whyRow = el("tr");
+                var whyCell = el("td", {
+                  colspan: "8",
+                  "class": "item-meta",
+                  style: "padding-top:0;",
+                  text: "Why: " + rd.why
+                });
+                whyRow.appendChild(whyCell);
+                whyRow.className = "is-" + pkey;
+                tbody.appendChild(whyRow);
               }
-              adgroupsCard.appendChild(el("div", { "class": "item" }, children));
             });
+            table.appendChild(thead);
+            table.appendChild(tbody);
+            wrap.appendChild(table);
+            adgroupsCard.appendChild(wrap);
           }
         }
 

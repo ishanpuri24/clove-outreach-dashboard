@@ -107,6 +107,34 @@ There are no rewrites, redirects, or headers required. The dashboard
 sets its own `Cache-Control: no-store` on the `fetch` of
 `snapshot.json`, so the host's default caching is fine.
 
+## Material changes must be committed and pushed
+
+Any material dashboard or data change - including a new snapshot,
+copy edits to operator-facing language, layout changes that move
+actions above or below the fold, sanitization-rule changes, or
+new sections - must be committed to git and pushed to `main`.
+Conversation-only or chat-only edits are not durable: if it is not
+in this repository, it is not deployed.
+
+The repository ships a lightweight GitHub Actions workflow at
+[`.github/workflows/validate.yml`](./.github/workflows/validate.yml)
+that runs on every push and pull request to `main`. The workflow:
+
+- Uses the standard `actions/checkout@v4` and `actions/setup-python@v5`
+  actions (no custom secrets, no external services).
+- Re-runs `python3 scripts/build_snapshot.py` and fails the build
+  if the resulting `data/snapshot.json` or `index.html` differ
+  from what was committed (i.e. the inline embedded snapshot was
+  not refreshed before push).
+- Runs `python3 scripts/validate_public_snapshot.py` to verify
+  schema, parity, and that no forbidden sensitive patterns
+  (Sheet IDs, prospect emails, tokens, Google Ads customer IDs,
+  manager-account IDs, mailto links) are present.
+
+If the workflow fails, the public mirror is not safe to deploy:
+fix the underlying sanitization issue and re-push. Do not edit
+the validator to silence findings.
+
 ## Updating the snapshot safely
 
 This is the most sensitive operation in the public mirror. Follow

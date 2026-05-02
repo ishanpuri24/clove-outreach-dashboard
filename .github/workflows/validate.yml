@@ -1,0 +1,37 @@
+name: Validate public snapshot
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Run public-mirror validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Confirm build_snapshot is idempotent
+        run: |
+          python3 scripts/build_snapshot.py
+          if ! git diff --exit-code data/snapshot.json index.html; then
+            echo "::error::build_snapshot.py produced uncommitted changes." \
+              "Run 'python3 scripts/build_snapshot.py' locally and commit" \
+              "the result before pushing."
+            exit 1
+          fi
+
+      - name: Run public-snapshot validator
+        run: python3 scripts/validate_public_snapshot.py

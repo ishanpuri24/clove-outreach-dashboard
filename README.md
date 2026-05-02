@@ -230,6 +230,36 @@ short version:
    renders correctly with the new data.
 6. Commit and push. The deployment target redeploys automatically.
 
+## Material-change workflow (mandatory)
+
+Any **material** dashboard or data change - new snapshot, copy
+edits to operator-facing language, layout changes that move actions
+above or below the fold, schema additions, sanitization changes -
+must end in a commit pushed to `main`. Conversation-only edits do
+not count as durable; if it is not in git, it is not deployed.
+
+The contract is:
+
+1. Edit `data/snapshot.json`, `index.html`, `scripts/`, or any
+   docs file as needed.
+2. Run `python3 scripts/build_snapshot.py` to re-inject the
+   sanitized snapshot into `index.html`.
+3. Run `python3 scripts/validate_public_snapshot.py`. A non-zero
+   exit code means the change is **not safe to ship**: fix the
+   sanitization upstream, do not silence the validator.
+4. Spot-check the rendered page locally (`python3 -m http.server
+   8000`) before pushing.
+5. Commit with a short imperative message and push to `origin
+   main`. GitHub Pages and any other static origin redeploy
+   automatically on push.
+
+A GitHub Actions workflow at
+`.github/workflows/validate.yml` runs the validator on every push
+and pull request to `main`. The workflow has no secrets, no
+external network calls, and no deploy step; it only verifies that
+the public mirror is still safe to publish. If the workflow fails,
+do not merge or deploy.
+
 ## Deploying
 
 See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for full instructions for:
