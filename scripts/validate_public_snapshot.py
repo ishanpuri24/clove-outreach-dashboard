@@ -125,6 +125,26 @@ ALLOWED_SPECIFIC_RECOMMENDATION_FIELDS = set(
     REQUIRED_SPECIFIC_RECOMMENDATION_FIELDS
 )
 
+# Short, campaign-specific recommendation block. The visible action
+# card surfaces these concise per-campaign fields; the longer
+# specific_recommendation block stays as a hidden fallback. Every
+# action-queue row must include a short_specific_recommendation so the
+# operator never sees a generic, repeated long checklist.
+REQUIRED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS = [
+    "headline",
+    "why_this_campaign",
+    "do_next",
+    "inspect",
+    "negative_keyword_focus",
+    "structure_fix",
+    "success_metric",
+    "log_note",
+]
+
+ALLOWED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS = set(
+    REQUIRED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS + ["metric_snapshot"]
+)
+
 REQUIRED_CHANGE_TRACKING_FIELDS = [
     "purpose",
     "current_connector_limit",
@@ -525,6 +545,39 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
                         f"[{idx}].specific_recommendation['{list_field}'] "
                         "items must be strings."
                     )
+        short = row.get("short_specific_recommendation")
+        if not isinstance(short, dict):
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                "short_specific_recommendation must be an object so the "
+                "visible card stays short and campaign-specific."
+            )
+        missing_short = [
+            k for k in REQUIRED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS
+            if k not in short
+        ]
+        if missing_short:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                f"short_specific_recommendation missing required "
+                f"fields: {missing_short}"
+            )
+        extra_short = (
+            set(short.keys()) - ALLOWED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS
+        )
+        if extra_short:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                f"short_specific_recommendation has unexpected keys: "
+                f"{sorted(extra_short)}"
+            )
+        for s_key, s_val in short.items():
+            if not isinstance(s_val, str) or not s_val.strip():
+                _fail(
+                    f"google_ads_insights.manual_action_queue[{idx}]."
+                    f"short_specific_recommendation['{s_key}'] must be "
+                    "a non-empty string."
+                )
 
     trends = ads.get("trends")
     if not isinstance(trends, dict):
@@ -556,20 +609,45 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
         if not isinstance(row, dict):
             continue
         rec = row.get("specific_recommendation")
-        if rec is None:
+        if rec is not None:
+            if not isinstance(rec, dict):
+                _fail(
+                    f"google_ads_insights.trends.by_campaign[{idx}]."
+                    "specific_recommendation must be an object when "
+                    "present."
+                )
+            extra = set(rec.keys()) - ALLOWED_SPECIFIC_RECOMMENDATION_FIELDS
+            if extra:
+                _fail(
+                    f"google_ads_insights.trends.by_campaign[{idx}]."
+                    f"specific_recommendation has unexpected keys: "
+                    f"{sorted(extra)}"
+                )
+        short = row.get("short_specific_recommendation")
+        if short is None:
             continue
-        if not isinstance(rec, dict):
+        if not isinstance(short, dict):
             _fail(
                 f"google_ads_insights.trends.by_campaign[{idx}]."
-                "specific_recommendation must be an object when present."
+                "short_specific_recommendation must be an object when "
+                "present."
             )
-        extra = set(rec.keys()) - ALLOWED_SPECIFIC_RECOMMENDATION_FIELDS
-        if extra:
+        extra_short = (
+            set(short.keys()) - ALLOWED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS
+        )
+        if extra_short:
             _fail(
                 f"google_ads_insights.trends.by_campaign[{idx}]."
-                f"specific_recommendation has unexpected keys: "
-                f"{sorted(extra)}"
+                f"short_specific_recommendation has unexpected keys: "
+                f"{sorted(extra_short)}"
             )
+        for s_key, s_val in short.items():
+            if not isinstance(s_val, str) or not s_val.strip():
+                _fail(
+                    f"google_ads_insights.trends.by_campaign[{idx}]."
+                    f"short_specific_recommendation['{s_key}'] must be "
+                    "a non-empty string."
+                )
 
     review_order = ads.get("operator_review_order")
     if not isinstance(review_order, list) or not review_order:

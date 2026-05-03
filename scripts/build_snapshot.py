@@ -171,20 +171,38 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
         "do_not_remove_note",
     }
 
+    allowed_short_specific_rec_keys = {
+        "headline",
+        "why_this_campaign",
+        "do_next",
+        "inspect",
+        "negative_keyword_focus",
+        "structure_fix",
+        "success_metric",
+        "metric_snapshot",
+        "log_note",
+    }
+
     def _scrub_specific_recommendation(row: Any) -> None:
         """Drop any unexpected keys from a specific_recommendation block.
 
         Future payloads may add fields. The public mirror only ships the
-        whitelisted keys; everything else is stripped.
+        whitelisted keys; everything else is stripped. Both the long
+        ``specific_recommendation`` and the short, campaign-specific
+        ``short_specific_recommendation`` blocks are scrubbed.
         """
         if not isinstance(row, dict):
             return
         rec = row.get("specific_recommendation")
-        if not isinstance(rec, dict):
-            return
-        for key in list(rec.keys()):
-            if key not in allowed_specific_rec_keys:
-                rec.pop(key, None)
+        if isinstance(rec, dict):
+            for key in list(rec.keys()):
+                if key not in allowed_specific_rec_keys:
+                    rec.pop(key, None)
+        short = row.get("short_specific_recommendation")
+        if isinstance(short, dict):
+            for key in list(short.keys()):
+                if key not in allowed_short_specific_rec_keys:
+                    short.pop(key, None)
 
     ads = out.get("google_ads_insights")
     if isinstance(ads, dict):

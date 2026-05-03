@@ -79,6 +79,21 @@ _SPECIFIC_REC_KEYS = (
     "do_not_remove_note",
 )
 
+# Short, campaign-specific recommendation block. Each card surfaces these
+# concise per-campaign fields in the visible UI; the longer
+# specific_recommendation checklist is kept as a hidden fallback.
+_SHORT_SPECIFIC_REC_KEYS = (
+    "headline",
+    "why_this_campaign",
+    "do_next",
+    "inspect",
+    "negative_keyword_focus",
+    "structure_fix",
+    "success_metric",
+    "metric_snapshot",
+    "log_note",
+)
+
 
 def _sanitize_specific_recommendation(
     rec: Any,
@@ -110,6 +125,28 @@ def _sanitize_specific_recommendation(
     return out or None
 
 
+def _sanitize_short_specific_recommendation(
+    rec: Any,
+) -> dict[str, Any] | None:
+    """Whitelist the public-safe keys from a short_specific_recommendation.
+
+    Same strict-whitelist policy as the long form: only the keys in
+    ``_SHORT_SPECIFIC_REC_KEYS`` survive, every value is coerced to a
+    string, and unexpected fields from future payloads are dropped.
+    """
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    for key in _SHORT_SPECIFIC_REC_KEYS:
+        if key not in rec:
+            continue
+        val = rec.get(key)
+        if val is None:
+            continue
+        out[key] = str(val)
+    return out or None
+
+
 def _sanitize_action_queue_row(row: dict[str, Any]) -> dict[str, Any]:
     cleaned = dict(row)
     rec = cleaned.get("specific_recommendation")
@@ -118,6 +155,12 @@ def _sanitize_action_queue_row(row: dict[str, Any]) -> dict[str, Any]:
         cleaned["specific_recommendation"] = sanitized
     elif "specific_recommendation" in cleaned:
         cleaned.pop("specific_recommendation", None)
+    short = cleaned.get("short_specific_recommendation")
+    sanitized_short = _sanitize_short_specific_recommendation(short)
+    if sanitized_short:
+        cleaned["short_specific_recommendation"] = sanitized_short
+    elif "short_specific_recommendation" in cleaned:
+        cleaned.pop("short_specific_recommendation", None)
     return cleaned
 
 
@@ -129,6 +172,12 @@ def _sanitize_campaign_trend_row(row: dict[str, Any]) -> dict[str, Any]:
         cleaned["specific_recommendation"] = sanitized
     elif "specific_recommendation" in cleaned:
         cleaned.pop("specific_recommendation", None)
+    short = cleaned.get("short_specific_recommendation")
+    sanitized_short = _sanitize_short_specific_recommendation(short)
+    if sanitized_short:
+        cleaned["short_specific_recommendation"] = sanitized_short
+    elif "short_specific_recommendation" in cleaned:
+        cleaned.pop("short_specific_recommendation", None)
     return cleaned
 
 
