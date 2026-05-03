@@ -97,16 +97,18 @@ _SHORT_SPECIFIC_REC_KEYS = (
 # Compact per-campaign points rendered in the visible action card. The
 # repeated long "shared_action" guidance lives once in the
 # priority_playbooks section, so each card only shows the unique
-# campaign-specific decisions here.
+# campaign-specific decisions here. The v5 benchmarked payload swaps
+# the legacy keys for benchmark-anchored ones: each card now leads with
+# how the campaign's conversion metrics compare to the benchmark and
+# shows only the keys an operator actually edits.
 _CAMPAIGN_SPECIFIC_POINTS_KEYS = (
-    "reason",
-    "next_move",
+    "conversion_benchmark",
+    "ad_group_or_theme",
+    "exact_change",
     "inspect",
-    "negative_focus",
-    "structure_fix",
+    "keyword_focus",
     "success_metric",
-    "metric_snapshot",
-    "log_note",
+    "daily_learning",
 )
 
 # Priority playbook block (P0 / P1 / P2). One small card per priority
@@ -120,6 +122,184 @@ _PRIORITY_PLAYBOOK_KEYS = (
     "completion_rule",
 )
 _ALLOWED_PRIORITY_PLAYBOOK_LEVELS = ("P0", "P1", "P2")
+
+# Top-of-Paid-Ads summary block. Renders the blended last-7-days vs
+# last-month numbers (CPA, CPC, CTR, CVR, conversions/day, spend/day,
+# phone calls/day) plus the benchmark rules and the internal medians.
+_PRIMARY_STAT_KEYS = ("label", "value", "benchmark", "delta")
+_INTERNAL_BENCHMARK_KEYS = (
+    "office_median_conversion_rate_pct",
+    "campaign_median_conversion_rate_pct",
+    "ad_group_median_conversion_rate_pct",
+    "last_month_conversion_rate_pct",
+)
+
+# Conversion-rate benchmark blocks. Office rows compare campaign CVR
+# against last-month CVR and the cross-office median; the parent block
+# also keeps the human-readable note.
+_CVR_OFFICE_KEYS = (
+    "office",
+    "conversion_rate_pct",
+    "last_month_conversion_rate_pct",
+    "vs_office_median_pts",
+    "conversions_per_day",
+    "cpa",
+    "status",
+)
+
+# Ad-group benchmark rows. Each row is a single (office, campaign, ad
+# group) and explains where to focus keyword-wise.
+_AD_GROUP_BENCHMARK_KEYS = (
+    "office",
+    "campaign",
+    "ad_group",
+    "spend",
+    "clicks",
+    "conversions",
+    "conversion_rate_pct",
+    "cpa",
+    "cpc",
+    "benchmark_status",
+    "keyword_focus",
+)
+
+_DAILY_IMPROVEMENT_LOOP_KEYS = ("title", "steps", "decision_rule")
+
+
+def _sanitize_paid_ads_top_summary(rec: Any) -> dict[str, Any] | None:
+    """Whitelist the v5 paid_ads_top_summary block.
+
+    Keeps the prominent ``primary_stats`` blended numbers, the
+    benchmark rule prose, and the internal medians. Anything else is
+    dropped so the public mirror cannot accidentally surface raw
+    account data.
+    """
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    if isinstance(rec.get("title"), str):
+        out["title"] = rec["title"]
+    if isinstance(rec.get("period"), str):
+        out["period"] = rec["period"]
+    primary = rec.get("primary_stats")
+    if isinstance(primary, list):
+        cleaned_stats: list[dict[str, str]] = []
+        for stat in primary:
+            if not isinstance(stat, dict):
+                continue
+            row: dict[str, str] = {}
+            for key in _PRIMARY_STAT_KEYS:
+                val = stat.get(key)
+                if val is None:
+                    continue
+                row[key] = str(val)
+            if row:
+                cleaned_stats.append(row)
+        if cleaned_stats:
+            out["primary_stats"] = cleaned_stats
+    rules = rec.get("benchmark_rules")
+    if isinstance(rules, list):
+        cleaned_rules = [str(r) for r in rules if r is not None]
+        if cleaned_rules:
+            out["benchmark_rules"] = cleaned_rules
+    bench = rec.get("internal_benchmarks")
+    if isinstance(bench, dict):
+        cleaned_bench: dict[str, Any] = {}
+        for key in _INTERNAL_BENCHMARK_KEYS:
+            val = bench.get(key)
+            if val is None:
+                continue
+            try:
+                cleaned_bench[key] = float(val)
+            except (TypeError, ValueError):
+                continue
+        if cleaned_bench:
+            out["internal_benchmarks"] = cleaned_bench
+    return out or None
+
+
+def _sanitize_conversion_rate_benchmarks(rec: Any) -> dict[str, Any] | None:
+    """Whitelist by_office rows for the conversion-rate benchmark block."""
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    rows = rec.get("by_office")
+    if isinstance(rows, list):
+        cleaned_rows: list[dict[str, Any]] = []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            cleaned: dict[str, Any] = {}
+            for key in _CVR_OFFICE_KEYS:
+                if key not in row:
+                    continue
+                val = row.get(key)
+                if val is None:
+                    cleaned[key] = None
+                    continue
+                if key in ("office", "status"):
+                    cleaned[key] = str(val)
+                else:
+                    try:
+                        cleaned[key] = float(val)
+                    except (TypeError, ValueError):
+                        cleaned[key] = None
+            if cleaned:
+                cleaned_rows.append(cleaned)
+        if cleaned_rows:
+            out["by_office"] = cleaned_rows
+    if isinstance(rec.get("note"), str):
+        out["note"] = rec["note"]
+    return out or None
+
+
+def _sanitize_ad_group_conversion_benchmarks(rec: Any) -> list[dict[str, Any]]:
+    if not isinstance(rec, list):
+        return []
+    out: list[dict[str, Any]] = []
+    for row in rec:
+        if not isinstance(row, dict):
+            continue
+        cleaned: dict[str, Any] = {}
+        for key in _AD_GROUP_BENCHMARK_KEYS:
+            if key not in row:
+                continue
+            val = row.get(key)
+            if val is None:
+                cleaned[key] = None
+                continue
+            if key in (
+                "office",
+                "campaign",
+                "ad_group",
+                "benchmark_status",
+                "keyword_focus",
+            ):
+                cleaned[key] = str(val)
+            else:
+                try:
+                    cleaned[key] = float(val)
+                except (TypeError, ValueError):
+                    cleaned[key] = None
+        if cleaned:
+            out.append(cleaned)
+    return out
+
+
+def _sanitize_daily_improvement_loop(rec: Any) -> dict[str, Any] | None:
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    for key in _DAILY_IMPROVEMENT_LOOP_KEYS:
+        val = rec.get(key)
+        if val is None:
+            continue
+        if key == "steps":
+            if isinstance(val, list):
+                out[key] = [str(s) for s in val if s is not None]
+        else:
+            out[key] = str(val)
+    return out or None
 
 
 def _sanitize_specific_recommendation(
@@ -621,6 +801,18 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
     priority_playbooks = _sanitize_priority_playbooks(
         google_ads.get("priority_playbooks")
     ) or {}
+    paid_ads_top_summary = _sanitize_paid_ads_top_summary(
+        google_ads.get("paid_ads_top_summary")
+    )
+    conversion_rate_benchmarks = _sanitize_conversion_rate_benchmarks(
+        google_ads.get("conversion_rate_benchmarks")
+    )
+    ad_group_conversion_benchmarks = _sanitize_ad_group_conversion_benchmarks(
+        google_ads.get("ad_group_conversion_benchmarks") or []
+    )
+    daily_improvement_loop = _sanitize_daily_improvement_loop(
+        google_ads.get("daily_improvement_loop")
+    )
     dashboard_priorities = payload.get("dashboard_priorities") or []
 
     reporting_offices = rollup.get("reporting_offices") or len(coverage_rows)
@@ -755,6 +947,10 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "operator_review_order": operator_review_order,
         "recommendation_detail_note": recommendation_detail_note,
         "priority_playbooks": priority_playbooks,
+        "paid_ads_top_summary": paid_ads_top_summary or {},
+        "conversion_rate_benchmarks": conversion_rate_benchmarks or {},
+        "ad_group_conversion_benchmarks": ad_group_conversion_benchmarks,
+        "daily_improvement_loop": daily_improvement_loop or {},
         "dashboard_priorities": dashboard_priorities,
     }
 

@@ -86,6 +86,10 @@ REQUIRED_GOOGLE_ADS_FIELDS = [
     "operator_review_order",
     "recommendation_detail_note",
     "priority_playbooks",
+    "paid_ads_top_summary",
+    "conversion_rate_benchmarks",
+    "ad_group_conversion_benchmarks",
+    "daily_improvement_loop",
 ]
 
 REQUIRED_TREND_WINDOW_FIELDS = [
@@ -147,23 +151,24 @@ ALLOWED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS = set(
     REQUIRED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS + ["metric_snapshot"]
 )
 
-# Compact per-campaign points block. Each visible card now renders only
-# these unique campaign-specific decisions; the long P0/P1/P2 guidance
-# is consolidated once in priority_playbooks. Every action-queue row
-# must include this block so the operator never has to re-read the
-# shared playbook in every card.
+# Compact per-campaign points block. Each visible card now renders
+# only these unique campaign-specific decisions; the long P0/P1/P2
+# guidance is consolidated once in priority_playbooks. The v5
+# benchmarked payload swaps the legacy keys for benchmark-anchored
+# ones, leading every card with how the campaign's conversion metrics
+# compare to the benchmark before the operator decides what to change.
 REQUIRED_CAMPAIGN_SPECIFIC_POINTS_FIELDS = [
-    "reason",
-    "next_move",
+    "conversion_benchmark",
+    "ad_group_or_theme",
+    "exact_change",
     "inspect",
-    "negative_focus",
-    "structure_fix",
+    "keyword_focus",
     "success_metric",
-    "log_note",
+    "daily_learning",
 ]
 
 ALLOWED_CAMPAIGN_SPECIFIC_POINTS_FIELDS = set(
-    REQUIRED_CAMPAIGN_SPECIFIC_POINTS_FIELDS + ["metric_snapshot"]
+    REQUIRED_CAMPAIGN_SPECIFIC_POINTS_FIELDS
 )
 
 # Priority playbook block (P0 / P1 / P2). One small shared card per
@@ -186,6 +191,72 @@ REQUIRED_CHANGE_TRACKING_FIELDS = [
     "status_rules",
     "approval_rule",
 ]
+
+# Top-of-Paid-Ads summary block. The v5 payload puts the blended
+# CPA/CPC/CTR/CVR/conversions-per-day/spend-per-day/phone-calls-per-day
+# numbers above everything else and benchmarks each one against last
+# month plus the internal medians.
+REQUIRED_PRIMARY_STAT_LABELS = {
+    "Spend/day",
+    "Conversions/day",
+    "Conversion rate",
+    "CPA",
+    "CPC",
+    "CTR",
+    "Phone calls/day",
+}
+ALLOWED_PRIMARY_STAT_KEYS = {"label", "value", "benchmark", "delta"}
+REQUIRED_PRIMARY_STAT_KEYS = ["label", "value"]
+ALLOWED_TOP_SUMMARY_KEYS = {
+    "title",
+    "period",
+    "primary_stats",
+    "benchmark_rules",
+    "internal_benchmarks",
+}
+ALLOWED_INTERNAL_BENCHMARK_KEYS = {
+    "office_median_conversion_rate_pct",
+    "campaign_median_conversion_rate_pct",
+    "ad_group_median_conversion_rate_pct",
+    "last_month_conversion_rate_pct",
+}
+
+# Conversion-rate benchmarks (by office). Required so the dashboard
+# always shows where each office sits versus last month and the median.
+REQUIRED_CVR_OFFICE_FIELDS = [
+    "office",
+    "conversion_rate_pct",
+    "last_month_conversion_rate_pct",
+    "vs_office_median_pts",
+    "conversions_per_day",
+    "cpa",
+    "status",
+]
+ALLOWED_CVR_OFFICE_KEYS = set(REQUIRED_CVR_OFFICE_FIELDS)
+
+# Ad-group conversion benchmarks. One row per (office, campaign, ad
+# group) so an operator can jump from the summary to the specific ad
+# group and keyword theme.
+REQUIRED_AD_GROUP_BENCHMARK_FIELDS = [
+    "office",
+    "campaign",
+    "ad_group",
+    "spend",
+    "clicks",
+    "conversions",
+    "conversion_rate_pct",
+    "cpc",
+    "benchmark_status",
+    "keyword_focus",
+]
+ALLOWED_AD_GROUP_BENCHMARK_KEYS = set(
+    REQUIRED_AD_GROUP_BENCHMARK_FIELDS + ["cpa"]
+)
+
+# Daily improvement loop section, rendered at the bottom of the Paid
+# Ads tab to explain how the system improves day over day.
+REQUIRED_DAILY_LOOP_FIELDS = ["title", "steps", "decision_rule"]
+ALLOWED_DAILY_LOOP_FIELDS = set(REQUIRED_DAILY_LOOP_FIELDS)
 
 REQUIRED_GOOGLE_ADS_TOTALS = [
     "campaigns",
@@ -913,6 +984,219 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
             "google_ads_insights.change_tracking.current_connector_limit "
             "must describe what the connector cannot mutate today."
         )
+
+    # ---- paid_ads_top_summary ----
+    top_summary = ads.get("paid_ads_top_summary")
+    if not isinstance(top_summary, dict):
+        _fail(
+            "google_ads_insights.paid_ads_top_summary must be an object "
+            "(blended CPA/CPC/CTR/CVR/spend-per-day/conversions-per-day "
+            "headline numbers go here)."
+        )
+    extra_top = set(top_summary.keys()) - ALLOWED_TOP_SUMMARY_KEYS
+    if extra_top:
+        _fail(
+            "google_ads_insights.paid_ads_top_summary has unexpected "
+            f"keys: {sorted(extra_top)}"
+        )
+    primary_stats = top_summary.get("primary_stats")
+    if not isinstance(primary_stats, list) or not primary_stats:
+        _fail(
+            "google_ads_insights.paid_ads_top_summary.primary_stats must "
+            "be a non-empty list of {label, value, benchmark, delta} "
+            "rows."
+        )
+    seen_labels: set[str] = set()
+    for idx, stat in enumerate(primary_stats):
+        if not isinstance(stat, dict):
+            _fail(
+                f"google_ads_insights.paid_ads_top_summary.primary_stats"
+                f"[{idx}] must be an object."
+            )
+        missing_keys = [k for k in REQUIRED_PRIMARY_STAT_KEYS if k not in stat]
+        if missing_keys:
+            _fail(
+                f"google_ads_insights.paid_ads_top_summary.primary_stats"
+                f"[{idx}] missing required keys: {missing_keys}"
+            )
+        extra = set(stat.keys()) - ALLOWED_PRIMARY_STAT_KEYS
+        if extra:
+            _fail(
+                f"google_ads_insights.paid_ads_top_summary.primary_stats"
+                f"[{idx}] has unexpected keys: {sorted(extra)}"
+            )
+        for k, v in stat.items():
+            if not isinstance(v, str) or not v.strip():
+                _fail(
+                    "google_ads_insights.paid_ads_top_summary."
+                    f"primary_stats[{idx}]['{k}'] must be a non-empty "
+                    "string."
+                )
+        seen_labels.add(stat.get("label", ""))
+    missing_labels = REQUIRED_PRIMARY_STAT_LABELS - seen_labels
+    if missing_labels:
+        _fail(
+            "google_ads_insights.paid_ads_top_summary.primary_stats "
+            f"missing required blended stat labels: {sorted(missing_labels)}"
+        )
+    rules = top_summary.get("benchmark_rules")
+    if rules is not None:
+        if not isinstance(rules, list) or not rules:
+            _fail(
+                "google_ads_insights.paid_ads_top_summary.benchmark_rules "
+                "must be a non-empty list of strings when present."
+            )
+        for idx_r, r in enumerate(rules):
+            if not isinstance(r, str) or not r.strip():
+                _fail(
+                    "google_ads_insights.paid_ads_top_summary."
+                    f"benchmark_rules[{idx_r}] must be a non-empty string."
+                )
+    bench = top_summary.get("internal_benchmarks")
+    if bench is not None:
+        if not isinstance(bench, dict):
+            _fail(
+                "google_ads_insights.paid_ads_top_summary."
+                "internal_benchmarks must be an object when present."
+            )
+        extra_bench = set(bench.keys()) - ALLOWED_INTERNAL_BENCHMARK_KEYS
+        if extra_bench:
+            _fail(
+                "google_ads_insights.paid_ads_top_summary."
+                f"internal_benchmarks has unexpected keys: "
+                f"{sorted(extra_bench)}"
+            )
+        for k, v in bench.items():
+            if not isinstance(v, (int, float)):
+                _fail(
+                    "google_ads_insights.paid_ads_top_summary."
+                    f"internal_benchmarks['{k}'] must be numeric."
+                )
+
+    # ---- conversion_rate_benchmarks ----
+    cvr_block = ads.get("conversion_rate_benchmarks")
+    if not isinstance(cvr_block, dict):
+        _fail(
+            "google_ads_insights.conversion_rate_benchmarks must be an "
+            "object with a 'by_office' list of office-level CVR rows."
+        )
+    rows = cvr_block.get("by_office")
+    if not isinstance(rows, list) or not rows:
+        _fail(
+            "google_ads_insights.conversion_rate_benchmarks.by_office "
+            "must be a non-empty list."
+        )
+    for idx, row in enumerate(rows):
+        if not isinstance(row, dict):
+            _fail(
+                f"google_ads_insights.conversion_rate_benchmarks."
+                f"by_office[{idx}] must be an object."
+            )
+        missing_cvr = [k for k in REQUIRED_CVR_OFFICE_FIELDS if k not in row]
+        if missing_cvr:
+            _fail(
+                "google_ads_insights.conversion_rate_benchmarks."
+                f"by_office[{idx}] missing required fields: {missing_cvr}"
+            )
+        extra_cvr = set(row.keys()) - ALLOWED_CVR_OFFICE_KEYS
+        if extra_cvr:
+            _fail(
+                "google_ads_insights.conversion_rate_benchmarks."
+                f"by_office[{idx}] has unexpected keys: {sorted(extra_cvr)}"
+            )
+        if not isinstance(row.get("office"), str) or not row["office"].strip():
+            _fail(
+                "google_ads_insights.conversion_rate_benchmarks."
+                f"by_office[{idx}]['office'] must be a non-empty string."
+            )
+        if not isinstance(row.get("status"), str) or not row["status"].strip():
+            _fail(
+                "google_ads_insights.conversion_rate_benchmarks."
+                f"by_office[{idx}]['status'] must be a non-empty string."
+            )
+
+    # ---- ad_group_conversion_benchmarks ----
+    ag = ads.get("ad_group_conversion_benchmarks")
+    if not isinstance(ag, list) or not ag:
+        _fail(
+            "google_ads_insights.ad_group_conversion_benchmarks must be "
+            "a non-empty list of ad-group-level rows."
+        )
+    for idx, row in enumerate(ag):
+        if not isinstance(row, dict):
+            _fail(
+                "google_ads_insights.ad_group_conversion_benchmarks"
+                f"[{idx}] must be an object."
+            )
+        missing_ag = [
+            k for k in REQUIRED_AD_GROUP_BENCHMARK_FIELDS if k not in row
+        ]
+        if missing_ag:
+            _fail(
+                "google_ads_insights.ad_group_conversion_benchmarks"
+                f"[{idx}] missing required fields: {missing_ag}"
+            )
+        extra_ag = set(row.keys()) - ALLOWED_AD_GROUP_BENCHMARK_KEYS
+        if extra_ag:
+            _fail(
+                "google_ads_insights.ad_group_conversion_benchmarks"
+                f"[{idx}] has unexpected keys: {sorted(extra_ag)}"
+            )
+        for str_field in (
+            "office", "campaign", "ad_group", "benchmark_status",
+            "keyword_focus",
+        ):
+            v = row.get(str_field)
+            if not isinstance(v, str) or not v.strip():
+                _fail(
+                    "google_ads_insights.ad_group_conversion_benchmarks"
+                    f"[{idx}]['{str_field}'] must be a non-empty string."
+                )
+
+    # ---- daily_improvement_loop ----
+    loop = ads.get("daily_improvement_loop")
+    if not isinstance(loop, dict):
+        _fail(
+            "google_ads_insights.daily_improvement_loop must be an object "
+            "rendered at the end of the Paid Ads tab."
+        )
+    missing_loop = [k for k in REQUIRED_DAILY_LOOP_FIELDS if k not in loop]
+    if missing_loop:
+        _fail(
+            "google_ads_insights.daily_improvement_loop missing required "
+            f"fields: {missing_loop}"
+        )
+    extra_loop = set(loop.keys()) - ALLOWED_DAILY_LOOP_FIELDS
+    if extra_loop:
+        _fail(
+            "google_ads_insights.daily_improvement_loop has unexpected "
+            f"keys: {sorted(extra_loop)}"
+        )
+    if not isinstance(loop.get("title"), str) or not loop["title"].strip():
+        _fail(
+            "google_ads_insights.daily_improvement_loop.title must be a "
+            "non-empty string."
+        )
+    if (
+        not isinstance(loop.get("decision_rule"), str)
+        or not loop["decision_rule"].strip()
+    ):
+        _fail(
+            "google_ads_insights.daily_improvement_loop.decision_rule "
+            "must be a non-empty string."
+        )
+    steps = loop.get("steps")
+    if not isinstance(steps, list) or not steps:
+        _fail(
+            "google_ads_insights.daily_improvement_loop.steps must be a "
+            "non-empty list of strings."
+        )
+    for idx_s, s in enumerate(steps):
+        if not isinstance(s, str) or not s.strip():
+            _fail(
+                "google_ads_insights.daily_improvement_loop.steps"
+                f"[{idx_s}] must be a non-empty string."
+            )
 
 
 def check_b2b_reply_detail(snap: dict[str, Any]) -> None:

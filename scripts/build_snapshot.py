@@ -241,18 +241,17 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
     }
 
     # Compact per-campaign points block: this is what each visible
-    # action card now renders. The repeated long P0/P1/P2 guidance
-    # lives once in priority_playbooks and is no longer duplicated
-    # inside every card.
+    # action card now renders. The v5 benchmarked payload swaps the
+    # legacy keys for benchmark-anchored ones so each card leads with
+    # how the campaign's conversion metrics compare to the benchmark.
     allowed_campaign_specific_points_keys = {
-        "reason",
-        "next_move",
+        "conversion_benchmark",
+        "ad_group_or_theme",
+        "exact_change",
         "inspect",
-        "negative_focus",
-        "structure_fix",
+        "keyword_focus",
         "success_metric",
-        "metric_snapshot",
-        "log_note",
+        "daily_learning",
     }
 
     allowed_priority_playbook_keys = {
@@ -339,6 +338,96 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
                 for key in list(block.keys()):
                     if key not in allowed_priority_playbook_keys:
                         block.pop(key, None)
+
+        # ---- Top-of-Paid-Ads summary ----
+        allowed_top_summary_keys = {
+            "title",
+            "period",
+            "primary_stats",
+            "benchmark_rules",
+            "internal_benchmarks",
+        }
+        allowed_primary_stat_keys = {
+            "label", "value", "benchmark", "delta",
+        }
+        allowed_internal_benchmark_keys = {
+            "office_median_conversion_rate_pct",
+            "campaign_median_conversion_rate_pct",
+            "ad_group_median_conversion_rate_pct",
+            "last_month_conversion_rate_pct",
+        }
+        top_summary = ads.get("paid_ads_top_summary")
+        if isinstance(top_summary, dict):
+            for k in list(top_summary.keys()):
+                if k not in allowed_top_summary_keys:
+                    top_summary.pop(k, None)
+            stats = top_summary.get("primary_stats")
+            if isinstance(stats, list):
+                for stat in stats:
+                    if not isinstance(stat, dict):
+                        continue
+                    for k in list(stat.keys()):
+                        if k not in allowed_primary_stat_keys:
+                            stat.pop(k, None)
+            bench = top_summary.get("internal_benchmarks")
+            if isinstance(bench, dict):
+                for k in list(bench.keys()):
+                    if k not in allowed_internal_benchmark_keys:
+                        bench.pop(k, None)
+
+        # ---- Conversion-rate benchmarks (by office) ----
+        allowed_cvr_office_keys = {
+            "office",
+            "conversion_rate_pct",
+            "last_month_conversion_rate_pct",
+            "vs_office_median_pts",
+            "conversions_per_day",
+            "cpa",
+            "status",
+        }
+        cvr_block = ads.get("conversion_rate_benchmarks")
+        if isinstance(cvr_block, dict):
+            rows = cvr_block.get("by_office")
+            if isinstance(rows, list):
+                for row in rows:
+                    if not isinstance(row, dict):
+                        continue
+                    for k in list(row.keys()):
+                        if k not in allowed_cvr_office_keys:
+                            row.pop(k, None)
+
+        # ---- Ad-group conversion benchmarks ----
+        allowed_ad_group_benchmark_keys = {
+            "office",
+            "campaign",
+            "ad_group",
+            "spend",
+            "clicks",
+            "conversions",
+            "conversion_rate_pct",
+            "cpa",
+            "cpc",
+            "benchmark_status",
+            "keyword_focus",
+        }
+        ag_rows = ads.get("ad_group_conversion_benchmarks")
+        if isinstance(ag_rows, list):
+            for row in ag_rows:
+                if not isinstance(row, dict):
+                    continue
+                for k in list(row.keys()):
+                    if k not in allowed_ad_group_benchmark_keys:
+                        row.pop(k, None)
+                for key in forbidden_account_keys:
+                    row.pop(key, None)
+
+        # ---- Daily improvement loop ----
+        allowed_daily_loop_keys = {"title", "steps", "decision_rule"}
+        loop = ads.get("daily_improvement_loop")
+        if isinstance(loop, dict):
+            for k in list(loop.keys()):
+                if k not in allowed_daily_loop_keys:
+                    loop.pop(k, None)
         trends = ads.get("trends") or {}
         if isinstance(trends, dict):
             for row in trends.get("by_office") or []:
