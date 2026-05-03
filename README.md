@@ -187,9 +187,10 @@ The contract enforced by the validator is:
   `latest_batch_summary` with `size` and an aggregate `note`.
 - `github` must not include `latest_commit_before_dashboard`,
   `dashboard_build_commit`, or `repo`.
-- No email addresses other than the documented operator senders
-  (`ip@clovedds.com`, `aryaan@clovedds.com`) may appear anywhere in
-  `data/snapshot.json` or `index.html`.
+- No email addresses of any kind may appear anywhere in
+  `data/snapshot.json` or `index.html`. Operator inboxes are referred
+  to with safe labels (`Connected Clove sender`, `Internal follow-up
+  only`); the validator's email whitelist is empty by default.
 - No `docs.google.com/spreadsheets/d/...` URLs, no Google Sheet IDs,
   no GitHub PATs, no API keys, no JWTs, no AWS access keys, and no
   `mailto:` links may appear anywhere in those files.
@@ -296,9 +297,11 @@ See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for full instructions for:
 ## Operating rules surfaced in the UI
 
 - Maximum 12 one-to-one new emails per weekday.
-- Initial outreach sent only from `ip@clovedds.com`.
-- No CC and no BCC on initial outreach. `aryaan@clovedds.com` is
-  CC'd only after a positive reply or scheduling/ops handoff.
+- Initial outreach sent only from the connected Clove sender (the
+  specific operator inbox is redacted in the public mirror).
+- No CC and no BCC on initial outreach. An internal follow-up inbox
+  is used only after a positive reply or scheduling/ops handoff; that
+  address is redacted in the public mirror.
 - No auto-reply to interested prospects; the operator drafts each
   reply.
 - Suppress bounces, opt-outs, and not-interested permanently.

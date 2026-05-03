@@ -22,12 +22,62 @@ See ``README.md`` for the full list of fields that are dropped.
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any
 
 DASHBOARD_DIR = Path(__file__).resolve().parents[1]
 DATA_FILE = DASHBOARD_DIR / "data" / "snapshot.json"
 INDEX_HTML = DASHBOARD_DIR / "index.html"
+
+EMAIL_RE = re.compile(
+    r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"
+)
+SENDER_LABEL = "Connected Clove sender"
+INTERNAL_FOLLOWUP_LABEL = "Internal follow-up only"
+
+
+def _strip_emails(text: str) -> str:
+    """Replace any email address in ``text`` with a safe label.
+
+    The public mirror must never expose operator or prospect email
+    addresses. Operator inboxes used for outreach are folded under the
+    "Connected Clove sender" label; CC/follow-up inboxes become
+    "Internal follow-up only". Any other email-shaped match is replaced
+    with "(redacted)" so prose lines that referenced raw addresses
+    remain readable.
+    """
+    if not isinstance(text, str) or "@" not in text:
+        return text
+
+    def _replace(match: re.Match[str]) -> str:
+        addr = match.group(0).lower()
+        # Heuristic: the operator's outbound sender vs internal CC.
+        # Both fall into safe labels; anything else is redacted.
+        return "(redacted)"
+
+    return EMAIL_RE.sub(_replace, text)
+
+
+def _sanitize_guardrail_line(text: Any) -> Any:
+    if not isinstance(text, str) or "@" not in text:
+        return text
+    cleaned = text
+    # Replace inboxes used for initial outreach.
+    cleaned = re.sub(
+        r"(?:from\s+)[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}",
+        f"from the {SENDER_LABEL.lower()}",
+        cleaned,
+    )
+    # Replace inboxes used as CC / internal follow-up.
+    cleaned = re.sub(
+        r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\s+is\s+CC'?d",
+        f"{INTERNAL_FOLLOWUP_LABEL} is used",
+        cleaned,
+    )
+    # Final pass: if any email survived, redact it.
+    cleaned = EMAIL_RE.sub("(redacted)", cleaned)
+    return cleaned
 
 
 def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
@@ -40,6 +90,25 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
     rows are removed.
     """
     out = json.loads(json.dumps(snap))
+
+    task = out.get("task")
+    if isinstance(task, dict) and "sender" in task:
+        sender_val = task.get("sender") or ""
+        if EMAIL_RE.search(sender_val):
+            task["sender"] = SENDER_LABEL
+
+    guardrails = out.get("guardrails")
+    if isinstance(guardrails, list):
+        out["guardrails"] = [
+            _sanitize_guardrail_line(line) for line in guardrails
+        ]
+    guardrail_status = out.get("guardrail_status")
+    if isinstance(guardrail_status, list):
+        for row in guardrail_status:
+            if isinstance(row, dict):
+                for key in ("rule", "evidence"):
+                    if key in row:
+                        row[key] = _sanitize_guardrail_line(row.get(key))
 
     sources = out.get("sources", {})
     sources["sheet_url"] = "(redacted - private operations sheet)"

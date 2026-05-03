@@ -17,11 +17,14 @@ Exit code is non-zero if any check fails. The script verifies that:
   4. The inline embedded snapshot in ``index.html`` (between the
      ``SNAPSHOT_START`` and ``SNAPSHOT_END`` markers) parses and
      matches ``data/snapshot.json`` exactly.
-  5. Neither file contains forbidden sensitive patterns
-     (raw clovedds.com prospect addresses other than the documented
-     sender accounts, Google Sheet IDs or URLs, free-text reply
-     bodies, internal commit hashes, common token shapes, or any
-     ``mailto:`` recipient links pointing at private prospects).
+  5. Neither file contains forbidden sensitive patterns. The default
+     email whitelist is empty -- any email-shaped string anywhere in
+     the public snapshot or rendered HTML fails validation. Operator
+     inboxes are referred to with safe labels (``Connected Clove
+     sender``, ``Internal follow-up only``). The validator also blocks
+     Google Sheet IDs or URLs, Google Ads customer/manager identifiers
+     (dashed and undashed), free-text reply bodies, internal commit
+     hashes, common token shapes, and any ``mailto:`` recipient links.
 
 Run this before publishing a new snapshot. The dashboard is meant to
 remain a static, package-free site that any operator can deploy by
@@ -153,10 +156,12 @@ REQUIRED_KPI_FIELDS = [
     "positive_rate_pct",
 ]
 
-ALLOWED_SENDER_ADDRESSES = {
-    "ip@clovedds.com",
-    "aryaan@clovedds.com",
-}
+# The public mirror does not whitelist any email addresses. Operator
+# inboxes (sender, CC) are referred to by safe labels such as
+# "Connected Clove sender" or "Internal follow-up only". An empty
+# whitelist means any email-shaped string in the public snapshot or
+# rendered HTML fails validation.
+ALLOWED_PUBLIC_EMAIL_ADDRESSES: set[str] = set()
 
 # Patterns that must never appear in either file. These are deliberately
 # broad on purpose: false positives are cheaper than a leak.
@@ -698,25 +703,20 @@ def _scan_text_for_secrets(label: str, text: str) -> list[str]:
                 f"{label}: forbidden pattern matched ({description}): "
                 f"{m.group(0)[:80]!r}"
             )
-    # Email scan: any clovedds.com address that is not the documented
-    # operator sender accounts is treated as a leak. Any non-clovedds
-    # email that is not a redaction placeholder is also flagged.
+    # Email scan: every email-shaped match is a leak unless it appears in
+    # ALLOWED_PUBLIC_EMAIL_ADDRESSES (empty by default). The public
+    # mirror substitutes safe labels like "Connected Clove sender" and
+    # "Internal follow-up only" for operator inboxes; prospect senders
+    # are redacted. Any address that slips through is treated as a leak.
     email_re = re.compile(
         r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"
     )
     for m in email_re.finditer(text):
         addr = m.group(0).lower()
-        if addr in ALLOWED_SENDER_ADDRESSES:
+        if addr in ALLOWED_PUBLIC_EMAIL_ADDRESSES:
             continue
-        if addr.endswith("@clovedds.com"):
-            findings.append(
-                f"{label}: unexpected clovedds.com address leaked: {addr}"
-            )
-            continue
-        # Non-clovedds emails are not allowed at all in the public
-        # mirror; the snapshot should redact prospect/reply senders.
         findings.append(
-            f"{label}: non-operator email address leaked: {addr}"
+            f"{label}: email address leaked in public mirror: {addr}"
         )
     return findings
 

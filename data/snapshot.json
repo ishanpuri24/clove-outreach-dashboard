@@ -3,7 +3,7 @@
   "task": {
     "id": "a3b9de2f",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
-    "sender": "ip@clovedds.com",
+    "sender": "Connected Clove sender",
     "daily_cap": 12
   },
   "sources": {
@@ -387,7 +387,7 @@
       "evidence": "Latest run sent 12 of 12; no day in the loaded window exceeded the cap."
     },
     {
-      "rule": "Initial outreach sent only from ip@clovedds.com",
+      "rule": "Initial outreach sent only from the connected Clove sender",
       "status": "OK",
       "evidence": "Sender locked in task config; no alternate sender observed in the window."
     },
@@ -428,9 +428,9 @@
   },
   "guardrails": [
     "Maximum 12 one-to-one new emails per weekday",
-    "Initial outreach sent only from ip@clovedds.com",
+    "Initial outreach sent only from the connected Clove sender",
     "No CC or BCC on initial outreach",
-    "aryaan@clovedds.com is CC'd only after a positive reply or scheduling/ops handoff",
+    "Internal follow-up only after a positive reply or scheduling/ops handoff (CC redacted in public mirror)",
     "No auto-reply to interested prospects; route to operator with suggested draft",
     "Suppress bounces, opt-outs, and not-interested permanently",
     "Public verified emails only; never invent or guess email patterns",

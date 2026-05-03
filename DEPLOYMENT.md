@@ -212,9 +212,10 @@ fail the build if any of the following is true:
   GitHub PATs (`ghp_...`, `github_pat_...`), generic secret keys
   (`sk-...`), JWTs, AWS access keys (`AKIA...`), `mailto:` links,
   Google Ads manager or customer account identifiers (the dashed
-  `NNN-NNN-NNNN` form or the undashed 10-digit API form), any
-  non-operator email address, or any unexpected `clovedds.com`
-  address other than `ip@clovedds.com` and `aryaan@clovedds.com`.
+  `NNN-NNN-NNNN` form or the undashed 10-digit API form), or any
+  email address. The public mirror's email whitelist is empty by
+  default; operator inboxes are referred to with safe labels
+  (`Connected Clove sender`, `Internal follow-up only`).
 - The required `google_ads_insights` block is missing or omits any
   of `title`, `lookback`, `data_freshness`, `automation_status`,
   `coverage`, `totals`, `risk_summary`, `campaign_groups`,
