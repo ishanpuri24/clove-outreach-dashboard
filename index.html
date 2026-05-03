@@ -1375,27 +1375,9 @@
           are never exposed in the public mirror.
         </p>
 
-        <!-- Above-the-fold priority strip: do this first -->
-        <section aria-labelledby="ads-priority"
-                 class="priority-strip" id="ads-priority-strip">
-          <div class="ps-head">
-            <h2 id="ads-priority">Do this first</h2>
-            <span class="pill priority is-high" aria-hidden="true">
-              Priority actions
-            </span>
-            <span class="pill" id="ads-priority-count"
-                  aria-live="polite"></span>
-          </div>
-          <div class="ps-meta">
-            Top dashboard-only recommendations from the latest
-            30-day Google Ads snapshot. Shape, color, and rank
-            label all encode priority for accessibility. No changes
-            are pushed to the live account.
-          </div>
-          <div class="ps-grid" id="ads-priority-grid"></div>
-        </section>
-
         <!-- Top blended Paid Ads summary (CPA, CPC, CTR, CVR, conv/day, spend/day, calls/day) -->
+        <!-- Lead with the blended performance summary so the most -->
+        <!-- important data is the first thing on the tab. -->
         <section aria-labelledby="ads-top-summary"
                  class="paid-summary" id="ads-top-summary">
           <div class="ps-head">
@@ -1433,6 +1415,26 @@
             CVR row into the specific ad group and keyword theme.
           </div>
           <div class="card" id="ads-ag-bench-card"></div>
+        </section>
+
+        <!-- Priority strip: do this first (after the blended summary) -->
+        <section aria-labelledby="ads-priority"
+                 class="priority-strip" id="ads-priority-strip">
+          <div class="ps-head">
+            <h2 id="ads-priority">Do this first</h2>
+            <span class="pill priority is-high" aria-hidden="true">
+              Priority actions
+            </span>
+            <span class="pill" id="ads-priority-count"
+                  aria-live="polite"></span>
+          </div>
+          <div class="ps-meta">
+            Top dashboard-only recommendations from the latest
+            30-day Google Ads snapshot. Shape, color, and rank
+            label all encode priority for accessibility. No changes
+            are pushed to the live account.
+          </div>
+          <div class="ps-grid" id="ads-priority-grid"></div>
         </section>
 
         <!-- Operator review order: P0 -> P1 -> P2 + log changes -->
