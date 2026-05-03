@@ -488,12 +488,10 @@ def _campaign_to_dashboard(c: dict[str, Any]) -> dict[str, Any]:
             "budget restoration.",
         ]
     elif pri == "Protect":
-        next_steps = [
-            "Hold current budget; run a small (10-15%) weekly increment only "
-            "if call quality stays strong.",
-            "Replicate the structure into the next office where lead quality "
-            "is confirmed.",
-        ]
+        # Generic protect guidance lives in the dashboard's shared
+        # "Protect / scale rule" note. We deliberately do not repeat
+        # boilerplate next_steps inside every Protect campaign card.
+        next_steps = []
     else:
         next_steps = [
             "Review weekly; revisit budget only after a quality check on the "

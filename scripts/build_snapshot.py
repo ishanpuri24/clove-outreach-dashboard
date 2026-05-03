@@ -316,10 +316,37 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
             if isinstance(row, dict):
                 for key in forbidden_account_keys:
                     row.pop(key, None)
+        # Generic Protect boilerplate that previously repeated 30+ times
+        # across the Campaign decisions card. The dashboard now renders a
+        # single shared "Protect / scale rule" note plus a compact protect
+        # table, so any campaign whose only next_steps are these generic
+        # lines drops them here and is rendered in the compact list
+        # instead of as a full action card.
+        generic_protect_next_steps = {
+            "Hold current budget; run a small (10-15%) weekly increment "
+            "only if call quality stays strong.",
+            "Replicate the structure into the next office where lead "
+            "quality is confirmed.",
+        }
         for camp in ads.get("campaigns") or []:
             if isinstance(camp, dict):
                 for key in forbidden_account_keys:
                     camp.pop(key, None)
+                dd = camp.get("decision_detail")
+                if isinstance(dd, dict):
+                    pri = (dd.get("priority") or camp.get("risk") or "").lower()
+                    ns = dd.get("next_steps")
+                    if (
+                        pri == "protect"
+                        and isinstance(ns, list)
+                        and ns
+                        and all(
+                            isinstance(s, str)
+                            and s in generic_protect_next_steps
+                            for s in ns
+                        )
+                    ):
+                        dd["next_steps"] = []
         for row in ads.get("manual_action_queue") or []:
             if isinstance(row, dict):
                 for key in forbidden_account_keys:
