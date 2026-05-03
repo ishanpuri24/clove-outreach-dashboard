@@ -263,15 +263,21 @@ def _build_operator_notes() -> list[str]:
 def _build_keyword_focus(payload_kf: dict[str, Any]) -> dict[str, Any]:
     focus = []
     for row in payload_kf.get("protect_or_expand") or []:
+        theme = row.get("keyword_or_theme") or row.get("theme") or ""
+        office = row.get("office") or ""
         focus.append({
-            "keyword": row.get("theme") or "",
+            "keyword": theme,
+            "office": office,
             "focus_reason": row.get("why") or "",
             "recommended_action": "Protect or expand carefully.",
         })
     negative = []
     for row in payload_kf.get("tighten_or_pause") or []:
+        theme = row.get("keyword_or_theme") or row.get("theme") or ""
+        office = row.get("office") or ""
         negative.append({
-            "keyword": row.get("theme") or "",
+            "keyword": theme,
+            "office": office,
             "why_review_or_negative": row.get("why") or "",
         })
     return {
@@ -384,6 +390,13 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
     protect = google_ads.get("protect_or_scale_campaigns") or []
     keyword_focus = google_ads.get("keyword_focus") or {}
     api_writeback = google_ads.get("api_writeback_status") or {}
+    manual_queue = google_ads.get("manual_action_queue") or []
+    trend_summary = google_ads.get("trend_summary") or {}
+    office_trends = google_ads.get("office_trends") or []
+    campaign_trends = google_ads.get("campaign_trends") or []
+    change_tracking = google_ads.get("change_tracking") or {}
+    daily_update_note = google_ads.get("daily_update_note") or ""
+    dashboard_priorities = payload.get("dashboard_priorities") or []
 
     reporting_offices = rollup.get("reporting_offices") or len(coverage_rows)
 
@@ -506,6 +519,15 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
             "required_for_live_changes": api_writeback.get(
                 "required_for_live_changes") or "",
         },
+        "manual_action_queue": manual_queue,
+        "trends": {
+            "rollup": trend_summary,
+            "by_office": office_trends,
+            "by_campaign": campaign_trends,
+        },
+        "change_tracking": change_tracking,
+        "daily_update_note": daily_update_note,
+        "dashboard_priorities": dashboard_priorities,
     }
 
     snap["google_ads_insights"] = insights

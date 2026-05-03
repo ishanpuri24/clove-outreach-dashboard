@@ -116,16 +116,31 @@ re-injects the JSON into `index.html` after every sanitization, and
   property, faith/community, schools, chambers, other).
 - Channel scorecard: per-channel sends, replies by bucket, tier,
   confidence, and signal label, with a short qualitative note.
-- Google Ads Waste Watch: aggregated 30-day spend, clicks,
-  conversions, average CPC, and CPA across the linked office's paid
-  search and Performance Max campaigns, with per-campaign risk
+- Google Ads Multi-Office Watch: aggregated 30-day spend, clicks,
+  conversions, average CPC, and CPA across every linked office's
+  paid search and Performance Max campaigns, with per-campaign risk
   flags and recommended actions. Manager-account and customer
   account identifiers are intentionally never exposed; offices
-  appear under a mapping-pending placeholder until the remaining
-  customer IDs are linked. A data-freshness timestamp is shown and
-  the section is included in the consolidated weekday patient-
-  acquisition operating loop, with dashboard-only recommendations
-  and no Google Ads changes made without explicit confirmation.
+  appear by office label only.
+- Google Ads action queue: P0 / P1 / P2 manual changes to make
+  inside Google Ads. Each card names the office, campaign, the
+  issue, supporting evidence, the exact manual change, the expected
+  impact, and when to check back. Live writeback is intentionally
+  not wired - operators apply the change inside Google Ads.
+- Google Ads trends: last 7 days vs last month, normalized per day,
+  for the rollup, by office, and by campaign. Spend / day,
+  conversions / day, phone calls / day, CPA, CPC, conversion rate,
+  and Improving / Worsening / Needs review / Stable / Noisy badges.
+- Keyword theme focus: protect-or-expand and tighten-or-pause
+  themes, listed by office and campaign so the next inspection is
+  obvious.
+- Change tracker: documents the manual change-log workflow and the
+  fields each operator change should record so the next refresh can
+  grade Working / Worsening / Noisy. The connector reads reports and
+  does limited writebacks (offline conversions, audience lists);
+  campaign, budget, bid, ad, search-term, and negative-keyword edits
+  are manual until a mutation-capable Google Ads tool/scope is
+  added, and any future writeback must be explicitly approved.
 - Experiment backlog and queue health with sourcing goals and
   warnings.
 - Operator follow-up queue, redacted to action and channel only.
@@ -184,11 +199,20 @@ The contract enforced by the validator is:
 - `google_ads_insights` is required and must include `title`,
   `lookback`, `data_freshness`, `automation_status`, `coverage`,
   `totals`, `risk_summary`, `campaign_groups`, `campaigns`,
-  `recommended_actions`, and `operator_notes`. Account-id keys
+  `recommended_actions`, `operator_notes`, `manual_action_queue`,
+  `trends`, and `change_tracking`. Account-id keys
   (`manager_customer_id`, `customer_id`, `account_id`, etc.) are
-  rejected at both the top level and inside `campaign_groups[]`.
-  `coverage.office_label_policy` must explicitly state that office
-  mapping is pending until the remaining customer IDs are linked.
+  rejected at both the top level and inside `campaign_groups[]`,
+  `manual_action_queue[]`, and `trends.by_office[]` /
+  `trends.by_campaign[]`. `coverage.office_label_policy` must
+  explicitly state that office mapping is pending until the
+  remaining customer IDs are linked. Each `manual_action_queue[]`
+  row must carry `priority` (P0/P1/P2/P3), `office`, `campaign`,
+  `issue`, a non-empty `evidence` list, `manual_change`,
+  `expected_impact`, `check_after`, and `status`. `trends.rollup`
+  must contain `last_7_days` and `last_month` with per-day metrics
+  (`spend_per_day`, `conversions_per_day`, `cpa`, `avg_cpc`,
+  `ctr_pct`, `conversion_rate_pct`).
 
 The validator (see below) enforces all of the above on every run.
 

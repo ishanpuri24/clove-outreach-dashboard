@@ -77,6 +77,38 @@ REQUIRED_GOOGLE_ADS_FIELDS = [
     "campaigns",
     "recommended_actions",
     "operator_notes",
+    "manual_action_queue",
+    "trends",
+    "change_tracking",
+]
+
+REQUIRED_TREND_WINDOW_FIELDS = [
+    "spend_per_day",
+    "conversions_per_day",
+    "avg_cpc",
+    "cpa",
+    "ctr_pct",
+    "conversion_rate_pct",
+]
+
+REQUIRED_ACTION_QUEUE_FIELDS = [
+    "priority",
+    "office",
+    "campaign",
+    "issue",
+    "evidence",
+    "manual_change",
+    "expected_impact",
+    "check_after",
+    "status",
+]
+
+REQUIRED_CHANGE_TRACKING_FIELDS = [
+    "purpose",
+    "current_connector_limit",
+    "manual_log_fields",
+    "status_rules",
+    "approval_rule",
 ]
 
 REQUIRED_GOOGLE_ADS_TOTALS = [
@@ -399,6 +431,76 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
             "google_ads_insights.coverage.office_label_policy must "
             "explicitly state that office mapping is pending until "
             "remaining customer IDs are linked."
+        )
+
+    queue = ads.get("manual_action_queue")
+    if not isinstance(queue, list):
+        _fail("google_ads_insights.manual_action_queue must be a list.")
+    for idx, row in enumerate(queue):
+        if not isinstance(row, dict):
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}] is not "
+                "an object"
+            )
+        missing_q = [k for k in REQUIRED_ACTION_QUEUE_FIELDS if k not in row]
+        if missing_q:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}] missing "
+                f"required fields: {missing_q}"
+            )
+        evidence = row.get("evidence")
+        if not isinstance(evidence, list) or not evidence:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}].evidence "
+                "must be a non-empty list of strings."
+            )
+        priority = (row.get("priority") or "").upper()
+        if priority not in {"P0", "P1", "P2", "P3"}:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}].priority "
+                f"must be one of P0/P1/P2/P3, got {priority!r}."
+            )
+
+    trends = ads.get("trends")
+    if not isinstance(trends, dict):
+        _fail("google_ads_insights.trends must be an object.")
+    rollup_trend = trends.get("rollup") or {}
+    if not isinstance(rollup_trend, dict):
+        _fail("google_ads_insights.trends.rollup must be an object.")
+    for window_key in ("last_7_days", "last_month"):
+        window = rollup_trend.get(window_key) or {}
+        if not isinstance(window, dict):
+            _fail(
+                "google_ads_insights.trends.rollup."
+                f"{window_key} must be an object."
+            )
+        missing_w = [
+            k for k in REQUIRED_TREND_WINDOW_FIELDS if k not in window
+        ]
+        if missing_w:
+            _fail(
+                "google_ads_insights.trends.rollup."
+                f"{window_key} missing required fields: {missing_w}"
+            )
+    if not isinstance(trends.get("by_office"), list):
+        _fail("google_ads_insights.trends.by_office must be a list.")
+    if not isinstance(trends.get("by_campaign"), list):
+        _fail("google_ads_insights.trends.by_campaign must be a list.")
+
+    ct = ads.get("change_tracking")
+    if not isinstance(ct, dict):
+        _fail("google_ads_insights.change_tracking must be an object.")
+    missing_ct = [k for k in REQUIRED_CHANGE_TRACKING_FIELDS if k not in ct]
+    if missing_ct:
+        _fail(
+            "google_ads_insights.change_tracking missing required "
+            f"fields: {missing_ct}"
+        )
+    limit_text = (ct.get("current_connector_limit") or "").lower()
+    if not limit_text:
+        _fail(
+            "google_ads_insights.change_tracking.current_connector_limit "
+            "must describe what the connector cannot mutate today."
         )
 
 

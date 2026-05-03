@@ -120,6 +120,20 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
             if isinstance(camp, dict):
                 for key in forbidden_account_keys:
                     camp.pop(key, None)
+        for row in ads.get("manual_action_queue") or []:
+            if isinstance(row, dict):
+                for key in forbidden_account_keys:
+                    row.pop(key, None)
+        trends = ads.get("trends") or {}
+        if isinstance(trends, dict):
+            for row in trends.get("by_office") or []:
+                if isinstance(row, dict):
+                    for key in forbidden_account_keys:
+                        row.pop(key, None)
+            for row in trends.get("by_campaign") or []:
+                if isinstance(row, dict):
+                    for key in forbidden_account_keys:
+                        row.pop(key, None)
         out["google_ads_insights"] = ads
 
     kf = out.get("google_ads_keyword_focus")
