@@ -61,9 +61,7 @@ def _decision_label(action: str, risk: str) -> str:
             return "Pause and audit"
         return "Tighten and audit"
     if pri == "Protect":
-        if "model" in action:
-            return "Protect and replicate"
-        return "Protect and test scale"
+        return "Protect winner"
     return "Monitor"
 
 
@@ -606,7 +604,7 @@ def _build_recommended_actions(
             f"{c.get('office')} - {c.get('campaign')}" for c in top_protect
         )
         actions.append(
-            "Protect and replicate: " + names +
+            "Protect winners: " + names +
             " - hold budget, copy winning structure into the next office "
             "where lead quality is confirmed."
         )

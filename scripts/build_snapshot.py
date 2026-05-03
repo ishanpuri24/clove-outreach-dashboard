@@ -328,6 +328,15 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
             "Replicate the structure into the next office where lead "
             "quality is confirmed.",
         }
+        # Repeated generic protect decision labels collapse to a single
+        # compact category ("Protect winner") so the public snapshot does
+        # not echo the same boilerplate guidance phrase across every
+        # protect campaign card. The shared protect/scale rule lives once
+        # in the recommended_actions queue.
+        generic_protect_decisions = {
+            "Protect and replicate",
+            "Protect and test scale",
+        }
         for camp in ads.get("campaigns") or []:
             if isinstance(camp, dict):
                 for key in forbidden_account_keys:
@@ -347,6 +356,28 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
                         )
                     ):
                         dd["next_steps"] = []
+                    decision = dd.get("decision")
+                    if (
+                        pri == "protect"
+                        and isinstance(decision, str)
+                        and decision in generic_protect_decisions
+                    ):
+                        dd["decision"] = "Protect winner"
+        # The recommended_actions queue keeps a single shared
+        # protect/scale rule. Normalize the legacy "Protect and
+        # replicate:" prefix to "Protect winners:" so the phrase does
+        # not appear repeatedly anywhere in the public snapshot.
+        rec_actions = ads.get("recommended_actions")
+        if isinstance(rec_actions, list):
+            ads["recommended_actions"] = [
+                (
+                    "Protect winners:" + line[len("Protect and replicate:"):]
+                    if isinstance(line, str)
+                    and line.startswith("Protect and replicate:")
+                    else line
+                )
+                for line in rec_actions
+            ]
         for row in ads.get("manual_action_queue") or []:
             if isinstance(row, dict):
                 for key in forbidden_account_keys:
