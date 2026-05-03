@@ -110,6 +110,61 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
                     group.pop(key, None)
         out["google_ads_insights"] = ads
 
+    kf = out.get("google_ads_keyword_focus")
+    if isinstance(kf, dict):
+        for key in (
+            "manager_customer_id",
+            "customer_id",
+            "customer_ids",
+            "account_id",
+            "search_terms",
+            "search_term_view",
+        ):
+            kf.pop(key, None)
+        out["google_ads_keyword_focus"] = kf
+
+    rd = out.get("b2b_reply_detail")
+    if isinstance(rd, dict):
+        forbidden_reply_keys = (
+            "Email From",
+            "email_from",
+            "sender",
+            "sender_name",
+            "sender_email",
+            "from",
+            "From",
+            "Organization",
+            "organization",
+            "phone",
+            "Phone",
+            "Body",
+            "body",
+            "raw_text",
+            "raw_reply",
+            "Summary",
+            "summary",
+            "Suggested Next Action",
+        )
+        for key in forbidden_reply_keys:
+            rd.pop(key, None)
+        timeline = rd.get("reply_timeline") or []
+        cleaned_timeline = []
+        for row in timeline:
+            if not isinstance(row, dict):
+                continue
+            cleaned_timeline.append({
+                "date": row.get("date", ""),
+                "category": row.get("category", ""),
+                "classification": row.get("classification", ""),
+                "public_theme": row.get("public_theme", ""),
+                "status": row.get("status", ""),
+                "suggested_next_action_public": row.get(
+                    "suggested_next_action_public", ""
+                ),
+            })
+        rd["reply_timeline"] = cleaned_timeline
+        out["b2b_reply_detail"] = rd
+
     return out
 
 

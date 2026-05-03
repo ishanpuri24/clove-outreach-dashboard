@@ -1015,7 +1015,340 @@
       "google_ads_insights manager_customer_id (never exposed)",
       "google_ads_insights child customer_id values (never exposed)",
       "google_ads_insights account_label raw text (replaced with mapping-pending placeholder)",
-      "google_ads_insights ad_group internal IDs (never exposed)"
+      "google_ads_insights ad_group internal IDs (never exposed)",
+      "b2b_reply_detail timeline excludes sender names, emails, organizations, phone numbers, and raw reply text",
+      "google_ads_keyword_focus is keyword-ideas API output only; no customer/manager IDs, no search-term reports"
     ]
+  },
+  "b2b_reply_detail": {
+    "title": "B2B reply detail",
+    "privacy_note": "Public view is sanitized: no sender names, emails, organizations, phone numbers, or raw reply text.",
+    "classification_breakdown": [
+      {
+        "classification": "Bounce",
+        "count": 1
+      },
+      {
+        "classification": "Neutral",
+        "count": 3
+      },
+      {
+        "classification": "Positive",
+        "count": 2
+      }
+    ],
+    "category_breakdown": [
+      {
+        "category": "Geriatric Care Managers / Caregiver Resource",
+        "count": 1
+      },
+      {
+        "category": "Senior Living",
+        "count": 1
+      },
+      {
+        "category": "Church / Community",
+        "count": 1
+      },
+      {
+        "category": "Employer / HR",
+        "count": 1
+      },
+      {
+        "category": "Gyms / Fitness",
+        "count": 1
+      },
+      {
+        "category": "Caregiver resource / senior programs",
+        "count": 1
+      }
+    ],
+    "reply_timeline": [
+      {
+        "date": "2026-04-21",
+        "category": "Geriatric Care Managers / Caregiver Resource",
+        "classification": "Positive",
+        "public_theme": "Forwarded internally to a better program owner",
+        "status": "Needs monitoring",
+        "suggested_next_action_public": "Monitor for the forwarded contact; if no response, send a light follow-up."
+      },
+      {
+        "date": "2026-04-21",
+        "category": "Senior Living",
+        "classification": "Neutral - Recycle Later",
+        "public_theme": "Timing not right; recycle later",
+        "status": "Recycle later",
+        "suggested_next_action_public": "Recycle in roughly 90 days with a note referencing their timing constraint."
+      },
+      {
+        "date": "2026-04-23",
+        "category": "Church / Community",
+        "classification": "Neutral - Advertising / Referral",
+        "public_theme": "Community channel suggested alternate referral path",
+        "status": "Logged",
+        "suggested_next_action_public": "Consider OASIS/older-adult program call; avoid endorsement ask unless paid advertising is desired."
+      },
+      {
+        "date": "2026-04-23",
+        "category": "Employer / HR",
+        "classification": "Bounce",
+        "public_theme": "Bad address / bounce",
+        "status": "Suppressed",
+        "suggested_next_action_public": "Suppress address and source alternate public contact before any future outreach."
+      },
+      {
+        "date": "2026-04-24",
+        "category": "Gyms / Fitness",
+        "classification": "Neutral - Reviewing Partnerships",
+        "public_theme": "Warm review-later partnership signal",
+        "status": "Monitor next week",
+        "suggested_next_action_public": "Monitor and send light follow-up after 5 business days if no reply."
+      },
+      {
+        "date": "2026-04-30",
+        "category": "Caregiver resource / senior programs",
+        "classification": "Positive - Materials Requested",
+        "public_theme": "Materials requested by senior/caregiver channel",
+        "status": "Needs human follow-up",
+        "suggested_next_action_public": "Prepare human-approved one-page senior oral-health resource and send as follow-up."
+      }
+    ],
+    "what_is_working": [
+      "Senior/caregiver and caregiver-resource channels produced the clearest positive signal.",
+      "Fitness/wellness outreach produced a warm partnership-review signal worth a follow-up.",
+      "Community/faith channels can surface referral paths, but endorsement asks are weaker than program-specific older-adult channels."
+    ],
+    "next_copy_tests": [
+      "Lead senior/caregiver copy with a concrete one-page oral-health resource plus optional short educational session.",
+      "For wellness/fitness, frame as Dental Wellness 101 for members, not a generic partnership ask.",
+      "For community organizations, ask for the correct older-adult program contact instead of endorsement."
+    ]
+  },
+  "google_ads_keyword_focus": {
+    "title": "Keyword focus plan",
+    "source_note": "Keyword ideas pulled from connected Google Ads keyword-ideas API; this is not a search-term performance report because the current connector does not expose keyword_view/search_term_view reports.",
+    "focus_keywords": [
+      {
+        "keyword": "dentist near me",
+        "avg_monthly_searches": 1830000,
+        "competition": "MEDIUM",
+        "competition_index": 54,
+        "low_top_bid": 4.12,
+        "high_top_bid": 19.37,
+        "focus_reason": "Highest-intent local generic; use exact/phrase with office-radius controls.",
+        "recommended_action": "Protect but segment by office and watch CPC/CPA."
+      },
+      {
+        "keyword": "dental office near me",
+        "avg_monthly_searches": 165000,
+        "competition": "MEDIUM",
+        "competition_index": 61,
+        "low_top_bid": 4.02,
+        "high_top_bid": 18.41,
+        "focus_reason": "Local provider intent similar to dentist near me.",
+        "recommended_action": "Test exact/phrase; send to office-location landing pages."
+      },
+      {
+        "keyword": "dentist appointment near me",
+        "avg_monthly_searches": 5400,
+        "competition": "HIGH",
+        "competition_index": 72,
+        "low_top_bid": 7.17,
+        "high_top_bid": 26.72,
+        "focus_reason": "Booking intent despite high top-of-page bid.",
+        "recommended_action": "Use exact match only with call extension and staffed-hours bid rules."
+      },
+      {
+        "keyword": "walk in dentist near me",
+        "avg_monthly_searches": 22200,
+        "competition": "MEDIUM",
+        "competition_index": 60,
+        "low_top_bid": 3.62,
+        "high_top_bid": 17.1,
+        "focus_reason": "Urgent/local intent.",
+        "recommended_action": "Route to same-day/walk-in landing page and track calls."
+      },
+      {
+        "keyword": "emergency dentist",
+        "focus_reason": "Urgency intent; current emergency campaign needs tracking audit before scale.",
+        "recommended_action": "Keep in emergency-specific campaign with call quality checks."
+      },
+      {
+        "keyword": "dental clinic near me",
+        "avg_monthly_searches": 110000,
+        "competition": "LOW",
+        "competition_index": 29,
+        "low_top_bid": 2.6,
+        "high_top_bid": 13.92,
+        "focus_reason": "Lower competition local provider intent.",
+        "recommended_action": "Test as efficient local acquisition term."
+      },
+      {
+        "keyword": "delta dental dentist",
+        "avg_monthly_searches": 4400,
+        "competition": "MEDIUM",
+        "competition_index": 38,
+        "low_top_bid": 2.29,
+        "high_top_bid": 11.94,
+        "focus_reason": "Insurance/provider intent; better than broad plan research terms.",
+        "recommended_action": "Use exact/phrase and negative out login/coverage/member-service terms."
+      },
+      {
+        "keyword": "dentist that accept delta dental",
+        "avg_monthly_searches": 8100,
+        "competition": "MEDIUM",
+        "competition_index": 58,
+        "low_top_bid": 2.83,
+        "high_top_bid": 14.11,
+        "focus_reason": "Patient intent to find care with insurance.",
+        "recommended_action": "Prioritize over provider-list and plan-info keywords."
+      },
+      {
+        "keyword": "dentists near me that accept delta dental",
+        "avg_monthly_searches": 6600,
+        "competition": "MEDIUM",
+        "competition_index": 58,
+        "low_top_bid": 2.55,
+        "high_top_bid": 13.63,
+        "focus_reason": "High local insurance intent.",
+        "recommended_action": "Use exact match with insurance landing page."
+      },
+      {
+        "keyword": "denti cal dentist",
+        "avg_monthly_searches": 590,
+        "competition": "HIGH",
+        "competition_index": 69,
+        "low_top_bid": 2.73,
+        "high_top_bid": 12.19,
+        "focus_reason": "Very relevant but current Denti-Cal campaign is inefficient.",
+        "recommended_action": "Rebuild exact-match only with Denti-Cal page before scaling."
+      }
+    ],
+    "negative_or_isolate_candidates": [
+      {
+        "keyword": "delta dental insurance",
+        "avg_monthly_searches": 165000,
+        "competition": "LOW",
+        "competition_index": 27,
+        "low_top_bid": 0.81,
+        "high_top_bid": 5.0,
+        "why_review_or_negative": "Plan research, not dental appointment intent."
+      },
+      {
+        "keyword": "delta dental ppo",
+        "avg_monthly_searches": 27100,
+        "competition": "LOW",
+        "competition_index": 5,
+        "low_top_bid": 0.53,
+        "high_top_bid": 6.24,
+        "why_review_or_negative": "Coverage/research query likely to waste clicks."
+      },
+      {
+        "keyword": "delta dental providers",
+        "avg_monthly_searches": 8100,
+        "competition": "MEDIUM",
+        "competition_index": 42,
+        "low_top_bid": 0.82,
+        "high_top_bid": 9.01,
+        "why_review_or_negative": "Directory/research intent; only keep if exact local/provider landing page proves out."
+      },
+      {
+        "keyword": "delta dental find a dentist",
+        "avg_monthly_searches": 18100,
+        "competition": "MEDIUM",
+        "competition_index": 49,
+        "low_top_bid": 1.31,
+        "high_top_bid": 10.0,
+        "why_review_or_negative": "Directory intent; risky unless landing page directly satisfies provider search and converts."
+      },
+      {
+        "keyword": "delta dental ppo providers",
+        "avg_monthly_searches": 3600,
+        "competition": "MEDIUM",
+        "competition_index": 51,
+        "low_top_bid": 1.64,
+        "high_top_bid": 9.94,
+        "why_review_or_negative": "Known high-CPC/provider-list theme; review as negative or exact-only."
+      },
+      {
+        "keyword": "aarp dental",
+        "avg_monthly_searches": 1600,
+        "competition": "HIGH",
+        "competition_index": 73,
+        "low_top_bid": 1.81,
+        "high_top_bid": 9.18,
+        "why_review_or_negative": "Plan research; not core appointment intent."
+      },
+      {
+        "keyword": "western dental near me",
+        "avg_monthly_searches": 9900,
+        "competition": "MEDIUM",
+        "competition_index": 47,
+        "low_top_bid": 2.83,
+        "high_top_bid": 14.18,
+        "why_review_or_negative": "Competitor query; separate test only if you intentionally conquest."
+      },
+      {
+        "keyword": "aspen dental near me",
+        "avg_monthly_searches": 49500,
+        "competition": "MEDIUM",
+        "competition_index": 37,
+        "low_top_bid": 2.13,
+        "high_top_bid": 6.71,
+        "why_review_or_negative": "Competitor query; separate test only if conquesting."
+      },
+      {
+        "keyword": "cheap dentist near me",
+        "avg_monthly_searches": 22200,
+        "competition": "HIGH",
+        "competition_index": 72,
+        "low_top_bid": 2.44,
+        "high_top_bid": 11.15,
+        "why_review_or_negative": "Price-shopper term; isolate or exclude unless offer economics support it."
+      },
+      {
+        "keyword": "cheap tooth extraction near me",
+        "avg_monthly_searches": 5400,
+        "competition": "HIGH",
+        "competition_index": 80,
+        "low_top_bid": 3.08,
+        "high_top_bid": 12.56,
+        "why_review_or_negative": "Price-focused urgent term; isolate with strict CPA guardrail."
+      }
+    ],
+    "campaign_mapping": [
+      {
+        "campaign": "JZ-Search-Clove",
+        "keyword_focus": "Insurance appointment intent; remove provider-list, plan-login, and coverage-only traffic."
+      },
+      {
+        "campaign": "JZ-Search-Cam - Dentical",
+        "keyword_focus": "Rebuild around exact Denti-Cal/Medi-Cal dentist appointment terms only."
+      },
+      {
+        "campaign": "Emergency - 3/10/26",
+        "keyword_focus": "Emergency, same-day, walk-in, appointment terms with staffed-hours call tracking."
+      },
+      {
+        "campaign": "General-Search-15/10",
+        "keyword_focus": "Local generic dentist/dental office/dental clinic near-me terms by office."
+      }
+    ],
+    "api_writeback_capability": {
+      "can_write_supported": [
+        "offline conversions",
+        "customer lists",
+        "add contacts to customer lists"
+      ],
+      "not_exposed_by_current_connector": [
+        "pause campaign/ad group",
+        "change budget",
+        "change bids",
+        "add negative keywords",
+        "create/edit keywords",
+        "edit ads/assets"
+      ],
+      "status": "Dashboard can recommend keyword/budget actions, but current Google Ads connector cannot directly apply campaign/ad-group/keyword mutations."
+    }
   }
 }

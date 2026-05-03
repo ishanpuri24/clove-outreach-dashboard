@@ -142,7 +142,42 @@ FORBIDDEN_PATTERNS: list[tuple[str, str]] = [
         r"(?<![\d-])(?:customers/)?\d{10}(?![\d-])",
         "Google Ads undashed 10-digit customer id",
     ),
+    # Phone number shapes (NANP). Any reply-side phone leak is forbidden.
+    (
+        r"(?<![\w/-])\+?1?[\s.-]?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}(?!\d)",
+        "Phone-number-shaped value",
+    ),
+    # Bare private commit hashes (full or short) that would identify
+    # commits in the private operations repo.
+    (
+        r"(?:^|[^A-Za-z0-9])\b(?:[0-9a-f]{40}|[0-9a-f]{12})\b(?![A-Za-z0-9])",
+        "Possible git commit hash",
+    ),
 ]
+
+# Keys that must never appear anywhere inside b2b_reply_detail.
+FORBIDDEN_REPLY_DETAIL_KEYS = {
+    "Email From",
+    "email_from",
+    "sender",
+    "sender_name",
+    "sender_email",
+    "from",
+    "From",
+    "Organization",
+    "organization",
+    "org_name",
+    "phone",
+    "Phone",
+    "Body",
+    "body",
+    "Reply Body",
+    "raw_text",
+    "raw_reply",
+    "summary",
+    "Summary",
+    "Suggested Next Action",
+}
 
 
 class ValidationError(Exception):
@@ -367,6 +402,76 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
         )
 
 
+def check_b2b_reply_detail(snap: dict[str, Any]) -> None:
+    rd = snap.get("b2b_reply_detail")
+    if rd is None:
+        return
+    if not isinstance(rd, dict):
+        _fail("b2b_reply_detail must be an object")
+    leaked = FORBIDDEN_REPLY_DETAIL_KEYS.intersection(rd.keys())
+    if leaked:
+        _fail(
+            "b2b_reply_detail exposes forbidden top-level keys "
+            f"{sorted(leaked)}; sender, organization, and raw text "
+            "fields must never appear in the public mirror."
+        )
+    timeline = rd.get("reply_timeline") or []
+    if not isinstance(timeline, list):
+        _fail("b2b_reply_detail.reply_timeline must be a list")
+    allowed = {
+        "date",
+        "category",
+        "classification",
+        "public_theme",
+        "status",
+        "suggested_next_action_public",
+    }
+    for idx, row in enumerate(timeline):
+        if not isinstance(row, dict):
+            _fail(f"b2b_reply_detail.reply_timeline[{idx}] is not an object")
+        leaked_row = FORBIDDEN_REPLY_DETAIL_KEYS.intersection(row.keys())
+        if leaked_row:
+            _fail(
+                f"b2b_reply_detail.reply_timeline[{idx}] exposes forbidden "
+                f"keys {sorted(leaked_row)}."
+            )
+        extra = set(row.keys()) - allowed
+        if extra:
+            _fail(
+                f"b2b_reply_detail.reply_timeline[{idx}] contains "
+                f"unrecognized keys {sorted(extra)}; only "
+                f"{sorted(allowed)} are allowed."
+            )
+
+
+def check_keyword_focus(snap: dict[str, Any]) -> None:
+    kf = snap.get("google_ads_keyword_focus")
+    if kf is None:
+        return
+    if not isinstance(kf, dict):
+        _fail("google_ads_keyword_focus must be an object")
+    forbidden_keys = {
+        "manager_customer_id",
+        "manager_account_id",
+        "customer_id",
+        "customer_ids",
+        "account_id",
+        "account_ids",
+        "login_customer_id",
+        "search_terms",
+        "search_term_view",
+    }
+    leaked = forbidden_keys.intersection(kf.keys())
+    if leaked:
+        _fail(
+            "google_ads_keyword_focus exposes forbidden keys "
+            f"{sorted(leaked)}."
+        )
+    api = kf.get("api_writeback_capability") or {}
+    if api and not isinstance(api, dict):
+        _fail("api_writeback_capability must be an object when present")
+
+
 def check_github_section_redacted(snap: dict[str, Any]) -> None:
     gh = snap.get("github") or {}
     forbidden = {
@@ -451,6 +556,8 @@ def main() -> int:
         check_latest_batch_redacted(snap)
         check_github_section_redacted(snap)
         check_google_ads_insights(snap)
+        check_b2b_reply_detail(snap)
+        check_keyword_focus(snap)
 
         snapshot_text = DATA_FILE.read_text(encoding="utf-8")
         if not INDEX_HTML.exists():
