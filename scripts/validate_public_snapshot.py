@@ -229,7 +229,25 @@ FORBIDDEN_PATTERNS: list[tuple[str, str]] = [
         r"(?:^|[^A-Za-z0-9])\b(?:[0-9a-f]{40}|[0-9a-f]{12})\b(?![A-Za-z0-9])",
         "Possible git commit hash",
     ),
+    # Internal experiment / follow-up tracker IDs from the private
+    # operations repo. The public mirror surfaces hypothesis / action
+    # text instead of the tracker code, so any EXP-NN or FU-NN
+    # occurrence is treated as a leak.
+    (
+        r"\bEXP-\d{2,}\b",
+        "Internal experiment tracker id (EXP-NN)",
+    ),
+    (
+        r"\bFU-\d{2,}\b",
+        "Internal follow-up tracker id (FU-NN)",
+    ),
 ]
+
+# Internal scheduler/task identifier shape: a bare 8-character
+# lowercase hex string. The private builder uses this shape for the
+# scheduled-task id; the public mirror substitutes the safe label
+# "daily-refresh".
+SCHEDULER_TASK_ID_RE = re.compile(r"^[0-9a-f]{8}$")
 
 # Keys that must never appear anywhere inside b2b_reply_detail.
 FORBIDDEN_REPLY_DETAIL_KEYS = {
@@ -332,6 +350,81 @@ def check_kpis(snap: dict[str, Any]) -> None:
                 f"snapshot.json kpis['{field}'] must be numeric, got "
                 f"{type(kpis.get(field)).__name__}"
             )
+
+
+def check_task_id_redacted(snap: dict[str, Any]) -> None:
+    """The scheduled-task id must not be the raw internal hex value.
+
+    The private builder ships an 8-character lowercase hex
+    scheduler/task identifier. The public mirror is required to
+    substitute a safe label (for example ``daily-refresh``). Any value
+    that still matches the internal scheduler-id shape fails
+    validation.
+    """
+    task = snap.get("task")
+    if not isinstance(task, dict):
+        return
+    task_id = task.get("id")
+    if not isinstance(task_id, str):
+        return
+    if SCHEDULER_TASK_ID_RE.match(task_id):
+        _fail(
+            "task.id looks like a raw internal scheduler/task id "
+            f"({task_id!r}); replace with a safe label such as "
+            "'daily-refresh' before publishing."
+        )
+
+
+def check_experiments_redacted(snap: dict[str, Any]) -> None:
+    """Experiments and human follow-ups must not carry tracker IDs.
+
+    The private operations repo tracks experiments and follow-ups by
+    EXP-NN / FU-NN codes. Those codes are internal: the public mirror
+    renders the title/action text instead. This check enforces that no
+    experiment or follow-up row ships an ``id`` field, and that no row
+    field contains an EXP-NN or FU-NN substring.
+    """
+    experiments = snap.get("experiments") or []
+    if not isinstance(experiments, list):
+        _fail("experiments must be a list when present.")
+    for idx, row in enumerate(experiments):
+        if not isinstance(row, dict):
+            _fail(f"experiments[{idx}] is not an object")
+        if "id" in row:
+            _fail(
+                f"experiments[{idx}] still carries an internal tracker "
+                "id field; remove before publishing."
+            )
+        for key, val in row.items():
+            if isinstance(val, str) and (
+                re.search(r"\bEXP-\d{2,}\b", val)
+                or re.search(r"\bFU-\d{2,}\b", val)
+            ):
+                _fail(
+                    f"experiments[{idx}].{key} references an internal "
+                    f"tracker id ({val!r})."
+                )
+
+    followups = snap.get("human_followups") or []
+    if not isinstance(followups, list):
+        _fail("human_followups must be a list when present.")
+    for idx, row in enumerate(followups):
+        if not isinstance(row, dict):
+            _fail(f"human_followups[{idx}] is not an object")
+        if "id" in row:
+            _fail(
+                f"human_followups[{idx}] still carries an internal "
+                "tracker id field; remove before publishing."
+            )
+        for key, val in row.items():
+            if isinstance(val, str) and (
+                re.search(r"\bEXP-\d{2,}\b", val)
+                or re.search(r"\bFU-\d{2,}\b", val)
+            ):
+                _fail(
+                    f"human_followups[{idx}].{key} references an "
+                    f"internal tracker id ({val!r})."
+                )
 
 
 def check_sources_redacted(snap: dict[str, Any]) -> None:
@@ -832,6 +925,8 @@ def main() -> int:
         snap = load_snapshot_json()
         check_required_sections(snap)
         check_kpis(snap)
+        check_task_id_redacted(snap)
+        check_experiments_redacted(snap)
         check_sources_redacted(snap)
         check_replies_redacted(snap)
         check_latest_batch_redacted(snap)

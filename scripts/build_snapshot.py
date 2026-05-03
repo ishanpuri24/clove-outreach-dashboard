@@ -36,6 +36,39 @@ EMAIL_RE = re.compile(
 SENDER_LABEL = "Connected Clove sender"
 INTERNAL_FOLLOWUP_LABEL = "Internal follow-up only"
 
+# Public label used in place of the internal scheduled-task identifier.
+PUBLIC_TASK_LABEL = "daily-refresh"
+
+# Internal scheduler/task identifier shape (8-char lowercase hex). Any
+# value of this shape in the public mirror is treated as an internal
+# task ID leak and replaced with PUBLIC_TASK_LABEL.
+SCHEDULER_TASK_ID_RE = re.compile(r"^[0-9a-f]{8}$")
+
+# Internal experiment / follow-up tracking IDs. The public mirror
+# renders the title/action/hypothesis instead of the tracker code.
+EXPERIMENT_ID_RE = re.compile(r"\bEXP-\d{2,}\b")
+FOLLOWUP_ID_RE = re.compile(r"\bFU-\d{2,}\b")
+
+
+def _strip_internal_tracker_ids(text: Any) -> Any:
+    """Remove EXP-XX / FU-XX style internal tracker IDs from prose."""
+    if not isinstance(text, str):
+        return text
+    # Collapse comma/and-joined runs of tracker IDs first so prose like
+    # "after EXP-01 and EXP-03 complete" does not become "after a
+    # related experiment and a related experiment complete".
+    multi_exp = re.compile(
+        r"\bEXP-\d{2,}(?:\s*(?:,|and)\s*EXP-\d{2,})+\b"
+    )
+    multi_fu = re.compile(
+        r"\bFU-\d{2,}(?:\s*(?:,|and)\s*FU-\d{2,})+\b"
+    )
+    cleaned = multi_exp.sub("the related experiments", text)
+    cleaned = multi_fu.sub("the related follow-ups", cleaned)
+    cleaned = EXPERIMENT_ID_RE.sub("a related experiment", cleaned)
+    cleaned = FOLLOWUP_ID_RE.sub("a related follow-up", cleaned)
+    return cleaned
+
 
 def _strip_emails(text: str) -> str:
     """Replace any email address in ``text`` with a safe label.
@@ -92,10 +125,18 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
     out = json.loads(json.dumps(snap))
 
     task = out.get("task")
-    if isinstance(task, dict) and "sender" in task:
-        sender_val = task.get("sender") or ""
-        if EMAIL_RE.search(sender_val):
-            task["sender"] = SENDER_LABEL
+    if isinstance(task, dict):
+        if "sender" in task:
+            sender_val = task.get("sender") or ""
+            if EMAIL_RE.search(sender_val):
+                task["sender"] = SENDER_LABEL
+        # The private builder ships the scheduler task id as an 8-char
+        # hex string. The public mirror replaces it with a stable safe
+        # label so the dashboard still names what generated it without
+        # leaking the internal scheduler/task identifier.
+        task_id = task.get("id")
+        if isinstance(task_id, str) and SCHEDULER_TASK_ID_RE.match(task_id):
+            task["id"] = PUBLIC_TASK_LABEL
 
     guardrails = out.get("guardrails")
     if isinstance(guardrails, list):
@@ -136,17 +177,33 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
             ),
         }
 
+    experiments = out.get("experiments") or []
+    cleaned_experiments = []
+    for e in experiments:
+        if not isinstance(e, dict):
+            continue
+        cleaned_experiments.append({
+            "title": e.get("title", ""),
+            "hypothesis": _strip_internal_tracker_ids(e.get("hypothesis", "")),
+            "channel": e.get("channel", ""),
+            "status": e.get("status", ""),
+            "next_step": _strip_internal_tracker_ids(e.get("next_step", "")),
+        })
+    if experiments:
+        out["experiments"] = cleaned_experiments
+
     followups = out.get("human_followups") or []
     cleaned_followups = []
     for f in followups:
+        if not isinstance(f, dict):
+            continue
         cleaned_followups.append({
-            "id": f.get("id", ""),
             "priority": f.get("priority", ""),
             "due": f.get("due", ""),
             "channel": f.get("channel", ""),
-            "action": f.get("action", ""),
+            "action": _strip_internal_tracker_ids(f.get("action", "")),
             "status": f.get("status", ""),
-            "note": f.get("note", ""),
+            "note": _strip_internal_tracker_ids(f.get("note", "")),
         })
     if followups:
         out["human_followups"] = cleaned_followups

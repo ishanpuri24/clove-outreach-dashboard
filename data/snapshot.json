@@ -1,7 +1,7 @@
 {
   "generated_at": "2026-05-03T18:14:46.752659+00:00",
   "task": {
-    "id": "a3b9de2f",
+    "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
     "sender": "Connected Clove sender",
     "daily_cap": 12
@@ -290,7 +290,6 @@
   ],
   "experiments": [
     {
-      "id": "EXP-01",
       "title": "Shorter subject line",
       "hypothesis": "Trimming the subject to under 45 characters lifts open and reply rate in tier-1 senior channels.",
       "channel": "Senior Living / Assisted, Caregiver / Senior Resource",
@@ -298,7 +297,6 @@
       "next_step": "Author A/B variant and reserve next 6 tier-1 sends for the shorter subject."
     },
     {
-      "id": "EXP-02",
       "title": "Materials-first senior follow-up",
       "hypothesis": "Leading the follow-up with the seminar materials packet (no second ask) converts the prior positive materials request into a scheduled session.",
       "channel": "Caregiver / Senior Resource",
@@ -306,7 +304,6 @@
       "next_step": "Operator sends materials packet today; CC ops only after positive engagement, per guardrail."
     },
     {
-      "id": "EXP-03",
       "title": "Hospice oral-comfort resource angle",
       "hypothesis": "A clinical resource framing (oral comfort for end-of-life patients) outperforms generic seminar pitch in hospice/home-health.",
       "channel": "Home Care / Hospice / Health",
@@ -314,7 +311,6 @@
       "next_step": "Draft resource-led variant; reserve next 4 hospice sends for this angle."
     },
     {
-      "id": "EXP-04",
       "title": "Phone/form follow-up for no-email high-fit",
       "hypothesis": "High-fit senior-living and home-care orgs without a public email convert via phone or contact-form follow-up at meaningfully higher rates than waiting for email enrichment.",
       "channel": "Senior Living / Assisted, Home Care / Hospice / Health",
@@ -322,12 +318,11 @@
       "next_step": "Operator works the no-email shortlist daily; log outcomes back to the Sheet."
     },
     {
-      "id": "EXP-05",
       "title": "Reply-rate baseline lock",
       "hypothesis": "Holding subject and body constant for 20 sends per tier-1 channel produces a stable reply-rate baseline to compare future copy tests against.",
       "channel": "All Tier 1",
       "status": "Backlog",
-      "next_step": "Define control copy; lock variant rotation cadence after EXP-01 and EXP-03 complete."
+      "next_step": "Define control copy; lock variant rotation cadence after the related experiments complete."
     }
   ],
   "queue_health": {
@@ -344,7 +339,6 @@
   },
   "human_followups": [
     {
-      "id": "FU-01",
       "priority": "P0",
       "due": "2026-05-01",
       "channel": "Caregiver / Senior Resource",
@@ -353,7 +347,6 @@
       "note": "Identity redacted in public mirror; tracked by reply ID in private Sheet."
     },
     {
-      "id": "FU-02",
       "priority": "P1",
       "due": "2026-05-04",
       "channel": "Senior Living / Assisted",
@@ -362,16 +355,14 @@
       "note": "Operator-only; do not auto-message."
     },
     {
-      "id": "FU-03",
       "priority": "P1",
       "due": "2026-05-04",
       "channel": "Home Care / Hospice / Health",
       "action": "Phone or contact-form follow-up for high-fit no-email home-care and hospice targets.",
       "status": "Queued",
-      "note": "Pair with EXP-03 framing where appropriate."
+      "note": "Pair with a related experiment framing where appropriate."
     },
     {
-      "id": "FU-04",
       "priority": "P2",
       "due": "2026-05-05",
       "channel": "Caregiver / Senior Resource",
