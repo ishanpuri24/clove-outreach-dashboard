@@ -85,6 +85,7 @@ REQUIRED_GOOGLE_ADS_FIELDS = [
     "change_tracking",
     "operator_review_order",
     "recommendation_detail_note",
+    "priority_playbooks",
 ]
 
 REQUIRED_TREND_WINDOW_FIELDS = [
@@ -107,6 +108,7 @@ REQUIRED_ACTION_QUEUE_FIELDS = [
     "check_after",
     "status",
     "specific_recommendation",
+    "campaign_specific_points",
 ]
 
 REQUIRED_SPECIFIC_RECOMMENDATION_FIELDS = [
@@ -144,6 +146,38 @@ REQUIRED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS = [
 ALLOWED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS = set(
     REQUIRED_SHORT_SPECIFIC_RECOMMENDATION_FIELDS + ["metric_snapshot"]
 )
+
+# Compact per-campaign points block. Each visible card now renders only
+# these unique campaign-specific decisions; the long P0/P1/P2 guidance
+# is consolidated once in priority_playbooks. Every action-queue row
+# must include this block so the operator never has to re-read the
+# shared playbook in every card.
+REQUIRED_CAMPAIGN_SPECIFIC_POINTS_FIELDS = [
+    "reason",
+    "next_move",
+    "inspect",
+    "negative_focus",
+    "structure_fix",
+    "success_metric",
+    "log_note",
+]
+
+ALLOWED_CAMPAIGN_SPECIFIC_POINTS_FIELDS = set(
+    REQUIRED_CAMPAIGN_SPECIFIC_POINTS_FIELDS + ["metric_snapshot"]
+)
+
+# Priority playbook block (P0 / P1 / P2). One small shared card per
+# priority captures the repeated guidance that used to be duplicated
+# inside every action card.
+REQUIRED_PRIORITY_PLAYBOOK_LEVELS = ["P0", "P1", "P2"]
+REQUIRED_PRIORITY_PLAYBOOK_FIELDS = [
+    "label",
+    "shared_action",
+    "budget_rule",
+    "review_window",
+    "completion_rule",
+]
+ALLOWED_PRIORITY_PLAYBOOK_FIELDS = set(REQUIRED_PRIORITY_PLAYBOOK_FIELDS)
 
 REQUIRED_CHANGE_TRACKING_FIELDS = [
     "purpose",
@@ -671,6 +705,82 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
                     f"short_specific_recommendation['{s_key}'] must be "
                     "a non-empty string."
                 )
+        pts = row.get("campaign_specific_points")
+        if not isinstance(pts, dict):
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                "campaign_specific_points must be an object so each card "
+                "renders only the unique campaign-specific decisions."
+            )
+        missing_pts = [
+            k for k in REQUIRED_CAMPAIGN_SPECIFIC_POINTS_FIELDS
+            if k not in pts
+        ]
+        if missing_pts:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                f"campaign_specific_points missing required fields: "
+                f"{missing_pts}"
+            )
+        extra_pts = (
+            set(pts.keys()) - ALLOWED_CAMPAIGN_SPECIFIC_POINTS_FIELDS
+        )
+        if extra_pts:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                f"campaign_specific_points has unexpected keys: "
+                f"{sorted(extra_pts)}"
+            )
+        for p_key, p_val in pts.items():
+            if not isinstance(p_val, str) or not p_val.strip():
+                _fail(
+                    f"google_ads_insights.manual_action_queue[{idx}]."
+                    f"campaign_specific_points['{p_key}'] must be a "
+                    "non-empty string."
+                )
+
+    playbooks = ads.get("priority_playbooks")
+    if not isinstance(playbooks, dict):
+        _fail(
+            "google_ads_insights.priority_playbooks must be an object "
+            "containing the shared P0/P1/P2 cards."
+        )
+    missing_levels = [
+        lvl for lvl in REQUIRED_PRIORITY_PLAYBOOK_LEVELS
+        if lvl not in playbooks
+    ]
+    if missing_levels:
+        _fail(
+            "google_ads_insights.priority_playbooks missing required "
+            f"priority levels: {missing_levels}"
+        )
+    for lvl in REQUIRED_PRIORITY_PLAYBOOK_LEVELS:
+        block = playbooks.get(lvl)
+        if not isinstance(block, dict):
+            _fail(
+                f"google_ads_insights.priority_playbooks['{lvl}'] must "
+                "be an object."
+            )
+        missing_pb = [
+            k for k in REQUIRED_PRIORITY_PLAYBOOK_FIELDS if k not in block
+        ]
+        if missing_pb:
+            _fail(
+                f"google_ads_insights.priority_playbooks['{lvl}'] "
+                f"missing required fields: {missing_pb}"
+            )
+        extra_pb = set(block.keys()) - ALLOWED_PRIORITY_PLAYBOOK_FIELDS
+        if extra_pb:
+            _fail(
+                f"google_ads_insights.priority_playbooks['{lvl}'] has "
+                f"unexpected keys: {sorted(extra_pb)}"
+            )
+        for pb_key, pb_val in block.items():
+            if not isinstance(pb_val, str) or not pb_val.strip():
+                _fail(
+                    f"google_ads_insights.priority_playbooks['{lvl}']"
+                    f"['{pb_key}'] must be a non-empty string."
+                )
 
     trends = ads.get("trends")
     if not isinstance(trends, dict):
@@ -740,6 +850,30 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
                     f"google_ads_insights.trends.by_campaign[{idx}]."
                     f"short_specific_recommendation['{s_key}'] must be "
                     "a non-empty string."
+                )
+        pts = row.get("campaign_specific_points")
+        if pts is None:
+            continue
+        if not isinstance(pts, dict):
+            _fail(
+                f"google_ads_insights.trends.by_campaign[{idx}]."
+                "campaign_specific_points must be an object when present."
+            )
+        extra_pts = (
+            set(pts.keys()) - ALLOWED_CAMPAIGN_SPECIFIC_POINTS_FIELDS
+        )
+        if extra_pts:
+            _fail(
+                f"google_ads_insights.trends.by_campaign[{idx}]."
+                f"campaign_specific_points has unexpected keys: "
+                f"{sorted(extra_pts)}"
+            )
+        for p_key, p_val in pts.items():
+            if not isinstance(p_val, str) or not p_val.strip():
+                _fail(
+                    f"google_ads_insights.trends.by_campaign[{idx}]."
+                    f"campaign_specific_points['{p_key}'] must be a "
+                    "non-empty string."
                 )
 
     review_order = ads.get("operator_review_order")

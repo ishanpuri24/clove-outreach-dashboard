@@ -94,6 +94,33 @@ _SHORT_SPECIFIC_REC_KEYS = (
     "log_note",
 )
 
+# Compact per-campaign points rendered in the visible action card. The
+# repeated long "shared_action" guidance lives once in the
+# priority_playbooks section, so each card only shows the unique
+# campaign-specific decisions here.
+_CAMPAIGN_SPECIFIC_POINTS_KEYS = (
+    "reason",
+    "next_move",
+    "inspect",
+    "negative_focus",
+    "structure_fix",
+    "success_metric",
+    "metric_snapshot",
+    "log_note",
+)
+
+# Priority playbook block (P0 / P1 / P2). One small card per priority
+# carrying the shared guidance that used to be repeated inside every
+# action card.
+_PRIORITY_PLAYBOOK_KEYS = (
+    "label",
+    "shared_action",
+    "budget_rule",
+    "review_window",
+    "completion_rule",
+)
+_ALLOWED_PRIORITY_PLAYBOOK_LEVELS = ("P0", "P1", "P2")
+
 
 def _sanitize_specific_recommendation(
     rec: Any,
@@ -147,6 +174,58 @@ def _sanitize_short_specific_recommendation(
     return out or None
 
 
+def _sanitize_campaign_specific_points(
+    rec: Any,
+) -> dict[str, Any] | None:
+    """Whitelist the public-safe keys from a campaign_specific_points block.
+
+    Same strict-whitelist policy as the longer recommendation forms:
+    only the keys in ``_CAMPAIGN_SPECIFIC_POINTS_KEYS`` survive, every
+    value is coerced to a string, and unexpected fields from future
+    payloads are dropped.
+    """
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    for key in _CAMPAIGN_SPECIFIC_POINTS_KEYS:
+        if key not in rec:
+            continue
+        val = rec.get(key)
+        if val is None:
+            continue
+        out[key] = str(val)
+    return out or None
+
+
+def _sanitize_priority_playbooks(
+    playbooks: Any,
+) -> dict[str, Any] | None:
+    """Whitelist priority_playbooks to the P0/P1/P2 shared cards.
+
+    Returns a dict with at most three keys (``P0``, ``P1``, ``P2``);
+    each value is the strict-whitelisted set of playbook fields. Any
+    other priority levels or unexpected keys are dropped.
+    """
+    if not isinstance(playbooks, dict):
+        return None
+    out: dict[str, Any] = {}
+    for level in _ALLOWED_PRIORITY_PLAYBOOK_LEVELS:
+        block = playbooks.get(level)
+        if not isinstance(block, dict):
+            continue
+        cleaned: dict[str, Any] = {}
+        for key in _PRIORITY_PLAYBOOK_KEYS:
+            if key not in block:
+                continue
+            val = block.get(key)
+            if val is None:
+                continue
+            cleaned[key] = str(val)
+        if cleaned:
+            out[level] = cleaned
+    return out or None
+
+
 def _sanitize_action_queue_row(row: dict[str, Any]) -> dict[str, Any]:
     cleaned = dict(row)
     rec = cleaned.get("specific_recommendation")
@@ -161,6 +240,12 @@ def _sanitize_action_queue_row(row: dict[str, Any]) -> dict[str, Any]:
         cleaned["short_specific_recommendation"] = sanitized_short
     elif "short_specific_recommendation" in cleaned:
         cleaned.pop("short_specific_recommendation", None)
+    pts = cleaned.get("campaign_specific_points")
+    sanitized_pts = _sanitize_campaign_specific_points(pts)
+    if sanitized_pts:
+        cleaned["campaign_specific_points"] = sanitized_pts
+    elif "campaign_specific_points" in cleaned:
+        cleaned.pop("campaign_specific_points", None)
     return cleaned
 
 
@@ -178,6 +263,12 @@ def _sanitize_campaign_trend_row(row: dict[str, Any]) -> dict[str, Any]:
         cleaned["short_specific_recommendation"] = sanitized_short
     elif "short_specific_recommendation" in cleaned:
         cleaned.pop("short_specific_recommendation", None)
+    pts = cleaned.get("campaign_specific_points")
+    sanitized_pts = _sanitize_campaign_specific_points(pts)
+    if sanitized_pts:
+        cleaned["campaign_specific_points"] = sanitized_pts
+    elif "campaign_specific_points" in cleaned:
+        cleaned.pop("campaign_specific_points", None)
     return cleaned
 
 
@@ -527,6 +618,9 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
     recommendation_detail_note = (
         google_ads.get("recommendation_detail_note") or ""
     )
+    priority_playbooks = _sanitize_priority_playbooks(
+        google_ads.get("priority_playbooks")
+    ) or {}
     dashboard_priorities = payload.get("dashboard_priorities") or []
 
     reporting_offices = rollup.get("reporting_offices") or len(coverage_rows)
@@ -660,6 +754,7 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "daily_update_note": daily_update_note,
         "operator_review_order": operator_review_order,
         "recommendation_detail_note": recommendation_detail_note,
+        "priority_playbooks": priority_playbooks,
         "dashboard_priorities": dashboard_priorities,
     }
 

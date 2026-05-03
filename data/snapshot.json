@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-03T18:14:46.752659+00:00",
+  "generated_at": "2026-05-03T18:34:30.382246+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -452,7 +452,7 @@
     "title": "Google Ads Multi-Office Watch",
     "subtitle": "Direct linked account reporting across 16 office account(s) for the last 30 days. Recommendations are dashboard-only; no live Google Ads changes are pushed.",
     "lookback": "LAST_30_DAYS",
-    "data_freshness": "2026-05-03T18:14:46.752659+00:00",
+    "data_freshness": "2026-05-03T18:34:30.382246+00:00",
     "automation_status": "Direct linked account reporting is active for every connected office account (16 in this refresh). Recommendations are dashboard-only and require explicit operator approval before any live change.",
     "coverage": {
       "linked_offices": 16,
@@ -2855,10 +2855,10 @@
         "campaign": "JZ-Search-Sherman Oaks",
         "issue": "Last 7 days spend with zero conversions",
         "evidence": [
-          "7d: spend $727.93, conv 0.0, CPA n/a, CPC $10.25. Vs last month/day: spend -0%, conv -100%.",
-          "Stop waste: $728 spent in 7d with 0 conversions."
+          "7d $727.93 spend, 0 conv, CPA n/a, CPC $10.25, spend/day -0% vs LM.",
+          "$728 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap."
         ],
-        "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Cut 50-80% or pause today.",
         "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
         "check_after": "Check again after 3 days or after 30 more clicks.",
         "status": "Ready for manual review",
@@ -2897,6 +2897,16 @@
           "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
           "metric_snapshot": "7d: spend $727.93, conv 0.0, CPA n/a, CPC $10.25. Vs last month/day: spend -0%, conv -100%.",
           "log_note": "Log: Sherman Oaks | JZ-Search-Sherman Oaks | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+        },
+        "campaign_specific_points": {
+          "reason": "$728 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+          "next_move": "Cut 50-80% or pause today.",
+          "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+          "metric_snapshot": "7d $727.93 spend, 0 conv, CPA n/a, CPC $10.25, spend/day -0% vs LM.",
+          "log_note": "Sherman Oaks | JZ-Search-Sherman Oaks | P0 | Cut 50-80% or pause today."
         }
       },
       {
@@ -2905,10 +2915,10 @@
         "campaign": "JZ-Search-Santa Monica",
         "issue": "Last 7 days spend with zero conversions",
         "evidence": [
-          "7d: spend $639.09, conv 0.0, CPA n/a, CPC $9.26. Vs last month/day: spend -5%, conv n/a.",
-          "Stop waste: $639 spent in 7d with 0 conversions."
+          "7d $639.09 spend, 0 conv, CPA n/a, CPC $9.26, spend/day -5% vs LM.",
+          "$639 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap."
         ],
-        "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Cut 50-80% or pause today.",
         "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
         "check_after": "Check again after 3 days or after 30 more clicks.",
         "status": "Ready for manual review",
@@ -2947,6 +2957,16 @@
           "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
           "metric_snapshot": "7d: spend $639.09, conv 0.0, CPA n/a, CPC $9.26. Vs last month/day: spend -5%, conv n/a.",
           "log_note": "Log: Santa Monica | JZ-Search-Santa Monica | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+        },
+        "campaign_specific_points": {
+          "reason": "$639 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+          "next_move": "Cut 50-80% or pause today.",
+          "inspect": "High-cost search terms and location report for Santa Monica / West LA only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+          "metric_snapshot": "7d $639.09 spend, 0 conv, CPA n/a, CPC $9.26, spend/day -5% vs LM.",
+          "log_note": "Santa Monica | JZ-Search-Santa Monica | P0 | Cut 50-80% or pause today."
         }
       },
       {
@@ -2955,10 +2975,10 @@
         "campaign": "JZ-Search-Encino",
         "issue": "Last 7 days spend with zero conversions",
         "evidence": [
-          "7d: spend $503.25, conv 0.0, CPA n/a, CPC $9.87. Vs last month/day: spend +32%, conv -100%.",
-          "Stop waste: $503 spent in 7d with 0 conversions."
+          "7d $503.25 spend, 0 conv, CPA n/a, CPC $9.87, spend/day +32% vs LM.",
+          "$503 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap."
         ],
-        "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Cut 50-80% or pause today.",
         "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
         "check_after": "Check again after 3 days or after 30 more clicks.",
         "status": "Ready for manual review",
@@ -2997,6 +3017,16 @@
           "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
           "metric_snapshot": "7d: spend $503.25, conv 0.0, CPA n/a, CPC $9.87. Vs last month/day: spend +32%, conv -100%.",
           "log_note": "Log: Encino | JZ-Search-Encino | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+        },
+        "campaign_specific_points": {
+          "reason": "$503 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+          "next_move": "Cut 50-80% or pause today.",
+          "inspect": "High-cost search terms and location report for Encino / nearby SFV only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+          "metric_snapshot": "7d $503.25 spend, 0 conv, CPA n/a, CPC $9.87, spend/day +32% vs LM.",
+          "log_note": "Encino | JZ-Search-Encino | P0 | Cut 50-80% or pause today."
         }
       },
       {
@@ -3005,10 +3035,10 @@
         "campaign": "JZ-Pmax",
         "issue": "Last 7 days spend with zero conversions",
         "evidence": [
-          "7d: spend $355.93, conv 0.0, CPA n/a, CPC $1.49. Vs last month/day: spend +1%, conv n/a.",
-          "Stop waste: $356 spent in 7d with 0 conversions."
+          "7d $355.93 spend, 0 conv, CPA n/a, CPC $1.49, spend/day +1% vs LM.",
+          "$356 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap."
         ],
-        "manual_change": "PMax containment: Cut 50-80% today or pause until the search-term review is complete. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Cut 50-80% or pause today.",
         "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
         "check_after": "Check again after 3 days or after 30 more clicks.",
         "status": "Ready for manual review",
@@ -3048,6 +3078,16 @@
           "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
           "metric_snapshot": "7d: spend $355.93, conv 0.0, CPA n/a, CPC $1.49. Vs last month/day: spend +1%, conv n/a.",
           "log_note": "Log: Santa Monica | JZ-Pmax | P0 | PMax containment | Cut 50-80% today or pause until the search-term review is complete."
+        },
+        "campaign_specific_points": {
+          "reason": "$356 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+          "next_move": "Cut 50-80% or pause today.",
+          "inspect": "Asset groups, search themes, final URL expansion.",
+          "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+          "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+          "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+          "metric_snapshot": "7d $355.93 spend, 0 conv, CPA n/a, CPC $1.49, spend/day +1% vs LM.",
+          "log_note": "Santa Monica | JZ-Pmax | P0 | Cut 50-80% or pause today."
         }
       },
       {
@@ -3056,10 +3096,10 @@
         "campaign": "JZ-Search-Cam - Dentical",
         "issue": "Last 7 days spend with zero conversions",
         "evidence": [
-          "7d: spend $331.70, conv 0.0, CPA n/a, CPC $4.00. Vs last month/day: spend -10%, conv -100%.",
-          "Stop waste: $332 spent in 7d with 0 conversions."
+          "7d $331.70 spend, 0 conv, CPA n/a, CPC $4.00, spend/day -10% vs LM.",
+          "$332 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap."
         ],
-        "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Cut 50-80% or pause today.",
         "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
         "check_after": "Check again after 3 days or after 30 more clicks.",
         "status": "Ready for manual review",
@@ -3098,6 +3138,16 @@
           "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
           "metric_snapshot": "7d: spend $331.70, conv 0.0, CPA n/a, CPC $4.00. Vs last month/day: spend -10%, conv -100%.",
           "log_note": "Log: Camarillo | JZ-Search-Cam - Dentical | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+        },
+        "campaign_specific_points": {
+          "reason": "$332 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+          "next_move": "Cut 50-80% or pause today.",
+          "inspect": "High-cost search terms and location report for Camarillo / Ventura County only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+          "metric_snapshot": "7d $331.70 spend, 0 conv, CPA n/a, CPC $4.00, spend/day -10% vs LM.",
+          "log_note": "Camarillo | JZ-Search-Cam - Dentical | P0 | Cut 50-80% or pause today."
         }
       },
       {
@@ -3106,10 +3156,10 @@
         "campaign": "JZ-Search-SO-Spanish",
         "issue": "Last 7 days spend with zero conversions",
         "evidence": [
-          "7d: spend $328.17, conv 0.0, CPA n/a, CPC $3.86. Vs last month/day: spend +25%, conv -100%.",
-          "Stop waste: $328 spent in 7d with 0 conversions."
+          "7d $328.17 spend, 0 conv, CPA n/a, CPC $3.86, spend/day +25% vs LM.",
+          "$328 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap."
         ],
-        "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Cut 50-80% or pause today.",
         "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
         "check_after": "Check again after 3 days or after 30 more clicks.",
         "status": "Ready for manual review",
@@ -3148,6 +3198,16 @@
           "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
           "metric_snapshot": "7d: spend $328.17, conv 0.0, CPA n/a, CPC $3.86. Vs last month/day: spend +25%, conv -100%.",
           "log_note": "Log: Sherman Oaks | JZ-Search-SO-Spanish | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+        },
+        "campaign_specific_points": {
+          "reason": "$328 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+          "next_move": "Cut 50-80% or pause today.",
+          "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+          "metric_snapshot": "7d $328.17 spend, 0 conv, CPA n/a, CPC $3.86, spend/day +25% vs LM.",
+          "log_note": "Sherman Oaks | JZ-Search-SO-Spanish | P0 | Cut 50-80% or pause today."
         }
       },
       {
@@ -3156,10 +3216,10 @@
         "campaign": "JZ-Search-Riverpark - Dentical",
         "issue": "Last 7 days spend with zero conversions",
         "evidence": [
-          "7d: spend $321.60, conv 0.0, CPA n/a, CPC $6.18. Vs last month/day: spend +4%, conv -100%.",
-          "Stop waste: $322 spent in 7d with 0 conversions."
+          "7d $321.60 spend, 0 conv, CPA n/a, CPC $6.18, spend/day +4% vs LM.",
+          "$322 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap."
         ],
-        "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Cut 50-80% or pause today.",
         "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
         "check_after": "Check again after 3 days or after 30 more clicks.",
         "status": "Ready for manual review",
@@ -3198,6 +3258,16 @@
           "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
           "metric_snapshot": "7d: spend $321.60, conv 0.0, CPA n/a, CPC $6.18. Vs last month/day: spend +4%, conv -100%.",
           "log_note": "Log: Oxnard Riverpark | JZ-Search-Riverpark - Dentical | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+        },
+        "campaign_specific_points": {
+          "reason": "$322 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+          "next_move": "Cut 50-80% or pause today.",
+          "inspect": "High-cost search terms and location report for Oxnard Riverpark / Ventura County only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+          "metric_snapshot": "7d $321.60 spend, 0 conv, CPA n/a, CPC $6.18, spend/day +4% vs LM.",
+          "log_note": "Oxnard Riverpark | JZ-Search-Riverpark - Dentical | P0 | Cut 50-80% or pause today."
         }
       },
       {
@@ -3206,10 +3276,10 @@
         "campaign": "JZ-Search-Riverpark",
         "issue": "High current CPA",
         "evidence": [
-          "7d: spend $710.70, conv 7.0, CPA $101.53, CPC $5.69. Vs last month/day: spend -9%, conv -8%.",
-          "Fix efficiency: 7d CPA $101.53 and CPC $5.69 need improvement versus baseline. CPA delta -1%."
+          "7d $710.70 spend, 7 conv, CPA $101.53, CPC $5.69, spend/day -9% vs LM.",
+          "Efficiency pressure: 7d CPA $101.53, CPC $5.69, conv/day 1.17 vs 1.27 last month."
         ],
-        "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after one business week.",
         "status": "Ready for manual review",
@@ -3248,6 +3318,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $710.70, conv 7.0, CPA $101.53, CPC $5.69. Vs last month/day: spend -9%, conv -8%.",
           "log_note": "Log: Oxnard Riverpark | JZ-Search-Riverpark | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $101.53, CPC $5.69, conv/day 1.17 vs 1.27 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "High-cost search terms and location report for Oxnard Riverpark / Ventura County only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $710.70 spend, 7 conv, CPA $101.53, CPC $5.69, spend/day -9% vs LM.",
+          "log_note": "Oxnard Riverpark | JZ-Search-Riverpark | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3256,10 +3336,10 @@
         "campaign": "JZ-PMAX",
         "issue": "High current CPA",
         "evidence": [
-          "7d: spend $653.56, conv 6.0, CPA $108.93, CPC $3.71. Vs last month/day: spend -8%, conv +26%.",
-          "Fix efficiency: 7d CPA $108.93 and CPC $3.71 need improvement versus baseline. CPA delta -27%."
+          "7d $653.56 spend, 6 conv, CPA $108.93, CPC $3.71, spend/day -8% vs LM.",
+          "Efficiency pressure: 7d CPA $108.93, CPC $3.71, conv/day 0.86 vs 0.68 last month."
         ],
-        "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after one business week.",
         "status": "Ready for manual review",
@@ -3299,6 +3379,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $653.56, conv 6.0, CPA $108.93, CPC $3.71. Vs last month/day: spend -8%, conv +26%.",
           "log_note": "Log: Sherman Oaks | JZ-PMAX | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $108.93, CPC $3.71, conv/day 0.86 vs 0.68 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "Asset groups, search themes, final URL expansion.",
+          "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+          "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $653.56 spend, 6 conv, CPA $108.93, CPC $3.71, spend/day -8% vs LM.",
+          "log_note": "Sherman Oaks | JZ-PMAX | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3307,10 +3397,10 @@
         "campaign": "Beverly Hills",
         "issue": "High current CPA",
         "evidence": [
-          "7d: spend $565.19, conv 2.98, CPA $189.39, CPC $8.97. Vs last month/day: spend -12%, conv +0%.",
-          "Fix efficiency: 7d CPA $189.39 and CPC $8.97 need improvement versus baseline. CPA delta -10%."
+          "7d $565.19 spend, 2.98 conv, CPA $189.39, CPC $8.97, spend/day -12% vs LM.",
+          "Efficiency pressure: 7d CPA $189.39, CPC $8.97, conv/day 0.43 vs 0.43 last month."
         ],
-        "manual_change": "Mixed intent cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect only office-specific dental appointment intent.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after one business week.",
         "status": "Ready for manual review",
@@ -3349,6 +3439,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $565.19, conv 2.98, CPA $189.39, CPC $8.97. Vs last month/day: spend -12%, conv +0%.",
           "log_note": "Log: Beverly Hills | Beverly Hills | P1 | Mixed intent cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $189.39, CPC $8.97, conv/day 0.43 vs 0.43 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "High-cost search terms and location report for Beverly Hills / West Hollywood / Century City only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $565.19 spend, 2.98 conv, CPA $189.39, CPC $8.97, spend/day -12% vs LM.",
+          "log_note": "Beverly Hills | Beverly Hills | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3357,10 +3457,10 @@
         "campaign": "Pmax - emergency 18/6/25",
         "issue": "High current CPA",
         "evidence": [
-          "7d: spend $516.54, conv 5.0, CPA $103.31, CPC $8.33. Vs last month/day: spend +2%, conv -11%.",
-          "Fix efficiency: 7d CPA $103.31 and CPC $8.33 need improvement versus baseline. CPA delta +14%."
+          "7d $516.54 spend, 5 conv, CPA $103.31, CPC $8.33, spend/day +2% vs LM.",
+          "Efficiency pressure: 7d CPA $103.31, CPC $8.33, conv/day 0.71 vs 0.8 last month."
         ],
-        "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after one business week.",
         "status": "Ready for manual review",
@@ -3401,6 +3501,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $516.54, conv 5.0, CPA $103.31, CPC $8.33. Vs last month/day: spend +2%, conv -11%.",
           "log_note": "Log: Santa Monica | Pmax - emergency 18/6/25 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $103.31, CPC $8.33, conv/day 0.71 vs 0.8 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "Asset groups, search themes, final URL expansion.",
+          "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+          "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $516.54 spend, 5 conv, CPA $103.31, CPC $8.33, spend/day +2% vs LM.",
+          "log_note": "Santa Monica | Pmax - emergency 18/6/25 | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3409,10 +3519,10 @@
         "campaign": "General-Search-22/3/25",
         "issue": "High current CPA",
         "evidence": [
-          "7d: spend $495.04, conv 4.0, CPA $123.76, CPC $11.25. Vs last month/day: spend -0%, conv -22%.",
-          "Fix efficiency: 7d CPA $123.76 and CPC $11.25 need improvement versus baseline. CPA delta +28%."
+          "7d $495.04 spend, 4 conv, CPA $123.76, CPC $11.25, spend/day -0% vs LM.",
+          "Efficiency pressure: 7d CPA $123.76, CPC $11.25, conv/day 0.57 vs 0.73 last month."
         ],
-        "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after one business week.",
         "status": "Ready for manual review",
@@ -3451,6 +3561,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $495.04, conv 4.0, CPA $123.76, CPC $11.25. Vs last month/day: spend -0%, conv -22%.",
           "log_note": "Log: Santa Monica | General-Search-22/3/25 | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $123.76, CPC $11.25, conv/day 0.57 vs 0.73 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "High-cost search terms and location report for Santa Monica / West LA only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $495.04 spend, 4 conv, CPA $123.76, CPC $11.25, spend/day -0% vs LM.",
+          "log_note": "Santa Monica | General-Search-22/3/25 | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3459,10 +3579,10 @@
         "campaign": "JZ-Search-Clove",
         "issue": "CPA materially worse than last month",
         "evidence": [
-          "7d: spend $490.62, conv 2.0, CPA $245.31, CPC $10.67. Vs last month/day: spend +16%, conv -20%.",
-          "Fix efficiency: 7d CPA $245.31 and CPC $10.67 need improvement versus baseline. CPA delta +45%."
+          "7d $490.62 spend, 2 conv, CPA $245.31, CPC $10.67, spend/day +16% vs LM.",
+          "Efficiency pressure: 7d CPA $245.31, CPC $10.67, conv/day 0.4 vs 0.5 last month."
         ],
-        "manual_change": "Brand protection: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect cheap capture of branded/local-name demand only.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after 5 to 7 days.",
         "status": "Ready for manual review",
@@ -3502,6 +3622,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $490.62, conv 2.0, CPA $245.31, CPC $10.67. Vs last month/day: spend +16%, conv -20%.",
           "log_note": "Log: Camarillo | JZ-Search-Clove | P1 | Brand protection | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $245.31, CPC $10.67, conv/day 0.4 vs 0.5 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "Brand/local-name exact and phrase terms only.",
+          "negative_focus": "Competitor support, unrelated people/business lookups, generic dentist leakage.",
+          "structure_fix": "Keep brand budget separate from generic search.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $490.62 spend, 2 conv, CPA $245.31, CPC $10.67, spend/day +16% vs LM.",
+          "log_note": "Camarillo | JZ-Search-Clove | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3510,10 +3640,10 @@
         "campaign": "PMAX - gbp 8/1/2025",
         "issue": "CPC rising while conversion pace is falling",
         "evidence": [
-          "7d: spend $476.57, conv 6.0, CPA $79.45, CPC $7.56. Vs last month/day: spend +3%, conv -24%.",
-          "Fix efficiency: 7d CPA $79.45 and CPC $7.56 need improvement versus baseline. CPA delta +36%."
+          "7d $476.57 spend, 6 conv, CPA $79.45, CPC $7.56, spend/day +3% vs LM.",
+          "Efficiency pressure: 7d CPA $79.45, CPC $7.56, conv/day 0.86 vs 1.13 last month."
         ],
-        "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after 5 days.",
         "status": "Ready for manual review",
@@ -3553,6 +3683,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $476.57, conv 6.0, CPA $79.45, CPC $7.56. Vs last month/day: spend +3%, conv -24%.",
           "log_note": "Log: Camarillo | PMAX - gbp 8/1/2025 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $79.45, CPC $7.56, conv/day 0.86 vs 1.13 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "Asset groups, search themes, final URL expansion.",
+          "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+          "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $476.57 spend, 6 conv, CPA $79.45, CPC $7.56, spend/day +3% vs LM.",
+          "log_note": "Camarillo | PMAX - gbp 8/1/2025 | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3561,10 +3701,10 @@
         "campaign": "JZ-Search-Ventura",
         "issue": "CPA materially worse than last month",
         "evidence": [
-          "7d: spend $469.60, conv 1.0, CPA $469.60, CPC $12.69. Vs last month/day: spend +12%, conv -44%.",
-          "Fix efficiency: 7d CPA $469.60 and CPC $12.69 need improvement versus baseline. CPA delta +104%."
+          "7d $469.60 spend, 1 conv, CPA $469.60, CPC $12.69, spend/day +12% vs LM.",
+          "Efficiency pressure: 7d CPA $469.60, CPC $12.69, conv/day 0.2 vs 0.36 last month."
         ],
-        "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after 5 to 7 days.",
         "status": "Ready for manual review",
@@ -3603,6 +3743,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $469.60, conv 1.0, CPA $469.60, CPC $12.69. Vs last month/day: spend +12%, conv -44%.",
           "log_note": "Log: Hillview | JZ-Search-Ventura | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $469.60, CPC $12.69, conv/day 0.2 vs 0.36 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "High-cost search terms and location report for mapped office radius only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $469.60 spend, 1 conv, CPA $469.60, CPC $12.69, spend/day +12% vs LM.",
+          "log_note": "Hillview | JZ-Search-Ventura | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3611,10 +3761,10 @@
         "campaign": "DNM",
         "issue": "High current CPA",
         "evidence": [
-          "7d: spend $226.53, conv 1.0, CPA $226.53, CPC $3.54. Vs last month/day: spend -1%, conv -48%.",
-          "Fix efficiency: 7d CPA $226.53 and CPC $3.54 need improvement versus baseline. CPA delta +85%."
+          "7d $226.53 spend, 1 conv, CPA $226.53, CPC $3.54, spend/day -1% vs LM.",
+          "Efficiency pressure: 7d CPA $226.53, CPC $3.54, conv/day 0.14 vs 0.27 last month."
         ],
-        "manual_change": "Mixed intent cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect only office-specific dental appointment intent.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after one business week.",
         "status": "Ready for manual review",
@@ -3653,6 +3803,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $226.53, conv 1.0, CPA $226.53, CPC $3.54. Vs last month/day: spend -1%, conv -48%.",
           "log_note": "Log: Sherman Oaks AI | DNM | P1 | Mixed intent cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $226.53, CPC $3.54, conv/day 0.14 vs 0.27 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $226.53 spend, 1 conv, CPA $226.53, CPC $3.54, spend/day -1% vs LM.",
+          "log_note": "Sherman Oaks AI | DNM | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3661,10 +3821,10 @@
         "campaign": "Emergency-Performance Max- 31/3/25",
         "issue": "High current CPA",
         "evidence": [
-          "7d: spend $222.71, conv 1.0, CPA $222.71, CPC $0.88. Vs last month/day: spend +5%, conv -7%.",
-          "Fix efficiency: 7d CPA $222.71 and CPC $0.88 need improvement versus baseline. CPA delta +10%."
+          "7d $222.71 spend, 1 conv, CPA $222.71, CPC $0.88, spend/day +5% vs LM.",
+          "Efficiency pressure: 7d CPA $222.71, CPC $0.88, conv/day 0.14 vs 0.15 last month."
         ],
-        "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after one business week.",
         "status": "Ready for manual review",
@@ -3705,6 +3865,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $222.71, conv 1.0, CPA $222.71, CPC $0.88. Vs last month/day: spend +5%, conv -7%.",
           "log_note": "Log: Sherman Oaks | Emergency-Performance Max- 31/3/25 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $222.71, CPC $0.88, conv/day 0.14 vs 0.15 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "Emergency search terms sorted by cost and call/form quality.",
+          "negative_focus": "ER/hospital, after-hours if unsupported, free advice, jobs, out-of-area.",
+          "structure_fix": "Keep emergency in its own budget with city + same-day/emergency phrase/exact terms.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $222.71 spend, 1 conv, CPA $222.71, CPC $0.88, spend/day +5% vs LM.",
+          "log_note": "Sherman Oaks | Emergency-Performance Max- 31/3/25 | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3713,10 +3883,10 @@
         "campaign": "Insurance-Performance Max 27-3-2026",
         "issue": "CPC rising while conversion pace is falling",
         "evidence": [
-          "7d: spend $211.18, conv 11.99, CPA $17.61, CPC $4.14. Vs last month/day: spend -2%, conv -31%.",
-          "Fix efficiency: 7d CPA $17.61 and CPC $4.14 need improvement versus baseline. CPA delta +42%."
+          "7d $211.18 spend, 11.99 conv, CPA $17.61, CPC $4.14, spend/day -2% vs LM.",
+          "Efficiency pressure: 7d CPA $17.61, CPC $4.14, conv/day 1.71 vs 2.47 last month."
         ],
-        "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after 5 days.",
         "status": "Ready for manual review",
@@ -3756,6 +3926,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $211.18, conv 11.99, CPA $17.61, CPC $4.14. Vs last month/day: spend -2%, conv -31%.",
           "log_note": "Log: Puri Dentistry | Insurance-Performance Max 27-3-2026 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA $17.61, CPC $4.14, conv/day 1.71 vs 2.47 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "High-cost search terms and location report for mapped office radius only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $211.18 spend, 11.99 conv, CPA $17.61, CPC $4.14, spend/day -2% vs LM.",
+          "log_note": "Puri Dentistry | Insurance-Performance Max 27-3-2026 | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3764,10 +3944,10 @@
         "campaign": "General-Search-15/10",
         "issue": "CPC rising while conversion pace is falling",
         "evidence": [
-          "7d: spend $171.22, conv 0.0, CPA n/a, CPC $10.70. Vs last month/day: spend +20%, conv -100%.",
-          "Fix efficiency: 7d CPA n/a and CPC $10.70 need improvement versus baseline."
+          "7d $171.22 spend, 0 conv, CPA n/a, CPC $10.70, spend/day +20% vs LM.",
+          "Efficiency pressure: 7d CPA n/a, CPC $10.70, conv/day 0.0 vs 0.43 last month."
         ],
-        "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Trim 20-30% and clean terms before reallocating.",
         "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
         "check_after": "Check after 5 days.",
         "status": "Ready for manual review",
@@ -3806,6 +3986,16 @@
           "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
           "metric_snapshot": "7d: spend $171.22, conv 0.0, CPA n/a, CPC $10.70. Vs last month/day: spend +20%, conv -100%.",
           "log_note": "Log: Camarillo | General-Search-15/10 | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+        },
+        "campaign_specific_points": {
+          "reason": "Efficiency pressure: 7d CPA n/a, CPC $10.70, conv/day 0.0 vs 0.43 last month.",
+          "next_move": "Trim 20-30% and clean terms before reallocating.",
+          "inspect": "High-cost search terms and location report for Camarillo / Ventura County only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+          "metric_snapshot": "7d $171.22 spend, 0 conv, CPA n/a, CPC $10.70, spend/day +20% vs LM.",
+          "log_note": "Camarillo | General-Search-15/10 | P1 | Trim 20-30% and clean terms before reallocating."
         }
       },
       {
@@ -3814,10 +4004,10 @@
         "campaign": "DNM",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $593.81, conv 15.0, CPA $39.59, CPC $4.37. Vs last month/day: spend +17%, conv +22%.",
-          "Protect winner: recent trend is improving or stable with 15 conversions in 7d."
+          "7d $593.81 spend, 15 conv, CPA $39.59, CPC $4.37, spend/day +17% vs LM.",
+          "Working candidate: 15 7d conversions with CPA $39.59; protect before scaling."
         ],
-        "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect only office-specific dental appointment intent.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -3856,6 +4046,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $593.81, conv 15.0, CPA $39.59, CPC $4.37. Vs last month/day: spend +17%, conv +22%.",
           "log_note": "Log: Ayur - Problem | DNM | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 15 7d conversions with CPA $39.59; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for mapped office radius only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $593.81 spend, 15 conv, CPA $39.59, CPC $4.37, spend/day +17% vs LM.",
+          "log_note": "Ayur - Problem | DNM | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -3864,10 +4064,10 @@
         "campaign": "(Emergency) pmax- 10/6/2025",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $515.12, conv 16.5, CPA $31.22, CPC $3.65. Vs last month/day: spend -9%, conv +1%.",
-          "Protect winner: recent trend is improving or stable with 16.5 conversions in 7d."
+          "7d $515.12 spend, 16.5 conv, CPA $31.22, CPC $3.65, spend/day -9% vs LM.",
+          "Working candidate: 16.5 7d conversions with CPA $31.22; protect before scaling."
         ],
-        "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -3908,6 +4108,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $515.12, conv 16.5, CPA $31.22, CPC $3.65. Vs last month/day: spend -9%, conv +1%.",
           "log_note": "Log: Puri Dentistry | (Emergency) pmax- 10/6/2025 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 16.5 7d conversions with CPA $31.22; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "Asset groups, search themes, final URL expansion.",
+          "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+          "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $515.12 spend, 16.5 conv, CPA $31.22, CPC $3.65, spend/day -9% vs LM.",
+          "log_note": "Puri Dentistry | (Emergency) pmax- 10/6/2025 | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -3916,10 +4126,10 @@
         "campaign": "JZ-Search-Marin",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $480.55, conv 5.0, CPA $96.11, CPC $6.16. Vs last month/day: spend +22%, conv +100%.",
-          "Protect winner: recent trend is improving or stable with 5 conversions in 7d."
+          "7d $480.55 spend, 5 conv, CPA $96.11, CPC $6.16, spend/day +22% vs LM.",
+          "Working candidate: 5 7d conversions with CPA $96.11; protect before scaling."
         ],
-        "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -3958,6 +4168,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $480.55, conv 5.0, CPA $96.11, CPC $6.16. Vs last month/day: spend +22%, conv +100%.",
           "log_note": "Log: Thousand Oaks | JZ-Search-Marin | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 5 7d conversions with CPA $96.11; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for Thousand Oaks / Conejo Valley only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $480.55 spend, 5 conv, CPA $96.11, CPC $6.16, spend/day +22% vs LM.",
+          "log_note": "Thousand Oaks | JZ-Search-Marin | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -3966,10 +4186,10 @@
         "campaign": "General-Search-27/10",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $367.97, conv 15.0, CPA $24.53, CPC $8.97. Vs last month/day: spend -6%, conv +18%.",
-          "Protect winner: recent trend is improving or stable with 15 conversions in 7d."
+          "7d $367.97 spend, 15 conv, CPA $24.53, CPC $8.97, spend/day -6% vs LM.",
+          "Working candidate: 15 7d conversions with CPA $24.53; protect before scaling."
         ],
-        "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4008,6 +4228,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $367.97, conv 15.0, CPA $24.53, CPC $8.97. Vs last month/day: spend -6%, conv +18%.",
           "log_note": "Log: Encino | General-Search-27/10 | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 15 7d conversions with CPA $24.53; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for Encino / nearby SFV only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $367.97 spend, 15 conv, CPA $24.53, CPC $8.97, spend/day -6% vs LM.",
+          "log_note": "Encino | General-Search-27/10 | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -4016,10 +4246,10 @@
         "campaign": "pmax -gbp 6/26/25",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $325.43, conv 10.0, CPA $32.56, CPC $7.94. Vs last month/day: spend -4%, conv +43%.",
-          "Protect winner: recent trend is improving or stable with 10 conversions in 7d."
+          "7d $325.43 spend, 10 conv, CPA $32.56, CPC $7.94, spend/day -4% vs LM.",
+          "Working candidate: 10 7d conversions with CPA $32.56; protect before scaling."
         ],
-        "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4059,6 +4289,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $325.43, conv 10.0, CPA $32.56, CPC $7.94. Vs last month/day: spend -4%, conv +43%.",
           "log_note": "Log: Oxnard Riverpark | pmax -gbp 6/26/25 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 10 7d conversions with CPA $32.56; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "Asset groups, search themes, final URL expansion.",
+          "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+          "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $325.43 spend, 10 conv, CPA $32.56, CPC $7.94, spend/day -4% vs LM.",
+          "log_note": "Oxnard Riverpark | pmax -gbp 6/26/25 | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -4067,10 +4307,10 @@
         "campaign": "Insurance",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $300.00, conv 17.99, CPA $16.67, CPC $4.41. Vs last month/day: spend -15%, conv +8%.",
-          "Protect winner: recent trend is improving or stable with 17.99 conversions in 7d."
+          "7d $300.00 spend, 17.99 conv, CPA $16.67, CPC $4.41, spend/day -15% vs LM.",
+          "Working candidate: 17.99 7d conversions with CPA $16.67; protect before scaling."
         ],
-        "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect only office-specific dental appointment intent.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4109,6 +4349,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $300.00, conv 17.99, CPA $16.67, CPC $4.41. Vs last month/day: spend -15%, conv +8%.",
           "log_note": "Log: Hillview | Insurance | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 17.99 7d conversions with CPA $16.67; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for mapped office radius only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $300.00 spend, 17.99 conv, CPA $16.67, CPC $4.41, spend/day -15% vs LM.",
+          "log_note": "Hillview | Insurance | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -4117,10 +4367,10 @@
         "campaign": "General-Search-15/10",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $283.77, conv 11.99, CPA $23.66, CPC $6.76. Vs last month/day: spend +3%, conv +95%.",
-          "Protect winner: recent trend is improving or stable with 11.99 conversions in 7d."
+          "7d $283.77 spend, 11.99 conv, CPA $23.66, CPC $6.76, spend/day +3% vs LM.",
+          "Working candidate: 11.99 7d conversions with CPA $23.66; protect before scaling."
         ],
-        "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4159,6 +4409,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $283.77, conv 11.99, CPA $23.66, CPC $6.76. Vs last month/day: spend +3%, conv +95%.",
           "log_note": "Log: Thousand Oaks | General-Search-15/10 | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 11.99 7d conversions with CPA $23.66; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for Thousand Oaks / Conejo Valley only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $283.77 spend, 11.99 conv, CPA $23.66, CPC $6.76, spend/day +3% vs LM.",
+          "log_note": "Thousand Oaks | General-Search-15/10 | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -4167,10 +4427,10 @@
         "campaign": "Leads-Performance - 10/07/25",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $254.74, conv 13.5, CPA $18.87, CPC $3.31. Vs last month/day: spend -8%, conv +10%.",
-          "Protect winner: recent trend is improving or stable with 13.5 conversions in 7d."
+          "7d $254.74 spend, 13.5 conv, CPA $18.87, CPC $3.31, spend/day -8% vs LM.",
+          "Working candidate: 13.5 7d conversions with CPA $18.87; protect before scaling."
         ],
-        "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect only office-specific dental appointment intent.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4209,6 +4469,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $254.74, conv 13.5, CPA $18.87, CPC $3.31. Vs last month/day: spend -8%, conv +10%.",
           "log_note": "Log: Puri Dentistry | Leads-Performance - 10/07/25 | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 13.5 7d conversions with CPA $18.87; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for mapped office radius only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $254.74 spend, 13.5 conv, CPA $18.87, CPC $3.31, spend/day -8% vs LM.",
+          "log_note": "Puri Dentistry | Leads-Performance - 10/07/25 | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -4217,10 +4487,10 @@
         "campaign": "Wisdom Teeth Extraction",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $218.97, conv 9.0, CPA $24.33, CPC $1.77. Vs last month/day: spend -12%, conv -1%.",
-          "Protect winner: recent trend is improving or stable with 9 conversions in 7d."
+          "7d $218.97 spend, 9 conv, CPA $24.33, CPC $1.77, spend/day -12% vs LM.",
+          "Working candidate: 9 7d conversions with CPA $24.33; protect before scaling."
         ],
-        "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect only office-specific dental appointment intent.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4259,6 +4529,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $218.97, conv 9.0, CPA $24.33, CPC $1.77. Vs last month/day: spend -12%, conv -1%.",
           "log_note": "Log: All Offices / Ayur | Wisdom Teeth Extraction | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 9 7d conversions with CPA $24.33; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for mapped office radius only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $218.97 spend, 9 conv, CPA $24.33, CPC $1.77, spend/day -12% vs LM.",
+          "log_note": "All Offices / Ayur | Wisdom Teeth Extraction | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -4267,10 +4547,10 @@
         "campaign": "General-Location-23/1/26",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $216.67, conv 3.0, CPA $72.22, CPC $11.40. Vs last month/day: spend -22%, conv +0%.",
-          "Protect winner: recent trend is improving or stable with 3 conversions in 7d."
+          "7d $216.67 spend, 3 conv, CPA $72.22, CPC $11.40, spend/day -22% vs LM.",
+          "Working candidate: 3 7d conversions with CPA $72.22; protect before scaling."
         ],
-        "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect high-intent local dentist searches, not broad dental browsing.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4309,6 +4589,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $216.67, conv 3.0, CPA $72.22, CPC $11.40. Vs last month/day: spend -22%, conv +0%.",
           "log_note": "Log: Encino | General-Location-23/1/26 | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 3 7d conversions with CPA $72.22; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for Encino / nearby SFV only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $216.67 spend, 3 conv, CPA $72.22, CPC $11.40, spend/day -22% vs LM.",
+          "log_note": "Encino | General-Location-23/1/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       },
       {
@@ -4317,10 +4607,10 @@
         "campaign": "Insurance Performance Max-9/4/26",
         "issue": "Efficiency improving",
         "evidence": [
-          "7d: spend $214.95, conv 9.0, CPA $23.88, CPC $3.64. Vs last month/day: spend +2%, conv +42%.",
-          "Protect winner: recent trend is improving or stable with 9 conversions in 7d."
+          "7d $214.95 spend, 9 conv, CPA $23.88, CPC $3.64, spend/day +2% vs LM.",
+          "Working candidate: 9 7d conversions with CPA $23.88; protect before scaling."
         ],
-        "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale. Inspect pmax asset/search-theme waste, final url expansion, and office landing-page fit.",
+        "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
         "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
         "check_after": "Check lead quality before scaling again.",
         "status": "Ready for manual review",
@@ -4360,6 +4650,16 @@
           "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
           "metric_snapshot": "7d: spend $214.95, conv 9.0, CPA $23.88, CPC $3.64. Vs last month/day: spend +2%, conv +42%.",
           "log_note": "Log: Thousand Oaks | Insurance Performance Max-9/4/26 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+        },
+        "campaign_specific_points": {
+          "reason": "Working candidate: 9 7d conversions with CPA $23.88; protect before scaling.",
+          "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+          "inspect": "High-cost search terms and location report for Thousand Oaks / Conejo Valley only.",
+          "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+          "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+          "success_metric": "CPA holds within 10-15% after any scale test.",
+          "metric_snapshot": "7d $214.95 spend, 9 conv, CPA $23.88, CPC $3.64, spend/day +2% vs LM.",
+          "log_note": "Thousand Oaks | Insurance Performance Max-9/4/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
         }
       }
     ],
@@ -5201,8 +5501,8 @@
           "primary_status": "LIMITED",
           "priority": "P0",
           "issue": "Last 7 days spend with zero conversions",
-          "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete.",
-          "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
+          "manual_change": "Cut 50-80% or pause today.",
+          "expected_impact": "No spend with zero conversions after 3 days/30 clicks.",
           "check_after": "Check again after 3 days or after 30 more clicks.",
           "evidence": [
             "7d spend $727.93 vs last-month $3,125.10; 7d/day $103.99 vs $104.17 last month",
@@ -5244,6 +5544,16 @@
             "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
             "metric_snapshot": "7d: spend $727.93, conv 0.0, CPA n/a, CPC $10.25. Vs last month/day: spend -0%, conv -100%.",
             "log_note": "Log: Sherman Oaks | JZ-Search-Sherman Oaks | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+          },
+          "campaign_specific_points": {
+            "reason": "$728 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+            "next_move": "Cut 50-80% or pause today.",
+            "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+            "metric_snapshot": "7d $727.93 spend, 0 conv, CPA n/a, CPC $10.25, spend/day -0% vs LM.",
+            "log_note": "Sherman Oaks | JZ-Search-Sherman Oaks | P0 | Cut 50-80% or pause today."
           }
         },
         {
@@ -5298,8 +5608,8 @@
           "primary_status": "LIMITED",
           "priority": "P0",
           "issue": "Last 7 days spend with zero conversions",
-          "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete.",
-          "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
+          "manual_change": "Cut 50-80% or pause today.",
+          "expected_impact": "No spend with zero conversions after 3 days/30 clicks.",
           "check_after": "Check again after 3 days or after 30 more clicks.",
           "evidence": [
             "7d spend $639.09 vs last-month $2,888.54; 7d/day $91.30 vs $96.28 last month",
@@ -5340,6 +5650,16 @@
             "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
             "metric_snapshot": "7d: spend $639.09, conv 0.0, CPA n/a, CPC $9.26. Vs last month/day: spend -5%, conv n/a.",
             "log_note": "Log: Santa Monica | JZ-Search-Santa Monica | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+          },
+          "campaign_specific_points": {
+            "reason": "$639 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+            "next_move": "Cut 50-80% or pause today.",
+            "inspect": "High-cost search terms and location report for Santa Monica / West LA only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+            "metric_snapshot": "7d $639.09 spend, 0 conv, CPA n/a, CPC $9.26, spend/day -5% vs LM.",
+            "log_note": "Santa Monica | JZ-Search-Santa Monica | P0 | Cut 50-80% or pause today."
           }
         },
         {
@@ -5394,8 +5714,8 @@
           "primary_status": "LIMITED",
           "priority": "P0",
           "issue": "Last 7 days spend with zero conversions",
-          "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete.",
-          "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
+          "manual_change": "Cut 50-80% or pause today.",
+          "expected_impact": "No spend with zero conversions after 3 days/30 clicks.",
           "check_after": "Check again after 3 days or after 30 more clicks.",
           "evidence": [
             "7d spend $503.25 vs last-month $1,682.69; 7d/day $100.65 vs $76.49 last month",
@@ -5437,6 +5757,16 @@
             "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
             "metric_snapshot": "7d: spend $503.25, conv 0.0, CPA n/a, CPC $9.87. Vs last month/day: spend +32%, conv -100%.",
             "log_note": "Log: Encino | JZ-Search-Encino | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+          },
+          "campaign_specific_points": {
+            "reason": "$503 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+            "next_move": "Cut 50-80% or pause today.",
+            "inspect": "High-cost search terms and location report for Encino / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+            "metric_snapshot": "7d $503.25 spend, 0 conv, CPA n/a, CPC $9.87, spend/day +32% vs LM.",
+            "log_note": "Encino | JZ-Search-Encino | P0 | Cut 50-80% or pause today."
           }
         },
         {
@@ -5491,8 +5821,8 @@
           "primary_status": "LIMITED",
           "priority": "P0",
           "issue": "Last 7 days spend with zero conversions",
-          "manual_change": "PMax containment: Cut 50-80% today or pause until the search-term review is complete.",
-          "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
+          "manual_change": "Cut 50-80% or pause today.",
+          "expected_impact": "No spend with zero conversions after 3 days/30 clicks.",
           "check_after": "Check again after 3 days or after 30 more clicks.",
           "evidence": [
             "7d spend $355.93 vs last-month $1,510.22; 7d/day $50.85 vs $50.34 last month",
@@ -5534,6 +5864,16 @@
             "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
             "metric_snapshot": "7d: spend $355.93, conv 0.0, CPA n/a, CPC $1.49. Vs last month/day: spend +1%, conv n/a.",
             "log_note": "Log: Santa Monica | JZ-Pmax | P0 | PMax containment | Cut 50-80% today or pause until the search-term review is complete."
+          },
+          "campaign_specific_points": {
+            "reason": "$356 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+            "next_move": "Cut 50-80% or pause today.",
+            "inspect": "Asset groups, search themes, final URL expansion.",
+            "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+            "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+            "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+            "metric_snapshot": "7d $355.93 spend, 0 conv, CPA n/a, CPC $1.49, spend/day +1% vs LM.",
+            "log_note": "Santa Monica | JZ-Pmax | P0 | Cut 50-80% or pause today."
           }
         },
         {
@@ -5588,8 +5928,8 @@
           "primary_status": "LIMITED",
           "priority": "P0",
           "issue": "Last 7 days spend with zero conversions",
-          "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete.",
-          "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
+          "manual_change": "Cut 50-80% or pause today.",
+          "expected_impact": "No spend with zero conversions after 3 days/30 clicks.",
           "check_after": "Check again after 3 days or after 30 more clicks.",
           "evidence": [
             "7d spend $331.70 vs last-month $1,618.42; 7d/day $66.34 vs $73.56 last month",
@@ -5631,6 +5971,16 @@
             "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
             "metric_snapshot": "7d: spend $331.70, conv 0.0, CPA n/a, CPC $4.00. Vs last month/day: spend -10%, conv -100%.",
             "log_note": "Log: Camarillo | JZ-Search-Cam - Dentical | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+          },
+          "campaign_specific_points": {
+            "reason": "$332 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+            "next_move": "Cut 50-80% or pause today.",
+            "inspect": "High-cost search terms and location report for Camarillo / Ventura County only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+            "metric_snapshot": "7d $331.70 spend, 0 conv, CPA n/a, CPC $4.00, spend/day -10% vs LM.",
+            "log_note": "Camarillo | JZ-Search-Cam - Dentical | P0 | Cut 50-80% or pause today."
           }
         },
         {
@@ -5685,8 +6035,8 @@
           "primary_status": "LIMITED",
           "priority": "P0",
           "issue": "Last 7 days spend with zero conversions",
-          "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete.",
-          "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
+          "manual_change": "Cut 50-80% or pause today.",
+          "expected_impact": "No spend with zero conversions after 3 days/30 clicks.",
           "check_after": "Check again after 3 days or after 30 more clicks.",
           "evidence": [
             "7d spend $328.17 vs last-month $1,126.81; 7d/day $46.88 vs $37.56 last month",
@@ -5728,6 +6078,16 @@
             "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
             "metric_snapshot": "7d: spend $328.17, conv 0.0, CPA n/a, CPC $3.86. Vs last month/day: spend +25%, conv -100%.",
             "log_note": "Log: Sherman Oaks | JZ-Search-SO-Spanish | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+          },
+          "campaign_specific_points": {
+            "reason": "$328 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+            "next_move": "Cut 50-80% or pause today.",
+            "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+            "metric_snapshot": "7d $328.17 spend, 0 conv, CPA n/a, CPC $3.86, spend/day +25% vs LM.",
+            "log_note": "Sherman Oaks | JZ-Search-SO-Spanish | P0 | Cut 50-80% or pause today."
           }
         },
         {
@@ -5782,8 +6142,8 @@
           "primary_status": "LIMITED",
           "priority": "P0",
           "issue": "Last 7 days spend with zero conversions",
-          "manual_change": "Local dentist search cleanup: Cut 50-80% today or pause until the search-term review is complete.",
-          "expected_impact": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
+          "manual_change": "Cut 50-80% or pause today.",
+          "expected_impact": "No spend with zero conversions after 3 days/30 clicks.",
           "check_after": "Check again after 3 days or after 30 more clicks.",
           "evidence": [
             "7d spend $321.60 vs last-month $1,357.99; 7d/day $64.32 vs $61.73 last month",
@@ -5825,6 +6185,16 @@
             "success_metric": "Recheck after 3 days or 30 clicks; keep off/reduced unless conversions resume or tracking is fixed.",
             "metric_snapshot": "7d: spend $321.60, conv 0.0, CPA n/a, CPC $6.18. Vs last month/day: spend +4%, conv -100%.",
             "log_note": "Log: Oxnard Riverpark | JZ-Search-Riverpark - Dentical | P0 | Local dentist search cleanup | Cut 50-80% today or pause until the search-term review is complete."
+          },
+          "campaign_specific_points": {
+            "reason": "$322 spent in 7d with 0 conversions; keep this from spending until search terms/tracking explain the gap.",
+            "next_move": "Cut 50-80% or pause today.",
+            "inspect": "High-cost search terms and location report for Oxnard Riverpark / Ventura County only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "No spend with zero conversions after 3 days/30 clicks.",
+            "metric_snapshot": "7d $321.60 spend, 0 conv, CPA n/a, CPC $6.18, spend/day +4% vs LM.",
+            "log_note": "Oxnard Riverpark | JZ-Search-Riverpark - Dentical | P0 | Cut 50-80% or pause today."
           }
         },
         {
@@ -5879,8 +6249,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "High current CPA",
-          "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after one business week.",
           "evidence": [
             "7d spend $710.70 vs last-month $3,388.08; 7d/day $118.45 vs $130.31 last month",
@@ -5922,6 +6292,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $710.70, conv 7.0, CPA $101.53, CPC $5.69. Vs last month/day: spend -9%, conv -8%.",
             "log_note": "Log: Oxnard Riverpark | JZ-Search-Riverpark | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $101.53, CPC $5.69, conv/day 1.17 vs 1.27 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "High-cost search terms and location report for Oxnard Riverpark / Ventura County only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $710.70 spend, 7 conv, CPA $101.53, CPC $5.69, spend/day -9% vs LM.",
+            "log_note": "Oxnard Riverpark | JZ-Search-Riverpark | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -5976,8 +6356,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "High current CPA",
-          "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after one business week.",
           "evidence": [
             "7d spend $653.56 vs last-month $3,044.82; 7d/day $93.37 vs $101.49 last month",
@@ -6020,6 +6400,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $653.56, conv 6.0, CPA $108.93, CPC $3.71. Vs last month/day: spend -8%, conv +26%.",
             "log_note": "Log: Sherman Oaks | JZ-PMAX | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $108.93, CPC $3.71, conv/day 0.86 vs 0.68 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "Asset groups, search themes, final URL expansion.",
+            "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+            "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $653.56 spend, 6 conv, CPA $108.93, CPC $3.71, spend/day -8% vs LM.",
+            "log_note": "Sherman Oaks | JZ-PMAX | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6074,8 +6464,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "High current CPA",
-          "manual_change": "Mixed intent cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after one business week.",
           "evidence": [
             "7d spend $565.19 vs last-month $2,744.14; 7d/day $80.74 vs $91.47 last month",
@@ -6117,6 +6507,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $565.19, conv 2.98, CPA $189.39, CPC $8.97. Vs last month/day: spend -12%, conv +0%.",
             "log_note": "Log: Beverly Hills | Beverly Hills | P1 | Mixed intent cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $189.39, CPC $8.97, conv/day 0.43 vs 0.43 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "High-cost search terms and location report for Beverly Hills / West Hollywood / Century City only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $565.19 spend, 2.98 conv, CPA $189.39, CPC $8.97, spend/day -12% vs LM.",
+            "log_note": "Beverly Hills | Beverly Hills | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6171,8 +6571,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "High current CPA",
-          "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after one business week.",
           "evidence": [
             "7d spend $516.54 vs last-month $2,180.67; 7d/day $73.79 vs $72.69 last month",
@@ -6216,6 +6616,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $516.54, conv 5.0, CPA $103.31, CPC $8.33. Vs last month/day: spend +2%, conv -11%.",
             "log_note": "Log: Santa Monica | Pmax - emergency 18/6/25 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $103.31, CPC $8.33, conv/day 0.71 vs 0.8 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "Asset groups, search themes, final URL expansion.",
+            "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+            "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $516.54 spend, 5 conv, CPA $103.31, CPC $8.33, spend/day +2% vs LM.",
+            "log_note": "Santa Monica | Pmax - emergency 18/6/25 | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6270,8 +6680,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "High current CPA",
-          "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after one business week.",
           "evidence": [
             "7d spend $495.04 vs last-month $2,127.91; 7d/day $70.72 vs $70.93 last month",
@@ -6313,6 +6723,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $495.04, conv 4.0, CPA $123.76, CPC $11.25. Vs last month/day: spend -0%, conv -22%.",
             "log_note": "Log: Santa Monica | General-Search-22/3/25 | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $123.76, CPC $11.25, conv/day 0.57 vs 0.73 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "High-cost search terms and location report for Santa Monica / West LA only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $495.04 spend, 4 conv, CPA $123.76, CPC $11.25, spend/day -0% vs LM.",
+            "log_note": "Santa Monica | General-Search-22/3/25 | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6367,8 +6787,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "CPA materially worse than last month",
-          "manual_change": "Brand protection: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after 5 to 7 days.",
           "evidence": [
             "7d spend $490.62 vs last-month $1,857.42; 7d/day $98.12 vs $84.43 last month",
@@ -6411,6 +6831,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $490.62, conv 2.0, CPA $245.31, CPC $10.67. Vs last month/day: spend +16%, conv -20%.",
             "log_note": "Log: Camarillo | JZ-Search-Clove | P1 | Brand protection | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $245.31, CPC $10.67, conv/day 0.4 vs 0.5 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "Brand/local-name exact and phrase terms only.",
+            "negative_focus": "Competitor support, unrelated people/business lookups, generic dentist leakage.",
+            "structure_fix": "Keep brand budget separate from generic search.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $490.62 spend, 2 conv, CPA $245.31, CPC $10.67, spend/day +16% vs LM.",
+            "log_note": "Camarillo | JZ-Search-Clove | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6465,8 +6895,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "CPC rising while conversion pace is falling",
-          "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after 5 days.",
           "evidence": [
             "7d spend $476.57 vs last-month $1,981.46; 7d/day $68.08 vs $66.05 last month",
@@ -6509,6 +6939,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $476.57, conv 6.0, CPA $79.45, CPC $7.56. Vs last month/day: spend +3%, conv -24%.",
             "log_note": "Log: Camarillo | PMAX - gbp 8/1/2025 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $79.45, CPC $7.56, conv/day 0.86 vs 1.13 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "Asset groups, search themes, final URL expansion.",
+            "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+            "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $476.57 spend, 6 conv, CPA $79.45, CPC $7.56, spend/day +3% vs LM.",
+            "log_note": "Camarillo | PMAX - gbp 8/1/2025 | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6563,8 +7003,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "CPA materially worse than last month",
-          "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after 5 to 7 days.",
           "evidence": [
             "7d spend $469.60 vs last-month $1,841.61; 7d/day $93.92 vs $83.71 last month",
@@ -6606,6 +7046,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $469.60, conv 1.0, CPA $469.60, CPC $12.69. Vs last month/day: spend +12%, conv -44%.",
             "log_note": "Log: Hillview | JZ-Search-Ventura | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $469.60, CPC $12.69, conv/day 0.2 vs 0.36 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "High-cost search terms and location report for mapped office radius only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $469.60 spend, 1 conv, CPA $469.60, CPC $12.69, spend/day +12% vs LM.",
+            "log_note": "Hillview | JZ-Search-Ventura | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6660,8 +7110,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "High current CPA",
-          "manual_change": "Mixed intent cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after one business week.",
           "evidence": [
             "7d spend $226.53 vs last-month $981.84; 7d/day $32.36 vs $32.73 last month",
@@ -6703,6 +7153,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $226.53, conv 1.0, CPA $226.53, CPC $3.54. Vs last month/day: spend -1%, conv -48%.",
             "log_note": "Log: Sherman Oaks AI | DNM | P1 | Mixed intent cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $226.53, CPC $3.54, conv/day 0.14 vs 0.27 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $226.53 spend, 1 conv, CPA $226.53, CPC $3.54, spend/day -1% vs LM.",
+            "log_note": "Sherman Oaks AI | DNM | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6757,8 +7217,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "High current CPA",
-          "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after one business week.",
           "evidence": [
             "7d spend $222.71 vs last-month $912.34; 7d/day $31.82 vs $30.41 last month",
@@ -6802,6 +7262,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $222.71, conv 1.0, CPA $222.71, CPC $0.88. Vs last month/day: spend +5%, conv -7%.",
             "log_note": "Log: Sherman Oaks | Emergency-Performance Max- 31/3/25 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $222.71, CPC $0.88, conv/day 0.14 vs 0.15 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "Emergency search terms sorted by cost and call/form quality.",
+            "negative_focus": "ER/hospital, after-hours if unsupported, free advice, jobs, out-of-area.",
+            "structure_fix": "Keep emergency in its own budget with city + same-day/emergency phrase/exact terms.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $222.71 spend, 1 conv, CPA $222.71, CPC $0.88, spend/day +5% vs LM.",
+            "log_note": "Sherman Oaks | Emergency-Performance Max- 31/3/25 | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6856,8 +7326,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "CPC rising while conversion pace is falling",
-          "manual_change": "PMax containment: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after 5 days.",
           "evidence": [
             "7d spend $211.18 vs last-month $920.32; 7d/day $30.17 vs $30.68 last month",
@@ -6900,6 +7370,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $211.18, conv 11.99, CPA $17.61, CPC $4.14. Vs last month/day: spend -2%, conv -31%.",
             "log_note": "Log: Puri Dentistry | Insurance-Performance Max 27-3-2026 | P1 | PMax containment | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA $17.61, CPC $4.14, conv/day 1.71 vs 2.47 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "High-cost search terms and location report for mapped office radius only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $211.18 spend, 11.99 conv, CPA $17.61, CPC $4.14, spend/day -2% vs LM.",
+            "log_note": "Puri Dentistry | Insurance-Performance Max 27-3-2026 | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -6954,8 +7434,8 @@
           "primary_status": "LIMITED",
           "priority": "P1",
           "issue": "CPC rising while conversion pace is falling",
-          "manual_change": "Local dentist search cleanup: Reduce bids/budget 20-30% and clean search terms before shifting spend back.",
-          "expected_impact": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
+          "manual_change": "Trim 20-30% and clean terms before reallocating.",
+          "expected_impact": "CPA moves toward last-month baseline within 5-7 days.",
           "check_after": "Check after 5 days.",
           "evidence": [
             "7d spend $171.22 vs last-month $611.73; 7d/day $24.46 vs $20.39 last month",
@@ -6997,6 +7477,16 @@
             "success_metric": "Recheck in 5-7 days; CPA should move toward last-month baseline without losing conversion pace.",
             "metric_snapshot": "7d: spend $171.22, conv 0.0, CPA n/a, CPC $10.70. Vs last month/day: spend +20%, conv -100%.",
             "log_note": "Log: Camarillo | General-Search-15/10 | P1 | Local dentist search cleanup | Reduce bids/budget 20-30% and clean search terms before shifting spend back."
+          },
+          "campaign_specific_points": {
+            "reason": "Efficiency pressure: 7d CPA n/a, CPC $10.70, conv/day 0.0 vs 0.43 last month.",
+            "next_move": "Trim 20-30% and clean terms before reallocating.",
+            "inspect": "High-cost search terms and location report for Camarillo / Ventura County only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA moves toward last-month baseline within 5-7 days.",
+            "metric_snapshot": "7d $171.22 spend, 0 conv, CPA n/a, CPC $10.70, spend/day +20% vs LM.",
+            "log_note": "Camarillo | General-Search-15/10 | P1 | Trim 20-30% and clean terms before reallocating."
           }
         },
         {
@@ -7051,8 +7541,8 @@
           "primary_status": "ELIGIBLE",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $593.81 vs last-month $2,197.07; 7d/day $98.97 vs $84.50 last month",
@@ -7094,6 +7584,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $593.81, conv 15.0, CPA $39.59, CPC $4.37. Vs last month/day: spend +17%, conv +22%.",
             "log_note": "Log: Ayur - Problem | DNM | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 15 7d conversions with CPA $39.59; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for mapped office radius only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $593.81 spend, 15 conv, CPA $39.59, CPC $4.37, spend/day +17% vs LM.",
+            "log_note": "Ayur - Problem | DNM | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7148,8 +7648,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $515.12 vs last-month $2,432.41; 7d/day $73.59 vs $81.08 last month",
@@ -7193,6 +7693,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $515.12, conv 16.5, CPA $31.22, CPC $3.65. Vs last month/day: spend -9%, conv +1%.",
             "log_note": "Log: Puri Dentistry | (Emergency) pmax- 10/6/2025 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 16.5 7d conversions with CPA $31.22; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "Asset groups, search themes, final URL expansion.",
+            "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+            "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $515.12 spend, 16.5 conv, CPA $31.22, CPC $3.65, spend/day -9% vs LM.",
+            "log_note": "Puri Dentistry | (Emergency) pmax- 10/6/2025 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7247,8 +7757,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $480.55 vs last-month $1,730.85; 7d/day $96.11 vs $78.68 last month",
@@ -7290,6 +7800,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $480.55, conv 5.0, CPA $96.11, CPC $6.16. Vs last month/day: spend +22%, conv +100%.",
             "log_note": "Log: Thousand Oaks | JZ-Search-Marin | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 5 7d conversions with CPA $96.11; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Thousand Oaks / Conejo Valley only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $480.55 spend, 5 conv, CPA $96.11, CPC $6.16, spend/day +22% vs LM.",
+            "log_note": "Thousand Oaks | JZ-Search-Marin | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7344,8 +7864,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $367.97 vs last-month $1,674.80; 7d/day $52.57 vs $55.83 last month",
@@ -7387,6 +7907,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $367.97, conv 15.0, CPA $24.53, CPC $8.97. Vs last month/day: spend -6%, conv +18%.",
             "log_note": "Log: Encino | General-Search-27/10 | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 15 7d conversions with CPA $24.53; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Encino / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $367.97 spend, 15 conv, CPA $24.53, CPC $8.97, spend/day -6% vs LM.",
+            "log_note": "Encino | General-Search-27/10 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7441,8 +7971,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $325.43 vs last-month $1,454.78; 7d/day $46.49 vs $48.49 last month",
@@ -7485,6 +8015,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $325.43, conv 10.0, CPA $32.56, CPC $7.94. Vs last month/day: spend -4%, conv +43%.",
             "log_note": "Log: Oxnard Riverpark | pmax -gbp 6/26/25 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 10 7d conversions with CPA $32.56; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "Asset groups, search themes, final URL expansion.",
+            "negative_focus": "Remove broad/out-of-area themes and any URL expansion that does not map to this office/service.",
+            "structure_fix": "Split PMax by office or service if mixed demand is hiding waste.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $325.43 spend, 10 conv, CPA $32.56, CPC $7.94, spend/day -4% vs LM.",
+            "log_note": "Oxnard Riverpark | pmax -gbp 6/26/25 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7539,8 +8079,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $300.00 vs last-month $1,511.92; 7d/day $42.86 vs $50.40 last month",
@@ -7582,6 +8122,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $300.00, conv 17.99, CPA $16.67, CPC $4.41. Vs last month/day: spend -15%, conv +8%.",
             "log_note": "Log: Hillview | Insurance | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 17.99 7d conversions with CPA $16.67; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for mapped office radius only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $300.00 spend, 17.99 conv, CPA $16.67, CPC $4.41, spend/day -15% vs LM.",
+            "log_note": "Hillview | Insurance | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7636,8 +8186,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $283.77 vs last-month $1,210.81; 7d/day $56.75 vs $55.04 last month",
@@ -7679,6 +8229,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $283.77, conv 11.99, CPA $23.66, CPC $6.76. Vs last month/day: spend +3%, conv +95%.",
             "log_note": "Log: Thousand Oaks | General-Search-15/10 | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 11.99 7d conversions with CPA $23.66; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Thousand Oaks / Conejo Valley only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $283.77 spend, 11.99 conv, CPA $23.66, CPC $6.76, spend/day +3% vs LM.",
+            "log_note": "Thousand Oaks | General-Search-15/10 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7733,8 +8293,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $254.74 vs last-month $1,190.47; 7d/day $36.39 vs $39.68 last month",
@@ -7776,6 +8336,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $254.74, conv 13.5, CPA $18.87, CPC $3.31. Vs last month/day: spend -8%, conv +10%.",
             "log_note": "Log: Puri Dentistry | Leads-Performance - 10/07/25 | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 13.5 7d conversions with CPA $18.87; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for mapped office radius only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $254.74 spend, 13.5 conv, CPA $18.87, CPC $3.31, spend/day -8% vs LM.",
+            "log_note": "Puri Dentistry | Leads-Performance - 10/07/25 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7830,8 +8400,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $218.97 vs last-month $1,064.63; 7d/day $31.28 vs $35.49 last month",
@@ -7873,6 +8443,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $218.97, conv 9.0, CPA $24.33, CPC $1.77. Vs last month/day: spend -12%, conv -1%.",
             "log_note": "Log: All Offices / Ayur | Wisdom Teeth Extraction | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 9 7d conversions with CPA $24.33; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for mapped office radius only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $218.97 spend, 9 conv, CPA $24.33, CPC $1.77, spend/day -12% vs LM.",
+            "log_note": "All Offices / Ayur | Wisdom Teeth Extraction | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -7927,8 +8507,8 @@
           "primary_status": "ELIGIBLE",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Local dentist search cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $216.67 vs last-month $1,197.76; 7d/day $30.95 vs $39.93 last month",
@@ -7970,6 +8550,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $216.67, conv 3.0, CPA $72.22, CPC $11.40. Vs last month/day: spend -22%, conv +0%.",
             "log_note": "Log: Encino | General-Location-23/1/26 | P2 | Local dentist search cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 3 7d conversions with CPA $72.22; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Encino / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $216.67 spend, 3 conv, CPA $72.22, CPC $11.40, spend/day -22% vs LM.",
+            "log_note": "Encino | General-Location-23/1/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8024,8 +8614,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $214.95 vs last-month $660.26; 7d/day $30.71 vs $30.01 last month",
@@ -8068,6 +8658,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $214.95, conv 9.0, CPA $23.88, CPC $3.64. Vs last month/day: spend +2%, conv +42%.",
             "log_note": "Log: Thousand Oaks | Insurance Performance Max-9/4/26 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 9 7d conversions with CPA $23.88; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Thousand Oaks / Conejo Valley only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $214.95 spend, 9 conv, CPA $23.88, CPC $3.64, spend/day +2% vs LM.",
+            "log_note": "Thousand Oaks | Insurance Performance Max-9/4/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8122,8 +8722,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $208.74 vs last-month $719.40; 7d/day $29.82 vs $29.97 last month",
@@ -8166,6 +8766,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $208.74, conv 7.0, CPA $29.82, CPC $2.71. Vs last month/day: spend -0%, conv +0%.",
             "log_note": "Log: Sherman Oaks | Insurance -Performance Max- 7/4/26 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 7 7d conversions with CPA $29.82; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $208.74 spend, 7 conv, CPA $29.82, CPC $2.71, spend/day -0% vs LM.",
+            "log_note": "Sherman Oaks | Insurance -Performance Max- 7/4/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8220,8 +8830,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $200.08 vs last-month $744.59; 7d/day $28.58 vs $31.02 last month",
@@ -8264,6 +8874,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $200.08, conv 16.0, CPA $12.51, CPC $3.08. Vs last month/day: spend -8%, conv +9%.",
             "log_note": "Log: Oxnard Riverpark | Insurance -Performance Max - 4/7/26 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 16 7d conversions with CPA $12.51; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Oxnard Riverpark / Ventura County only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $200.08 spend, 16 conv, CPA $12.51, CPC $3.08, spend/day -8% vs LM.",
+            "log_note": "Oxnard Riverpark | Insurance -Performance Max - 4/7/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8318,8 +8938,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $192.20 vs last-month $476.49; 7d/day $27.46 vs $29.78 last month",
@@ -8362,6 +8982,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $192.20, conv 21.0, CPA $9.15, CPC $3.00. Vs last month/day: spend -8%, conv +4%.",
             "log_note": "Log: Camarillo | Insurance-Performance Max-15/4/26 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 21 7d conversions with CPA $9.15; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Camarillo / Ventura County only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $192.20 spend, 21 conv, CPA $9.15, CPC $3.00, spend/day -8% vs LM.",
+            "log_note": "Camarillo | Insurance-Performance Max-15/4/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8416,8 +9046,8 @@
           "primary_status": "ELIGIBLE",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $182.72 vs last-month $851.22; 7d/day $26.10 vs $28.37 last month",
@@ -8459,6 +9089,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $182.72, conv 7.0, CPA $26.10, CPC $4.15. Vs last month/day: spend -8%, conv +100%.",
             "log_note": "Log: Riverpark AI | DNM | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 7 7d conversions with CPA $26.10; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Oxnard Riverpark / Ventura County only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $182.72 spend, 7 conv, CPA $26.10, CPC $4.15, spend/day -8% vs LM.",
+            "log_note": "Riverpark AI | DNM | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8513,8 +9153,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $169.75 vs last-month $915.50; 7d/day $24.25 vs $30.52 last month",
@@ -8556,6 +9196,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $169.75, conv 8.0, CPA $21.22, CPC $4.85. Vs last month/day: spend -20%, conv +70%.",
             "log_note": "Log: Sherman Oaks | Insurance | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 8 7d conversions with CPA $21.22; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Sherman Oaks / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $169.75 spend, 8 conv, CPA $21.22, CPC $4.85, spend/day -20% vs LM.",
+            "log_note": "Sherman Oaks | Insurance | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8610,8 +9260,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Brand protection: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $166.25 vs last-month $1,292.70; 7d/day $23.75 vs $43.09 last month",
@@ -8654,6 +9304,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $166.25, conv 2.0, CPA $83.12, CPC $12.79. Vs last month/day: spend -45%, conv +190%.",
             "log_note": "Log: Puri Dentistry | JZ-Search-Puri | P2 | Brand protection | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 2 7d conversions with CPA $83.12; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "Brand/local-name exact and phrase terms only.",
+            "negative_focus": "Competitor support, unrelated people/business lookups, generic dentist leakage.",
+            "structure_fix": "Keep brand budget separate from generic search.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $166.25 spend, 2 conv, CPA $83.12, CPC $12.79, spend/day -45% vs LM.",
+            "log_note": "Puri Dentistry | JZ-Search-Puri | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8708,8 +9368,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Emergency intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $135.73 vs last-month $612.92; 7d/day $19.39 vs $20.43 last month",
@@ -8753,6 +9413,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $135.73, conv 5.0, CPA $27.15, CPC $8.48. Vs last month/day: spend -5%, conv +1%.",
             "log_note": "Log: Encino | Emergency - 03/10/26 | P2 | Emergency intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 5 7d conversions with CPA $27.15; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "Emergency search terms sorted by cost and call/form quality.",
+            "negative_focus": "ER/hospital, after-hours if unsupported, free advice, jobs, out-of-area.",
+            "structure_fix": "Keep emergency in its own budget with city + same-day/emergency phrase/exact terms.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $135.73 spend, 5 conv, CPA $27.15, CPC $8.48, spend/day -5% vs LM.",
+            "log_note": "Encino | Emergency - 03/10/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8807,8 +9477,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "PMax containment: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $120.98 vs last-month $200.03; 7d/day $17.28 vs $20.00 last month",
@@ -8851,6 +9521,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $120.98, conv 5.0, CPA $24.20, CPC $2.95. Vs last month/day: spend -14%, conv +18%.",
             "log_note": "Log: Beverly Hills | Beverly Hills-Performance Max-21/4/26 | P2 | PMax containment | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 5 7d conversions with CPA $24.20; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Beverly Hills / West Hollywood / Century City only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $120.98 spend, 5 conv, CPA $24.20, CPC $2.95, spend/day -14% vs LM.",
+            "log_note": "Beverly Hills | Beverly Hills-Performance Max-21/4/26 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -8905,8 +9585,8 @@
           "primary_status": "LIMITED",
           "priority": "P2",
           "issue": "Efficiency improving",
-          "manual_change": "Mixed intent cleanup: Do not cut; hold budget, verify lead quality, then test only +10-15% scale.",
-          "expected_impact": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
+          "manual_change": "Hold budget; scale only +10-15% after lead-quality check.",
+          "expected_impact": "CPA holds within 10-15% after any scale test.",
           "check_after": "Check lead quality before scaling again.",
           "evidence": [
             "7d spend $118.30 vs last-month $599.96; 7d/day $16.90 vs $20.00 last month",
@@ -8948,6 +9628,16 @@
             "success_metric": "Scale only if lead quality is good and CPA stays within 10-15% after 7 days.",
             "metric_snapshot": "7d: spend $118.30, conv 9.0, CPA $13.14, CPC $2.96. Vs last month/day: spend -16%, conv +5%.",
             "log_note": "Log: Encino | PMX -   encino 7/1/25 | P2 | Mixed intent cleanup | Do not cut; hold budget, verify lead quality, then test only +10-15% scale."
+          },
+          "campaign_specific_points": {
+            "reason": "Working candidate: 9 7d conversions with CPA $13.14; protect before scaling.",
+            "next_move": "Hold budget; scale only +10-15% after lead-quality check.",
+            "inspect": "High-cost search terms and location report for Encino / nearby SFV only.",
+            "negative_focus": "Jobs, dental school/classes, supplies/equipment, free/DIY, insurance-only if not accepted, out-of-area cities.",
+            "structure_fix": "Break broad general terms into city + service phrase/exact ad groups.",
+            "success_metric": "CPA holds within 10-15% after any scale test.",
+            "metric_snapshot": "7d $118.30 spend, 9 conv, CPA $13.14, CPC $2.96, spend/day -16% vs LM.",
+            "log_note": "Encino | PMX -   encino 7/1/25 | P2 | Hold budget; scale only +10-15% after lead-quality check."
           }
         },
         {
@@ -11517,12 +12207,35 @@
     },
     "daily_update_note": "Daily refresh should pull current last-30-days, last-7-days, and last-month windows, rebuild this action queue, and then publish the sanitized dashboard snapshot.",
     "operator_review_order": [
-      "P0 today: pause/cut spend first, then inspect the listed search-term or PMax theme before re-scaling.",
-      "P1 this week: reduce bid/budget pressure, add the listed negative themes, and tighten the named structure issue.",
-      "P2 monitor/scale: verify lead quality first; scale only 10-15% if CPA and conversion pace hold.",
-      "Log each manual change with office, campaign, action, and success metric so tomorrow\u2019s trend can judge it."
+      "Read the shared P0/P1/P2 playbook once.",
+      "Work each campaign row by its unique reason and next move.",
+      "Use the listed inspect/negative/structure fields to make the exact Google Ads edit.",
+      "Keep the row visible until the success metric is met or a human marks it complete."
     ],
-    "recommendation_detail_note": "Short version: each action now gives one campaign-specific move, one inspection focus, one negative-keyword focus, one structure fix, and one success metric. Keep cards visible until the next refresh proves the change worked or a human marks it complete.",
+    "recommendation_detail_note": "Consolidated version: P0/P1/P2 share one playbook each. Campaign rows only show what is unique: reason, next move, inspect area, negative focus, structure fix, success metric, and log note.",
+    "priority_playbooks": {
+      "P0": {
+        "label": "Do today",
+        "shared_action": "Contain spend first, then diagnose search terms and conversion tracking before re-scaling.",
+        "budget_rule": "Pause or cut 50-80% until the campaign produces qualified conversions or tracking is fixed.",
+        "review_window": "Recheck after 3 days or 30 additional clicks.",
+        "completion_rule": "Move out of P0 only after spend stops leaking with zero conversions."
+      },
+      "P1": {
+        "label": "This week",
+        "shared_action": "Reduce bid/budget pressure, add negatives, and tighten campaign structure around office/service intent.",
+        "budget_rule": "Trim 20-30%; reallocate only to same-office campaigns with better CPA and lead quality.",
+        "review_window": "Recheck in 5-7 days.",
+        "completion_rule": "Move out of P1 when CPA/CPC trend returns near last-month baseline."
+      },
+      "P2": {
+        "label": "Protect or test scale",
+        "shared_action": "Protect improving campaigns and only scale after lead quality is confirmed.",
+        "budget_rule": "Hold budget or test +10-15%; avoid larger jumps until CPA holds.",
+        "review_window": "Recheck after one full business cycle.",
+        "completion_rule": "Keep P2 until lead quality and CPA remain stable after scale."
+      }
+    },
     "dashboard_priorities": [
       "Review high-risk campaigns first: spend with zero or low conversions, especially high-CPC search and thin-conversion PMax.",
       "Protect efficient AI DNM, Spanish, Dentical/insurance, wisdom teeth, and emergency campaigns only where lead quality is confirmed.",

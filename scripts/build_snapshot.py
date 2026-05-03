@@ -240,13 +240,38 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
         "log_note",
     }
 
+    # Compact per-campaign points block: this is what each visible
+    # action card now renders. The repeated long P0/P1/P2 guidance
+    # lives once in priority_playbooks and is no longer duplicated
+    # inside every card.
+    allowed_campaign_specific_points_keys = {
+        "reason",
+        "next_move",
+        "inspect",
+        "negative_focus",
+        "structure_fix",
+        "success_metric",
+        "metric_snapshot",
+        "log_note",
+    }
+
+    allowed_priority_playbook_keys = {
+        "label",
+        "shared_action",
+        "budget_rule",
+        "review_window",
+        "completion_rule",
+    }
+    allowed_priority_playbook_levels = {"P0", "P1", "P2"}
+
     def _scrub_specific_recommendation(row: Any) -> None:
         """Drop any unexpected keys from a specific_recommendation block.
 
         Future payloads may add fields. The public mirror only ships the
-        whitelisted keys; everything else is stripped. Both the long
-        ``specific_recommendation`` and the short, campaign-specific
-        ``short_specific_recommendation`` blocks are scrubbed.
+        whitelisted keys; everything else is stripped. The long
+        ``specific_recommendation``, the short
+        ``short_specific_recommendation``, and the compact
+        ``campaign_specific_points`` blocks are all scrubbed.
         """
         if not isinstance(row, dict):
             return
@@ -260,6 +285,11 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
             for key in list(short.keys()):
                 if key not in allowed_short_specific_rec_keys:
                     short.pop(key, None)
+        pts = row.get("campaign_specific_points")
+        if isinstance(pts, dict):
+            for key in list(pts.keys()):
+                if key not in allowed_campaign_specific_points_keys:
+                    pts.pop(key, None)
 
     ads = out.get("google_ads_insights")
     if isinstance(ads, dict):
@@ -296,6 +326,19 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
                 for key in forbidden_account_keys:
                     row.pop(key, None)
                 _scrub_specific_recommendation(row)
+        playbooks = ads.get("priority_playbooks")
+        if isinstance(playbooks, dict):
+            for level in list(playbooks.keys()):
+                if level not in allowed_priority_playbook_levels:
+                    playbooks.pop(level, None)
+                    continue
+                block = playbooks.get(level)
+                if not isinstance(block, dict):
+                    playbooks.pop(level, None)
+                    continue
+                for key in list(block.keys()):
+                    if key not in allowed_priority_playbook_keys:
+                        block.pop(key, None)
         trends = ads.get("trends") or {}
         if isinstance(trends, dict):
             for row in trends.get("by_office") or []:
