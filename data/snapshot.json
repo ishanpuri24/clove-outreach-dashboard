@@ -461,7 +461,7 @@
     "title": "Google Ads Waste Watch",
     "subtitle": "Paid media office watch for the linked Google Ads child account. Manager-account, customer IDs, and account labels are intentionally not exposed in the public mirror. Recommendations are dashboard-only and do not change the live account.",
     "lookback": "LAST_30_DAYS",
-    "data_freshness": "2026-05-02T00:00:00+00:00",
+    "data_freshness": "2026-05-03T00:00:00+00:00",
     "automation_status": "Included in the consolidated weekday patient-acquisition operating loop; recommendations are dashboard-only and no Google Ads changes are made without explicit confirmation.",
     "coverage": {
       "linked_offices": 1,
@@ -471,12 +471,12 @@
     },
     "totals": {
       "campaigns": 8,
-      "cost_usd": 7735.37,
-      "clicks": 1371,
-      "conversions": 141.99,
-      "avg_cpc_usd": 5.64,
-      "cpa_usd": 54.48,
-      "phone_calls": 142
+      "cost_usd": 7601.44,
+      "clicks": 1335,
+      "conversions": 139.99,
+      "avg_cpc_usd": 5.69,
+      "cpa_usd": 54.3,
+      "phone_calls": 141
     },
     "risk_summary": {
       "high": 2,
@@ -486,9 +486,9 @@
       "high_priority_campaigns": 2,
       "protect_campaigns": 2,
       "monitor_campaigns": 3,
-      "high_risk_spend_usd": 3469.48,
-      "high_risk_spend_share_pct": 44.86,
-      "high_cost_share_pct": 44.86,
+      "high_risk_spend_usd": 3342.85,
+      "high_risk_spend_share_pct": 44.0,
+      "high_cost_share_pct": 44.0,
       "note": "High-risk campaigns currently absorb the largest share of spend without matching conversion volume. Prioritize search-query review and negative-keyword sweeps before raising any budget."
     },
     "recommended_budget_shift": {
@@ -501,8 +501,8 @@
         "Insurance search exact-match winners"
       ],
       "guardrail": "Do not shift budget until call/booking quality is verified; then move in small weekly increments.",
-      "estimated_waste_to_review_usd": 3469.48,
-      "estimated_waste_share_pct": 44.9
+      "estimated_waste_to_review_usd": 3342.85,
+      "estimated_waste_share_pct": 44.0
     },
     "campaign_groups": [
       {
@@ -520,14 +520,14 @@
         "campaign_name": "JZ-Search-Clove",
         "channel": "SEARCH",
         "status": "LIMITED",
-        "cost_usd": 1880.05,
-        "clicks": 182,
+        "cost_usd": 1841.03,
+        "clicks": 179,
         "conversions": 11.0,
-        "avg_cpc_usd": 10.33,
-        "conversion_rate_pct": 6.04,
-        "cpa_usd": 170.91,
+        "avg_cpc_usd": 10.29,
+        "conversion_rate_pct": 6.1,
+        "cpa_usd": 167.37,
         "phone_calls": 5,
-        "spend_share_pct": 24.3,
+        "spend_share_pct": 24.2,
         "risk": "High",
         "flags": [
           "High CPC vs account average",
@@ -538,7 +538,7 @@
           "priority": "High",
           "decision": "Tighten immediately",
           "what_to_change": "Pause or bid-cap the high-CPC insurance/provider ad groups, then rebuild around appointment intent.",
-          "why": "CPA $170.91 and CPC $10.33 are elevated; the campaign uses 24.3% of spend with only 11 conversions.",
+          "why": "CPA $167.37 and CPC $10.29 are elevated; the campaign uses 24.2% of spend with only 11 conversions.",
           "next_steps": [
             "Pause zero-conversion ad groups with CPC above $15 until search terms are reviewed.",
             "Separate insurance research terms from booking terms.",
@@ -551,14 +551,14 @@
         "campaign_name": "JZ-Search-Cam - Dentical",
         "channel": "SEARCH",
         "status": "LIMITED",
-        "cost_usd": 1589.43,
-        "clicks": 391,
+        "cost_usd": 1501.82,
+        "clicks": 370,
         "conversions": 6.0,
-        "avg_cpc_usd": 4.07,
-        "conversion_rate_pct": 1.53,
-        "cpa_usd": 264.91,
+        "avg_cpc_usd": 4.06,
+        "conversion_rate_pct": 1.6,
+        "cpa_usd": 250.3,
         "phone_calls": 4,
-        "spend_share_pct": 20.5,
+        "spend_share_pct": 19.8,
         "risk": "High",
         "flags": [
           "Conversion rate under 2% on highest-click search campaign",
@@ -569,7 +569,7 @@
           "priority": "High",
           "decision": "Cut or rebuild",
           "what_to_change": "Reduce budget 50-75% or pause while rebuilding into high-intent Denti-Cal appointment terms only.",
-          "why": "CPA $264.91 is far above account CPA $54.48; conversion rate is 1.5% on $1,589.43 spend.",
+          "why": "CPA $250.30 is far above account CPA $54.30; conversion rate is 1.6% on $1,501.82 spend.",
           "next_steps": [
             "Pull search terms and add negatives for eligibility, coverage-only, provider-list, job, and informational queries.",
             "Split exact-match appointment/provider intent from exploratory terms.",
@@ -582,14 +582,14 @@
         "campaign_name": "PMAX - gbp 8/1/2025",
         "channel": "PERFORMANCE_MAX",
         "status": "LIMITED",
-        "cost_usd": 1960.51,
-        "clicks": 394,
+        "cost_usd": 2021.7,
+        "clicks": 386,
         "conversions": 29.0,
-        "avg_cpc_usd": 4.98,
-        "conversion_rate_pct": 7.36,
-        "cpa_usd": 67.6,
+        "avg_cpc_usd": 5.24,
+        "conversion_rate_pct": 7.5,
+        "cpa_usd": 69.71,
         "phone_calls": 43,
-        "spend_share_pct": 25.3,
+        "spend_share_pct": 26.6,
         "risk": "Monitor",
         "flags": [
           "Largest single line of spend"
@@ -610,14 +610,14 @@
         "campaign_name": "Insurance",
         "channel": "SEARCH",
         "status": "LIMITED",
-        "cost_usd": 895.72,
-        "clicks": 153,
-        "conversions": 29.02,
-        "avg_cpc_usd": 5.85,
-        "conversion_rate_pct": 18.97,
-        "cpa_usd": 30.87,
+        "cost_usd": 859.53,
+        "clicks": 149,
+        "conversions": 28.02,
+        "avg_cpc_usd": 5.77,
+        "conversion_rate_pct": 18.8,
+        "cpa_usd": 30.68,
         "phone_calls": 28,
-        "spend_share_pct": 11.6,
+        "spend_share_pct": 11.3,
         "risk": "Protect",
         "flags": [
           "Strong conversion rate; below-average CPA"
@@ -627,7 +627,7 @@
           "priority": "Protect",
           "decision": "Protect",
           "what_to_change": "Keep budget stable; mine converting search terms for exact-match expansion.",
-          "why": "CPA $30.87 is below account average with 19.0% conversion rate.",
+          "why": "CPA $30.68 is below account average with 18.8% conversion rate.",
           "next_steps": [
             "Promote high-converting insurance terms into exact match.",
             "Add negatives from non-converting plan-directory searches.",
@@ -639,14 +639,14 @@
         "campaign_name": "General-Search-15/10",
         "channel": "SEARCH",
         "status": "LIMITED",
-        "cost_usd": 561.14,
-        "clicks": 76,
-        "conversions": 12.98,
-        "avg_cpc_usd": 7.38,
-        "conversion_rate_pct": 17.08,
-        "cpa_usd": 43.22,
-        "phone_calls": 15,
-        "spend_share_pct": 7.3,
+        "cost_usd": 550.66,
+        "clicks": 75,
+        "conversions": 11.98,
+        "avg_cpc_usd": 7.34,
+        "conversion_rate_pct": 16.0,
+        "cpa_usd": 45.95,
+        "phone_calls": 14,
+        "spend_share_pct": 7.2,
         "risk": "Monitor",
         "flags": [
           "Healthy conversion rate; CPC running above account average"
@@ -656,7 +656,7 @@
           "priority": "Monitor",
           "decision": "Scale carefully",
           "what_to_change": "Keep active but cap spend increases; expand only from search terms that convert below account CPA.",
-          "why": "CPA $43.22 is slightly below account average and conversion rate is 17.1%.",
+          "why": "CPA $45.95 is slightly below account average and conversion rate is 16.0%.",
           "next_steps": [
             "Split best-performing service terms into exact-match ad groups.",
             "Keep broad/phrase spend constrained until search terms prove appointment intent.",
@@ -668,14 +668,14 @@
         "campaign_name": "Insurance-Performance Max-15/4/26",
         "channel": "PERFORMANCE_MAX",
         "status": "LIMITED",
-        "cost_usd": 503.82,
-        "clicks": 151,
+        "cost_usd": 510.14,
+        "clicks": 153,
         "conversions": 50.99,
-        "avg_cpc_usd": 3.34,
-        "conversion_rate_pct": 33.77,
-        "cpa_usd": 9.88,
+        "avg_cpc_usd": 3.33,
+        "conversion_rate_pct": 33.3,
+        "cpa_usd": 10.0,
         "phone_calls": 47,
-        "spend_share_pct": 6.5,
+        "spend_share_pct": 6.7,
         "risk": "Protect",
         "flags": [
           "Best CPA and conversion rate in the account"
@@ -685,7 +685,7 @@
           "priority": "Protect",
           "decision": "Protect and verify quality",
           "what_to_change": "Keep active; consider shifting budget from high-risk search only after call/booking quality is confirmed.",
-          "why": "CPA $9.88, conversion rate 33.8%, and 47 phone calls are strongest in the current account snapshot.",
+          "why": "CPA $10.00, conversion rate 33.3%, and 47 phone calls are strongest in the current account snapshot.",
           "next_steps": [
             "Check conversion action quality so form fills and calls reflect real appointments.",
             "Review PMax asset groups and search themes for insurance intent.",
@@ -697,14 +697,14 @@
         "campaign_name": "Emergency - 3/10/26",
         "channel": "SEARCH",
         "status": "LIMITED",
-        "cost_usd": 303.12,
-        "clicks": 13,
+        "cost_usd": 274.97,
+        "clicks": 12,
         "conversions": 3.0,
-        "avg_cpc_usd": 23.32,
-        "conversion_rate_pct": 23.08,
-        "cpa_usd": 101.04,
+        "avg_cpc_usd": 22.91,
+        "conversion_rate_pct": 25.0,
+        "cpa_usd": 91.66,
         "phone_calls": 0,
-        "spend_share_pct": 3.9,
+        "spend_share_pct": 3.6,
         "risk": "Monitor",
         "flags": [
           "Very high CPC; thin click volume"
@@ -714,7 +714,7 @@
           "priority": "Monitor",
           "decision": "Audit tracking before scaling",
           "what_to_change": "Do not scale yet; confirm calls and booked appointments are captured correctly.",
-          "why": "CPC $23.32 is high, but reported conversion rate is 23.1% on low volume.",
+          "why": "CPC $22.91 is high, but reported conversion rate is 25.0% on low volume.",
           "next_steps": [
             "Verify call conversion tracking and missed-call handling.",
             "Use emergency-specific ad copy with same-day availability.",
@@ -995,7 +995,25 @@
       "Refreshed as part of the consolidated weekday patient-acquisition operating loop; recommendations remain dashboard-only and no Google Ads changes are made without explicit confirmation.",
       "Office labels will replace the placeholder once the remaining customer IDs are linked and a private mapping table is in place.",
       "These are dashboard-only recommendations. No changes are pushed to the live Google Ads account from this view."
-    ]
+    ],
+    "account_linking_status": {
+      "last_checked": "2026-05-03",
+      "manager_accounts_visible": 2,
+      "enabled_managers_visible": 2,
+      "metrics_source_summary": "One linked child account currently returning campaign metrics. Additional office child accounts still need accepted linking and private office mapping.",
+      "new_manager_status": "Newly visible account is enabled and manager=true, but manager metrics cannot be requested directly; child accounts must be linked/accepted under a manager before campaign metrics can be pulled.",
+      "api_limitation": "Current connector can report on known child customer accounts but does not expose customer-client hierarchy enumeration, so newly linked child IDs may need to be provided privately if they do not appear in reports.",
+      "privacy_note": "Public dashboard shows account state without manager/customer IDs.",
+      "public_state": "Two enabled manager accounts are visible privately. Public dashboard metrics currently come from one linked child/office account that is returning campaign data; additional office child accounts must be linked, accepted, and mapped before they can be consolidated here.",
+      "manager_metrics_note": "Manager accounts cannot return campaign metrics directly. Each office child account must be linked and accepted under a manager, then mapped to a friendly office name, before it can show up as its own row in this dashboard.",
+      "connector_limitation_note": "The current connector pulls campaign metrics for known child customer accounts but does not enumerate the manager's customer-client hierarchy. If newly linked child accounts do not appear in reports, the private child account IDs and office names need to be provided privately and stored in the operations mapping table - they are never exposed in the public mirror.",
+      "next_actions": [
+        "Confirm each office child account has accepted the manager link in Google Ads.",
+        "Provide the private child customer IDs and friendly office names to the operations mapping table.",
+        "After mapping, this section will break out spend, conversions, and CPA per office."
+      ],
+      "no_ids_disclaimer": "Manager account IDs, customer IDs, and account labels are intentionally never displayed in the public mirror."
+    }
   },
   "_sanitization": {
     "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign and ad-group metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
