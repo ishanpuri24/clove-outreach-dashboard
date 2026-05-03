@@ -67,6 +67,71 @@ def _decision_label(action: str, risk: str) -> str:
     return "Monitor"
 
 
+_SPECIFIC_REC_KEYS = (
+    "google_ads_location",
+    "intent_focus",
+    "immediate_steps",
+    "budget_bid_guidance",
+    "negative_keyword_review_themes",
+    "match_type_or_structure_guidance",
+    "success_metric",
+    "change_tracker_entry",
+    "do_not_remove_note",
+)
+
+
+def _sanitize_specific_recommendation(
+    rec: Any,
+) -> dict[str, Any] | None:
+    """Whitelist the public-safe keys from a specific_recommendation block.
+
+    Any unexpected keys are dropped so we cannot accidentally leak fields
+    that future payloads add (raw search-term lists, account labels, etc.).
+    Lists are coerced to lists of strings; scalar fields to strings.
+    """
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    for key in _SPECIFIC_REC_KEYS:
+        if key not in rec:
+            continue
+        val = rec.get(key)
+        if val is None:
+            continue
+        if key in ("immediate_steps", "negative_keyword_review_themes"):
+            if isinstance(val, list):
+                out[key] = [str(x) for x in val if x is not None]
+            elif isinstance(val, str):
+                out[key] = [val]
+            else:
+                out[key] = []
+        else:
+            out[key] = str(val)
+    return out or None
+
+
+def _sanitize_action_queue_row(row: dict[str, Any]) -> dict[str, Any]:
+    cleaned = dict(row)
+    rec = cleaned.get("specific_recommendation")
+    sanitized = _sanitize_specific_recommendation(rec)
+    if sanitized:
+        cleaned["specific_recommendation"] = sanitized
+    elif "specific_recommendation" in cleaned:
+        cleaned.pop("specific_recommendation", None)
+    return cleaned
+
+
+def _sanitize_campaign_trend_row(row: dict[str, Any]) -> dict[str, Any]:
+    cleaned = dict(row)
+    rec = cleaned.get("specific_recommendation")
+    sanitized = _sanitize_specific_recommendation(rec)
+    if sanitized:
+        cleaned["specific_recommendation"] = sanitized
+    elif "specific_recommendation" in cleaned:
+        cleaned.pop("specific_recommendation", None)
+    return cleaned
+
+
 def _campaign_to_dashboard(c: dict[str, Any]) -> dict[str, Any]:
     risk = c.get("risk") or "Monitor"
     action = c.get("recommended_action") or ""
@@ -390,12 +455,29 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
     protect = google_ads.get("protect_or_scale_campaigns") or []
     keyword_focus = google_ads.get("keyword_focus") or {}
     api_writeback = google_ads.get("api_writeback_status") or {}
-    manual_queue = google_ads.get("manual_action_queue") or []
+    manual_queue = [
+        _sanitize_action_queue_row(r)
+        for r in (google_ads.get("manual_action_queue") or [])
+        if isinstance(r, dict)
+    ]
     trend_summary = google_ads.get("trend_summary") or {}
     office_trends = google_ads.get("office_trends") or []
-    campaign_trends = google_ads.get("campaign_trends") or []
+    campaign_trends = [
+        _sanitize_campaign_trend_row(r)
+        for r in (google_ads.get("campaign_trends") or [])
+        if isinstance(r, dict)
+    ]
     change_tracking = google_ads.get("change_tracking") or {}
     daily_update_note = google_ads.get("daily_update_note") or ""
+    operator_review_order = google_ads.get("operator_review_order") or []
+    if not isinstance(operator_review_order, list):
+        operator_review_order = []
+    operator_review_order = [
+        str(x) for x in operator_review_order if x is not None
+    ]
+    recommendation_detail_note = (
+        google_ads.get("recommendation_detail_note") or ""
+    )
     dashboard_priorities = payload.get("dashboard_priorities") or []
 
     reporting_offices = rollup.get("reporting_offices") or len(coverage_rows)
@@ -527,6 +609,8 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
         },
         "change_tracking": change_tracking,
         "daily_update_note": daily_update_note,
+        "operator_review_order": operator_review_order,
+        "recommendation_detail_note": recommendation_detail_note,
         "dashboard_priorities": dashboard_priorities,
     }
 

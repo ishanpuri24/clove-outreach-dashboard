@@ -90,6 +90,33 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
     gh["dashboard_repo"] = "ishanpuri24/clove-outreach-dashboard"
     out["github"] = gh
 
+    allowed_specific_rec_keys = {
+        "google_ads_location",
+        "intent_focus",
+        "immediate_steps",
+        "budget_bid_guidance",
+        "negative_keyword_review_themes",
+        "match_type_or_structure_guidance",
+        "success_metric",
+        "change_tracker_entry",
+        "do_not_remove_note",
+    }
+
+    def _scrub_specific_recommendation(row: Any) -> None:
+        """Drop any unexpected keys from a specific_recommendation block.
+
+        Future payloads may add fields. The public mirror only ships the
+        whitelisted keys; everything else is stripped.
+        """
+        if not isinstance(row, dict):
+            return
+        rec = row.get("specific_recommendation")
+        if not isinstance(rec, dict):
+            return
+        for key in list(rec.keys()):
+            if key not in allowed_specific_rec_keys:
+                rec.pop(key, None)
+
     ads = out.get("google_ads_insights")
     if isinstance(ads, dict):
         forbidden_account_keys = (
@@ -124,6 +151,7 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
             if isinstance(row, dict):
                 for key in forbidden_account_keys:
                     row.pop(key, None)
+                _scrub_specific_recommendation(row)
         trends = ads.get("trends") or {}
         if isinstance(trends, dict):
             for row in trends.get("by_office") or []:
@@ -134,6 +162,7 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
                 if isinstance(row, dict):
                     for key in forbidden_account_keys:
                         row.pop(key, None)
+                    _scrub_specific_recommendation(row)
         out["google_ads_insights"] = ads
 
     kf = out.get("google_ads_keyword_focus")

@@ -80,6 +80,8 @@ REQUIRED_GOOGLE_ADS_FIELDS = [
     "manual_action_queue",
     "trends",
     "change_tracking",
+    "operator_review_order",
+    "recommendation_detail_note",
 ]
 
 REQUIRED_TREND_WINDOW_FIELDS = [
@@ -101,7 +103,24 @@ REQUIRED_ACTION_QUEUE_FIELDS = [
     "expected_impact",
     "check_after",
     "status",
+    "specific_recommendation",
 ]
+
+REQUIRED_SPECIFIC_RECOMMENDATION_FIELDS = [
+    "google_ads_location",
+    "intent_focus",
+    "immediate_steps",
+    "budget_bid_guidance",
+    "negative_keyword_review_themes",
+    "match_type_or_structure_guidance",
+    "success_metric",
+    "change_tracker_entry",
+    "do_not_remove_note",
+]
+
+ALLOWED_SPECIFIC_RECOMMENDATION_FIELDS = set(
+    REQUIRED_SPECIFIC_RECOMMENDATION_FIELDS
+)
 
 REQUIRED_CHANGE_TRACKING_FIELDS = [
     "purpose",
@@ -460,6 +479,47 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
                 f"google_ads_insights.manual_action_queue[{idx}].priority "
                 f"must be one of P0/P1/P2/P3, got {priority!r}."
             )
+        rec = row.get("specific_recommendation")
+        if not isinstance(rec, dict):
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                "specific_recommendation must be an object."
+            )
+        missing_rec = [
+            k for k in REQUIRED_SPECIFIC_RECOMMENDATION_FIELDS
+            if k not in rec
+        ]
+        if missing_rec:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                f"specific_recommendation missing required fields: "
+                f"{missing_rec}"
+            )
+        extra_rec = set(rec.keys()) - ALLOWED_SPECIFIC_RECOMMENDATION_FIELDS
+        if extra_rec:
+            _fail(
+                f"google_ads_insights.manual_action_queue[{idx}]."
+                f"specific_recommendation has unexpected keys: "
+                f"{sorted(extra_rec)}"
+            )
+        for list_field in (
+            "immediate_steps",
+            "negative_keyword_review_themes",
+        ):
+            val = rec.get(list_field)
+            if not isinstance(val, list) or not val:
+                _fail(
+                    f"google_ads_insights.manual_action_queue[{idx}]."
+                    f"specific_recommendation['{list_field}'] must be a "
+                    "non-empty list of strings."
+                )
+            for s in val:
+                if not isinstance(s, str):
+                    _fail(
+                        "google_ads_insights.manual_action_queue"
+                        f"[{idx}].specific_recommendation['{list_field}'] "
+                        "items must be strings."
+                    )
 
     trends = ads.get("trends")
     if not isinstance(trends, dict):
@@ -484,8 +544,49 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
             )
     if not isinstance(trends.get("by_office"), list):
         _fail("google_ads_insights.trends.by_office must be a list.")
-    if not isinstance(trends.get("by_campaign"), list):
+    by_campaign = trends.get("by_campaign")
+    if not isinstance(by_campaign, list):
         _fail("google_ads_insights.trends.by_campaign must be a list.")
+    for idx, row in enumerate(by_campaign):
+        if not isinstance(row, dict):
+            continue
+        rec = row.get("specific_recommendation")
+        if rec is None:
+            continue
+        if not isinstance(rec, dict):
+            _fail(
+                f"google_ads_insights.trends.by_campaign[{idx}]."
+                "specific_recommendation must be an object when present."
+            )
+        extra = set(rec.keys()) - ALLOWED_SPECIFIC_RECOMMENDATION_FIELDS
+        if extra:
+            _fail(
+                f"google_ads_insights.trends.by_campaign[{idx}]."
+                f"specific_recommendation has unexpected keys: "
+                f"{sorted(extra)}"
+            )
+
+    review_order = ads.get("operator_review_order")
+    if not isinstance(review_order, list) or not review_order:
+        _fail(
+            "google_ads_insights.operator_review_order must be a "
+            "non-empty list of strings telling the operator how to "
+            "work P0 then P1 then P2 and how to log changes."
+        )
+    for idx_r, item in enumerate(review_order):
+        if not isinstance(item, str) or not item.strip():
+            _fail(
+                f"google_ads_insights.operator_review_order[{idx_r}] "
+                "must be a non-empty string."
+            )
+
+    rec_note = ads.get("recommendation_detail_note")
+    if not isinstance(rec_note, str) or not rec_note.strip():
+        _fail(
+            "google_ads_insights.recommendation_detail_note must be a "
+            "non-empty string explaining the do-not-remove rule for "
+            "action cards."
+        )
 
     ct = ads.get("change_tracking")
     if not isinstance(ct, dict):
