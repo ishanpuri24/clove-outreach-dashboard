@@ -90,6 +90,7 @@ REQUIRED_GOOGLE_ADS_FIELDS = [
     "conversion_rate_benchmarks",
     "ad_group_conversion_benchmarks",
     "daily_improvement_loop",
+    "office_spend_opportunities",
 ]
 
 REQUIRED_TREND_WINDOW_FIELDS = [
@@ -257,6 +258,68 @@ ALLOWED_AD_GROUP_BENCHMARK_KEYS = set(
 # Ads tab to explain how the system improves day over day.
 REQUIRED_DAILY_LOOP_FIELDS = ["title", "steps", "decision_rule"]
 ALLOWED_DAILY_LOOP_FIELDS = set(REQUIRED_DAILY_LOOP_FIELDS)
+
+# Office spend and opportunities block, rendered immediately after the
+# blended Paid Ads top summary so an operator can see, by office, where
+# spend should grow vs where waste cleanup must happen first.
+REQUIRED_OFFICE_SPEND_OPP_TOP_KEYS = [
+    "title",
+    "office_inference_note",
+    "total_last_30_spend_usd",
+    "total_high_risk_spend_usd",
+    "top_spend_offices",
+    "rows",
+]
+ALLOWED_OFFICE_SPEND_OPP_TOP_KEYS = set(
+    REQUIRED_OFFICE_SPEND_OPP_TOP_KEYS + ["placement"]
+)
+REQUIRED_OFFICE_SPEND_OPP_TOP_OFFICE_KEYS = [
+    "office",
+    "last_30_spend_usd",
+    "opportunity",
+]
+ALLOWED_OFFICE_SPEND_OPP_TOP_OFFICE_KEYS = set(
+    REQUIRED_OFFICE_SPEND_OPP_TOP_OFFICE_KEYS
+)
+REQUIRED_OFFICE_SPEND_OPP_ROW_KEYS = [
+    "office",
+    "last_30_spend_usd",
+    "high_risk_spend_usd",
+    "high_risk_spend_share_pct",
+    "last_7_conversion_rate_pct",
+    "last_month_conversion_rate_pct",
+    "vs_office_median_pts",
+    "last_7_cpa_usd",
+    "last_30_cpa_usd",
+    "last_7_conversions_per_day",
+    "p0_count",
+    "p1_count",
+    "p2_count",
+    "opportunity",
+    "budget_move",
+    "top_ad_group_opportunity",
+]
+ALLOWED_OFFICE_SPEND_OPP_ROW_KEYS = set(
+    REQUIRED_OFFICE_SPEND_OPP_ROW_KEYS + [
+        "last_30_conversions",
+        "last_30_phone_calls",
+        "last_30_cpc_usd",
+        "last_30_ctr_pct",
+        "last_30_conversion_rate_pct",
+        "campaign_count",
+        "change_items",
+        "top_issue",
+        "why",
+        "cvr_benchmark_status",
+        "protect_or_scale_candidates",
+    ]
+)
+ALLOWED_OFFICE_SPEND_OPP_PROTECT_KEYS = {
+    "campaign",
+    "conversions",
+    "cpa_usd",
+    "conversion_rate_pct",
+}
 
 REQUIRED_GOOGLE_ADS_TOTALS = [
     "campaigns",
@@ -1197,6 +1260,141 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
                 "google_ads_insights.daily_improvement_loop.steps"
                 f"[{idx_s}] must be a non-empty string."
             )
+
+    # ---- office_spend_opportunities ----
+    oso = ads.get("office_spend_opportunities")
+    if not isinstance(oso, dict):
+        _fail(
+            "google_ads_insights.office_spend_opportunities must be an "
+            "object rendered immediately after the Paid Ads top summary "
+            "so an operator can see spend vs opportunities by office."
+        )
+    missing_oso = [
+        k for k in REQUIRED_OFFICE_SPEND_OPP_TOP_KEYS if k not in oso
+    ]
+    if missing_oso:
+        _fail(
+            "google_ads_insights.office_spend_opportunities missing "
+            f"required fields: {missing_oso}"
+        )
+    extra_oso = set(oso.keys()) - ALLOWED_OFFICE_SPEND_OPP_TOP_KEYS
+    if extra_oso:
+        _fail(
+            "google_ads_insights.office_spend_opportunities has "
+            f"unexpected keys: {sorted(extra_oso)}"
+        )
+    for num_key in (
+        "total_last_30_spend_usd", "total_high_risk_spend_usd",
+    ):
+        if not isinstance(oso.get(num_key), (int, float)):
+            _fail(
+                "google_ads_insights.office_spend_opportunities"
+                f"['{num_key}'] must be numeric."
+            )
+    if not isinstance(oso.get("office_inference_note"), str) or not oso[
+        "office_inference_note"
+    ].strip():
+        _fail(
+            "google_ads_insights.office_spend_opportunities."
+            "office_inference_note must be a non-empty string explaining "
+            "how office is inferred from campaign names when missing."
+        )
+    top_offices = oso.get("top_spend_offices")
+    if not isinstance(top_offices, list) or not top_offices:
+        _fail(
+            "google_ads_insights.office_spend_opportunities."
+            "top_spend_offices must be a non-empty list."
+        )
+    for idx, row in enumerate(top_offices):
+        if not isinstance(row, dict):
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"top_spend_offices[{idx}] must be an object."
+            )
+        missing = [
+            k for k in REQUIRED_OFFICE_SPEND_OPP_TOP_OFFICE_KEYS
+            if k not in row
+        ]
+        if missing:
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"top_spend_offices[{idx}] missing required fields: {missing}"
+            )
+        extra = set(row.keys()) - ALLOWED_OFFICE_SPEND_OPP_TOP_OFFICE_KEYS
+        if extra:
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"top_spend_offices[{idx}] has unexpected keys: {sorted(extra)}"
+            )
+    rows = oso.get("rows")
+    if not isinstance(rows, list) or not rows:
+        _fail(
+            "google_ads_insights.office_spend_opportunities.rows must "
+            "be a non-empty list of office rows."
+        )
+    for idx, row in enumerate(rows):
+        if not isinstance(row, dict):
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"rows[{idx}] must be an object."
+            )
+        missing = [
+            k for k in REQUIRED_OFFICE_SPEND_OPP_ROW_KEYS if k not in row
+        ]
+        if missing:
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"rows[{idx}] missing required fields: {missing}"
+            )
+        extra = set(row.keys()) - ALLOWED_OFFICE_SPEND_OPP_ROW_KEYS
+        if extra:
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"rows[{idx}] has unexpected keys: {sorted(extra)}"
+            )
+        if not isinstance(row.get("office"), str) or not row["office"].strip():
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"rows[{idx}]['office'] must be a non-empty string."
+            )
+        for str_field in ("opportunity", "budget_move"):
+            v = row.get(str_field)
+            if not isinstance(v, str) or not v.strip():
+                _fail(
+                    "google_ads_insights.office_spend_opportunities."
+                    f"rows[{idx}]['{str_field}'] must be a non-empty string."
+                )
+        # top_ad_group_opportunity is allowed to be an empty string for
+        # offices where no specific ad-group opportunity has been
+        # identified yet; the dashboard renders "-" in that case.
+        v = row.get("top_ad_group_opportunity")
+        if not isinstance(v, str):
+            _fail(
+                "google_ads_insights.office_spend_opportunities."
+                f"rows[{idx}]['top_ad_group_opportunity'] must be a string."
+            )
+        protect = row.get("protect_or_scale_candidates")
+        if protect is not None:
+            if not isinstance(protect, list):
+                _fail(
+                    "google_ads_insights.office_spend_opportunities."
+                    f"rows[{idx}].protect_or_scale_candidates must be a "
+                    "list when present."
+                )
+            for pidx, p in enumerate(protect):
+                if not isinstance(p, dict):
+                    _fail(
+                        "google_ads_insights.office_spend_opportunities."
+                        f"rows[{idx}].protect_or_scale_candidates[{pidx}] "
+                        "must be an object."
+                    )
+                extra_p = set(p.keys()) - ALLOWED_OFFICE_SPEND_OPP_PROTECT_KEYS
+                if extra_p:
+                    _fail(
+                        "google_ads_insights.office_spend_opportunities."
+                        f"rows[{idx}].protect_or_scale_candidates[{pidx}] "
+                        f"has unexpected keys: {sorted(extra_p)}"
+                    )
 
 
 def check_b2b_reply_detail(snap: dict[str, Any]) -> None:

@@ -479,6 +479,94 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
                 for key in forbidden_account_keys:
                     row.pop(key, None)
 
+        # ---- Office spend and opportunities ----
+        # Strict whitelist on the office_spend_opportunities block so
+        # private fields cannot leak even if a future payload carries
+        # them. Numeric fields are coerced to floats; string fields are
+        # left as strings.
+        allowed_oso_top_keys = {
+            "title",
+            "placement",
+            "office_inference_note",
+            "total_last_30_spend_usd",
+            "total_high_risk_spend_usd",
+            "top_spend_offices",
+            "rows",
+        }
+        allowed_oso_top_office_keys = {
+            "office",
+            "last_30_spend_usd",
+            "opportunity",
+        }
+        allowed_oso_row_keys = {
+            "office",
+            "last_30_spend_usd",
+            "last_30_conversions",
+            "last_30_phone_calls",
+            "last_30_cpa_usd",
+            "last_30_cpc_usd",
+            "last_30_ctr_pct",
+            "last_30_conversion_rate_pct",
+            "high_risk_spend_usd",
+            "high_risk_spend_share_pct",
+            "campaign_count",
+            "change_items",
+            "p0_count",
+            "p1_count",
+            "p2_count",
+            "top_issue",
+            "top_ad_group_opportunity",
+            "opportunity",
+            "budget_move",
+            "why",
+            "last_7_conversion_rate_pct",
+            "last_month_conversion_rate_pct",
+            "vs_office_median_pts",
+            "last_7_conversions_per_day",
+            "last_7_cpa_usd",
+            "cvr_benchmark_status",
+            "protect_or_scale_candidates",
+        }
+        allowed_oso_protect_keys = {
+            "campaign",
+            "conversions",
+            "cpa_usd",
+            "conversion_rate_pct",
+        }
+        oso = ads.get("office_spend_opportunities")
+        if isinstance(oso, dict):
+            for k in list(oso.keys()):
+                if k not in allowed_oso_top_keys:
+                    oso.pop(k, None)
+            top_offices = oso.get("top_spend_offices")
+            if isinstance(top_offices, list):
+                for row in top_offices:
+                    if not isinstance(row, dict):
+                        continue
+                    for k in list(row.keys()):
+                        if k not in allowed_oso_top_office_keys:
+                            row.pop(k, None)
+                    for key in forbidden_account_keys:
+                        row.pop(key, None)
+            rows = oso.get("rows")
+            if isinstance(rows, list):
+                for row in rows:
+                    if not isinstance(row, dict):
+                        continue
+                    for k in list(row.keys()):
+                        if k not in allowed_oso_row_keys:
+                            row.pop(k, None)
+                    for key in forbidden_account_keys:
+                        row.pop(key, None)
+                    protect = row.get("protect_or_scale_candidates")
+                    if isinstance(protect, list):
+                        for p in protect:
+                            if not isinstance(p, dict):
+                                continue
+                            for pk in list(p.keys()):
+                                if pk not in allowed_oso_protect_keys:
+                                    p.pop(pk, None)
+
         # ---- Daily improvement loop ----
         allowed_daily_loop_keys = {"title", "steps", "decision_rule"}
         loop = ads.get("daily_improvement_loop")

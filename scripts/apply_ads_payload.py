@@ -163,6 +163,61 @@ _AD_GROUP_BENCHMARK_KEYS = (
 
 _DAILY_IMPROVEMENT_LOOP_KEYS = ("title", "steps", "decision_rule")
 
+# Office spend and opportunities block. Rendered immediately after the
+# blended Paid Ads top summary so an operator can see, by office, which
+# accounts deserve more spend, which need waste cleanup first, and the
+# specific budget move and top ad-group opportunity to act on.
+_OFFICE_SPEND_OPP_TOP_KEYS = (
+    "title",
+    "placement",
+    "office_inference_note",
+    "total_last_30_spend_usd",
+    "total_high_risk_spend_usd",
+    "top_spend_offices",
+    "rows",
+)
+_OFFICE_SPEND_OPP_TOP_OFFICE_KEYS = (
+    "office",
+    "last_30_spend_usd",
+    "opportunity",
+)
+_OFFICE_SPEND_OPP_ROW_STR_KEYS = (
+    "office",
+    "top_issue",
+    "top_ad_group_opportunity",
+    "opportunity",
+    "budget_move",
+    "why",
+    "cvr_benchmark_status",
+)
+_OFFICE_SPEND_OPP_ROW_NUM_KEYS = (
+    "last_30_spend_usd",
+    "last_30_conversions",
+    "last_30_phone_calls",
+    "last_30_cpa_usd",
+    "last_30_cpc_usd",
+    "last_30_ctr_pct",
+    "last_30_conversion_rate_pct",
+    "high_risk_spend_usd",
+    "high_risk_spend_share_pct",
+    "campaign_count",
+    "change_items",
+    "p0_count",
+    "p1_count",
+    "p2_count",
+    "last_7_conversion_rate_pct",
+    "last_month_conversion_rate_pct",
+    "vs_office_median_pts",
+    "last_7_conversions_per_day",
+    "last_7_cpa_usd",
+)
+_OFFICE_SPEND_OPP_PROTECT_KEYS = (
+    "campaign",
+    "conversions",
+    "cpa_usd",
+    "conversion_rate_pct",
+)
+
 
 def _sanitize_paid_ads_top_summary(rec: Any) -> dict[str, Any] | None:
     """Whitelist the v5 paid_ads_top_summary block.
@@ -297,6 +352,111 @@ def _sanitize_daily_improvement_loop(rec: Any) -> dict[str, Any] | None:
                 out[key] = [str(s) for s in val if s is not None]
         else:
             out[key] = str(val)
+    return out or None
+
+
+def _sanitize_office_spend_opportunities(rec: Any) -> dict[str, Any] | None:
+    """Whitelist the office_spend_opportunities block.
+
+    Strips any unexpected keys at every level so future payloads can
+    add private fields without leaking them into the public mirror.
+    Numeric fields are coerced to floats; string fields stay strings;
+    nested ``top_spend_offices`` rows and ``rows`` keep only the
+    whitelisted keys (including a strict-whitelist
+    ``protect_or_scale_candidates`` list).
+    """
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    for key in ("title", "placement", "office_inference_note"):
+        val = rec.get(key)
+        if isinstance(val, str) and val.strip():
+            out[key] = val
+    for key in ("total_last_30_spend_usd", "total_high_risk_spend_usd"):
+        val = rec.get(key)
+        if val is None:
+            continue
+        try:
+            out[key] = float(val)
+        except (TypeError, ValueError):
+            continue
+    top_offices = rec.get("top_spend_offices")
+    if isinstance(top_offices, list):
+        cleaned_top: list[dict[str, Any]] = []
+        for row in top_offices:
+            if not isinstance(row, dict):
+                continue
+            cleaned: dict[str, Any] = {}
+            for key in _OFFICE_SPEND_OPP_TOP_OFFICE_KEYS:
+                if key not in row:
+                    continue
+                val = row.get(key)
+                if val is None:
+                    continue
+                if key == "last_30_spend_usd":
+                    try:
+                        cleaned[key] = float(val)
+                    except (TypeError, ValueError):
+                        continue
+                else:
+                    cleaned[key] = str(val)
+            if cleaned:
+                cleaned_top.append(cleaned)
+        if cleaned_top:
+            out["top_spend_offices"] = cleaned_top
+    rows = rec.get("rows")
+    if isinstance(rows, list):
+        cleaned_rows: list[dict[str, Any]] = []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            cleaned: dict[str, Any] = {}
+            for key in _OFFICE_SPEND_OPP_ROW_STR_KEYS:
+                if key not in row:
+                    continue
+                val = row.get(key)
+                if val is None:
+                    continue
+                cleaned[key] = str(val)
+            for key in _OFFICE_SPEND_OPP_ROW_NUM_KEYS:
+                if key not in row:
+                    continue
+                val = row.get(key)
+                if val is None:
+                    cleaned[key] = None
+                    continue
+                try:
+                    cleaned[key] = float(val)
+                except (TypeError, ValueError):
+                    cleaned[key] = None
+            protect = row.get("protect_or_scale_candidates")
+            if isinstance(protect, list):
+                cleaned_protect: list[dict[str, Any]] = []
+                for p in protect:
+                    if not isinstance(p, dict):
+                        continue
+                    p_clean: dict[str, Any] = {}
+                    for pk in _OFFICE_SPEND_OPP_PROTECT_KEYS:
+                        if pk not in p:
+                            continue
+                        v = p.get(pk)
+                        if v is None:
+                            continue
+                        if pk == "campaign":
+                            p_clean[pk] = str(v)
+                        else:
+                            try:
+                                p_clean[pk] = float(v)
+                            except (TypeError, ValueError):
+                                continue
+                    if p_clean:
+                        cleaned_protect.append(p_clean)
+                if cleaned_protect:
+                    cleaned["protect_or_scale_candidates"] = cleaned_protect
+            if cleaned:
+                cleaned_rows.append(cleaned)
+        if cleaned_rows:
+            out["rows"] = cleaned_rows
     return out or None
 
 
@@ -760,7 +920,83 @@ def _build_account_linking_status(
     }
 
 
+def _is_snapshot_shaped_payload(payload: dict[str, Any]) -> bool:
+    """Return True if the payload looks like a full snapshot.
+
+    Some private builders ship the already-built dashboard snapshot
+    (with ``google_ads_insights`` already populated) instead of the raw
+    ``google_ads`` rollup that this script normally consumes. When that
+    happens we skip the rebuild and just merge the payload straight into
+    ``data/snapshot.json`` (whitelisting ``office_spend_opportunities``
+    and any other public-mirror sections through ``sanitize_for_public``).
+    """
+    return (
+        isinstance(payload, dict)
+        and "google_ads" not in payload
+        and isinstance(payload.get("google_ads_insights"), dict)
+    )
+
+
+def apply_snapshot_shaped_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Merge a snapshot-shaped payload into the existing snapshot.
+
+    Top-level public sections from the payload replace the matching
+    sections in ``data/snapshot.json``. The merged snapshot is then
+    handed to ``sanitize_for_public`` so any forbidden keys/values are
+    stripped before the public-mirror write.
+    """
+    snap = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+    # Pull through top-level sections we already publish, plus the new
+    # office_spend_opportunities block which lives under
+    # google_ads_insights. Anything not whitelisted by sanitize_for_public
+    # downstream is dropped before the public write.
+    pass_through_top_level = (
+        "generated_at",
+        "task",
+        "sources",
+        "kpis",
+        "daily",
+        "reply_mix",
+        "replies",
+        "latest_batch_summary",
+        "channel_mix_latest",
+        "channel_mix_total",
+        "channel_scorecard",
+        "experiments",
+        "queue_health",
+        "human_followups",
+        "guardrail_status",
+        "zoho",
+        "github",
+        "guardrails",
+        "next_actions",
+        "focus_priority",
+        "google_ads_insights",
+        "google_ads_keyword_focus",
+        "b2b_reply_detail",
+        "_sanitization",
+    )
+    for key in pass_through_top_level:
+        if key in payload:
+            snap[key] = payload[key]
+    # Whitelist the new office_spend_opportunities block here so any
+    # unexpected payload fields are dropped before the snapshot is
+    # written, even if sanitize_for_public adds further scrubbing.
+    ads = snap.get("google_ads_insights")
+    if isinstance(ads, dict):
+        oso = _sanitize_office_spend_opportunities(
+            ads.get("office_spend_opportunities")
+        )
+        if oso:
+            ads["office_spend_opportunities"] = oso
+        elif "office_spend_opportunities" in ads:
+            ads.pop("office_spend_opportunities", None)
+    return snap
+
+
 def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    if _is_snapshot_shaped_payload(payload):
+        return apply_snapshot_shaped_payload(payload)
     snap = json.loads(DATA_FILE.read_text(encoding="utf-8"))
     google_ads = payload.get("google_ads") or {}
     rollup = google_ads.get("rollup") or {}
@@ -808,6 +1044,9 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
     )
     daily_improvement_loop = _sanitize_daily_improvement_loop(
         google_ads.get("daily_improvement_loop")
+    )
+    office_spend_opportunities = _sanitize_office_spend_opportunities(
+        google_ads.get("office_spend_opportunities")
     )
     dashboard_priorities = payload.get("dashboard_priorities") or []
 
@@ -948,6 +1187,7 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "ad_group_conversion_benchmarks": ad_group_conversion_benchmarks,
         "daily_improvement_loop": daily_improvement_loop or {},
         "dashboard_priorities": dashboard_priorities,
+        "office_spend_opportunities": office_spend_opportunities or {},
     }
 
     snap["google_ads_insights"] = insights
