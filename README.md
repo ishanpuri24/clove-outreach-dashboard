@@ -236,6 +236,14 @@ The validator has no third-party dependencies. From the repo root:
 python3 scripts/validate_public_snapshot.py
 ```
 
+### Minimal local refresh
+
+```sh
+python3 scripts/build_snapshot.py        # re-inject sanitized snapshot into index.html
+python3 scripts/validate_public_snapshot.py  # confirm safe to publish
+python3 -m http.server 8000              # spot-check rendered page at http://localhost:8000
+```
+
 It checks that:
 
 - `data/snapshot.json` parses as JSON.
