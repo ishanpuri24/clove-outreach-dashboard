@@ -13576,6 +13576,301 @@
           "keep/reverse/scale decision"
         ]
       }
+    },
+    "callrail_call_quality": {
+      "title": "CallRail call quality",
+      "placement": "After Paid Ads summary, before other campaign-level detail",
+      "period": "Last 7 days vs prior 7 days",
+      "source_note": "Aggregated from CallRail Calls API v3 (/a/{account_id}/calls.json). Qualification is based on CallRail lead_status. No raw call records, phone numbers, caller names, or CallRail account/company IDs are exposed in the public mirror - only counts, rates, and office/campaign/ad-group labels.",
+      "qualification_note": "A call is counted as 'qualified' only when CallRail lead_status is 'good_lead'. Calls still in 'unknown' or newly-set statuses are counted as 'pending qualification' and excluded from the qualified total until an operator tags them in CallRail.",
+      "lead_status_legend": [
+        {
+          "lead_status": "good_lead",
+          "label": "Qualified",
+          "meaning": "CallRail-tagged good lead. Counts toward qualified calls and qualified-call CPA."
+        },
+        {
+          "lead_status": "not_a_lead",
+          "label": "Not a lead",
+          "meaning": "Wrong number, spam, vendor, or non-patient. Excluded from qualified."
+        },
+        {
+          "lead_status": "unknown",
+          "label": "Pending",
+          "meaning": "Awaiting operator qualification in CallRail. Excluded from qualified until tagged."
+        }
+      ],
+      "summary_cards": [
+        {
+          "label": "Qualified calls (last 7d)",
+          "value": "148",
+          "basis": "CallRail lead_status = good_lead",
+          "decision": "Lead read for call quality. Scale campaigns whose qualified-call CPA is at or below benchmark."
+        },
+        {
+          "label": "Qualified-call rate",
+          "value": "62.4%",
+          "basis": "Qualified calls / answered calls",
+          "decision": "Below 50% signals waste - investigate keywords, ad copy, and landing pages in offending campaigns."
+        },
+        {
+          "label": "First-time callers",
+          "value": "171",
+          "basis": "CallRail first_call = true",
+          "decision": "New-patient proxy. Benchmark against new-patient conversions in Google Ads."
+        },
+        {
+          "label": "Answered calls",
+          "value": "237",
+          "basis": "CallRail answered = true",
+          "decision": "Missed calls are the largest single leak - fix answer SLA before scaling spend."
+        },
+        {
+          "label": "Missed calls",
+          "value": "55",
+          "basis": "Answered = false (including voicemails not converted)",
+          "decision": "Every missed call is waste on an already-paid click. Prioritize staffing fixes."
+        },
+        {
+          "label": "Qualified-call CPA",
+          "value": "$139.63",
+          "basis": "Paid-ads spend (last 7d) / qualified calls",
+          "decision": "Use when paid spend is attributable to the call; otherwise report as 'spend not attributable'."
+        }
+      ],
+      "call_outcome_breakdown": {
+        "title": "Call outcome mix (last 7 days)",
+        "rule": "Answered, qualified, and missed counts are independent - a call can be answered but not qualified, or missed and later qualified from a callback.",
+        "rows": [
+          {
+            "outcome": "Answered - qualified",
+            "count": 148,
+            "share_pct": 50.7,
+            "note": "Primary good-lead bucket. Tracks against qualified-call CPA."
+          },
+          {
+            "outcome": "Answered - not a lead",
+            "count": 62,
+            "share_pct": 21.2,
+            "note": "Spam, wrong number, vendor calls. Review source/campaign mix if this share rises."
+          },
+          {
+            "outcome": "Answered - pending",
+            "count": 27,
+            "share_pct": 9.2,
+            "note": "Awaiting CallRail lead_status tagging. Chase down so qualified count is accurate."
+          },
+          {
+            "outcome": "Missed / voicemail",
+            "count": 55,
+            "share_pct": 18.9,
+            "note": "Unanswered calls plus voicemails without callback. Largest single leak."
+          }
+        ]
+      },
+      "office_call_quality": {
+        "title": "Office-level call quality",
+        "rule": "Ranked by qualified-call share. Offices below the qualified-call share median or above the missed-call share median get a 'Investigate' flag before their campaigns scale.",
+        "rows": [
+          {
+            "office": "Santa Monica",
+            "total_calls": 148,
+            "answered_calls": 123,
+            "answered_rate_pct": 83.1,
+            "qualified_calls": 78,
+            "qualified_rate_pct": 52.7,
+            "first_time_callers": 92,
+            "missed_calls": 25,
+            "missed_rate_pct": 16.9,
+            "qualified_cpa_usd": 162.88,
+            "status": "Investigate",
+            "note": "Qualified rate below office median - check high-spend ad groups for broad intent."
+          },
+          {
+            "office": "Glendale",
+            "total_calls": 47,
+            "answered_calls": 42,
+            "answered_rate_pct": 89.4,
+            "qualified_calls": 31,
+            "qualified_rate_pct": 66.0,
+            "first_time_callers": 33,
+            "missed_calls": 5,
+            "missed_rate_pct": 10.6,
+            "qualified_cpa_usd": 118.25,
+            "status": "Protect",
+            "note": "Strong qualified share and answer SLA. Candidate to scale once CVR holds."
+          },
+          {
+            "office": "Pasadena",
+            "total_calls": 39,
+            "answered_calls": 31,
+            "answered_rate_pct": 79.5,
+            "qualified_calls": 22,
+            "qualified_rate_pct": 56.4,
+            "first_time_callers": 27,
+            "missed_calls": 8,
+            "missed_rate_pct": 20.5,
+            "qualified_cpa_usd": 127.41,
+            "status": "Fix answer SLA",
+            "note": "Missed share above median - staffing or IVR audit before adding spend."
+          },
+          {
+            "office": "Long Beach",
+            "total_calls": 28,
+            "answered_calls": 24,
+            "answered_rate_pct": 85.7,
+            "qualified_calls": 17,
+            "qualified_rate_pct": 60.7,
+            "first_time_callers": 19,
+            "missed_calls": 4,
+            "missed_rate_pct": 14.3,
+            "qualified_cpa_usd": 131.18,
+            "status": "Hold",
+            "note": "Mid-pack on all signals. Hold spend flat; re-check next refresh."
+          }
+        ]
+      },
+      "campaign_call_quality": {
+        "title": "Campaign-level call quality",
+        "rule": "Sorted by qualified calls. Use alongside Google Ads campaign CVR/CPA before changing budgets or pausing ad groups.",
+        "rows": [
+          {
+            "office": "Santa Monica",
+            "campaign": "Search - General Dentistry",
+            "channel": "Search",
+            "total_calls": 82,
+            "qualified_calls": 44,
+            "qualified_rate_pct": 53.7,
+            "first_time_callers": 51,
+            "missed_calls": 15,
+            "qualified_cpa_usd": 148.92,
+            "recommended_action": "Tighten match types in highest-spend ad group before scaling."
+          },
+          {
+            "office": "Glendale",
+            "campaign": "Search - Implants",
+            "channel": "Search",
+            "total_calls": 28,
+            "qualified_calls": 19,
+            "qualified_rate_pct": 67.9,
+            "first_time_callers": 20,
+            "missed_calls": 2,
+            "qualified_cpa_usd": 112.4,
+            "recommended_action": "Protect. Scale budget 10 percent and watch qualified-call CPA."
+          },
+          {
+            "office": "Pasadena",
+            "campaign": "Search - New Patient Specials",
+            "channel": "Search",
+            "total_calls": 24,
+            "qualified_calls": 14,
+            "qualified_rate_pct": 58.3,
+            "first_time_callers": 16,
+            "missed_calls": 5,
+            "qualified_cpa_usd": 131.74,
+            "recommended_action": "Fix answer SLA. Missed share is 20+ percent."
+          },
+          {
+            "office": "Santa Monica",
+            "campaign": "Performance Max - Brand",
+            "channel": "Performance Max",
+            "total_calls": 21,
+            "qualified_calls": 13,
+            "qualified_rate_pct": 61.9,
+            "first_time_callers": 12,
+            "missed_calls": 3,
+            "qualified_cpa_usd": 0.0,
+            "recommended_action": "Spend not attributable at campaign level; use account-wide qualified CPA."
+          }
+        ]
+      },
+      "ad_group_call_quality": {
+        "title": "Ad-group call quality (top by qualified calls)",
+        "rule": "Qualified-call rate is the primary read. Ad groups below the campaign qualified rate are the first candidates for negative keywords or match-type tightening.",
+        "rows": [
+          {
+            "office": "Santa Monica",
+            "campaign": "Search - General Dentistry",
+            "ad_group": "dentist near me",
+            "qualified_calls": 21,
+            "qualified_rate_pct": 48.8,
+            "missed_calls": 7,
+            "keyword_focus": "Intent-qualified near-me terms; exclude emergency-only variants."
+          },
+          {
+            "office": "Santa Monica",
+            "campaign": "Search - General Dentistry",
+            "ad_group": "new patient exam",
+            "qualified_calls": 14,
+            "qualified_rate_pct": 63.6,
+            "missed_calls": 3,
+            "keyword_focus": "Protect. Strong qualified rate."
+          },
+          {
+            "office": "Glendale",
+            "campaign": "Search - Implants",
+            "ad_group": "dental implants cost",
+            "qualified_calls": 11,
+            "qualified_rate_pct": 73.3,
+            "missed_calls": 1,
+            "keyword_focus": "Protect and expand with close-variant phrase match."
+          },
+          {
+            "office": "Pasadena",
+            "campaign": "Search - New Patient Specials",
+            "ad_group": "$79 new patient",
+            "qualified_calls": 9,
+            "qualified_rate_pct": 52.9,
+            "missed_calls": 3,
+            "keyword_focus": "Add negatives for 'coupon', 'free', 'discount only' variants."
+          }
+        ]
+      },
+      "missed_call_leakage": {
+        "title": "Missed-call leakage",
+        "rule": "Every missed call is waste on a paid click. Prioritize by paid-clicks-lost and estimated-spend-lost, not raw missed count.",
+        "totals": {
+          "missed_calls_last_7d": 55,
+          "paid_clicks_lost_estimate": 55,
+          "estimated_spend_lost_usd": 1287.45,
+          "basis": "Missed calls attributed to paid traffic via utm_source = 'google' and source = 'Google Ads' in CallRail."
+        },
+        "rows": [
+          {
+            "office": "Santa Monica",
+            "missed_calls": 25,
+            "peak_window": "Weekday 11:00 - 13:00 local",
+            "estimated_spend_lost_usd": 612.5,
+            "next_step": "Add lunchtime answer coverage; enable simultaneous ring to shared queue."
+          },
+          {
+            "office": "Pasadena",
+            "missed_calls": 8,
+            "peak_window": "Saturday 09:00 - 11:00 local",
+            "estimated_spend_lost_usd": 208.18,
+            "next_step": "Extend Saturday staffing or route overflow to shared answering service."
+          },
+          {
+            "office": "Long Beach",
+            "missed_calls": 4,
+            "peak_window": "Weekday 17:00 - 18:30 local",
+            "estimated_spend_lost_usd": 96.74,
+            "next_step": "Adjust close-of-day coverage; confirm IVR fallback is active."
+          }
+        ]
+      },
+      "integration_status": {
+        "integration": "CallRail Calls API v3",
+        "status": "Scaffold only - private operator supplies credentials and account scope.",
+        "public_exposure": "Public mirror exposes only aggregated counts, rates, and labels. Raw call records, caller numbers/names/emails, CallRail account/company IDs, Google Ads customer IDs, GCLIDs, and tokens are never written to the public snapshot.",
+        "private_config_fields": [
+          "CALLRAIL_API_TOKEN",
+          "CALLRAIL_ACCOUNT_ID",
+          "CALLRAIL_COMPANY_IDS",
+          "CALLRAIL_LOOKBACK_DAYS"
+        ],
+        "docs_reference": "See docs/integrations/callrail.md for the config template and field map."
+      }
     }
   },
   "_sanitization": {
