@@ -10,9 +10,9 @@ mirror is produced by:
      strip recipient-level data, reply senders, free-text summaries,
      the internal Google Sheet identifier, and Google Ads
      manager/customer account identifiers.
-  3. Writing the sanitized snapshot to ``data/snapshot.json`` and
-     re-injecting the JSON between the ``/* SNAPSHOT_START */`` and
-     ``/* SNAPSHOT_END */`` markers in ``index.html``.
+  3. Writing the sanitized snapshot to ``data/snapshot.json``. The
+     dashboard ``index.html`` fetches that file at load, so daily
+     refreshes only need to commit ``data/snapshot.json``.
 
 The public dashboard never receives raw replies, recipient emails,
 the operations sheet URL, or any Google Ads account/customer IDs.
@@ -28,7 +28,6 @@ from typing import Any
 
 DASHBOARD_DIR = Path(__file__).resolve().parents[1]
 DATA_FILE = DASHBOARD_DIR / "data" / "snapshot.json"
-INDEX_HTML = DASHBOARD_DIR / "index.html"
 
 EMAIL_RE = re.compile(
     r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b"
@@ -815,20 +814,8 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
-def reinject_into_html(snap: dict[str, Any]) -> None:
-    html = INDEX_HTML.read_text()
-    start = html.index("/* SNAPSHOT_START */")
-    end = html.index("/* SNAPSHOT_END */")
-    new_block = (
-        "/* SNAPSHOT_START */\n"
-        f"window.__SNAPSHOT__ = {json.dumps(snap)};\n"
-    )
-    INDEX_HTML.write_text(html[:start] + new_block + html[end:])
-
-
 if __name__ == "__main__":
     snap = json.loads(DATA_FILE.read_text())
     sanitized = sanitize_for_public(snap)
     DATA_FILE.write_text(json.dumps(sanitized, indent=2) + "\n")
-    reinject_into_html(sanitized)
-    print(f"Wrote sanitized {DATA_FILE} and re-injected into {INDEX_HTML}.")
+    print(f"Wrote sanitized {DATA_FILE}.")

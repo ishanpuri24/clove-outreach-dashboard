@@ -14,9 +14,9 @@ Exit code is non-zero if any check fails. The script verifies that:
      experiments, queue health, human follow-ups, guardrail status,
      focus priority, sanitization policy).
   3. Key KPI fields exist and are numeric.
-  4. The inline embedded snapshot in ``index.html`` (between the
-     ``SNAPSHOT_START`` and ``SNAPSHOT_END`` markers) parses and
-     matches ``data/snapshot.json`` exactly.
+  4. ``index.html`` exists and contains no forbidden sensitive
+     patterns. (The dashboard fetches ``data/snapshot.json`` at
+     runtime, so there is no inline snapshot to parity-check.)
   5. Neither file contains forbidden sensitive patterns. The default
      email whitelist is empty -- any email-shaped string anywhere in
      the public snapshot or rendered HTML fails validation. Operator
@@ -778,34 +778,6 @@ def load_snapshot_json() -> dict[str, Any]:
         return json.loads(DATA_FILE.read_text(encoding="utf-8"))
     except json.JSONDecodeError as exc:
         _fail(f"data/snapshot.json is not valid JSON: {exc}")
-        return {}
-
-
-def extract_inline_snapshot(html: str) -> dict[str, Any]:
-    start_marker = "/* SNAPSHOT_START */"
-    end_marker = "/* SNAPSHOT_END */"
-    if start_marker not in html or end_marker not in html:
-        _fail(
-            "index.html is missing the SNAPSHOT_START / SNAPSHOT_END "
-            "markers; the inline embedded snapshot cannot be verified."
-        )
-    block = html.split(start_marker, 1)[1].split(end_marker, 1)[0]
-    match = re.search(
-        r"window\.__SNAPSHOT__\s*=\s*(?P<json>\{.*\})\s*;",
-        block,
-        re.DOTALL,
-    )
-    if not match:
-        _fail(
-            "Could not find a `window.__SNAPSHOT__ = {...};` assignment "
-            "between the SNAPSHOT_START and SNAPSHOT_END markers in "
-            "index.html."
-        )
-    payload = match.group("json")
-    try:
-        return json.loads(payload)
-    except json.JSONDecodeError as exc:
-        _fail(f"Inline embedded snapshot is not valid JSON: {exc}")
         return {}
 
 
@@ -2490,19 +2462,6 @@ def check_no_forbidden_patterns(
         )
 
 
-def check_inline_matches_data_file(
-    snap_from_data: dict[str, Any], snap_from_html: dict[str, Any]
-) -> None:
-    a = json.dumps(snap_from_data, sort_keys=True)
-    b = json.dumps(snap_from_html, sort_keys=True)
-    if a != b:
-        _fail(
-            "Inline embedded snapshot in index.html does not match "
-            "data/snapshot.json. Re-run scripts/build_snapshot.py to "
-            "re-inject the sanitized snapshot."
-        )
-
-
 def main() -> int:
     print("Validating public snapshot ...")
     try:
@@ -2524,16 +2483,13 @@ def main() -> int:
             _fail(f"Missing required file: {INDEX_HTML}")
         html_text = INDEX_HTML.read_text(encoding="utf-8")
 
-        inline_snap = extract_inline_snapshot(html_text)
-        check_inline_matches_data_file(snap, inline_snap)
-
         check_no_forbidden_patterns(snapshot_text, html_text)
     except ValidationError as exc:
         print(f"FAIL: {exc}")
         return 1
 
     print("OK: snapshot.json parses and contains all required sections.")
-    print("OK: inline embedded snapshot in index.html matches data/snapshot.json.")
+    print("OK: index.html present and free of forbidden patterns.")
     print("OK: no forbidden sensitive patterns detected.")
     print("Public snapshot is safe to publish.")
     return 0

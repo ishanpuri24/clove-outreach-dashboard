@@ -47,9 +47,8 @@ See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for step-by-step instructions.
             v   sanitize_for_public()
             +-------------------------> data/snapshot.json
                                               |
-                                              v
+                                              v   fetch() at load
                                         index.html
-                                        (inline embed)
                                               |
                                               v
                                   GitHub Pages / Vercel / static host
@@ -68,26 +67,46 @@ aggregate snapshot.
   data/
     snapshot.json                machine-readable sanitized snapshot
   scripts/
-    build_snapshot.py            sanitization-aware build / re-inject script
-    validate_public_snapshot.py  pre-publish validator (PII / shape / parity)
+    build_snapshot.py            sanitization-aware build script (writes data/snapshot.json)
+    validate_public_snapshot.py  pre-publish validator (PII / shape)
   README.md                      this file (purpose, architecture, basics)
   DEPLOYMENT.md                  GitHub Pages, Vercel, local, and snapshot-update guides
 ```
 
-The dashboard works in two complementary ways:
+The dashboard renders by fetching `data/snapshot.json` at load with
+`cache: "no-store"`, so a reload always reflects the latest commit.
+`index.html` no longer carries an inline copy of the snapshot, which
+keeps the HTML small (~220 KB) and means daily refreshes only need
+to commit `data/snapshot.json` (~750 KB) — the HTML diff stays at
+zero, GitHub Pages republishes a much smaller change, and reviews
+are easy to scan.
 
-1. The same JSON is **embedded inline** in `index.html` between the
-   `/* SNAPSHOT_START */` and `/* SNAPSHOT_END */` markers, so the
-   page renders even when opened directly from the filesystem
-   (`file://`) where `fetch()` against `data/snapshot.json` would
-   otherwise be blocked.
-2. When served over HTTP, `index.html` also tries to `fetch()`
-   `data/snapshot.json` with `cache: "no-store"` so reload reflects
-   the latest snapshot without a hard refresh.
+> **Note on `file://`**: because the dashboard fetches the snapshot,
+> opening `index.html` directly from disk (`file://`) will not load
+> data in browsers that block `fetch()` for `file://`. Serve the
+> repo over any static origin (GitHub Pages, Vercel, `python3 -m
+> http.server`) — see [`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
-The two copies must always match. `scripts/build_snapshot.py`
-re-injects the JSON into `index.html` after every sanitization, and
-`scripts/validate_public_snapshot.py` enforces the parity.
+## Faster daily refresh workflow
+
+For a routine data refresh (no UI changes):
+
+```bash
+# 1. Replace data/snapshot.json with the freshly sanitized snapshot
+#    produced by the private builder.
+# 2. Confirm the build script is idempotent and the validator passes.
+python3 scripts/build_snapshot.py
+python3 scripts/validate_public_snapshot.py
+
+# 3. Commit only the data file and push.
+git add data/snapshot.json
+git commit -m "Refresh public snapshot"
+git push
+```
+
+GitHub Pages rebuilds with a small diff (one JSON file), and the
+existing `index.html` picks up the new data on the next page load.
+Touch `index.html` only when the dashboard UI itself changes.
 
 ## Data flow
 
@@ -98,8 +117,9 @@ re-injects the JSON into `index.html` after every sanitization, and
 3. `scripts/build_snapshot.py::sanitize_for_public()` (a copy of
    which is published here for transparency) is applied to that
    snapshot.
-4. The sanitized result is written to `data/snapshot.json` and
-   re-injected between the markers in `index.html`.
+4. The sanitized result is written to `data/snapshot.json`. The
+   dashboard `index.html` fetches that file at runtime, so no
+   re-injection or HTML edit is required for a data refresh.
 5. `scripts/validate_public_snapshot.py` is run before commit to
    reject any snapshot that still contains forbidden patterns.
 6. The repo is committed and pushed; the deployment target (GitHub

@@ -20,24 +20,18 @@ host it.
 
 ## Quick local preview
 
-The dashboard renders fine when opened directly from disk because
-the snapshot is also embedded inline in `index.html`. From the repo
-root:
+The dashboard fetches `data/snapshot.json` at load, so always serve
+it over HTTP for previews. From the repo root:
 
 ```sh
-# Option A: open the file directly. The inline snapshot is used.
-xdg-open index.html        # Linux
-open index.html            # macOS
-start index.html           # Windows
-
-# Option B: serve the directory over HTTP so the runtime fetch of
-# data/snapshot.json also exercises (recommended for QA).
 python3 -m http.server 8000
 # then visit http://localhost:8000/
 ```
 
-Use Option B before publishing a new snapshot. It confirms both the
-inline copy and the `fetch()` path render identically.
+Most browsers block `fetch()` for `file://` URLs, so opening
+`index.html` directly will leave the page in the "Snapshot missing"
+state. Use the local HTTP server instead before publishing a new
+snapshot.
 
 ## Deploying to GitHub Pages
 
@@ -123,11 +117,10 @@ that runs on every push and pull request to `main`. The workflow:
 - Uses the standard `actions/checkout@v4` and `actions/setup-python@v5`
   actions (no custom secrets, no external services).
 - Re-runs `python3 scripts/build_snapshot.py` and fails the build
-  if the resulting `data/snapshot.json` or `index.html` differ
-  from what was committed (i.e. the inline embedded snapshot was
-  not refreshed before push).
+  if the resulting `data/snapshot.json` differs from what was
+  committed (i.e. the snapshot was not re-sanitized before push).
 - Runs `python3 scripts/validate_public_snapshot.py` to verify
-  schema, parity, and that no forbidden sensitive patterns
+  schema and that no forbidden sensitive patterns
   (Sheet IDs, prospect emails, tokens, Google Ads customer IDs,
   manager-account IDs, mailto links) are present.
 
@@ -147,27 +140,27 @@ the steps in order. Do not skip the validator.
    that was produced from raw run state.
 2. **Copy the sanitized JSON into this repo** at
    `data/snapshot.json`. Overwrite the existing file.
-3. **Re-inject the JSON into `index.html`** so the inline copy used
-   for `file://` rendering stays in sync:
+3. **Re-sanitize defensively** so even an over-broad copy is
+   reduced before it ships:
 
    ```sh
    python3 scripts/build_snapshot.py
    ```
 
-   This rewrites the block between `/* SNAPSHOT_START */` and
-   `/* SNAPSHOT_END */` in `index.html`. It also re-applies
-   `sanitize_for_public()` defensively, so even an over-broad copy
-   is reduced before it ships.
+   This rewrites `data/snapshot.json` with `sanitize_for_public()`
+   re-applied. `index.html` is **not** modified — the dashboard
+   fetches `data/snapshot.json` at runtime, so a daily refresh
+   touches only the data file.
 4. **Run the validator.** This is mandatory.
 
    ```sh
    python3 scripts/validate_public_snapshot.py
    ```
 
-   The validator parses `data/snapshot.json`, checks that the inline
-   embedded snapshot in `index.html` matches it, verifies the
-   required operator sections and KPI fields, and scans both files
-   for forbidden sensitive patterns (real Google Sheet URLs or IDs,
+   The validator parses `data/snapshot.json`, verifies the required
+   operator sections and KPI fields, and scans both
+   `data/snapshot.json` and `index.html` for forbidden sensitive
+   patterns (real Google Sheet URLs or IDs,
    prospect or reply-sender email addresses, GitHub or generic API
    tokens, JWTs, AWS access keys, and `mailto:` links). A non-zero
    exit code means **do not commit**. Resolve every finding and
@@ -180,10 +173,14 @@ the steps in order. Do not skip the validator.
    names the snapshot date. Example:
 
    ```sh
-   git add data/snapshot.json index.html
+   git add data/snapshot.json
    git commit -m "refresh public snapshot for YYYY-MM-DD outreach run"
    git push origin main
    ```
+
+   For data-only refreshes the diff is one file (`data/snapshot.json`)
+   and GitHub Pages republishes quickly. Stage `index.html` only
+   when you have actually changed the dashboard UI.
 
 7. **Verify the live deployment** picked up the change. GitHub
    Pages and Vercel both redeploy on push automatically; the
@@ -206,8 +203,6 @@ fail the build if any of the following is true:
   `Organization` is not redacted.
 - A recipient-level `latest_batch` array is present.
 - The `github` section exposes commit hashes or repo identifiers.
-- The inline embedded snapshot in `index.html` does not match
-  `data/snapshot.json`.
 - Either file contains forbidden patterns: Google Sheet URLs/IDs,
   GitHub PATs (`ghp_...`, `github_pat_...`), generic secret keys
   (`sk-...`), JWTs, AWS access keys (`AKIA...`), `mailto:` links,
