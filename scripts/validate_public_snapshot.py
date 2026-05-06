@@ -115,7 +115,69 @@ REQUIRED_CALLRAIL_TOP_KEYS = [
     "missed_call_leakage",
     "integration_status",
 ]
-ALLOWED_CALLRAIL_TOP_KEYS = set(REQUIRED_CALLRAIL_TOP_KEYS + ["placement"])
+# Optional, additive sections rendered alongside the existing
+# CallRail call-quality block: a first-time-caller grid by office, a
+# week-over-week and month-over-month trend table by office, and a
+# JZ / Joe campaign-cluster focus row.
+ALLOWED_CALLRAIL_TOP_KEYS = set(REQUIRED_CALLRAIL_TOP_KEYS + [
+    "placement",
+    "office_first_time_caller_grid",
+    "office_trends",
+    "jz_joe_focus",
+])
+
+ALLOWED_CALLRAIL_FT_GRID_TOP_KEYS = {"title", "rule", "period", "rows"}
+ALLOWED_CALLRAIL_FT_GRID_ROW_KEYS = {
+    "office",
+    "first_time_callers_last_7d",
+    "first_time_callers_prior_7d",
+    "wow_delta",
+    "first_time_callers_last_30d",
+    "first_time_callers_prior_30d",
+    "mom_delta",
+    "share_of_calls_pct",
+    "note",
+}
+
+ALLOWED_CALLRAIL_OFFICE_TREND_TOP_KEYS = {"title", "rule", "rows"}
+ALLOWED_CALLRAIL_OFFICE_TREND_ROW_KEYS = {
+    "office",
+    "calls_last_7d",
+    "calls_prior_7d",
+    "wow_calls_delta_pct",
+    "calls_last_30d",
+    "calls_prior_30d",
+    "mom_calls_delta_pct",
+    "qualified_last_7d",
+    "qualified_prior_7d",
+    "wow_qualified_delta",
+    "qualified_last_30d",
+    "qualified_prior_30d",
+    "mom_qualified_delta",
+    "missed_last_7d",
+    "missed_prior_7d",
+    "wow_missed_delta",
+    "trend_call",
+}
+
+ALLOWED_CALLRAIL_JZ_JOE_TOP_KEYS = {"title", "rule", "rows"}
+ALLOWED_CALLRAIL_JZ_JOE_ROW_KEYS = {
+    "label",
+    "office",
+    "spend_last_7d_usd",
+    "calls_last_7d",
+    "first_time_callers_last_7d",
+    "qualified_calls_last_7d",
+    "qualified_rate_pct",
+    "missed_calls_last_7d",
+    "calls_last_30d",
+    "qualified_calls_last_30d",
+    "qualified_rate_30d_pct",
+    "google_ads_conversions_last_7d",
+    "match_basis",
+    "recommended_action",
+    "scale_hold_fix",
+}
 
 REQUIRED_CALLRAIL_SUMMARY_LABELS = {
     "Qualified calls (last 7d)",
@@ -517,7 +579,22 @@ REQUIRED_WMRR_TOP_KEYS = [
     "office_budget_focus",
     "daily_change_review",
 ]
-ALLOWED_WMRR_TOP_KEYS = set(REQUIRED_WMRR_TOP_KEYS + ["period"])
+ALLOWED_WMRR_TOP_KEYS = set(REQUIRED_WMRR_TOP_KEYS + [
+    "period",
+    "run_rate_trends",
+])
+ALLOWED_WMRR_RUN_RATE_TRENDS_TOP_KEYS = {"title", "rule", "rows"}
+ALLOWED_WMRR_RUN_RATE_TRENDS_ROW_KEYS = {
+    "metric",
+    "last_7d",
+    "prior_7d",
+    "wow_delta",
+    "last_30d",
+    "prior_30d",
+    "mom_delta",
+    "basis",
+    "decision",
+}
 REQUIRED_WMRR_SUMMARY_LABELS = {
     "Projected weekly spend",
     "Projected weekly conversions",
@@ -1854,6 +1931,43 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
             "explaining the dated-snapshot baseline."
         )
 
+    # ---- run_rate_trends (optional) ----
+    rrt = wmrr.get("run_rate_trends")
+    if rrt is not None:
+        if not isinstance(rrt, dict):
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                "run_rate_trends must be an object when present."
+            )
+        extra_rrt = set(rrt.keys()) - ALLOWED_WMRR_RUN_RATE_TRENDS_TOP_KEYS
+        if extra_rrt:
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"run_rate_trends has unexpected keys: {sorted(extra_rrt)}"
+            )
+        rrt_rows = rrt.get("rows")
+        if rrt_rows is not None:
+            if not isinstance(rrt_rows, list):
+                _fail(
+                    "google_ads_insights.weekly_marketing_run_rate."
+                    "run_rate_trends.rows must be a list when present."
+                )
+            for idx, row in enumerate(rrt_rows):
+                if not isinstance(row, dict):
+                    _fail(
+                        "google_ads_insights.weekly_marketing_run_rate."
+                        f"run_rate_trends.rows[{idx}] must be an object."
+                    )
+                extra_r = (
+                    set(row.keys()) - ALLOWED_WMRR_RUN_RATE_TRENDS_ROW_KEYS
+                )
+                if extra_r:
+                    _fail(
+                        "google_ads_insights.weekly_marketing_run_rate."
+                        f"run_rate_trends.rows[{idx}] has unexpected keys: "
+                        f"{sorted(extra_r)}"
+                    )
+
     # ---- callrail_call_quality ----
     check_callrail_call_quality(ads)
 
@@ -2191,6 +2305,64 @@ def check_callrail_call_quality(ads: dict[str, Any]) -> None:
                 "integration_status.private_config_fields entries must be "
                 "non-empty strings."
             )
+
+    # Optional, additive blocks. If present, validate they only carry
+    # allowed shapes - aggregated counts/rates and labels.
+    def _check_optional_block(
+        section_key: str,
+        allowed_top: set[str],
+        allowed_row: set[str],
+    ) -> None:
+        block = cr.get(section_key)
+        if block is None:
+            return
+        if not isinstance(block, dict):
+            _fail(
+                f"google_ads_insights.callrail_call_quality.{section_key} "
+                "must be an object when present."
+            )
+        extra = set(block.keys()) - allowed_top
+        if extra:
+            _fail(
+                f"google_ads_insights.callrail_call_quality.{section_key} "
+                f"has unexpected keys: {sorted(extra)}"
+            )
+        rows = block.get("rows")
+        if rows is not None:
+            if not isinstance(rows, list):
+                _fail(
+                    f"google_ads_insights.callrail_call_quality."
+                    f"{section_key}.rows must be a list when present."
+                )
+            for idx, row in enumerate(rows):
+                if not isinstance(row, dict):
+                    _fail(
+                        f"google_ads_insights.callrail_call_quality."
+                        f"{section_key}.rows[{idx}] must be an object."
+                    )
+                extra_r = set(row.keys()) - allowed_row
+                if extra_r:
+                    _fail(
+                        f"google_ads_insights.callrail_call_quality."
+                        f"{section_key}.rows[{idx}] has unexpected keys: "
+                        f"{sorted(extra_r)}"
+                    )
+
+    _check_optional_block(
+        "office_first_time_caller_grid",
+        ALLOWED_CALLRAIL_FT_GRID_TOP_KEYS,
+        ALLOWED_CALLRAIL_FT_GRID_ROW_KEYS,
+    )
+    _check_optional_block(
+        "office_trends",
+        ALLOWED_CALLRAIL_OFFICE_TREND_TOP_KEYS,
+        ALLOWED_CALLRAIL_OFFICE_TREND_ROW_KEYS,
+    )
+    _check_optional_block(
+        "jz_joe_focus",
+        ALLOWED_CALLRAIL_JZ_JOE_TOP_KEYS,
+        ALLOWED_CALLRAIL_JZ_JOE_ROW_KEYS,
+    )
 
 
 def check_b2b_reply_detail(snap: dict[str, Any]) -> None:
