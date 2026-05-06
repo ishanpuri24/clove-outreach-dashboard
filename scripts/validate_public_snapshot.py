@@ -91,6 +91,7 @@ REQUIRED_GOOGLE_ADS_FIELDS = [
     "ad_group_conversion_benchmarks",
     "daily_improvement_loop",
     "office_spend_opportunities",
+    "weekly_marketing_run_rate",
 ]
 
 REQUIRED_TREND_WINDOW_FIELDS = [
@@ -320,6 +321,66 @@ ALLOWED_OFFICE_SPEND_OPP_PROTECT_KEYS = {
     "cpa_usd",
     "conversion_rate_pct",
 }
+
+# Weekly marketing run-rate. Rendered after the office spend block to
+# show projected weekly spend/conversions/calls and the blended
+# CPA/CVR/CTR cards, the run-rate decision rules, the office budget
+# focus (reduce vs protect/scale), and the daily change review (top
+# action rows + log fields + baseline note).
+REQUIRED_WMRR_TOP_KEYS = [
+    "title",
+    "summary_cards",
+    "run_rate_rules",
+    "office_budget_focus",
+    "daily_change_review",
+]
+ALLOWED_WMRR_TOP_KEYS = set(REQUIRED_WMRR_TOP_KEYS + ["period"])
+REQUIRED_WMRR_SUMMARY_LABELS = {
+    "Projected weekly spend",
+    "Projected weekly conversions",
+    "Projected weekly calls",
+    "Blended CPA",
+    "Blended CVR",
+    "Blended CTR",
+}
+ALLOWED_WMRR_SUMMARY_CARD_KEYS = {"label", "value", "basis", "decision"}
+REQUIRED_WMRR_SUMMARY_CARD_KEYS = ["label", "value"]
+REQUIRED_WMRR_OFFICE_FOCUS_KEYS = [
+    "reduce_or_reallocate_first",
+    "protect_or_scale_after_quality_check",
+    "rule",
+]
+ALLOWED_WMRR_OFFICE_FOCUS_KEYS = set(REQUIRED_WMRR_OFFICE_FOCUS_KEYS)
+ALLOWED_WMRR_OFFICE_ROW_KEYS = {
+    "office",
+    "current_spend_30d",
+    "high_risk_spend_30d",
+    "last_7_cvr_pct",
+    "last_7_cpa_usd",
+    "p0_p1_p2",
+    "today_change_needed",
+    "why",
+    "top_ad_group_opportunity",
+    "run_rate_call",
+}
+REQUIRED_WMRR_DCR_KEYS = [
+    "title",
+    "today_should_do",
+    "fields_to_log_each_day",
+    "status_note",
+]
+ALLOWED_WMRR_DCR_KEYS = set(REQUIRED_WMRR_DCR_KEYS)
+ALLOWED_WMRR_DCR_ROW_KEYS = {
+    "priority",
+    "office",
+    "campaign",
+    "change_to_make",
+    "benchmark_reason",
+    "keyword_or_ad_group_focus",
+    "success_check",
+    "tomorrow_learning",
+}
+REQUIRED_WMRR_DCR_ROW_KEYS = list(ALLOWED_WMRR_DCR_ROW_KEYS)
 
 REQUIRED_GOOGLE_ADS_TOTALS = [
     "campaigns",
@@ -1395,6 +1456,220 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
                         f"rows[{idx}].protect_or_scale_candidates[{pidx}] "
                         f"has unexpected keys: {sorted(extra_p)}"
                     )
+
+    # ---- weekly_marketing_run_rate ----
+    wmrr = ads.get("weekly_marketing_run_rate")
+    if not isinstance(wmrr, dict):
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate must be an "
+            "object rendered after the office spend block (projected "
+            "weekly spend/conversions/calls + run-rate rules + office "
+            "budget focus + daily change review)."
+        )
+    missing_wmrr = [k for k in REQUIRED_WMRR_TOP_KEYS if k not in wmrr]
+    if missing_wmrr:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate missing "
+            f"required fields: {missing_wmrr}"
+        )
+    extra_wmrr = set(wmrr.keys()) - ALLOWED_WMRR_TOP_KEYS
+    if extra_wmrr:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate has "
+            f"unexpected keys: {sorted(extra_wmrr)}"
+        )
+    cards = wmrr.get("summary_cards")
+    if not isinstance(cards, list) or not cards:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate.summary_cards "
+            "must be a non-empty list of {label, value, basis, decision} "
+            "rows covering the projected weekly spend/conversions/calls "
+            "and the blended CPA/CVR/CTR."
+        )
+    seen_card_labels: set[str] = set()
+    for idx, card in enumerate(cards):
+        if not isinstance(card, dict):
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"summary_cards[{idx}] must be an object."
+            )
+        missing_keys = [
+            k for k in REQUIRED_WMRR_SUMMARY_CARD_KEYS if k not in card
+        ]
+        if missing_keys:
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"summary_cards[{idx}] missing required keys: {missing_keys}"
+            )
+        extra = set(card.keys()) - ALLOWED_WMRR_SUMMARY_CARD_KEYS
+        if extra:
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"summary_cards[{idx}] has unexpected keys: {sorted(extra)}"
+            )
+        for k, v in card.items():
+            if not isinstance(v, str) or not v.strip():
+                _fail(
+                    "google_ads_insights.weekly_marketing_run_rate."
+                    f"summary_cards[{idx}]['{k}'] must be a non-empty "
+                    "string."
+                )
+        seen_card_labels.add(card.get("label", ""))
+    missing_labels = REQUIRED_WMRR_SUMMARY_LABELS - seen_card_labels
+    if missing_labels:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate.summary_cards "
+            f"missing required labels: {sorted(missing_labels)}"
+        )
+    rules = wmrr.get("run_rate_rules")
+    if not isinstance(rules, list) or not rules:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate.run_rate_rules "
+            "must be a non-empty list of strings explaining the "
+            "conversions/CVR/CPA/booked-call decision rules."
+        )
+    for idx_r, r in enumerate(rules):
+        if not isinstance(r, str) or not r.strip():
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"run_rate_rules[{idx_r}] must be a non-empty string."
+            )
+    ofb = wmrr.get("office_budget_focus")
+    if not isinstance(ofb, dict):
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            "office_budget_focus must be an object."
+        )
+    missing_ofb = [
+        k for k in REQUIRED_WMRR_OFFICE_FOCUS_KEYS if k not in ofb
+    ]
+    if missing_ofb:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            f"office_budget_focus missing required fields: {missing_ofb}"
+        )
+    extra_ofb = set(ofb.keys()) - ALLOWED_WMRR_OFFICE_FOCUS_KEYS
+    if extra_ofb:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            f"office_budget_focus has unexpected keys: {sorted(extra_ofb)}"
+        )
+    if not isinstance(ofb.get("rule"), str) or not ofb["rule"].strip():
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            "office_budget_focus.rule must be a non-empty string."
+        )
+    for list_key in (
+        "reduce_or_reallocate_first",
+        "protect_or_scale_after_quality_check",
+    ):
+        rows = ofb.get(list_key)
+        if not isinstance(rows, list):
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"office_budget_focus['{list_key}'] must be a list."
+            )
+        for idx, row in enumerate(rows):
+            if not isinstance(row, dict):
+                _fail(
+                    "google_ads_insights.weekly_marketing_run_rate."
+                    f"office_budget_focus['{list_key}'][{idx}] must be "
+                    "an object."
+                )
+            extra = set(row.keys()) - ALLOWED_WMRR_OFFICE_ROW_KEYS
+            if extra:
+                _fail(
+                    "google_ads_insights.weekly_marketing_run_rate."
+                    f"office_budget_focus['{list_key}'][{idx}] has "
+                    f"unexpected keys: {sorted(extra)}"
+                )
+            if (
+                not isinstance(row.get("office"), str)
+                or not row["office"].strip()
+            ):
+                _fail(
+                    "google_ads_insights.weekly_marketing_run_rate."
+                    f"office_budget_focus['{list_key}'][{idx}]['office'] "
+                    "must be a non-empty string."
+                )
+    dcr = wmrr.get("daily_change_review")
+    if not isinstance(dcr, dict):
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            "daily_change_review must be an object."
+        )
+    missing_dcr = [k for k in REQUIRED_WMRR_DCR_KEYS if k not in dcr]
+    if missing_dcr:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            f"daily_change_review missing required fields: {missing_dcr}"
+        )
+    extra_dcr = set(dcr.keys()) - ALLOWED_WMRR_DCR_KEYS
+    if extra_dcr:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            f"daily_change_review has unexpected keys: {sorted(extra_dcr)}"
+        )
+    today = dcr.get("today_should_do")
+    if not isinstance(today, list) or not today:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            "daily_change_review.today_should_do must be a non-empty "
+            "list of priority/office/campaign/change rows."
+        )
+    for idx, row in enumerate(today):
+        if not isinstance(row, dict):
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"daily_change_review.today_should_do[{idx}] must be an "
+                "object."
+            )
+        missing = [
+            k for k in REQUIRED_WMRR_DCR_ROW_KEYS if k not in row
+        ]
+        if missing:
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"daily_change_review.today_should_do[{idx}] missing "
+                f"required fields: {sorted(missing)}"
+            )
+        extra = set(row.keys()) - ALLOWED_WMRR_DCR_ROW_KEYS
+        if extra:
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"daily_change_review.today_should_do[{idx}] has "
+                f"unexpected keys: {sorted(extra)}"
+            )
+        for k, v in row.items():
+            if not isinstance(v, str) or not v.strip():
+                _fail(
+                    "google_ads_insights.weekly_marketing_run_rate."
+                    f"daily_change_review.today_should_do[{idx}]['{k}'] "
+                    "must be a non-empty string."
+                )
+    fields = dcr.get("fields_to_log_each_day")
+    if not isinstance(fields, list) or not fields:
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            "daily_change_review.fields_to_log_each_day must be a "
+            "non-empty list of strings."
+        )
+    for idx_f, f in enumerate(fields):
+        if not isinstance(f, str) or not f.strip():
+            _fail(
+                "google_ads_insights.weekly_marketing_run_rate."
+                f"daily_change_review.fields_to_log_each_day[{idx_f}] "
+                "must be a non-empty string."
+            )
+    if (
+        not isinstance(dcr.get("status_note"), str)
+        or not dcr["status_note"].strip()
+    ):
+        _fail(
+            "google_ads_insights.weekly_marketing_run_rate."
+            "daily_change_review.status_note must be a non-empty string "
+            "explaining the dated-snapshot baseline."
+        )
 
 
 def check_b2b_reply_detail(snap: dict[str, Any]) -> None:

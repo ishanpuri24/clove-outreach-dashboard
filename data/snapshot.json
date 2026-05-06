@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-04T05:37:33.802394+00:00",
+  "generated_at": "2026-05-06T13:39:28.664071+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -13264,6 +13264,318 @@
           "last_7_cpa_usd": 158.26
         }
       ]
+    },
+    "weekly_marketing_run_rate": {
+      "title": "Weekly marketing run-rate",
+      "period": "Current 7-day pace, benchmarked against last month and dashboard medians",
+      "summary_cards": [
+        {
+          "label": "Projected weekly spend",
+          "value": "$20,665.19",
+          "basis": "$2,952.17 per day x 7",
+          "decision": "Hold total spend flat until low-CVR waste is cleaned; move dollars internally first."
+        },
+        {
+          "label": "Projected weekly conversions",
+          "value": "441.9",
+          "basis": "63.13 per day x 7",
+          "decision": "Grow only if CVR and booked-call quality hold while CPA stays near benchmark."
+        },
+        {
+          "label": "Projected weekly calls",
+          "value": "442.0",
+          "basis": "63.14 calls/day x 7",
+          "decision": "Use call quality as the new-patient guardrail before scaling winners."
+        },
+        {
+          "label": "Blended CPA",
+          "value": "$46.76",
+          "basis": "Current 7-day paid ads pace",
+          "decision": "Scale campaigns only if CPA remains near or below office/campaign benchmark."
+        },
+        {
+          "label": "Blended CVR",
+          "value": "9.7%",
+          "basis": "Clicks to conversions",
+          "decision": "Prioritize changes where CVR is below office/ad-group benchmark, not just high spend."
+        },
+        {
+          "label": "Blended CTR",
+          "value": "3.7%",
+          "basis": "Ad click-through rate",
+          "decision": "If CTR is stable but CVR is weak, fix intent/landing/tracking before writing more ads."
+        }
+      ],
+      "run_rate_rules": [
+        "Weekly run rate should be judged by conversions/day, booked-call quality, CVR, and CPA, not just spend pace.",
+        "If spend is flat but CVR improves, keep changes and shift more budget to the winning office/campaign.",
+        "If CPA improves only because spend was cut while conversions/day falls, do not call it a win.",
+        "Daily change notes should record what changed, why, expected metric movement, and whether tomorrow\u2019s CVR/CPA/conversions/day confirm it."
+      ],
+      "office_budget_focus": {
+        "rule": "Move budget inside the portfolio first: cut low-CVR/high-risk waste, then add only 10-15% to offices/campaigns with strong CVR, CPA, and booked-call quality.",
+        "reduce_or_reallocate_first": [
+          {
+            "office": "Santa Monica",
+            "p0_p1_p2": "2/2/0",
+            "today_change_needed": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "why": "Last-30 spend $12,705, high-risk share 74.8%, recent CVR 5.6%, vs office median -5.37 pts, actions P0/P1/P2 2/2/0.",
+            "top_ad_group_opportunity": "JZ-Search-Santa Monica / GEHA, Humana, Metlife, Delta, UHC, Aetna Deltacare (super cheap) /: Spending with zero conversions ($290, CVR 0.0%). City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 12704.94,
+            "high_risk_spend_30d": 9501.18,
+            "last_7_cvr_pct": 5.56,
+            "last_7_cpa_usd": 65.7
+          },
+          {
+            "office": "Sherman Oaks",
+            "p0_p1_p2": "2/2/0",
+            "today_change_needed": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "why": "Last-30 spend $12,559, high-risk share 65.8%, recent CVR 4.8%, vs office median -6.12 pts, actions P0/P1/P2 2/2/0.",
+            "top_ad_group_opportunity": "JZ-Search-SO-Spanish / dentista cerca de m\u00ed: Spending with zero conversions ($328, CVR 0.0%). Spanish local appointment intent; cut non-local Spanish research, jobs, and insurance-only mismatch.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 12558.6,
+            "high_risk_spend_30d": 8260.89,
+            "last_7_cvr_pct": 4.81,
+            "last_7_cpa_usd": 67.27
+          },
+          {
+            "office": "Oxnard Riverpark",
+            "p0_p1_p2": "1/1/1",
+            "today_change_needed": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "why": "Last-30 spend $7,301, high-risk share 61.9%, recent CVR 12.5%, vs office median 1.57 pts, actions P0/P1/P2 1/1/1.",
+            "top_ad_group_opportunity": "JZ-Search-Riverpark - Dentical / dentical: Spending with zero conversions ($322, CVR 0.0%). Denti-Cal eligible local appointment terms; cut unsupported insurance, free-care research, and out-of-area clicks.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 7300.86,
+            "high_risk_spend_30d": 4518.63,
+            "last_7_cvr_pct": 12.5,
+            "last_7_cpa_usd": 43.82
+          },
+          {
+            "office": "Camarillo",
+            "p0_p1_p2": "1/3/0",
+            "today_change_needed": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "why": "Last-30 spend $7,735, high-risk share 44.9%, recent CVR 10.8%, vs office median -0.08 pts, actions P0/P1/P2 1/3/0.",
+            "top_ad_group_opportunity": "JZ-Search-Cam - Dentical / dentical: Spending with zero conversions ($332, CVR 0.0%). Denti-Cal eligible local appointment terms; cut unsupported insurance, free-care research, and out-of-area clicks.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 7735.37,
+            "high_risk_spend_30d": 3469.48,
+            "last_7_cvr_pct": 10.85,
+            "last_7_cpa_usd": 56.59
+          },
+          {
+            "office": "Encino",
+            "p0_p1_p2": "1/0/2",
+            "today_change_needed": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "why": "Last-30 spend $8,303, high-risk share 34.7%, recent CVR 17.3%, vs office median 6.41 pts, actions P0/P1/P2 1/0/2.",
+            "top_ad_group_opportunity": "JZ-Search-Encino / GEHA, Humana, Metlife, Delta, UHC, Aetna Deltacare (super cheap) / Deltacare HMO: Spending with zero conversions ($251, CVR 0.0%). City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 8302.99,
+            "high_risk_spend_30d": 2878.44,
+            "last_7_cvr_pct": 17.34,
+            "last_7_cpa_usd": 45.7
+          },
+          {
+            "office": "Beverly Hills",
+            "p0_p1_p2": "0/1/0",
+            "today_change_needed": "Reduce pressure and clean the named ad group before moving budget back.",
+            "why": "Last-30 spend $10,362, high-risk share 25.8%, recent CVR 11.0%, vs office median 0.08 pts, actions P0/P1/P2 0/1/0.",
+            "top_ad_group_opportunity": "Beverly Hills / All Keywords: Below CVR benchmark ($565, CVR 4.7%). City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 10362.25,
+            "high_risk_spend_30d": 2671.51,
+            "last_7_cvr_pct": 11.01,
+            "last_7_cpa_usd": 57.52
+          },
+          {
+            "office": "All Offices / Ayur",
+            "p0_p1_p2": "0/0/1",
+            "today_change_needed": "Hold or small-scale only after the named ad group keeps CVR above benchmark.",
+            "why": "Last-30 spend $3,727, high-risk share 50.8%, recent CVR 8.0%, vs office median -2.89 pts, actions P0/P1/P2 0/0/1.",
+            "top_ad_group_opportunity": "Sleep / Ad group 1: Spending with zero conversions ($223, CVR 0.0%). City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 3727.31,
+            "high_risk_spend_30d": 1893.92,
+            "last_7_cvr_pct": 8.04,
+            "last_7_cpa_usd": 47.99
+          },
+          {
+            "office": "Hillview",
+            "p0_p1_p2": "0/1/1",
+            "today_change_needed": "Reduce pressure and clean the named ad group before moving budget back.",
+            "why": "Last-30 spend $6,331, high-risk share 29.1%, recent CVR 16.8%, vs office median 5.91 pts, actions P0/P1/P2 0/1/1.",
+            "top_ad_group_opportunity": "JZ-Search-Hillview - Dentical / dentical: Spending with zero conversions ($94, CVR 0.0%). Denti-Cal eligible local appointment terms; cut unsupported insurance, free-care research, and out-of-area clicks.",
+            "run_rate_call": "Reduce or reallocate before adding spend.",
+            "current_spend_30d": 6330.96,
+            "high_risk_spend_30d": 1844.91,
+            "last_7_cvr_pct": 16.84,
+            "last_7_cpa_usd": 31.13
+          }
+        ],
+        "protect_or_scale_after_quality_check": [
+          {
+            "office": "Riverpark AI",
+            "p0_p1_p2": "0/0/0",
+            "today_change_needed": "Hold budget; protect exact/phrase terms and avoid broad expansion until capacity and lead quality are confirmed.",
+            "why": "Last-30 spend $844, high-risk share 0.0%, recent CVR 15.9%, vs office median 4.98 pts, actions P0/P1/P2 0/0/0.",
+            "top_ad_group_opportunity": "",
+            "run_rate_call": "Potential scale candidate after lead-quality check.",
+            "current_spend_30d": 843.62,
+            "high_risk_spend_30d": 0.0,
+            "last_7_cvr_pct": 15.91,
+            "last_7_cpa_usd": 26.1
+          },
+          {
+            "office": "Ayur - Problem",
+            "p0_p1_p2": "0/0/1",
+            "today_change_needed": "Hold or small-scale only after the named ad group keeps CVR above benchmark.",
+            "why": "Last-30 spend $2,807, high-risk share 0.0%, recent CVR 14.8%, vs office median 3.88 pts, actions P0/P1/P2 0/0/1.",
+            "top_ad_group_opportunity": "",
+            "run_rate_call": "Potential scale candidate after lead-quality check.",
+            "current_spend_30d": 2807.29,
+            "high_risk_spend_30d": 0.0,
+            "last_7_cvr_pct": 14.81,
+            "last_7_cpa_usd": 27.11
+          }
+        ]
+      },
+      "daily_change_review": {
+        "title": "Daily changes vs what we should be doing",
+        "status_note": "Current public snapshot is a single-day baseline. Once the daily task saves dated snapshots, this section can show actual day-by-day changes and whether each change worked.",
+        "today_should_do": [
+          {
+            "priority": "P0",
+            "office": "Sherman Oaks",
+            "campaign": "JZ-Search-Sherman Oaks",
+            "change_to_make": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "benchmark_reason": "Campaign CVR 0.0% vs last month 0.94% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P0",
+            "office": "Santa Monica",
+            "campaign": "JZ-Search-Santa Monica",
+            "change_to_make": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "benchmark_reason": "Campaign CVR 0.0% vs last month 0.0% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P0",
+            "office": "Encino",
+            "campaign": "JZ-Search-Encino",
+            "change_to_make": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "benchmark_reason": "Campaign CVR 0.0% vs last month 1.19% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P0",
+            "office": "Santa Monica",
+            "campaign": "JZ-Pmax",
+            "change_to_make": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "benchmark_reason": "Campaign CVR 0.0% vs last month 0.0%.",
+            "keyword_or_ad_group_focus": "Cut non-local, jobs, school, free/DIY, supplies, and low-intent research terms.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P0",
+            "office": "Camarillo",
+            "campaign": "JZ-Search-Cam - Dentical",
+            "change_to_make": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "benchmark_reason": "Campaign CVR 0.0% vs last month 1.51% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "Denti-Cal eligible local appointment terms; cut unsupported insurance, free-care research, and out-of-area clicks.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P0",
+            "office": "Sherman Oaks",
+            "campaign": "JZ-Search-SO-Spanish",
+            "change_to_make": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "benchmark_reason": "Campaign CVR 0.0% vs last month 0.34% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "Spanish local appointment intent; cut non-local Spanish research, jobs, and insurance-only mismatch.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P0",
+            "office": "Oxnard Riverpark",
+            "campaign": "JZ-Search-Riverpark - Dentical",
+            "change_to_make": "Pause/cut this campaign until the named ad group/search terms are cleaned or tracking is fixed.",
+            "benchmark_reason": "Campaign CVR 0.0% vs last month 0.46% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "Denti-Cal eligible local appointment terms; cut unsupported insurance, free-care research, and out-of-area clicks.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P1",
+            "office": "Oxnard Riverpark",
+            "campaign": "JZ-Search-Riverpark",
+            "change_to_make": "Reduce pressure and clean the named ad group before moving budget back.",
+            "benchmark_reason": "Campaign CVR 5.6% vs last month 5.6% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P1",
+            "office": "Sherman Oaks",
+            "campaign": "JZ-PMAX",
+            "change_to_make": "Reduce pressure and clean the named ad group before moving budget back.",
+            "benchmark_reason": "Campaign CVR 3.41% vs last month 2.65%.",
+            "keyword_or_ad_group_focus": "Cut non-local, jobs, school, free/DIY, supplies, and low-intent research terms.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P1",
+            "office": "Beverly Hills",
+            "campaign": "Beverly Hills",
+            "change_to_make": "Reduce pressure and clean the named ad group before moving budget back.",
+            "benchmark_reason": "Campaign CVR 4.74% vs last month 4.42% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P1",
+            "office": "Santa Monica",
+            "campaign": "Pmax - emergency 18/6/25",
+            "change_to_make": "Reduce pressure and clean the named ad group before moving budget back.",
+            "benchmark_reason": "Campaign CVR 8.06% vs last month 7.74%.",
+            "keyword_or_ad_group_focus": "Cut non-local, jobs, school, free/DIY, supplies, and low-intent research terms.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          },
+          {
+            "priority": "P1",
+            "office": "Santa Monica",
+            "campaign": "General-Search-22/3/25",
+            "change_to_make": "Reduce pressure and clean the named ad group before moving budget back.",
+            "benchmark_reason": "Campaign CVR 9.09% vs last month 9.82% and ad-group median 8.0%.",
+            "keyword_or_ad_group_focus": "City + dentist/service phrase/exact terms; cut jobs, school, supplies, free/DIY, and out-of-area cities.",
+            "success_check": "CVR improves versus benchmark and CPA moves toward last-month baseline; do not judge on spend alone.",
+            "tomorrow_learning": "Tomorrow compare CVR, CPA, and conversions/day against this benchmark before keeping or reversing the change."
+          }
+        ],
+        "fields_to_log_each_day": [
+          "date",
+          "office",
+          "campaign/ad group",
+          "change made",
+          "expected CVR/CPA/conversions-day movement",
+          "actual next-day CVR",
+          "actual next-day CPA",
+          "actual next-day conversions/day",
+          "keep/reverse/scale decision"
+        ]
+      }
     }
   },
   "_sanitization": {

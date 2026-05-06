@@ -218,6 +218,56 @@ _OFFICE_SPEND_OPP_PROTECT_KEYS = (
     "conversion_rate_pct",
 )
 
+# Weekly marketing run-rate. Renders projected weekly spend / conversions
+# / calls plus blended CPA / CVR / CTR cards, the run-rate decision
+# rules, office-budget focus (reduce vs protect/scale), and the
+# daily-change review (priority action rows + log fields + baseline
+# note).
+_WMRR_TOP_KEYS = (
+    "title",
+    "period",
+    "summary_cards",
+    "run_rate_rules",
+    "office_budget_focus",
+    "daily_change_review",
+)
+_WMRR_SUMMARY_CARD_KEYS = ("label", "value", "basis", "decision")
+_WMRR_OFFICE_FOCUS_KEYS = (
+    "reduce_or_reallocate_first",
+    "protect_or_scale_after_quality_check",
+    "rule",
+)
+_WMRR_OFFICE_ROW_STR_KEYS = (
+    "office",
+    "p0_p1_p2",
+    "today_change_needed",
+    "why",
+    "top_ad_group_opportunity",
+    "run_rate_call",
+)
+_WMRR_OFFICE_ROW_NUM_KEYS = (
+    "current_spend_30d",
+    "high_risk_spend_30d",
+    "last_7_cvr_pct",
+    "last_7_cpa_usd",
+)
+_WMRR_DCR_KEYS = (
+    "title",
+    "today_should_do",
+    "fields_to_log_each_day",
+    "status_note",
+)
+_WMRR_DCR_ROW_KEYS = (
+    "priority",
+    "office",
+    "campaign",
+    "change_to_make",
+    "benchmark_reason",
+    "keyword_or_ad_group_focus",
+    "success_check",
+    "tomorrow_learning",
+)
+
 
 def _sanitize_paid_ads_top_summary(rec: Any) -> dict[str, Any] | None:
     """Whitelist the v5 paid_ads_top_summary block.
@@ -457,6 +507,118 @@ def _sanitize_office_spend_opportunities(rec: Any) -> dict[str, Any] | None:
                 cleaned_rows.append(cleaned)
         if cleaned_rows:
             out["rows"] = cleaned_rows
+    return out or None
+
+
+def _sanitize_weekly_marketing_run_rate(rec: Any) -> dict[str, Any] | None:
+    """Whitelist the weekly_marketing_run_rate block.
+
+    Strips any unexpected keys at every level. Summary cards, run-rate
+    rules, office budget focus rows (reduce vs protect), and the
+    daily-change review rows are all coerced to the public-mirror
+    shape; everything else is dropped.
+    """
+    if not isinstance(rec, dict):
+        return None
+    out: dict[str, Any] = {}
+    for key in ("title", "period"):
+        val = rec.get(key)
+        if isinstance(val, str) and val.strip():
+            out[key] = val
+    cards = rec.get("summary_cards")
+    if isinstance(cards, list):
+        cleaned_cards: list[dict[str, str]] = []
+        for card in cards:
+            if not isinstance(card, dict):
+                continue
+            row: dict[str, str] = {}
+            for key in _WMRR_SUMMARY_CARD_KEYS:
+                val = card.get(key)
+                if val is None:
+                    continue
+                row[key] = str(val)
+            if row:
+                cleaned_cards.append(row)
+        if cleaned_cards:
+            out["summary_cards"] = cleaned_cards
+    rules = rec.get("run_rate_rules")
+    if isinstance(rules, list):
+        cleaned_rules = [str(r) for r in rules if r is not None]
+        if cleaned_rules:
+            out["run_rate_rules"] = cleaned_rules
+    ofb = rec.get("office_budget_focus")
+    if isinstance(ofb, dict):
+        cleaned_ofb: dict[str, Any] = {}
+        if isinstance(ofb.get("rule"), str):
+            cleaned_ofb["rule"] = ofb["rule"]
+        for list_key in (
+            "reduce_or_reallocate_first",
+            "protect_or_scale_after_quality_check",
+        ):
+            rows = ofb.get(list_key)
+            if not isinstance(rows, list):
+                continue
+            cleaned_rows: list[dict[str, Any]] = []
+            for row in rows:
+                if not isinstance(row, dict):
+                    continue
+                cleaned: dict[str, Any] = {}
+                for key in _WMRR_OFFICE_ROW_STR_KEYS:
+                    if key not in row:
+                        continue
+                    val = row.get(key)
+                    if val is None:
+                        continue
+                    cleaned[key] = str(val)
+                for key in _WMRR_OFFICE_ROW_NUM_KEYS:
+                    if key not in row:
+                        continue
+                    val = row.get(key)
+                    if val is None:
+                        cleaned[key] = None
+                        continue
+                    try:
+                        cleaned[key] = float(val)
+                    except (TypeError, ValueError):
+                        cleaned[key] = None
+                if cleaned:
+                    cleaned_rows.append(cleaned)
+            if cleaned_rows:
+                cleaned_ofb[list_key] = cleaned_rows
+        if cleaned_ofb:
+            out["office_budget_focus"] = cleaned_ofb
+    dcr = rec.get("daily_change_review")
+    if isinstance(dcr, dict):
+        cleaned_dcr: dict[str, Any] = {}
+        for key in ("title", "status_note"):
+            val = dcr.get(key)
+            if isinstance(val, str) and val.strip():
+                cleaned_dcr[key] = val
+        today = dcr.get("today_should_do")
+        if isinstance(today, list):
+            cleaned_today: list[dict[str, str]] = []
+            for row in today:
+                if not isinstance(row, dict):
+                    continue
+                cleaned_row: dict[str, str] = {}
+                for key in _WMRR_DCR_ROW_KEYS:
+                    if key not in row:
+                        continue
+                    val = row.get(key)
+                    if val is None:
+                        continue
+                    cleaned_row[key] = str(val)
+                if cleaned_row:
+                    cleaned_today.append(cleaned_row)
+            if cleaned_today:
+                cleaned_dcr["today_should_do"] = cleaned_today
+        fields = dcr.get("fields_to_log_each_day")
+        if isinstance(fields, list):
+            cleaned_fields = [str(f) for f in fields if f is not None]
+            if cleaned_fields:
+                cleaned_dcr["fields_to_log_each_day"] = cleaned_fields
+        if cleaned_dcr:
+            out["daily_change_review"] = cleaned_dcr
     return out or None
 
 
@@ -991,6 +1153,13 @@ def apply_snapshot_shaped_payload(payload: dict[str, Any]) -> dict[str, Any]:
             ads["office_spend_opportunities"] = oso
         elif "office_spend_opportunities" in ads:
             ads.pop("office_spend_opportunities", None)
+        wmrr = _sanitize_weekly_marketing_run_rate(
+            ads.get("weekly_marketing_run_rate")
+        )
+        if wmrr:
+            ads["weekly_marketing_run_rate"] = wmrr
+        elif "weekly_marketing_run_rate" in ads:
+            ads.pop("weekly_marketing_run_rate", None)
     return snap
 
 
@@ -1047,6 +1216,9 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
     )
     office_spend_opportunities = _sanitize_office_spend_opportunities(
         google_ads.get("office_spend_opportunities")
+    )
+    weekly_marketing_run_rate = _sanitize_weekly_marketing_run_rate(
+        google_ads.get("weekly_marketing_run_rate")
     )
     dashboard_priorities = payload.get("dashboard_priorities") or []
 
@@ -1188,6 +1360,7 @@ def apply_payload(payload: dict[str, Any]) -> dict[str, Any]:
         "daily_improvement_loop": daily_improvement_loop or {},
         "dashboard_priorities": dashboard_priorities,
         "office_spend_opportunities": office_spend_opportunities or {},
+        "weekly_marketing_run_rate": weekly_marketing_run_rate or {},
     }
 
     snap["google_ads_insights"] = insights

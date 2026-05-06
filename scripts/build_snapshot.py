@@ -574,6 +574,111 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
             for k in list(loop.keys()):
                 if k not in allowed_daily_loop_keys:
                     loop.pop(k, None)
+
+        # ---- Weekly marketing run-rate ----
+        # Strict whitelist on the weekly_marketing_run_rate block. The
+        # block carries blended weekly summary cards, run-rate rules,
+        # office budget focus, daily change review, and field/baseline
+        # notes. Anything else is dropped before the public write.
+        allowed_wmrr_top_keys = {
+            "title",
+            "period",
+            "summary_cards",
+            "run_rate_rules",
+            "office_budget_focus",
+            "daily_change_review",
+        }
+        allowed_wmrr_summary_card_keys = {
+            "label",
+            "value",
+            "basis",
+            "decision",
+        }
+        allowed_wmrr_office_focus_keys = {
+            "reduce_or_reallocate_first",
+            "protect_or_scale_after_quality_check",
+            "rule",
+        }
+        allowed_wmrr_office_row_str_keys = {
+            "office",
+            "p0_p1_p2",
+            "today_change_needed",
+            "why",
+            "top_ad_group_opportunity",
+            "run_rate_call",
+        }
+        allowed_wmrr_office_row_num_keys = {
+            "current_spend_30d",
+            "high_risk_spend_30d",
+            "last_7_cvr_pct",
+            "last_7_cpa_usd",
+        }
+        allowed_wmrr_dcr_keys = {
+            "title",
+            "today_should_do",
+            "fields_to_log_each_day",
+            "status_note",
+        }
+        allowed_wmrr_dcr_row_keys = {
+            "priority",
+            "office",
+            "campaign",
+            "change_to_make",
+            "benchmark_reason",
+            "keyword_or_ad_group_focus",
+            "success_check",
+            "tomorrow_learning",
+        }
+        wmrr = ads.get("weekly_marketing_run_rate")
+        if isinstance(wmrr, dict):
+            for k in list(wmrr.keys()):
+                if k not in allowed_wmrr_top_keys:
+                    wmrr.pop(k, None)
+            cards = wmrr.get("summary_cards")
+            if isinstance(cards, list):
+                for card in cards:
+                    if not isinstance(card, dict):
+                        continue
+                    for k in list(card.keys()):
+                        if k not in allowed_wmrr_summary_card_keys:
+                            card.pop(k, None)
+            ofb = wmrr.get("office_budget_focus")
+            if isinstance(ofb, dict):
+                for k in list(ofb.keys()):
+                    if k not in allowed_wmrr_office_focus_keys:
+                        ofb.pop(k, None)
+                for list_key in (
+                    "reduce_or_reallocate_first",
+                    "protect_or_scale_after_quality_check",
+                ):
+                    rows = ofb.get(list_key)
+                    if isinstance(rows, list):
+                        for row in rows:
+                            if not isinstance(row, dict):
+                                continue
+                            for k in list(row.keys()):
+                                if (
+                                    k not in allowed_wmrr_office_row_str_keys
+                                    and k not in allowed_wmrr_office_row_num_keys
+                                ):
+                                    row.pop(k, None)
+                            for key in forbidden_account_keys:
+                                row.pop(key, None)
+            dcr = wmrr.get("daily_change_review")
+            if isinstance(dcr, dict):
+                for k in list(dcr.keys()):
+                    if k not in allowed_wmrr_dcr_keys:
+                        dcr.pop(k, None)
+                today = dcr.get("today_should_do")
+                if isinstance(today, list):
+                    for row in today:
+                        if not isinstance(row, dict):
+                            continue
+                        for k in list(row.keys()):
+                            if k not in allowed_wmrr_dcr_row_keys:
+                                row.pop(k, None)
+                        for key in forbidden_account_keys:
+                            row.pop(key, None)
         trends = ads.get("trends") or {}
         if isinstance(trends, dict):
             for row in trends.get("by_office") or []:
