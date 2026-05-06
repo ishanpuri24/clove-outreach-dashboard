@@ -690,6 +690,71 @@ def sanitize_for_public(snap: dict[str, Any]) -> dict[str, Any]:
                     for key in forbidden_account_keys:
                         row.pop(key, None)
                     _scrub_specific_recommendation(row)
+        # CallRail enrichment: scrub raw-record / identifier / PII keys
+        # at any depth before publishing. The sanitized aggregates the
+        # private builder produces should already be free of these,
+        # but the public mirror enforces the contract here too.
+        forbidden_callrail_keys = {
+            "account_id",
+            "account_ids",
+            "callrail_account_id",
+            "company_id",
+            "company_ids",
+            "callrail_company_id",
+            "tracker_id",
+            "tracker_ids",
+            "api_key",
+            "api_token",
+            "token",
+            "api_secret",
+            "customer_phone_number",
+            "tracking_phone_number",
+            "business_phone_number",
+            "customer_name",
+            "caller_name",
+            "customer_email",
+            "caller_email",
+            "caller_country",
+            "caller_city",
+            "caller_state",
+            "caller_zip",
+            "caller_postal_code",
+            "recording",
+            "recording_url",
+            "recording_duration",
+            "transcription",
+            "transcription_text",
+            "transcript",
+            "call_highlights",
+            "conversation_intelligence",
+            "agent_email",
+            "agent_name",
+            "gclid",
+            "gbraid",
+            "wbraid",
+            "fbclid",
+            "calls",
+            "call_records",
+            "raw_calls",
+            "raw_call",
+            "raw_call_records",
+        }
+
+        def _scrub_callrail(node: Any) -> None:
+            if isinstance(node, dict):
+                for key in list(node.keys()):
+                    if key in forbidden_callrail_keys:
+                        node.pop(key, None)
+                for v in node.values():
+                    _scrub_callrail(v)
+            elif isinstance(node, list):
+                for item in node:
+                    _scrub_callrail(item)
+
+        callrail = ads.get("callrail_call_quality")
+        if isinstance(callrail, dict):
+            _scrub_callrail(callrail)
+            ads["callrail_call_quality"] = callrail
         out["google_ads_insights"] = ads
 
     kf = out.get("google_ads_keyword_focus")

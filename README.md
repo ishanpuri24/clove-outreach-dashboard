@@ -131,6 +131,17 @@ re-injects the JSON into `index.html` after every sanitization, and
   for the rollup, by office, and by campaign. Spend / day,
   conversions / day, phone calls / day, CPA, CPC, conversion rate,
   and Improving / Worsening / Needs review / Stable / Noisy badges.
+- CallRail call quality: aggregated qualified calls (CallRail
+  `lead_status = good_lead`), first-time callers, answered/missed
+  counts, qualified-call CPA where paid spend is attributable, plus
+  per-office, per-campaign, and per-ad-group call quality and a
+  missed-call leakage view. Only counts, rates, and labels appear in
+  the public mirror - raw call records, caller phone numbers, names,
+  emails, CallRail account/company/tracker IDs, GCLIDs, and recordings
+  or transcripts are blocked at sanitization and re-checked by the
+  validator. See [`docs/integrations/callrail.md`](./docs/integrations/callrail.md)
+  and [`config/callrail.example.yaml`](./config/callrail.example.yaml)
+  for the private-side config template.
 - Keyword theme focus: protect-or-expand and tighten-or-pause
   themes, listed by office and campaign so the next inspection is
   obvious.

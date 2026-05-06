@@ -92,7 +92,190 @@ REQUIRED_GOOGLE_ADS_FIELDS = [
     "daily_improvement_loop",
     "office_spend_opportunities",
     "weekly_marketing_run_rate",
+    "callrail_call_quality",
 ]
+
+# CallRail call-quality section. Aggregated counts and rates sourced
+# from the CallRail Calls API v3 (lead_status, answered, first_call)
+# joined to the paid-ads campaign/ad-group layer. Every key in this
+# section is a label, count, or rate - raw call records, caller
+# numbers/names/emails, and CallRail account/company IDs are rejected
+# outright by FORBIDDEN_CALLRAIL_KEYS below.
+REQUIRED_CALLRAIL_TOP_KEYS = [
+    "title",
+    "period",
+    "source_note",
+    "qualification_note",
+    "lead_status_legend",
+    "summary_cards",
+    "call_outcome_breakdown",
+    "office_call_quality",
+    "campaign_call_quality",
+    "ad_group_call_quality",
+    "missed_call_leakage",
+    "integration_status",
+]
+ALLOWED_CALLRAIL_TOP_KEYS = set(REQUIRED_CALLRAIL_TOP_KEYS + ["placement"])
+
+REQUIRED_CALLRAIL_SUMMARY_LABELS = {
+    "Qualified calls (last 7d)",
+    "Qualified-call rate",
+    "First-time callers",
+    "Answered calls",
+    "Missed calls",
+    "Qualified-call CPA",
+}
+ALLOWED_CALLRAIL_SUMMARY_CARD_KEYS = {"label", "value", "basis", "decision"}
+REQUIRED_CALLRAIL_SUMMARY_CARD_KEYS = ["label", "value", "basis", "decision"]
+
+ALLOWED_CALLRAIL_LEGEND_KEYS = {"lead_status", "label", "meaning"}
+REQUIRED_CALLRAIL_LEGEND_KEYS = list(ALLOWED_CALLRAIL_LEGEND_KEYS)
+
+ALLOWED_CALLRAIL_OUTCOME_TOP_KEYS = {"title", "rule", "rows"}
+REQUIRED_CALLRAIL_OUTCOME_TOP_KEYS = list(ALLOWED_CALLRAIL_OUTCOME_TOP_KEYS)
+ALLOWED_CALLRAIL_OUTCOME_ROW_KEYS = {"outcome", "count", "share_pct", "note"}
+REQUIRED_CALLRAIL_OUTCOME_ROW_KEYS = list(ALLOWED_CALLRAIL_OUTCOME_ROW_KEYS)
+
+ALLOWED_CALLRAIL_OFFICE_TOP_KEYS = {"title", "rule", "rows"}
+REQUIRED_CALLRAIL_OFFICE_TOP_KEYS = list(ALLOWED_CALLRAIL_OFFICE_TOP_KEYS)
+ALLOWED_CALLRAIL_OFFICE_ROW_KEYS = {
+    "office",
+    "total_calls",
+    "answered_calls",
+    "answered_rate_pct",
+    "qualified_calls",
+    "qualified_rate_pct",
+    "first_time_callers",
+    "missed_calls",
+    "missed_rate_pct",
+    "qualified_cpa_usd",
+    "status",
+    "note",
+}
+REQUIRED_CALLRAIL_OFFICE_ROW_KEYS = [
+    "office",
+    "total_calls",
+    "qualified_calls",
+    "qualified_rate_pct",
+    "first_time_callers",
+    "missed_calls",
+    "status",
+]
+
+ALLOWED_CALLRAIL_CAMPAIGN_TOP_KEYS = {"title", "rule", "rows"}
+REQUIRED_CALLRAIL_CAMPAIGN_TOP_KEYS = list(ALLOWED_CALLRAIL_CAMPAIGN_TOP_KEYS)
+ALLOWED_CALLRAIL_CAMPAIGN_ROW_KEYS = {
+    "office",
+    "campaign",
+    "channel",
+    "total_calls",
+    "qualified_calls",
+    "qualified_rate_pct",
+    "first_time_callers",
+    "missed_calls",
+    "qualified_cpa_usd",
+    "recommended_action",
+}
+REQUIRED_CALLRAIL_CAMPAIGN_ROW_KEYS = [
+    "office",
+    "campaign",
+    "total_calls",
+    "qualified_calls",
+    "qualified_rate_pct",
+    "recommended_action",
+]
+
+ALLOWED_CALLRAIL_AD_GROUP_TOP_KEYS = {"title", "rule", "rows"}
+REQUIRED_CALLRAIL_AD_GROUP_TOP_KEYS = list(ALLOWED_CALLRAIL_AD_GROUP_TOP_KEYS)
+ALLOWED_CALLRAIL_AD_GROUP_ROW_KEYS = {
+    "office",
+    "campaign",
+    "ad_group",
+    "qualified_calls",
+    "qualified_rate_pct",
+    "missed_calls",
+    "keyword_focus",
+}
+REQUIRED_CALLRAIL_AD_GROUP_ROW_KEYS = list(ALLOWED_CALLRAIL_AD_GROUP_ROW_KEYS)
+
+ALLOWED_CALLRAIL_LEAKAGE_TOP_KEYS = {"title", "rule", "totals", "rows"}
+REQUIRED_CALLRAIL_LEAKAGE_TOP_KEYS = list(ALLOWED_CALLRAIL_LEAKAGE_TOP_KEYS)
+ALLOWED_CALLRAIL_LEAKAGE_TOTALS_KEYS = {
+    "missed_calls_last_7d",
+    "paid_clicks_lost_estimate",
+    "estimated_spend_lost_usd",
+    "basis",
+}
+REQUIRED_CALLRAIL_LEAKAGE_TOTALS_KEYS = list(
+    ALLOWED_CALLRAIL_LEAKAGE_TOTALS_KEYS
+)
+ALLOWED_CALLRAIL_LEAKAGE_ROW_KEYS = {
+    "office",
+    "missed_calls",
+    "peak_window",
+    "estimated_spend_lost_usd",
+    "next_step",
+}
+REQUIRED_CALLRAIL_LEAKAGE_ROW_KEYS = list(ALLOWED_CALLRAIL_LEAKAGE_ROW_KEYS)
+
+ALLOWED_CALLRAIL_INTEGRATION_KEYS = {
+    "integration",
+    "status",
+    "public_exposure",
+    "private_config_fields",
+    "docs_reference",
+}
+REQUIRED_CALLRAIL_INTEGRATION_KEYS = list(ALLOWED_CALLRAIL_INTEGRATION_KEYS)
+
+# Keys that must never appear anywhere inside callrail_call_quality -
+# these are the CallRail-specific identifiers and raw-record fields
+# that would re-introduce PII or private account identifiers if they
+# ever leaked into the public mirror.
+FORBIDDEN_CALLRAIL_KEYS = {
+    "account_id",
+    "account_ids",
+    "callrail_account_id",
+    "company_id",
+    "company_ids",
+    "callrail_company_id",
+    "tracker_id",
+    "tracker_ids",
+    "api_key",
+    "api_token",
+    "token",
+    "api_secret",
+    "customer_phone_number",
+    "tracking_phone_number",
+    "business_phone_number",
+    "customer_name",
+    "caller_name",
+    "customer_email",
+    "caller_email",
+    "caller_country",
+    "caller_city",
+    "caller_state",
+    "caller_zip",
+    "caller_postal_code",
+    "recording",
+    "recording_url",
+    "recording_duration",
+    "transcription",
+    "transcription_text",
+    "transcript",
+    "call_highlights",
+    "conversation_intelligence",
+    "agent_email",
+    "agent_name",
+    "gclid",
+    "gbraid",
+    "wbraid",
+    "fbclid",
+    "calls",
+    "call_records",
+    "raw_calls",
+    "raw_call",
+    "raw_call_records",
+}
 
 REQUIRED_TREND_WINDOW_FIELDS = [
     "spend_per_day",
@@ -1670,6 +1853,344 @@ def check_google_ads_insights(snap: dict[str, Any]) -> None:
             "daily_change_review.status_note must be a non-empty string "
             "explaining the dated-snapshot baseline."
         )
+
+    # ---- callrail_call_quality ----
+    check_callrail_call_quality(ads)
+
+
+def _scan_callrail_for_forbidden(node: Any, path: str) -> None:
+    """Walk the callrail block and reject CallRail-specific identifier
+    or raw-record keys at any depth."""
+    if isinstance(node, dict):
+        leaked = FORBIDDEN_CALLRAIL_KEYS.intersection(node.keys())
+        if leaked:
+            _fail(
+                f"google_ads_insights.callrail_call_quality{path} exposes "
+                f"forbidden CallRail keys {sorted(leaked)}; raw call "
+                "records, account/company IDs, tokens, caller PII, and "
+                "Google Ads click IDs must never appear in the public "
+                "mirror."
+            )
+        for k, v in node.items():
+            _scan_callrail_for_forbidden(v, f"{path}.{k}")
+    elif isinstance(node, list):
+        for i, item in enumerate(node):
+            _scan_callrail_for_forbidden(item, f"{path}[{i}]")
+
+
+def check_callrail_call_quality(ads: dict[str, Any]) -> None:
+    cr = ads.get("callrail_call_quality")
+    if not isinstance(cr, dict):
+        _fail(
+            "google_ads_insights.callrail_call_quality must be an object "
+            "rendered under the Paid Ads tab. Aggregated CallRail call "
+            "quality (qualified by lead_status, first-time callers, "
+            "answered/missed, qualified-call CPA) is required so the "
+            "public dashboard can surface call-conversion enrichment "
+            "without exposing raw call records."
+        )
+    missing = [k for k in REQUIRED_CALLRAIL_TOP_KEYS if k not in cr]
+    if missing:
+        _fail(
+            "google_ads_insights.callrail_call_quality missing required "
+            f"fields: {missing}"
+        )
+    extra = set(cr.keys()) - ALLOWED_CALLRAIL_TOP_KEYS
+    if extra:
+        _fail(
+            "google_ads_insights.callrail_call_quality has unexpected "
+            f"keys: {sorted(extra)}"
+        )
+
+    # Reject CallRail-specific identifiers / raw-record keys anywhere
+    # inside this section.
+    _scan_callrail_for_forbidden(cr, "")
+
+    legend = cr.get("lead_status_legend")
+    if not isinstance(legend, list) or not legend:
+        _fail(
+            "google_ads_insights.callrail_call_quality.lead_status_legend "
+            "must be a non-empty list explaining the CallRail lead_status "
+            "values that count as qualified."
+        )
+    for idx, row in enumerate(legend):
+        if not isinstance(row, dict):
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"lead_status_legend[{idx}] must be an object."
+            )
+        missing = [
+            k for k in REQUIRED_CALLRAIL_LEGEND_KEYS if k not in row
+        ]
+        if missing:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"lead_status_legend[{idx}] missing required fields: "
+                f"{missing}"
+            )
+        extra = set(row.keys()) - ALLOWED_CALLRAIL_LEGEND_KEYS
+        if extra:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"lead_status_legend[{idx}] has unexpected keys: "
+                f"{sorted(extra)}"
+            )
+
+    cards = cr.get("summary_cards")
+    if not isinstance(cards, list) or not cards:
+        _fail(
+            "google_ads_insights.callrail_call_quality.summary_cards must "
+            "be a non-empty list of {label, value, basis, decision} rows."
+        )
+    seen_labels: set[str] = set()
+    for idx, card in enumerate(cards):
+        if not isinstance(card, dict):
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"summary_cards[{idx}] must be an object."
+            )
+        missing = [
+            k for k in REQUIRED_CALLRAIL_SUMMARY_CARD_KEYS if k not in card
+        ]
+        if missing:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"summary_cards[{idx}] missing required keys: {missing}"
+            )
+        extra = set(card.keys()) - ALLOWED_CALLRAIL_SUMMARY_CARD_KEYS
+        if extra:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"summary_cards[{idx}] has unexpected keys: {sorted(extra)}"
+            )
+        for k, v in card.items():
+            if not isinstance(v, str) or not v.strip():
+                _fail(
+                    "google_ads_insights.callrail_call_quality."
+                    f"summary_cards[{idx}]['{k}'] must be a non-empty string."
+                )
+        seen_labels.add(card.get("label", ""))
+    missing_labels = REQUIRED_CALLRAIL_SUMMARY_LABELS - seen_labels
+    if missing_labels:
+        _fail(
+            "google_ads_insights.callrail_call_quality.summary_cards "
+            f"missing required labels: {sorted(missing_labels)}"
+        )
+
+    outcome = cr.get("call_outcome_breakdown")
+    if not isinstance(outcome, dict):
+        _fail(
+            "google_ads_insights.callrail_call_quality."
+            "call_outcome_breakdown must be an object."
+        )
+    missing = [
+        k for k in REQUIRED_CALLRAIL_OUTCOME_TOP_KEYS if k not in outcome
+    ]
+    if missing:
+        _fail(
+            "google_ads_insights.callrail_call_quality."
+            f"call_outcome_breakdown missing required fields: {missing}"
+        )
+    extra = set(outcome.keys()) - ALLOWED_CALLRAIL_OUTCOME_TOP_KEYS
+    if extra:
+        _fail(
+            "google_ads_insights.callrail_call_quality."
+            f"call_outcome_breakdown has unexpected keys: {sorted(extra)}"
+        )
+    for idx, row in enumerate(outcome.get("rows") or []):
+        if not isinstance(row, dict):
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"call_outcome_breakdown.rows[{idx}] must be an object."
+            )
+        missing = [
+            k for k in REQUIRED_CALLRAIL_OUTCOME_ROW_KEYS if k not in row
+        ]
+        if missing:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"call_outcome_breakdown.rows[{idx}] missing required "
+                f"fields: {missing}"
+            )
+        extra = set(row.keys()) - ALLOWED_CALLRAIL_OUTCOME_ROW_KEYS
+        if extra:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"call_outcome_breakdown.rows[{idx}] has unexpected keys: "
+                f"{sorted(extra)}"
+            )
+
+    def _check_table(
+        section_key: str,
+        required_top: list[str],
+        allowed_top: set[str],
+        required_row: list[str],
+        allowed_row: set[str],
+    ) -> None:
+        block = cr.get(section_key)
+        if not isinstance(block, dict):
+            _fail(
+                f"google_ads_insights.callrail_call_quality.{section_key} "
+                "must be an object."
+            )
+        missing = [k for k in required_top if k not in block]
+        if missing:
+            _fail(
+                f"google_ads_insights.callrail_call_quality.{section_key} "
+                f"missing required fields: {missing}"
+            )
+        extra = set(block.keys()) - allowed_top
+        if extra:
+            _fail(
+                f"google_ads_insights.callrail_call_quality.{section_key} "
+                f"has unexpected keys: {sorted(extra)}"
+            )
+        rows = block.get("rows")
+        if not isinstance(rows, list) or not rows:
+            _fail(
+                f"google_ads_insights.callrail_call_quality.{section_key}"
+                ".rows must be a non-empty list."
+            )
+        for idx, row in enumerate(rows):
+            if not isinstance(row, dict):
+                _fail(
+                    f"google_ads_insights.callrail_call_quality."
+                    f"{section_key}.rows[{idx}] must be an object."
+                )
+            missing_r = [k for k in required_row if k not in row]
+            if missing_r:
+                _fail(
+                    f"google_ads_insights.callrail_call_quality."
+                    f"{section_key}.rows[{idx}] missing required fields: "
+                    f"{missing_r}"
+                )
+            extra_r = set(row.keys()) - allowed_row
+            if extra_r:
+                _fail(
+                    f"google_ads_insights.callrail_call_quality."
+                    f"{section_key}.rows[{idx}] has unexpected keys: "
+                    f"{sorted(extra_r)}"
+                )
+
+    _check_table(
+        "office_call_quality",
+        REQUIRED_CALLRAIL_OFFICE_TOP_KEYS,
+        ALLOWED_CALLRAIL_OFFICE_TOP_KEYS,
+        REQUIRED_CALLRAIL_OFFICE_ROW_KEYS,
+        ALLOWED_CALLRAIL_OFFICE_ROW_KEYS,
+    )
+    _check_table(
+        "campaign_call_quality",
+        REQUIRED_CALLRAIL_CAMPAIGN_TOP_KEYS,
+        ALLOWED_CALLRAIL_CAMPAIGN_TOP_KEYS,
+        REQUIRED_CALLRAIL_CAMPAIGN_ROW_KEYS,
+        ALLOWED_CALLRAIL_CAMPAIGN_ROW_KEYS,
+    )
+    _check_table(
+        "ad_group_call_quality",
+        REQUIRED_CALLRAIL_AD_GROUP_TOP_KEYS,
+        ALLOWED_CALLRAIL_AD_GROUP_TOP_KEYS,
+        REQUIRED_CALLRAIL_AD_GROUP_ROW_KEYS,
+        ALLOWED_CALLRAIL_AD_GROUP_ROW_KEYS,
+    )
+
+    leakage = cr.get("missed_call_leakage")
+    if not isinstance(leakage, dict):
+        _fail(
+            "google_ads_insights.callrail_call_quality.missed_call_leakage "
+            "must be an object."
+        )
+    missing = [
+        k for k in REQUIRED_CALLRAIL_LEAKAGE_TOP_KEYS if k not in leakage
+    ]
+    if missing:
+        _fail(
+            "google_ads_insights.callrail_call_quality.missed_call_leakage "
+            f"missing required fields: {missing}"
+        )
+    extra = set(leakage.keys()) - ALLOWED_CALLRAIL_LEAKAGE_TOP_KEYS
+    if extra:
+        _fail(
+            "google_ads_insights.callrail_call_quality.missed_call_leakage "
+            f"has unexpected keys: {sorted(extra)}"
+        )
+    totals = leakage.get("totals")
+    if not isinstance(totals, dict):
+        _fail(
+            "google_ads_insights.callrail_call_quality.missed_call_leakage"
+            ".totals must be an object."
+        )
+    missing_t = [
+        k for k in REQUIRED_CALLRAIL_LEAKAGE_TOTALS_KEYS if k not in totals
+    ]
+    if missing_t:
+        _fail(
+            "google_ads_insights.callrail_call_quality.missed_call_leakage"
+            f".totals missing required fields: {missing_t}"
+        )
+    extra_t = set(totals.keys()) - ALLOWED_CALLRAIL_LEAKAGE_TOTALS_KEYS
+    if extra_t:
+        _fail(
+            "google_ads_insights.callrail_call_quality.missed_call_leakage"
+            f".totals has unexpected keys: {sorted(extra_t)}"
+        )
+    for idx, row in enumerate(leakage.get("rows") or []):
+        if not isinstance(row, dict):
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"missed_call_leakage.rows[{idx}] must be an object."
+            )
+        missing_r = [
+            k for k in REQUIRED_CALLRAIL_LEAKAGE_ROW_KEYS if k not in row
+        ]
+        if missing_r:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"missed_call_leakage.rows[{idx}] missing required fields: "
+                f"{missing_r}"
+            )
+        extra_r = set(row.keys()) - ALLOWED_CALLRAIL_LEAKAGE_ROW_KEYS
+        if extra_r:
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                f"missed_call_leakage.rows[{idx}] has unexpected keys: "
+                f"{sorted(extra_r)}"
+            )
+
+    integ = cr.get("integration_status")
+    if not isinstance(integ, dict):
+        _fail(
+            "google_ads_insights.callrail_call_quality.integration_status "
+            "must be an object."
+        )
+    missing = [
+        k for k in REQUIRED_CALLRAIL_INTEGRATION_KEYS if k not in integ
+    ]
+    if missing:
+        _fail(
+            "google_ads_insights.callrail_call_quality.integration_status "
+            f"missing required fields: {missing}"
+        )
+    extra = set(integ.keys()) - ALLOWED_CALLRAIL_INTEGRATION_KEYS
+    if extra:
+        _fail(
+            "google_ads_insights.callrail_call_quality.integration_status "
+            f"has unexpected keys: {sorted(extra)}"
+        )
+    cfg = integ.get("private_config_fields")
+    if not isinstance(cfg, list) or not cfg:
+        _fail(
+            "google_ads_insights.callrail_call_quality.integration_status"
+            ".private_config_fields must be a non-empty list of placeholder "
+            "config field names. Real credentials must never appear here."
+        )
+    for f in cfg:
+        if not isinstance(f, str) or not f.strip():
+            _fail(
+                "google_ads_insights.callrail_call_quality."
+                "integration_status.private_config_fields entries must be "
+                "non-empty strings."
+            )
 
 
 def check_b2b_reply_detail(snap: dict[str, Any]) -> None:

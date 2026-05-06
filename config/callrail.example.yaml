@@ -1,0 +1,95 @@
+# CallRail + Google Ads enrichment config (TEMPLATE / PLACEHOLDERS ONLY).
+#
+# This file documents the shape of the private config the operations
+# repo must provide to enrich the public dashboard with CallRail call
+# quality. Every value below is a placeholder - real tokens, account
+# IDs, customer IDs, and refresh tokens MUST NOT be committed to this
+# public mirror.
+#
+# Copy this file to config/callrail.yaml inside the PRIVATE operations
+# repo only. The public mirror has no callrail.yaml and never reads
+# from one - it ships only the sanitized aggregates produced upstream.
+
+callrail:
+  # CallRail Calls API v3 token. Never commit. Source from secret
+  # manager (1Password, AWS Secrets Manager, GitHub Actions secret).
+  api_token: "REPLACE_WITH_CALLRAIL_API_TOKEN"
+
+  # CallRail account ID. Used as the path segment in
+  # https://api.callrail.com/v3/a/{account_id}/calls.json.
+  account_id: "REPLACE_WITH_CALLRAIL_ACCOUNT_ID"
+
+  # Optional list of company IDs to scope the pull. Leave empty to
+  # ingest all companies under the account. The public mirror only
+  # ever shows the office label these company IDs map to.
+  company_ids: []
+
+  # Lookback window in days. The dashboard surfaces last-7-day rolls.
+  lookback_days: 7
+
+  # Default timezone for CallRail call timestamps when bucketing by
+  # peak window for the missed-call leakage section.
+  default_timezone: "America/Los_Angeles"
+
+  # CallRail lead_status values that count as qualified. Do not change
+  # in the public mirror - this is documented as 'good_lead' only.
+  qualified_lead_status_values:
+    - good_lead
+
+  # CallRail company_id -> public office label. Public mirror surfaces
+  # only the labels on the right side of this mapping. The numeric
+  # company_ids on the left must never appear in the public snapshot.
+  office_label_map:
+    REPLACE_WITH_COMPANY_ID_1: "Santa Monica"
+    REPLACE_WITH_COMPANY_ID_2: "Glendale"
+    REPLACE_WITH_COMPANY_ID_3: "Pasadena"
+    REPLACE_WITH_COMPANY_ID_4: "Long Beach"
+
+google_ads:
+  # Google Ads developer token + OAuth refresh token. Never commit.
+  developer_token: "REPLACE_WITH_GOOGLE_ADS_DEVELOPER_TOKEN"
+  oauth_refresh_token: "REPLACE_WITH_GOOGLE_ADS_REFRESH_TOKEN"
+
+  # Manager (login) customer ID + the customer IDs to ingest. Both
+  # the dashed (NNN-NNN-NNNN) and undashed forms are forbidden in the
+  # public mirror; they live only in the private config.
+  login_customer_id: "REPLACE_WITH_LOGIN_CUSTOMER_ID"
+  customer_ids:
+    - "REPLACE_WITH_GOOGLE_ADS_CUSTOMER_ID_1"
+    - "REPLACE_WITH_GOOGLE_ADS_CUSTOMER_ID_2"
+
+  # Optimized tracking template / ValueTrack lookup so the private
+  # builder can confirm gclid is present on the landing URL the
+  # CallRail dynamic number replacement (DNR) script reads from. The
+  # public mirror never sees gclids; this is a private-builder check
+  # only.
+  expected_tracking_template: "{lpurl}?gclid={gclid}&utm_source=google&utm_medium=cpc&utm_campaign={campaignid}&utm_term={keyword}"
+
+# Sanitization policy enforced by the public mirror. The private
+# builder MUST drop these fields from every CallRail call record
+# before any aggregation result is written to data/snapshot.json.
+public_mirror_drop_fields:
+  - customer_phone_number
+  - tracking_phone_number
+  - business_phone_number
+  - customer_name
+  - caller_name
+  - customer_email
+  - caller_email
+  - caller_country
+  - caller_city
+  - caller_state
+  - caller_zip
+  - recording
+  - recording_url
+  - transcription
+  - transcription_text
+  - call_highlights
+  - conversation_intelligence
+  - gclid
+  - gbraid
+  - wbraid
+  - fbclid
+  - account_id
+  - company_id
+  - tracker_id
