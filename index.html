@@ -1113,6 +1113,21 @@
     }
     .top5-card.is-monitor .t5-rank { background: var(--warn); }
     .top5-card.is-protect .t5-rank { background: var(--good); }
+    .top5-card .t5-sev {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--danger);
+      color: #fff;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+    }
+    .top5-card.is-monitor .t5-sev { background: var(--warn); }
+    .top5-card.is-protect .t5-sev { background: var(--good); }
     .top5-card .t5-head {
       display: flex;
       align-items: center;
@@ -1447,25 +1462,28 @@
       <div id="panel-ads" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-ads" tabindex="0">
         <p class="tab-meta" id="ads-compact-note">
-          Last 30 days from linked Google Ads + CallRail. Aggregated counts and rates only;
-          raw call records, IDs, GCLIDs, transcripts, and account identifiers are blocked.
-          Edits are made manually in Google Ads.
+          Last 30d Google Ads + CallRail. Counts and rates only; raw records, IDs, GCLIDs blocked. Qualified = CallRail good_lead / previously_marked_good_lead.
         </p>
 
+        <!-- Action board: Do these today -->
+        <section aria-labelledby="ads-top5"
+                 class="priority-strip" id="ads-top5-section">
+          <div class="ps-head">
+            <h2 id="ads-top5">Do these today</h2>
+            <span class="pill priority is-high" aria-hidden="true">
+              Top 5 by opportunity
+            </span>
+          </div>
+          <div class="top5-grid" id="ads-top5-grid"></div>
+        </section>
+
         <!-- Top blended Paid Ads summary (CPA, CPC, CTR, CVR, conv/day, spend/day, calls/day) -->
-        <!-- Lead with the blended performance summary so the most -->
-        <!-- important data is the first thing on the tab. -->
         <section aria-labelledby="ads-top-summary"
                  class="paid-summary" id="ads-top-summary">
           <div class="ps-head">
-            <h2 id="ads-top-summary-h">Paid ads performance summary</h2>
+            <h2 id="ads-top-summary-h">Paid ads performance</h2>
             <span class="pill" id="ads-top-summary-period"
                   aria-live="polite"></span>
-          </div>
-          <div class="section-meta" id="ads-top-summary-meta">
-            Blended last-7-days numbers benchmarked against last month
-            and internal medians. CVR is the lead read; CPA, CPC, and
-            spend are read against it.
           </div>
           <div class="paid-summary-grid" id="ads-top-summary-grid"></div>
           <div class="paid-summary-rules" id="ads-top-summary-rules"></div>
@@ -1484,10 +1502,7 @@
                  id="ads-callrail-section">
           <h2 id="ads-callrail">CallRail call quality</h2>
           <div class="section-meta" id="ads-callrail-meta">
-            Qualified calls (CallRail lead_status = good_lead),
-            first-time callers, answered/missed counts, and
-            qualified-call CPA where paid spend is attributable. Use
-            alongside Google Ads CVR/CPA before changing budgets.
+            Qualified = CallRail marked good_lead / previously_marked_good_lead.
           </div>
           <div class="section-meta" id="ads-callrail-source-note"
                style="margin-top:4px;"></div>
@@ -1560,11 +1575,8 @@
         <!-- right after the CallRail call-quality block. -->
         <section aria-labelledby="ads-weekly-runrate"
                  id="ads-weekly-runrate-section">
-          <h2 id="ads-weekly-runrate">Weekly marketing run-rate</h2>
-          <div class="section-meta" id="ads-weekly-runrate-meta">
-            Projected weekly spend, conversions, calls + blended CPA/CVR/CTR.
-            Read by conversions/day, qualified-call rate, CVR, and CPA - not spend pace.
-          </div>
+          <h2 id="ads-weekly-runrate">Weekly run-rate</h2>
+          <div class="section-meta" id="ads-weekly-runrate-meta"></div>
           <div class="paid-summary-grid" id="ads-wmrr-cards"></div>
 
           <!-- Run-rate vs last week and last month table -->
@@ -1601,30 +1613,11 @@
                style="margin-top:6px;"></div>
         </section>
 
-        <!-- Top 5 things to fix (high-priority, ranked by opportunity size). -->
-        <section aria-labelledby="ads-top5"
-                 class="priority-strip" id="ads-top5-section">
-          <div class="ps-head">
-            <h2 id="ads-top5">Top 5 things to fix</h2>
-            <span class="pill priority is-high" aria-hidden="true">
-              Highest opportunity
-            </span>
-          </div>
-          <div class="section-meta" id="ads-top5-meta"></div>
-          <div class="section-meta" id="ads-top5-basis"
-               style="margin-top:4px;"></div>
-          <div class="top5-grid" id="ads-top5-grid"></div>
-        </section>
-
         <!-- Office spend & opportunities. -->
         <section aria-labelledby="ads-office-spend"
                  id="ads-office-spend-section">
-          <h2 id="ads-office-spend">Office spend and opportunities</h2>
-          <div class="section-meta" id="ads-office-spend-meta">
-            Total last-30 spend by office, the share of high-risk spend
-            to clean first, and the next budget move with the top
-            ad-group opportunity.
-          </div>
+          <h2 id="ads-office-spend">Office spend &amp; opportunities</h2>
+          <div class="section-meta" id="ads-office-spend-meta"></div>
           <div class="paid-summary-bench" id="ads-office-spend-totals"></div>
           <div class="paid-summary-bench" id="ads-office-spend-top"></div>
           <div class="card" id="ads-office-spend-card"></div>
@@ -1635,30 +1628,20 @@
         <!-- JZ / Joe focus (CallRail-qualified conversion layer). -->
         <section aria-labelledby="ads-jzjoe"
                  id="ads-jzjoe-section">
-          <h2 id="ads-jzjoe">JZ and Joe focus (CallRail-qualified conversion layer)</h2>
+          <h2 id="ads-jzjoe">JZ / Joe focus</h2>
           <div class="section-meta" id="ads-jzjoe-rule"></div>
           <div class="card" id="ads-jzjoe-card"></div>
         </section>
 
         <!-- Conversion-rate benchmark by office -->
         <section aria-labelledby="ads-cvr-bench">
-          <h2 id="ads-cvr-bench">Conversion rate vs benchmark (by office)</h2>
-          <div class="section-meta">
-            Each office's CVR vs last month and the cross-office median.
-            CVR is benchmarked first - changes are prioritized when CVR
-            falls below benchmark, not just when spend is high.
-          </div>
+          <h2 id="ads-cvr-bench">CVR vs benchmark (by office)</h2>
           <div class="card" id="ads-cvr-bench-card"></div>
         </section>
 
         <!-- Ad-group conversion benchmarks -->
         <section aria-labelledby="ads-ag-bench">
-          <h2 id="ads-ag-bench">Ad-group benchmarks (where to change)</h2>
-          <div class="section-meta">
-            Ad groups sorted by spend with their CVR, CPA, CPC, benchmark
-            status, and keyword focus. Use this to jump from the office
-            CVR row into the specific ad group and keyword theme.
-          </div>
+          <h2 id="ads-ag-bench">Ad-group benchmarks</h2>
           <div class="card" id="ads-ag-bench-card"></div>
         </section>
 
@@ -1666,108 +1649,56 @@
         <section aria-labelledby="ads-priority"
                  class="priority-strip" id="ads-priority-strip">
           <div class="ps-head">
-            <h2 id="ads-priority">Do this first</h2>
+            <h2 id="ads-priority">Priority actions</h2>
             <span class="pill priority is-high" aria-hidden="true">
-              Priority actions
+              P0 / P1 / P2
             </span>
             <span class="pill" id="ads-priority-count"
                   aria-live="polite"></span>
-          </div>
-          <div class="ps-meta">
-            Top dashboard-only recommendations from the latest
-            30-day Google Ads snapshot. Shape, color, and rank
-            label all encode priority for accessibility. No changes
-            are pushed to the live account.
           </div>
           <div class="ps-grid" id="ads-priority-grid"></div>
         </section>
 
         <!-- Operator review order: P0 -> P1 -> P2 + log changes -->
         <section aria-labelledby="ads-operator-order">
-          <h2 id="ads-operator-order">Operator review order</h2>
-          <div class="section-meta">
-            How to work through the action queue and log every manual
-            change so the next refresh can grade whether it worked.
-          </div>
+          <h2 id="ads-operator-order">Review order</h2>
           <div class="operator-order" id="ads-operator-order-card"></div>
         </section>
 
         <!-- Shared priority playbooks (P0 / P1 / P2) -->
         <section aria-labelledby="ads-priority-playbooks">
           <h2 id="ads-priority-playbooks">Priority playbooks</h2>
-          <div class="section-meta">
-            Shared guidance that applies to every campaign at this
-            priority. Each action card below only carries the unique
-            campaign-specific points instead of repeating this.
-          </div>
           <div class="priority-playbooks"
                id="ads-priority-playbooks-grid"></div>
         </section>
 
         <!-- Manual Action Queue (P0/P1/P2) -->
         <section aria-labelledby="ads-action-queue">
-          <h2 id="ads-action-queue">Google Ads action queue</h2>
-          <div class="section-meta" id="ads-action-queue-meta">
-            P0/P1/P2 manual changes to make in Google Ads. Each card is
-            kept compact and shows only the campaign-specific decisions:
-            why this campaign, the next move, what to inspect, the
-            negative-keyword focus, the structure fix, the success
-            metric, the metric snapshot, and the log note. The shared
-            P0/P1/P2 guidance lives once in the priority playbooks
-            above. Cards stay until the next refresh shows Working /
-            Stable or a human marks them complete.
-          </div>
+          <h2 id="ads-action-queue">Action queue (P0 / P1 / P2)</h2>
           <div class="action-queue" id="ads-action-queue-grid"></div>
         </section>
 
         <!-- Rollup trend (last 7 days vs last month) -->
         <section aria-labelledby="ads-trend-rollup">
-          <h2 id="ads-trend-rollup">Trend: last 7 days vs last month</h2>
-          <div class="section-meta" id="ads-trend-rollup-meta">
-            Per-day normalized comparison of recent paid media performance.
-            Use the trend status badge as the headline read; deltas show
-            magnitude of movement so you can tell whether changes are
-            actually helping.
-          </div>
+          <h2 id="ads-trend-rollup">Trend: 7d vs last month</h2>
           <div class="card" id="ads-trend-rollup-card"></div>
         </section>
 
         <!-- Office trend table -->
         <section aria-labelledby="ads-trend-office">
           <h2 id="ads-trend-office">Trend by office</h2>
-          <div class="section-meta">
-            Per-office trend status, spend/day, conversions/day, CPA, CPC,
-            and conversion rate for last 7 days vs last-month baseline.
-          </div>
           <div class="card" id="ads-trend-office-card"></div>
         </section>
 
         <!-- Campaign trend table -->
         <section aria-labelledby="ads-trend-campaign">
           <h2 id="ads-trend-campaign">Trend by campaign</h2>
-          <div class="section-meta">
-            Per-campaign trend status sorted by priority then recent spend.
-            Worsening or zero-conversion campaigns surface first so the
-            next manual change is obvious.
-          </div>
           <div class="card" id="ads-trend-campaign-card"></div>
         </section>
 
         <!-- Change tracker / is it working? -->
         <section aria-labelledby="ads-change-tracker">
           <h2 id="ads-change-tracker">Change tracker - is it working?</h2>
-          <div class="section-meta" id="ads-change-tracker-meta">
-            Manual change-log workflow. The connected Google Ads tool can
-            read reports and do limited writebacks (offline conversions
-            and customer-list audiences). It does NOT expose direct
-            campaign, budget, bid, ad, search-term, or negative-keyword
-            mutation tools or a change-history report. Campaign edits are
-            therefore manual for now: log every change here, then let the
-            next refresh compare normalized 7-day vs last-month metrics
-            to grade Working / Worsening / Noisy. If a mutation-capable
-            tool is added later, exact edits must be approved before any
-            writeback.
-          </div>
           <div class="card change-tracker" id="ads-change-tracker-card"></div>
         </section>
 
@@ -1786,9 +1717,6 @@
         <!-- API writeback capability -->
         <section aria-labelledby="ads-writeback">
           <h2 id="ads-writeback">API writeback capability</h2>
-          <div class="section-meta">Status of what the connected
-            Google Ads API connector can and cannot apply automatically.
-            No live Google Ads changes are made from this dashboard.</div>
           <div class="card" id="ads-writeback-card"></div>
         </section>
 
@@ -1803,21 +1731,13 @@
 
         <!-- Account linking status -->
         <section aria-labelledby="ads-account-status">
-          <h2 id="ads-account-status">Account linking status</h2>
-          <div class="section-meta">Visibility of linked Google Ads
-            accounts feeding this dashboard. Manager account IDs,
-            customer IDs, and private office labels are intentionally
-            never shown in the public mirror.</div>
+          <h2 id="ads-account-status">Account linking</h2>
           <div class="card" id="ads-account-status-card"></div>
         </section>
 
         <!-- Account coverage table by office label -->
         <section aria-labelledby="ads-coverage-table">
           <h2 id="ads-coverage-table">Account coverage by office</h2>
-          <div class="section-meta">Direct linked Google Ads account
-            reporting status for each connected office. Office labels
-            are the only identifier shown publicly; manager and
-            customer IDs remain private/internal.</div>
           <div class="card" id="ads-coverage-table-card"></div>
         </section>
 
@@ -1830,18 +1750,12 @@
         <!-- Office leaderboard -->
         <section aria-labelledby="ads-leaderboard">
           <h2 id="ads-leaderboard">Office leaderboard</h2>
-          <div class="section-meta">Spend, conversions, CPA, high-risk
-            spend share, and campaign count by office over the last
-            30 days. Sorted by spend.</div>
           <div class="card" id="ads-leaderboard-card"></div>
         </section>
 
         <!-- Risk + budget shift -->
         <section aria-labelledby="ads-risk">
-          <h2 id="ads-risk">Risk and budget shift guidance</h2>
-          <div class="section-meta">High-risk spend identifies waste to
-            review; budget shift guidance only applies after call and
-            booking quality is verified.</div>
+          <h2 id="ads-risk">Risk &amp; budget shift</h2>
           <div class="grid two">
             <div class="card" id="ads-risk-card"></div>
             <div class="card" id="ads-budget-card"></div>
@@ -1850,51 +1764,31 @@
 
         <!-- Ad-group action list (action-first, scannable table) -->
         <section aria-labelledby="ads-adgroups">
-          <h2 id="ads-adgroups">Ad-group action punch list</h2>
-          <div class="section-meta">Highest-priority ad-group fixes,
-            sorted by priority then spend. The action column comes
-            first so the next move is obvious at a glance. Priority
-            uses a shape, color, and label so the meaning does not
-            depend on color alone.</div>
+          <h2 id="ads-adgroups">Ad-group punch list</h2>
           <div class="card" id="ads-adgroups-card"></div>
         </section>
 
         <!-- Campaign decisions (full detail per campaign) -->
         <section aria-labelledby="ads-campaigns">
           <h2 id="ads-campaigns">Campaign decisions</h2>
-          <div class="section-meta">Action-first cards for campaigns that
-            need a change: high-priority first, then monitor. Protect
-            winners are summarized in the compact list below instead of
-            repeating the same scale guidance per campaign.</div>
           <div class="card" id="ads-campaigns-card"></div>
         </section>
 
         <!-- Protect / scale winners (compact, one shared rule) -->
         <section aria-labelledby="ads-protect">
-          <h2 id="ads-protect">Protect and scale winners</h2>
-          <div class="section-meta" id="ads-protect-meta">
-            Campaigns hitting or beating the office CVR/CPA benchmark.
-            Hold current budget; only scale 10-15% per week and only
-            after the call/booking quality check confirms the leads are
-            real. One shared rule, no per-campaign repetition.
-          </div>
+          <h2 id="ads-protect">Protect &amp; scale winners</h2>
           <div class="card" id="ads-protect-card"></div>
         </section>
 
         <!-- Recommended actions / notes -->
         <section aria-labelledby="ads-actions">
-          <h2 id="ads-actions">Recommended actions and operator notes</h2>
+          <h2 id="ads-actions">Operator notes</h2>
           <div class="card" id="ads-actions-card"></div>
         </section>
 
         <!-- Daily improvement loop: how this gets better each day -->
         <section aria-labelledby="ads-daily-loop">
-          <h2 id="ads-daily-loop">How this improves each day</h2>
-          <div class="section-meta">
-            What the system does between refreshes to grade whether the
-            last manual change actually moved CVR and conversions/day,
-            not just spend.
-          </div>
+          <h2 id="ads-daily-loop">Daily improvement loop</h2>
           <div class="card" id="ads-daily-loop-card"></div>
         </section>
       </div>
@@ -1903,9 +1797,7 @@
       <div id="panel-outreach" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-outreach" tabindex="0" hidden>
         <p class="tab-meta">
-          B2B email outreach status for the seminar offer. Identities,
-          reply text, the operations Sheet ID, and private repo
-          commits are not exposed in the public mirror.
+          B2B seminar outreach. Sanitized aggregates only.
         </p>
 
         <!-- Executive status -->
@@ -5225,46 +5117,56 @@
         // JZ / Joe campaign focus
         var jz = cr.jz_joe_focus || null;
         if (jz && jzjoeRuleEl) {
-          jzjoeRuleEl.textContent = jz.rule || "";
+          jzjoeRuleEl.textContent = "Qualified = CallRail good_lead / previously_marked_good_lead. Spend not attributable until GCLID join lands.";
         }
         if (jz && jzjoeCardEl && (jz.rows || []).length) {
+          function shfClass(v) {
+            var s = (v || "").toLowerCase();
+            if (s === "scale") return "delta-chip up-good";
+            if (s === "fix") return "delta-chip up-bad";
+            return "delta-chip flat";
+          }
+          function jzAction(r) {
+            var s = (r.scale_hold_fix || "").toLowerCase();
+            var miss = Number(r.missed_calls_last_7d || 0);
+            if (s === "scale") return miss > 0 ? "Scale + Fix SLA" : "Scale";
+            if (s === "fix") return "Pause low-qual + Fix tracking";
+            return "Hold + Audit";
+          }
           var jwrap = el("div", { "class": "bench-table-wrap" });
           var jtable = el("table", { "class": "bench-table" });
           jtable.appendChild(el("thead", {}, [
             el("tr", {}, [
-              el("th", { text: "Cluster" }),
               el("th", { text: "Office" }),
-              el("th", { text: "Spend 7d" }),
-              el("th", { text: "Calls 7d" }),
-              el("th", { text: "First-time 7d" }),
-              el("th", { text: "Qualified 7d" }),
-              el("th", { text: "Qualified rate" }),
-              el("th", { text: "Missed 7d" }),
-              el("th", { text: "Calls 30d" }),
-              el("th", { text: "Qualified 30d" }),
-              el("th", { text: "Qualified rate 30d" }),
-              el("th", { text: "GA conversions 7d" }),
               el("th", { text: "Action" }),
-              el("th", { text: "Scale / Hold / Fix" })
+              el("th", { text: "Calls 7d" }),
+              el("th", { text: "Qual 7d" }),
+              el("th", { text: "Qual rate" }),
+              el("th", { text: "Missed 7d" }),
+              el("th", { text: "Status" })
             ])
           ]));
           var jtbody = el("tbody", {});
           (jz.rows || []).forEach(function (r) {
+            var actionCell = el("td", {});
+            var verb = el("div", { "class": "t5-action", text: jzAction(r) });
+            actionCell.appendChild(verb);
+            if (r.recommended_action) {
+              actionCell.appendChild(el("div", {
+                "class": "t5-meta", text: r.recommended_action
+              }));
+            }
             jtbody.appendChild(el("tr", {}, [
-              el("td", { text: r.label || "-" }),
-              el("td", { text: r.office || "-" }),
-              el("td", { text: r.spend_last_7d_usd || "-" }),
+              el("td", { text: r.office || (r.label || "-") }),
+              actionCell,
               el("td", { text: fmtNum(r.calls_last_7d, 0) }),
-              el("td", { text: fmtNum(r.first_time_callers_last_7d, 0) }),
               el("td", { text: fmtNum(r.qualified_calls_last_7d, 0) }),
               el("td", { text: fmtPct(r.qualified_rate_pct) }),
               el("td", { text: fmtNum(r.missed_calls_last_7d, 0) }),
-              el("td", { text: fmtNum(r.calls_last_30d, 0) }),
-              el("td", { text: fmtNum(r.qualified_calls_last_30d, 0) }),
-              el("td", { text: fmtPct(r.qualified_rate_30d_pct) }),
-              el("td", { text: r.google_ads_conversions_last_7d || "-" }),
-              el("td", { text: r.recommended_action || "-" }),
-              el("td", { text: r.scale_hold_fix || "-" })
+              el("td", {}, [el("span", {
+                "class": shfClass(r.scale_hold_fix),
+                text: r.scale_hold_fix || "-"
+              })])
             ]));
           });
           jtable.appendChild(jtbody);
@@ -5552,65 +5454,70 @@
         return chip;
       }
 
+      function severityFromStatus(status) {
+        var s = (status || "").toLowerCase();
+        if (s === "protect") return { p: "P2", label: "Scale", cls: "is-protect" };
+        if (s === "monitor") return { p: "P1", label: "Watch", cls: "is-monitor" };
+        return { p: "P0", label: "Fix Now", cls: "" };
+      }
+      function shortVerb(directive) {
+        if (!directive) return "Act";
+        var d = directive.toLowerCase();
+        if (/\bpause\b/.test(d) && /\bnegativ/.test(d)) return "Pause + Add negatives";
+        if (/\bpause\b/.test(d) && /\btrack/.test(d)) return "Pause + Fix tracking";
+        if (/\bpause\b/.test(d)) return "Pause + Cut waste";
+        if (/\bprotect\b/.test(d) && /sla/.test(d)) return "Protect + Fix SLA";
+        if (/\bprotect\b/.test(d)) return "Protect + Scale";
+        if (/\bscale\b/.test(d)) return "Scale";
+        if (/\breallocat/.test(d)) return "Reallocate";
+        if (/\bsla\b/.test(d) || /missed call/.test(d)) return "Fix SLA";
+        if (/\btrack/.test(d)) return "Fix tracking";
+        if (/\btest\b/.test(d)) return "Test offer";
+        if (/\bnegativ/.test(d)) return "Add negatives";
+        return "Act";
+      }
       function renderTop5(ads) {
         var grid = $("ads-top5-grid");
-        var meta = $("ads-top5-meta");
-        var basis = $("ads-top5-basis");
         if (!grid) return;
         grid.innerHTML = "";
-        if (meta) meta.textContent = "";
-        if (basis) basis.textContent = "";
         var t5 = (ads && ads.top_5_fixes) || null;
         if (!t5) return;
-        if (meta && t5.subtitle) meta.textContent = t5.subtitle;
-        if (basis && t5.rank_basis) basis.textContent = t5.rank_basis;
-        (t5.rows || []).forEach(function (r) {
-          var status = (r.status || "high").toLowerCase();
-          var card = el("div", {
-            "class": "top5-card " + (
-              status === "protect" ? "is-protect" :
-              status === "monitor" ? "is-monitor" :
-              ""
-            )
-          });
+        var rows = (t5.rows || []).slice().sort(function (a, b) {
+          return (b.opportunity_size_usd || 0) - (a.opportunity_size_usd || 0);
+        });
+        rows.forEach(function (r) {
+          var sev = severityFromStatus(r.status);
+          var card = el("div", { "class": "top5-card " + sev.cls });
           var head = el("div", { "class": "t5-head" });
           head.appendChild(el("span", {
-            "class": "t5-rank", text: String(r.rank || "")
+            "class": "t5-sev", text: sev.p
           }));
           head.appendChild(el("span", {
             "class": "t5-label", text: r.label || ""
           }));
-          if (r.scope) {
-            head.appendChild(el("span", {
-              "class": "delta-chip flat", text: r.scope
-            }));
-          }
           if (r.opportunity_size_usd != null) {
             var size = "$" + Number(r.opportunity_size_usd)
               .toLocaleString(undefined, { maximumFractionDigits: 0 });
             head.appendChild(el("span", {
-              "class": "delta-chip up-bad", text: "Opp " + size
+              "class": "delta-chip up-bad", text: size
             }));
           }
+          head.appendChild(el("span", {
+            "class": "delta-chip flat", text: sev.label
+          }));
           card.appendChild(head);
-          if (r.issue) {
-            card.appendChild(el("div", {
-              "class": "t5-line", text: "Issue: " + r.issue
-            }));
-          }
-          if (r.opportunity_basis) {
-            card.appendChild(el("div", {
-              "class": "t5-meta", text: r.opportunity_basis
-            }));
-          }
+          var verb = shortVerb(r.directive_action);
+          card.appendChild(el("div", {
+            "class": "t5-action", text: verb
+          }));
           if (r.directive_action) {
             card.appendChild(el("div", {
-              "class": "t5-action", text: "Do: " + r.directive_action
+              "class": "t5-line", text: r.directive_action
             }));
           }
           if (r.expected_impact) {
             card.appendChild(el("div", {
-              "class": "t5-line", text: "Expected: " + r.expected_impact
+              "class": "t5-meta", text: "Impact: " + r.expected_impact
             }));
           }
           if (r.owner_next_step) {
