@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-06T17:28:02.565014+00:00",
+  "generated_at": "2026-05-07T16:30:00+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17,18 +17,18 @@
     ]
   },
   "kpis": {
-    "total_sends": 96,
-    "weekdays_run": 8,
-    "latest_date": "2026-05-01",
+    "total_sends": 108,
+    "weekdays_run": 9,
+    "latest_date": "2026-05-06",
     "latest_sends": 12,
     "latest_cap_usage_pct": 100,
-    "latest_new_contacts_found": 12,
+    "latest_new_contacts_found": 0,
     "total_reply_signals": 6,
     "positive_warm_replies": 2,
     "bounces": 1,
     "ccs_used_on_initial": 0,
-    "reply_rate_pct": 6.25,
-    "positive_rate_pct": 2.08
+    "reply_rate_pct": 5.56,
+    "positive_rate_pct": 1.85
   },
   "daily": [
     {
@@ -102,6 +102,15 @@
       "replies": 0,
       "cumulative": 96,
       "next_focus": "Recovery run completed at full cap after enriching verified senior/caregiver public-email contacts and applying dedupe exclusions; route prior-batch positive materials request to operator follow-up."
+    },
+    {
+      "date": "2026-05-06",
+      "sent": 12,
+      "cap": 12,
+      "new_contacts_found": 0,
+      "replies": 0,
+      "cumulative": 108,
+      "next_focus": "Employer wellness B2B batch (lunch-and-learn / on-site dental day pitch to employers, schools, universities). No new outreach replies received since May 1. The Orchard Senior Living follow-up active via Aryaan."
     }
   ],
   "reply_mix": {
@@ -166,15 +175,12 @@
     "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown. 2026-05-01 was a recovery run after the morning's tracker showed no New rows with public emails; verified public-email contacts were enriched and deduped against prior partial-run sends and three excluded senior-resource organizations."
   },
   "channel_mix_latest": {
-    "Senior Living / Assisted": 4,
-    "Home Care / Hospice / Health": 4,
-    "Caregiver / Senior Resource": 4,
-    "Health-Adjacent (Chiro/PT/Wellness)": 0,
-    "Property / Apartments": 0,
-    "Faith / Community": 0,
-    "Schools / PTA / Rec": 0,
-    "Chambers / Civic": 0,
-    "Other": 0
+    "Employer / Wellness B2B": 6,
+    "Schools / University": 3,
+    "Other Employer": 3,
+    "Senior Living / Assisted": 0,
+    "Home Care / Hospice / Health": 0,
+    "Caregiver / Senior Resource": 0
   },
   "channel_mix_total": {
     "Senior Living / Assisted": 13,
@@ -428,9 +434,10 @@
     "Google Sheet is the source of truth; Zoho writeback remains staged"
   ],
   "next_actions": [
-    "Operator follow-up on the prior-scan positive materials request (senior concerns / caregiver resource) using the approved seminar materials packet.",
-    "Continue senior/caregiver public-email sourcing to keep a healthy New-row buffer ahead of each weekday run and avoid recovery enrichments.",
-    "Phone/form follow-up for high-fit senior-living and home-care orgs without a public email.",
+    "Aryaan: Complete The Orchard Senior Living follow-up call; log outcome to Sheet.",
+    "Operator: Source at least 18 verified senior/caregiver/home-health public emails before next weekday run.",
+    "Operator: Add Google Ads Manager Account ID to config to enable ads spend/CPA refresh.",
+    "Operator: Review any employer wellness B2B batch replies; route positives to Aryaan per policy.",
     "Approve dedupe + dry-run plan before enabling Zoho live writeback."
   ],
   "focus_priority": {
@@ -15179,5 +15186,41 @@
       ],
       "required_for_live_changes": "Add a Google Ads mutation tool/scope that can write campaign criteria, budgets, ad-group criteria, ads, and campaign status. Then require explicit per-change operator approval before any write."
     }
+  },
+  "callrail_live": {
+    "refreshed_at": "2026-05-07T16:30:00+00:00",
+    "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
+    "last_7_days": {
+      "total_calls": 973,
+      "answered": 933,
+      "missed": 40,
+      "first_time_callers": 325,
+      "callrail_qualified": 115,
+      "answer_rate_pct": 95.9,
+      "qualified_rate_pct": 11.8
+    },
+    "last_30_days": {
+      "total_calls": 3722,
+      "answered": 3542,
+      "missed": 180,
+      "first_time_callers": 1376,
+      "callrail_qualified": 447,
+      "answer_rate_pct": 95.2,
+      "qualified_rate_pct": 12.0
+    },
+    "context": {
+      "7d_qualified_vs_30d_weekly_avg": {
+        "7d_qualified": 115,
+        "30d_weekly_avg_qualified": 104.4,
+        "note": "Directional WoW proxy only"
+      }
+    },
+    "privacy": "Aggregated metrics only. No phone numbers, caller names, account IDs, GCLIDs, or raw call records published."
+  },
+  "google_ads_refresh": {
+    "status": "BLOCKER",
+    "reason": "Google Ads Manager Account ID (login-customer-id) not present in workspace config. The connector requires a numeric accountId to query campaign spend and conversion data.",
+    "action_required": "Add google_ads_account_id to tracker_config.json or provide directly. Format: xxx-xxx-xxxx numeric.",
+    "impact": "Ads spend/CPA metrics cannot be refreshed this run. CallRail qualified calls used as primary conversion signal per policy."
   }
 }
