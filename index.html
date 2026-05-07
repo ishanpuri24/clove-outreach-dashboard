@@ -1462,7 +1462,7 @@
       <div id="panel-ads" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-ads" tabindex="0">
         <p class="tab-meta" id="ads-compact-note">
-          Last 30d Google Ads + CallRail. Counts and rates only; raw records, IDs, GCLIDs blocked. Qualified = CallRail good_lead / previously_marked_good_lead.
+          Last 30d. Aggregates only - sanitized public mirror.
         </p>
 
         <!-- Action board: Do these today -->
@@ -1490,24 +1490,16 @@
           <div class="paid-summary-bench" id="ads-top-summary-bench"></div>
         </section>
 
-        <!-- CallRail call quality (qualified by lead_status, first-time -->
-        <!-- callers, answered/missed, qualified-call CPA, office and -->
-        <!-- campaign / ad-group call quality, missed-call leakage). -->
-        <!-- Renders directly after the top blended summary so the -->
-        <!-- CallRail-qualified conversion layer and the first-time-caller -->
-        <!-- grid by office sit immediately under the headline stats. -->
-        <!-- Aggregated counts and rates only - no raw call records, -->
-        <!-- caller PII, or CallRail account/company IDs are exposed. -->
+        <!-- Call quality: aggregates only. -->
+
         <section aria-labelledby="ads-callrail"
                  id="ads-callrail-section">
-          <h2 id="ads-callrail">CallRail call quality</h2>
-          <div class="section-meta" id="ads-callrail-meta">
-            Qualified = CallRail marked good_lead / previously_marked_good_lead.
-          </div>
+          <h2 id="ads-callrail">Call quality</h2>
+          <div class="section-meta" id="ads-callrail-meta"></div>
           <div class="section-meta" id="ads-callrail-source-note"
                style="margin-top:4px;"></div>
           <div class="section-meta" id="ads-callrail-qual-note"
-               style="margin-top:4px;font-style:italic;"></div>
+               style="margin-top:4px;font-style:italic;display:none;"></div>
           <div class="paid-summary-grid" id="ads-callrail-cards"></div>
           <div class="paid-summary-bench" id="ads-callrail-legend"
                style="margin-top:8px;"></div>
@@ -1532,7 +1524,7 @@
 
           <h3 id="ads-callrail-trends-h"
               style="margin-top:14px;font-size:1.05rem;">
-            Office call trends - week over week and month over month
+            Office trends (WoW / MoM)
           </h3>
           <div class="section-meta" id="ads-callrail-trends-rule"></div>
           <div class="card" id="ads-callrail-trends-card"></div>
@@ -1569,10 +1561,8 @@
                style="margin-top:10px;"></div>
         </section>
 
-        <!-- Weekly marketing run-rate. Moved up so run-rate vs last week -->
-        <!-- and last month for calls, first-time callers, qualified, -->
-        <!-- missed, Google Ads conversions, and spend efficiency renders -->
-        <!-- right after the CallRail call-quality block. -->
+        <!-- Weekly run-rate. -->
+
         <section aria-labelledby="ads-weekly-runrate"
                  id="ads-weekly-runrate-section">
           <h2 id="ads-weekly-runrate">Weekly run-rate</h2>
@@ -1593,17 +1583,17 @@
                style="margin-top:8px;"></div>
           <h3 id="ads-wmrr-reduce-h"
               style="margin-top:14px;font-size:1.05rem;">
-            Office budget focus - reduce or reallocate first
+            Reduce or reallocate
           </h3>
           <div class="card" id="ads-wmrr-reduce-card"></div>
           <h3 id="ads-wmrr-protect-h"
               style="margin-top:14px;font-size:1.05rem;">
-            Office budget focus - protect or scale (after quality check)
+            Protect or scale
           </h3>
           <div class="card" id="ads-wmrr-protect-card"></div>
           <h3 id="ads-wmrr-today-h"
               style="margin-top:14px;font-size:1.05rem;">
-            Daily changes vs what we should be doing
+            Today's changes
           </h3>
           <div class="section-meta" id="ads-wmrr-today-meta"></div>
           <div class="card" id="ads-wmrr-today-card"></div>
@@ -1698,7 +1688,7 @@
 
         <!-- Change tracker / is it working? -->
         <section aria-labelledby="ads-change-tracker">
-          <h2 id="ads-change-tracker">Change tracker - is it working?</h2>
+          <h2 id="ads-change-tracker">Change tracker</h2>
           <div class="card change-tracker" id="ads-change-tracker-card"></div>
         </section>
 
@@ -1838,27 +1828,20 @@
 
         <!-- Queue health / tomorrow readiness -->
         <section aria-labelledby="queue">
-          <h2 id="queue">Queue health and tomorrow readiness</h2>
-          <div class="section-meta">Forward-looking risk view: whether
-            there is enough sourced public-email supply to fill the
-            next weekday run without recovery enrichment.</div>
+          <h2 id="queue">Queue health</h2>
           <div class="card" id="queue-card"></div>
         </section>
 
         <!-- Channel scorecard -->
         <section aria-labelledby="scorecard">
           <h2 id="scorecard">Channel scorecard</h2>
-          <div class="section-meta">Reply signal and current confidence
-            per channel. Tier reflects the seminar offer's fit.
-            Confidence reflects sample size and signal stability.</div>
           <div class="card" id="scorecard-card"></div>
         </section>
 
         <!-- Trend -->
         <section aria-labelledby="trend">
           <h2 id="trend">Daily send and reply trend</h2>
-          <div class="section-meta">Bars are emails sent per weekday;
-            the line is cumulative sends. Capacity ceiling is 12 per day.</div>
+          <div class="section-meta">Bars: sends per weekday. Line: cumulative. Cap: 12/day.</div>
           <div class="card">
             <svg id="trend-chart" class="chart"
                  role="img" aria-label="Daily send and cumulative trend"></svg>
@@ -1875,14 +1858,10 @@
           <h2 id="mix">Reply mix and latest channel mix</h2>
           <div class="grid two">
             <div class="card">
-              <div class="section-meta">Reply signals to date,
-                classified per the safety policy.</div>
               <svg id="reply-chart" class="chart"
                    role="img" aria-label="Reply classification bar chart"></svg>
             </div>
             <div class="card">
-              <div class="section-meta">Channel mix of the latest sent batch.
-                The Sheet's Category column remains authoritative.</div>
               <svg id="channel-chart" class="chart"
                    role="img" aria-label="Channel mix bar chart"></svg>
             </div>
@@ -2606,7 +2585,7 @@
             why: dd.why || "",
             stats: [
               { strong: fmtUsd(c.cost_usd), label: "spend (30d)" },
-              { strong: (c.cpa_usd != null ? fmtUsd(c.cpa_usd) : "-"),
+              { strong: (fmtCpa(c.cpa_usd)),
                 label: "CPA" },
               { strong: fmtUsd(c.avg_cpc_usd), label: "CPC" }
             ]
@@ -2632,7 +2611,7 @@
             detail: "",
             why: dd.why || "",
             stats: [
-              { strong: (c.cpa_usd != null ? fmtUsd(c.cpa_usd) : "-"),
+              { strong: (fmtCpa(c.cpa_usd)),
                 label: "CPA" },
               { strong: (c.conversion_rate_pct != null
                 ? fmtPct(c.conversion_rate_pct) : "-"),
@@ -2822,8 +2801,8 @@
             hint: "30-day window" },
           { label: "Avg CPC", value: fmtUsd(totals.avg_cpc_usd),
             hint: "blended across campaigns" },
-          { label: "CPA", value: fmtUsd(totals.cpa_usd),
-            hint: "cost per conversion" },
+          { label: "CPA", value: fmtCpa(totals.cpa_usd),
+            hint: "hidden if not attributable" },
           { label: "Phone calls", value: fmtNum(totals.phone_calls),
             hint: "30-day window" },
           { label: "High-priority campaigns",
@@ -2975,8 +2954,7 @@
                   ? fmtPct(c.conversion_rate_pct) : "-") }),
                 " conv rate"]),
               el("span", null, [
-                el("strong", { text: (c.cpa_usd != null
-                  ? fmtUsd(c.cpa_usd) : "-") }),
+                el("strong", { text: fmtCpa(c.cpa_usd) }),
                 " CPA"]),
               el("span", null, [
                 el("strong", { text: fmtNum(c.phone_calls) }), " calls"]),
@@ -3094,7 +3072,7 @@
               row.appendChild(el("td", { "class": "mono",
                 text: deltaText }));
               row.appendChild(el("td", { "class": "mono",
-                text: (c.cpa_usd != null ? fmtUsd(c.cpa_usd) : "-") }));
+                text: (fmtCpa(c.cpa_usd)) }));
               row.appendChild(el("td", { "class": "mono",
                 text: fmtNum(c.conversions) }));
               row.appendChild(el("td", { "class": "mono",
@@ -3169,7 +3147,7 @@
               row.appendChild(el("td", { "class": "mono",
                 text: fmtUsd(g.cost_usd) }));
               row.appendChild(el("td", { "class": "mono",
-                text: (g.cpa_usd != null ? fmtUsd(g.cpa_usd) : "-") }));
+                text: (fmtCpa(g.cpa_usd)) }));
               row.appendChild(el("td", { "class": "mono",
                 text: fmtUsd(g.avg_cpc_usd) }));
               row.appendChild(el("td", { "class": "mono",
@@ -3459,7 +3437,7 @@
             el("td", { "class": "mono",
               text: fmtNum(r.conversions) }),
             el("td", { "class": "mono",
-              text: (r.cpa_usd != null ? fmtUsd(r.cpa_usd) : "-") }),
+              text: (fmtCpa(r.cpa_usd)) }),
             el("td", { "class": "mono",
               text: fmtNum(r.phone_calls) }),
             el("td", { "class": "mono",
@@ -3986,8 +3964,8 @@
               el("td", { text: fmtPct(r.last_7_conversion_rate_pct) }),
               el("td", { text: fmtPct(r.last_month_conversion_rate_pct) }),
               el("td", {}, [fmtDeltaPoints(r.vs_office_median_pts)]),
-              el("td", { text: fmtMoney(r.last_7_cpa_usd) }),
-              el("td", { text: fmtMoney(r.last_30_cpa_usd) }),
+              el("td", { text: fmtCpa(r.last_7_cpa_usd) }),
+              el("td", { text: fmtCpa(r.last_30_cpa_usd) }),
               el("td", { text: fmtNum(r.last_7_conversions_per_day, 2) }),
               el("td", { text: pri }),
               el("td", { text: r.opportunity || "-" }),
@@ -4139,7 +4117,7 @@
               el("td", { text: fmtMoney(r.current_spend_30d) }),
               el("td", { text: fmtMoney(r.high_risk_spend_30d) }),
               el("td", { text: fmtPct(r.last_7_cvr_pct) }),
-              el("td", { text: fmtMoney(r.last_7_cpa_usd) }),
+              el("td", { text: fmtCpa(r.last_7_cpa_usd) }),
               el("td", { text: r.p0_p1_p2 || "-" }),
               el("td", { text: r.today_change_needed || "-" }),
               el("td", { text: r.top_ad_group_opportunity || "-" }),
@@ -4215,6 +4193,14 @@
       function fmtMoney(n) {
         if (n == null || isNaN(n)) return "-";
         return "$" + (Math.round(Number(n) * 100) / 100).toFixed(2);
+      }
+      // Hide CPA / cost-per metrics when null, zero, or non-numeric.
+      // Used wherever spend attribution is unreliable.
+      function fmtCpa(n) {
+        if (n == null || isNaN(n)) return "-";
+        var v = Number(n);
+        if (v <= 0) return "-";
+        return "$" + (Math.round(v * 100) / 100).toFixed(2);
       }
       function fmtPct(n) {
         if (n == null || isNaN(n)) return "-";
@@ -5114,16 +5100,17 @@
           trendsCardEl.appendChild(twrap);
         }
 
-        // JZ / Joe campaign focus
+        // JZ / Joe campaign focus - action-led, compact, no non-attributable spend.
         var jz = cr.jz_joe_focus || null;
         if (jz && jzjoeRuleEl) {
-          jzjoeRuleEl.textContent = "Qualified = CallRail good_lead / previously_marked_good_lead. Spend not attributable until GCLID join lands.";
+          jzjoeRuleEl.textContent = "Qualified = CallRail good_lead. Action-first; spend hidden where not attributable.";
         }
         if (jz && jzjoeCardEl && (jz.rows || []).length) {
           function shfClass(v) {
             var s = (v || "").toLowerCase();
             if (s === "scale") return "delta-chip up-good";
             if (s === "fix") return "delta-chip up-bad";
+            if (/fix tracking/.test(s)) return "delta-chip up-bad";
             return "delta-chip flat";
           }
           function jzAction(r) {
@@ -5131,7 +5118,22 @@
             var miss = Number(r.missed_calls_last_7d || 0);
             if (s === "scale") return miss > 0 ? "Scale + Fix SLA" : "Scale";
             if (s === "fix") return "Pause low-qual + Fix tracking";
-            return "Hold + Audit";
+            if (/fix tracking/.test(s)) return "Fix tracking";
+            return "Hold";
+          }
+          // Compute WoW from 7d vs (30d - 7d)/3 baseline
+          function jzWow(r) {
+            var c7 = Number(r.calls_last_7d || 0);
+            var c30 = Number(r.calls_last_30d || 0);
+            var prior = (c30 - c7) / 3.0;
+            if (prior <= 0) return null;
+            return ((c7 - prior) / prior) * 100;
+          }
+          function jzMom(r) {
+            var q30 = Number(r.qualified_rate_30d_pct || 0);
+            var q7 = Number(r.qualified_rate_pct || 0);
+            if (q30 === 0 && q7 === 0) return null;
+            return q7 - q30; // points
           }
           var jwrap = el("div", { "class": "bench-table-wrap" });
           var jtable = el("table", { "class": "bench-table" });
@@ -5140,29 +5142,29 @@
               el("th", { text: "Office" }),
               el("th", { text: "Action" }),
               el("th", { text: "Calls 7d" }),
-              el("th", { text: "Qual 7d" }),
-              el("th", { text: "Qual rate" }),
-              el("th", { text: "Missed 7d" }),
+              el("th", { text: "Qual%" }),
+              el("th", { text: "Missed" }),
+              el("th", { text: "WoW" }),
+              el("th", { text: "MoM" }),
               el("th", { text: "Status" })
             ])
           ]));
           var jtbody = el("tbody", {});
           (jz.rows || []).forEach(function (r) {
             var actionCell = el("td", {});
-            var verb = el("div", { "class": "t5-action", text: jzAction(r) });
-            actionCell.appendChild(verb);
-            if (r.recommended_action) {
-              actionCell.appendChild(el("div", {
-                "class": "t5-meta", text: r.recommended_action
-              }));
-            }
+            actionCell.appendChild(el("div", {
+              "class": "t5-action", text: jzAction(r)
+            }));
+            var wow = jzWow(r);
+            var mom = jzMom(r);
             jtbody.appendChild(el("tr", {}, [
               el("td", { text: r.office || (r.label || "-") }),
               actionCell,
               el("td", { text: fmtNum(r.calls_last_7d, 0) }),
-              el("td", { text: fmtNum(r.qualified_calls_last_7d, 0) }),
               el("td", { text: fmtPct(r.qualified_rate_pct) }),
               el("td", { text: fmtNum(r.missed_calls_last_7d, 0) }),
+              el("td", {}, [fmtDeltaPct(wow)]),
+              el("td", {}, [fmtDeltaPoints(mom)]),
               el("td", {}, [el("span", {
                 "class": shfClass(r.scale_hold_fix),
                 text: r.scale_hold_fix || "-"
@@ -5482,21 +5484,49 @@
         grid.innerHTML = "";
         var t5 = (ads && ads.top_5_fixes) || null;
         if (!t5) return;
-        var rows = (t5.rows || []).slice().sort(function (a, b) {
-          return (b.opportunity_size_usd || 0) - (a.opportunity_size_usd || 0);
+        // Deduplicate rows that share the same directive verb + status.
+        // Group affected offices/labels and sum opportunity_size_usd so a
+        // single repeated recommendation across offices renders as one card.
+        var groups = {};
+        var order = [];
+        (t5.rows || []).forEach(function (r) {
+          var verb = shortVerb(r.directive_action);
+          var status = (r.status || "").toLowerCase();
+          var key = verb + "|" + status;
+          if (!groups[key]) {
+            groups[key] = {
+              verb: verb,
+              status: status,
+              labels: [],
+              total: 0,
+              first: r
+            };
+            order.push(key);
+          }
+          if (r.label) groups[key].labels.push(r.label);
+          if (r.opportunity_size_usd != null) {
+            groups[key].total += Number(r.opportunity_size_usd) || 0;
+          }
         });
-        rows.forEach(function (r) {
-          var sev = severityFromStatus(r.status);
+        var rows = order.map(function (k) { return groups[k]; })
+          .sort(function (a, b) { return b.total - a.total; });
+        rows.forEach(function (g) {
+          var r = g.first;
+          var sev = severityFromStatus(g.status);
           var card = el("div", { "class": "top5-card " + sev.cls });
           var head = el("div", { "class": "t5-head" });
           head.appendChild(el("span", {
             "class": "t5-sev", text: sev.p
           }));
+          var labelText = g.labels.length > 1
+            ? g.labels.slice(0, 3).join(", ")
+              + (g.labels.length > 3 ? " +" + (g.labels.length - 3) : "")
+            : (g.labels[0] || r.label || "");
           head.appendChild(el("span", {
-            "class": "t5-label", text: r.label || ""
+            "class": "t5-label", text: labelText
           }));
-          if (r.opportunity_size_usd != null) {
-            var size = "$" + Number(r.opportunity_size_usd)
+          if (g.total > 0) {
+            var size = "$" + Math.round(g.total)
               .toLocaleString(undefined, { maximumFractionDigits: 0 });
             head.appendChild(el("span", {
               "class": "delta-chip up-bad", text: size
@@ -5506,23 +5536,18 @@
             "class": "delta-chip flat", text: sev.label
           }));
           card.appendChild(head);
-          var verb = shortVerb(r.directive_action);
           card.appendChild(el("div", {
-            "class": "t5-action", text: verb
+            "class": "t5-action", text: g.verb
           }));
-          if (r.directive_action) {
+          if (g.labels.length > 1) {
             card.appendChild(el("div", {
-              "class": "t5-line", text: r.directive_action
+              "class": "t5-meta",
+              text: "Affects: " + g.labels.join(", ")
             }));
           }
           if (r.expected_impact) {
             card.appendChild(el("div", {
               "class": "t5-meta", text: "Impact: " + r.expected_impact
-            }));
-          }
-          if (r.owner_next_step) {
-            card.appendChild(el("div", {
-              "class": "t5-meta", text: "Owner: " + r.owner_next_step
             }));
           }
           grid.appendChild(card);

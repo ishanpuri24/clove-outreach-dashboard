@@ -14629,8 +14629,8 @@
         ]
       },
       "jz_joe_focus": {
-        "title": "JZ and Joe campaign focus (CallRail-qualified conversion layer)",
-        "rule": "JZ and Joe campaign clusters matched on CallRail call campaign / utm_term / tag (case-insensitive). Spend not attributable until GCLID join lands. Qualified follows the primary CallRail rule (good_lead, previously_marked_good_lead, qualified, booked, appointment_booked). Use Scale / Hold / Fix to drive next decision.",
+        "title": "JZ / Joe focus",
+        "rule": "JZ/Joe matched on CallRail campaign / utm_term / tag. Spend hidden - not attributable.",
         "rows": [
           {
             "label": "JZ campaigns / keywords (aggregated)",
@@ -14697,7 +14697,7 @@
             "qualified_rate_30d_pct": 26.3,
             "google_ads_conversions_last_7d": "not attributable in this refresh",
             "match_basis": "CallRail call campaign / utm_term / tag contains 'JZ' (case-insensitive).",
-            "recommended_action": "Increase budget on the strongest ad groups. Protect winners, test new copy where qualified share holds. Qualified share at or above office median both windows. Scale at next refresh.",
+            "recommended_action": "Scale: above-median qualified share both windows.",
             "scale_hold_fix": "Scale"
           },
           {
@@ -14714,7 +14714,7 @@
             "qualified_rate_30d_pct": 33.3,
             "google_ads_conversions_last_7d": "not attributable in this refresh",
             "match_basis": "CallRail call campaign / utm_term / tag contains 'JZ' (case-insensitive).",
-            "recommended_action": "Hold spend. Hold. Mid-pack qualified share - recheck after one refresh cycle.",
+            "recommended_action": "Hold; recheck next refresh.",
             "scale_hold_fix": "Hold"
           },
           {
@@ -14731,7 +14731,7 @@
             "qualified_rate_30d_pct": 0.0,
             "google_ads_conversions_last_7d": "not attributable in this refresh",
             "match_basis": "CallRail call campaign / utm_term / tag contains 'JZ' (case-insensitive).",
-            "recommended_action": "Hold spend. Hold. Mid-pack qualified share - recheck after one refresh cycle.",
+            "recommended_action": "Hold; recheck next refresh.",
             "scale_hold_fix": "Hold"
           },
           {
@@ -14748,7 +14748,7 @@
             "qualified_rate_30d_pct": 0.0,
             "google_ads_conversions_last_7d": "not attributable in this refresh",
             "match_basis": "CallRail call campaign / utm_term / tag contains 'JZ' (case-insensitive).",
-            "recommended_action": "Hold spend. Hold. Mid-pack qualified share - recheck after one refresh cycle.",
+            "recommended_action": "Hold; recheck next refresh.",
             "scale_hold_fix": "Hold"
           },
           {
@@ -14765,7 +14765,7 @@
             "qualified_rate_30d_pct": 42.9,
             "google_ads_conversions_last_7d": "not attributable in this refresh",
             "match_basis": "CallRail call campaign / utm_term / tag contains 'JZ' (case-insensitive).",
-            "recommended_action": "Increase budget on the strongest ad groups. Protect winners, test new copy where qualified share holds. Qualified share at or above office median both windows. Scale at next refresh.",
+            "recommended_action": "Scale: above-median qualified share both windows.",
             "scale_hold_fix": "Scale"
           },
           {
@@ -14782,7 +14782,7 @@
             "qualified_rate_30d_pct": 20.0,
             "google_ads_conversions_last_7d": "not attributable in this refresh",
             "match_basis": "CallRail call campaign / utm_term / tag contains 'JZ' (case-insensitive).",
-            "recommended_action": "Hold spend. Hold. Mid-pack qualified share - recheck after one refresh cycle.",
+            "recommended_action": "Hold; recheck next refresh.",
             "scale_hold_fix": "Hold"
           },
           {
@@ -14807,8 +14807,8 @@
     },
     "top_5_fixes": {
       "title": "Top 5 things to fix",
-      "subtitle": "Ranked by opportunity size across spend, qualified-call yield, missed-call leakage, and conversion-rate gap. Items target the largest paid-media waste recoverable in the next 14 days.",
-      "rank_basis": "Score = high-risk last-30-day spend + 50 x missed calls (last 7d) + 200 x conversion-rate gap below office median. Larger score ranks higher.",
+      "subtitle": "Ranked by opportunity size; duplicates grouped.",
+      "rank_basis": "High-risk 30d spend + 50 x missed (7d) + 200 x CVR gap.",
       "rows": [
         {
           "rank": 1,
@@ -14872,7 +14872,7 @@
         }
       ]
     },
-    "compact_freshness_privacy_note": "Data freshness: Google Ads pulls last-30-day rollups from the manager account; CallRail aggregates from the Calls API v3 over the same window. Privacy: only counts, rates, and labels are exposed - raw call records, phone numbers, names, IDs, transcripts, recordings, GCLIDs, and account/manager IDs are blocked at sanitization and re-checked by the validator on every push."
+    "compact_freshness_privacy_note": "Last 30d aggregates. Sanitized public mirror - raw records, IDs, and PII blocked."
   },
   "_sanitization": {
     "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign and ad-group metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
