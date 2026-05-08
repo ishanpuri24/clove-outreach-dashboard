@@ -1461,9 +1461,7 @@
       <!-- =================== Google Ads tab =================== -->
       <div id="panel-ads" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-ads" tabindex="0">
-        <p class="tab-meta" id="ads-compact-note">
-          Last 30d. Aggregates only - sanitized public mirror.
-        </p>
+        <p class="tab-meta" id="ads-compact-note">Last 30d.</p>
 
         <!-- Action board: Do these today -->
         <section aria-labelledby="ads-top5"
@@ -1569,44 +1567,25 @@
           <div class="section-meta" id="ads-weekly-runrate-meta"></div>
           <div class="paid-summary-grid" id="ads-wmrr-cards"></div>
 
-          <!-- Run-rate vs last week and last month table -->
-          <h3 id="ads-wmrr-trends-h"
-              style="margin-top:14px;font-size:1.05rem;">
-            Run-rate vs last week and last month
-          </h3>
-          <div class="section-meta" id="ads-wmrr-trends-rule"></div>
-          <div class="card" id="ads-wmrr-trends-card"></div>
-
-          <div class="paid-summary-rules" id="ads-wmrr-rules"
-               style="margin-top:14px;"></div>
-          <div id="ads-wmrr-rule-note" class="section-meta"
-               style="margin-top:8px;"></div>
-          <h3 id="ads-wmrr-reduce-h"
-              style="margin-top:14px;font-size:1.05rem;">
-            Reduce or reallocate
-          </h3>
-          <div class="card" id="ads-wmrr-reduce-card"></div>
-          <h3 id="ads-wmrr-protect-h"
-              style="margin-top:14px;font-size:1.05rem;">
-            Protect or scale
-          </h3>
-          <div class="card" id="ads-wmrr-protect-card"></div>
-          <h3 id="ads-wmrr-today-h"
-              style="margin-top:14px;font-size:1.05rem;">
-            Today's changes
-          </h3>
-          <div class="section-meta" id="ads-wmrr-today-meta"></div>
-          <div class="card" id="ads-wmrr-today-card"></div>
-          <div class="section-meta" id="ads-wmrr-fields"
-               style="margin-top:8px;"></div>
-          <div class="section-meta" id="ads-wmrr-baseline"
-               style="margin-top:6px;"></div>
+          <!-- Trim: hide prose-heavy run-rate detail tables. -->
+          <div hidden>
+            <div class="section-meta" id="ads-wmrr-trends-rule"></div>
+            <div class="card" id="ads-wmrr-trends-card"></div>
+            <div class="paid-summary-rules" id="ads-wmrr-rules"></div>
+            <div id="ads-wmrr-rule-note" class="section-meta"></div>
+            <div class="card" id="ads-wmrr-reduce-card"></div>
+            <div class="card" id="ads-wmrr-protect-card"></div>
+            <div class="section-meta" id="ads-wmrr-today-meta"></div>
+            <div class="card" id="ads-wmrr-today-card"></div>
+            <div class="section-meta" id="ads-wmrr-fields"></div>
+            <div class="section-meta" id="ads-wmrr-baseline"></div>
+          </div>
         </section>
 
         <!-- Office spend & opportunities. -->
         <section aria-labelledby="ads-office-spend"
                  id="ads-office-spend-section">
-          <h2 id="ads-office-spend">Office spend &amp; opportunities</h2>
+          <h2 id="ads-office-spend">Save spend / reallocate</h2>
           <div class="section-meta" id="ads-office-spend-meta"></div>
           <div class="paid-summary-bench" id="ads-office-spend-totals"></div>
           <div class="paid-summary-bench" id="ads-office-spend-top"></div>
@@ -1635,9 +1614,9 @@
           <div class="card" id="ads-ag-bench-card"></div>
         </section>
 
-        <!-- Priority strip: do this first (after the blended summary) -->
+        <!-- Priority strip (hidden: duplicate of Do these today) -->
         <section aria-labelledby="ads-priority"
-                 class="priority-strip" id="ads-priority-strip">
+                 class="priority-strip" id="ads-priority-strip" hidden>
           <div class="ps-head">
             <h2 id="ads-priority">Priority actions</h2>
             <span class="pill priority is-high" aria-hidden="true">
@@ -1649,21 +1628,21 @@
           <div class="ps-grid" id="ads-priority-grid"></div>
         </section>
 
-        <!-- Operator review order: P0 -> P1 -> P2 + log changes -->
-        <section aria-labelledby="ads-operator-order">
+        <!-- Operator review order (hidden: prose-only) -->
+        <section aria-labelledby="ads-operator-order" hidden>
           <h2 id="ads-operator-order">Review order</h2>
           <div class="operator-order" id="ads-operator-order-card"></div>
         </section>
 
-        <!-- Shared priority playbooks (P0 / P1 / P2) -->
-        <section aria-labelledby="ads-priority-playbooks">
+        <!-- Shared priority playbooks (hidden: prose-only) -->
+        <section aria-labelledby="ads-priority-playbooks" hidden>
           <h2 id="ads-priority-playbooks">Priority playbooks</h2>
           <div class="priority-playbooks"
                id="ads-priority-playbooks-grid"></div>
         </section>
 
-        <!-- Manual Action Queue (P0/P1/P2) -->
-        <section aria-labelledby="ads-action-queue">
+        <!-- Manual Action Queue (hidden: prose duplicate) -->
+        <section aria-labelledby="ads-action-queue" hidden>
           <h2 id="ads-action-queue">Action queue (P0 / P1 / P2)</h2>
           <div class="action-queue" id="ads-action-queue-grid"></div>
         </section>
@@ -1686,8 +1665,8 @@
           <div class="card" id="ads-trend-campaign-card"></div>
         </section>
 
-        <!-- Change tracker / is it working? -->
-        <section aria-labelledby="ads-change-tracker">
+        <!-- Change tracker (hidden: prose-only) -->
+        <section aria-labelledby="ads-change-tracker" hidden>
           <h2 id="ads-change-tracker">Change tracker</h2>
           <div class="card change-tracker" id="ads-change-tracker-card"></div>
         </section>
@@ -1704,8 +1683,8 @@
                style="margin-top:12px;"></div>
         </section>
 
-        <!-- API writeback capability -->
-        <section aria-labelledby="ads-writeback">
+        <!-- API writeback capability (hidden: prose-only) -->
+        <section aria-labelledby="ads-writeback" hidden>
           <h2 id="ads-writeback">API writeback capability</h2>
           <div class="card" id="ads-writeback-card"></div>
         </section>
@@ -1719,8 +1698,8 @@
           <div class="card" id="ads-coverage-card"></div>
         </section>
 
-        <!-- Account linking status -->
-        <section aria-labelledby="ads-account-status">
+        <!-- Account linking status (hidden: prose-only) -->
+        <section aria-labelledby="ads-account-status" hidden>
           <h2 id="ads-account-status">Account linking</h2>
           <div class="card" id="ads-account-status-card"></div>
         </section>
@@ -1743,8 +1722,8 @@
           <div class="card" id="ads-leaderboard-card"></div>
         </section>
 
-        <!-- Risk + budget shift -->
-        <section aria-labelledby="ads-risk">
+        <!-- Risk + budget shift (hidden: prose duplicate of Save spend) -->
+        <section aria-labelledby="ads-risk" hidden>
           <h2 id="ads-risk">Risk &amp; budget shift</h2>
           <div class="grid two">
             <div class="card" id="ads-risk-card"></div>
@@ -1758,26 +1737,26 @@
           <div class="card" id="ads-adgroups-card"></div>
         </section>
 
-        <!-- Campaign decisions (full detail per campaign) -->
-        <section aria-labelledby="ads-campaigns">
+        <!-- Campaign decisions (hidden: prose duplicate of Save spend) -->
+        <section aria-labelledby="ads-campaigns" hidden>
           <h2 id="ads-campaigns">Campaign decisions</h2>
           <div class="card" id="ads-campaigns-card"></div>
         </section>
 
-        <!-- Protect / scale winners (compact, one shared rule) -->
-        <section aria-labelledby="ads-protect">
+        <!-- Protect / scale winners (hidden: duplicate of Save spend) -->
+        <section aria-labelledby="ads-protect" hidden>
           <h2 id="ads-protect">Protect &amp; scale winners</h2>
           <div class="card" id="ads-protect-card"></div>
         </section>
 
-        <!-- Recommended actions / notes -->
-        <section aria-labelledby="ads-actions">
+        <!-- Recommended actions / notes (hidden: prose-only) -->
+        <section aria-labelledby="ads-actions" hidden>
           <h2 id="ads-actions">Operator notes</h2>
           <div class="card" id="ads-actions-card"></div>
         </section>
 
-        <!-- Daily improvement loop: how this gets better each day -->
-        <section aria-labelledby="ads-daily-loop">
+        <!-- Daily improvement loop (hidden: prose-only) -->
+        <section aria-labelledby="ads-daily-loop" hidden>
           <h2 id="ads-daily-loop">Daily improvement loop</h2>
           <div class="card" id="ads-daily-loop-card"></div>
         </section>
@@ -1786,9 +1765,7 @@
       <!-- =================== B2B Outreach tab =================== -->
       <div id="panel-outreach" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-outreach" tabindex="0" hidden>
-        <p class="tab-meta">
-          B2B seminar outreach. Sanitized aggregates only.
-        </p>
+        <p class="tab-meta">B2B seminar outreach.</p>
 
         <!-- Executive status -->
         <section aria-labelledby="exec">
@@ -1841,7 +1818,7 @@
         <!-- Trend -->
         <section aria-labelledby="trend">
           <h2 id="trend">Daily send and reply trend</h2>
-          <div class="section-meta">Bars: sends per weekday. Line: cumulative. Cap: 12/day.</div>
+          <div class="section-meta"></div>
           <div class="card">
             <svg id="trend-chart" class="chart"
                  role="img" aria-label="Daily send and cumulative trend"></svg>
@@ -1888,18 +1865,14 @@
         <!-- Outreach experiment board -->
         <section aria-labelledby="experiments">
           <h2 id="experiments">Outreach experiment board</h2>
-          <div class="section-meta">Active and queued copy and channel
-            tests. Each experiment names a hypothesis, the channel,
-            and the next operator step.</div>
+          <div class="section-meta"></div>
           <div class="card" id="experiments-card"></div>
         </section>
 
         <!-- Human follow-ups -->
         <section aria-labelledby="followups">
           <h2 id="followups">Human follow-up queue</h2>
-          <div class="section-meta">Action items for the operator.
-            Identities are redacted in the public mirror; the private
-            Sheet links each item to the underlying reply.</div>
+          <div class="section-meta"></div>
           <div class="card" id="followups-card"></div>
         </section>
 
@@ -1929,8 +1902,7 @@
         <!-- Guardrail status -->
         <section aria-labelledby="guard">
           <h2 id="guard">Guardrail status</h2>
-          <div class="section-meta">Each rule lists current status
-            and the evidence used to verify it for the loaded window.</div>
+          <div class="section-meta"></div>
           <div class="card" id="guardrail-status-card"></div>
         </section>
 
@@ -1966,12 +1938,8 @@
     </main>
 
     <footer class="foot">
-      <div>Snapshot generated <span id="generated" class="updated mono"></span>.
-        The Google Sheet remains the source of truth.</div>
-      <div>This is a sanitized public mirror. Prospect identities,
-        reply senders, free-text reply bodies, the operations Sheet
-        identifier, and private repo commits are intentionally not
-        exposed here.</div>
+      <div>Updated daily. Public data is aggregated.
+        <span id="generated" class="updated mono"></span></div>
     </footer>
   </div>
 
@@ -2708,7 +2676,7 @@
           return;
         }
         if (ads.title) titleEl.textContent = ads.title;
-        subEl.textContent = "Updated daily. Public data is aggregated.";
+        subEl.textContent = "";
 
         var coverage = ads.coverage || {};
         var totals = ads.totals || {};
@@ -2717,25 +2685,15 @@
 
         var covHead = el("div", { "class": "item-head" }, [
           el("div", { "class": "item-title",
-            text: coverage.office_label_policy ||
-              "First linked office account - mapping pending" }),
+            text: "Lookback " + (ads.lookback || "-") }),
           el("span", { "class": "pill warn" }, [
             el("span", { "class": "dot" }),
-            "Lookback: " + (ads.lookback || "-")
+            "Linked: " +
+              (coverage.linked_offices != null
+                ? coverage.linked_offices : "-")
           ])
         ]);
-        var covMeta = el("div", { "class": "item-meta",
-          text: "Data freshness: " + freshness +
-                "    Linked offices: " +
-                (coverage.linked_offices != null ?
-                  coverage.linked_offices : "-") });
-        var covBody = el("div", { "class": "item-body",
-          text: ads.automation_status || "" });
-        var covNext = el("div", { "class": "item-body",
-          text: coverage.next_step || "" });
-        var officeNotice = el("div", { "class": "item-body", text: "" });
-        covCard.appendChild(el("div", { "class": "item" },
-          [covHead, covMeta, covBody, covNext, officeNotice]));
+        covCard.appendChild(el("div", { "class": "item" }, [covHead]));
 
         if (statusCard) {
           var st = ads.account_linking_status || null;
@@ -2790,35 +2748,30 @@
           ? risk.high_risk_spend_share_pct
           : risk.high_cost_share_pct;
         var kpiItems = [
-          { label: "Spend (30d)", value: fmtUsd(totals.cost_usd),
-            hint: "all campaigns, USD" },
-          { label: "Clicks", value: fmtNum(totals.clicks),
-            hint: "30-day window" },
-          { label: "Conversions", value: fmtNum(totals.conversions),
-            hint: "30-day window" },
-          { label: "Avg CPC", value: fmtUsd(totals.avg_cpc_usd),
-            hint: "blended across campaigns" },
-          { label: "CPA", value: fmtCpa(totals.cpa_usd),
-            hint: "hidden if not attributable" },
-          { label: "Phone calls", value: fmtNum(totals.phone_calls),
-            hint: "30-day window" },
+          { label: "Spend (30d)", value: fmtUsd(totals.cost_usd) },
+          { label: "Clicks", value: fmtNum(totals.clicks) },
+          { label: "Conversions", value: fmtNum(totals.conversions) },
+          { label: "Avg CPC", value: fmtUsd(totals.avg_cpc_usd) },
+          { label: "CPA", value: fmtCpa(totals.cpa_usd) },
+          { label: "Phone calls", value: fmtNum(totals.phone_calls) },
           { label: "High-priority campaigns",
             value: fmtNum(risk.high_priority_campaigns != null
-              ? risk.high_priority_campaigns : risk.high),
-            hint: "tighten or rebuild" },
+              ? risk.high_priority_campaigns : risk.high) },
           { label: "High-risk spend share",
             value: (highRiskShare != null
               ? fmtPct(highRiskShare) : "-"),
-            hint: (highRiskSpend != null
-              ? fmtUsd(highRiskSpend) + " to review"
-              : "of 30-day spend") }
+            sub: (highRiskSpend != null
+              ? fmtUsd(highRiskSpend) : null) }
         ];
         kpiItems.forEach(function (it) {
-          kpiGrid.appendChild(el("div", { "class": "card kpi-card" }, [
+          var children = [
             el("div", { "class": "label", text: it.label }),
-            el("div", { "class": "value mono", text: it.value }),
-            el("div", { "class": "hint", text: it.hint })
-          ]));
+            el("div", { "class": "value mono", text: it.value })
+          ];
+          if (it.sub) {
+            children.push(el("div", { "class": "hint mono", text: it.sub }));
+          }
+          kpiGrid.appendChild(el("div", { "class": "card kpi-card" }, children));
         });
 
         if (riskCard) {
@@ -3153,18 +3106,6 @@
               row.appendChild(el("td", { "class": "mono",
                 text: fmtNum(g.phone_calls) }));
               tbody.appendChild(row);
-              if (rd.why) {
-                var whyRow = el("tr");
-                var whyCell = el("td", {
-                  colspan: "8",
-                  "class": "item-meta",
-                  style: "padding-top:0;",
-                  text: "Why: " + rd.why
-                });
-                whyRow.appendChild(whyCell);
-                whyRow.className = "is-" + pkey;
-                tbody.appendChild(whyRow);
-              }
             });
             table.appendChild(thead);
             table.appendChild(tbody);
@@ -3271,10 +3212,6 @@
 
         negCard.appendChild(el("div", { "class": "item-title",
           text: "Tighten or pause themes" }));
-        negCard.appendChild(el("div", { "class": "section-meta",
-          text: "Themes (campaigns / ad groups) where recent efficiency " +
-                "is poor. Inspect search terms and add negatives, isolate " +
-                "into tighter ad groups, or pause before any reload." }));
         var nwrap = el("div", { "class": "table-wrap",
           style: "margin-top:8px;" });
         var ntable = el("table");
@@ -3325,9 +3262,7 @@
         } else {
           mapCard.style.display = "";
           mapCard.appendChild(el("div", { "class": "item-title",
-            text: "Campaign mapping guidance" }));
-          mapCard.appendChild(el("div", { "class": "section-meta",
-            text: "Which campaign should focus on which keyword theme." }));
+            text: "Campaign mapping" }));
           var mwrap = el("div", { "class": "table-wrap",
             style: "margin-top:8px;" });
           var mtable = el("table");
@@ -3375,8 +3310,7 @@
         var thead = el("thead", null, [el("tr", null, [
           el("th", { text: "Office" }),
           el("th", { text: "Status" }),
-          el("th", { text: "Campaigns" }),
-          el("th", { text: "Note" })
+          el("th", { text: "Campaigns" })
         ])]);
         var tbody = el("tbody");
         rows.forEach(function (r) {
@@ -3389,20 +3323,13 @@
               ])
             ]),
             el("td", { "class": "mono",
-              text: fmtNum(r.campaigns) }),
-            el("td", { "class": "item-meta",
-              text: r.note || "" })
+              text: fmtNum(r.campaigns) })
           ]));
         });
         table.appendChild(thead);
         table.appendChild(tbody);
         wrap.appendChild(table);
         card.appendChild(wrap);
-        card.appendChild(el("div", { "class": "item-meta",
-          style: "margin-top:8px;",
-          text: "Office labels are the only identifier shown. " +
-                "Manager and customer IDs are intentionally never " +
-                "exposed in the public mirror." }));
       }
 
       function renderOfficeLeaderboard(s) {
@@ -3843,16 +3770,7 @@
               : null)
           ]));
         });
-        if (rules && top.benchmark_rules && top.benchmark_rules.length) {
-          rules.appendChild(el("div", {
-            "class": "ac-short-tag",
-            text: "Benchmark rules"
-          }));
-          rules.appendChild(el("ul", {},
-            top.benchmark_rules.map(function (r) {
-              return el("li", { text: r });
-            })));
-        }
+        if (rules) rules.innerHTML = "";
         if (bench && top.internal_benchmarks) {
           var b = top.internal_benchmarks;
           var items = [
@@ -3873,6 +3791,10 @@
         }
       }
 
+      // Save-spend / reallocate ranker. Ranks offices by waste signal:
+      // first by attributable high-risk spend, then by spend tied to
+      // missed-call leakage. Hides Opportunity $ when the underlying
+      // attribution is missing. Action is a 2-3 word chip.
       function renderOfficeSpendOpportunities(ads) {
         var card = $("ads-office-spend-card");
         var totalsEl = $("ads-office-spend-totals");
@@ -3884,109 +3806,120 @@
         if (topEl) topEl.innerHTML = "";
         if (noteEl) noteEl.textContent = "";
         var oso = (ads && ads.office_spend_opportunities) || {};
-        var rows = oso.rows || [];
+        var rows = (oso.rows || []).slice();
+        var leakRows = ((ads && ads.callrail_call_quality
+          && ads.callrail_call_quality.missed_call_leakage)
+          || {}).rows || [];
+        var leakByOffice = {};
+        leakRows.forEach(function (r) {
+          if (!r || !r.office) return;
+          leakByOffice[r.office] = r;
+        });
         if (totalsEl) {
           if (oso.total_last_30_spend_usd != null) {
             totalsEl.appendChild(el("span", {
               "class": "ps-bench-chip",
-              text: "Last-30 spend: " + fmtMoney(oso.total_last_30_spend_usd)
+              text: "Last-30 spend " + fmtMoney(oso.total_last_30_spend_usd)
             }));
           }
           if (oso.total_high_risk_spend_usd != null) {
             totalsEl.appendChild(el("span", {
               "class": "ps-bench-chip",
-              text: "High-risk spend: " + fmtMoney(oso.total_high_risk_spend_usd)
+              text: "High-risk " + fmtMoney(oso.total_high_risk_spend_usd)
             }));
           }
         }
-        var topOffices = oso.top_spend_offices || [];
-        if (topEl && topOffices.length) {
-          topEl.appendChild(el("span", {
-            "class": "ac-short-tag",
-            text: "Top spend offices"
-          }));
-          topOffices.forEach(function (t) {
-            topEl.appendChild(el("span", {
-              "class": "ps-bench-chip",
-              text: (t.office || "-") + " " +
-                fmtMoney(t.last_30_spend_usd) +
-                (t.opportunity ? " - " + t.opportunity : "")
-            }));
-          });
+
+        function wasteSignal(r, leak) {
+          var below = (r.vs_office_median_pts != null
+            && Number(r.vs_office_median_pts) < -1);
+          var pri = Number(r.p0_count || 0) + Number(r.p1_count || 0);
+          if (Number(r.high_risk_spend_share_pct || 0) >= 50) {
+            return "High-risk share " +
+              fmtPct(r.high_risk_spend_share_pct);
+          }
+          if (below) {
+            return "CVR below office median";
+          }
+          if (leak && Number(leak.missed_calls || 0) > 0) {
+            return "Missed-call leakage";
+          }
+          if (pri >= 2) return "Multiple P0/P1 fixes";
+          return "Watch";
         }
+
+        function actionChip(r, leak) {
+          var s = (r.opportunity || r.budget_move || "").toLowerCase();
+          if (Number(r.high_risk_spend_share_pct || 0) >= 50) return "Pause + Cut waste";
+          if (/pause|cut/.test(s)) return "Pause + Cut waste";
+          if (/track/.test(s)) return "Fix tracking";
+          if (leak && Number(leak.missed_calls || 0) > 0) return "Fix SLA";
+          if (/scale|protect/.test(s)) return "Scale";
+          if (Number(r.vs_office_median_pts || 0) < -1) return "Reallocate";
+          return "Hold";
+        }
+
+        function opportunityUsd(r) {
+          // Opportunity $ is only reliable when high-risk spend is an
+          // explicit number tied to that office. Hidden otherwise.
+          if (r.high_risk_spend_usd != null
+              && Number(r.high_risk_spend_usd) > 0) {
+            return Number(r.high_risk_spend_usd);
+          }
+          return null;
+        }
+
+        rows.forEach(function (r) {
+          r._leak = leakByOffice[r.office] || null;
+          r._opp = opportunityUsd(r);
+          r._signal = wasteSignal(r, r._leak);
+          r._action = actionChip(r, r._leak);
+        });
+        rows.sort(function (a, b) {
+          var ao = a._opp != null ? a._opp : -1;
+          var bo = b._opp != null ? b._opp : -1;
+          if (bo !== ao) return bo - ao;
+          return Number(b.last_30_spend_usd || 0)
+            - Number(a.last_30_spend_usd || 0);
+        });
+
         if (!rows.length) {
           card.appendChild(el("div", { "class": "section-meta",
-            text: "No office spend rows in this refresh." }));
-        } else {
-          var wrap = el("div", { "class": "bench-table-wrap" });
-          var table = el("table", { "class": "bench-table" });
-          var thead = el("thead", {}, [
-            el("tr", {}, [
-              el("th", { text: "Office" }),
-              el("th", { text: "Last-30 spend" }),
-              el("th", { text: "High-risk spend" }),
-              el("th", { text: "Last-7 CVR" }),
-              el("th", { text: "Last-month CVR" }),
-              el("th", { text: "vs office median" }),
-              el("th", { text: "Last-7 CPA" }),
-              el("th", { text: "Last-30 CPA" }),
-              el("th", { text: "Conv/day" }),
-              el("th", { text: "P0/P1/P2" }),
-              el("th", { text: "Opportunity" }),
-              el("th", { text: "Budget move" }),
-              el("th", { text: "Top ad-group opportunity" }),
-              el("th", { text: "Protect / scale candidates" })
-            ])
-          ]);
-          var tbody = el("tbody", {});
-          rows.forEach(function (r) {
-            var hr = (r.high_risk_spend_usd != null)
-              ? fmtMoney(r.high_risk_spend_usd) +
-                (r.high_risk_spend_share_pct != null
-                  ? " (" + fmtPct(r.high_risk_spend_share_pct) + ")"
-                  : "")
-              : "-";
-            var pri = [r.p0_count || 0, r.p1_count || 0, r.p2_count || 0]
-              .join(" / ");
-            var protect = r.protect_or_scale_candidates || [];
-            var protectCell = el("td", {});
-            if (protect.length === 0) {
-              protectCell.textContent = "-";
-            } else {
-              protect.forEach(function (p) {
-                protectCell.appendChild(el("div", {
-                  text: (p.campaign || "-") +
-                    " - " + fmtNum(p.conversions, 0) + " conv, " +
-                    fmtMoney(p.cpa_usd) + " CPA, " +
-                    fmtPct(p.conversion_rate_pct) + " CVR"
-                }));
-              });
-            }
-            tbody.appendChild(el("tr", {}, [
-              el("td", { text: r.office || "-" }),
-              el("td", { text: fmtMoney(r.last_30_spend_usd) }),
-              el("td", { text: hr }),
-              el("td", { text: fmtPct(r.last_7_conversion_rate_pct) }),
-              el("td", { text: fmtPct(r.last_month_conversion_rate_pct) }),
-              el("td", {}, [fmtDeltaPoints(r.vs_office_median_pts)]),
-              el("td", { text: fmtCpa(r.last_7_cpa_usd) }),
-              el("td", { text: fmtCpa(r.last_30_cpa_usd) }),
-              el("td", { text: fmtNum(r.last_7_conversions_per_day, 2) }),
-              el("td", { text: pri }),
-              el("td", { text: r.opportunity || "-" }),
-              el("td", { text: r.budget_move || "-" }),
-              el("td", { text: r.top_ad_group_opportunity || "-" }),
-              protectCell
-            ]));
-          });
-          table.appendChild(thead);
-          table.appendChild(tbody);
-          wrap.appendChild(table);
-          card.appendChild(wrap);
+            text: "No office rows in this refresh." }));
+          return;
         }
-        if (noteEl && oso.office_inference_note) {
-          noteEl.textContent = oso.office_inference_note;
-        }
+        var anyOpp = rows.some(function (r) { return r._opp != null; });
+        var wrap = el("div", { "class": "bench-table-wrap" });
+        var table = el("table", { "class": "bench-table" });
+        var head = [
+          el("th", { text: "Rank" }),
+          el("th", { text: "Office" }),
+          el("th", { text: "Waste signal" })
+        ];
+        if (anyOpp) head.push(el("th", { text: "Opportunity $" }));
+        head.push(el("th", { text: "Action" }));
+        var thead = el("thead", {}, [el("tr", {}, head)]);
+        var tbody = el("tbody", {});
+        rows.forEach(function (r, i) {
+          var cells = [
+            el("td", { text: String(i + 1) }),
+            el("td", { text: r.office || "-" }),
+            el("td", { text: r._signal })
+          ];
+          if (anyOpp) {
+            cells.push(el("td", {
+              text: r._opp != null ? fmtMoney(r._opp) : "\u2014"
+            }));
+          }
+          cells.push(el("td", {}, [el("span", {
+            "class": "delta-chip flat", text: r._action
+          })]));
+          tbody.appendChild(el("tr", {}, cells));
+        });
+        table.appendChild(thead);
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        card.appendChild(wrap);
       }
 
       function renderWeeklyRunRate(ads) {
@@ -4027,15 +3960,20 @@
           cell.appendChild(el("div", {
             "class": "ps-stat-value", text: c.value || "-"
           }));
-          if (c.basis) {
-            cell.appendChild(el("div", {
-              "class": "ps-stat-bench", text: c.basis
-            }));
-          }
-          if (c.decision) {
-            cell.appendChild(el("div", {
-              "class": "ps-stat-bench", text: c.decision
-            }));
+          var deltas = extractWowMomFromBasis(c.basis);
+          if (deltas.wow || deltas.mom) {
+            var dgrid = el("div", { "class": "delta-grid" });
+            if (deltas.wow) {
+              var wowChip = buildDeltaChip(deltas.wow,
+                { label: "WoW", invert: deltaInvertedFor(c.label) });
+              if (wowChip) dgrid.appendChild(wowChip);
+            }
+            if (deltas.mom) {
+              var momChip = buildDeltaChip(deltas.mom,
+                { label: "MoM", invert: deltaInvertedFor(c.label) });
+              if (momChip) dgrid.appendChild(momChip);
+            }
+            cell.appendChild(dgrid);
           }
           cardsEl.appendChild(cell);
         });
@@ -4078,18 +4016,9 @@
           trendsCardEl.appendChild(rwrap);
         }
 
-        var rules = wmrr.run_rate_rules || [];
-        if (rulesEl && rules.length) {
-          var ul = el("ul", {});
-          rules.forEach(function (r) {
-            ul.appendChild(el("li", { text: r }));
-          });
-          rulesEl.appendChild(ul);
-        }
+        if (rulesEl) rulesEl.innerHTML = "";
         var ofb = wmrr.office_budget_focus || {};
-        if (ruleNoteEl && ofb.rule) {
-          ruleNoteEl.textContent = ofb.rule;
-        }
+        if (ruleNoteEl) ruleNoteEl.textContent = "";
         function buildOfficeTable(rows, container) {
           if (!container) return;
           if (!rows || !rows.length) {
@@ -4184,15 +4113,8 @@
             todayEl.appendChild(tWrap);
           }
         }
-        if (fieldsEl && Array.isArray(dcr.fields_to_log_each_day)
-            && dcr.fields_to_log_each_day.length) {
-          fieldsEl.textContent =
-            "Fields to log each day: " +
-            dcr.fields_to_log_each_day.join(", ");
-        }
-        if (baselineEl && dcr.status_note) {
-          baselineEl.textContent = "Baseline: " + dcr.status_note;
-        }
+        if (fieldsEl) fieldsEl.textContent = "";
+        if (baselineEl) baselineEl.textContent = "";
       }
 
       function fmtMoney(n) {
@@ -4930,7 +4852,8 @@
         if (sourceEl) sourceEl.textContent = "";
         if (qualEl) qualEl.textContent = "";
 
-        // Summary cards
+        // Summary cards: metric-only. Strip basis/decision prose; pull
+        // WoW / MoM chips out of the basis string when present.
         (cr.summary_cards || []).forEach(function (c) {
           var cell = el("div", { "class": "ps-stat" });
           cell.appendChild(el("div", {
@@ -4939,34 +4862,31 @@
           cell.appendChild(el("div", {
             "class": "ps-stat-value", text: c.value || "-"
           }));
-          if (c.basis) {
-            cell.appendChild(el("div", {
-              "class": "ps-stat-bench", text: c.basis
-            }));
+          var deltas = extractWowMomFromBasis(c.basis);
+          if (deltas.wow || deltas.mom) {
+            var dgrid = el("div", { "class": "delta-grid" });
+            if (deltas.wow) {
+              var wowChip = buildDeltaChip(deltas.wow,
+                { label: "WoW", invert: deltaInvertedFor(c.label) });
+              if (wowChip) dgrid.appendChild(wowChip);
+            }
+            if (deltas.mom) {
+              var momChip = buildDeltaChip(deltas.mom,
+                { label: "MoM", invert: deltaInvertedFor(c.label) });
+              if (momChip) dgrid.appendChild(momChip);
+            }
+            cell.appendChild(dgrid);
           }
-          if (c.decision) {
-            cell.appendChild(el("div", {
-              "class": "ps-stat-bench", text: c.decision
+          var statusChip = chipFromCardLabel(c.label);
+          if (statusChip) {
+            cell.appendChild(el("span", {
+              "class": "delta-chip flat", text: statusChip
             }));
           }
           cardsEl.appendChild(cell);
         });
 
-        // Lead status legend chips
-        if (legendEl && (cr.lead_status_legend || []).length) {
-          legendEl.appendChild(el("span", {
-            "class": "ac-short-tag",
-            text: "Lead status legend"
-          }));
-          (cr.lead_status_legend || []).forEach(function (lg) {
-            legendEl.appendChild(el("span", {
-              "class": "ps-bench-chip",
-              text: (lg.label || lg.lead_status || "-") +
-                " (" + (lg.lead_status || "-") + ") - " +
-                (lg.meaning || "")
-            }));
-          });
-        }
+        if (legendEl) legendEl.innerHTML = "";
 
         // First-time callers by office grid (renders directly below
         // the top CallRail summary stats per Ishan's requirement).
@@ -5015,12 +4935,13 @@
               el("th", { text: "First-time 30d" }),
               el("th", { text: "Prior 30d" }),
               el("th", { text: "MoM" }),
-              el("th", { text: "Share of calls" }),
-              el("th", { text: "Note" })
+              el("th", { text: "Share" }),
+              el("th", { text: "Trend" })
             ])
           ]));
           var ftbody = el("tbody", {});
           (ftg.rows || []).forEach(function (r) {
+            var trend = trendChipFromDelta(r.wow_delta) || "Hold";
             ftbody.appendChild(el("tr", {}, [
               el("td", { text: r.office || "-" }),
               el("td", { text: fmtNum(r.first_time_callers_last_7d, 0) }),
@@ -5030,7 +4951,9 @@
               el("td", { text: fmtNum(r.first_time_callers_prior_30d, 0) }),
               el("td", { text: r.mom_delta || "-" }),
               el("td", { text: fmtPct(r.share_of_calls_pct) }),
-              el("td", { text: r.note || "-" })
+              el("td", {}, [el("span", {
+                "class": "delta-chip flat", text: trend
+              })])
             ]));
           });
           ftable.appendChild(ftbody);
@@ -5059,7 +4982,7 @@
               el("th", { text: "MoM qual" }),
               el("th", { text: "Missed 7d" }),
               el("th", { text: "WoW missed" }),
-              el("th", { text: "Trend call" })
+              el("th", { text: "Trend" })
             ])
           ]));
           var ttbody = el("tbody", {});
@@ -5071,6 +4994,9 @@
               else td.textContent = "-";
               return td;
             }
+            var trendLabel = trendChipFromDelta(r.wow_calls_delta_pct)
+              || trendChipFromDelta(r.wow_qualified_delta) || "Hold";
+            if (Number(r.missed_last_7d || 0) > 0) trendLabel = "Fix SLA";
             ttbody.appendChild(el("tr", {}, [
               el("td", { text: r.office || "-" }),
               el("td", { text: fmtNum(r.calls_last_7d, 0) }),
@@ -5085,7 +5011,9 @@
               chipCell(r.mom_qualified_delta),
               el("td", { text: fmtNum(r.missed_last_7d, 0) }),
               chipCell(r.wow_missed_delta, { invert: true }),
-              el("td", { text: r.trend_call || "-" })
+              el("td", {}, [el("span", {
+                "class": "delta-chip flat", text: trendLabel
+              })])
             ]));
           });
           ttable.appendChild(ttbody);
@@ -5177,8 +5105,7 @@
             el("tr", {}, [
               el("th", { text: "Outcome" }),
               el("th", { text: "Count" }),
-              el("th", { text: "Share" }),
-              el("th", { text: "Note" })
+              el("th", { text: "Share" })
             ])
           ]));
           var tbody = el("tbody", {});
@@ -5186,8 +5113,7 @@
             tbody.appendChild(el("tr", {}, [
               el("td", { text: r.outcome || "-" }),
               el("td", { text: fmtNum(r.count, 0) }),
-              el("td", { text: fmtPct(r.share_pct) }),
-              el("td", { text: r.note || "-" })
+              el("td", { text: fmtPct(r.share_pct) })
             ]));
           });
           table.appendChild(tbody);
@@ -5195,7 +5121,10 @@
           outcomeCardEl.appendChild(wrap);
         }
 
-        // Office-level call quality
+        // Office-level call quality. Drop the "Cost / qual" column
+        // entirely (qualified_cpa is account-blended, not attributable
+        // at office level) and replace the prose "note" with a short
+        // status chip.
         var oq = cr.office_call_quality || {};
         if (officeRuleEl) officeRuleEl.textContent = "";
         if (officeCardEl && (oq.rows || []).length) {
@@ -5208,23 +5137,22 @@
               el("th", { text: "Qualified" }),
               el("th", { text: "Qual rate" }),
               el("th", { text: "Missed" }),
-              el("th", { text: "Cost / qual" }),
-              el("th", { text: "Issue" }),
-              el("th", { text: "Action" })
+              el("th", { text: "Status" })
             ])
           ]));
           var tb2 = el("tbody", {});
           (oq.rows || []).forEach(function (r) {
-            var hasCpa = (r.qualified_cpa_usd != null && r.qualified_cpa_usd > 0);
+            var chip = officeChipFromStatus(
+              r.status, r.missed_calls, r.qualified_rate_pct);
             tb2.appendChild(el("tr", {}, [
               el("td", { text: r.office || "-" }),
               el("td", { text: fmtNum(r.total_calls, 0) }),
               el("td", { text: fmtNum(r.qualified_calls, 0) }),
               el("td", { text: fmtPct(r.qualified_rate_pct) }),
               el("td", { text: fmtNum(r.missed_calls, 0) }),
-              el("td", { text: hasCpa ? fmtMoney(r.qualified_cpa_usd) : "\u2014" }),
-              el("td", { text: r.status || "-" }),
-              el("td", { text: r.note || "-" })
+              el("td", {}, [el("span", {
+                "class": "delta-chip flat", text: chip
+              })])
             ]));
           });
           t2.appendChild(tb2);
@@ -5246,13 +5174,13 @@
               el("th", { text: "Qualified" }),
               el("th", { text: "Qual rate" }),
               el("th", { text: "Missed" }),
-              el("th", { text: "Cost / qual" }),
               el("th", { text: "Action" })
             ])
           ]));
           var tb3 = el("tbody", {});
           (cq.rows || []).forEach(function (r) {
-            var hasCpa = (r.qualified_cpa_usd != null && r.qualified_cpa_usd > 0);
+            var chip = officeChipFromStatus(
+              r.recommended_action, r.missed_calls, r.qualified_rate_pct);
             tb3.appendChild(el("tr", {}, [
               el("td", { text: r.campaign || "-" }),
               el("td", { text: r.office || "-" }),
@@ -5263,8 +5191,9 @@
                 text: (r.missed_calls != null)
                   ? fmtNum(r.missed_calls, 0) : "-"
               }),
-              el("td", { text: hasCpa ? fmtMoney(r.qualified_cpa_usd) : "\u2014" }),
-              el("td", { text: r.recommended_action || "-" })
+              el("td", {}, [el("span", {
+                "class": "delta-chip flat", text: chip
+              })])
             ]));
           });
           t3.appendChild(tb3);
@@ -5286,11 +5215,13 @@
               el("th", { text: "Qualified" }),
               el("th", { text: "Qualified rate" }),
               el("th", { text: "Missed" }),
-              el("th", { text: "Keyword focus" })
+              el("th", { text: "Action" })
             ])
           ]));
           var tb4 = el("tbody", {});
           (ag.rows || []).forEach(function (r) {
+            var chip = officeChipFromStatus(
+              null, r.missed_calls, r.qualified_rate_pct);
             tb4.appendChild(el("tr", {}, [
               el("td", { text: r.office || "-" }),
               el("td", { text: r.campaign || "-" }),
@@ -5298,7 +5229,9 @@
               el("td", { text: fmtNum(r.qualified_calls, 0) }),
               el("td", { text: fmtPct(r.qualified_rate_pct) }),
               el("td", { text: fmtNum(r.missed_calls, 0) }),
-              el("td", { text: r.keyword_focus || "-" })
+              el("td", {}, [el("span", {
+                "class": "delta-chip flat", text: chip
+              })])
             ]));
           });
           t4.appendChild(tb4);
@@ -5341,7 +5274,7 @@
               el("th", { text: "Missed" }),
               el("th", { text: "Peak window" }),
               el("th", { text: "Spend lost (est)" }),
-              el("th", { text: "Next step" })
+              el("th", { text: "Action" })
             ])
           ]));
           var tb5 = el("tbody", {});
@@ -5351,7 +5284,9 @@
               el("td", { text: fmtNum(r.missed_calls, 0) }),
               el("td", { text: r.peak_window || "-" }),
               el("td", { text: fmtMoney(r.estimated_spend_lost_usd) }),
-              el("td", { text: r.next_step || "-" })
+              el("td", {}, [el("span", {
+                "class": "delta-chip flat", text: "Fix SLA"
+              })])
             ]));
           });
           t5.appendChild(tb5);
@@ -5359,15 +5294,7 @@
           leakageCardEl.appendChild(wrap5);
         }
         if (leakageBasisEl) leakageBasisEl.textContent = "";
-
-        // Integration status footer (compact: integration + status only)
-        var integ = cr.integration_status || {};
-        if (integrationEl && integ.integration) {
-          integrationEl.appendChild(el("span", {
-            "class": "ac-short-tag",
-            text: integ.integration + " \u2022 " + (integ.status || "-")
-          }));
-        }
+        if (integrationEl) integrationEl.innerHTML = "";
       }
 
       // Build a colored WoW/MoM delta chip from a string like "+12.3%",
@@ -5401,6 +5328,55 @@
         if (s === "protect") return { p: "P2", label: "Scale", cls: "is-protect" };
         if (s === "monitor") return { p: "P1", label: "Watch", cls: "is-monitor" };
         return { p: "P0", label: "Fix Now", cls: "" };
+      }
+      // Pull "+X% WoW" / "+Y% MoM" / "+N pts MoM" chips out of a basis
+      // sentence so the prose can be dropped without losing the deltas.
+      function extractWowMomFromBasis(basis) {
+        var out = { wow: null, mom: null };
+        if (!basis) return out;
+        var num = "[+\\-]?[0-9]+(?:\\.[0-9]+)?(?:%| pts)";
+        var wow = new RegExp("(" + num + ")\\s*WoW");
+        var mom = new RegExp("(" + num + ")\\s*MoM");
+        var mw = basis.match(wow);
+        if (mw) out.wow = mw[1].replace(/\s+/g, "");
+        var mm = basis.match(mom);
+        if (mm) out.mom = mm[1].replace(/\s+/g, "");
+        return out;
+      }
+      function deltaInvertedFor(label) {
+        var l = (label || "").toLowerCase();
+        return /missed|cpa|cost/.test(l);
+      }
+      // 2-4 word status chip per metric card.
+      function chipFromCardLabel(label) {
+        var l = (label || "").toLowerCase();
+        if (/missed/.test(l)) return "Fix SLA";
+        if (/answered/.test(l)) return "Hold";
+        if (/qualified-call rate/.test(l)) return "Watch";
+        if (/qualified-call cpa|cost per call/.test(l)) return "Blended";
+        if (/qualified calls/.test(l)) return "Scale";
+        if (/first-time/.test(l)) return "New patients";
+        return null;
+      }
+      // Compact note chip per office row, derived from status/metrics.
+      function officeChipFromStatus(status, missed, qualRate) {
+        var s = (status || "").toLowerCase();
+        if (/scale|protect/.test(s)) return "Scale";
+        if (/fix.*sla|sla|miss/.test(s)) return "Fix SLA";
+        if (/fix track/.test(s)) return "Fix tracking";
+        if (/fix/.test(s)) return "Fix";
+        if (/watch|monitor/.test(s)) return "Watch";
+        if (/hold/.test(s)) return "Hold";
+        if (Number(missed || 0) > 0) return "Fix SLA";
+        if (Number(qualRate || 0) >= 15) return "Scale";
+        return "Hold";
+      }
+      function trendChipFromDelta(deltaStr) {
+        if (!deltaStr) return null;
+        var v = String(deltaStr).trim();
+        if (/^\+/.test(v)) return "Growing";
+        if (/^[-\u2212]/.test(v)) return "Slipping";
+        return "Hold";
       }
       function shortVerb(directive) {
         if (!directive) return "Act";
