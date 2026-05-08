@@ -457,7 +457,7 @@
   },
   "google_ads_insights": {
     "title": "Google Ads Multi-Office Watch",
-    "subtitle": "Direct linked account reporting across 16 office account(s) for the last 30 days. Recommendations are dashboard-only; no live Google Ads changes are pushed.",
+    "subtitle": "Updated daily. Public data is aggregated.",
     "lookback": "LAST_30_DAYS",
     "data_freshness": "2026-05-06T17:28:02.565014+00:00",
     "automation_status": "Direct linked account reporting is active for every connected office account (16 in this refresh). Recommendations are dashboard-only and require explicit operator approval before any live change.",
@@ -11843,7 +11843,7 @@
         "Use the next daily 7d-vs-last-month refresh to decide whether to keep, reverse, or scale the change."
       ]
     },
-    "daily_update_note": "Daily refresh pulls current last-7-days, prior-7-days, last-30-days, and prior-30-days windows from CallRail and Google Ads, rebuilds the office grid, run-rate trends, and JZ/Joe focus rows, then revalidates against the public sanitization rules before publish.",
+    "daily_update_note": "Updated daily.",
     "operator_review_order": [
       "Read the shared P0/P1/P2 playbook once.",
       "Work each campaign row by its unique reason and next move.",
@@ -11876,7 +11876,7 @@
     },
     "paid_ads_top_summary": {
       "title": "Paid ads performance summary",
-      "period": "Last 7 days, benchmarked against last month and internal medians",
+      "period": "7d",
       "primary_stats": [
         {
           "label": "Spend/day",
@@ -13274,7 +13274,7 @@
     },
     "weekly_marketing_run_rate": {
       "title": "Weekly marketing run-rate",
-      "period": "Last 7 days (2026-04-29..2026-05-05) projected vs prior 7 days; last 30 days (2026-04-06..2026-05-05) vs prior 30 days",
+      "period": "7d vs prior 7d; 30d vs prior 30d",
       "summary_cards": [
         {
           "label": "Projected weekly spend",
@@ -13581,9 +13581,9 @@
     "callrail_call_quality": {
       "title": "CallRail call quality",
       "placement": "After Paid Ads summary, before other campaign-level detail",
-      "period": "Last 7 days (2026-04-29..2026-05-05) vs prior 7 days; last 30 days (2026-04-06..2026-05-05) vs prior 30 days",
-      "source_note": "Aggregated from CallRail Calls API v3 (live private config refresh). Last 7 days: 964 calls across 10 office labels, 113 qualified by CallRail lead_status, 96.0% answered, 332 first-time callers, 39 missed. Last 30 days: 3717 calls, 457 qualified, 1397 first-time callers, 182 missed. No raw call records, phone numbers, caller names, recordings, transcripts, CallRail account/company/tracking IDs, Google Ads customer IDs, or GCLIDs are exposed.",
-      "qualification_note": "A call counts as qualified only when CallRail lead_status is one of good_lead, previously_marked_good_lead, qualified, booked, or appointment_booked - this is the true conversion layer for paid-media decisions. Duration-only and tag-only signals stay secondary diagnostics. Calls still in 'unknown' status are counted as pending qualification.",
+      "period": "7d vs prior 7d; 30d vs prior 30d",
+      "source_note": "CallRail aggregates.",
+      "qualification_note": "Qualified = CallRail lead_status: good_lead, qualified, booked.",
       "lead_status_legend": [
         {
           "lead_status": "good_lead",
@@ -13667,7 +13667,7 @@
       ],
       "call_outcome_breakdown": {
         "title": "Call outcome mix (last 7 days)",
-        "rule": "Outcome buckets are derived from CallRail answered status and lead_status. Answered + qualified is the only bucket that counts toward the primary qualified total.",
+        "rule": "",
         "rows": [
           {
             "outcome": "Answered - qualified",
@@ -13697,7 +13697,7 @@
       },
       "office_call_quality": {
         "title": "Office-level call quality (last 7 days)",
-        "rule": "Ranked by qualified calls. Median qualified-rate 9.8%, median missed-rate 2.9%. Offices below the qualified-rate median or above the missed-rate median get an Investigate or Fix answer SLA flag before their campaigns scale. Offices with fewer than five calls in the window are rolled up and not displayed individually to preserve caller anonymity.",
+        "rule": "",
         "rows": [
           {
             "office": "Riverpark",
@@ -13843,7 +13843,7 @@
       },
       "campaign_call_quality": {
         "title": "Campaign-level call quality (last 7 days, paid)",
-        "rule": "Sorted by qualified calls then total volume. Use alongside Google Ads campaign CVR/CPA before changing budgets or pausing ad groups. Qualified-call CPA is reported as 0.0 until the private builder lands the per-campaign GCLID -> spend join.",
+        "rule": "",
         "rows": [
           {
             "office": "Riverpark",
@@ -14089,7 +14089,7 @@
       },
       "ad_group_call_quality": {
         "title": "Ad-group call quality (last 7 days, top by qualified calls)",
-        "rule": "Qualified-call rate is the primary read. CallRail v3 does not expose ad_group directly, so ad_group is inferred from the keyword the call landed on (utm_term/keywords). Groups below the campaign qualified rate are first candidates for negative keywords or match-type tightening.",
+        "rule": "",
         "rows": [
           {
             "office": "Riverpark",
@@ -14230,7 +14230,7 @@
       },
       "missed_call_leakage": {
         "title": "Missed-call leakage (last 7 days)",
-        "rule": "Missed calls plus voicemails without callback are treated as fully wasted paid clicks. Estimated spend lost is reported as 0.0 until per-call GCLID -> spend join lands; in the meantime, prioritize offices by raw missed-call count.",
+        "rule": "",
         "totals": {
           "missed_calls_last_7d": 39,
           "paid_clicks_lost_estimate": 39,
@@ -14306,19 +14306,19 @@
       "integration_status": {
         "integration": "CallRail Calls API v3",
         "status": "Connected via private config (api_key_private_value present, last validated 2026-05-06).",
-        "public_exposure": "Aggregated counts and rates only. No raw call records, phone numbers, caller names, recordings, transcripts, or CallRail account/company/tracking IDs.",
+        "public_exposure": "Aggregated only.",
         "private_config_fields": [
           "api_key_private_value (private)",
           "account.account_id_private_value (private)",
           "qualification.qualified_values (config)",
           "office_mapping.manual_office_map (config)"
         ],
-        "docs_reference": "docs/integrations/callrail.md"
+        "docs_reference": ""
       },
       "office_first_time_caller_grid": {
         "title": "First-time callers by office",
-        "period": "Last 7 days vs prior 7 days; last 30 days vs prior 30 days",
-        "rule": "First-time CallRail callers (first_call = true) per office, with WoW and MoM deltas. Renders as a grid directly below the top Paid Ads / CallRail summary stats so the new-patient proxy is visible before any campaign-level review.",
+        "period": "7d vs prior 7d; 30d vs prior 30d",
+        "rule": "",
         "rows": [
           {
             "office": "Riverpark",
@@ -14434,7 +14434,7 @@
       },
       "office_trends": {
         "title": "Office trends - week over week and month over month",
-        "rule": "Per-office change in total calls, qualified calls, and missed calls. WoW deltas use last 7 days vs the previous 7 days. MoM deltas use last 30 days vs the previous 30 days. Use this to confirm scale/hold/fix calls from the office grid.",
+        "rule": "",
         "rows": [
           {
             "office": "Riverpark",
@@ -14630,7 +14630,7 @@
       },
       "jz_joe_focus": {
         "title": "JZ / Joe focus",
-        "rule": "JZ/Joe matched on CallRail campaign / utm_term / tag. Spend hidden - not attributable.",
+        "rule": "",
         "rows": [
           {
             "label": "JZ campaigns / keywords (aggregated)",
@@ -14872,7 +14872,7 @@
         }
       ]
     },
-    "compact_freshness_privacy_note": "Last 30d aggregates. Sanitized public mirror - raw records, IDs, and PII blocked."
+    "compact_freshness_privacy_note": "Updated daily. Public data is aggregated."
   },
   "_sanitization": {
     "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign and ad-group metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
@@ -14899,7 +14899,7 @@
   },
   "b2b_reply_detail": {
     "title": "B2B reply detail",
-    "privacy_note": "Public view is sanitized: no sender names, emails, organizations, phone numbers, or raw reply text.",
+    "privacy_note": "Aggregated. PII removed.",
     "classification_breakdown": [
       {
         "classification": "Bounce",

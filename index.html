@@ -2708,7 +2708,7 @@
           return;
         }
         if (ads.title) titleEl.textContent = ads.title;
-        subEl.textContent = ads.subtitle || "";
+        subEl.textContent = "Updated daily. Public data is aggregated.";
 
         var coverage = ads.coverage || {};
         var totals = ads.totals || {};
@@ -2733,10 +2733,7 @@
           text: ads.automation_status || "" });
         var covNext = el("div", { "class": "item-body",
           text: coverage.next_step || "" });
-        var officeNotice = el("div", { "class": "item-body",
-          text: "Office mapping notice: office names are awaiting " +
-                "mapping. Office identifiers and account IDs remain " +
-                "private and are not shown in the public mirror." });
+        var officeNotice = el("div", { "class": "item-body", text: "" });
         covCard.appendChild(el("div", { "class": "item" },
           [covHead, covMeta, covBody, covNext, officeNotice]));
 
@@ -3180,7 +3177,15 @@
         var notes = ads.operator_notes || [];
         actCard.appendChild(el("div", { "class": "section-meta",
           text: "Operator recommendations" }));
-        var ul = el("ul", { "class": "checks" }, ra.map(function (t) {
+        var seenRa = {};
+        var raDedup = [];
+        ra.forEach(function (t) {
+          var k = String(t || "").trim();
+          if (!k || seenRa[k]) return;
+          seenRa[k] = true;
+          raDedup.push(k);
+        });
+        var ul = el("ul", { "class": "checks" }, raDedup.map(function (t) {
           return el("li", { text: t });
         }));
         actCard.appendChild(ul);
@@ -3804,7 +3809,7 @@
         if (bench) bench.innerHTML = "";
         if (period) period.textContent = "";
         var top = (ads && ads.paid_ads_top_summary) || {};
-        if (period && top.period) period.textContent = top.period;
+        if (period) period.textContent = "7d";
         var stats = top.primary_stats || [];
         if (!stats.length) {
           grid.appendChild(el("div", { "class": "section-meta",
@@ -4010,8 +4015,8 @@
         if (trendsRuleEl) trendsRuleEl.textContent = "";
         if (trendsCardEl) trendsCardEl.innerHTML = "";
         var wmrr = (ads && ads.weekly_marketing_run_rate) || {};
-        if (metaEl && wmrr.period) {
-          metaEl.textContent = wmrr.period;
+        if (metaEl) {
+          metaEl.textContent = "7d vs prior 7d; 30d vs prior 30d";
         }
         var cards = wmrr.summary_cards || [];
         cards.forEach(function (c) {
@@ -4859,10 +4864,6 @@
             ct.approval_rule
           ]));
         }
-        if (ads && ads.daily_update_note) {
-          card.appendChild(el("div", { "class": "section-meta",
-            style: "margin-top: 10px;", text: ads.daily_update_note }));
-        }
       }
 
       function renderCallRailCallQuality(ads) {
@@ -4923,15 +4924,11 @@
             text: "CallRail call quality not available in this refresh." }));
           return;
         }
-        if (metaEl && cr.period) {
-          metaEl.textContent = metaEl.textContent + " (" + cr.period + ")";
+        if (metaEl) {
+          metaEl.textContent = "7d / 30d \u2022 WoW + MoM";
         }
-        if (sourceEl && cr.source_note) {
-          sourceEl.textContent = cr.source_note;
-        }
-        if (qualEl && cr.qualification_note) {
-          qualEl.textContent = "Qualification rule: " + cr.qualification_note;
-        }
+        if (sourceEl) sourceEl.textContent = "";
+        if (qualEl) qualEl.textContent = "";
 
         // Summary cards
         (cr.summary_cards || []).forEach(function (c) {
@@ -4974,9 +4971,7 @@
         // First-time callers by office grid (renders directly below
         // the top CallRail summary stats per Ishan's requirement).
         var ftg = cr.office_first_time_caller_grid || null;
-        if (ftg && ftRuleEl) {
-          ftRuleEl.textContent = ftg.rule || "";
-        }
+        if (ftRuleEl) ftRuleEl.textContent = "";
         if (ftg && ftCardsEl && (ftg.rows || []).length) {
           (ftg.rows || []).forEach(function (r) {
             var cell = el("div", { "class": "ps-stat" });
@@ -5045,9 +5040,7 @@
 
         // Office trends - WoW & MoM (calls, qualified, missed)
         var ot = cr.office_trends || null;
-        if (ot && trendsRuleEl) {
-          trendsRuleEl.textContent = ot.rule || "";
-        }
+        if (trendsRuleEl) trendsRuleEl.textContent = "";
         if (ot && trendsCardEl && (ot.rows || []).length) {
           var twrap = el("div", { "class": "bench-table-wrap" });
           var ttable = el("table", { "class": "bench-table" });
@@ -5102,9 +5095,7 @@
 
         // JZ / Joe campaign focus - action-led, compact, no non-attributable spend.
         var jz = cr.jz_joe_focus || null;
-        if (jz && jzjoeRuleEl) {
-          jzjoeRuleEl.textContent = "Qualified = CallRail good_lead. Action-first; spend hidden where not attributable.";
-        }
+        if (jzjoeRuleEl) jzjoeRuleEl.textContent = "";
         if (jz && jzjoeCardEl && (jz.rows || []).length) {
           function shfClass(v) {
             var s = (v || "").toLowerCase();
@@ -5178,9 +5169,7 @@
 
         // Call outcome breakdown
         var outcome = cr.call_outcome_breakdown || {};
-        if (outcomeRuleEl && outcome.rule) {
-          outcomeRuleEl.textContent = outcome.rule;
-        }
+        if (outcomeRuleEl) outcomeRuleEl.textContent = "";
         if (outcomeCardEl && (outcome.rows || []).length) {
           var wrap = el("div", { "class": "bench-table-wrap" });
           var table = el("table", { "class": "bench-table" });
@@ -5208,9 +5197,7 @@
 
         // Office-level call quality
         var oq = cr.office_call_quality || {};
-        if (officeRuleEl && oq.rule) {
-          officeRuleEl.textContent = oq.rule;
-        }
+        if (officeRuleEl) officeRuleEl.textContent = "";
         if (officeCardEl && (oq.rows || []).length) {
           var wrap2 = el("div", { "class": "bench-table-wrap" });
           var t2 = el("table", { "class": "bench-table" });
@@ -5218,34 +5205,24 @@
             el("tr", {}, [
               el("th", { text: "Office" }),
               el("th", { text: "Calls" }),
-              el("th", { text: "Answered" }),
-              el("th", { text: "Answered rate" }),
               el("th", { text: "Qualified" }),
-              el("th", { text: "Qualified rate" }),
-              el("th", { text: "First-time" }),
+              el("th", { text: "Qual rate" }),
               el("th", { text: "Missed" }),
-              el("th", { text: "Missed rate" }),
-              el("th", { text: "Qualified CPA" }),
-              el("th", { text: "Status" }),
-              el("th", { text: "Note" })
+              el("th", { text: "Cost / qual" }),
+              el("th", { text: "Issue" }),
+              el("th", { text: "Action" })
             ])
           ]));
           var tb2 = el("tbody", {});
           (oq.rows || []).forEach(function (r) {
+            var hasCpa = (r.qualified_cpa_usd != null && r.qualified_cpa_usd > 0);
             tb2.appendChild(el("tr", {}, [
               el("td", { text: r.office || "-" }),
               el("td", { text: fmtNum(r.total_calls, 0) }),
-              el("td", { text: fmtNum(r.answered_calls, 0) }),
-              el("td", { text: fmtPct(r.answered_rate_pct) }),
               el("td", { text: fmtNum(r.qualified_calls, 0) }),
               el("td", { text: fmtPct(r.qualified_rate_pct) }),
-              el("td", { text: fmtNum(r.first_time_callers, 0) }),
               el("td", { text: fmtNum(r.missed_calls, 0) }),
-              el("td", { text: fmtPct(r.missed_rate_pct) }),
-              el("td", {
-                text: (r.qualified_cpa_usd != null && r.qualified_cpa_usd > 0)
-                  ? fmtMoney(r.qualified_cpa_usd) : "-"
-              }),
+              el("td", { text: hasCpa ? fmtMoney(r.qualified_cpa_usd) : "\u2014" }),
               el("td", { text: r.status || "-" }),
               el("td", { text: r.note || "-" })
             ]));
@@ -5257,48 +5234,36 @@
 
         // Campaign-level call quality
         var cq = cr.campaign_call_quality || {};
-        if (campaignRuleEl && cq.rule) {
-          campaignRuleEl.textContent = cq.rule;
-        }
+        if (campaignRuleEl) campaignRuleEl.textContent = "";
         if (campaignCardEl && (cq.rows || []).length) {
           var wrap3 = el("div", { "class": "bench-table-wrap" });
           var t3 = el("table", { "class": "bench-table" });
           t3.appendChild(el("thead", {}, [
             el("tr", {}, [
-              el("th", { text: "Office" }),
               el("th", { text: "Campaign" }),
-              el("th", { text: "Channel" }),
+              el("th", { text: "Office" }),
               el("th", { text: "Calls" }),
               el("th", { text: "Qualified" }),
-              el("th", { text: "Qualified rate" }),
-              el("th", { text: "First-time" }),
+              el("th", { text: "Qual rate" }),
               el("th", { text: "Missed" }),
-              el("th", { text: "Qualified CPA" }),
+              el("th", { text: "Cost / qual" }),
               el("th", { text: "Action" })
             ])
           ]));
           var tb3 = el("tbody", {});
           (cq.rows || []).forEach(function (r) {
+            var hasCpa = (r.qualified_cpa_usd != null && r.qualified_cpa_usd > 0);
             tb3.appendChild(el("tr", {}, [
-              el("td", { text: r.office || "-" }),
               el("td", { text: r.campaign || "-" }),
-              el("td", { text: r.channel || "-" }),
+              el("td", { text: r.office || "-" }),
               el("td", { text: fmtNum(r.total_calls, 0) }),
               el("td", { text: fmtNum(r.qualified_calls, 0) }),
               el("td", { text: fmtPct(r.qualified_rate_pct) }),
               el("td", {
-                text: (r.first_time_callers != null)
-                  ? fmtNum(r.first_time_callers, 0) : "-"
-              }),
-              el("td", {
                 text: (r.missed_calls != null)
                   ? fmtNum(r.missed_calls, 0) : "-"
               }),
-              el("td", {
-                text: (r.qualified_cpa_usd != null && r.qualified_cpa_usd > 0)
-                  ? fmtMoney(r.qualified_cpa_usd)
-                  : "spend not attributable"
-              }),
+              el("td", { text: hasCpa ? fmtMoney(r.qualified_cpa_usd) : "\u2014" }),
               el("td", { text: r.recommended_action || "-" })
             ]));
           });
@@ -5309,9 +5274,7 @@
 
         // Ad-group call quality
         var ag = cr.ad_group_call_quality || {};
-        if (adgroupRuleEl && ag.rule) {
-          adgroupRuleEl.textContent = ag.rule;
-        }
+        if (adgroupRuleEl) adgroupRuleEl.textContent = "";
         if (adgroupCardEl && (ag.rows || []).length) {
           var wrap4 = el("div", { "class": "bench-table-wrap" });
           var t4 = el("table", { "class": "bench-table" });
@@ -5345,9 +5308,7 @@
 
         // Missed-call leakage
         var leak = cr.missed_call_leakage || {};
-        if (leakageRuleEl && leak.rule) {
-          leakageRuleEl.textContent = leak.rule;
-        }
+        if (leakageRuleEl) leakageRuleEl.textContent = "";
         var totals = leak.totals || {};
         if (leakageTotalsEl) {
           if (totals.missed_calls_last_7d != null) {
@@ -5397,36 +5358,15 @@
           wrap5.appendChild(t5);
           leakageCardEl.appendChild(wrap5);
         }
-        if (leakageBasisEl && totals.basis) {
-          leakageBasisEl.textContent = "Basis: " + totals.basis;
-        }
+        if (leakageBasisEl) leakageBasisEl.textContent = "";
 
-        // Integration status footer
+        // Integration status footer (compact: integration + status only)
         var integ = cr.integration_status || {};
         if (integrationEl && integ.integration) {
           integrationEl.appendChild(el("span", {
             "class": "ac-short-tag",
-            text: integ.integration
+            text: integ.integration + " \u2022 " + (integ.status || "-")
           }));
-          integrationEl.appendChild(el("div", {
-            text: "Status: " + (integ.status || "-")
-          }));
-          if (integ.public_exposure) {
-            integrationEl.appendChild(el("div", {
-              text: integ.public_exposure
-            }));
-          }
-          if ((integ.private_config_fields || []).length) {
-            integrationEl.appendChild(el("div", {
-              text: "Private config fields (placeholders only): " +
-                (integ.private_config_fields || []).join(", ")
-            }));
-          }
-          if (integ.docs_reference) {
-            integrationEl.appendChild(el("div", {
-              text: integ.docs_reference
-            }));
-          }
         }
       }
 
