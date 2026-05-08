@@ -1456,6 +1456,14 @@
                 aria-controls="panel-outreach" aria-selected="false">
           B2B Outreach
         </button>
+        <button class="tab" role="tab" id="tab-organic"
+                aria-controls="panel-organic" aria-selected="false">
+          Organic
+        </button>
+        <button class="tab" role="tab" id="tab-referrals"
+                aria-controls="panel-referrals" aria-selected="false">
+          Referrals
+        </button>
       </div>
 
       <!-- =================== Google Ads tab =================== -->
@@ -1934,6 +1942,86 @@
             <ul class="checks" id="next-list"></ul>
           </div>
         </section>
+      </div>
+
+      <!-- =================== Organic tab =================== -->
+      <div id="panel-organic" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-organic" tabindex="0" hidden>
+        <p class="tab-meta" id="organic-meta">Last 30d.</p>
+
+        <section aria-labelledby="organic-conn">
+          <h2 id="organic-conn">Connectors</h2>
+          <div class="paid-summary-grid" id="organic-conn-grid"></div>
+        </section>
+
+        <section aria-labelledby="organic-actions">
+          <h2 id="organic-actions">Do these today</h2>
+          <div class="top5-grid" id="organic-actions-grid"></div>
+        </section>
+
+        <section aria-labelledby="organic-summary">
+          <h2 id="organic-summary">Summary</h2>
+          <div class="paid-summary-grid" id="organic-summary-grid"></div>
+        </section>
+
+        <section aria-labelledby="organic-ga">
+          <h2 id="organic-ga">GA4 sources & landing pages</h2>
+          <div class="card" id="organic-ga-source"></div>
+          <div class="card" id="organic-ga-landing" style="margin-top:10px;"></div>
+        </section>
+
+        <section aria-labelledby="organic-gsc">
+          <h2 id="organic-gsc">GSC queries & pages</h2>
+          <div class="card" id="organic-gsc-query"></div>
+          <div class="card" id="organic-gsc-page" style="margin-top:10px;"></div>
+        </section>
+
+        <section aria-labelledby="organic-ahrefs">
+          <h2 id="organic-ahrefs">Ahrefs rankings & backlinks</h2>
+          <div class="paid-summary-grid" id="organic-ahrefs-cards"></div>
+          <div class="card" id="organic-ahrefs-keywords" style="margin-top:10px;"></div>
+          <div class="card" id="organic-ahrefs-changes" style="margin-top:10px;"></div>
+        </section>
+
+        <section aria-labelledby="organic-opps">
+          <h2 id="organic-opps">SEO opportunity actions</h2>
+          <div class="card" id="organic-opps-card"></div>
+        </section>
+
+        <p class="tab-meta" id="organic-fresh"></p>
+      </div>
+
+      <!-- =================== Referrals tab =================== -->
+      <div id="panel-referrals" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-referrals" tabindex="0" hidden>
+        <p class="tab-meta" id="referrals-meta">Last 30d.</p>
+
+        <section aria-labelledby="ref-conn">
+          <h2 id="ref-conn">Connectors</h2>
+          <div class="paid-summary-grid" id="ref-conn-grid"></div>
+        </section>
+
+        <section aria-labelledby="ref-actions">
+          <h2 id="ref-actions">Do these today</h2>
+          <div class="top5-grid" id="ref-actions-grid"></div>
+        </section>
+
+        <section aria-labelledby="ref-summary">
+          <h2 id="ref-summary">Summary</h2>
+          <div class="paid-summary-grid" id="ref-summary-grid"></div>
+        </section>
+
+        <section aria-labelledby="ref-offices">
+          <h2 id="ref-offices">Offices (9)</h2>
+          <div class="card" id="ref-offices-card"></div>
+        </section>
+
+        <section aria-labelledby="ref-od">
+          <h2 id="ref-od">Open Dental referrals</h2>
+          <div class="card" id="ref-od-card"></div>
+        </section>
+
+        <p class="tab-meta" id="referrals-fresh"></p>
       </div>
     </main>
 
@@ -5503,7 +5591,272 @@
         renderReplies(s);
         renderGuardrailStatus(s);
         renderLists(s);
+        renderOrganic(s.organic_insights);
+        renderReferrals(s.referral_insights);
         $("generated").textContent = s.generated_at || "";
+      }
+
+      // -------- Organic + Referrals (metrics-only, placeholder-safe) --------
+      function _sevPill(severity) {
+        var s = String(severity || "").toLowerCase();
+        var cls = "pill";
+        if (s === "ok" || s === "connected") cls += " good";
+        else if (s === "warn") cls += " warn";
+        else cls += " danger";
+        return cls;
+      }
+      function _statusChip(text, severity) {
+        return el("span", { "class": _sevPill(severity), text: text || "—" });
+      }
+      function _priChip(p) {
+        var v = String(p || "").toUpperCase();
+        var cls = "pill priority";
+        if (v === "P0") cls += " is-high";
+        else if (v === "P1") cls += " is-monitor";
+        else if (v === "P2") cls += " is-protect";
+        else cls += " is-low";
+        return el("span", { "class": cls, text: v || "—" });
+      }
+      function _statCard(label, value, basis, decision) {
+        var card = el("div", { "class": "ps-stat" });
+        card.appendChild(el("div", { "class": "ps-stat-label", text: label || "" }));
+        card.appendChild(el("div", { "class": "ps-stat-value", text: value == null || value === "" ? "—" : String(value) }));
+        if (basis) card.appendChild(el("div", { "class": "ps-stat-bench", text: basis }));
+        if (decision) card.appendChild(el("div", { "class": "ps-stat-bench", text: decision }));
+        return card;
+      }
+      function _connCard(c) {
+        var card = el("div", { "class": "ps-stat" });
+        card.appendChild(el("div", { "class": "ps-stat-label", text: c.integration || "—" }));
+        var row = el("div", { "class": "ps-stat-value" }, [_statusChip(c.status, c.severity)]);
+        card.appendChild(row);
+        if (c.public_exposure) card.appendChild(el("div", { "class": "ps-stat-bench", text: c.public_exposure }));
+        if (c.action) card.appendChild(el("div", { "class": "ps-stat-bench", text: c.action }));
+        return card;
+      }
+      function _actionCard(a) {
+        var card = el("div", { "class": "ps-stat" });
+        var head = el("div", { "class": "ps-stat-label" }, [_priChip(a.priority), document.createTextNode(" " + (a.label || ""))]);
+        card.appendChild(head);
+        if (a.action) card.appendChild(el("div", { "class": "ps-stat-bench", text: a.action }));
+        if (a.owner) card.appendChild(el("div", { "class": "ps-stat-bench", text: "Owner: " + a.owner }));
+        return card;
+      }
+      function _placeholderCard(title, msg) {
+        var c = el("div", { "class": "card" });
+        c.appendChild(el("h3", { text: title }));
+        c.appendChild(el("div", { "class": "desc", text: msg || "Awaiting connector." }));
+        return c;
+      }
+      function _renderTable(container, headers, rows) {
+        container.innerHTML = "";
+        if (!rows || !rows.length) return false;
+        var wrap = el("div", { "class": "table-wrap" });
+        var table = el("table");
+        var thead = el("thead");
+        var trh = el("tr");
+        headers.forEach(function (h) { trh.appendChild(el("th", { text: h.label })); });
+        thead.appendChild(trh);
+        table.appendChild(thead);
+        var tbody = el("tbody");
+        rows.forEach(function (r) {
+          var tr = el("tr");
+          headers.forEach(function (h) {
+            var v = r[h.key];
+            if (v == null || v === "") v = "—";
+            tr.appendChild(el("td", { text: String(v) }));
+          });
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        container.appendChild(wrap);
+        return true;
+      }
+
+      function renderOrganic(o) {
+        if (!o) return;
+        var meta = $("organic-meta");
+        if (meta) meta.textContent = (o.lookback || "Last 30d") + " · " + (o.data_freshness || "");
+        var connG = $("organic-conn-grid");
+        if (connG) {
+          connG.innerHTML = "";
+          (o.connector_status || []).forEach(function (c) { connG.appendChild(_connCard(c)); });
+        }
+        var actG = $("organic-actions-grid");
+        if (actG) {
+          actG.innerHTML = "";
+          (o.top_actions || []).forEach(function (a) { actG.appendChild(_actionCard(a)); });
+        }
+        var sumG = $("organic-summary-grid");
+        if (sumG) {
+          sumG.innerHTML = "";
+          (o.summary_cards || []).forEach(function (c) {
+            sumG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
+          });
+        }
+        var gaSrc = $("organic-ga-source");
+        if (gaSrc) {
+          gaSrc.innerHTML = "";
+          gaSrc.appendChild(el("h3", { text: "Sessions / users / conversions by source-medium" }));
+          var ok = _renderTable(gaSrc, [
+            { key: "source_medium", label: "Source / medium" },
+            { key: "sessions", label: "Sessions" },
+            { key: "users", label: "Users" },
+            { key: "conversions", label: "Conversions" }
+          ], o.ga_source_medium_rows);
+          if (!ok) gaSrc.appendChild(el("div", { "class": "desc", text: "Awaiting GA4." }));
+        }
+        var gaLp = $("organic-ga-landing");
+        if (gaLp) {
+          gaLp.innerHTML = "";
+          gaLp.appendChild(el("h3", { text: "Sessions by landing page" }));
+          var ok2 = _renderTable(gaLp, [
+            { key: "landing_page", label: "Landing page" },
+            { key: "sessions", label: "Sessions" },
+            { key: "users", label: "Users" },
+            { key: "conversions", label: "Conversions" }
+          ], o.ga_landing_page_rows);
+          if (!ok2) gaLp.appendChild(el("div", { "class": "desc", text: "Awaiting GA4." }));
+        }
+        var gscQ = $("organic-gsc-query");
+        if (gscQ) {
+          gscQ.innerHTML = "";
+          gscQ.appendChild(el("h3", { text: "Queries: clicks / impressions / CTR / position" }));
+          var ok3 = _renderTable(gscQ, [
+            { key: "query", label: "Query" },
+            { key: "clicks", label: "Clicks" },
+            { key: "impressions", label: "Impr." },
+            { key: "ctr_pct", label: "CTR%" },
+            { key: "avg_position", label: "Avg pos." }
+          ], o.gsc_query_rows);
+          if (!ok3) gscQ.appendChild(el("div", { "class": "desc", text: "Awaiting GSC." }));
+        }
+        var gscP = $("organic-gsc-page");
+        if (gscP) {
+          gscP.innerHTML = "";
+          gscP.appendChild(el("h3", { text: "Pages: clicks / impressions / CTR / position" }));
+          var ok4 = _renderTable(gscP, [
+            { key: "page", label: "Page" },
+            { key: "clicks", label: "Clicks" },
+            { key: "impressions", label: "Impr." },
+            { key: "ctr_pct", label: "CTR%" },
+            { key: "avg_position", label: "Avg pos." }
+          ], o.gsc_page_rows);
+          if (!ok4) gscP.appendChild(el("div", { "class": "desc", text: "Awaiting GSC." }));
+        }
+        var ahG = $("organic-ahrefs-cards");
+        if (ahG) {
+          ahG.innerHTML = "";
+          var bs = o.ahrefs_backlinks_summary || {};
+          ahG.appendChild(_statCard("Referring domains", bs.referring_domains, bs.basis, ""));
+          ahG.appendChild(_statCard("Backlinks", bs.backlinks, bs.basis, ""));
+          ahG.appendChild(_statCard("Domain rating", bs.domain_rating, bs.basis, ""));
+        }
+        var ahKw = $("organic-ahrefs-keywords");
+        if (ahKw) {
+          ahKw.innerHTML = "";
+          ahKw.appendChild(el("h3", { text: "Keyword rankings" }));
+          var ok5 = _renderTable(ahKw, [
+            { key: "keyword", label: "Keyword" },
+            { key: "position", label: "Position" },
+            { key: "volume", label: "Volume" },
+            { key: "url", label: "Page" }
+          ], o.ahrefs_keyword_rows);
+          if (!ok5) ahKw.appendChild(el("div", { "class": "desc", text: "Awaiting Ahrefs." }));
+        }
+        var ahCh = $("organic-ahrefs-changes");
+        if (ahCh) {
+          ahCh.innerHTML = "";
+          ahCh.appendChild(el("h3", { text: "Ranking changes" }));
+          var ok6 = _renderTable(ahCh, [
+            { key: "keyword", label: "Keyword" },
+            { key: "prev_position", label: "Prev" },
+            { key: "position", label: "Now" },
+            { key: "delta", label: "Δ" }
+          ], o.ahrefs_ranking_change_rows);
+          if (!ok6) ahCh.appendChild(el("div", { "class": "desc", text: "Awaiting Ahrefs." }));
+        }
+        var opps = $("organic-opps-card");
+        if (opps) {
+          opps.innerHTML = "";
+          opps.appendChild(el("h3", { text: "Opportunity actions" }));
+          var ok7 = _renderTable(opps, [
+            { key: "priority", label: "Pri" },
+            { key: "action", label: "Action" },
+            { key: "target", label: "Target" },
+            { key: "expected_impact", label: "Impact" }
+          ], o.seo_opportunity_actions);
+          if (!ok7) opps.appendChild(el("div", { "class": "desc", text: "Connect connectors to populate." }));
+        }
+        var fresh = $("organic-fresh");
+        if (fresh) fresh.textContent = o.freshness_note || "";
+      }
+
+      function renderReferrals(r) {
+        if (!r) return;
+        var meta = $("referrals-meta");
+        if (meta) meta.textContent = (r.lookback || "Last 30d") + " · " + (r.data_freshness || "");
+        var connG = $("ref-conn-grid");
+        if (connG) {
+          connG.innerHTML = "";
+          (r.connector_status || []).forEach(function (c) { connG.appendChild(_connCard(c)); });
+        }
+        var actG = $("ref-actions-grid");
+        if (actG) {
+          actG.innerHTML = "";
+          (r.top_actions || []).forEach(function (a) { actG.appendChild(_actionCard(a)); });
+        }
+        var sumG = $("ref-summary-grid");
+        if (sumG) {
+          sumG.innerHTML = "";
+          (r.summary_cards || []).forEach(function (c) {
+            sumG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
+          });
+        }
+        var off = $("ref-offices-card");
+        if (off) {
+          off.innerHTML = "";
+          off.appendChild(el("h3", { text: "Per office (calls, clicks, directions, views, reviews, rating)" }));
+          var rows = (r.office_rows || []).map(function (o) {
+            return {
+              office: o.office,
+              profile_calls: o.profile_calls,
+              website_clicks: o.website_clicks,
+              direction_requests: o.direction_requests,
+              profile_views: o.profile_views,
+              reviews: o.reviews,
+              rating: o.rating,
+              status: o.status,
+              action: o.action
+            };
+          });
+          var ok = _renderTable(off, [
+            { key: "office", label: "Office" },
+            { key: "profile_calls", label: "Calls" },
+            { key: "website_clicks", label: "Clicks" },
+            { key: "direction_requests", label: "Directions" },
+            { key: "profile_views", label: "Views" },
+            { key: "reviews", label: "Reviews" },
+            { key: "rating", label: "Rating" },
+            { key: "status", label: "Status" },
+            { key: "action", label: "Action" }
+          ], rows);
+          if (!ok) off.appendChild(el("div", { "class": "desc", text: "Awaiting GBP." }));
+        }
+        var od = $("ref-od-card");
+        if (od) {
+          od.innerHTML = "";
+          od.appendChild(el("h3", { text: "Open Dental referrals (aggregated)" }));
+          var ok2 = _renderTable(od, [
+            { key: "label", label: "Label" },
+            { key: "value", label: "Value" },
+            { key: "basis", label: "Basis" }
+          ], r.query_rows);
+          if (!ok2) od.appendChild(el("div", { "class": "desc", text: "Connector not found. Define a private referral query; aggregated counts only — no patient data." }));
+        }
+        var fresh = $("referrals-fresh");
+        if (fresh) fresh.textContent = r.freshness_note || "";
       }
 
       function setupTabs() {

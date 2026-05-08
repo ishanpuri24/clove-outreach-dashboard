@@ -1,0 +1,35 @@
+# Organic / SEO connector config (TEMPLATE / PLACEHOLDERS ONLY).
+#
+# Documents the private config required by the upstream builder to
+# populate `organic_insights` in data/snapshot.json. The public mirror
+# never reads this file. Copy to the PRIVATE operations repo only.
+# Never commit real tokens, property IDs, or service-account JSON to
+# this public repo.
+
+ga4:
+  # GA4 numeric property id (private; never publish).
+  property_id: "REPLACE_WITH_GA4_PROPERTY_ID"
+  # Path to the service-account JSON used to call the Data API.
+  service_account_json: "REPLACE_WITH_PATH_TO_SERVICE_ACCOUNT_JSON"
+  # Default lookback window in days.
+  lookback_days: 30
+  # Public payload only includes aggregated counts by source/medium and
+  # landing page. No client IDs, user IDs, or path-level PII.
+  public_exposure: aggregated_only
+
+gsc:
+  # Verified Search Console site/property URL (private; never publish).
+  site_property: "REPLACE_WITH_VERIFIED_SITE_PROPERTY"
+  service_account_json: "REPLACE_WITH_PATH_TO_SERVICE_ACCOUNT_JSON"
+  lookback_days: 30
+  # Public payload only includes top queries/pages and their
+  # clicks/impressions/CTR/position. No user-level data.
+  public_exposure: aggregated_only
+
+ahrefs:
+  # Ahrefs API token (private; never publish).
+  api_token: "REPLACE_WITH_AHREFS_API_TOKEN"
+  # Target domain for keyword tracking and backlink summary.
+  target_domain: "REPLACE_WITH_TARGET_DOMAIN"
+  lookback_days: 30
+  public_exposure: aggregated_only

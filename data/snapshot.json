@@ -15222,5 +15222,329 @@
     "reason": "Google Ads Manager Account ID (login-customer-id) not present in workspace config. The connector requires a numeric accountId to query campaign spend and conversion data.",
     "action_required": "Add google_ads_account_id to tracker_config.json or provide directly. Format: xxx-xxx-xxxx numeric.",
     "impact": "Ads spend/CPA metrics cannot be refreshed this run. CallRail qualified calls used as primary conversion signal per policy."
+  },
+  "organic_insights": {
+    "title": "Organic & SEO",
+    "lookback": "Last 30d",
+    "data_freshness": "No data; connectors not linked.",
+    "connector_status": [
+      {
+        "integration": "Google Analytics 4",
+        "status": "Not connected",
+        "severity": "blocked",
+        "public_exposure": "Aggregated only when connected.",
+        "private_config_fields": [
+          "ga4_property_id (private)",
+          "ga4_service_account_key (private)"
+        ],
+        "action": "Add GA4 property + service account to private config."
+      },
+      {
+        "integration": "Google Search Console",
+        "status": "Not connected",
+        "severity": "blocked",
+        "public_exposure": "Aggregated only when connected.",
+        "private_config_fields": [
+          "gsc_site_property (private)",
+          "gsc_service_account_key (private)"
+        ],
+        "action": "Verify site in GSC and grant service-account read access."
+      },
+      {
+        "integration": "Ahrefs",
+        "status": "Not connected",
+        "severity": "blocked",
+        "public_exposure": "Aggregated only when connected.",
+        "private_config_fields": [
+          "ahrefs_api_token (private)",
+          "ahrefs_target_domain (private)"
+        ],
+        "action": "Add Ahrefs API token to private config."
+      }
+    ],
+    "summary_cards": [
+      {
+        "label": "Sessions (30d)",
+        "value": "Awaiting GA4",
+        "basis": "GA4",
+        "decision": "Connect GA4."
+      },
+      {
+        "label": "Users (30d)",
+        "value": "Awaiting GA4",
+        "basis": "GA4",
+        "decision": "Connect GA4."
+      },
+      {
+        "label": "Conversions (30d)",
+        "value": "Awaiting GA4",
+        "basis": "GA4",
+        "decision": "Connect GA4."
+      },
+      {
+        "label": "Clicks (30d)",
+        "value": "Awaiting GSC",
+        "basis": "GSC",
+        "decision": "Connect GSC."
+      },
+      {
+        "label": "Impressions (30d)",
+        "value": "Awaiting GSC",
+        "basis": "GSC",
+        "decision": "Connect GSC."
+      },
+      {
+        "label": "Avg position",
+        "value": "Awaiting GSC",
+        "basis": "GSC",
+        "decision": "Connect GSC."
+      },
+      {
+        "label": "Tracked keywords",
+        "value": "Awaiting Ahrefs",
+        "basis": "Ahrefs",
+        "decision": "Connect Ahrefs."
+      },
+      {
+        "label": "Referring domains",
+        "value": "Awaiting Ahrefs",
+        "basis": "Ahrefs",
+        "decision": "Connect Ahrefs."
+      }
+    ],
+    "top_actions": [
+      {
+        "priority": "P0",
+        "label": "Connect GA4",
+        "action": "Add property + service account.",
+        "owner": "Marketing ops"
+      },
+      {
+        "priority": "P0",
+        "label": "Connect GSC",
+        "action": "Verify site, grant read access.",
+        "owner": "Marketing ops"
+      },
+      {
+        "priority": "P1",
+        "label": "Connect Ahrefs",
+        "action": "Add API token to private config.",
+        "owner": "Marketing ops"
+      }
+    ],
+    "ga_source_medium_rows": [],
+    "ga_landing_page_rows": [],
+    "gsc_query_rows": [],
+    "gsc_page_rows": [],
+    "ahrefs_keyword_rows": [],
+    "ahrefs_ranking_change_rows": [],
+    "ahrefs_backlinks_summary": {
+      "referring_domains": null,
+      "backlinks": null,
+      "domain_rating": null,
+      "basis": "Ahrefs (when connected)"
+    },
+    "seo_opportunity_actions": [],
+    "freshness_note": "Connect GA4, GSC, and Ahrefs to populate. Aggregated, public-safe metrics only."
+  },
+  "referral_insights": {
+    "title": "Referrals",
+    "lookback": "Last 30d",
+    "data_freshness": "No data; connectors not linked.",
+    "connector_status": [
+      {
+        "integration": "Google Business Profile",
+        "status": "Not connected",
+        "severity": "blocked",
+        "public_exposure": "Aggregated office-level metrics only when connected.",
+        "private_config_fields": [
+          "gbp_account_id (private)",
+          "gbp_location_ids (private, per office)",
+          "gbp_service_account_key (private)"
+        ],
+        "action": "Link GBP via private config; map 9 location IDs to office labels."
+      },
+      {
+        "integration": "Open Dental referral query",
+        "status": "Connector not found",
+        "severity": "blocked",
+        "public_exposure": "Aggregated counts only; never patient-level data.",
+        "private_config_fields": [
+          "open_dental_db_dsn (private)",
+          "referral_query.sql (private)"
+        ],
+        "action": "Define safe referral query in private config; aggregated counts only."
+      }
+    ],
+    "summary_cards": [
+      {
+        "label": "Profile calls (30d)",
+        "value": "Awaiting GBP",
+        "basis": "GBP",
+        "decision": "Connect GBP."
+      },
+      {
+        "label": "Website clicks (30d)",
+        "value": "Awaiting GBP",
+        "basis": "GBP",
+        "decision": "Connect GBP."
+      },
+      {
+        "label": "Direction requests (30d)",
+        "value": "Awaiting GBP",
+        "basis": "GBP",
+        "decision": "Connect GBP."
+      },
+      {
+        "label": "Profile views (30d)",
+        "value": "Awaiting GBP",
+        "basis": "GBP",
+        "decision": "Connect GBP."
+      },
+      {
+        "label": "Avg rating",
+        "value": "Awaiting GBP",
+        "basis": "GBP",
+        "decision": "Connect GBP."
+      },
+      {
+        "label": "Reviews (30d)",
+        "value": "Awaiting GBP",
+        "basis": "GBP",
+        "decision": "Connect GBP."
+      },
+      {
+        "label": "Referrals (Open Dental)",
+        "value": "Awaiting query",
+        "basis": "Open Dental",
+        "decision": "Define private query."
+      }
+    ],
+    "top_actions": [
+      {
+        "priority": "P0",
+        "label": "Connect Google Business Profile",
+        "action": "Link account + map 9 location IDs.",
+        "owner": "Marketing ops"
+      },
+      {
+        "priority": "P1",
+        "label": "Define Open Dental referral query",
+        "action": "Author private SQL; aggregated counts only.",
+        "owner": "Operations"
+      }
+    ],
+    "office_rows": [
+      {
+        "office": "Riverpark",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Santa Monica",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Hollywood",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Beverly Hills",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Pasadena",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Long Beach",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Glendale",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Burbank",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      },
+      {
+        "office": "Studio City",
+        "profile_calls": null,
+        "website_clicks": null,
+        "direction_requests": null,
+        "profile_views": null,
+        "profile_searches": null,
+        "reviews": null,
+        "rating": null,
+        "status": "Awaiting GBP",
+        "action": "Connect GBP."
+      }
+    ],
+    "query_rows": [],
+    "freshness_note": "Connect GBP and define a private Open Dental query. Aggregated, public-safe counts only; no patient data."
   }
 }

@@ -1,0 +1,40 @@
+# Referrals connector config (TEMPLATE / PLACEHOLDERS ONLY).
+#
+# Documents the private config required by the upstream builder to
+# populate `referral_insights` in data/snapshot.json. The public mirror
+# never reads this file. Copy to the PRIVATE operations repo only.
+# Never commit real account IDs, location IDs, DSNs, or queries that
+# expose patient data to this public repo.
+
+google_business_profile:
+  # GBP account id (private; never publish).
+  account_id: "REPLACE_WITH_GBP_ACCOUNT_ID"
+  service_account_json: "REPLACE_WITH_PATH_TO_SERVICE_ACCOUNT_JSON"
+  # Map each office label shown in the public dashboard to its GBP
+  # location resource id. Location ids stay private; only the public
+  # office label is published.
+  location_map:
+    Riverpark: "REPLACE_WITH_LOCATION_ID"
+    Santa Monica: "REPLACE_WITH_LOCATION_ID"
+    Hollywood: "REPLACE_WITH_LOCATION_ID"
+    Beverly Hills: "REPLACE_WITH_LOCATION_ID"
+    Pasadena: "REPLACE_WITH_LOCATION_ID"
+    Long Beach: "REPLACE_WITH_LOCATION_ID"
+    Glendale: "REPLACE_WITH_LOCATION_ID"
+    Burbank: "REPLACE_WITH_LOCATION_ID"
+    Studio City: "REPLACE_WITH_LOCATION_ID"
+  lookback_days: 30
+  # Aggregated metrics only. No reviewer names, review text, photos,
+  # or per-user data may be published.
+  public_exposure: aggregated_only
+
+open_dental:
+  # Open Dental DB connection string (private; never publish).
+  dsn: "REPLACE_WITH_OPEN_DENTAL_DSN"
+  # Path to a private SQL file that returns only aggregate counts
+  # (referrals_by_source, referrals_by_office). The query MUST NOT
+  # return patient names, phone numbers, appointment notes, or any
+  # PHI. The public mirror only publishes aggregated counts.
+  referral_query_file: "REPLACE_WITH_PATH_TO_PRIVATE_QUERY_SQL"
+  lookback_days: 30
+  public_exposure: aggregated_counts_only
