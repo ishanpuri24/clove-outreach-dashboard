@@ -2728,39 +2728,41 @@
         var protectCard = $("ads-protect-card");
         var adgroupsCard = $("ads-adgroups-card");
         var actCard = $("ads-actions-card");
-        covCard.innerHTML = "";
+        if (covCard) covCard.innerHTML = "";
         if (statusCard) statusCard.innerHTML = "";
-        kpiGrid.innerHTML = "";
+        if (kpiGrid) kpiGrid.innerHTML = "";
         if (riskCard) riskCard.innerHTML = "";
         if (budgetCard) budgetCard.innerHTML = "";
-        campCard.innerHTML = "";
+        if (campCard) campCard.innerHTML = "";
         if (protectCard) protectCard.innerHTML = "";
         if (adgroupsCard) adgroupsCard.innerHTML = "";
-        actCard.innerHTML = "";
+        if (actCard) actCard.innerHTML = "";
         renderPriorityStrip(ads);
         if (!ads) {
-          subEl.textContent = "Google Ads insights not available in this snapshot.";
+          if (subEl) subEl.textContent = "Google Ads insights not available in this snapshot.";
           return;
         }
-        if (ads.title) titleEl.textContent = ads.title;
-        subEl.textContent = "";
+        if (ads.title && titleEl) titleEl.textContent = ads.title;
+        if (subEl) subEl.textContent = "";
 
         var coverage = ads.coverage || {};
         var totals = ads.totals || {};
         var risk = ads.risk_summary || {};
         var freshness = ads.data_freshness || ads.lookback || "-";
 
-        var covHead = el("div", { "class": "item-head" }, [
-          el("div", { "class": "item-title",
-            text: "Lookback " + (ads.lookback || "-") }),
-          el("span", { "class": "pill warn" }, [
-            el("span", { "class": "dot" }),
-            "Linked: " +
-              (coverage.linked_offices != null
-                ? coverage.linked_offices : "-")
-          ])
-        ]);
-        covCard.appendChild(el("div", { "class": "item" }, [covHead]));
+        if (covCard) {
+          var covHead = el("div", { "class": "item-head" }, [
+            el("div", { "class": "item-title",
+              text: "Lookback " + (ads.lookback || "-") }),
+            el("span", { "class": "pill warn" }, [
+              el("span", { "class": "dot" }),
+              "Linked: " +
+                (coverage.linked_offices != null
+                  ? coverage.linked_offices : "-")
+            ])
+          ]);
+          covCard.appendChild(el("div", { "class": "item" }, [covHead]));
+        }
 
         if (statusCard) {
           var st = ads.account_linking_status || null;
@@ -2830,16 +2832,18 @@
             sub: (highRiskSpend != null
               ? fmtUsd(highRiskSpend) : null) }
         ];
-        kpiItems.forEach(function (it) {
-          var children = [
-            el("div", { "class": "label", text: it.label }),
-            el("div", { "class": "value mono", text: it.value })
-          ];
-          if (it.sub) {
-            children.push(el("div", { "class": "hint mono", text: it.sub }));
-          }
-          kpiGrid.appendChild(el("div", { "class": "card kpi-card" }, children));
-        });
+        if (kpiGrid) {
+          kpiItems.forEach(function (it) {
+            var children = [
+              el("div", { "class": "label", text: it.label }),
+              el("div", { "class": "value mono", text: it.value })
+            ];
+            if (it.sub) {
+              children.push(el("div", { "class": "hint mono", text: it.sub }));
+            }
+            kpiGrid.appendChild(el("div", { "class": "card kpi-card" }, children));
+          });
+        }
 
         if (riskCard) {
           riskCard.appendChild(el("div", { "class": "item-title",
@@ -2927,9 +2931,9 @@
           return false;
         });
         if (!campaigns.length) {
-          campCard.appendChild(el("div", { "class": "section-meta",
+          if (campCard) campCard.appendChild(el("div", { "class": "section-meta",
             text: "No Google Ads campaigns in the loaded window." }));
-        } else {
+        } else if (campCard) {
           campaigns.forEach(function (c) {
             var dd = c.decision_detail || {};
             var priority = dd.priority || c.risk || "-";
@@ -3181,30 +3185,32 @@
           }
         }
 
-        var ra = ads.recommended_actions || [];
-        var notes = ads.operator_notes || [];
-        actCard.appendChild(el("div", { "class": "section-meta",
-          text: "Operator recommendations" }));
-        var seenRa = {};
-        var raDedup = [];
-        ra.forEach(function (t) {
-          var k = String(t || "").trim();
-          if (!k || seenRa[k]) return;
-          seenRa[k] = true;
-          raDedup.push(k);
-        });
-        var ul = el("ul", { "class": "checks" }, raDedup.map(function (t) {
-          return el("li", { text: t });
-        }));
-        actCard.appendChild(ul);
-        if (notes.length) {
-          var nh = el("div", { "class": "section-meta",
-            style: "margin-top:8px;", text: "Notes" });
-          actCard.appendChild(nh);
-          var ul2 = el("ul", { "class": "checks" }, notes.map(function (t) {
+        if (actCard) {
+          var ra = ads.recommended_actions || [];
+          var notes = ads.operator_notes || [];
+          actCard.appendChild(el("div", { "class": "section-meta",
+            text: "Operator recommendations" }));
+          var seenRa = {};
+          var raDedup = [];
+          ra.forEach(function (t) {
+            var k = String(t || "").trim();
+            if (!k || seenRa[k]) return;
+            seenRa[k] = true;
+            raDedup.push(k);
+          });
+          var ul = el("ul", { "class": "checks" }, raDedup.map(function (t) {
             return el("li", { text: t });
           }));
-          actCard.appendChild(ul2);
+          actCard.appendChild(ul);
+          if (notes.length) {
+            var nh = el("div", { "class": "section-meta",
+              style: "margin-top:8px;", text: "Notes" });
+            actCard.appendChild(nh);
+            var ul2 = el("ul", { "class": "checks" }, notes.map(function (t) {
+              return el("li", { text: t });
+            }));
+            actCard.appendChild(ul2);
+          }
         }
       }
 
