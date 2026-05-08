@@ -73,7 +73,7 @@ aggregate snapshot.
     callrail.example.yaml        private CallRail connector template
     organic.example.yaml         private GA4 / GSC / Ahrefs connector template
     referrals.example.yaml       private GBP + Open Dental referral template
-    subscribili.example.yaml     private Subscribili / Clove100 plan template
+    subscribili.example.yaml     private Subscribili / Clove Care plan template
   README.md                      this file (purpose, architecture, basics)
   DEPLOYMENT.md                  GitHub Pages, Vercel, local, and snapshot-update guides
 ```

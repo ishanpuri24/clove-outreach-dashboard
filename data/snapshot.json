@@ -15376,7 +15376,7 @@
         "action": "Define safe referral query in private config; aggregated counts only."
       },
       {
-        "integration": "Subscribili / Clove100 in-house plan",
+        "integration": "Subscribili / Clove Care in-house plan",
         "status": "Needs private login / API / export",
         "severity": "blocked",
         "public_exposure": "Aggregated office-level membership and plan metrics only. No member names, emails, phones, IDs, or PHI.",
@@ -15560,12 +15560,12 @@
     ],
     "query_rows": [],
     "freshness_note": "Connect GBP and define a private Open Dental query. Aggregated, public-safe counts only; no patient data.",
-    "clove100": {
-      "title": "Clove100 (Subscribili) \u2014 in-house insurance plan",
+    "clove_care": {
+      "title": "Clove Care (Subscribili) \u2014 in-house insurance plan",
       "lookback": "Last 30d",
       "data_freshness": "No data; Subscribili connector not linked.",
       "connector": {
-        "integration": "Subscribili / Clove100",
+        "integration": "Subscribili / Clove Care",
         "status": "Needs private login / API / export",
         "severity": "blocked",
         "public_exposure": "Aggregated office-level metrics only.",
@@ -15787,7 +15787,7 @@
           "expected_metric": "Net growth 30d"
         }
       ],
-      "freshness_note": "Connect Subscribili (Clove100) via private login or export. Aggregated, public-safe counts only; no member names, emails, phones, IDs, or PHI."
+      "freshness_note": "Connect Subscribili (Clove Care) via private login or export. Aggregated, public-safe counts only; no member names, emails, phones, IDs, or PHI."
     }
   }
 }

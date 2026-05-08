@@ -2022,7 +2022,7 @@
         </section>
 
         <section aria-labelledby="ref-c100">
-          <h2 id="ref-c100">Clove100 (Subscribili)</h2>
+          <h2 id="ref-c100">Clove Care (Subscribili)</h2>
           <p class="tab-meta" id="ref-c100-meta"></p>
           <div class="paid-summary-grid" id="ref-c100-conn-grid"></div>
           <div class="paid-summary-grid" id="ref-c100-summary-grid"></div>
@@ -5864,12 +5864,12 @@
           ], r.query_rows);
           if (!ok2) od.appendChild(el("div", { "class": "desc", text: "Connector not found. Define a private referral query; aggregated counts only — no patient data." }));
         }
-        renderClove100(r.clove100);
+        renderCloveCare(r.clove_care || r.clove100);
         var fresh = $("referrals-fresh");
         if (fresh) fresh.textContent = r.freshness_note || "";
       }
 
-      function renderClove100(c) {
+      function renderCloveCare(c) {
         var meta = $("ref-c100-meta");
         if (meta) meta.textContent = c ? ((c.lookback || "Last 30d") + " · " + (c.data_freshness || "")) : "Awaiting Subscribili.";
         var connG = $("ref-c100-conn-grid");

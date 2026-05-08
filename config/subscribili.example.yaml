@@ -1,7 +1,7 @@
-# Subscribili / Clove100 connector config (TEMPLATE / PLACEHOLDERS ONLY).
+# Subscribili / Clove Care connector config (TEMPLATE / PLACEHOLDERS ONLY).
 #
 # Documents the private config required by the upstream builder to
-# populate `referral_insights.clove100` in data/snapshot.json. The
+# populate `referral_insights.clove_care` in data/snapshot.json. The
 # public mirror never reads this file. Copy to the PRIVATE operations
 # repo only. Never commit real URLs that embed account ids, real
 # usernames, real passwords, API tokens, exported CSVs, or any
