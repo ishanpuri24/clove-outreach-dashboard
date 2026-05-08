@@ -1616,8 +1616,8 @@
           <div class="card" id="ads-cvr-bench-card"></div>
         </section>
 
-        <!-- Ad-group conversion benchmarks -->
-        <section aria-labelledby="ads-ag-bench">
+        <!-- Ad-group conversion benchmarks (hidden: internal benchmarks) -->
+        <section aria-labelledby="ads-ag-bench" hidden>
           <h2 id="ads-ag-bench">Ad-group benchmarks</h2>
           <div class="card" id="ads-ag-bench-card"></div>
         </section>
@@ -1697,8 +1697,8 @@
           <div class="card" id="ads-writeback-card"></div>
         </section>
 
-        <!-- Ads coverage / mapping notice -->
-        <section aria-labelledby="ads">
+        <!-- Ads coverage / mapping notice (hidden: internal lookback/coverage) -->
+        <section aria-labelledby="ads" hidden>
           <h2 id="ads">
             <span id="ads-title">Google Ads Waste Watch</span>
           </h2>
@@ -1712,8 +1712,8 @@
           <div class="card" id="ads-account-status-card"></div>
         </section>
 
-        <!-- Account coverage table by office label -->
-        <section aria-labelledby="ads-coverage-table">
+        <!-- Account coverage table by office label (hidden: internal coverage) -->
+        <section aria-labelledby="ads-coverage-table" hidden>
           <h2 id="ads-coverage-table">Account coverage by office</h2>
           <div class="card" id="ads-coverage-table-card"></div>
         </section>
@@ -1947,7 +1947,7 @@
       <!-- =================== Organic tab =================== -->
       <div id="panel-organic" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-organic" tabindex="0" hidden>
-        <p class="tab-meta" id="organic-meta">Last 30d.</p>
+        <p class="tab-meta" id="organic-meta"></p>
 
         <section aria-labelledby="organic-conn">
           <h2 id="organic-conn">Connectors</h2>
@@ -1994,7 +1994,7 @@
       <!-- =================== Referrals tab =================== -->
       <div id="panel-referrals" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-referrals" tabindex="0" hidden>
-        <p class="tab-meta" id="referrals-meta">Last 30d.</p>
+        <p class="tab-meta" id="referrals-meta"></p>
 
         <section aria-labelledby="ref-conn">
           <h2 id="ref-conn">Connectors</h2>
@@ -5796,7 +5796,7 @@
             { key: "target", label: "Target" },
             { key: "expected_impact", label: "Impact" }
           ], o.seo_opportunity_actions);
-          if (!ok7) opps.appendChild(el("div", { "class": "desc", text: "Connect connectors to populate." }));
+          if (!ok7) opps.appendChild(el("div", { "class": "desc", text: "Awaiting connectors." }));
         }
         var fresh = $("organic-fresh");
         if (fresh) fresh.textContent = o.freshness_note || "";
@@ -5862,7 +5862,7 @@
             { key: "value", label: "Value" },
             { key: "basis", label: "Basis" }
           ], r.query_rows);
-          if (!ok2) od.appendChild(el("div", { "class": "desc", text: "Connector not found. Define a private referral query; aggregated counts only — no patient data." }));
+          if (!ok2) od.appendChild(el("div", { "class": "desc", text: "Awaiting Open Dental." }));
         }
         renderCloveCare(r.clove_care || r.clove100);
         var fresh = $("referrals-fresh");
