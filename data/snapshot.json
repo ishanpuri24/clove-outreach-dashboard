@@ -15225,127 +15225,444 @@
   },
   "organic_insights": {
     "title": "Organic & SEO",
-    "lookback": "Last 30d",
-    "data_freshness": "No data; connectors not linked.",
+    "lookback": "Last 28d",
+    "data_freshness": "Updated daily. Public data is aggregated.",
     "connector_status": [
       {
         "integration": "Google Analytics 4",
-        "status": "Not connected",
-        "severity": "blocked",
-        "public_exposure": "Aggregated only when connected.",
-        "private_config_fields": [
-          "ga4_property_id (private)",
-          "ga4_service_account_key (private)"
-        ],
-        "action": "Add GA4 property + service account to private config."
+        "status": "GA4 property needed",
+        "severity": "warn",
+        "action": "Provide GA4 property ID."
       },
       {
         "integration": "Google Search Console",
-        "status": "Not connected",
-        "severity": "blocked",
-        "public_exposure": "Aggregated only when connected.",
-        "private_config_fields": [
-          "gsc_site_property (private)",
-          "gsc_service_account_key (private)"
-        ],
-        "action": "Verify site in GSC and grant service-account read access."
+        "status": "Connected",
+        "severity": "ok",
+        "action": "None."
       },
       {
         "integration": "Ahrefs",
-        "status": "Not connected",
-        "severity": "blocked",
-        "public_exposure": "Aggregated only when connected.",
-        "private_config_fields": [
-          "ahrefs_api_token (private)",
-          "ahrefs_target_domain (private)"
-        ],
-        "action": "Add Ahrefs API token to private config."
+        "status": "Connected",
+        "severity": "ok",
+        "action": "None."
       }
     ],
     "summary_cards": [
       {
-        "label": "Sessions (30d)",
-        "value": "Awaiting GA4",
-        "basis": "GA4",
-        "decision": "Connect GA4."
-      },
-      {
-        "label": "Users (30d)",
-        "value": "Awaiting GA4",
-        "basis": "GA4",
-        "decision": "Connect GA4."
-      },
-      {
-        "label": "Conversions (30d)",
-        "value": "Awaiting GA4",
-        "basis": "GA4",
-        "decision": "Connect GA4."
-      },
-      {
-        "label": "Clicks (30d)",
-        "value": "Awaiting GSC",
+        "label": "Clicks (top 25 queries, 28d)",
+        "value": "793",
         "basis": "GSC",
-        "decision": "Connect GSC."
+        "decision": ""
       },
       {
-        "label": "Impressions (30d)",
-        "value": "Awaiting GSC",
+        "label": "Impressions (top 25, 28d)",
+        "value": "12,930",
         "basis": "GSC",
-        "decision": "Connect GSC."
+        "decision": ""
       },
       {
-        "label": "Avg position",
-        "value": "Awaiting GSC",
+        "label": "CTR (top 25, 28d)",
+        "value": "6.1%",
         "basis": "GSC",
-        "decision": "Connect GSC."
+        "decision": ""
       },
       {
-        "label": "Tracked keywords",
-        "value": "Awaiting Ahrefs",
+        "label": "Avg position (top 25)",
+        "value": "3.1",
+        "basis": "GSC",
+        "decision": ""
+      },
+      {
+        "label": "Spam-flagged refs (sampled)",
+        "value": "13/25",
         "basis": "Ahrefs",
-        "decision": "Connect Ahrefs."
+        "decision": ""
       },
       {
-        "label": "Referring domains",
-        "value": "Awaiting Ahrefs",
+        "label": "High-DR build targets",
+        "value": "3",
         "basis": "Ahrefs",
-        "decision": "Connect Ahrefs."
+        "decision": ""
       }
     ],
     "top_actions": [
       {
         "priority": "P0",
-        "label": "Connect GA4",
-        "action": "Add property + service account.",
-        "owner": "Marketing ops"
+        "label": "Rewrite costco-dental-insurance title/meta",
+        "action": "Add insurance CTA; pos 6.4, CTR 3.3%.",
+        "owner": "SEO"
       },
       {
         "priority": "P0",
-        "label": "Connect GSC",
-        "action": "Verify site, grant read access.",
-        "owner": "Marketing ops"
+        "label": "Update pericoronitis page title",
+        "action": "3,129 impr at 0.8% CTR; add appointment CTA.",
+        "owner": "SEO"
       },
       {
         "priority": "P1",
-        "label": "Connect Ahrefs",
-        "action": "Add API token to private config.",
-        "owner": "Marketing ops"
+        "label": "Add patient portal/login sitelink",
+        "action": "`clove dental login` shows nav confusion.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P1",
+        "label": "Strengthen Thousand Oaks office page",
+        "action": "Improve title/meta + GBP linkage.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P2",
+        "label": "Add Clove/Puri brand-transition copy",
+        "action": "Capture `puri dentistry` traffic.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P2",
+        "label": "Verify NAP on BBB / Caramella / LetsKnowIt",
+        "action": "High-DR listings; ensure consistency.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P2",
+        "label": "Confirm exact-match office domains",
+        "action": "shermanoaks-dental.com, bestdentistoxnard.com.",
+        "owner": "SEO"
       }
     ],
-    "ga_source_medium_rows": [],
-    "ga_landing_page_rows": [],
-    "gsc_query_rows": [],
-    "gsc_page_rows": [],
-    "ahrefs_keyword_rows": [],
-    "ahrefs_ranking_change_rows": [],
-    "ahrefs_backlinks_summary": {
-      "referring_domains": null,
-      "backlinks": null,
-      "domain_rating": null,
-      "basis": "Ahrefs (when connected)"
-    },
-    "seo_opportunity_actions": [],
-    "freshness_note": "Connect GA4, GSC, and Ahrefs to populate. Aggregated, public-safe metrics only."
+    "gsc_query_rows": [
+      {
+        "query": "clove dental",
+        "clicks": 236,
+        "impressions": 1735,
+        "ctr_pct": 13.6,
+        "avg_position": 3.06,
+        "action": ""
+      },
+      {
+        "query": "clove dental beverly hills",
+        "clicks": 68,
+        "impressions": 602,
+        "ctr_pct": 11.3,
+        "avg_position": 2.08,
+        "action": ""
+      },
+      {
+        "query": "clove dental oxnard",
+        "clicks": 55,
+        "impressions": 505,
+        "ctr_pct": 10.9,
+        "avg_position": 2.91,
+        "action": ""
+      },
+      {
+        "query": "clove dental santa monica",
+        "clicks": 51,
+        "impressions": 447,
+        "ctr_pct": 11.4,
+        "avg_position": 1.26,
+        "action": ""
+      },
+      {
+        "query": "costco dental insurance",
+        "clicks": 50,
+        "impressions": 1507,
+        "ctr_pct": 3.3,
+        "avg_position": 6.36,
+        "action": "Rewrite title/meta; add insurance CTA."
+      },
+      {
+        "query": "clove dental encino",
+        "clicks": 36,
+        "impressions": 451,
+        "ctr_pct": 8.0,
+        "avg_position": 3.25,
+        "action": ""
+      },
+      {
+        "query": "clove dental sherman oaks",
+        "clicks": 36,
+        "impressions": 409,
+        "ctr_pct": 8.8,
+        "avg_position": 1.12,
+        "action": ""
+      },
+      {
+        "query": "clove dental camarillo",
+        "clicks": 33,
+        "impressions": 355,
+        "ctr_pct": 9.3,
+        "avg_position": 2.99,
+        "action": ""
+      },
+      {
+        "query": "clove dental ventura",
+        "clicks": 30,
+        "impressions": 285,
+        "ctr_pct": 10.5,
+        "avg_position": 1.04,
+        "action": ""
+      },
+      {
+        "query": "can pericoronitis kill you",
+        "clicks": 26,
+        "impressions": 3129,
+        "ctr_pct": 0.8,
+        "avg_position": 4.77,
+        "action": "Update title for urgency; add appointment CTA."
+      },
+      {
+        "query": "best mouthwash for smokers",
+        "clicks": 22,
+        "impressions": 304,
+        "ctr_pct": 7.2,
+        "avg_position": 1.19,
+        "action": ""
+      },
+      {
+        "query": "clove dental thousand oaks",
+        "clicks": 17,
+        "impressions": 460,
+        "ctr_pct": 3.7,
+        "avg_position": 2.6,
+        "action": "Improve title/meta; strengthen GBP/location links."
+      },
+      {
+        "query": "how to encourage lower jaw growth",
+        "clicks": 14,
+        "impressions": 230,
+        "ctr_pct": 6.1,
+        "avg_position": 2.06,
+        "action": ""
+      },
+      {
+        "query": "clove dental login",
+        "clicks": 13,
+        "impressions": 601,
+        "ctr_pct": 2.2,
+        "avg_position": 6.69,
+        "action": "Add patient portal/login page or sitelink."
+      },
+      {
+        "query": "clove dds",
+        "clicks": 12,
+        "impressions": 28,
+        "ctr_pct": 42.9,
+        "avg_position": 1.43,
+        "action": ""
+      },
+      {
+        "query": "clovedds",
+        "clicks": 12,
+        "impressions": 26,
+        "ctr_pct": 46.2,
+        "avg_position": 6.65,
+        "action": ""
+      },
+      {
+        "query": "mouth sloughing",
+        "clicks": 12,
+        "impressions": 512,
+        "ctr_pct": 2.3,
+        "avg_position": 2.48,
+        "action": ""
+      },
+      {
+        "query": "clover dental",
+        "clicks": 11,
+        "impressions": 148,
+        "ctr_pct": 7.4,
+        "avg_position": 5.91,
+        "action": ""
+      },
+      {
+        "query": "puri dentistry",
+        "clicks": 11,
+        "impressions": 401,
+        "ctr_pct": 2.7,
+        "avg_position": 3.76,
+        "action": "Add Clove/Puri location page copy."
+      },
+      {
+        "query": "clove dental hillview",
+        "clicks": 9,
+        "impressions": 87,
+        "ctr_pct": 10.3,
+        "avg_position": 1.06,
+        "action": ""
+      },
+      {
+        "query": "turmeric gel for gums",
+        "clicks": 9,
+        "impressions": 272,
+        "ctr_pct": 3.3,
+        "avg_position": 3.91,
+        "action": ""
+      },
+      {
+        "query": "clove dental careers",
+        "clicks": 8,
+        "impressions": 223,
+        "ctr_pct": 3.6,
+        "avg_position": 5.29,
+        "action": ""
+      },
+      {
+        "query": "clove dental riverpark",
+        "clicks": 8,
+        "impressions": 91,
+        "ctr_pct": 8.8,
+        "avg_position": 1.02,
+        "action": ""
+      },
+      {
+        "query": "can i drink protein shake after wisdom teeth removal",
+        "clicks": 7,
+        "impressions": 66,
+        "ctr_pct": 10.6,
+        "avg_position": 3.39,
+        "action": ""
+      },
+      {
+        "query": "mandibular tori vitamin deficiency",
+        "clicks": 7,
+        "impressions": 56,
+        "ctr_pct": 12.5,
+        "avg_position": 2.27,
+        "action": ""
+      }
+    ],
+    "freshness_note": "Updated daily. Public data is aggregated.",
+    "ahrefs_link_rows": [
+      {
+        "category": "Spam",
+        "domain": "thebacklink.shop",
+        "dr": 35,
+        "links": 1,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "seo-anomaly-s10.xyz",
+        "dr": 0.3,
+        "links": 11,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "qhtycw.com",
+        "dr": 36,
+        "links": 1,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "globallinkdirectory.com",
+        "dr": 5,
+        "links": 2,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "faithscienceonline.com",
+        "dr": 31,
+        "links": 1,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "budu.com",
+        "dr": 16,
+        "links": 5,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "90dayads.com",
+        "dr": 2.6,
+        "links": 13,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "metriteweb.com",
+        "dr": 29,
+        "links": 2,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Spam",
+        "domain": "edostate.com",
+        "dr": 20,
+        "links": 51,
+        "action": "Monitor; disavow only on impact."
+      },
+      {
+        "category": "Build",
+        "domain": "bbb.org",
+        "dr": 93,
+        "links": 2,
+        "action": "Verify NAP and landing page consistency."
+      },
+      {
+        "category": "Build",
+        "domain": "caramellaapp.com",
+        "dr": 70,
+        "links": 36,
+        "action": "Verify NAP and landing page consistency."
+      },
+      {
+        "category": "Build",
+        "domain": "letsknowit.com",
+        "dr": 52,
+        "links": 1,
+        "action": "Verify NAP and landing page consistency."
+      },
+      {
+        "category": "Build",
+        "domain": "the-corporate.com",
+        "dr": 37,
+        "links": 3,
+        "action": "Verify listing accuracy."
+      },
+      {
+        "category": "Review",
+        "domain": "healthpad.net",
+        "dr": 28,
+        "links": 170,
+        "action": "Inspect anchor text / landing page relevance."
+      },
+      {
+        "category": "Own",
+        "domain": "shermanoaks-dental.com",
+        "dr": 0,
+        "links": 14,
+        "action": "Confirm ownership/redirect/canonical."
+      },
+      {
+        "category": "Own",
+        "domain": "bestdentistoxnard.com",
+        "dr": 0,
+        "links": 399,
+        "action": "Confirm ownership/redirect/canonical."
+      }
+    ],
+    "source_status_rows": [
+      {
+        "source": "GA4",
+        "status": "GA4 property needed",
+        "note": "Connector linked; awaiting property ID."
+      },
+      {
+        "source": "GSC",
+        "status": "Connected",
+        "note": "Updated daily. Public data is aggregated."
+      },
+      {
+        "source": "Ahrefs",
+        "status": "Connected",
+        "note": "Updated daily. Public data is aggregated."
+      }
+    ]
   },
   "referral_insights": {
     "title": "Referrals",

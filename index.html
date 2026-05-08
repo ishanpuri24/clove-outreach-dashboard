@@ -1616,12 +1616,6 @@
           <div class="card" id="ads-cvr-bench-card"></div>
         </section>
 
-        <!-- Ad-group conversion benchmarks (hidden: internal benchmarks) -->
-        <section aria-labelledby="ads-ag-bench" hidden>
-          <h2 id="ads-ag-bench">Ad-group benchmarks</h2>
-          <div class="card" id="ads-ag-bench-card"></div>
-        </section>
-
         <!-- Priority strip (hidden: duplicate of Do these today) -->
         <section aria-labelledby="ads-priority"
                  class="priority-strip" id="ads-priority-strip" hidden>
@@ -1697,25 +1691,10 @@
           <div class="card" id="ads-writeback-card"></div>
         </section>
 
-        <!-- Ads coverage / mapping notice (hidden: internal lookback/coverage) -->
-        <section aria-labelledby="ads" hidden>
-          <h2 id="ads">
-            <span id="ads-title">Google Ads Waste Watch</span>
-          </h2>
-          <div class="section-meta" id="ads-subtitle"></div>
-          <div class="card" id="ads-coverage-card"></div>
-        </section>
-
         <!-- Account linking status (hidden: prose-only) -->
         <section aria-labelledby="ads-account-status" hidden>
           <h2 id="ads-account-status">Account linking</h2>
           <div class="card" id="ads-account-status-card"></div>
-        </section>
-
-        <!-- Account coverage table by office label (hidden: internal coverage) -->
-        <section aria-labelledby="ads-coverage-table" hidden>
-          <h2 id="ads-coverage-table">Account coverage by office</h2>
-          <div class="card" id="ads-coverage-table-card"></div>
         </section>
 
         <!-- Ads KPIs -->
@@ -1964,27 +1943,18 @@
           <div class="paid-summary-grid" id="organic-summary-grid"></div>
         </section>
 
-        <section aria-labelledby="organic-ga">
-          <h2 id="organic-ga">GA4 sources & landing pages</h2>
-          <div class="card" id="organic-ga-source"></div>
-          <div class="card" id="organic-ga-landing" style="margin-top:10px;"></div>
-        </section>
-
         <section aria-labelledby="organic-gsc">
-          <h2 id="organic-gsc">GSC queries & pages</h2>
+          <h2 id="organic-gsc">GSC query opportunities</h2>
           <div class="card" id="organic-gsc-query"></div>
-          <div class="card" id="organic-gsc-page" style="margin-top:10px;"></div>
         </section>
 
         <section aria-labelledby="organic-ahrefs">
-          <h2 id="organic-ahrefs">Ahrefs rankings & backlinks</h2>
-          <div class="paid-summary-grid" id="organic-ahrefs-cards"></div>
-          <div class="card" id="organic-ahrefs-keywords" style="margin-top:10px;"></div>
-          <div class="card" id="organic-ahrefs-changes" style="margin-top:10px;"></div>
+          <h2 id="organic-ahrefs">Ahrefs link cleanup &amp; build</h2>
+          <div class="card" id="organic-ahrefs-links"></div>
         </section>
 
         <section aria-labelledby="organic-opps">
-          <h2 id="organic-opps">SEO opportunity actions</h2>
+          <h2 id="organic-opps">Source status</h2>
           <div class="card" id="organic-opps-card"></div>
         </section>
 
@@ -5704,98 +5674,39 @@
             sumG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
           });
         }
-        var gaSrc = $("organic-ga-source");
-        if (gaSrc) {
-          gaSrc.innerHTML = "";
-          gaSrc.appendChild(el("h3", { text: "Sessions / users / conversions by source-medium" }));
-          var ok = _renderTable(gaSrc, [
-            { key: "source_medium", label: "Source / medium" },
-            { key: "sessions", label: "Sessions" },
-            { key: "users", label: "Users" },
-            { key: "conversions", label: "Conversions" }
-          ], o.ga_source_medium_rows);
-          if (!ok) gaSrc.appendChild(el("div", { "class": "desc", text: "Awaiting GA4." }));
-        }
-        var gaLp = $("organic-ga-landing");
-        if (gaLp) {
-          gaLp.innerHTML = "";
-          gaLp.appendChild(el("h3", { text: "Sessions by landing page" }));
-          var ok2 = _renderTable(gaLp, [
-            { key: "landing_page", label: "Landing page" },
-            { key: "sessions", label: "Sessions" },
-            { key: "users", label: "Users" },
-            { key: "conversions", label: "Conversions" }
-          ], o.ga_landing_page_rows);
-          if (!ok2) gaLp.appendChild(el("div", { "class": "desc", text: "Awaiting GA4." }));
-        }
         var gscQ = $("organic-gsc-query");
         if (gscQ) {
           gscQ.innerHTML = "";
-          gscQ.appendChild(el("h3", { text: "Queries: clicks / impressions / CTR / position" }));
           var ok3 = _renderTable(gscQ, [
             { key: "query", label: "Query" },
             { key: "clicks", label: "Clicks" },
             { key: "impressions", label: "Impr." },
             { key: "ctr_pct", label: "CTR%" },
-            { key: "avg_position", label: "Avg pos." }
+            { key: "avg_position", label: "Pos." },
+            { key: "action", label: "Action" }
           ], o.gsc_query_rows);
           if (!ok3) gscQ.appendChild(el("div", { "class": "desc", text: "Awaiting GSC." }));
         }
-        var gscP = $("organic-gsc-page");
-        if (gscP) {
-          gscP.innerHTML = "";
-          gscP.appendChild(el("h3", { text: "Pages: clicks / impressions / CTR / position" }));
-          var ok4 = _renderTable(gscP, [
-            { key: "page", label: "Page" },
-            { key: "clicks", label: "Clicks" },
-            { key: "impressions", label: "Impr." },
-            { key: "ctr_pct", label: "CTR%" },
-            { key: "avg_position", label: "Avg pos." }
-          ], o.gsc_page_rows);
-          if (!ok4) gscP.appendChild(el("div", { "class": "desc", text: "Awaiting GSC." }));
-        }
-        var ahG = $("organic-ahrefs-cards");
-        if (ahG) {
-          ahG.innerHTML = "";
-          var bs = o.ahrefs_backlinks_summary || {};
-          ahG.appendChild(_statCard("Referring domains", bs.referring_domains, bs.basis, ""));
-          ahG.appendChild(_statCard("Backlinks", bs.backlinks, bs.basis, ""));
-          ahG.appendChild(_statCard("Domain rating", bs.domain_rating, bs.basis, ""));
-        }
-        var ahKw = $("organic-ahrefs-keywords");
-        if (ahKw) {
-          ahKw.innerHTML = "";
-          ahKw.appendChild(el("h3", { text: "Keyword rankings" }));
-          var ok5 = _renderTable(ahKw, [
-            { key: "keyword", label: "Keyword" },
-            { key: "position", label: "Position" },
-            { key: "volume", label: "Volume" },
-            { key: "url", label: "Page" }
-          ], o.ahrefs_keyword_rows);
-          if (!ok5) ahKw.appendChild(el("div", { "class": "desc", text: "Awaiting Ahrefs." }));
-        }
-        var ahCh = $("organic-ahrefs-changes");
-        if (ahCh) {
-          ahCh.innerHTML = "";
-          ahCh.appendChild(el("h3", { text: "Ranking changes" }));
-          var ok6 = _renderTable(ahCh, [
-            { key: "keyword", label: "Keyword" },
-            { key: "prev_position", label: "Prev" },
-            { key: "position", label: "Now" },
-            { key: "delta", label: "Δ" }
-          ], o.ahrefs_ranking_change_rows);
-          if (!ok6) ahCh.appendChild(el("div", { "class": "desc", text: "Awaiting Ahrefs." }));
+        var ahL = $("organic-ahrefs-links");
+        if (ahL) {
+          ahL.innerHTML = "";
+          var ok5 = _renderTable(ahL, [
+            { key: "category", label: "Category" },
+            { key: "domain", label: "Domain" },
+            { key: "dr", label: "DR" },
+            { key: "links", label: "Links" },
+            { key: "action", label: "Action" }
+          ], o.ahrefs_link_rows);
+          if (!ok5) ahL.appendChild(el("div", { "class": "desc", text: "Awaiting Ahrefs." }));
         }
         var opps = $("organic-opps-card");
         if (opps) {
           opps.innerHTML = "";
-          opps.appendChild(el("h3", { text: "Opportunity actions" }));
           var ok7 = _renderTable(opps, [
-            { key: "priority", label: "Pri" },
-            { key: "action", label: "Action" },
-            { key: "target", label: "Target" },
-            { key: "expected_impact", label: "Impact" }
-          ], o.seo_opportunity_actions);
+            { key: "source", label: "Source" },
+            { key: "status", label: "Status" },
+            { key: "note", label: "Note" }
+          ], o.source_status_rows);
           if (!ok7) opps.appendChild(el("div", { "class": "desc", text: "Awaiting connectors." }));
         }
         var fresh = $("organic-fresh");
