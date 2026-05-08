@@ -2021,6 +2021,15 @@
           <div class="card" id="ref-od-card"></div>
         </section>
 
+        <section aria-labelledby="ref-c100">
+          <h2 id="ref-c100">Clove100 (Subscribili)</h2>
+          <p class="tab-meta" id="ref-c100-meta"></p>
+          <div class="paid-summary-grid" id="ref-c100-conn-grid"></div>
+          <div class="paid-summary-grid" id="ref-c100-summary-grid"></div>
+          <div class="card" id="ref-c100-offices-card"></div>
+          <div class="card" id="ref-c100-improve-card"></div>
+        </section>
+
         <p class="tab-meta" id="referrals-fresh"></p>
       </div>
     </main>
@@ -5855,8 +5864,56 @@
           ], r.query_rows);
           if (!ok2) od.appendChild(el("div", { "class": "desc", text: "Connector not found. Define a private referral query; aggregated counts only — no patient data." }));
         }
+        renderClove100(r.clove100);
         var fresh = $("referrals-fresh");
         if (fresh) fresh.textContent = r.freshness_note || "";
+      }
+
+      function renderClove100(c) {
+        var meta = $("ref-c100-meta");
+        if (meta) meta.textContent = c ? ((c.lookback || "Last 30d") + " · " + (c.data_freshness || "")) : "Awaiting Subscribili.";
+        var connG = $("ref-c100-conn-grid");
+        if (connG) {
+          connG.innerHTML = "";
+          if (c && c.connector) connG.appendChild(_connCard(c.connector));
+        }
+        var sumG = $("ref-c100-summary-grid");
+        if (sumG) {
+          sumG.innerHTML = "";
+          ((c && c.summary_cards) || []).forEach(function (s) {
+            sumG.appendChild(_statCard(s.label, s.value, s.basis, s.decision));
+          });
+        }
+        var off = $("ref-c100-offices-card");
+        if (off) {
+          off.innerHTML = "";
+          off.appendChild(el("h3", { text: "Offices: members, growth, WoW / MoM" }));
+          var ok = _renderTable(off, [
+            { key: "office", label: "Office" },
+            { key: "active_members", label: "Active" },
+            { key: "new_7d", label: "New 7d" },
+            { key: "new_30d", label: "New 30d" },
+            { key: "cancellations_30d", label: "Cancel 30d" },
+            { key: "net_growth_30d", label: "Net 30d" },
+            { key: "wow_delta", label: "WoW" },
+            { key: "mom_delta", label: "MoM" },
+            { key: "status", label: "Status" },
+            { key: "action", label: "Action" }
+          ], (c && c.office_rows) || []);
+          if (!ok) off.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
+        }
+        var imp = $("ref-c100-improve-card");
+        if (imp) {
+          imp.innerHTML = "";
+          imp.appendChild(el("h3", { text: "Where to improve" }));
+          var ok2 = _renderTable(imp, [
+            { key: "office", label: "Office" },
+            { key: "signal", label: "Signal" },
+            { key: "action", label: "Action" },
+            { key: "expected_metric", label: "Metric" }
+          ], (c && c.where_to_improve) || []);
+          if (!ok2) imp.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
+        }
       }
 
       function setupTabs() {

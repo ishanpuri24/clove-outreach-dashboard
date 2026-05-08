@@ -15374,6 +15374,20 @@
           "referral_query.sql (private)"
         ],
         "action": "Define safe referral query in private config; aggregated counts only."
+      },
+      {
+        "integration": "Subscribili / Clove100 in-house plan",
+        "status": "Needs private login / API / export",
+        "severity": "blocked",
+        "public_exposure": "Aggregated office-level membership and plan metrics only. No member names, emails, phones, IDs, or PHI.",
+        "private_config_fields": [
+          "subscribili_dashboard_url (private)",
+          "subscribili_username_env (private)",
+          "subscribili_password_env (private)",
+          "subscribili_export_or_api_notes (private)",
+          "subscribili_office_map (private; maps office label to Subscribili location/group)"
+        ],
+        "action": "Wire private login or export; map 9 offices; aggregate counts only."
       }
     ],
     "summary_cards": [
@@ -15545,6 +15559,235 @@
       }
     ],
     "query_rows": [],
-    "freshness_note": "Connect GBP and define a private Open Dental query. Aggregated, public-safe counts only; no patient data."
+    "freshness_note": "Connect GBP and define a private Open Dental query. Aggregated, public-safe counts only; no patient data.",
+    "clove100": {
+      "title": "Clove100 (Subscribili) \u2014 in-house insurance plan",
+      "lookback": "Last 30d",
+      "data_freshness": "No data; Subscribili connector not linked.",
+      "connector": {
+        "integration": "Subscribili / Clove100",
+        "status": "Needs private login / API / export",
+        "severity": "blocked",
+        "public_exposure": "Aggregated office-level metrics only.",
+        "action": "Wire private login or export; map 9 offices."
+      },
+      "summary_cards": [
+        {
+          "label": "Active members",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili",
+          "decision": "Wire connector."
+        },
+        {
+          "label": "New members 7d",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili",
+          "decision": "Wire connector."
+        },
+        {
+          "label": "New members 30d",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili",
+          "decision": "Wire connector."
+        },
+        {
+          "label": "Cancellations 30d",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili",
+          "decision": "Wire connector."
+        },
+        {
+          "label": "Net growth 30d",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili",
+          "decision": "Wire connector."
+        },
+        {
+          "label": "MRR",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili (if available)",
+          "decision": "Wire connector."
+        },
+        {
+          "label": "Treatment acceptance",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili (if available)",
+          "decision": "Wire connector."
+        },
+        {
+          "label": "Top referral source",
+          "value": "Awaiting Subscribili",
+          "basis": "Subscribili (if available)",
+          "decision": "Wire connector."
+        }
+      ],
+      "office_rows": [
+        {
+          "office": "Riverpark",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Santa Monica",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Hollywood",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Beverly Hills",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Pasadena",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Long Beach",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Glendale",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Burbank",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        },
+        {
+          "office": "Studio City",
+          "active_members": null,
+          "new_7d": null,
+          "new_30d": null,
+          "cancellations_30d": null,
+          "net_growth_30d": null,
+          "wow_delta": null,
+          "mom_delta": null,
+          "status": "Awaiting Subscribili",
+          "action": "Wire connector."
+        }
+      ],
+      "where_to_improve": [
+        {
+          "office": "Riverpark",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Santa Monica",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Hollywood",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Beverly Hills",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Pasadena",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Long Beach",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Glendale",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Burbank",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        },
+        {
+          "office": "Studio City",
+          "signal": "Awaiting data",
+          "action": "Wire Subscribili connector for this office.",
+          "expected_metric": "Net growth 30d"
+        }
+      ],
+      "freshness_note": "Connect Subscribili (Clove100) via private login or export. Aggregated, public-safe counts only; no member names, emails, phones, IDs, or PHI."
+    }
   }
 }

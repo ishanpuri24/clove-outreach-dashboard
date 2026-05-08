@@ -1,0 +1,72 @@
+# Subscribili / Clove100 connector config (TEMPLATE / PLACEHOLDERS ONLY).
+#
+# Documents the private config required by the upstream builder to
+# populate `referral_insights.clove100` in data/snapshot.json. The
+# public mirror never reads this file. Copy to the PRIVATE operations
+# repo only. Never commit real URLs that embed account ids, real
+# usernames, real passwords, API tokens, exported CSVs, or any
+# member-level data to this public repo.
+
+subscribili:
+  # Subscribili dashboard URL (private; never publish account paths).
+  dashboard_url: "REPLACE_WITH_PRIVATE_DASHBOARD_URL"
+
+  # Credentials are read from environment variables in the private
+  # builder. Only the env var NAMES live here; the secret values
+  # never appear in any repo.
+  username_env: "SUBSCRIBILI_USERNAME"
+  password_env: "SUBSCRIBILI_PASSWORD"
+
+  # Preferred ingestion mode. One of: "api", "export_csv", "scrape".
+  # If "api": document base URL, auth scheme, and rate limits in the
+  # private repo. If "export_csv": document the export path/cadence.
+  # If "scrape": document the authenticated headless flow in the
+  # private repo. The public mirror only ever sees aggregated counts.
+  mode: "REPLACE_WITH_api_OR_export_csv_OR_scrape"
+
+  # Optional: API base URL or token env var name (private; never publish
+  # the real token).
+  api_base_url: "REPLACE_WITH_PRIVATE_API_BASE_URL"
+  api_token_env: "SUBSCRIBILI_API_TOKEN"
+
+  # Optional: path or rclone remote where the private builder picks
+  # up Subscribili CSV exports. Files are read in the private repo
+  # only and never copied to the public mirror.
+  export_path: "REPLACE_WITH_PRIVATE_EXPORT_PATH_OR_RCLONE_REMOTE"
+
+  # Map each public office label shown on the dashboard to its
+  # Subscribili location / group / practice id. Only the public
+  # office label is published; the Subscribili identifier stays
+  # private.
+  office_map:
+    Riverpark: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Santa Monica: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Hollywood: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Beverly Hills: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Pasadena: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Long Beach: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Glendale: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Burbank: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+    Studio City: "REPLACE_WITH_SUBSCRIBILI_LOCATION_ID"
+
+  lookback_days: 30
+
+  # Public exposure contract. The public mirror MUST only publish
+  # aggregated office-level metrics: active members, new members
+  # (7d / 30d), cancellations, net growth, MRR if available,
+  # treatment acceptance if available, top referral source if
+  # available, and WoW / MoM trend. The public mirror MUST NEVER
+  # publish member names, emails, phones, member ids, account ids,
+  # appointment notes, treatment notes, or any other PHI.
+  public_exposure: aggregated_office_level_only
+  forbidden_in_public_mirror:
+    - member_names
+    - member_emails
+    - member_phones
+    - member_ids
+    - account_ids
+    - tokens
+    - raw_csv_exports
+    - appointment_notes
+    - treatment_notes
+    - any_phi

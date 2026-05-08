@@ -69,6 +69,11 @@ aggregate snapshot.
   scripts/
     build_snapshot.py            sanitization-aware build script (writes data/snapshot.json)
     validate_public_snapshot.py  pre-publish validator (PII / shape)
+  config/
+    callrail.example.yaml        private CallRail connector template
+    organic.example.yaml         private GA4 / GSC / Ahrefs connector template
+    referrals.example.yaml       private GBP + Open Dental referral template
+    subscribili.example.yaml     private Subscribili / Clove100 plan template
   README.md                      this file (purpose, architecture, basics)
   DEPLOYMENT.md                  GitHub Pages, Vercel, local, and snapshot-update guides
 ```
