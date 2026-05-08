@@ -15225,8 +15225,640 @@
   },
   "organic_insights": {
     "title": "Organic & SEO",
-    "lookback": "Last 28d",
+    "lookback": "Last 28d vs prior 28d",
     "data_freshness": "Updated daily. Public data is aggregated.",
+    "growth_cards": [
+      {
+        "label": "Clicks (last 7d)",
+        "value": "1,015",
+        "basis": "Prior 7d 1,021",
+        "decision": "WoW -0.6% (flat)"
+      },
+      {
+        "label": "Impressions (last 7d)",
+        "value": "156,789",
+        "basis": "Prior 7d 143,086",
+        "decision": "WoW +9.6%"
+      },
+      {
+        "label": "CTR (last 7d)",
+        "value": "0.65%",
+        "basis": "Prior 7d 0.71%",
+        "decision": "WoW -0.07 pts"
+      },
+      {
+        "label": "Avg position (last 7d)",
+        "value": "11.7",
+        "basis": "Prior 7d 13.1",
+        "decision": "Improved 1.4 spots"
+      },
+      {
+        "label": "Clicks (last 28d)",
+        "value": "4,136",
+        "basis": "Prior 28d 4,882",
+        "decision": "MoM -15.3%"
+      },
+      {
+        "label": "Impressions (last 28d)",
+        "value": "690,092",
+        "basis": "Prior 28d 840,935",
+        "decision": "MoM -17.9%"
+      },
+      {
+        "label": "CTR (last 28d)",
+        "value": "0.60%",
+        "basis": "Prior 28d 0.58%",
+        "decision": "MoM +0.02 pts"
+      },
+      {
+        "label": "Avg position (last 28d)",
+        "value": "11.1",
+        "basis": "Prior 28d 8.4",
+        "decision": "Worsened 2.7 spots"
+      },
+      {
+        "label": "Clicks vs 56-84d ago",
+        "value": "+2.5%",
+        "basis": "Older 28d 4,036",
+        "decision": "Recent dip, not collapse"
+      }
+    ],
+    "daily_trend": [
+      {
+        "date": "2026-02-14",
+        "clicks": 102,
+        "impressions": 18790,
+        "ctr_pct": 0.54,
+        "position": 8.6
+      },
+      {
+        "date": "2026-02-15",
+        "clicks": 123,
+        "impressions": 20645,
+        "ctr_pct": 0.6,
+        "position": 9.0
+      },
+      {
+        "date": "2026-02-16",
+        "clicks": 167,
+        "impressions": 23971,
+        "ctr_pct": 0.7,
+        "position": 7.5
+      },
+      {
+        "date": "2026-02-17",
+        "clicks": 146,
+        "impressions": 25008,
+        "ctr_pct": 0.58,
+        "position": 9.1
+      },
+      {
+        "date": "2026-02-18",
+        "clicks": 151,
+        "impressions": 26163,
+        "ctr_pct": 0.58,
+        "position": 8.0
+      },
+      {
+        "date": "2026-02-19",
+        "clicks": 176,
+        "impressions": 25728,
+        "ctr_pct": 0.68,
+        "position": 8.0
+      },
+      {
+        "date": "2026-02-20",
+        "clicks": 144,
+        "impressions": 23605,
+        "ctr_pct": 0.61,
+        "position": 7.9
+      },
+      {
+        "date": "2026-02-21",
+        "clicks": 126,
+        "impressions": 21964,
+        "ctr_pct": 0.57,
+        "position": 7.8
+      },
+      {
+        "date": "2026-02-22",
+        "clicks": 123,
+        "impressions": 24823,
+        "ctr_pct": 0.5,
+        "position": 7.7
+      },
+      {
+        "date": "2026-02-23",
+        "clicks": 162,
+        "impressions": 26100,
+        "ctr_pct": 0.62,
+        "position": 8.6
+      },
+      {
+        "date": "2026-02-24",
+        "clicks": 190,
+        "impressions": 26284,
+        "ctr_pct": 0.72,
+        "position": 8.1
+      },
+      {
+        "date": "2026-02-25",
+        "clicks": 172,
+        "impressions": 26805,
+        "ctr_pct": 0.64,
+        "position": 8.5
+      },
+      {
+        "date": "2026-02-26",
+        "clicks": 175,
+        "impressions": 26632,
+        "ctr_pct": 0.66,
+        "position": 9.2
+      },
+      {
+        "date": "2026-02-27",
+        "clicks": 155,
+        "impressions": 24642,
+        "ctr_pct": 0.63,
+        "position": 8.0
+      },
+      {
+        "date": "2026-02-28",
+        "clicks": 118,
+        "impressions": 22346,
+        "ctr_pct": 0.53,
+        "position": 7.7
+      },
+      {
+        "date": "2026-03-01",
+        "clicks": 114,
+        "impressions": 21262,
+        "ctr_pct": 0.54,
+        "position": 8.7
+      },
+      {
+        "date": "2026-03-02",
+        "clicks": 170,
+        "impressions": 25976,
+        "ctr_pct": 0.65,
+        "position": 9.0
+      },
+      {
+        "date": "2026-03-03",
+        "clicks": 146,
+        "impressions": 27208,
+        "ctr_pct": 0.54,
+        "position": 8.6
+      },
+      {
+        "date": "2026-03-04",
+        "clicks": 143,
+        "impressions": 25848,
+        "ctr_pct": 0.55,
+        "position": 9.0
+      },
+      {
+        "date": "2026-03-05",
+        "clicks": 137,
+        "impressions": 25356,
+        "ctr_pct": 0.54,
+        "position": 10.2
+      },
+      {
+        "date": "2026-03-06",
+        "clicks": 143,
+        "impressions": 23644,
+        "ctr_pct": 0.6,
+        "position": 8.4
+      },
+      {
+        "date": "2026-03-07",
+        "clicks": 106,
+        "impressions": 22491,
+        "ctr_pct": 0.47,
+        "position": 8.2
+      },
+      {
+        "date": "2026-03-08",
+        "clicks": 115,
+        "impressions": 22557,
+        "ctr_pct": 0.51,
+        "position": 8.0
+      },
+      {
+        "date": "2026-03-09",
+        "clicks": 159,
+        "impressions": 27945,
+        "ctr_pct": 0.57,
+        "position": 7.3
+      },
+      {
+        "date": "2026-03-10",
+        "clicks": 209,
+        "impressions": 28502,
+        "ctr_pct": 0.73,
+        "position": 7.3
+      },
+      {
+        "date": "2026-03-11",
+        "clicks": 187,
+        "impressions": 27705,
+        "ctr_pct": 0.67,
+        "position": 8.0
+      },
+      {
+        "date": "2026-03-12",
+        "clicks": 177,
+        "impressions": 28269,
+        "ctr_pct": 0.63,
+        "position": 8.9
+      },
+      {
+        "date": "2026-03-13",
+        "clicks": 146,
+        "impressions": 24803,
+        "ctr_pct": 0.59,
+        "position": 8.8
+      },
+      {
+        "date": "2026-03-14",
+        "clicks": 120,
+        "impressions": 21732,
+        "ctr_pct": 0.55,
+        "position": 7.9
+      },
+      {
+        "date": "2026-03-15",
+        "clicks": 120,
+        "impressions": 24296,
+        "ctr_pct": 0.49,
+        "position": 9.1
+      },
+      {
+        "date": "2026-03-16",
+        "clicks": 192,
+        "impressions": 28659,
+        "ctr_pct": 0.67,
+        "position": 9.3
+      },
+      {
+        "date": "2026-03-17",
+        "clicks": 195,
+        "impressions": 28679,
+        "ctr_pct": 0.68,
+        "position": 9.4
+      },
+      {
+        "date": "2026-03-18",
+        "clicks": 179,
+        "impressions": 30908,
+        "ctr_pct": 0.58,
+        "position": 8.3
+      },
+      {
+        "date": "2026-03-19",
+        "clicks": 189,
+        "impressions": 32921,
+        "ctr_pct": 0.57,
+        "position": 7.7
+      },
+      {
+        "date": "2026-03-20",
+        "clicks": 169,
+        "impressions": 27424,
+        "ctr_pct": 0.62,
+        "position": 7.5
+      },
+      {
+        "date": "2026-03-21",
+        "clicks": 161,
+        "impressions": 30237,
+        "ctr_pct": 0.53,
+        "position": 9.2
+      },
+      {
+        "date": "2026-03-22",
+        "clicks": 161,
+        "impressions": 32112,
+        "ctr_pct": 0.5,
+        "position": 9.5
+      },
+      {
+        "date": "2026-03-23",
+        "clicks": 228,
+        "impressions": 36233,
+        "ctr_pct": 0.63,
+        "position": 7.4
+      },
+      {
+        "date": "2026-03-24",
+        "clicks": 209,
+        "impressions": 35458,
+        "ctr_pct": 0.59,
+        "position": 7.0
+      },
+      {
+        "date": "2026-03-25",
+        "clicks": 210,
+        "impressions": 35532,
+        "ctr_pct": 0.59,
+        "position": 7.4
+      },
+      {
+        "date": "2026-03-26",
+        "clicks": 204,
+        "impressions": 37388,
+        "ctr_pct": 0.55,
+        "position": 13.4
+      },
+      {
+        "date": "2026-03-27",
+        "clicks": 170,
+        "impressions": 30529,
+        "ctr_pct": 0.56,
+        "position": 8.6
+      },
+      {
+        "date": "2026-03-28",
+        "clicks": 133,
+        "impressions": 26494,
+        "ctr_pct": 0.5,
+        "position": 7.4
+      },
+      {
+        "date": "2026-03-29",
+        "clicks": 144,
+        "impressions": 27099,
+        "ctr_pct": 0.53,
+        "position": 8.1
+      },
+      {
+        "date": "2026-03-30",
+        "clicks": 229,
+        "impressions": 31979,
+        "ctr_pct": 0.72,
+        "position": 7.6
+      },
+      {
+        "date": "2026-03-31",
+        "clicks": 166,
+        "impressions": 31847,
+        "ctr_pct": 0.52,
+        "position": 7.0
+      },
+      {
+        "date": "2026-04-01",
+        "clicks": 167,
+        "impressions": 32501,
+        "ctr_pct": 0.51,
+        "position": 7.2
+      },
+      {
+        "date": "2026-04-02",
+        "clicks": 198,
+        "impressions": 32414,
+        "ctr_pct": 0.61,
+        "position": 8.4
+      },
+      {
+        "date": "2026-04-03",
+        "clicks": 156,
+        "impressions": 27571,
+        "ctr_pct": 0.57,
+        "position": 7.8
+      },
+      {
+        "date": "2026-04-04",
+        "clicks": 130,
+        "impressions": 25822,
+        "ctr_pct": 0.5,
+        "position": 8.3
+      },
+      {
+        "date": "2026-04-05",
+        "clicks": 129,
+        "impressions": 25502,
+        "ctr_pct": 0.51,
+        "position": 8.5
+      },
+      {
+        "date": "2026-04-06",
+        "clicks": 194,
+        "impressions": 29780,
+        "ctr_pct": 0.65,
+        "position": 9.1
+      },
+      {
+        "date": "2026-04-07",
+        "clicks": 223,
+        "impressions": 29743,
+        "ctr_pct": 0.75,
+        "position": 8.3
+      },
+      {
+        "date": "2026-04-08",
+        "clicks": 201,
+        "impressions": 30519,
+        "ctr_pct": 0.66,
+        "position": 8.2
+      },
+      {
+        "date": "2026-04-09",
+        "clicks": 159,
+        "impressions": 32753,
+        "ctr_pct": 0.49,
+        "position": 8.8
+      },
+      {
+        "date": "2026-04-10",
+        "clicks": 140,
+        "impressions": 30420,
+        "ctr_pct": 0.46,
+        "position": 8.5
+      },
+      {
+        "date": "2026-04-11",
+        "clicks": 120,
+        "impressions": 28682,
+        "ctr_pct": 0.42,
+        "position": 9.8
+      },
+      {
+        "date": "2026-04-12",
+        "clicks": 129,
+        "impressions": 29209,
+        "ctr_pct": 0.44,
+        "position": 9.8
+      },
+      {
+        "date": "2026-04-13",
+        "clicks": 163,
+        "impressions": 32942,
+        "ctr_pct": 0.49,
+        "position": 9.9
+      },
+      {
+        "date": "2026-04-14",
+        "clicks": 169,
+        "impressions": 31906,
+        "ctr_pct": 0.53,
+        "position": 9.3
+      },
+      {
+        "date": "2026-04-15",
+        "clicks": 159,
+        "impressions": 32765,
+        "ctr_pct": 0.49,
+        "position": 10.6
+      },
+      {
+        "date": "2026-04-16",
+        "clicks": 177,
+        "impressions": 31458,
+        "ctr_pct": 0.56,
+        "position": 10.9
+      },
+      {
+        "date": "2026-04-17",
+        "clicks": 140,
+        "impressions": 28894,
+        "ctr_pct": 0.48,
+        "position": 8.6
+      },
+      {
+        "date": "2026-04-18",
+        "clicks": 108,
+        "impressions": 26229,
+        "ctr_pct": 0.41,
+        "position": 9.1
+      },
+      {
+        "date": "2026-04-19",
+        "clicks": 102,
+        "impressions": 27844,
+        "ctr_pct": 0.37,
+        "position": 9.8
+      },
+      {
+        "date": "2026-04-20",
+        "clicks": 171,
+        "impressions": 26741,
+        "ctr_pct": 0.64,
+        "position": 11.4
+      },
+      {
+        "date": "2026-04-21",
+        "clicks": 158,
+        "impressions": 21062,
+        "ctr_pct": 0.75,
+        "position": 11.3
+      },
+      {
+        "date": "2026-04-22",
+        "clicks": 181,
+        "impressions": 21099,
+        "ctr_pct": 0.86,
+        "position": 12.7
+      },
+      {
+        "date": "2026-04-23",
+        "clicks": 183,
+        "impressions": 20966,
+        "ctr_pct": 0.87,
+        "position": 12.7
+      },
+      {
+        "date": "2026-04-24",
+        "clicks": 153,
+        "impressions": 18988,
+        "ctr_pct": 0.81,
+        "position": 11.9
+      },
+      {
+        "date": "2026-04-25",
+        "clicks": 107,
+        "impressions": 17627,
+        "ctr_pct": 0.61,
+        "position": 13.8
+      },
+      {
+        "date": "2026-04-26",
+        "clicks": 101,
+        "impressions": 18773,
+        "ctr_pct": 0.54,
+        "position": 15.8
+      },
+      {
+        "date": "2026-04-27",
+        "clicks": 168,
+        "impressions": 20627,
+        "ctr_pct": 0.81,
+        "position": 12.4
+      },
+      {
+        "date": "2026-04-28",
+        "clicks": 171,
+        "impressions": 22128,
+        "ctr_pct": 0.77,
+        "position": 13.0
+      },
+      {
+        "date": "2026-04-29",
+        "clicks": 162,
+        "impressions": 21907,
+        "ctr_pct": 0.74,
+        "position": 12.4
+      },
+      {
+        "date": "2026-04-30",
+        "clicks": 159,
+        "impressions": 23036,
+        "ctr_pct": 0.69,
+        "position": 12.5
+      },
+      {
+        "date": "2026-05-01",
+        "clicks": 142,
+        "impressions": 21897,
+        "ctr_pct": 0.65,
+        "position": 10.9
+      },
+      {
+        "date": "2026-05-02",
+        "clicks": 102,
+        "impressions": 19195,
+        "ctr_pct": 0.53,
+        "position": 12.4
+      },
+      {
+        "date": "2026-05-03",
+        "clicks": 117,
+        "impressions": 20308,
+        "ctr_pct": 0.58,
+        "position": 13.1
+      },
+      {
+        "date": "2026-05-04",
+        "clicks": 172,
+        "impressions": 23738,
+        "ctr_pct": 0.72,
+        "position": 12.2
+      },
+      {
+        "date": "2026-05-05",
+        "clicks": 158,
+        "impressions": 23214,
+        "ctr_pct": 0.68,
+        "position": 10.7
+      },
+      {
+        "date": "2026-05-06",
+        "clicks": 171,
+        "impressions": 24245,
+        "ctr_pct": 0.71,
+        "position": 11.4
+      }
+    ],
     "connector_status": [
       {
         "integration": "Google Analytics 4",
@@ -15274,13 +15906,13 @@
       },
       {
         "label": "Spam-flagged refs (sampled)",
-        "value": "13/25",
+        "value": "22/50",
         "basis": "Ahrefs",
         "decision": ""
       },
       {
         "label": "High-DR build targets",
-        "value": "3",
+        "value": "4",
         "basis": "Ahrefs",
         "decision": ""
       }
@@ -15288,135 +15920,111 @@
     "top_actions": [
       {
         "priority": "P0",
-        "label": "Rewrite costco-dental-insurance title/meta",
-        "action": "Add insurance CTA; pos 6.4, CTR 3.3%.",
+        "label": "Fix CTR leak: physicians mutual dental insurance",
+        "action": "3,652 impr, pos 1.5, CTR 0.2%. Rewrite title/meta on insurance page.",
         "owner": "SEO"
       },
       {
         "priority": "P0",
-        "label": "Update pericoronitis page title",
-        "action": "3,129 impr at 0.8% CTR; add appointment CTA.",
+        "label": "Rewrite pericoronitis page title/meta",
+        "action": "3,135 impr, pos 4.8, CTR 0.8%. Add urgency + same-day exam CTA.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P0",
+        "label": "Update tongue-feel-weird article CTA",
+        "action": "2,563 impr, pos 6.8, CTR 0.2%. Expand content + appointment CTA.",
         "owner": "SEO"
       },
       {
         "priority": "P1",
-        "label": "Add patient portal/login sitelink",
-        "action": "`clove dental login` shows nav confusion.",
+        "label": "Improve Costco dental insurance hub",
+        "action": "1,508 impr, pos 6.4, CTR 3.3%. Strengthen internal links + CTA.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P1",
+        "label": "Create / clarify patient login sitelink",
+        "action": "`clove dental login` 603 impr, pos 6.7. Build dedicated portal page.",
         "owner": "SEO"
       },
       {
         "priority": "P1",
         "label": "Strengthen Thousand Oaks office page",
-        "action": "Improve title/meta + GBP linkage.",
+        "action": "460 impr, pos 2.6, CTR 3.7%. Tighten title/meta + GBP links.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P1",
+        "label": "Fix Sherman Oaks ranking drop",
+        "action": "/sherman-oaks page pos 23.2 with 4,758 impr. Local SEO + internal links.",
         "owner": "SEO"
       },
       {
         "priority": "P2",
-        "label": "Add Clove/Puri brand-transition copy",
-        "action": "Capture `puri dentistry` traffic.",
+        "label": "Brand-transition copy for Puri Dentistry",
+        "action": "401 impr, pos 3.8. Capture legacy brand traffic.",
         "owner": "SEO"
       },
       {
         "priority": "P2",
-        "label": "Verify NAP on BBB / Caramella / LetsKnowIt",
-        "action": "High-DR listings; ensure consistency.",
+        "label": "Refresh top blog CTAs (mouth sloughing, tonsil stones, abscess)",
+        "action": "Combined 149K impr at <0.8% CTR. Title rewrites + same-day exam blocks.",
         "owner": "SEO"
       },
       {
         "priority": "P2",
-        "label": "Confirm exact-match office domains",
-        "action": "shermanoaks-dental.com, bestdentistoxnard.com.",
+        "label": "Verify NAP on bbb.org / your-server.de / apsense / caramellaapp",
+        "action": "DR 70-93. Confirm canonical destinations.",
+        "owner": "SEO"
+      },
+      {
+        "priority": "P2",
+        "label": "Audit legacy office domains",
+        "action": "shermanoaks-dental.com, bestdentistoxnard.com. Confirm redirects/canonicals.",
         "owner": "SEO"
       }
     ],
     "gsc_query_rows": [
       {
-        "query": "clove dental",
-        "clicks": 236,
-        "impressions": 1735,
-        "ctr_pct": 13.6,
-        "avg_position": 3.06,
-        "action": ""
-      },
-      {
-        "query": "clove dental beverly hills",
-        "clicks": 68,
-        "impressions": 602,
-        "ctr_pct": 11.3,
-        "avg_position": 2.08,
-        "action": ""
-      },
-      {
-        "query": "clove dental oxnard",
-        "clicks": 55,
-        "impressions": 505,
-        "ctr_pct": 10.9,
-        "avg_position": 2.91,
-        "action": ""
-      },
-      {
-        "query": "clove dental santa monica",
-        "clicks": 51,
-        "impressions": 447,
-        "ctr_pct": 11.4,
-        "avg_position": 1.26,
-        "action": ""
-      },
-      {
-        "query": "costco dental insurance",
-        "clicks": 50,
-        "impressions": 1507,
-        "ctr_pct": 3.3,
-        "avg_position": 6.36,
-        "action": "Rewrite title/meta; add insurance CTA."
-      },
-      {
-        "query": "clove dental encino",
-        "clicks": 36,
-        "impressions": 451,
-        "ctr_pct": 8.0,
-        "avg_position": 3.25,
-        "action": ""
-      },
-      {
-        "query": "clove dental sherman oaks",
-        "clicks": 36,
-        "impressions": 409,
-        "ctr_pct": 8.8,
-        "avg_position": 1.12,
-        "action": ""
-      },
-      {
-        "query": "clove dental camarillo",
-        "clicks": 33,
-        "impressions": 355,
-        "ctr_pct": 9.3,
-        "avg_position": 2.99,
-        "action": ""
-      },
-      {
-        "query": "clove dental ventura",
-        "clicks": 30,
-        "impressions": 285,
-        "ctr_pct": 10.5,
-        "avg_position": 1.04,
-        "action": ""
+        "query": "physicians mutual dental insurance",
+        "clicks": 6,
+        "impressions": 3652,
+        "ctr_pct": 0.2,
+        "avg_position": 1.5,
+        "action": "Rewrite insurance landing title/meta; CTR leak."
       },
       {
         "query": "can pericoronitis kill you",
         "clicks": 26,
-        "impressions": 3129,
+        "impressions": 3135,
         "ctr_pct": 0.8,
-        "avg_position": 4.77,
-        "action": "Update title for urgency; add appointment CTA."
+        "avg_position": 4.8,
+        "action": "Rewrite title/meta for urgency + same-day exam CTA."
       },
       {
-        "query": "best mouthwash for smokers",
-        "clicks": 22,
-        "impressions": 304,
-        "ctr_pct": 7.2,
-        "avg_position": 1.19,
-        "action": ""
+        "query": "why does my tongue feel weird",
+        "clicks": 5,
+        "impressions": 2563,
+        "ctr_pct": 0.2,
+        "avg_position": 6.8,
+        "action": "Expand content; add appointment CTA."
+      },
+      {
+        "query": "costco dental insurance",
+        "clicks": 50,
+        "impressions": 1508,
+        "ctr_pct": 3.3,
+        "avg_position": 6.4,
+        "action": "Improve insurance hub; strengthen internal links."
+      },
+      {
+        "query": "clove dental login",
+        "clicks": 13,
+        "impressions": 603,
+        "ctr_pct": 2.2,
+        "avg_position": 6.7,
+        "action": "Create or clarify patient portal/login page/sitelink."
       },
       {
         "query": "clove dental thousand oaks",
@@ -15424,226 +16032,123 @@
         "impressions": 460,
         "ctr_pct": 3.7,
         "avg_position": 2.6,
-        "action": "Improve title/meta; strengthen GBP/location links."
-      },
-      {
-        "query": "how to encourage lower jaw growth",
-        "clicks": 14,
-        "impressions": 230,
-        "ctr_pct": 6.1,
-        "avg_position": 2.06,
-        "action": ""
-      },
-      {
-        "query": "clove dental login",
-        "clicks": 13,
-        "impressions": 601,
-        "ctr_pct": 2.2,
-        "avg_position": 6.69,
-        "action": "Add patient portal/login page or sitelink."
-      },
-      {
-        "query": "clove dds",
-        "clicks": 12,
-        "impressions": 28,
-        "ctr_pct": 42.9,
-        "avg_position": 1.43,
-        "action": ""
-      },
-      {
-        "query": "clovedds",
-        "clicks": 12,
-        "impressions": 26,
-        "ctr_pct": 46.2,
-        "avg_position": 6.65,
-        "action": ""
-      },
-      {
-        "query": "mouth sloughing",
-        "clicks": 12,
-        "impressions": 512,
-        "ctr_pct": 2.3,
-        "avg_position": 2.48,
-        "action": ""
-      },
-      {
-        "query": "clover dental",
-        "clicks": 11,
-        "impressions": 148,
-        "ctr_pct": 7.4,
-        "avg_position": 5.91,
-        "action": ""
+        "action": "Strengthen office page title/meta and GBP links."
       },
       {
         "query": "puri dentistry",
         "clicks": 11,
         "impressions": 401,
         "ctr_pct": 2.7,
-        "avg_position": 3.76,
-        "action": "Add Clove/Puri location page copy."
+        "avg_position": 3.8,
+        "action": "Improve Clove/Puri brand-transition copy."
       },
       {
-        "query": "clove dental hillview",
-        "clicks": 9,
-        "impressions": 87,
-        "ctr_pct": 10.3,
-        "avg_position": 1.06,
-        "action": ""
-      },
-      {
-        "query": "turmeric gel for gums",
-        "clicks": 9,
-        "impressions": 272,
-        "ctr_pct": 3.3,
-        "avg_position": 3.91,
-        "action": ""
-      },
-      {
-        "query": "clove dental careers",
-        "clicks": 8,
-        "impressions": 223,
-        "ctr_pct": 3.6,
-        "avg_position": 5.29,
-        "action": ""
-      },
-      {
-        "query": "clove dental riverpark",
-        "clicks": 8,
-        "impressions": 91,
-        "ctr_pct": 8.8,
-        "avg_position": 1.02,
-        "action": ""
-      },
-      {
-        "query": "can i drink protein shake after wisdom teeth removal",
-        "clicks": 7,
-        "impressions": 66,
-        "ctr_pct": 10.6,
-        "avg_position": 3.39,
-        "action": ""
-      },
-      {
-        "query": "mandibular tori vitamin deficiency",
-        "clicks": 7,
-        "impressions": 56,
-        "ctr_pct": 12.5,
-        "avg_position": 2.27,
-        "action": ""
+        "query": "dentist near me",
+        "clicks": 3,
+        "impressions": 548,
+        "ctr_pct": 0.5,
+        "avg_position": 14.2,
+        "action": "Local SEO + internal links; not a paid action."
       }
     ],
-    "freshness_note": "Updated daily. Public data is aggregated.",
+    "gsc_page_rows": [
+      {
+        "page": "/blog/mouth-sloughing",
+        "clicks": 624,
+        "impressions": 80970,
+        "ctr_pct": 0.77,
+        "avg_position": 4.9,
+        "action": "Improve title/meta; add appointment CTA."
+      },
+      {
+        "page": "/blog/how-long-do-tonsil-stones-last",
+        "clicks": 168,
+        "impressions": 41796,
+        "ctr_pct": 0.4,
+        "avg_position": 4.2,
+        "action": "Rewrite title/meta; same-day appointment block."
+      },
+      {
+        "page": "/blog/will-a-tooth-abscess-go-away-with-antibiotics",
+        "clicks": 133,
+        "impressions": 26427,
+        "ctr_pct": 0.5,
+        "avg_position": 6.2,
+        "action": "Urgent-care CTA; internal link to offices."
+      },
+      {
+        "page": "/sherman-oaks",
+        "clicks": 84,
+        "impressions": 4758,
+        "ctr_pct": 1.77,
+        "avg_position": 23.2,
+        "action": "Fix local SEO/title/internal links; ranking issue."
+      },
+      {
+        "page": "/blog/aarp-vs-costco-dental-insurance",
+        "clicks": 85,
+        "impressions": 3253,
+        "ctr_pct": 2.61,
+        "avg_position": 8.9,
+        "action": "Update insurance CTA + internal links."
+      }
+    ],
     "ahrefs_link_rows": [
-      {
-        "category": "Spam",
-        "domain": "thebacklink.shop",
-        "dr": 35,
-        "links": 1,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "seo-anomaly-s10.xyz",
-        "dr": 0.3,
-        "links": 11,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "qhtycw.com",
-        "dr": 36,
-        "links": 1,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "globallinkdirectory.com",
-        "dr": 5,
-        "links": 2,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "faithscienceonline.com",
-        "dr": 31,
-        "links": 1,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "budu.com",
-        "dr": 16,
-        "links": 5,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "90dayads.com",
-        "dr": 2.6,
-        "links": 13,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "metriteweb.com",
-        "dr": 29,
-        "links": 2,
-        "action": "Monitor; disavow only on impact."
-      },
-      {
-        "category": "Spam",
-        "domain": "edostate.com",
-        "dr": 20,
-        "links": 51,
-        "action": "Monitor; disavow only on impact."
-      },
       {
         "category": "Build",
         "domain": "bbb.org",
         "dr": 93,
         "links": 2,
-        "action": "Verify NAP and landing page consistency."
+        "action": "Verify NAP and destination URL."
+      },
+      {
+        "category": "Build",
+        "domain": "your-server.de",
+        "dr": 84,
+        "links": 1,
+        "action": "Verify NAP and destination URL."
+      },
+      {
+        "category": "Build",
+        "domain": "apsense.com",
+        "dr": 73,
+        "links": 1,
+        "action": "Verify NAP and destination URL."
+      },
+      {
+        "category": "Build",
+        "domain": "startus.cc",
+        "dr": 73,
+        "links": 1,
+        "action": "Verify NAP and destination URL."
       },
       {
         "category": "Build",
         "domain": "caramellaapp.com",
         "dr": 70,
         "links": 36,
-        "action": "Verify NAP and landing page consistency."
+        "action": "Verify NAP and destination URL."
       },
       {
-        "category": "Build",
-        "domain": "letsknowit.com",
-        "dr": 52,
-        "links": 1,
-        "action": "Verify NAP and landing page consistency."
-      },
-      {
-        "category": "Build",
-        "domain": "the-corporate.com",
-        "dr": 37,
-        "links": 3,
-        "action": "Verify listing accuracy."
-      },
-      {
-        "category": "Review",
-        "domain": "healthpad.net",
-        "dr": 28,
-        "links": 170,
-        "action": "Inspect anchor text / landing page relevance."
+        "category": "Spam",
+        "domain": "Sampled (50 domains)",
+        "dr": "\u2014",
+        "links": 22,
+        "action": "Monitor; disavow only if rankings drop."
       },
       {
         "category": "Own",
         "domain": "shermanoaks-dental.com",
         "dr": 0,
         "links": 14,
-        "action": "Confirm ownership/redirect/canonical."
+        "action": "Confirm ownership/redirects/canonicals."
       },
       {
         "category": "Own",
         "domain": "bestdentistoxnard.com",
         "dr": 0,
         "links": 399,
-        "action": "Confirm ownership/redirect/canonical."
+        "action": "Confirm ownership/redirects/canonicals."
       }
     ],
     "source_status_rows": [

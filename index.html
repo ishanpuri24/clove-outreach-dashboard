@@ -1928,33 +1928,40 @@
            aria-labelledby="tab-organic" tabindex="0" hidden>
         <p class="tab-meta" id="organic-meta"></p>
 
-        <section aria-labelledby="organic-conn">
-          <h2 id="organic-conn">Connectors</h2>
-          <div class="paid-summary-grid" id="organic-conn-grid"></div>
+        <section aria-labelledby="organic-growth">
+          <h2 id="organic-growth">Organic traffic growth</h2>
+          <div class="paid-summary-grid" id="organic-growth-grid"></div>
+          <div class="card" id="organic-trend-card"></div>
         </section>
 
         <section aria-labelledby="organic-actions">
-          <h2 id="organic-actions">Do these today</h2>
+          <h2 id="organic-actions">Top organic fixes</h2>
           <div class="top5-grid" id="organic-actions-grid"></div>
         </section>
 
-        <section aria-labelledby="organic-summary">
-          <h2 id="organic-summary">Summary</h2>
-          <div class="paid-summary-grid" id="organic-summary-grid"></div>
-        </section>
-
         <section aria-labelledby="organic-gsc">
-          <h2 id="organic-gsc">GSC query opportunities</h2>
+          <h2 id="organic-gsc">Query opportunities</h2>
           <div class="card" id="organic-gsc-query"></div>
         </section>
 
+        <section aria-labelledby="organic-pages">
+          <h2 id="organic-pages">Page opportunities</h2>
+          <div class="card" id="organic-pages-card"></div>
+        </section>
+
         <section aria-labelledby="organic-ahrefs">
-          <h2 id="organic-ahrefs">Ahrefs link cleanup &amp; build</h2>
+          <h2 id="organic-ahrefs">Link opportunities</h2>
           <div class="card" id="organic-ahrefs-links"></div>
         </section>
 
-        <section aria-labelledby="organic-opps">
-          <h2 id="organic-opps">Source status</h2>
+        <section aria-labelledby="organic-summary">
+          <h2 id="organic-summary">Aggregate counters</h2>
+          <div class="paid-summary-grid" id="organic-summary-grid"></div>
+        </section>
+
+        <section aria-labelledby="organic-conn">
+          <h2 id="organic-conn">Source status</h2>
+          <div class="paid-summary-grid" id="organic-conn-grid"></div>
           <div class="card" id="organic-opps-card"></div>
         </section>
 
@@ -4990,7 +4997,7 @@
             if (r.share_of_calls_pct != null) {
               cell.appendChild(el("div", {
                 "class": "ps-stat-bench",
-                text: "Share of calls: " + fmtPct(r.share_of_calls_pct)
+                text: "First-time rate: " + fmtPct(r.share_of_calls_pct)
               }));
             }
             ftCardsEl.appendChild(cell);
@@ -5008,7 +5015,7 @@
               el("th", { text: "First-time 30d" }),
               el("th", { text: "Prior 30d" }),
               el("th", { text: "MoM" }),
-              el("th", { text: "Share" }),
+              el("th", { text: "First-time rate" }),
               el("th", { text: "Trend" })
             ])
           ]));
@@ -5663,6 +5670,23 @@
         if (!o) return;
         var meta = $("organic-meta");
         if (meta) meta.textContent = (o.lookback || "Last 30d") + " · " + (o.data_freshness || "");
+        var growthG = $("organic-growth-grid");
+        if (growthG) {
+          growthG.innerHTML = "";
+          (o.growth_cards || []).forEach(function (c) {
+            growthG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
+          });
+        }
+        var trendCard = $("organic-trend-card");
+        if (trendCard) {
+          trendCard.innerHTML = "";
+          if ((o.daily_trend || []).length) {
+            trendCard.appendChild(el("h3", { text: "Daily clicks & impressions (last 90d)" }));
+            trendCard.appendChild(_organicTrendSvg(o.daily_trend));
+          } else {
+            trendCard.appendChild(el("div", { "class": "desc", text: "Awaiting GSC trend." }));
+          }
+        }
         var connG = $("organic-conn-grid");
         if (connG) {
           connG.innerHTML = "";
@@ -5693,6 +5717,19 @@
           ], o.gsc_query_rows);
           if (!ok3) gscQ.appendChild(el("div", { "class": "desc", text: "Awaiting GSC." }));
         }
+        var pgC = $("organic-pages-card");
+        if (pgC) {
+          pgC.innerHTML = "";
+          var ok4 = _renderTable(pgC, [
+            { key: "page", label: "Page" },
+            { key: "clicks", label: "Clicks" },
+            { key: "impressions", label: "Impr." },
+            { key: "ctr_pct", label: "CTR%" },
+            { key: "avg_position", label: "Pos." },
+            { key: "action", label: "Action" }
+          ], o.gsc_page_rows);
+          if (!ok4) pgC.appendChild(el("div", { "class": "desc", text: "Awaiting GSC pages." }));
+        }
         var ahL = $("organic-ahrefs-links");
         if (ahL) {
           ahL.innerHTML = "";
@@ -5717,6 +5754,93 @@
         }
         var fresh = $("organic-fresh");
         if (fresh) fresh.textContent = o.freshness_note || "";
+      }
+
+      function _organicTrendSvg(series) {
+        var W = 720, H = 200, padL = 40, padR = 40, padT = 14, padB = 28;
+        var svg = svgEl("svg", {
+          "class": "chart", viewBox: "0 0 " + W + " " + H,
+          preserveAspectRatio: "xMidYMid meet",
+          role: "img", "aria-label": "Daily organic clicks and impressions"
+        });
+        svg.style.width = "100%";
+        svg.style.height = "auto";
+        var n = series.length;
+        if (!n) return svg;
+        var maxClicks = 0, maxImp = 0;
+        series.forEach(function (d) {
+          if (d.clicks > maxClicks) maxClicks = d.clicks;
+          if (d.impressions > maxImp) maxImp = d.impressions;
+        });
+        if (maxClicks <= 0) maxClicks = 1;
+        if (maxImp <= 0) maxImp = 1;
+        var step = (W - padL - padR) / Math.max(1, n - 1);
+        function xAt(i) { return padL + step * i; }
+        function yClicks(v) { return padT + (H - padT - padB) * (1 - v / maxClicks); }
+        function yImp(v) { return padT + (H - padT - padB) * (1 - v / maxImp); }
+        // Grid
+        [0, 0.5, 1].forEach(function (t) {
+          var y = padT + (H - padT - padB) * (1 - t);
+          svg.appendChild(svgEl("line", {
+            x1: padL, x2: W - padR, y1: y, y2: y, "class": "grid-line"
+          }));
+        });
+        // Impressions area
+        var impPath = "M" + padL + "," + (H - padB);
+        series.forEach(function (d, i) {
+          impPath += " L" + xAt(i) + "," + yImp(d.impressions);
+        });
+        impPath += " L" + (W - padR) + "," + (H - padB) + " Z";
+        svg.appendChild(svgEl("path", {
+          d: impPath, fill: cssVar("--accent"),
+          "fill-opacity": "0.12", stroke: "none"
+        }));
+        var impLine = "M" + series.map(function (d, i) {
+          return xAt(i) + "," + yImp(d.impressions);
+        }).join(" L");
+        svg.appendChild(svgEl("path", {
+          d: impLine, fill: "none",
+          stroke: cssVar("--accent"), "stroke-width": "1.5",
+          "stroke-opacity": "0.7"
+        }));
+        // Clicks line
+        var clicksPath = "M" + series.map(function (d, i) {
+          return xAt(i) + "," + yClicks(d.clicks);
+        }).join(" L");
+        svg.appendChild(svgEl("path", {
+          d: clicksPath, fill: "none",
+          stroke: cssVar("--warn"), "stroke-width": "2"
+        }));
+        // Y-axis labels
+        var lblL = svgEl("text", {
+          x: 4, y: padT + 10, "class": "axis-text"
+        });
+        lblL.textContent = "Clicks " + maxClicks;
+        svg.appendChild(lblL);
+        var lblR = svgEl("text", {
+          x: W - 4, y: padT + 10, "text-anchor": "end", "class": "axis-text"
+        });
+        lblR.textContent = "Impr " + maxImp.toLocaleString();
+        svg.appendChild(lblR);
+        // X-axis: first/last date
+        var first = svgEl("text", {
+          x: padL, y: H - 8, "class": "axis-text"
+        });
+        first.textContent = (series[0].date || "");
+        svg.appendChild(first);
+        var last = svgEl("text", {
+          x: W - padR, y: H - 8, "text-anchor": "end", "class": "axis-text"
+        });
+        last.textContent = (series[n - 1].date || "");
+        svg.appendChild(last);
+        // Legend
+        var legend = el("div", { "class": "desc" });
+        legend.innerHTML = '<span style="color:var(--warn)">\u25cf</span> Clicks &nbsp; ' +
+          '<span style="color:var(--accent)">\u25cf</span> Impressions';
+        var wrap = el("div");
+        wrap.appendChild(svg);
+        wrap.appendChild(legend);
+        return wrap;
       }
 
       function renderReferrals(r) {
