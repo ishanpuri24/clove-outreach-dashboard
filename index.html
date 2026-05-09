@@ -1475,6 +1475,15 @@
            aria-labelledby="tab-reviews" tabindex="0">
         <p class="tab-meta" id="reviews-meta"></p>
 
+        <section aria-labelledby="rev-exec" class="paid-summary" id="rev-exec-section">
+          <div class="ps-head">
+            <h2 id="rev-exec">Executive summary</h2>
+            <span class="pill" id="rev-exec-period" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="rev-exec-headline"></p>
+          <div class="paid-summary-rules" id="rev-exec-rules"></div>
+        </section>
+
         <section aria-labelledby="rev-actions"
                  class="priority-strip" id="rev-actions-section">
           <div class="ps-head">
@@ -1495,6 +1504,22 @@
           <div class="paid-summary-rules" id="rev-trend-rules"></div>
         </section>
 
+        <section aria-labelledby="rev-going-well">
+          <h2 id="rev-going-well">Where it is going well</h2>
+          <div class="section-meta">
+            Offices and themes outperforming the 1/day/office goal.
+          </div>
+          <div class="card" id="rev-going-well-card"></div>
+        </section>
+
+        <section aria-labelledby="rev-to-improve">
+          <h2 id="rev-to-improve">Where to improve</h2>
+          <div class="section-meta">
+            Volume gap, negative-review hotspots, and rating drag — with the action ask for each.
+          </div>
+          <div class="card" id="rev-to-improve-card"></div>
+        </section>
+
         <section aria-labelledby="rev-offices">
           <h2 id="rev-offices">Office trends &amp; goal pace</h2>
           <div class="section-meta" id="rev-offices-meta"></div>
@@ -1511,8 +1536,15 @@
 
         <section aria-labelledby="rev-queue">
           <h2 id="rev-queue">Negative review follow-up queue</h2>
+          <div class="section-meta" id="rev-queue-policy"></div>
+          <div class="section-meta" id="rev-queue-history-status"></div>
+          <div class="section-meta" id="rev-queue-recipients"></div>
+          <h3 id="rev-new-alerts-h" style="margin-top:1rem;">New negative review alerts</h3>
+          <div class="section-meta" id="rev-new-alerts-meta"></div>
+          <div class="card" id="rev-new-alerts-card"></div>
+          <h3 style="margin-top:1rem;">Historical low-rating reviews (no email)</h3>
           <div class="section-meta">
-            Unreplied first, then most recent. Snippets sanitized — no reviewer names.
+            Unreplied first, then most recent. Snippets sanitized — reviewer names, IDs, and account/location/profile identifiers are never shown.
           </div>
           <div class="card" id="rev-queue-card"></div>
         </section>
@@ -5915,6 +5947,40 @@
         if (meta) meta.textContent = (g.lookback || "Last 30d") + " · " + (g.data_freshness || "");
         var period = $("rev-summary-period");
         if (period) period.textContent = g.lookback || "Last 30d";
+        var execPeriod = $("rev-exec-period");
+        if (execPeriod) execPeriod.textContent = g.lookback || "Last 30d";
+
+        // Executive summary
+        var execHead = $("rev-exec-headline");
+        var execRules = $("rev-exec-rules");
+        var ex = g.executive_summary || {};
+        if (execHead) {
+          execHead.textContent = ex.headline ||
+            "" + (ex.reviews_30d || "—") + " reviews/30d vs goal " +
+            (ex.review_goal_30d || 270) + " (" + (ex.goal_attainment_pct != null ? ex.goal_attainment_pct + "%" : "—") + ").";
+        }
+        if (execRules) {
+          execRules.innerHTML = "";
+          var execLines = [
+            "Total review base " + (ex.total_reviews != null ? ex.total_reviews.toLocaleString() : "—") +
+              " across " + (ex.locations || 9) + " offices · avg rating " +
+              (ex.avg_rating != null ? ex.avg_rating + " ★" : "—") + ".",
+            "Last 30d: " + (ex.reviews_30d != null ? ex.reviews_30d : "—") +
+              " reviews vs prior " + (ex.prior_30d_reviews != null ? ex.prior_30d_reviews : "—") +
+              " (" + (ex.reviews_30d_delta != null ? (ex.reviews_30d_delta >= 0 ? "+" : "") + ex.reviews_30d_delta : "—") + ").",
+            "Goal: " + (ex.review_goal_30d || 270) + " /30d (1/day × " + (ex.locations || 9) +
+              " offices). Attainment " + (ex.goal_attainment_pct != null ? ex.goal_attainment_pct + "%" : "—") +
+              " · gap " + (ex.goal_gap_30d != null ? ex.goal_gap_30d : "—") + ".",
+            "Last 7d: " + (ex.reviews_7d != null ? ex.reviews_7d : "—") +
+              " reviews · pace " + (ex.velocity_per_day != null ? ex.velocity_per_day : "—") +
+              "/day vs " + (ex.goal_per_day != null ? ex.goal_per_day : "—") + "/day goal.",
+            "Low-rating 30d: " + (ex.low_rating_30d != null ? ex.low_rating_30d : "—") +
+              " · unreplied: " + (ex.unreplied != null ? ex.unreplied : "—") + "."
+          ];
+          execLines.forEach(function (line) {
+            execRules.appendChild(el("div", { "class": "ps-stat-bench", text: line }));
+          });
+        }
 
         // Top actions
         var actG = $("rev-actions-grid");
@@ -5955,7 +6021,57 @@
           });
         }
 
-        // Office rows table
+        // Where it is going well
+        var gw = $("rev-going-well-card");
+        if (gw) {
+          gw.innerHTML = "";
+          var gwItems = g.going_well || [];
+          if (!gwItems.length) {
+            gw.appendChild(el("div", { "class": "desc", text: "—" }));
+          } else {
+            var gwGrid = el("div", { "class": "paid-summary-grid" });
+            gwItems.forEach(function (item) {
+              var card = el("div", { "class": "ps-stat" });
+              card.appendChild(el("div", { "class": "ps-stat-label", text: item.office }));
+              card.appendChild(el("div", { "class": "ps-stat-bench", text: item.headline || "" }));
+              (item.highlights || []).forEach(function (h) {
+                card.appendChild(el("div", { "class": "ps-stat-bench", text: "• " + h }));
+              });
+              if (item.ask) {
+                card.appendChild(el("div", { "class": "ps-stat-bench", text: "Ask: " + item.ask }));
+              }
+              gwGrid.appendChild(card);
+            });
+            gw.appendChild(gwGrid);
+          }
+        }
+
+        // Where to improve
+        var ti = $("rev-to-improve-card");
+        if (ti) {
+          ti.innerHTML = "";
+          var tiItems = g.to_improve || [];
+          if (!tiItems.length) {
+            ti.appendChild(el("div", { "class": "desc", text: "—" }));
+          } else {
+            var tiGrid = el("div", { "class": "paid-summary-grid" });
+            tiItems.forEach(function (item) {
+              var card = el("div", { "class": "ps-stat" });
+              card.appendChild(el("div", { "class": "ps-stat-label", text: item.category }));
+              card.appendChild(el("div", { "class": "ps-stat-bench", text: item.headline || "" }));
+              (item.details || []).forEach(function (d) {
+                card.appendChild(el("div", { "class": "ps-stat-bench", text: "• " + d }));
+              });
+              if (item.ask) {
+                card.appendChild(el("div", { "class": "ps-stat-bench", text: "Ask: " + item.ask }));
+              }
+              tiGrid.appendChild(card);
+            });
+            ti.appendChild(tiGrid);
+          }
+        }
+
+        // Office rows table — extended columns
         var off = $("rev-offices-card");
         if (off) {
           off.innerHTML = "";
@@ -5967,7 +6083,7 @@
             var table = el("table");
             var thead = el("thead");
             var trh = el("tr");
-            ["Office","Rating","7d","30d","Prior 30d","Δ","/day","Gap","Low 30d","Unreplied","Issue","Action"].forEach(function (h) {
+            ["Office","Rating","Total","7d","30d","Prior 30d","Δ","/day","Gap","Low 30d","Unreplied","What patients like","What to fix","Action"].forEach(function (h) {
               trh.appendChild(el("th", { text: h }));
             });
             thead.appendChild(trh);
@@ -5978,6 +6094,7 @@
               var tr = el("tr");
               tr.appendChild(el("td", { text: r.office || "—" }));
               var tdRating = el("td"); tdRating.appendChild(_ratingPill(r.rating)); tr.appendChild(tdRating);
+              tr.appendChild(el("td", { text: r.total_reviews != null ? String(r.total_reviews) : "—" }));
               tr.appendChild(el("td", { text: r.reviews_7d != null ? String(r.reviews_7d) : "—" }));
               tr.appendChild(el("td", { text: r.reviews_30d != null ? String(r.reviews_30d) : "—" }));
               tr.appendChild(el("td", { text: r.prior_30d_reviews != null ? String(r.prior_30d_reviews) : "—" }));
@@ -5986,12 +6103,13 @@
               var tdGap = el("td"); tdGap.appendChild(_gapPill(r.goal_gap_30d)); tr.appendChild(tdGap);
               tr.appendChild(el("td", { text: r.low_rating_30d != null ? String(r.low_rating_30d) : "—" }));
               tr.appendChild(el("td", { text: r.unreplied != null ? String(r.unreplied) : "—" }));
-              var tdIssue = el("td");
+              tr.appendChild(el("td", { text: r.what_patients_like || "—" }));
+              tr.appendChild(el("td", { text: r.what_to_fix || "None reported" }));
+              var tdAct = el("td");
               var prio = r.issue_priority || "P2";
-              tdIssue.appendChild(_priChip(prio));
-              tdIssue.appendChild(document.createTextNode(" " + (r.issue || "—")));
-              tr.appendChild(tdIssue);
-              tr.appendChild(el("td", { text: r.action || "—" }));
+              tdAct.appendChild(_priChip(prio));
+              tdAct.appendChild(document.createTextNode(" " + (r.action || r.issue || "—")));
+              tr.appendChild(tdAct);
               tbody.appendChild(tr);
             });
             table.appendChild(tbody);
@@ -6026,55 +6144,98 @@
           }
         }
 
-        // Negative review queue
+        // Alert config copy
+        var ac = g.alert_config || {};
+        var policyEl = $("rev-queue-policy");
+        if (policyEl) {
+          policyEl.textContent = ac.policy_label || "New negative review alerts: send only if not previously alerted";
+        }
+        var historyEl = $("rev-queue-history-status");
+        if (historyEl) {
+          historyEl.textContent = (ac.history_status || "New-only alerting configured; historical queue for review") +
+            (ac.history_status_detail ? " — " + ac.history_status_detail : "");
+        }
+        var recipEl = $("rev-queue-recipients");
+        if (recipEl) {
+          recipEl.textContent = (ac.recipients_template || "To office inbox · CC exec inbox") +
+            " · " + (ac.redaction_note || "Reviewer names are not included in alerts or in this dashboard.");
+        }
+
+        // New negative review alerts (email-trigger set)
+        var newCard = $("rev-new-alerts-card");
+        var newMeta = $("rev-new-alerts-meta");
+        var newAlerts = g.new_negative_alerts || [];
+        if (newMeta) {
+          newMeta.textContent = newAlerts.length
+            ? newAlerts.length + " new alert(s) — only these would trigger emails (to office inbox, CC exec inbox)."
+            : "No new alerts queued. Email is sent only on first detection of a low-rating review.";
+        }
+        if (newCard) {
+          newCard.innerHTML = "";
+          if (!newAlerts.length) {
+            newCard.appendChild(el("div", { "class": "desc", text: "No new negative reviews to alert on right now." }));
+          } else {
+            newCard.appendChild(_renderQueueTable(newAlerts, /*showRecipients=*/true));
+          }
+        }
+
+        // Historical queue (no emails)
         var queue = $("rev-queue-card");
         if (queue) {
           queue.innerHTML = "";
-          var nq = g.negative_queue || [];
+          var nq = g.prior_negative_queue || g.negative_queue || [];
           if (!nq.length) {
             queue.appendChild(el("div", { "class": "desc", text: "No recent low reviews." }));
           } else {
-            var wrap2 = el("div", { "class": "table-wrap" });
-            var table2 = el("table");
-            var thead2 = el("thead");
-            var trh2 = el("tr");
-            ["Office","Date","Rating","Snippet","Replied","Action"].forEach(function (h) {
-              trh2.appendChild(el("th", { text: h }));
-            });
-            thead2.appendChild(trh2);
-            table2.appendChild(thead2);
-            var tbody2 = el("tbody");
-            nq.forEach(function (r) {
-              var tr = el("tr");
-              tr.appendChild(el("td", { text: r.office || "—" }));
-              tr.appendChild(el("td", { text: r.date || "—" }));
-              var tdR = el("td");
-              var rcls = "pill";
-              var rv = Number(r.rating);
-              if (rv <= 1) rcls += " danger";
-              else if (rv <= 3) rcls += " warn";
-              else rcls += " accent";
-              tdR.appendChild(el("span", { "class": rcls, text: rv + "★" }));
-              tr.appendChild(tdR);
-              tr.appendChild(el("td", { text: r.snippet || "—" }));
-              var tdReplied = el("td");
-              var rep = r.replied;
-              tdReplied.appendChild(el("span", {
-                "class": "pill " + (rep ? "good" : "danger"),
-                text: rep ? "Yes" : "No"
-              }));
-              tr.appendChild(tdReplied);
-              tr.appendChild(el("td", { text: r.action || "—" }));
-              tbody2.appendChild(tr);
-            });
-            table2.appendChild(tbody2);
-            wrap2.appendChild(table2);
-            queue.appendChild(wrap2);
+            queue.appendChild(_renderQueueTable(nq, /*showRecipients=*/false));
           }
         }
 
         var fresh = $("reviews-fresh");
         if (fresh) fresh.textContent = g.freshness_note || "";
+      }
+
+      function _renderQueueTable(items, showRecipients) {
+        var wrap = el("div", { "class": "table-wrap" });
+        var table = el("table");
+        var thead = el("thead");
+        var trh = el("tr");
+        var headers = ["Office","Date","Rating","Snippet","Replied"];
+        if (showRecipients) headers.push("Email to");
+        headers.push("Action");
+        headers.forEach(function (h) { trh.appendChild(el("th", { text: h })); });
+        thead.appendChild(trh);
+        table.appendChild(thead);
+        var tbody = el("tbody");
+        items.forEach(function (r) {
+          var tr = el("tr");
+          tr.appendChild(el("td", { text: r.office || "—" }));
+          tr.appendChild(el("td", { text: r.date || "—" }));
+          var tdR = el("td");
+          var rcls = "pill";
+          var rv = Number(r.rating);
+          if (rv <= 1) rcls += " danger";
+          else if (rv <= 3) rcls += " warn";
+          else rcls += " accent";
+          tdR.appendChild(el("span", { "class": rcls, text: rv + "★" }));
+          tr.appendChild(tdR);
+          tr.appendChild(el("td", { text: r.snippet || "—" }));
+          var tdReplied = el("td");
+          var rep = r.replied;
+          tdReplied.appendChild(el("span", {
+            "class": "pill " + (rep ? "good" : "danger"),
+            text: rep ? "Yes" : "No"
+          }));
+          tr.appendChild(tdReplied);
+          if (showRecipients) {
+            tr.appendChild(el("td", { text: r.recipient_label || "Office inbox · CC Exec inbox" }));
+          }
+          tr.appendChild(el("td", { text: r.action || "—" }));
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        return wrap;
       }
 
       function renderReferrals(r) {

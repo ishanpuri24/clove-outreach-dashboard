@@ -16439,15 +16439,15 @@
     "summary_cards": [
       {
         "label": "Avg rating",
-        "value": "4.83",
-        "basis": "9 offices",
+        "value": "4.83 \u2605",
+        "basis": "9 offices \u00b7 2,768 total",
         "decision": "Maintain reply discipline."
       },
       {
-        "label": "Reviews 7d",
-        "value": "27",
-        "basis": "GBP",
-        "decision": "Push asks where low."
+        "label": "Total reviews",
+        "value": "2,768",
+        "basis": "All offices, lifetime",
+        "decision": "Protect quality."
       },
       {
         "label": "Reviews 30d",
@@ -16456,27 +16456,33 @@
         "decision": "Sustain ask cadence."
       },
       {
+        "label": "Reviews 7d",
+        "value": "27",
+        "basis": "5.47/day vs 9/day goal",
+        "decision": "Push asks where low."
+      },
+      {
         "label": "Goal attainment",
         "value": "60.7%",
-        "basis": "5.47/day vs 9/day",
+        "basis": "164 of 270/30d",
         "decision": "Close gap with daily asks."
       },
       {
         "label": "Goal gap 30d",
         "value": "123",
-        "basis": "Goal 270 (1/day \u00d7 9 \u00d7 30d)",
+        "basis": "270 (1/day \u00d7 9 \u00d7 30d)",
         "decision": "Asks at low-volume offices."
       },
       {
         "label": "Low-rating 30d",
         "value": "9",
-        "basis": "GBP",
+        "basis": "\u22643\u2605 across all offices",
         "decision": "Inspect themes; reply."
       },
       {
         "label": "Unreplied",
         "value": "5",
-        "basis": "GBP",
+        "basis": "All low ratings",
         "decision": "Reply within 24h."
       }
     ],
@@ -16489,25 +16495,27 @@
       "goal_gap_30d": 123,
       "goal_attainment": 60.7,
       "review_goal_30d": 270,
-      "locations": 9
+      "locations": 9,
+      "reviews_7d": 27,
+      "pace_per_day_7d": 3.86
     },
     "top_actions": [
       {
         "priority": "P0",
-        "label": "Reply/follow up on 1 unreplied low reviews",
-        "action": "Reply/follow up on 1 unreplied low reviews",
+        "label": "Reply to 5 unreplied low reviews within 24h",
+        "action": "Reply to 5 unreplied low reviews within 24h",
         "owner": "Office managers"
       },
       {
         "priority": "P1",
-        "label": "Increase review asks at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
-        "action": "Increase review asks at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
+        "label": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
+        "action": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
         "owner": "Office teams"
       },
       {
         "priority": "P1",
-        "label": "Huddle on negative themes at Sherman Oaks, Puri Dentistry",
-        "action": "Huddle on negative themes at Sherman Oaks, Puri Dentistry",
+        "label": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
+        "action": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
         "owner": "Ops"
       }
     ],
@@ -16554,7 +16562,9 @@
         ],
         "issue": "Reply now",
         "issue_priority": "P0",
-        "action": "Reply to low review, call patient, log recovery"
+        "action": "Reply to low review, call patient, log recovery",
+        "what_patients_like": "Friendly staff (3) \u00b7 Comfort / anxiety (2) \u00b7 Doctor quality (2)",
+        "what_to_fix": "Wait / scheduling (2) \u00b7 Communication (1) \u00b7 Clinical experience (1)"
       },
       {
         "office": "Puri Dentistry",
@@ -16598,7 +16608,9 @@
         ],
         "issue": "Service issue",
         "issue_priority": "P1",
-        "action": "Review themes in huddle this week"
+        "action": "Review themes in huddle this week",
+        "what_patients_like": "Doctor quality (5) \u00b7 Comfort / anxiety (2) \u00b7 Friendly staff (1)",
+        "what_to_fix": "Clinical experience (3) \u00b7 Wait / scheduling (2) \u00b7 Insurance / billing (2)"
       },
       {
         "office": "Santa Monica",
@@ -16642,7 +16654,9 @@
         ],
         "issue": "Behind goal",
         "issue_priority": "P1",
-        "action": "Ask 2 happy patients/day until caught up"
+        "action": "Ask 2 happy patients/day until caught up",
+        "what_patients_like": "Doctor quality (5) \u00b7 Friendly staff (3) \u00b7 Comfort / anxiety (3)",
+        "what_to_fix": "Wait / scheduling (1) \u00b7 Insurance / billing (1) \u00b7 Communication (1)"
       },
       {
         "office": "Encino",
@@ -16686,7 +16700,9 @@
         ],
         "issue": "Rating drag",
         "issue_priority": "P1",
-        "action": "Increase review requests and service recovery"
+        "action": "Increase review requests and service recovery",
+        "what_patients_like": "Friendly staff (8) \u00b7 Comfort / anxiety (7) \u00b7 Clean office (6)",
+        "what_to_fix": "Wait / scheduling (1) \u00b7 Communication (1) \u00b7 Clinical experience (1)"
       },
       {
         "office": "Thousand Oaks",
@@ -16730,7 +16746,9 @@
         ],
         "issue": "On pace",
         "issue_priority": "P2",
-        "action": "Keep asking every happy patient"
+        "action": "Keep asking every happy patient",
+        "what_patients_like": "Friendly staff (16) \u00b7 Clean office (14) \u00b7 Comfort / anxiety (12)",
+        "what_to_fix": "Wait / scheduling (1) \u00b7 Insurance / billing (1) \u00b7 Communication (1)"
       },
       {
         "office": "Camarillo",
@@ -16761,7 +16779,9 @@
         "negative_themes": [],
         "issue": "Behind goal",
         "issue_priority": "P1",
-        "action": "Ask 2 happy patients/day until caught up"
+        "action": "Ask 2 happy patients/day until caught up",
+        "what_patients_like": "Friendly staff (3) \u00b7 Clear explanation (2) \u00b7 Doctor quality (2)",
+        "what_to_fix": "None reported"
       },
       {
         "office": "Beverly Hills",
@@ -16792,7 +16812,9 @@
         "negative_themes": [],
         "issue": "Behind goal",
         "issue_priority": "P1",
-        "action": "Ask 2 happy patients/day until caught up"
+        "action": "Ask 2 happy patients/day until caught up",
+        "what_patients_like": "Doctor quality (7) \u00b7 Friendly staff (5) \u00b7 Comfort / anxiety (3)",
+        "what_to_fix": "None reported"
       },
       {
         "office": "Hillview",
@@ -16823,7 +16845,9 @@
         "negative_themes": [],
         "issue": "On pace",
         "issue_priority": "P2",
-        "action": "Keep asking every happy patient"
+        "action": "Keep asking every happy patient",
+        "what_patients_like": "Doctor quality (7) \u00b7 Friendly staff (4) \u00b7 Clean office (1)",
+        "what_to_fix": "None reported"
       },
       {
         "office": "Oxnard Riverpark",
@@ -16854,7 +16878,9 @@
         "negative_themes": [],
         "issue": "On pace",
         "issue_priority": "P2",
-        "action": "Keep asking every happy patient"
+        "action": "Keep asking every happy patient",
+        "what_patients_like": "Friendly staff (7) \u00b7 Doctor quality (3) \u00b7 Clear explanation (2)",
+        "what_to_fix": "None reported"
       }
     ],
     "negative_queue": [
@@ -16864,7 +16890,9 @@
         "rating": 1,
         "snippet": "The worst dentist clinic ever. I gave them a second chance - that was a mistake. I came for the Oral Surgery specialist with appointment at 11 AM. At around 11:30 I was in the dentist seat. After the doctor came, he couldn't find my file, said something about the \"bridge\" which I never had. Spent around 15 more minute\u2026",
         "replied": false,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": true,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Encino",
@@ -16872,7 +16900,9 @@
         "rating": 1,
         "snippet": "I had a very disappointing experience with the (manager Louis) at Clove Dental in Encino. My appointment was completely mishandled , I was scheduled with the wrong specialist, which showed a clear lack of organization and attention to detail. This mistake ended up wasting a significant amount of my time. What made the\u2026",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": true,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Santa Monica",
@@ -16880,7 +16910,9 @@
         "rating": 1,
         "snippet": "Came here last Saturday, everything was OK. I\u2019m gracious and I had time. Took a while, but maybe they care about your experience so all good. I called and asked if they saw pediatric patients. I have multiple jobs and pay for insurance and bring my 7 year old this Saturday morning\u2026 arrive at 8:07am and photos are take\u2026",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": true,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Puri Dentistry",
@@ -16888,7 +16920,9 @@
         "rating": 1,
         "snippet": "I'm sure these guys do a great job - oncebthey actually get in your mouth - but my experience there today was beyond frustrating. I called yesterday and asked if I could come in ASAP for an extraction. They were professional and accommodating, getting me next day (today) service. I made SURE to find out whether they t\u2026",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Sherman Oaks",
@@ -16896,7 +16930,9 @@
         "rating": 3,
         "snippet": "Staff was very friendly. However, exam room was somewhat unsanitary [debris on floor and on some equipment]. Patient ahead of me walked out due to excessive wait time. Staff did not attempt to accommodate her.",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Puri Dentistry",
@@ -16904,7 +16940,9 @@
         "rating": 1,
         "snippet": "I made an appointment to go here, and I clearly stated that I had a referral for an endodontist. I spelled out my name my phone number and gave my insurance information. I never received a confirmation so the morning of the appointment I called and they had no record of me under my actual information, but they were ab\u2026",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Puri Dentistry",
@@ -16912,7 +16950,9 @@
         "rating": 1,
         "snippet": "The worst dentist they didn't want to provide me services because one of them said that I had herpes....my tooth ache is really bad and I don't have the time to go sue you yet!",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Sherman Oaks",
@@ -16920,7 +16960,9 @@
         "rating": 1,
         "snippet": "Did not have a positive experience with this practice, struggled to get access to my own patient records, and over a year later I'm suddenly receiving new bills from them even though I have not been there in over a year.",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       },
       {
         "office": "Thousand Oaks",
@@ -16928,9 +16970,203 @@
         "rating": 1,
         "snippet": "In agreements with the yelp review they\u2019re pretty deceptive here probably no fault of their own which really sucks just poor communication and obvious lack of training when it comes to phone staff. I booked an appointment here for a consultation on a crown/root canal I was told over the phone the consultation would be\u2026",
         "replied": true,
-        "action": "Call patient, document recovery, reply publicly if not already replied"
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       }
     ],
-    "freshness_note": "Public dashboard uses aggregated metrics and sanitized snippets only."
+    "freshness_note": "Public dashboard uses aggregated metrics and sanitized snippets only. No reviewer names, review IDs, account IDs, location IDs, profile IDs, tokens, or private paths.",
+    "subtitle": "Default tab. Public dashboard uses aggregated metrics and sanitized snippets only \u2014 no reviewer names, review IDs, account IDs, location IDs, profile IDs, tokens, or private paths.",
+    "executive_summary": {
+      "total_reviews": 2768,
+      "avg_rating": 4.83,
+      "reviews_30d": 164,
+      "prior_30d_reviews": 91,
+      "reviews_30d_delta": 73,
+      "review_goal_30d": 270,
+      "goal_per_day": 9,
+      "goal_attainment_pct": 60.7,
+      "goal_gap_30d": 123,
+      "reviews_7d": 27,
+      "velocity_per_day": 5.47,
+      "low_rating_30d": 9,
+      "unreplied": 5,
+      "locations": 9,
+      "headline": "164 reviews/30d vs goal 270 (60.7%); +73 vs prior 91. 9 low-rating, 5 unreplied."
+    },
+    "going_well": [
+      {
+        "office": "Encino",
+        "headline": "Above goal at 32 reviews/30d (1.07/day)",
+        "highlights": [
+          "32 reviews in 30d, 1.07/day \u2014 above 1/day goal",
+          "Strong themes: Friendly staff, Comfort/anxiety, Clean office",
+          "Prior 30d 12 \u2192 +20 (+167%)"
+        ],
+        "ask": "Keep asking every happy patient; protect 1/day floor"
+      },
+      {
+        "office": "Thousand Oaks / Marin",
+        "headline": "On fire at 45 reviews/30d (1.5/day)",
+        "highlights": [
+          "45 reviews in 30d, 1.5/day \u2014 above 1/day goal",
+          "+40 vs prior 30d (5)",
+          "Strong themes: Friendly staff, Clean office, Comfort/anxiety"
+        ],
+        "ask": "Keep momentum; share the script with sister offices"
+      },
+      {
+        "office": "Puri Dentistry",
+        "headline": "Volume rebound: 18 reviews/30d (vs 5 prior)",
+        "highlights": [
+          "18 reviews in 30d vs prior 5 (+260%)",
+          "Largest review base at 715 total \u2014 Doctor quality strongest theme",
+          "Watch low-rating count (3) \u2014 see Where to improve"
+        ],
+        "ask": "Keep ask cadence; pair with negative-theme huddle"
+      },
+      {
+        "office": "Hillview & Oxnard Riverpark",
+        "headline": "Clean 4.9 rating, zero low-ratings 30d",
+        "highlights": [
+          "Hillview: 4.9 \u2605, 16 reviews/30d, 0 low / 0 unreplied",
+          "Oxnard Riverpark: 4.9 \u2605, 16 reviews/30d, 0 low / 0 unreplied",
+          "Doctor quality + Friendly staff lead positive themes"
+        ],
+        "ask": "Maintain ask cadence; close 14-review goal gap each"
+      }
+    ],
+    "to_improve": [
+      {
+        "category": "Review volume gap",
+        "headline": "Four offices behind 1/day goal",
+        "details": [
+          "Sherman Oaks: gap 23 (0.23/day)",
+          "Santa Monica: gap 21 (0.30/day)",
+          "Camarillo: gap 21 (0.30/day)",
+          "Beverly Hills: gap 18 (0.40/day)"
+        ],
+        "ask": "Office managers: ask 2 happy patients/day until caught up"
+      },
+      {
+        "category": "Negative-review hotspots",
+        "headline": "Sherman Oaks and Puri Dentistry concentrated low ratings",
+        "details": [
+          "Sherman Oaks: 3 low 30d, 1 unreplied \u2014 themes: Wait/scheduling, Communication, Clinical experience",
+          "Puri Dentistry: 3 low 30d, 0 unreplied \u2014 themes: Clinical experience, Wait/scheduling, Insurance/billing"
+        ],
+        "ask": "Ops + office huddle this week on wait/scheduling, clinical experience, insurance/billing, and communication"
+      },
+      {
+        "category": "Rating drag",
+        "headline": "Two offices below 4.7 average",
+        "details": [
+          "Santa Monica: 4.6 \u2605 (14\u21929 reviews/30d, behind goal)",
+          "Encino: 4.6 \u2605 (volume strong, but rating drag from earlier low review)"
+        ],
+        "ask": "Service recovery on every patient who flagged a concern; proactively ask happy patients on the same day"
+      }
+    ],
+    "alert_config": {
+      "policy_label": "New negative review alerts: send only if not previously alerted",
+      "policy_detail": "Email is sent only when a low-rating review is detected for the first time. Already-known low-rating reviews are shown here for office review and reply discipline; they will not retrigger emails.",
+      "history_status": "New-only alerting configured; historical queue for review",
+      "history_status_detail": "This snapshot does not include alert-history state, so no items are queued as new email triggers right now. The list below is historical for office reply/recovery work only.",
+      "recipients_template": "To office inbox \u00b7 CC exec inbox",
+      "redaction_note": "Reviewer names, review IDs, account IDs, location IDs, profile IDs, and tokens are never included in alerts or in this dashboard. Email addresses are also withheld here; the operator system maps each office to its inbox internally."
+    },
+    "new_negative_alerts": [],
+    "prior_negative_queue": [
+      {
+        "office": "Sherman Oaks",
+        "date": "2026-05-07",
+        "rating": 1,
+        "snippet": "The worst dentist clinic ever. I gave them a second chance - that was a mistake. I came for the Oral Surgery specialist with appointment at 11 AM. At around 11:30 I was in the dentist seat. After the doctor came, he couldn't find my file, said something about the \"bridge\" which I never had. Spent around 15 more minute\u2026",
+        "replied": false,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": true,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Encino",
+        "date": "2026-05-02",
+        "rating": 1,
+        "snippet": "I had a very disappointing experience with the (manager Louis) at Clove Dental in Encino. My appointment was completely mishandled , I was scheduled with the wrong specialist, which showed a clear lack of organization and attention to detail. This mistake ended up wasting a significant amount of my time. What made the\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": true,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Santa Monica",
+        "date": "2026-05-02",
+        "rating": 1,
+        "snippet": "Came here last Saturday, everything was OK. I\u2019m gracious and I had time. Took a while, but maybe they care about your experience so all good. I called and asked if they saw pediatric patients. I have multiple jobs and pay for insurance and bring my 7 year old this Saturday morning\u2026 arrive at 8:07am and photos are take\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": true,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Puri Dentistry",
+        "date": "2026-04-24",
+        "rating": 1,
+        "snippet": "I'm sure these guys do a great job - oncebthey actually get in your mouth - but my experience there today was beyond frustrating. I called yesterday and asked if I could come in ASAP for an extraction. They were professional and accommodating, getting me next day (today) service. I made SURE to find out whether they t\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Sherman Oaks",
+        "date": "2026-04-22",
+        "rating": 3,
+        "snippet": "Staff was very friendly. However, exam room was somewhat unsanitary [debris on floor and on some equipment]. Patient ahead of me walked out due to excessive wait time. Staff did not attempt to accommodate her.",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Puri Dentistry",
+        "date": "2026-04-22",
+        "rating": 1,
+        "snippet": "I made an appointment to go here, and I clearly stated that I had a referral for an endodontist. I spelled out my name my phone number and gave my insurance information. I never received a confirmation so the morning of the appointment I called and they had no record of me under my actual information, but they were ab\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Puri Dentistry",
+        "date": "2026-04-16",
+        "rating": 1,
+        "snippet": "The worst dentist they didn't want to provide me services because one of them said that I had herpes....my tooth ache is really bad and I don't have the time to go sue you yet!",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Sherman Oaks",
+        "date": "2026-04-15",
+        "rating": 1,
+        "snippet": "Did not have a positive experience with this practice, struggled to get access to my own patient records, and over a year later I'm suddenly receiving new bills from them even though I have not been there in over a year.",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      },
+      {
+        "office": "Thousand Oaks",
+        "date": "2026-04-14",
+        "rating": 1,
+        "snippet": "In agreements with the yelp review they\u2019re pretty deceptive here probably no fault of their own which really sucks just poor communication and obvious lack of training when it comes to phone staff. I booked an appointment here for a consultation on a crown/root canal I was told over the phone the consultation would be\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied",
+        "is_new": false,
+        "recipient_label": "Office inbox \u00b7 CC Exec inbox"
+      }
+    ]
   }
 }
