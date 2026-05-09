@@ -16172,19 +16172,14 @@
   "referral_insights": {
     "title": "Referrals",
     "lookback": "Last 30d",
-    "data_freshness": "No data; connectors not linked.",
+    "data_freshness": "GBP daily refresh",
     "connector_status": [
       {
         "integration": "Google Business Profile",
-        "status": "Not connected",
-        "severity": "blocked",
-        "public_exposure": "Aggregated office-level metrics only when connected.",
-        "private_config_fields": [
-          "gbp_account_id (private)",
-          "gbp_location_ids (private, per office)",
-          "gbp_service_account_key (private)"
-        ],
-        "action": "Link GBP via private config; map 9 location IDs to office labels."
+        "status": "Connected",
+        "severity": "ok",
+        "public_exposure": "Aggregated office-level review metrics only.",
+        "action": "Reply to recent low reviews; increase asks at low-volume offices."
       },
       {
         "integration": "Open Dental referral query",
@@ -16214,174 +16209,147 @@
     ],
     "summary_cards": [
       {
-        "label": "Profile calls (30d)",
-        "value": "Awaiting GBP",
-        "basis": "GBP",
-        "decision": "Connect GBP."
-      },
-      {
-        "label": "Website clicks (30d)",
-        "value": "Awaiting GBP",
-        "basis": "GBP",
-        "decision": "Connect GBP."
-      },
-      {
-        "label": "Direction requests (30d)",
-        "value": "Awaiting GBP",
-        "basis": "GBP",
-        "decision": "Connect GBP."
-      },
-      {
-        "label": "Profile views (30d)",
-        "value": "Awaiting GBP",
-        "basis": "GBP",
-        "decision": "Connect GBP."
-      },
-      {
         "label": "Avg rating",
-        "value": "Awaiting GBP",
-        "basis": "GBP",
-        "decision": "Connect GBP."
+        "value": "4.83",
+        "basis": "9 offices",
+        "decision": "Maintain reply discipline."
       },
       {
-        "label": "Reviews (30d)",
-        "value": "Awaiting GBP",
+        "label": "Reviews 7d",
+        "value": "27",
         "basis": "GBP",
-        "decision": "Connect GBP."
+        "decision": "Push asks where low."
       },
       {
-        "label": "Referrals (Open Dental)",
-        "value": "Awaiting query",
-        "basis": "Open Dental",
-        "decision": "Define private query."
+        "label": "Reviews 30d",
+        "value": "164",
+        "basis": "GBP",
+        "decision": "Sustain ask cadence."
+      },
+      {
+        "label": "Unreplied",
+        "value": "5",
+        "basis": "GBP",
+        "decision": "Reply within 24h."
+      },
+      {
+        "label": "Low-rating 30d",
+        "value": "9",
+        "basis": "GBP",
+        "decision": "Inspect themes; reply."
       }
     ],
     "top_actions": [
       {
         "priority": "P0",
-        "label": "Connect Google Business Profile",
-        "action": "Link account + map 9 location IDs.",
-        "owner": "Marketing ops"
+        "label": "Reply to unreplied reviews",
+        "action": "Offices: Beverly Hills, Santa Monica, Sherman Oaks, Thousand Oaks.",
+        "owner": "Front desk"
+      },
+      {
+        "priority": "P0",
+        "label": "Inspect recent low-rating reviews",
+        "action": "Offices: Encino, Santa Monica, Sherman Oaks, Thousand Oaks, Puri Dentistry.",
+        "owner": "Office manager"
       },
       {
         "priority": "P1",
-        "label": "Define Open Dental referral query",
-        "action": "Author private SQL; aggregated counts only.",
-        "owner": "Operations"
+        "label": "Increase review asks",
+        "action": "Low 30d volume: Camarillo, Santa Monica, Sherman Oaks.",
+        "owner": "Front desk"
+      },
+      {
+        "priority": "P1",
+        "label": "Inspect rating drag",
+        "action": "Offices: Camarillo, Encino, Santa Monica, Puri Dentistry.",
+        "owner": "Office manager"
       }
     ],
     "office_rows": [
       {
-        "office": "Riverpark",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
+        "office": "Beverly Hills",
+        "rating": 4.8,
+        "reviews_30d": 12,
+        "low_rating_30d": 0,
+        "unreplied": 1,
+        "issue": "Healthy",
+        "action": "Keep asking"
+      },
+      {
+        "office": "Camarillo",
+        "rating": 4.7,
+        "reviews_30d": 9,
+        "low_rating_30d": 0,
+        "unreplied": 0,
+        "issue": "Rating drag",
+        "action": "Increase review requests"
+      },
+      {
+        "office": "Encino",
+        "rating": 4.6,
+        "reviews_30d": 32,
+        "low_rating_30d": 1,
+        "unreplied": 0,
+        "issue": "Watch",
+        "action": "Review service themes"
+      },
+      {
+        "office": "Hillview",
+        "rating": 4.9,
+        "reviews_30d": 16,
+        "low_rating_30d": 0,
+        "unreplied": 0,
+        "issue": "Healthy",
+        "action": "Keep asking"
+      },
+      {
+        "office": "Oxnard Riverpark",
+        "rating": 4.9,
+        "reviews_30d": 16,
+        "low_rating_30d": 0,
+        "unreplied": 0,
+        "issue": "Healthy",
+        "action": "Keep asking"
       },
       {
         "office": "Santa Monica",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
+        "rating": 4.6,
+        "reviews_30d": 9,
+        "low_rating_30d": 1,
+        "unreplied": 2,
+        "issue": "Watch",
+        "action": "Review service themes"
       },
       {
-        "office": "Hollywood",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
+        "office": "Sherman Oaks",
+        "rating": 4.8,
+        "reviews_30d": 7,
+        "low_rating_30d": 3,
+        "unreplied": 1,
+        "issue": "Reply now",
+        "action": "Reply to recent low reviews"
       },
       {
-        "office": "Beverly Hills",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
+        "office": "Thousand Oaks",
+        "rating": 4.9,
+        "reviews_30d": 45,
+        "low_rating_30d": 1,
+        "unreplied": 1,
+        "issue": "Watch",
+        "action": "Review service themes"
       },
       {
-        "office": "Pasadena",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
-      },
-      {
-        "office": "Long Beach",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
-      },
-      {
-        "office": "Glendale",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
-      },
-      {
-        "office": "Burbank",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
-      },
-      {
-        "office": "Studio City",
-        "profile_calls": null,
-        "website_clicks": null,
-        "direction_requests": null,
-        "profile_views": null,
-        "profile_searches": null,
-        "reviews": null,
-        "rating": null,
-        "status": "Awaiting GBP",
-        "action": "Connect GBP."
+        "office": "Puri Dentistry",
+        "rating": 4.9,
+        "reviews_30d": 18,
+        "low_rating_30d": 3,
+        "unreplied": 0,
+        "issue": "Watch",
+        "action": "Review service themes"
       }
     ],
     "query_rows": [],
-    "freshness_note": "Connect GBP and define a private Open Dental query. Aggregated, public-safe counts only; no patient data.",
+    "freshness_note": "Aggregated only; no review text or reviewer identifiers.",
     "clove_care": {
       "title": "Clove Care (Subscribili) \u2014 in-house insurance plan",
       "lookback": "Last 30d",

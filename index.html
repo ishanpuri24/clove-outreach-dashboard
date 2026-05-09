@@ -1989,7 +1989,7 @@
         </section>
 
         <section aria-labelledby="ref-offices">
-          <h2 id="ref-offices">Offices (9)</h2>
+          <h2 id="ref-offices">GBP reviews by office (9)</h2>
           <div class="card" id="ref-offices-card"></div>
         </section>
 
@@ -5867,29 +5867,25 @@
         var off = $("ref-offices-card");
         if (off) {
           off.innerHTML = "";
-          off.appendChild(el("h3", { text: "Per office (calls, clicks, directions, views, reviews, rating)" }));
+          off.appendChild(el("h3", { text: "Per office (rating, reviews 30d, low 30d, unreplied, issue, action)" }));
           var rows = (r.office_rows || []).map(function (o) {
             return {
               office: o.office,
-              profile_calls: o.profile_calls,
-              website_clicks: o.website_clicks,
-              direction_requests: o.direction_requests,
-              profile_views: o.profile_views,
-              reviews: o.reviews,
               rating: o.rating,
-              status: o.status,
+              reviews_30d: o.reviews_30d,
+              low_rating_30d: o.low_rating_30d,
+              unreplied: o.unreplied,
+              issue: o.issue,
               action: o.action
             };
           });
           var ok = _renderTable(off, [
             { key: "office", label: "Office" },
-            { key: "profile_calls", label: "Calls" },
-            { key: "website_clicks", label: "Clicks" },
-            { key: "direction_requests", label: "Directions" },
-            { key: "profile_views", label: "Views" },
-            { key: "reviews", label: "Reviews" },
             { key: "rating", label: "Rating" },
-            { key: "status", label: "Status" },
+            { key: "reviews_30d", label: "Reviews 30d" },
+            { key: "low_rating_30d", label: "Low 30d" },
+            { key: "unreplied", label: "Unreplied" },
+            { key: "issue", label: "Issue" },
             { key: "action", label: "Action" }
           ], rows);
           if (!ok) off.appendChild(el("div", { "class": "desc", text: "Awaiting GBP." }));
