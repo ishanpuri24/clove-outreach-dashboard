@@ -1421,6 +1421,329 @@
       .top-actions { display: none; }
       .card, .item { break-inside: avoid; box-shadow: none; }
     }
+
+    /* -------- Reviews / Patient experience richer cards -------- */
+    .pxc {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+      margin: 8px 0 4px;
+    }
+    @media (min-width: 720px) {
+      .pxc.cols-3 { grid-template-columns: repeat(3, 1fr); }
+      .pxc.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1100px) {
+      .pxc.cols-4 { grid-template-columns: repeat(4, 1fr); }
+    }
+    .pxc-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .pxc-tile.is-good { border-left: 4px solid var(--good); }
+    .pxc-tile.is-warn { border-left: 4px solid var(--warn); }
+    .pxc-tile.is-danger { border-left: 4px solid var(--danger); }
+    .pxc-tile.is-accent { border-left: 4px solid var(--accent); }
+    .pxc-tile .pxc-label {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+    .pxc-tile .pxc-value {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+    .pxc-tile .pxc-sub {
+      font-size: 13.5px;
+      color: var(--text);
+    }
+    .pxc-tile .pxc-hint {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .office-cards {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      margin: 4px 0 6px;
+    }
+    @media (min-width: 760px) {
+      .office-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1180px) {
+      .office-cards { grid-template-columns: repeat(3, 1fr); }
+    }
+    .office-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 6px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .office-card.is-good { border-left-color: var(--good); }
+    .office-card.is-warn { border-left-color: var(--warn); }
+    .office-card.is-danger { border-left-color: var(--danger); }
+    .office-card.is-accent { border-left-color: var(--accent); }
+    .office-card .oc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .office-card .oc-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .office-card .oc-status {
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+    .office-card .oc-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin: 2px 0;
+    }
+    .office-card .oc-stat {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .office-card .oc-stat .oc-stat-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+    .office-card .oc-stat .oc-stat-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.005em;
+    }
+    .office-card .oc-stat .oc-stat-hint {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+    .office-card .oc-block {
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+    .office-card .oc-block-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .office-card .oc-bullets {
+      margin: 0;
+      padding-left: 18px;
+    }
+    .office-card .oc-bullets li {
+      margin: 2px 0;
+    }
+    .office-card .oc-do-next {
+      background: var(--surface-2);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      line-height: 1.45;
+    }
+    .office-card .oc-do-next strong {
+      display: block;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .review-cards {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px) {
+      .review-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    .review-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--danger);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .review-card.is-warn { border-left-color: var(--warn); }
+    .review-card.is-good { border-left-color: var(--good); }
+    .review-card.is-new {
+      background: linear-gradient(180deg, var(--danger-weak) 0%, var(--surface) 70%);
+    }
+    .review-card .rc-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .review-card .rc-office {
+      font-weight: 700;
+      font-size: 1rem;
+    }
+    .review-card .rc-meta {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+    .review-card .rc-snippet {
+      font-size: 14.5px;
+      line-height: 1.55;
+      color: var(--text);
+      background: var(--surface-2);
+      border-left: 3px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 4px;
+      font-style: italic;
+    }
+    .review-card .rc-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .review-card .rc-action {
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface-2);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+    .review-card .rc-action strong {
+      display: block;
+      font-size: 11.5px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .signal-cards {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px) {
+      .signal-cards { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1180px) {
+      .signal-cards { grid-template-columns: repeat(3, 1fr); }
+    }
+    .signal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--good);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+    .signal-card .sc-office {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .signal-card .sc-headline {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .signal-card .sc-themes {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .signal-card .sc-theme {
+      background: var(--good-weak);
+      border: 1px solid var(--good);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .pattern-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 760px) {
+      .pattern-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .pattern-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+    .pattern-card.is-strength { border-left: 5px solid var(--good); }
+    .pattern-card.is-risk { border-left: 5px solid var(--danger); }
+    .pattern-card .pc-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .pattern-card .pc-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .pattern-card .pc-detail {
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .pattern-card .pc-offices {
+      margin-top: 6px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .alert-policy {
+      background: var(--surface-2);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--text);
+      margin: 6px 0 10px;
+    }
+    .alert-policy strong { color: var(--text); }
   </style>
 </head>
 <body>
@@ -1475,13 +1798,13 @@
            aria-labelledby="tab-reviews" tabindex="0">
         <p class="tab-meta" id="reviews-meta"></p>
 
-        <section aria-labelledby="rev-exec" class="paid-summary" id="rev-exec-section">
+        <section aria-labelledby="rev-cmd">
           <div class="ps-head">
-            <h2 id="rev-exec">Executive summary</h2>
+            <h2 id="rev-cmd">Patient experience command center</h2>
             <span class="pill" id="rev-exec-period" aria-live="polite"></span>
           </div>
           <p class="section-meta" id="rev-exec-headline"></p>
-          <div class="paid-summary-rules" id="rev-exec-rules"></div>
+          <div class="pxc cols-4" id="rev-cmd-grid"></div>
         </section>
 
         <section aria-labelledby="rev-actions"
@@ -1495,58 +1818,49 @@
           <div class="top5-grid" id="rev-actions-grid"></div>
         </section>
 
-        <section aria-labelledby="rev-summary" class="paid-summary">
-          <div class="ps-head">
-            <h2 id="rev-summary">Reviews performance</h2>
-            <span class="pill" id="rev-summary-period" aria-live="polite"></span>
-          </div>
-          <div class="paid-summary-grid" id="rev-summary-grid"></div>
-          <div class="paid-summary-rules" id="rev-trend-rules"></div>
-        </section>
-
-        <section aria-labelledby="rev-going-well">
-          <h2 id="rev-going-well">Where it is going well</h2>
-          <div class="section-meta">
-            Offices and themes outperforming the 1/day/office goal.
-          </div>
-          <div class="card" id="rev-going-well-card"></div>
-        </section>
-
-        <section aria-labelledby="rev-to-improve">
-          <h2 id="rev-to-improve">Where to improve</h2>
-          <div class="section-meta">
-            Volume gap, negative-review hotspots, and rating drag — with the action ask for each.
-          </div>
-          <div class="card" id="rev-to-improve-card"></div>
-        </section>
-
         <section aria-labelledby="rev-offices">
-          <h2 id="rev-offices">Office trends &amp; goal pace</h2>
-          <div class="section-meta" id="rev-offices-meta"></div>
-          <div class="card" id="rev-offices-card"></div>
+          <h2 id="rev-offices">Office-by-office scorecard</h2>
+          <div class="section-meta" id="rev-offices-meta">
+            Each card shows where the office stands on rating, 30d volume vs 1/day goal, what patients like, what they complain about, and the next move.
+          </div>
+          <div class="office-cards" id="rev-office-cards"></div>
         </section>
 
-        <section aria-labelledby="rev-themes">
-          <h2 id="rev-themes">Themes by office</h2>
+        <section aria-labelledby="rev-signals">
+          <h2 id="rev-signals">Best recent patient signals</h2>
           <div class="section-meta">
-            What's working (positive) and what to fix (negative), aggregated.
+            Strongest positive themes patients are talking about right now, by office.
           </div>
-          <div class="card" id="rev-themes-card"></div>
+          <div class="signal-cards" id="rev-signal-cards"></div>
         </section>
 
         <section aria-labelledby="rev-queue">
-          <h2 id="rev-queue">Negative review follow-up queue</h2>
-          <div class="section-meta" id="rev-queue-policy"></div>
-          <div class="section-meta" id="rev-queue-history-status"></div>
-          <div class="section-meta" id="rev-queue-recipients"></div>
-          <h3 id="rev-new-alerts-h" style="margin-top:1rem;">New negative review alerts</h3>
+          <h2 id="rev-queue">Recovery queue</h2>
+          <div class="alert-policy" id="rev-queue-policy-block"></div>
+          <h3 id="rev-new-alerts-h" style="margin-top:0.6rem;">New negative review alerts (email-trigger)</h3>
           <div class="section-meta" id="rev-new-alerts-meta"></div>
-          <div class="card" id="rev-new-alerts-card"></div>
-          <h3 style="margin-top:1rem;">Historical low-rating reviews (no email)</h3>
+          <div class="review-cards" id="rev-new-alerts-cards"></div>
+          <h3 style="margin-top:1.2rem;">Historical low-rating reviews (no new emails)</h3>
           <div class="section-meta">
             Unreplied first, then most recent. Snippets sanitized — reviewer names, IDs, and account/location/profile identifiers are never shown.
           </div>
-          <div class="card" id="rev-queue-card"></div>
+          <div class="review-cards" id="rev-queue-cards"></div>
+        </section>
+
+        <section aria-labelledby="rev-patterns">
+          <h2 id="rev-patterns">System patterns across offices</h2>
+          <div class="section-meta">
+            Cross-office strengths to protect and risks to fix at a process level.
+          </div>
+          <div class="pattern-grid" id="rev-pattern-grid"></div>
+        </section>
+
+        <section aria-labelledby="rev-rank">
+          <h2 id="rev-rank">Quick ranking table</h2>
+          <div class="section-meta">
+            Compact view for ranking. The cards above are the primary view.
+          </div>
+          <div class="card" id="rev-offices-card"></div>
         </section>
 
         <p class="tab-meta" id="reviews-fresh"></p>
@@ -5941,45 +6255,300 @@
         return el("span", { "class": cls, text: txt });
       }
 
+      function _statusForOffice(o) {
+        var lowUnreplied = (o.unreplied || 0) > 0 && (o.low_rating_30d || 0) > 0;
+        var hasLow = (o.low_rating_30d || 0) > 0;
+        var ahead = (o.goal_gap_30d || 0) <= 0;
+        var prio = o.issue_priority || "P2";
+        if (lowUnreplied || prio === "P0") {
+          return { cls: "is-danger", chipCls: "danger", label: o.issue || "Reply now" };
+        }
+        if (hasLow) {
+          return { cls: "is-warn", chipCls: "warn", label: o.issue || "Service recovery" };
+        }
+        if (ahead) {
+          return { cls: "is-good", chipCls: "good", label: o.issue || "On pace — winning" };
+        }
+        return { cls: "is-accent", chipCls: "accent", label: o.issue || "Behind review goal" };
+      }
+
+      function _officeCard(o) {
+        var s = _statusForOffice(o);
+        var card = el("div", { "class": "office-card " + s.cls });
+
+        // Head: title + status chip
+        var head = el("div", { "class": "oc-head" });
+        var title = el("div");
+        title.appendChild(el("div", { "class": "oc-title", text: o.office || "—" }));
+        var sub = el("div", { "class": "oc-status" });
+        sub.appendChild(_ratingPill(o.rating));
+        sub.appendChild(document.createTextNode(" "));
+        sub.appendChild(el("span", { text: " · " + (o.total_reviews != null ? o.total_reviews.toLocaleString() : "—") + " lifetime" }));
+        title.appendChild(sub);
+        head.appendChild(title);
+        head.appendChild(el("span", { "class": "pill " + s.chipCls, text: s.label }));
+        card.appendChild(head);
+
+        // Stats grid: 30d / pace / gap (row 1), low / unreplied / 7d (row 2)
+        var stats = el("div", { "class": "oc-stats" });
+        function statBox(label, value, hint) {
+          var b = el("div", { "class": "oc-stat" });
+          b.appendChild(el("div", { "class": "oc-stat-label", text: label }));
+          b.appendChild(el("div", { "class": "oc-stat-value", text: value }));
+          if (hint) b.appendChild(el("div", { "class": "oc-stat-hint", text: hint }));
+          return b;
+        }
+        var delta = (o.reviews_30d || 0) - (o.prior_30d_reviews || 0);
+        var deltaTxt = (delta >= 0 ? "+" : "") + delta + " vs prior";
+        stats.appendChild(statBox("Reviews 30d", String(o.reviews_30d != null ? o.reviews_30d : "—"), deltaTxt));
+        stats.appendChild(statBox("Pace /day", String(o.velocity_per_day != null ? o.velocity_per_day : "—"), "Goal " + (o.goal_per_day || 1) + "/day"));
+        var gap = o.goal_gap_30d || 0;
+        stats.appendChild(statBox("Gap to goal", gap <= 0 ? "Hit" : (gap + " short"), gap <= 0 ? "Above 1/day" : "Need asks"));
+        stats.appendChild(statBox("7-day reviews", String(o.reviews_7d != null ? o.reviews_7d : "—"), "Latest week"));
+        stats.appendChild(statBox("Low 30d (≤3★)", String(o.low_rating_30d != null ? o.low_rating_30d : "—"), (o.low_rating_30d || 0) === 0 ? "Clean" : "Inspect themes"));
+        stats.appendChild(statBox("Unreplied", String(o.unreplied != null ? o.unreplied : "—"), (o.unreplied || 0) === 0 ? "All replied" : "Reply within 24h"));
+        card.appendChild(stats);
+
+        // Patients like
+        var likeBlock = el("div", { "class": "oc-block" });
+        likeBlock.appendChild(el("div", { "class": "oc-block-label", text: "Patients like" }));
+        var posThemes = o.positive_themes || [];
+        if (posThemes.length) {
+          var ulP = el("ul", { "class": "oc-bullets" });
+          posThemes.forEach(function (t) {
+            ulP.appendChild(el("li", { text: t.theme + " — " + t.count + " mention" + (t.count === 1 ? "" : "s") }));
+          });
+          likeBlock.appendChild(ulP);
+        } else {
+          likeBlock.appendChild(el("div", { text: "No themes captured this period." }));
+        }
+        card.appendChild(likeBlock);
+
+        // Patients complain about
+        var fixBlock = el("div", { "class": "oc-block" });
+        fixBlock.appendChild(el("div", { "class": "oc-block-label", text: "Patients complain about" }));
+        var negThemes = o.negative_themes || [];
+        if (negThemes.length) {
+          var ulN = el("ul", { "class": "oc-bullets" });
+          negThemes.forEach(function (t) {
+            ulN.appendChild(el("li", { text: t.theme + " — " + t.count + " mention" + (t.count === 1 ? "" : "s") }));
+          });
+          fixBlock.appendChild(ulN);
+        } else {
+          fixBlock.appendChild(el("div", { text: "No major recent themes." }));
+        }
+        card.appendChild(fixBlock);
+
+        // Do next
+        var doNext = el("div", { "class": "oc-do-next" });
+        doNext.appendChild(el("strong", { text: "Do next" }));
+        doNext.appendChild(document.createTextNode(o.action || "Keep asking every happy patient."));
+        card.appendChild(doNext);
+
+        return card;
+      }
+
+      function _signalCard(o) {
+        var card = el("div", { "class": "signal-card" });
+        card.appendChild(el("div", { "class": "sc-office", text: o.office || "—" }));
+        var pos = (o.positive_themes || []);
+        var lead = pos.length
+          ? "Top " + pos.length + " positive theme" + (pos.length === 1 ? "" : "s") +
+              " · " + (o.reviews_30d || 0) + " reviews in 30d · " + (o.rating != null ? o.rating + "★" : "—")
+          : "No positive theme signal captured this period.";
+        card.appendChild(el("div", { "class": "sc-headline", text: lead }));
+        if (pos.length) {
+          var themesBox = el("div", { "class": "sc-themes" });
+          pos.forEach(function (t) {
+            themesBox.appendChild(el("span", { "class": "sc-theme", text: t.theme + " · " + t.count }));
+          });
+          card.appendChild(themesBox);
+        }
+        return card;
+      }
+
+      function _reviewCard(r, opts) {
+        opts = opts || {};
+        var rv = Number(r.rating) || 0;
+        var cls = "review-card";
+        if (rv === 1) cls += "";
+        else if (rv <= 3) cls += " is-warn";
+        if (opts.isNew || r.is_new) cls += " is-new";
+        var card = el("div", { "class": cls });
+
+        var head = el("div", { "class": "rc-head" });
+        var left = el("div");
+        left.appendChild(el("div", { "class": "rc-office", text: r.office || "—" }));
+        left.appendChild(el("div", { "class": "rc-meta", text: (r.date || "—") + " · " + (opts.isNew || r.is_new ? "Newly detected" : "Historical") }));
+        head.appendChild(left);
+        var rightTags = el("div", { "class": "rc-tags" });
+        var rcls = "pill " + (rv <= 1 ? "danger" : (rv <= 3 ? "warn" : "accent"));
+        rightTags.appendChild(el("span", { "class": rcls, text: rv + "★" }));
+        rightTags.appendChild(el("span", { "class": "pill " + (r.replied ? "good" : "danger"), text: r.replied ? "Replied" : "Not replied" }));
+        head.appendChild(rightTags);
+        card.appendChild(head);
+
+        if (r.snippet) {
+          card.appendChild(el("div", { "class": "rc-snippet", text: "“" + r.snippet + "”" }));
+        }
+
+        // Issue tags inferred from snippet keywords
+        var snippetLow = (r.snippet || "").toLowerCase();
+        var tags = [];
+        if (/wait|appoint|on time|late|hour/.test(snippetLow)) tags.push("Wait / scheduling");
+        if (/insurance|bill|charge|cost|paid/.test(snippetLow)) tags.push("Insurance / billing");
+        if (/communic|told|never|confirm|call|phone/.test(snippetLow)) tags.push("Communication");
+        if (/exam|clean|dirty|sanit|equipment|x-?ray|specialist|root|crown|extract/.test(snippetLow)) tags.push("Clinical experience");
+        if (tags.length) {
+          var tagBox = el("div", { "class": "rc-tags" });
+          tags.slice(0, 3).forEach(function (t) {
+            tagBox.appendChild(el("span", { "class": "pill warn", text: t }));
+          });
+          card.appendChild(tagBox);
+        }
+
+        if (r.action) {
+          var act = el("div", { "class": "rc-action" });
+          act.appendChild(el("strong", { text: "Action" }));
+          act.appendChild(document.createTextNode(r.action));
+          card.appendChild(act);
+        }
+
+        return card;
+      }
+
+      function _crossOfficePatterns(rows) {
+        var posMap = {};
+        var negMap = {};
+        (rows || []).forEach(function (o) {
+          (o.positive_themes || []).forEach(function (t) {
+            if (!posMap[t.theme]) posMap[t.theme] = { count: 0, offices: [] };
+            posMap[t.theme].count += t.count || 0;
+            posMap[t.theme].offices.push(o.office);
+          });
+          (o.negative_themes || []).forEach(function (t) {
+            if (!negMap[t.theme]) negMap[t.theme] = { count: 0, offices: [] };
+            negMap[t.theme].count += t.count || 0;
+            negMap[t.theme].offices.push(o.office);
+          });
+        });
+        function topN(map, n) {
+          return Object.keys(map)
+            .map(function (k) { return { theme: k, count: map[k].count, offices: map[k].offices }; })
+            .sort(function (a, b) { return b.count - a.count; })
+            .slice(0, n);
+        }
+        return { strengths: topN(posMap, 3), risks: topN(negMap, 3) };
+      }
+
       function renderReviews(g) {
         if (!g) return;
         var meta = $("reviews-meta");
         if (meta) meta.textContent = (g.lookback || "Last 30d") + " · " + (g.data_freshness || "");
-        var period = $("rev-summary-period");
-        if (period) period.textContent = g.lookback || "Last 30d";
         var execPeriod = $("rev-exec-period");
         if (execPeriod) execPeriod.textContent = g.lookback || "Last 30d";
 
-        // Executive summary
-        var execHead = $("rev-exec-headline");
-        var execRules = $("rev-exec-rules");
         var ex = g.executive_summary || {};
+        var rows = g.office_rows || [];
+
+        // Headline
+        var execHead = $("rev-exec-headline");
         if (execHead) {
           execHead.textContent = ex.headline ||
-            "" + (ex.reviews_30d || "—") + " reviews/30d vs goal " +
-            (ex.review_goal_30d || 270) + " (" + (ex.goal_attainment_pct != null ? ex.goal_attainment_pct + "%" : "—") + ").";
+            ((ex.reviews_30d || "—") + " reviews/30d vs goal " +
+            (ex.review_goal_30d || 270) + " (" + (ex.goal_attainment_pct != null ? ex.goal_attainment_pct + "%" : "—") + ").");
         }
-        if (execRules) {
-          execRules.innerHTML = "";
-          var execLines = [
-            "Total review base " + (ex.total_reviews != null ? ex.total_reviews.toLocaleString() : "—") +
-              " across " + (ex.locations || 9) + " offices · avg rating " +
-              (ex.avg_rating != null ? ex.avg_rating + " ★" : "—") + ".",
-            "Last 30d: " + (ex.reviews_30d != null ? ex.reviews_30d : "—") +
-              " reviews vs prior " + (ex.prior_30d_reviews != null ? ex.prior_30d_reviews : "—") +
-              " (" + (ex.reviews_30d_delta != null ? (ex.reviews_30d_delta >= 0 ? "+" : "") + ex.reviews_30d_delta : "—") + ").",
-            "Goal: " + (ex.review_goal_30d || 270) + " /30d (1/day × " + (ex.locations || 9) +
-              " offices). Attainment " + (ex.goal_attainment_pct != null ? ex.goal_attainment_pct + "%" : "—") +
-              " · gap " + (ex.goal_gap_30d != null ? ex.goal_gap_30d : "—") + ".",
-            "Last 7d: " + (ex.reviews_7d != null ? ex.reviews_7d : "—") +
-              " reviews · pace " + (ex.velocity_per_day != null ? ex.velocity_per_day : "—") +
-              "/day vs " + (ex.goal_per_day != null ? ex.goal_per_day : "—") + "/day goal.",
-            "Low-rating 30d: " + (ex.low_rating_30d != null ? ex.low_rating_30d : "—") +
-              " · unreplied: " + (ex.unreplied != null ? ex.unreplied : "—") + "."
-          ];
-          execLines.forEach(function (line) {
-            execRules.appendChild(el("div", { "class": "ps-stat-bench", text: line }));
-          });
+
+        // Compute biggest win + biggest risk from rows
+        var biggestWin = null, biggestRisk = null;
+        rows.forEach(function (r) {
+          var d = (r.reviews_30d || 0) - (r.prior_30d_reviews || 0);
+          if (!biggestWin || d > ((biggestWin.reviews_30d || 0) - (biggestWin.prior_30d_reviews || 0))) {
+            if ((r.low_rating_30d || 0) === 0) biggestWin = r;
+          }
+          var risk = (r.unreplied || 0) * 10 + (r.low_rating_30d || 0) * 3 + Math.max(0, r.goal_gap_30d || 0) * 0.1;
+          if (!biggestRisk || risk > biggestRisk._score) {
+            biggestRisk = Object.assign({}, r, { _score: risk });
+          }
+        });
+        if (!biggestWin) {
+          biggestWin = rows.slice().sort(function (a, b) {
+            return ((b.reviews_30d || 0) - (b.prior_30d_reviews || 0)) - ((a.reviews_30d || 0) - (a.prior_30d_reviews || 0));
+          })[0] || null;
+        }
+
+        // Patient experience command center tiles
+        var cmd = $("rev-cmd-grid");
+        if (cmd) {
+          cmd.innerHTML = "";
+          function tile(label, value, sub, hint, cls) {
+            var t = el("div", { "class": "pxc-tile " + (cls || "is-accent") });
+            t.appendChild(el("div", { "class": "pxc-label", text: label }));
+            t.appendChild(el("div", { "class": "pxc-value", text: value }));
+            if (sub) t.appendChild(el("div", { "class": "pxc-sub", text: sub }));
+            if (hint) t.appendChild(el("div", { "class": "pxc-hint", text: hint }));
+            return t;
+          }
+          var avgCls = (ex.avg_rating || 0) >= 4.8 ? "is-good" : (ex.avg_rating || 0) >= 4.5 ? "is-warn" : "is-danger";
+          cmd.appendChild(tile(
+            "Overall rating",
+            (ex.avg_rating != null ? ex.avg_rating + "★" : "—"),
+            (ex.locations || 9) + " offices · " + (ex.total_reviews != null ? ex.total_reviews.toLocaleString() : "—") + " lifetime reviews",
+            "Avg across all locations",
+            avgCls
+          ));
+
+          var pace = ex.velocity_per_day != null ? ex.velocity_per_day : (g.trend && g.trend.velocity_per_day);
+          var goalPerDay = ex.goal_per_day || (g.trend && g.trend.goal_per_day) || 9;
+          var paceCls = pace >= goalPerDay ? "is-good" : pace >= goalPerDay * 0.7 ? "is-warn" : "is-danger";
+          cmd.appendChild(tile(
+            "Review velocity",
+            (pace != null ? pace : "—") + "/day",
+            "Goal: " + goalPerDay + "/day (1/day × " + (ex.locations || 9) + " offices)",
+            "Attainment " + (ex.goal_attainment_pct != null ? ex.goal_attainment_pct + "%" : "—") +
+              " · gap " + (ex.goal_gap_30d != null ? ex.goal_gap_30d : "—") + " /30d",
+            paceCls
+          ));
+
+          var delta30 = ex.reviews_30d_delta;
+          var deltaCls = (delta30 || 0) > 0 ? "is-good" : (delta30 === 0 ? "is-accent" : "is-danger");
+          cmd.appendChild(tile(
+            "30d reviews vs prior",
+            (ex.reviews_30d != null ? ex.reviews_30d : "—") + " (" + (delta30 != null ? (delta30 >= 0 ? "+" : "") + delta30 : "—") + ")",
+            "Prior 30d: " + (ex.prior_30d_reviews != null ? ex.prior_30d_reviews : "—") + " reviews",
+            "Last 7d: " + (ex.reviews_7d != null ? ex.reviews_7d : "—") + " reviews",
+            deltaCls
+          ));
+
+          var lowCls = (ex.unreplied || 0) > 0 ? "is-danger" : ((ex.low_rating_30d || 0) > 0 ? "is-warn" : "is-good");
+          cmd.appendChild(tile(
+            "Service recovery load",
+            (ex.low_rating_30d != null ? ex.low_rating_30d : "—") + " low / " + (ex.unreplied != null ? ex.unreplied : "—") + " unreplied",
+            "≤3★ in last 30d · target reply within 24h",
+            (ex.unreplied || 0) > 0 ? "Reply discipline at risk" : "Reply discipline holding",
+            lowCls
+          ));
+
+          if (biggestWin) {
+            cmd.appendChild(tile(
+              "Biggest win",
+              biggestWin.office || "—",
+              (biggestWin.reviews_30d || 0) + " reviews/30d at " + (biggestWin.rating != null ? biggestWin.rating + "★" : "—") +
+                " · " + (((biggestWin.reviews_30d || 0) - (biggestWin.prior_30d_reviews || 0)) >= 0 ? "+" : "") +
+                ((biggestWin.reviews_30d || 0) - (biggestWin.prior_30d_reviews || 0)) + " vs prior",
+              "Replicate the ask cadence here",
+              "is-good"
+            ));
+          }
+          if (biggestRisk) {
+            cmd.appendChild(tile(
+              "Biggest risk",
+              biggestRisk.office || "—",
+              (biggestRisk.low_rating_30d || 0) + " low 30d · " + (biggestRisk.unreplied || 0) + " unreplied · gap " + (biggestRisk.goal_gap_30d || 0),
+              biggestRisk.action || "Reply, recover, then push asks",
+              "is-danger"
+            ));
+          }
         }
 
         // Top actions
@@ -5989,93 +6558,116 @@
           (g.top_actions || []).forEach(function (a) { actG.appendChild(_actionCard(a)); });
         }
 
-        // Summary cards
-        var sumG = $("rev-summary-grid");
-        if (sumG) {
-          sumG.innerHTML = "";
-          (g.summary_cards || []).forEach(function (c) {
-            sumG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
+        // Office cards (sorted: P0 > unreplied > behind goal > on pace)
+        var ocWrap = $("rev-office-cards");
+        if (ocWrap) {
+          ocWrap.innerHTML = "";
+          var sorted = rows.slice().sort(function (a, b) {
+            function score(o) {
+              var s = 0;
+              if ((o.unreplied || 0) > 0 && (o.low_rating_30d || 0) > 0) s += 1000;
+              if ((o.issue_priority || "") === "P0") s += 500;
+              if ((o.low_rating_30d || 0) > 0) s += 200;
+              if ((o.goal_gap_30d || 0) > 0) s += 50 + Math.min(50, o.goal_gap_30d || 0);
+              return -s;
+            }
+            return score(a) - score(b);
           });
-        }
-
-        // Trend rules
-        var rules = $("rev-trend-rules");
-        if (rules) {
-          rules.innerHTML = "";
-          var t = g.trend || {};
-          var deltaWord = (t.reviews_30d_delta || 0) >= 0 ? "ahead of" : "behind";
-          var lines = [
-            "Velocity: " + (t.velocity_per_day != null ? t.velocity_per_day : "—") +
-              "/day vs goal " + (t.goal_per_day != null ? t.goal_per_day : "—") +
-              "/day per office (1/day × " + (t.locations || 9) + " offices = " +
-              (t.review_goal_30d || 270) + " /30d).",
-            "Last 30d: " + (t.reviews_30d != null ? t.reviews_30d : "—") + " reviews · " +
-              (t.reviews_30d_delta != null ? (t.reviews_30d_delta >= 0 ? "+" : "") + t.reviews_30d_delta : "—") +
-              " vs prior 30d (" + (t.prior_30d_reviews != null ? t.prior_30d_reviews : "—") +
-              ") — " + deltaWord + " trend.",
-            "Goal gap 30d: " + (t.goal_gap_30d != null ? t.goal_gap_30d : "—") +
-              " reviews short. Attainment " + (t.goal_attainment != null ? t.goal_attainment + "%" : "—") + "."
-          ];
-          lines.forEach(function (line) {
-            rules.appendChild(el("div", { "class": "ps-stat-bench", text: line }));
-          });
-        }
-
-        // Where it is going well
-        var gw = $("rev-going-well-card");
-        if (gw) {
-          gw.innerHTML = "";
-          var gwItems = g.going_well || [];
-          if (!gwItems.length) {
-            gw.appendChild(el("div", { "class": "desc", text: "—" }));
+          if (!sorted.length) {
+            ocWrap.appendChild(el("div", { "class": "desc", text: "Awaiting GBP." }));
           } else {
-            var gwGrid = el("div", { "class": "paid-summary-grid" });
-            gwItems.forEach(function (item) {
-              var card = el("div", { "class": "ps-stat" });
-              card.appendChild(el("div", { "class": "ps-stat-label", text: item.office }));
-              card.appendChild(el("div", { "class": "ps-stat-bench", text: item.headline || "" }));
-              (item.highlights || []).forEach(function (h) {
-                card.appendChild(el("div", { "class": "ps-stat-bench", text: "• " + h }));
-              });
-              if (item.ask) {
-                card.appendChild(el("div", { "class": "ps-stat-bench", text: "Ask: " + item.ask }));
-              }
-              gwGrid.appendChild(card);
-            });
-            gw.appendChild(gwGrid);
+            sorted.forEach(function (o) { ocWrap.appendChild(_officeCard(o)); });
           }
         }
 
-        // Where to improve
-        var ti = $("rev-to-improve-card");
-        if (ti) {
-          ti.innerHTML = "";
-          var tiItems = g.to_improve || [];
-          if (!tiItems.length) {
-            ti.appendChild(el("div", { "class": "desc", text: "—" }));
-          } else {
-            var tiGrid = el("div", { "class": "paid-summary-grid" });
-            tiItems.forEach(function (item) {
-              var card = el("div", { "class": "ps-stat" });
-              card.appendChild(el("div", { "class": "ps-stat-label", text: item.category }));
-              card.appendChild(el("div", { "class": "ps-stat-bench", text: item.headline || "" }));
-              (item.details || []).forEach(function (d) {
-                card.appendChild(el("div", { "class": "ps-stat-bench", text: "• " + d }));
-              });
-              if (item.ask) {
-                card.appendChild(el("div", { "class": "ps-stat-bench", text: "Ask: " + item.ask }));
-              }
-              tiGrid.appendChild(card);
-            });
-            ti.appendChild(tiGrid);
+        // Best recent patient signals
+        var sig = $("rev-signal-cards");
+        if (sig) {
+          sig.innerHTML = "";
+          // Pick offices with strongest positive theme totals
+          var sigSorted = rows.slice().sort(function (a, b) {
+            function p(o) { return (o.positive_themes || []).reduce(function (s, t) { return s + (t.count || 0); }, 0); }
+            return p(b) - p(a);
+          });
+          sigSorted.slice(0, 6).forEach(function (o) { sig.appendChild(_signalCard(o)); });
+          if (!sigSorted.length) sig.appendChild(el("div", { "class": "desc", text: "No positive themes available." }));
+        }
+
+        // Recovery queue: alert policy + new + historical, all as cards
+        var ac = g.alert_config || {};
+        var policyBox = $("rev-queue-policy-block");
+        if (policyBox) {
+          policyBox.innerHTML = "";
+          var p1 = el("div");
+          p1.appendChild(el("strong", { text: "Email policy: " }));
+          p1.appendChild(document.createTextNode(ac.policy_label || "Send only on first detection of a new low-rating review"));
+          policyBox.appendChild(p1);
+          var p2 = el("div");
+          p2.appendChild(document.createTextNode("Recipients: " + (ac.recipients_template || "Office inbox · CC exec inbox") + ". No historical resend. " +
+            (ac.redaction_note || "Reviewer names are never included.")));
+          policyBox.appendChild(p2);
+          if (ac.history_status_detail) {
+            policyBox.appendChild(el("div", { text: ac.history_status_detail }));
           }
         }
 
-        // Office rows table — extended columns
+        var newAlerts = g.new_negative_alerts || [];
+        var newMeta = $("rev-new-alerts-meta");
+        if (newMeta) {
+          newMeta.textContent = newAlerts.length
+            ? newAlerts.length + " new alert(s) — only these would trigger emails (to office inbox, CC exec inbox)."
+            : "No new alerts queued. Email is sent only on first detection of a low-rating review.";
+        }
+        var newWrap = $("rev-new-alerts-cards");
+        if (newWrap) {
+          newWrap.innerHTML = "";
+          if (!newAlerts.length) {
+            newWrap.appendChild(el("div", { "class": "desc", text: "No new negative reviews to alert on right now." }));
+          } else {
+            newAlerts.forEach(function (r) { newWrap.appendChild(_reviewCard(r, { isNew: true })); });
+          }
+        }
+
+        var queueWrap = $("rev-queue-cards");
+        if (queueWrap) {
+          queueWrap.innerHTML = "";
+          var nq = (g.prior_negative_queue || g.negative_queue || []).slice().sort(function (a, b) {
+            if (a.replied !== b.replied) return a.replied ? 1 : -1;
+            return (b.date || "").localeCompare(a.date || "");
+          });
+          if (!nq.length) {
+            queueWrap.appendChild(el("div", { "class": "desc", text: "No recent low reviews." }));
+          } else {
+            nq.forEach(function (r) { queueWrap.appendChild(_reviewCard(r, { isNew: false })); });
+          }
+        }
+
+        // System patterns
+        var pat = $("rev-pattern-grid");
+        if (pat) {
+          pat.innerHTML = "";
+          var p = _crossOfficePatterns(rows);
+          function patCard(theme, kind) {
+            var c = el("div", { "class": "pattern-card " + (kind === "strength" ? "is-strength" : "is-risk") });
+            c.appendChild(el("div", { "class": "pc-label", text: kind === "strength" ? "Strength" : "Risk" }));
+            c.appendChild(el("div", { "class": "pc-title", text: theme.theme }));
+            var verb = kind === "strength" ? "praised" : "flagged";
+            c.appendChild(el("div", { "class": "pc-detail",
+              text: theme.count + " mention" + (theme.count === 1 ? "" : "s") + " across " + theme.offices.length + " office" + (theme.offices.length === 1 ? "" : "s") + " — patients " + verb + " this most." }));
+            c.appendChild(el("div", { "class": "pc-offices", text: "Offices: " + theme.offices.join(", ") }));
+            return c;
+          }
+          (p.strengths || []).forEach(function (t) { pat.appendChild(patCard(t, "strength")); });
+          (p.risks || []).forEach(function (t) { pat.appendChild(patCard(t, "risk")); });
+          if (!p.strengths.length && !p.risks.length) {
+            pat.appendChild(el("div", { "class": "desc", text: "No theme patterns yet." }));
+          }
+        }
+
+        // Compact ranking table (still useful for ranking)
         var off = $("rev-offices-card");
         if (off) {
           off.innerHTML = "";
-          var rows = g.office_rows || [];
           if (!rows.length) {
             off.appendChild(el("div", { "class": "desc", text: "Awaiting GBP." }));
           } else {
@@ -6083,7 +6675,7 @@
             var table = el("table");
             var thead = el("thead");
             var trh = el("tr");
-            ["Office","Rating","Total","7d","30d","Prior 30d","Δ","/day","Gap","Low 30d","Unreplied","What patients like","What to fix","Action"].forEach(function (h) {
+            ["Office","Rating","30d","Δ","/day","Gap","Low 30d","Unreplied","Status"].forEach(function (h) {
               trh.appendChild(el("th", { text: h }));
             });
             thead.appendChild(trh);
@@ -6094,22 +6686,16 @@
               var tr = el("tr");
               tr.appendChild(el("td", { text: r.office || "—" }));
               var tdRating = el("td"); tdRating.appendChild(_ratingPill(r.rating)); tr.appendChild(tdRating);
-              tr.appendChild(el("td", { text: r.total_reviews != null ? String(r.total_reviews) : "—" }));
-              tr.appendChild(el("td", { text: r.reviews_7d != null ? String(r.reviews_7d) : "—" }));
               tr.appendChild(el("td", { text: r.reviews_30d != null ? String(r.reviews_30d) : "—" }));
-              tr.appendChild(el("td", { text: r.prior_30d_reviews != null ? String(r.prior_30d_reviews) : "—" }));
               var tdDelta = el("td"); tdDelta.appendChild(_deltaPill(delta)); tr.appendChild(tdDelta);
               tr.appendChild(el("td", { text: r.velocity_per_day != null ? String(r.velocity_per_day) : "—" }));
               var tdGap = el("td"); tdGap.appendChild(_gapPill(r.goal_gap_30d)); tr.appendChild(tdGap);
               tr.appendChild(el("td", { text: r.low_rating_30d != null ? String(r.low_rating_30d) : "—" }));
               tr.appendChild(el("td", { text: r.unreplied != null ? String(r.unreplied) : "—" }));
-              tr.appendChild(el("td", { text: r.what_patients_like || "—" }));
-              tr.appendChild(el("td", { text: r.what_to_fix || "None reported" }));
-              var tdAct = el("td");
-              var prio = r.issue_priority || "P2";
-              tdAct.appendChild(_priChip(prio));
-              tdAct.appendChild(document.createTextNode(" " + (r.action || r.issue || "—")));
-              tr.appendChild(tdAct);
+              var tdStatus = el("td");
+              var st = _statusForOffice(r);
+              tdStatus.appendChild(el("span", { "class": "pill " + st.chipCls, text: st.label }));
+              tr.appendChild(tdStatus);
               tbody.appendChild(tr);
             });
             table.appendChild(tbody);
@@ -6118,124 +6704,8 @@
           }
         }
 
-        // Themes by office
-        var themes = $("rev-themes-card");
-        if (themes) {
-          themes.innerHTML = "";
-          var rows2 = g.office_rows || [];
-          if (!rows2.length) {
-            themes.appendChild(el("div", { "class": "desc", text: "Awaiting themes." }));
-          } else {
-            var grid = el("div", { "class": "paid-summary-grid" });
-            rows2.forEach(function (o) {
-              var card = el("div", { "class": "ps-stat" });
-              card.appendChild(el("div", { "class": "ps-stat-label", text: o.office }));
-              var pos = (o.positive_themes || []).map(function (t) {
-                return t.theme + " (" + t.count + ")";
-              }).join(" · ") || "—";
-              var neg = (o.negative_themes || []).map(function (t) {
-                return t.theme + " (" + t.count + ")";
-              }).join(" · ") || "None reported";
-              card.appendChild(el("div", { "class": "ps-stat-bench", text: "Working: " + pos }));
-              card.appendChild(el("div", { "class": "ps-stat-bench", text: "Fix: " + neg }));
-              grid.appendChild(card);
-            });
-            themes.appendChild(grid);
-          }
-        }
-
-        // Alert config copy
-        var ac = g.alert_config || {};
-        var policyEl = $("rev-queue-policy");
-        if (policyEl) {
-          policyEl.textContent = ac.policy_label || "New negative review alerts: send only if not previously alerted";
-        }
-        var historyEl = $("rev-queue-history-status");
-        if (historyEl) {
-          historyEl.textContent = (ac.history_status || "New-only alerting configured; historical queue for review") +
-            (ac.history_status_detail ? " — " + ac.history_status_detail : "");
-        }
-        var recipEl = $("rev-queue-recipients");
-        if (recipEl) {
-          recipEl.textContent = (ac.recipients_template || "To office inbox · CC exec inbox") +
-            " · " + (ac.redaction_note || "Reviewer names are not included in alerts or in this dashboard.");
-        }
-
-        // New negative review alerts (email-trigger set)
-        var newCard = $("rev-new-alerts-card");
-        var newMeta = $("rev-new-alerts-meta");
-        var newAlerts = g.new_negative_alerts || [];
-        if (newMeta) {
-          newMeta.textContent = newAlerts.length
-            ? newAlerts.length + " new alert(s) — only these would trigger emails (to office inbox, CC exec inbox)."
-            : "No new alerts queued. Email is sent only on first detection of a low-rating review.";
-        }
-        if (newCard) {
-          newCard.innerHTML = "";
-          if (!newAlerts.length) {
-            newCard.appendChild(el("div", { "class": "desc", text: "No new negative reviews to alert on right now." }));
-          } else {
-            newCard.appendChild(_renderQueueTable(newAlerts, /*showRecipients=*/true));
-          }
-        }
-
-        // Historical queue (no emails)
-        var queue = $("rev-queue-card");
-        if (queue) {
-          queue.innerHTML = "";
-          var nq = g.prior_negative_queue || g.negative_queue || [];
-          if (!nq.length) {
-            queue.appendChild(el("div", { "class": "desc", text: "No recent low reviews." }));
-          } else {
-            queue.appendChild(_renderQueueTable(nq, /*showRecipients=*/false));
-          }
-        }
-
         var fresh = $("reviews-fresh");
         if (fresh) fresh.textContent = g.freshness_note || "";
-      }
-
-      function _renderQueueTable(items, showRecipients) {
-        var wrap = el("div", { "class": "table-wrap" });
-        var table = el("table");
-        var thead = el("thead");
-        var trh = el("tr");
-        var headers = ["Office","Date","Rating","Snippet","Replied"];
-        if (showRecipients) headers.push("Email to");
-        headers.push("Action");
-        headers.forEach(function (h) { trh.appendChild(el("th", { text: h })); });
-        thead.appendChild(trh);
-        table.appendChild(thead);
-        var tbody = el("tbody");
-        items.forEach(function (r) {
-          var tr = el("tr");
-          tr.appendChild(el("td", { text: r.office || "—" }));
-          tr.appendChild(el("td", { text: r.date || "—" }));
-          var tdR = el("td");
-          var rcls = "pill";
-          var rv = Number(r.rating);
-          if (rv <= 1) rcls += " danger";
-          else if (rv <= 3) rcls += " warn";
-          else rcls += " accent";
-          tdR.appendChild(el("span", { "class": rcls, text: rv + "★" }));
-          tr.appendChild(tdR);
-          tr.appendChild(el("td", { text: r.snippet || "—" }));
-          var tdReplied = el("td");
-          var rep = r.replied;
-          tdReplied.appendChild(el("span", {
-            "class": "pill " + (rep ? "good" : "danger"),
-            text: rep ? "Yes" : "No"
-          }));
-          tr.appendChild(tdReplied);
-          if (showRecipients) {
-            tr.appendChild(el("td", { text: r.recipient_label || "Office inbox · CC Exec inbox" }));
-          }
-          tr.appendChild(el("td", { text: r.action || "—" }));
-          tbody.appendChild(tr);
-        });
-        table.appendChild(tbody);
-        wrap.appendChild(table);
-        return wrap;
       }
 
       function renderReferrals(r) {
