@@ -1448,17 +1448,21 @@
 
     <main id="main">
       <div class="tabs" role="tablist" aria-label="Dashboard sections">
-        <button class="tab" role="tab" id="tab-ads"
-                aria-controls="panel-ads" aria-selected="true">
-          Google Ads
+        <button class="tab" role="tab" id="tab-reviews"
+                aria-controls="panel-reviews" aria-selected="true">
+          GMB Reviews
         </button>
-        <button class="tab" role="tab" id="tab-outreach"
-                aria-controls="panel-outreach" aria-selected="false">
-          B2B Outreach
+        <button class="tab" role="tab" id="tab-ads"
+                aria-controls="panel-ads" aria-selected="false">
+          Google Ads
         </button>
         <button class="tab" role="tab" id="tab-organic"
                 aria-controls="panel-organic" aria-selected="false">
           Organic
+        </button>
+        <button class="tab" role="tab" id="tab-outreach"
+                aria-controls="panel-outreach" aria-selected="false">
+          B2B Outreach
         </button>
         <button class="tab" role="tab" id="tab-referrals"
                 aria-controls="panel-referrals" aria-selected="false">
@@ -1466,9 +1470,59 @@
         </button>
       </div>
 
+      <!-- =================== GMB Reviews tab =================== -->
+      <div id="panel-reviews" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-reviews" tabindex="0">
+        <p class="tab-meta" id="reviews-meta"></p>
+
+        <section aria-labelledby="rev-actions"
+                 class="priority-strip" id="rev-actions-section">
+          <div class="ps-head">
+            <h2 id="rev-actions">Do these today</h2>
+            <span class="pill priority is-high" aria-hidden="true">
+              Reviews · top actions
+            </span>
+          </div>
+          <div class="top5-grid" id="rev-actions-grid"></div>
+        </section>
+
+        <section aria-labelledby="rev-summary" class="paid-summary">
+          <div class="ps-head">
+            <h2 id="rev-summary">Reviews performance</h2>
+            <span class="pill" id="rev-summary-period" aria-live="polite"></span>
+          </div>
+          <div class="paid-summary-grid" id="rev-summary-grid"></div>
+          <div class="paid-summary-rules" id="rev-trend-rules"></div>
+        </section>
+
+        <section aria-labelledby="rev-offices">
+          <h2 id="rev-offices">Office trends &amp; goal pace</h2>
+          <div class="section-meta" id="rev-offices-meta"></div>
+          <div class="card" id="rev-offices-card"></div>
+        </section>
+
+        <section aria-labelledby="rev-themes">
+          <h2 id="rev-themes">Themes by office</h2>
+          <div class="section-meta">
+            What's working (positive) and what to fix (negative), aggregated.
+          </div>
+          <div class="card" id="rev-themes-card"></div>
+        </section>
+
+        <section aria-labelledby="rev-queue">
+          <h2 id="rev-queue">Negative review follow-up queue</h2>
+          <div class="section-meta">
+            Unreplied first, then most recent. Snippets sanitized — no reviewer names.
+          </div>
+          <div class="card" id="rev-queue-card"></div>
+        </section>
+
+        <p class="tab-meta" id="reviews-fresh"></p>
+      </div>
+
       <!-- =================== Google Ads tab =================== -->
       <div id="panel-ads" class="tab-panel" role="tabpanel"
-           aria-labelledby="tab-ads" tabindex="0">
+           aria-labelledby="tab-ads" tabindex="0" hidden>
         <p class="tab-meta" id="ads-compact-note">Last 30d.</p>
 
         <!-- Action board: Do these today -->
@@ -1976,21 +2030,6 @@
         <section aria-labelledby="ref-conn">
           <h2 id="ref-conn">Connectors</h2>
           <div class="paid-summary-grid" id="ref-conn-grid"></div>
-        </section>
-
-        <section aria-labelledby="ref-actions">
-          <h2 id="ref-actions">Do these today</h2>
-          <div class="top5-grid" id="ref-actions-grid"></div>
-        </section>
-
-        <section aria-labelledby="ref-summary">
-          <h2 id="ref-summary">Summary</h2>
-          <div class="paid-summary-grid" id="ref-summary-grid"></div>
-        </section>
-
-        <section aria-labelledby="ref-offices">
-          <h2 id="ref-offices">GBP reviews by office (9)</h2>
-          <div class="card" id="ref-offices-card"></div>
         </section>
 
         <section aria-labelledby="ref-od">
@@ -5584,6 +5623,7 @@
         renderGuardrailStatus(s);
         renderLists(s);
         renderOrganic(s.organic_insights);
+        renderReviews(s.gmb_insights);
         renderReferrals(s.referral_insights);
         $("generated").textContent = s.generated_at || "";
       }
@@ -5841,6 +5881,200 @@
         wrap.appendChild(svg);
         wrap.appendChild(legend);
         return wrap;
+      }
+
+      function _ratingPill(rating) {
+        var r = Number(rating);
+        var cls = "pill";
+        if (r >= 4.8) cls += " good";
+        else if (r >= 4.5) cls += " warn";
+        else cls += " danger";
+        return el("span", { "class": cls, text: r ? r.toFixed(1) + "★" : "—" });
+      }
+      function _gapPill(gap) {
+        var g = Number(gap);
+        var cls = "pill";
+        if (g <= 0) cls += " good";
+        else if (g <= 14) cls += " warn";
+        else cls += " danger";
+        return el("span", { "class": cls, text: g <= 0 ? "On pace" : (g + " behind") });
+      }
+      function _deltaPill(delta) {
+        var d = Number(delta);
+        var cls = "pill";
+        if (d > 0) cls += " good";
+        else if (d === 0) cls += " accent";
+        else cls += " danger";
+        var txt = d > 0 ? "+" + d : String(d);
+        return el("span", { "class": cls, text: txt });
+      }
+
+      function renderReviews(g) {
+        if (!g) return;
+        var meta = $("reviews-meta");
+        if (meta) meta.textContent = (g.lookback || "Last 30d") + " · " + (g.data_freshness || "");
+        var period = $("rev-summary-period");
+        if (period) period.textContent = g.lookback || "Last 30d";
+
+        // Top actions
+        var actG = $("rev-actions-grid");
+        if (actG) {
+          actG.innerHTML = "";
+          (g.top_actions || []).forEach(function (a) { actG.appendChild(_actionCard(a)); });
+        }
+
+        // Summary cards
+        var sumG = $("rev-summary-grid");
+        if (sumG) {
+          sumG.innerHTML = "";
+          (g.summary_cards || []).forEach(function (c) {
+            sumG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
+          });
+        }
+
+        // Trend rules
+        var rules = $("rev-trend-rules");
+        if (rules) {
+          rules.innerHTML = "";
+          var t = g.trend || {};
+          var deltaWord = (t.reviews_30d_delta || 0) >= 0 ? "ahead of" : "behind";
+          var lines = [
+            "Velocity: " + (t.velocity_per_day != null ? t.velocity_per_day : "—") +
+              "/day vs goal " + (t.goal_per_day != null ? t.goal_per_day : "—") +
+              "/day per office (1/day × " + (t.locations || 9) + " offices = " +
+              (t.review_goal_30d || 270) + " /30d).",
+            "Last 30d: " + (t.reviews_30d != null ? t.reviews_30d : "—") + " reviews · " +
+              (t.reviews_30d_delta != null ? (t.reviews_30d_delta >= 0 ? "+" : "") + t.reviews_30d_delta : "—") +
+              " vs prior 30d (" + (t.prior_30d_reviews != null ? t.prior_30d_reviews : "—") +
+              ") — " + deltaWord + " trend.",
+            "Goal gap 30d: " + (t.goal_gap_30d != null ? t.goal_gap_30d : "—") +
+              " reviews short. Attainment " + (t.goal_attainment != null ? t.goal_attainment + "%" : "—") + "."
+          ];
+          lines.forEach(function (line) {
+            rules.appendChild(el("div", { "class": "ps-stat-bench", text: line }));
+          });
+        }
+
+        // Office rows table
+        var off = $("rev-offices-card");
+        if (off) {
+          off.innerHTML = "";
+          var rows = g.office_rows || [];
+          if (!rows.length) {
+            off.appendChild(el("div", { "class": "desc", text: "Awaiting GBP." }));
+          } else {
+            var wrap = el("div", { "class": "table-wrap" });
+            var table = el("table");
+            var thead = el("thead");
+            var trh = el("tr");
+            ["Office","Rating","7d","30d","Prior 30d","Δ","/day","Gap","Low 30d","Unreplied","Issue","Action"].forEach(function (h) {
+              trh.appendChild(el("th", { text: h }));
+            });
+            thead.appendChild(trh);
+            table.appendChild(thead);
+            var tbody = el("tbody");
+            rows.forEach(function (r) {
+              var delta = (r.reviews_30d || 0) - (r.prior_30d_reviews || 0);
+              var tr = el("tr");
+              tr.appendChild(el("td", { text: r.office || "—" }));
+              var tdRating = el("td"); tdRating.appendChild(_ratingPill(r.rating)); tr.appendChild(tdRating);
+              tr.appendChild(el("td", { text: r.reviews_7d != null ? String(r.reviews_7d) : "—" }));
+              tr.appendChild(el("td", { text: r.reviews_30d != null ? String(r.reviews_30d) : "—" }));
+              tr.appendChild(el("td", { text: r.prior_30d_reviews != null ? String(r.prior_30d_reviews) : "—" }));
+              var tdDelta = el("td"); tdDelta.appendChild(_deltaPill(delta)); tr.appendChild(tdDelta);
+              tr.appendChild(el("td", { text: r.velocity_per_day != null ? String(r.velocity_per_day) : "—" }));
+              var tdGap = el("td"); tdGap.appendChild(_gapPill(r.goal_gap_30d)); tr.appendChild(tdGap);
+              tr.appendChild(el("td", { text: r.low_rating_30d != null ? String(r.low_rating_30d) : "—" }));
+              tr.appendChild(el("td", { text: r.unreplied != null ? String(r.unreplied) : "—" }));
+              var tdIssue = el("td");
+              var prio = r.issue_priority || "P2";
+              tdIssue.appendChild(_priChip(prio));
+              tdIssue.appendChild(document.createTextNode(" " + (r.issue || "—")));
+              tr.appendChild(tdIssue);
+              tr.appendChild(el("td", { text: r.action || "—" }));
+              tbody.appendChild(tr);
+            });
+            table.appendChild(tbody);
+            wrap.appendChild(table);
+            off.appendChild(wrap);
+          }
+        }
+
+        // Themes by office
+        var themes = $("rev-themes-card");
+        if (themes) {
+          themes.innerHTML = "";
+          var rows2 = g.office_rows || [];
+          if (!rows2.length) {
+            themes.appendChild(el("div", { "class": "desc", text: "Awaiting themes." }));
+          } else {
+            var grid = el("div", { "class": "paid-summary-grid" });
+            rows2.forEach(function (o) {
+              var card = el("div", { "class": "ps-stat" });
+              card.appendChild(el("div", { "class": "ps-stat-label", text: o.office }));
+              var pos = (o.positive_themes || []).map(function (t) {
+                return t.theme + " (" + t.count + ")";
+              }).join(" · ") || "—";
+              var neg = (o.negative_themes || []).map(function (t) {
+                return t.theme + " (" + t.count + ")";
+              }).join(" · ") || "None reported";
+              card.appendChild(el("div", { "class": "ps-stat-bench", text: "Working: " + pos }));
+              card.appendChild(el("div", { "class": "ps-stat-bench", text: "Fix: " + neg }));
+              grid.appendChild(card);
+            });
+            themes.appendChild(grid);
+          }
+        }
+
+        // Negative review queue
+        var queue = $("rev-queue-card");
+        if (queue) {
+          queue.innerHTML = "";
+          var nq = g.negative_queue || [];
+          if (!nq.length) {
+            queue.appendChild(el("div", { "class": "desc", text: "No recent low reviews." }));
+          } else {
+            var wrap2 = el("div", { "class": "table-wrap" });
+            var table2 = el("table");
+            var thead2 = el("thead");
+            var trh2 = el("tr");
+            ["Office","Date","Rating","Snippet","Replied","Action"].forEach(function (h) {
+              trh2.appendChild(el("th", { text: h }));
+            });
+            thead2.appendChild(trh2);
+            table2.appendChild(thead2);
+            var tbody2 = el("tbody");
+            nq.forEach(function (r) {
+              var tr = el("tr");
+              tr.appendChild(el("td", { text: r.office || "—" }));
+              tr.appendChild(el("td", { text: r.date || "—" }));
+              var tdR = el("td");
+              var rcls = "pill";
+              var rv = Number(r.rating);
+              if (rv <= 1) rcls += " danger";
+              else if (rv <= 3) rcls += " warn";
+              else rcls += " accent";
+              tdR.appendChild(el("span", { "class": rcls, text: rv + "★" }));
+              tr.appendChild(tdR);
+              tr.appendChild(el("td", { text: r.snippet || "—" }));
+              var tdReplied = el("td");
+              var rep = r.replied;
+              tdReplied.appendChild(el("span", {
+                "class": "pill " + (rep ? "good" : "danger"),
+                text: rep ? "Yes" : "No"
+              }));
+              tr.appendChild(tdReplied);
+              tr.appendChild(el("td", { text: r.action || "—" }));
+              tbody2.appendChild(tr);
+            });
+            table2.appendChild(tbody2);
+            wrap2.appendChild(table2);
+            queue.appendChild(wrap2);
+          }
+        }
+
+        var fresh = $("reviews-fresh");
+        if (fresh) fresh.textContent = g.freshness_note || "";
       }
 
       function renderReferrals(r) {

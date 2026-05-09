@@ -16175,13 +16175,6 @@
     "data_freshness": "GBP daily refresh",
     "connector_status": [
       {
-        "integration": "Google Business Profile",
-        "status": "Connected",
-        "severity": "ok",
-        "public_exposure": "Aggregated office-level review metrics only.",
-        "action": "Reply to recent low reviews; increase asks at low-volume offices."
-      },
-      {
         "integration": "Open Dental referral query",
         "status": "Connector not found",
         "severity": "blocked",
@@ -16205,147 +16198,6 @@
           "subscribili_office_map (private; maps office label to Subscribili location/group)"
         ],
         "action": "Wire private login or export; map 9 offices; aggregate counts only."
-      }
-    ],
-    "summary_cards": [
-      {
-        "label": "Avg rating",
-        "value": "4.83",
-        "basis": "9 offices",
-        "decision": "Maintain reply discipline."
-      },
-      {
-        "label": "Reviews 7d",
-        "value": "27",
-        "basis": "GBP",
-        "decision": "Push asks where low."
-      },
-      {
-        "label": "Reviews 30d",
-        "value": "164",
-        "basis": "GBP",
-        "decision": "Sustain ask cadence."
-      },
-      {
-        "label": "Unreplied",
-        "value": "5",
-        "basis": "GBP",
-        "decision": "Reply within 24h."
-      },
-      {
-        "label": "Low-rating 30d",
-        "value": "9",
-        "basis": "GBP",
-        "decision": "Inspect themes; reply."
-      }
-    ],
-    "top_actions": [
-      {
-        "priority": "P0",
-        "label": "Reply to unreplied reviews",
-        "action": "Offices: Beverly Hills, Santa Monica, Sherman Oaks, Thousand Oaks.",
-        "owner": "Front desk"
-      },
-      {
-        "priority": "P0",
-        "label": "Inspect recent low-rating reviews",
-        "action": "Offices: Encino, Santa Monica, Sherman Oaks, Thousand Oaks, Puri Dentistry.",
-        "owner": "Office manager"
-      },
-      {
-        "priority": "P1",
-        "label": "Increase review asks",
-        "action": "Low 30d volume: Camarillo, Santa Monica, Sherman Oaks.",
-        "owner": "Front desk"
-      },
-      {
-        "priority": "P1",
-        "label": "Inspect rating drag",
-        "action": "Offices: Camarillo, Encino, Santa Monica, Puri Dentistry.",
-        "owner": "Office manager"
-      }
-    ],
-    "office_rows": [
-      {
-        "office": "Beverly Hills",
-        "rating": 4.8,
-        "reviews_30d": 12,
-        "low_rating_30d": 0,
-        "unreplied": 1,
-        "issue": "Healthy",
-        "action": "Keep asking"
-      },
-      {
-        "office": "Camarillo",
-        "rating": 4.7,
-        "reviews_30d": 9,
-        "low_rating_30d": 0,
-        "unreplied": 0,
-        "issue": "Rating drag",
-        "action": "Increase review requests"
-      },
-      {
-        "office": "Encino",
-        "rating": 4.6,
-        "reviews_30d": 32,
-        "low_rating_30d": 1,
-        "unreplied": 0,
-        "issue": "Watch",
-        "action": "Review service themes"
-      },
-      {
-        "office": "Hillview",
-        "rating": 4.9,
-        "reviews_30d": 16,
-        "low_rating_30d": 0,
-        "unreplied": 0,
-        "issue": "Healthy",
-        "action": "Keep asking"
-      },
-      {
-        "office": "Oxnard Riverpark",
-        "rating": 4.9,
-        "reviews_30d": 16,
-        "low_rating_30d": 0,
-        "unreplied": 0,
-        "issue": "Healthy",
-        "action": "Keep asking"
-      },
-      {
-        "office": "Santa Monica",
-        "rating": 4.6,
-        "reviews_30d": 9,
-        "low_rating_30d": 1,
-        "unreplied": 2,
-        "issue": "Watch",
-        "action": "Review service themes"
-      },
-      {
-        "office": "Sherman Oaks",
-        "rating": 4.8,
-        "reviews_30d": 7,
-        "low_rating_30d": 3,
-        "unreplied": 1,
-        "issue": "Reply now",
-        "action": "Reply to recent low reviews"
-      },
-      {
-        "office": "Thousand Oaks",
-        "rating": 4.9,
-        "reviews_30d": 45,
-        "low_rating_30d": 1,
-        "unreplied": 1,
-        "issue": "Watch",
-        "action": "Review service themes"
-      },
-      {
-        "office": "Puri Dentistry",
-        "rating": 4.9,
-        "reviews_30d": 18,
-        "low_rating_30d": 3,
-        "unreplied": 0,
-        "issue": "Watch",
-        "action": "Review service themes"
       }
     ],
     "query_rows": [],
@@ -16579,5 +16431,506 @@
       ],
       "freshness_note": "Connect Subscribili (Clove Care) via private login or export. Aggregated, public-safe counts only; no member names, emails, phones, IDs, or PHI."
     }
+  },
+  "gmb_insights": {
+    "title": "GMB Reviews",
+    "lookback": "Last 30d",
+    "data_freshness": "2026-05-09T17:00:00Z",
+    "summary_cards": [
+      {
+        "label": "Avg rating",
+        "value": "4.83",
+        "basis": "9 offices",
+        "decision": "Maintain reply discipline."
+      },
+      {
+        "label": "Reviews 7d",
+        "value": "27",
+        "basis": "GBP",
+        "decision": "Push asks where low."
+      },
+      {
+        "label": "Reviews 30d",
+        "value": "164",
+        "basis": "+73 vs prior 30d (91)",
+        "decision": "Sustain ask cadence."
+      },
+      {
+        "label": "Goal attainment",
+        "value": "60.7%",
+        "basis": "5.47/day vs 9/day",
+        "decision": "Close gap with daily asks."
+      },
+      {
+        "label": "Goal gap 30d",
+        "value": "123",
+        "basis": "Goal 270 (1/day \u00d7 9 \u00d7 30d)",
+        "decision": "Asks at low-volume offices."
+      },
+      {
+        "label": "Low-rating 30d",
+        "value": "9",
+        "basis": "GBP",
+        "decision": "Inspect themes; reply."
+      },
+      {
+        "label": "Unreplied",
+        "value": "5",
+        "basis": "GBP",
+        "decision": "Reply within 24h."
+      }
+    ],
+    "trend": {
+      "reviews_30d": 164,
+      "prior_30d_reviews": 91,
+      "reviews_30d_delta": 73,
+      "velocity_per_day": 5.47,
+      "goal_per_day": 9,
+      "goal_gap_30d": 123,
+      "goal_attainment": 60.7,
+      "review_goal_30d": 270,
+      "locations": 9
+    },
+    "top_actions": [
+      {
+        "priority": "P0",
+        "label": "Reply/follow up on 1 unreplied low reviews",
+        "action": "Reply/follow up on 1 unreplied low reviews",
+        "owner": "Office managers"
+      },
+      {
+        "priority": "P1",
+        "label": "Increase review asks at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
+        "action": "Increase review asks at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
+        "owner": "Office teams"
+      },
+      {
+        "priority": "P1",
+        "label": "Huddle on negative themes at Sherman Oaks, Puri Dentistry",
+        "action": "Huddle on negative themes at Sherman Oaks, Puri Dentistry",
+        "owner": "Ops"
+      }
+    ],
+    "office_rows": [
+      {
+        "office": "Sherman Oaks",
+        "rating": 4.8,
+        "total_reviews": 109,
+        "reviews_7d": 3,
+        "reviews_30d": 7,
+        "prior_30d_reviews": 8,
+        "velocity_per_day": 0.23,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 23,
+        "low_rating_30d": 3,
+        "unreplied": 1,
+        "positive_themes": [
+          {
+            "theme": "Friendly staff",
+            "count": 3
+          },
+          {
+            "theme": "Comfort / anxiety",
+            "count": 2
+          },
+          {
+            "theme": "Doctor quality",
+            "count": 2
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Wait / scheduling",
+            "count": 2
+          },
+          {
+            "theme": "Communication",
+            "count": 1
+          },
+          {
+            "theme": "Clinical experience",
+            "count": 1
+          }
+        ],
+        "issue": "Reply now",
+        "issue_priority": "P0",
+        "action": "Reply to low review, call patient, log recovery"
+      },
+      {
+        "office": "Puri Dentistry",
+        "rating": 4.9,
+        "total_reviews": 715,
+        "reviews_7d": 1,
+        "reviews_30d": 18,
+        "prior_30d_reviews": 5,
+        "velocity_per_day": 0.6,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 12,
+        "low_rating_30d": 3,
+        "unreplied": 0,
+        "positive_themes": [
+          {
+            "theme": "Doctor quality",
+            "count": 5
+          },
+          {
+            "theme": "Comfort / anxiety",
+            "count": 2
+          },
+          {
+            "theme": "Friendly staff",
+            "count": 1
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Clinical experience",
+            "count": 3
+          },
+          {
+            "theme": "Wait / scheduling",
+            "count": 2
+          },
+          {
+            "theme": "Insurance / billing",
+            "count": 2
+          }
+        ],
+        "issue": "Service issue",
+        "issue_priority": "P1",
+        "action": "Review themes in huddle this week"
+      },
+      {
+        "office": "Santa Monica",
+        "rating": 4.6,
+        "total_reviews": 152,
+        "reviews_7d": 3,
+        "reviews_30d": 9,
+        "prior_30d_reviews": 14,
+        "velocity_per_day": 0.3,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 21,
+        "low_rating_30d": 1,
+        "unreplied": 2,
+        "positive_themes": [
+          {
+            "theme": "Doctor quality",
+            "count": 5
+          },
+          {
+            "theme": "Friendly staff",
+            "count": 3
+          },
+          {
+            "theme": "Comfort / anxiety",
+            "count": 3
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Wait / scheduling",
+            "count": 1
+          },
+          {
+            "theme": "Insurance / billing",
+            "count": 1
+          },
+          {
+            "theme": "Communication",
+            "count": 1
+          }
+        ],
+        "issue": "Behind goal",
+        "issue_priority": "P1",
+        "action": "Ask 2 happy patients/day until caught up"
+      },
+      {
+        "office": "Encino",
+        "rating": 4.6,
+        "total_reviews": 230,
+        "reviews_7d": 4,
+        "reviews_30d": 32,
+        "prior_30d_reviews": 12,
+        "velocity_per_day": 1.07,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 0,
+        "low_rating_30d": 1,
+        "unreplied": 0,
+        "positive_themes": [
+          {
+            "theme": "Friendly staff",
+            "count": 8
+          },
+          {
+            "theme": "Comfort / anxiety",
+            "count": 7
+          },
+          {
+            "theme": "Clean office",
+            "count": 6
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Wait / scheduling",
+            "count": 1
+          },
+          {
+            "theme": "Communication",
+            "count": 1
+          },
+          {
+            "theme": "Clinical experience",
+            "count": 1
+          }
+        ],
+        "issue": "Rating drag",
+        "issue_priority": "P1",
+        "action": "Increase review requests and service recovery"
+      },
+      {
+        "office": "Thousand Oaks",
+        "rating": 4.9,
+        "total_reviews": 376,
+        "reviews_7d": 11,
+        "reviews_30d": 45,
+        "prior_30d_reviews": 5,
+        "velocity_per_day": 1.5,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 0,
+        "low_rating_30d": 1,
+        "unreplied": 1,
+        "positive_themes": [
+          {
+            "theme": "Friendly staff",
+            "count": 16
+          },
+          {
+            "theme": "Clean office",
+            "count": 14
+          },
+          {
+            "theme": "Comfort / anxiety",
+            "count": 12
+          }
+        ],
+        "negative_themes": [
+          {
+            "theme": "Wait / scheduling",
+            "count": 1
+          },
+          {
+            "theme": "Insurance / billing",
+            "count": 1
+          },
+          {
+            "theme": "Communication",
+            "count": 1
+          }
+        ],
+        "issue": "On pace",
+        "issue_priority": "P2",
+        "action": "Keep asking every happy patient"
+      },
+      {
+        "office": "Camarillo",
+        "rating": 4.7,
+        "total_reviews": 310,
+        "reviews_7d": 2,
+        "reviews_30d": 9,
+        "prior_30d_reviews": 6,
+        "velocity_per_day": 0.3,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 21,
+        "low_rating_30d": 0,
+        "unreplied": 0,
+        "positive_themes": [
+          {
+            "theme": "Friendly staff",
+            "count": 3
+          },
+          {
+            "theme": "Clear explanation",
+            "count": 2
+          },
+          {
+            "theme": "Doctor quality",
+            "count": 2
+          }
+        ],
+        "negative_themes": [],
+        "issue": "Behind goal",
+        "issue_priority": "P1",
+        "action": "Ask 2 happy patients/day until caught up"
+      },
+      {
+        "office": "Beverly Hills",
+        "rating": 4.8,
+        "total_reviews": 150,
+        "reviews_7d": 1,
+        "reviews_30d": 12,
+        "prior_30d_reviews": 18,
+        "velocity_per_day": 0.4,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 18,
+        "low_rating_30d": 0,
+        "unreplied": 1,
+        "positive_themes": [
+          {
+            "theme": "Doctor quality",
+            "count": 7
+          },
+          {
+            "theme": "Friendly staff",
+            "count": 5
+          },
+          {
+            "theme": "Comfort / anxiety",
+            "count": 3
+          }
+        ],
+        "negative_themes": [],
+        "issue": "Behind goal",
+        "issue_priority": "P1",
+        "action": "Ask 2 happy patients/day until caught up"
+      },
+      {
+        "office": "Hillview",
+        "rating": 4.9,
+        "total_reviews": 367,
+        "reviews_7d": 1,
+        "reviews_30d": 16,
+        "prior_30d_reviews": 6,
+        "velocity_per_day": 0.53,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 14,
+        "low_rating_30d": 0,
+        "unreplied": 0,
+        "positive_themes": [
+          {
+            "theme": "Doctor quality",
+            "count": 7
+          },
+          {
+            "theme": "Friendly staff",
+            "count": 4
+          },
+          {
+            "theme": "Clean office",
+            "count": 1
+          }
+        ],
+        "negative_themes": [],
+        "issue": "On pace",
+        "issue_priority": "P2",
+        "action": "Keep asking every happy patient"
+      },
+      {
+        "office": "Oxnard Riverpark",
+        "rating": 4.9,
+        "total_reviews": 359,
+        "reviews_7d": 1,
+        "reviews_30d": 16,
+        "prior_30d_reviews": 17,
+        "velocity_per_day": 0.53,
+        "goal_per_day": 1.0,
+        "goal_gap_30d": 14,
+        "low_rating_30d": 0,
+        "unreplied": 0,
+        "positive_themes": [
+          {
+            "theme": "Friendly staff",
+            "count": 7
+          },
+          {
+            "theme": "Doctor quality",
+            "count": 3
+          },
+          {
+            "theme": "Clear explanation",
+            "count": 2
+          }
+        ],
+        "negative_themes": [],
+        "issue": "On pace",
+        "issue_priority": "P2",
+        "action": "Keep asking every happy patient"
+      }
+    ],
+    "negative_queue": [
+      {
+        "office": "Sherman Oaks",
+        "date": "2026-05-07",
+        "rating": 1,
+        "snippet": "The worst dentist clinic ever. I gave them a second chance - that was a mistake. I came for the Oral Surgery specialist with appointment at 11 AM. At around 11:30 I was in the dentist seat. After the doctor came, he couldn't find my file, said something about the \"bridge\" which I never had. Spent around 15 more minute\u2026",
+        "replied": false,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Encino",
+        "date": "2026-05-02",
+        "rating": 1,
+        "snippet": "I had a very disappointing experience with the (manager Louis) at Clove Dental in Encino. My appointment was completely mishandled , I was scheduled with the wrong specialist, which showed a clear lack of organization and attention to detail. This mistake ended up wasting a significant amount of my time. What made the\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Santa Monica",
+        "date": "2026-05-02",
+        "rating": 1,
+        "snippet": "Came here last Saturday, everything was OK. I\u2019m gracious and I had time. Took a while, but maybe they care about your experience so all good. I called and asked if they saw pediatric patients. I have multiple jobs and pay for insurance and bring my 7 year old this Saturday morning\u2026 arrive at 8:07am and photos are take\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Puri Dentistry",
+        "date": "2026-04-24",
+        "rating": 1,
+        "snippet": "I'm sure these guys do a great job - oncebthey actually get in your mouth - but my experience there today was beyond frustrating. I called yesterday and asked if I could come in ASAP for an extraction. They were professional and accommodating, getting me next day (today) service. I made SURE to find out whether they t\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Sherman Oaks",
+        "date": "2026-04-22",
+        "rating": 3,
+        "snippet": "Staff was very friendly. However, exam room was somewhat unsanitary [debris on floor and on some equipment]. Patient ahead of me walked out due to excessive wait time. Staff did not attempt to accommodate her.",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Puri Dentistry",
+        "date": "2026-04-22",
+        "rating": 1,
+        "snippet": "I made an appointment to go here, and I clearly stated that I had a referral for an endodontist. I spelled out my name my phone number and gave my insurance information. I never received a confirmation so the morning of the appointment I called and they had no record of me under my actual information, but they were ab\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Puri Dentistry",
+        "date": "2026-04-16",
+        "rating": 1,
+        "snippet": "The worst dentist they didn't want to provide me services because one of them said that I had herpes....my tooth ache is really bad and I don't have the time to go sue you yet!",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Sherman Oaks",
+        "date": "2026-04-15",
+        "rating": 1,
+        "snippet": "Did not have a positive experience with this practice, struggled to get access to my own patient records, and over a year later I'm suddenly receiving new bills from them even though I have not been there in over a year.",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      },
+      {
+        "office": "Thousand Oaks",
+        "date": "2026-04-14",
+        "rating": 1,
+        "snippet": "In agreements with the yelp review they\u2019re pretty deceptive here probably no fault of their own which really sucks just poor communication and obvious lack of training when it comes to phone staff. I booked an appointment here for a consultation on a crown/root canal I was told over the phone the consultation would be\u2026",
+        "replied": true,
+        "action": "Call patient, document recovery, reply publicly if not already replied"
+      }
+    ],
+    "freshness_note": "Public dashboard uses aggregated metrics and sanitized snippets only."
   }
 }
