@@ -2431,6 +2431,16 @@
           <div class="top5-grid" id="mem-actions-grid"></div>
         </section>
 
+        <section aria-labelledby="mem-cash-pulse">
+          <div class="ps-head">
+            <h2 id="mem-cash-pulse">Cash-patient pool pulse</h2>
+            <span class="pill" id="mem-cash-asof" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="mem-cash-headline"></p>
+          <div class="pxc cols-3" id="mem-cash-grid"></div>
+          <p class="section-meta" id="mem-cash-caveat"></p>
+        </section>
+
         <section aria-labelledby="mem-offices">
           <h2 id="mem-offices">Office yield &amp; growth</h2>
           <div class="section-meta" id="mem-offices-meta"></div>
@@ -6893,18 +6903,29 @@
             if (hint) t.appendChild(el("div", { "class": "pxc-hint", text: hint }));
             return t;
           }
-          var rolling7dYieldDisplay = (yieldTotal.rolling_7d_yield != null) ? (yieldTotal.rolling_7d_yield + "%") : (yieldTotal.status || "Pending OD daily pull");
+          var cash7 = yieldTotal.rolling_7d_cash_patients;
+          var prior7 = yieldTotal.prior_7d_cash_patients;
+          var delta7 = yieldTotal.cash_patient_7d_delta;
+          var share7 = yieldTotal.cash_share_7d;
+          var latestDayCash = yieldTotal.latest_day_cash_patients;
+          var latestDay = yieldTotal.latest_completed_day || (m.cash_patient_yield && m.cash_patient_yield.latest_completed_day) || "";
+          var cashCardValue = (cash7 != null) ? String(cash7) : "—";
+          var cashCardSub = (cash7 != null && prior7 != null)
+            ? ("Prior 7d " + prior7 + " · Δ " + (delta7 >= 0 ? "+" : "") + delta7 + (share7 != null ? " · " + share7 + "% of all visits" : ""))
+            : "7d cash patients = unique completed-appt patients with no insurance";
+          var latestCardValue = (latestDayCash != null) ? String(latestDayCash) : "—";
+          var latestCardSub = latestDay ? ("Latest completed day · " + latestDay) : "Most recent completed day";
+          var rolling7dYieldDisplay = (yieldTotal.rolling_7d_yield != null)
+            ? (yieldTotal.rolling_7d_yield + "%")
+            : (yieldTotal.status || "Pending Subscribili 7d new-member pull");
           var rolling7dSub = (yieldTotal.rolling_7d_new_members != null && yieldTotal.rolling_7d_cash_patients != null)
             ? (yieldTotal.rolling_7d_new_members + " new members ÷ " + yieldTotal.rolling_7d_cash_patients + " cash patients (last 7d)")
-            : "7d yield = new members last 7d ÷ cash patients last 7d";
-          var todayYieldDisplay = (yieldTotal.today_yield != null) ? (yieldTotal.today_yield + "%") : "—";
-          var todaySub = (yieldTotal.today_new_members != null && yieldTotal.today_cash_patients != null)
-            ? (yieldTotal.today_new_members + " new members ÷ " + yieldTotal.today_cash_patients + " cash patients (today)")
-            : "Today yield = same-day members ÷ same-day cash patients";
+            : ((cash7 != null) ? ("Denominator live: " + cash7 + " cash patients · numerator pending") : "7d yield = new members last 7d ÷ cash patients last 7d");
           grid.appendChild(tile("Active members", snap.active_members != null ? String(snap.active_members) : "—", "Currently active billing status", null, "is-good"));
           grid.appendChild(tile("Total subscribers", snap.total_subscribers != null ? String(snap.total_subscribers) : "—", "From Subscribili", "Aggregate only — no member names", "is-accent"));
+          grid.appendChild(tile("Cash patients · 7d", cashCardValue, cashCardSub, "Source: OD completed appts, no insurance", (delta7 != null && delta7 > 0) ? "is-good" : (delta7 != null && delta7 < 0 ? "is-warn" : "is-accent")));
+          grid.appendChild(tile("Latest day cash patients", latestCardValue, latestCardSub, "Today is Sunday/PT — 0 expected", "is-accent"));
           grid.appendChild(tile("7d cash-patient yield", rolling7dYieldDisplay, rolling7dSub, "Daily refresh from OD + Subscribili", "is-warn"));
-          grid.appendChild(tile("Today cash-patient yield", todayYieldDisplay, todaySub, null, "is-warn"));
           grid.appendChild(tile("New signups (period)", snap.new_signups_period != null ? String(snap.new_signups_period) : "—", snap.new_signups_basis || "Period signups across offices", null, "is-accent"));
           grid.appendChild(tile("Overdue", snap.overdue != null ? String(snap.overdue) : "—", "Past-due payments", "Follow up via Subscribili", (snap.overdue || 0) > 0 ? "is-warn" : "is-good"));
         }
@@ -6935,8 +6956,39 @@
           }
         }
 
+        var pulse = m.cash_patient_pulse || null;
+        var pulseHead = $("mem-cash-headline");
+        var pulseAsOf = $("mem-cash-asof");
+        var pulseGrid = $("mem-cash-grid");
+        var pulseCaveat = $("mem-cash-caveat");
+        if (pulseHead) pulseHead.textContent = (pulse && pulse.headline) || "";
+        if (pulseAsOf) pulseAsOf.textContent = (pulse && (pulse.latest_completed_day || pulse.as_of_date_pt)) ? ("Latest day · " + (pulse.latest_completed_day || pulse.as_of_date_pt)) : "";
+        if (pulseGrid) {
+          pulseGrid.innerHTML = "";
+          if (pulse) {
+            function pulseTile(label, value, sub, cls) {
+              var t = el("div", { "class": "pxc-tile " + (cls || "is-accent") });
+              t.appendChild(el("div", { "class": "pxc-label", text: label }));
+              t.appendChild(el("div", { "class": "pxc-value", text: value }));
+              if (sub) t.appendChild(el("div", { "class": "pxc-sub", text: sub }));
+              return t;
+            }
+            var deltaStr = (pulse.delta != null) ? ((pulse.delta >= 0 ? "+" : "") + pulse.delta + " WoW") : "—";
+            pulseGrid.appendChild(pulseTile("Pool · 7d", (pulse.rolling_7d_cash_patients != null ? String(pulse.rolling_7d_cash_patients) : "—"), "Prior 7d " + (pulse.prior_7d_cash_patients != null ? pulse.prior_7d_cash_patients : "—") + " · " + deltaStr, (pulse.delta != null && pulse.delta > 0) ? "is-good" : (pulse.delta != null && pulse.delta < 0 ? "is-warn" : "is-accent")));
+            var growthSub = (pulse.growth || []).map(function (g) { return g.office + " " + (g.delta >= 0 ? "+" : "") + g.delta; }).join(" · ");
+            pulseGrid.appendChild(pulseTile("Biggest growth", (pulse.growth && pulse.growth.length ? pulse.growth[0].office : "—"), growthSub || "—", "is-good"));
+            var softSub = (pulse.softness || []).map(function (g) { return g.office + " " + (g.delta >= 0 ? "+" : "") + g.delta; }).join(" · ");
+            pulseGrid.appendChild(pulseTile("Softness watch", (pulse.softness && pulse.softness.length ? pulse.softness[0].office : "—"), softSub || "—", "is-warn"));
+          }
+        }
+        if (pulseCaveat) pulseCaveat.textContent = (pulse && pulse.caveat) || "";
+
         var ometa = $("mem-offices-meta");
-        if (ometa) ometa.textContent = "7d yield = new members last 7d ÷ cash patients last 7d. Today yield = same-day members ÷ same-day cash patients.";
+        if (ometa) {
+          var winSuffix = "";
+          if (yieldData && yieldData.rolling_7d_window) winSuffix = " · Window " + yieldData.rolling_7d_window;
+          ometa.textContent = "Cash patients 7d live from OD; new members 7d + 7d yield pending Subscribili 7d export." + winSuffix;
+        }
 
         var rows = m.office_rows || [];
         var off = $("mem-offices-card");
@@ -6946,15 +6998,17 @@
           var table = el("table", { "class": "data-table" });
           var thead = el("thead");
           var hrow = el("tr");
-          ["Office", "Cash patients 7d", "New members 7d", "Yield 7d %", "Today cash patients", "Today new members", "Period signups", "Action"].forEach(function (h) {
+          var latestLabelDay = (yieldData && yieldData.latest_completed_day) || "";
+          var latestColHeader = latestLabelDay ? ("Latest day cash · " + latestLabelDay) : "Latest day cash";
+          ["Office", "Cash 7d", "Prior 7d", "Δ", "Cash share 7d", latestColHeader, "New members 7d", "Yield 7d %", "Period signups", "Action"].forEach(function (h) {
             hrow.appendChild(el("th", { text: h }));
           });
           thead.appendChild(hrow);
           table.appendChild(thead);
           var tbody = el("tbody");
           rows.slice().sort(function (a, b) {
-            var ay = (yieldByOffice[a.office] || {}).rolling_7d_yield;
-            var by = (yieldByOffice[b.office] || {}).rolling_7d_yield;
+            var ay = (yieldByOffice[a.office] || {}).rolling_7d_cash_patients;
+            var by = (yieldByOffice[b.office] || {}).rolling_7d_cash_patients;
             if (ay != null && by != null && ay !== by) return by - ay;
             return (b.period_total || 0) - (a.period_total || 0);
           }).forEach(function (o) {
@@ -6962,10 +7016,13 @@
             var tr = el("tr");
             tr.appendChild(el("td", { text: o.office || "—" }));
             tr.appendChild(el("td", { text: y.rolling_7d_cash_patients != null ? String(y.rolling_7d_cash_patients) : "—" }));
-            tr.appendChild(el("td", { text: y.rolling_7d_new_members != null ? String(y.rolling_7d_new_members) : "—" }));
-            tr.appendChild(el("td", { text: y.rolling_7d_yield != null ? (y.rolling_7d_yield + "%") : "—" }));
-            tr.appendChild(el("td", { text: y.today_cash_patients != null ? String(y.today_cash_patients) : "—" }));
-            tr.appendChild(el("td", { text: y.today_new_members != null ? String(y.today_new_members) : "—" }));
+            tr.appendChild(el("td", { text: y.prior_7d_cash_patients != null ? String(y.prior_7d_cash_patients) : "—" }));
+            var d = y.cash_patient_7d_delta;
+            tr.appendChild(el("td", { text: (d != null) ? ((d >= 0 ? "+" : "") + d) : "—" }));
+            tr.appendChild(el("td", { text: y.cash_share_7d != null ? (y.cash_share_7d + "%") : "—" }));
+            tr.appendChild(el("td", { text: y.latest_day_cash_patients != null ? String(y.latest_day_cash_patients) : "—" }));
+            tr.appendChild(el("td", { text: y.rolling_7d_new_members != null ? String(y.rolling_7d_new_members) : "Pending" }));
+            tr.appendChild(el("td", { text: y.rolling_7d_yield != null ? (y.rolling_7d_yield + "%") : "Pending" }));
             tr.appendChild(el("td", { text: o.period_total != null ? String(o.period_total) : "0" }));
             tr.appendChild(el("td", { text: o.action || "—" }));
             tbody.appendChild(tr);
@@ -6975,7 +7032,7 @@
           off.appendChild(wrap);
           if (!rows.length) off.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
           var legend = el("div", { "class": "section-meta", "style": "margin-top:.5rem;" });
-          legend.textContent = "Rolling 7d + today cash-patient yield — pending daily OD/Subscribili pull. Period signups remain from latest Subscribili export.";
+          legend.textContent = "Cash 7d, Prior 7d, Δ, share, and latest-day cash are live from OpenDental aggregates. New members 7d + Yield 7d remain pending the Subscribili 7d export.";
           off.appendChild(legend);
         }
 
