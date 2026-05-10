@@ -17253,18 +17253,6 @@
       "cash_patient_yield_value": "Pending Subscribili 7d new-member pull",
       "cash_patient_yield_basis": "Denominator live: 76 cash patients last 7d (vs 59 prior). Numerator awaits Subscribili 7d new-member export."
     },
-    "plans": [
-      {
-        "plan": "Clove Care",
-        "members": 286,
-        "note": "Primary plan"
-      },
-      {
-        "plan": "Clove Care 3",
-        "members": 17,
-        "note": "3-pay variant"
-      }
-    ],
     "top_actions": [
       {
         "priority": "P0",

@@ -2407,17 +2407,11 @@
 
         <section aria-labelledby="mem-snap">
           <div class="ps-head">
-            <h2 id="mem-snap">Subscribili / Clove Care snapshot</h2>
+            <h2 id="mem-snap">Membership snapshot</h2>
             <span class="pill" id="mem-period" aria-live="polite"></span>
           </div>
           <p class="section-meta" id="mem-headline"></p>
           <div class="pxc cols-3" id="mem-snap-grid"></div>
-        </section>
-
-        <section aria-labelledby="mem-plans">
-          <h2 id="mem-plans">Plan mix</h2>
-          <div class="section-meta">Members by plan across all offices.</div>
-          <div class="pxc cols-2" id="mem-plans-grid"></div>
         </section>
 
         <section aria-labelledby="mem-actions"
@@ -6928,21 +6922,6 @@
           grid.appendChild(tile("7d cash-patient yield", rolling7dYieldDisplay, rolling7dSub, "Daily refresh from OD + Subscribili", "is-warn"));
           grid.appendChild(tile("New signups (period)", snap.new_signups_period != null ? String(snap.new_signups_period) : "—", snap.new_signups_basis || "Period signups across offices", null, "is-accent"));
           grid.appendChild(tile("Overdue", snap.overdue != null ? String(snap.overdue) : "—", "Past-due payments", "Follow up via Subscribili", (snap.overdue || 0) > 0 ? "is-warn" : "is-good"));
-        }
-
-        var plansG = $("mem-plans-grid");
-        if (plansG) {
-          plansG.innerHTML = "";
-          (m.plans || []).forEach(function (p) {
-            var t = el("div", { "class": "pxc-tile is-accent" });
-            t.appendChild(el("div", { "class": "pxc-label", text: p.plan || "Plan" }));
-            t.appendChild(el("div", { "class": "pxc-value", text: (p.members != null ? String(p.members) : "—") + " members" }));
-            if (p.note) t.appendChild(el("div", { "class": "pxc-sub", text: p.note }));
-            plansG.appendChild(t);
-          });
-          if (!(m.plans || []).length) {
-            plansG.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
-          }
         }
 
         var actG = $("mem-actions-grid");
