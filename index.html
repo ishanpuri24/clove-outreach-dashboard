@@ -6893,13 +6893,20 @@
             if (hint) t.appendChild(el("div", { "class": "pxc-hint", text: hint }));
             return t;
           }
-          var totalYieldDisplay = (yieldTotal.yield_pct != null) ? (yieldTotal.yield_pct + "%") : (yieldTotal.status || "Pending OD daily pull");
+          var rolling7dYieldDisplay = (yieldTotal.rolling_7d_yield != null) ? (yieldTotal.rolling_7d_yield + "%") : (yieldTotal.status || "Pending OD daily pull");
+          var rolling7dSub = (yieldTotal.rolling_7d_new_members != null && yieldTotal.rolling_7d_cash_patients != null)
+            ? (yieldTotal.rolling_7d_new_members + " new members ÷ " + yieldTotal.rolling_7d_cash_patients + " cash patients (last 7d)")
+            : "7d yield = new members last 7d ÷ cash patients last 7d";
+          var todayYieldDisplay = (yieldTotal.today_yield != null) ? (yieldTotal.today_yield + "%") : "—";
+          var todaySub = (yieldTotal.today_new_members != null && yieldTotal.today_cash_patients != null)
+            ? (yieldTotal.today_new_members + " new members ÷ " + yieldTotal.today_cash_patients + " cash patients (today)")
+            : "Today yield = same-day members ÷ same-day cash patients";
           grid.appendChild(tile("Active members", snap.active_members != null ? String(snap.active_members) : "—", "Currently active billing status", null, "is-good"));
           grid.appendChild(tile("Total subscribers", snap.total_subscribers != null ? String(snap.total_subscribers) : "—", "From Subscribili", "Aggregate only — no member names", "is-accent"));
+          grid.appendChild(tile("7d cash-patient yield", rolling7dYieldDisplay, rolling7dSub, "Daily refresh from OD + Subscribili", "is-warn"));
+          grid.appendChild(tile("Today cash-patient yield", todayYieldDisplay, todaySub, null, "is-warn"));
           grid.appendChild(tile("New signups (period)", snap.new_signups_period != null ? String(snap.new_signups_period) : "—", snap.new_signups_basis || "Period signups across offices", null, "is-accent"));
-          grid.appendChild(tile("Growth rate", snap.growth_rate_value || "Pending", snap.growth_rate_basis || "Active members vs prior period", null, "is-warn"));
           grid.appendChild(tile("Overdue", snap.overdue != null ? String(snap.overdue) : "—", "Past-due payments", "Follow up via Subscribili", (snap.overdue || 0) > 0 ? "is-warn" : "is-good"));
-          grid.appendChild(tile("Cash-patient yield", totalYieldDisplay, snap.cash_patient_yield_basis || "Same-day new members ÷ same-day cash patients", null, "is-warn"));
         }
 
         var plansG = $("mem-plans-grid");
@@ -6929,7 +6936,7 @@
         }
 
         var ometa = $("mem-offices-meta");
-        if (ometa) ometa.textContent = "Yield = same-day new members ÷ same-day cash patients. Period signups from Subscribili until daily OD pull is live.";
+        if (ometa) ometa.textContent = "7d yield = new members last 7d ÷ cash patients last 7d. Today yield = same-day members ÷ same-day cash patients.";
 
         var rows = m.office_rows || [];
         var off = $("mem-offices-card");
@@ -6939,21 +6946,27 @@
           var table = el("table", { "class": "data-table" });
           var thead = el("thead");
           var hrow = el("tr");
-          ["Office", "Cash patients today", "New members today", "Period signups", "Yield %", "Growth", "Action"].forEach(function (h) {
+          ["Office", "Cash patients 7d", "New members 7d", "Yield 7d %", "Today cash patients", "Today new members", "Period signups", "Action"].forEach(function (h) {
             hrow.appendChild(el("th", { text: h }));
           });
           thead.appendChild(hrow);
           table.appendChild(thead);
           var tbody = el("tbody");
-          rows.slice().sort(function (a, b) { return (b.period_total || 0) - (a.period_total || 0); }).forEach(function (o) {
+          rows.slice().sort(function (a, b) {
+            var ay = (yieldByOffice[a.office] || {}).rolling_7d_yield;
+            var by = (yieldByOffice[b.office] || {}).rolling_7d_yield;
+            if (ay != null && by != null && ay !== by) return by - ay;
+            return (b.period_total || 0) - (a.period_total || 0);
+          }).forEach(function (o) {
             var y = yieldByOffice[o.office] || {};
             var tr = el("tr");
             tr.appendChild(el("td", { text: o.office || "—" }));
-            tr.appendChild(el("td", { text: y.cash_patients_today != null ? String(y.cash_patients_today) : "—" }));
-            tr.appendChild(el("td", { text: y.new_members_today != null ? String(y.new_members_today) : "—" }));
+            tr.appendChild(el("td", { text: y.rolling_7d_cash_patients != null ? String(y.rolling_7d_cash_patients) : "—" }));
+            tr.appendChild(el("td", { text: y.rolling_7d_new_members != null ? String(y.rolling_7d_new_members) : "—" }));
+            tr.appendChild(el("td", { text: y.rolling_7d_yield != null ? (y.rolling_7d_yield + "%") : "—" }));
+            tr.appendChild(el("td", { text: y.today_cash_patients != null ? String(y.today_cash_patients) : "—" }));
+            tr.appendChild(el("td", { text: y.today_new_members != null ? String(y.today_new_members) : "—" }));
             tr.appendChild(el("td", { text: o.period_total != null ? String(o.period_total) : "0" }));
-            tr.appendChild(el("td", { text: y.yield_pct != null ? (y.yield_pct + "%") : "—" }));
-            tr.appendChild(el("td", { text: o.growth_label || "—" }));
             tr.appendChild(el("td", { text: o.action || "—" }));
             tbody.appendChild(tr);
           });
@@ -6962,7 +6975,7 @@
           off.appendChild(wrap);
           if (!rows.length) off.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
           var legend = el("div", { "class": "section-meta", "style": "margin-top:.5rem;" });
-          legend.textContent = "Cash patients today / yield — Pending OD daily pull. Period signups labeled until same-day pull is live.";
+          legend.textContent = "Rolling 7d + today cash-patient yield — pending daily OD/Subscribili pull. Period signups remain from latest Subscribili export.";
           off.appendChild(legend);
         }
 

@@ -17185,7 +17185,7 @@
       "growth_rate_value": "Pending prior-period baseline",
       "growth_rate_basis": "Growth = active members vs prior period (or new members vs prior period). Awaiting prior-period export.",
       "cash_patient_yield_value": "Pending OD daily pull",
-      "cash_patient_yield_basis": "Yield = same-day new members \u00f7 same-day cash patients."
+      "cash_patient_yield_basis": "7d yield = new members last 7d \u00f7 cash patients last 7d. Today yield = same-day members \u00f7 same-day cash patients."
     },
     "plans": [
       {
@@ -17319,23 +17319,27 @@
       }
     ],
     "cash_patient_yield": {
-      "definition": "Yield = same-day new members \u00f7 same-day cash patients.",
+      "definition_7d": "7d yield = new members last 7d \u00f7 cash patients last 7d.",
+      "definition_today": "Today yield = same-day members \u00f7 same-day cash patients.",
       "total": {
-        "cash_patients_today": null,
-        "new_members_today": null,
-        "yield_pct": null,
+        "rolling_7d_cash_patients": null,
+        "rolling_7d_new_members": null,
+        "rolling_7d_yield": null,
+        "today_cash_patients": null,
+        "today_new_members": null,
+        "today_yield": null,
         "status": "Pending OD daily pull"
       },
       "offices": [
-        { "office": "Beverly Hills", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Camarillo", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Encino", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Oxnard", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Riverpark", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Santa Monica", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Sherman Oaks", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Thousand Oaks", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
-        { "office": "Ventura", "cash_patients_today": null, "new_members_today": null, "yield_pct": null }
+        { "office": "Beverly Hills", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Camarillo", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Encino", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Oxnard", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Riverpark", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Santa Monica", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Sherman Oaks", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Thousand Oaks", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null },
+        { "office": "Ventura", "rolling_7d_cash_patients": null, "rolling_7d_new_members": null, "rolling_7d_yield": null, "today_cash_patients": null, "today_new_members": null, "today_yield": null }
       ]
     },
     "freshness_note": "Subscribili manual snapshot \u00b7 2026-05-10. Aggregate-only, no member names or payment details."
