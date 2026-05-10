@@ -17168,5 +17168,161 @@
         "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       }
     ]
+  },
+  "membership_insights": {
+    "title": "Membership \u00b7 Subscribili / Clove Care",
+    "period_label": "Selected Subscribili period (not lifetime)",
+    "data_freshness": "Manual browser export on 2026-05-10",
+    "headline": "303 total subscribers \u00b7 302 active \u00b7 1 overdue \u00b7 Thousand Oaks (19) leads the period \u00b7 Camarillo (0) needs an enrollment push.",
+    "snapshot": {
+      "total_subscribers": 303,
+      "active_members": 302,
+      "cancelled": 4,
+      "expired": 0,
+      "overdue": 1
+    },
+    "plans": [
+      {
+        "plan": "Clove Care",
+        "members": 286,
+        "note": "Primary plan"
+      },
+      {
+        "plan": "Clove Care 3",
+        "members": 17,
+        "note": "3-pay variant"
+      }
+    ],
+    "top_actions": [
+      {
+        "priority": "P0",
+        "label": "Camarillo: 0 enrollments \u2014 start enrollment push",
+        "action": "Office manager + lead dentist huddle. Add membership pitch to every uninsured TP. Target 3 by period end."
+      },
+      {
+        "priority": "P0",
+        "label": "Follow up on 1 overdue member",
+        "action": "Aggregate billing follow-up via Subscribili dashboard (no PHI in this view)."
+      },
+      {
+        "priority": "P1",
+        "label": "Sherman Oaks: only 4 \u2014 moderate",
+        "action": "Add 1 ask per chair/day; tie to treatment-plan close script."
+      },
+      {
+        "priority": "P1",
+        "label": "Thousand Oaks leading at 19 \u2014 document the play",
+        "action": "Capture the script and route to Camarillo + Sherman Oaks."
+      },
+      {
+        "priority": "P2",
+        "label": "Santa Monica + Riverpark strong (10 each)",
+        "action": "Protect cadence; do not over-rotate to other priorities."
+      }
+    ],
+    "office_rows": [
+      {
+        "office": "Beverly Hills",
+        "new_subscribers": 5,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 5,
+        "status_label": "On pace",
+        "status_severity": "good",
+        "action": "Maintain ask cadence."
+      },
+      {
+        "office": "Camarillo",
+        "new_subscribers": 0,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 0,
+        "status_label": "Needs enrollment push",
+        "status_severity": "danger",
+        "action": "Roll out membership pitch script; aim for 3 enrollments this period."
+      },
+      {
+        "office": "Encino",
+        "new_subscribers": 5,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 5,
+        "status_label": "On pace",
+        "status_severity": "good",
+        "action": "Maintain ask cadence."
+      },
+      {
+        "office": "Oxnard",
+        "new_subscribers": 6,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 6,
+        "status_label": "On pace",
+        "status_severity": "good",
+        "action": "Maintain ask cadence."
+      },
+      {
+        "office": "Riverpark",
+        "new_subscribers": 10,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 10,
+        "status_label": "Strong",
+        "status_severity": "good",
+        "action": "Maintain cadence; protect momentum."
+      },
+      {
+        "office": "Santa Monica",
+        "new_subscribers": 10,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 10,
+        "status_label": "Strong",
+        "status_severity": "good",
+        "action": "Maintain cadence; protect momentum."
+      },
+      {
+        "office": "Sherman Oaks",
+        "new_subscribers": 3,
+        "reactivated": 0,
+        "renewed": 1,
+        "period_total": 4,
+        "status_label": "Moderate",
+        "status_severity": "warn",
+        "action": "Lift to 6+ enrollments by adding 1 ask per chair/day."
+      },
+      {
+        "office": "Thousand Oaks",
+        "new_subscribers": 19,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 19,
+        "status_label": "Leading",
+        "status_severity": "good",
+        "action": "Document the play and share with sister offices."
+      },
+      {
+        "office": "Ventura",
+        "new_subscribers": 6,
+        "reactivated": 0,
+        "renewed": 0,
+        "period_total": 6,
+        "status_label": "On pace",
+        "status_severity": "good",
+        "action": "Maintain ask cadence."
+      }
+    ],
+    "opendental": {
+      "status_label": "Read-only \u00b7 9 clinics",
+      "status_detail": "Aggregate-only \u00b7 no PHI in this view",
+      "status_severity": "good",
+      "cash_patients_value": "Pending definition",
+      "cash_patients_basis": "Needs cash-patient rule (no active insurance plan in window).",
+      "conversion_value": "Pending",
+      "conversion_basis": "Members \u00f7 cash patients by office, once definition is set.",
+      "gap_value": "Pending",
+      "gap_basis": "Set after target conversion rate is approved."
+    },
+    "freshness_note": "Subscribili manual snapshot \u00b7 2026-05-10. Aggregate-only, no member names or payment details."
   }
 }

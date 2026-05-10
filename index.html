@@ -1787,9 +1787,9 @@
                 aria-controls="panel-outreach" aria-selected="false">
           B2B Outreach
         </button>
-        <button class="tab" role="tab" id="tab-referrals"
-                aria-controls="panel-referrals" aria-selected="false">
-          Referrals
+        <button class="tab" role="tab" id="tab-membership"
+                aria-controls="panel-membership" aria-selected="false">
+          Membership
         </button>
       </div>
 
@@ -1832,6 +1832,38 @@
             Strongest positive themes patients are talking about right now, by office.
           </div>
           <div class="signal-cards" id="rev-signal-cards"></div>
+        </section>
+
+        <section aria-labelledby="rev-px-themes">
+          <h2 id="rev-px-themes">Patient experience themes</h2>
+          <div class="section-meta">
+            What patients are actually saying — themes lifted from review snippets, scored across all 9 offices.
+          </div>
+          <div class="pxc cols-2" id="rev-px-theme-grid"></div>
+        </section>
+
+        <section aria-labelledby="rev-repeat-fix">
+          <h2 id="rev-repeat-fix">What to repeat · what to fix</h2>
+          <div class="section-meta">
+            Repeat the praise patterns that drive 5-star reviews. Fix the friction patterns that drag rating and unlock service-recovery calls.
+          </div>
+          <div class="pattern-grid" id="rev-repeat-fix-grid"></div>
+        </section>
+
+        <section aria-labelledby="rev-coach">
+          <h2 id="rev-coach">Office coaching cues</h2>
+          <div class="section-meta">
+            One coaching cue per office, generated from its top positive and negative themes. Use these in this week's huddle.
+          </div>
+          <div class="signal-cards" id="rev-coach-cards"></div>
+        </section>
+
+        <section aria-labelledby="rev-recovery-risk">
+          <h2 id="rev-recovery-risk">Recovery risk index</h2>
+          <div class="section-meta">
+            Offices ranked by combined service-recovery load: low-rating count, unreplied count, and goal-gap drag.
+          </div>
+          <div class="pxc cols-3" id="rev-recovery-risk-grid"></div>
         </section>
 
         <section aria-labelledby="rev-queue">
@@ -2368,31 +2400,56 @@
         <p class="tab-meta" id="organic-fresh"></p>
       </div>
 
-      <!-- =================== Referrals tab =================== -->
-      <div id="panel-referrals" class="tab-panel" role="tabpanel"
-           aria-labelledby="tab-referrals" tabindex="0" hidden>
-        <p class="tab-meta" id="referrals-meta"></p>
+      <!-- =================== Membership tab =================== -->
+      <div id="panel-membership" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-membership" tabindex="0" hidden>
+        <p class="tab-meta" id="membership-meta"></p>
 
-        <section aria-labelledby="ref-conn">
-          <h2 id="ref-conn">Connectors</h2>
-          <div class="paid-summary-grid" id="ref-conn-grid"></div>
+        <section aria-labelledby="mem-snap">
+          <div class="ps-head">
+            <h2 id="mem-snap">Subscribili / Clove Care snapshot</h2>
+            <span class="pill" id="mem-period" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="mem-headline"></p>
+          <div class="pxc cols-4" id="mem-snap-grid"></div>
         </section>
 
-        <section aria-labelledby="ref-od">
-          <h2 id="ref-od">Open Dental referrals</h2>
-          <div class="card" id="ref-od-card"></div>
+        <section aria-labelledby="mem-plans">
+          <h2 id="mem-plans">Plan mix</h2>
+          <div class="section-meta">Members by plan across all offices.</div>
+          <div class="pxc cols-2" id="mem-plans-grid"></div>
         </section>
 
-        <section aria-labelledby="ref-c100">
-          <h2 id="ref-c100">Clove Care (Subscribili)</h2>
-          <p class="tab-meta" id="ref-c100-meta"></p>
-          <div class="paid-summary-grid" id="ref-c100-conn-grid"></div>
-          <div class="paid-summary-grid" id="ref-c100-summary-grid"></div>
-          <div class="card" id="ref-c100-offices-card"></div>
-          <div class="card" id="ref-c100-improve-card"></div>
+        <section aria-labelledby="mem-actions"
+                 class="priority-strip" id="mem-actions-section">
+          <div class="ps-head">
+            <h2 id="mem-actions">Do these today</h2>
+            <span class="pill priority is-high" aria-hidden="true">
+              Membership · top actions
+            </span>
+          </div>
+          <div class="top5-grid" id="mem-actions-grid"></div>
         </section>
 
-        <p class="tab-meta" id="referrals-fresh"></p>
+        <section aria-labelledby="mem-offices">
+          <h2 id="mem-offices">Office activity</h2>
+          <div class="section-meta" id="mem-offices-meta"></div>
+          <div class="signal-cards" id="mem-office-cards"></div>
+        </section>
+
+        <section aria-labelledby="mem-rank">
+          <h2 id="mem-rank">Quick ranking table</h2>
+          <div class="section-meta">Compact view of period activity by office.</div>
+          <div class="card" id="mem-offices-card"></div>
+        </section>
+
+        <section aria-labelledby="mem-od">
+          <h2 id="mem-od">Open Dental → membership conversion</h2>
+          <div class="section-meta">Aggregate cash-patient conversion. No PHI. Connector wired read-only; metric pending cash-patient definition.</div>
+          <div class="pxc cols-4" id="mem-od-grid"></div>
+        </section>
+
+        <p class="tab-meta" id="membership-fresh"></p>
       </div>
     </main>
 
@@ -5970,11 +6027,11 @@
         renderLists(s);
         renderOrganic(s.organic_insights);
         renderReviews(s.gmb_insights);
-        renderReferrals(s.referral_insights);
+        renderMembership(s.membership_insights || s.referral_insights);
         $("generated").textContent = s.generated_at || "";
       }
 
-      // -------- Organic + Referrals (metrics-only, placeholder-safe) --------
+      // -------- Organic + Membership (metrics-only, placeholder-safe) --------
       function _sevPill(severity) {
         var s = String(severity || "").toLowerCase();
         var cls = "pill";
@@ -6664,6 +6721,118 @@
           }
         }
 
+        // Patient experience themes (aggregated NLP-style themes)
+        var pxThemes = $("rev-px-theme-grid");
+        if (pxThemes) {
+          pxThemes.innerHTML = "";
+          var aggPos = {}, aggNeg = {};
+          rows.forEach(function (r) {
+            (r.positive_themes || []).forEach(function (t) {
+              if (!aggPos[t.theme]) aggPos[t.theme] = { count: 0, offices: [] };
+              aggPos[t.theme].count += (t.count || 0);
+              if (aggPos[t.theme].offices.indexOf(r.office) === -1) aggPos[t.theme].offices.push(r.office);
+            });
+            (r.negative_themes || []).forEach(function (t) {
+              if (!aggNeg[t.theme]) aggNeg[t.theme] = { count: 0, offices: [] };
+              aggNeg[t.theme].count += (t.count || 0);
+              if (aggNeg[t.theme].offices.indexOf(r.office) === -1) aggNeg[t.theme].offices.push(r.office);
+            });
+          });
+          function themeBox(label, themes, cls) {
+            var box = el("div", { "class": "pxc-tile " + cls });
+            box.appendChild(el("div", { "class": "pxc-label", text: label }));
+            var sorted = Object.keys(themes).map(function (k) { return { theme: k, count: themes[k].count, offices: themes[k].offices }; })
+              .sort(function (a, b) { return b.count - a.count; }).slice(0, 5);
+            if (!sorted.length) {
+              box.appendChild(el("div", { "class": "pxc-sub", text: "No themes detected." }));
+              return box;
+            }
+            sorted.forEach(function (t) {
+              var line = el("div", { "class": "pxc-sub", "style": "margin-top:.35rem;line-height:1.35;font-size:.95rem;" });
+              line.appendChild(el("strong", { text: t.theme }));
+              line.appendChild(document.createTextNode(" · " + t.count + " mention" + (t.count === 1 ? "" : "s") + " · " + t.offices.length + " office" + (t.offices.length === 1 ? "" : "s")));
+              box.appendChild(line);
+            });
+            return box;
+          }
+          pxThemes.appendChild(themeBox("What patients praise (top themes)", aggPos, "is-good"));
+          pxThemes.appendChild(themeBox("What patients flag (top themes)", aggNeg, "is-danger"));
+        }
+
+        // What to repeat · what to fix
+        var rfix = $("rev-repeat-fix-grid");
+        if (rfix) {
+          rfix.innerHTML = "";
+          var p2 = _crossOfficePatterns(rows);
+          function rfCard(theme, kind) {
+            var c = el("div", { "class": "pattern-card " + (kind === "strength" ? "is-strength" : "is-risk"), "style": "font-size:1rem;line-height:1.45;" });
+            c.appendChild(el("div", { "class": "pc-label", text: kind === "strength" ? "Repeat" : "Fix" }));
+            c.appendChild(el("div", { "class": "pc-title", "style": "font-size:1.15rem;", text: theme.theme }));
+            var verb = kind === "strength" ? "Patients praise this — build the script around it." : "Patients complain — coach this in huddle, then audit next week.";
+            c.appendChild(el("div", { "class": "pc-detail", text: verb }));
+            c.appendChild(el("div", { "class": "pc-offices", text: theme.count + " mention" + (theme.count === 1 ? "" : "s") + " · offices: " + theme.offices.join(", ") }));
+            return c;
+          }
+          (p2.strengths || []).slice(0, 4).forEach(function (t) { rfix.appendChild(rfCard(t, "strength")); });
+          (p2.risks || []).slice(0, 4).forEach(function (t) { rfix.appendChild(rfCard(t, "risk")); });
+          if (!p2.strengths.length && !p2.risks.length) {
+            rfix.appendChild(el("div", { "class": "desc", text: "No repeat/fix patterns yet." }));
+          }
+        }
+
+        // Office coaching cues
+        var coach = $("rev-coach-cards");
+        if (coach) {
+          coach.innerHTML = "";
+          rows.slice().sort(function (a, b) {
+            return ((b.negative_themes || []).reduce(function (s, t) { return s + (t.count || 0); }, 0) - (a.negative_themes || []).reduce(function (s, t) { return s + (t.count || 0); }, 0));
+          }).forEach(function (o) {
+            var card = el("div", { "class": "signal-card", "style": "font-size:1rem;" });
+            card.appendChild(el("div", { "class": "sc-office", text: o.office || "—" }));
+            var topPos = (o.positive_themes || [])[0];
+            var topNeg = (o.negative_themes || [])[0];
+            var head = topPos ? ("Lean into: " + topPos.theme) : "Lean into: keep the ask cadence";
+            card.appendChild(el("div", { "class": "sc-headline", "style": "font-size:1.05rem;", text: head }));
+            var cue;
+            if (topNeg) {
+              cue = "Coach against: " + topNeg.theme + ". Use this week's huddle to script the recovery line and audit Friday.";
+            } else if ((o.goal_gap_30d || 0) > 0) {
+              cue = "No negative theme this period — focus all energy on asking 2 happy patients/day until gap closes.";
+            } else {
+              cue = "Healthy theme mix — protect the cadence, share the script with sister offices.";
+            }
+            card.appendChild(el("div", { "class": "pxc-hint", "style": "font-size:.95rem;line-height:1.45;", text: cue }));
+            if (o.action) {
+              var pillCls = "pill " + ((o.unreplied || 0) > 0 ? "danger" : (o.low_rating_30d || 0) > 0 ? "warn" : "good");
+              var pill = el("span", { "class": pillCls, text: o.issue || "Status" });
+              var row = el("div", { "style": "margin-top:.4rem;" }, [pill]);
+              card.appendChild(row);
+            }
+            coach.appendChild(card);
+          });
+          if (!rows.length) coach.appendChild(el("div", { "class": "desc", text: "Awaiting GBP." }));
+        }
+
+        // Recovery risk index
+        var rri = $("rev-recovery-risk-grid");
+        if (rri) {
+          rri.innerHTML = "";
+          var ranked = rows.slice().map(function (r) {
+            var score = (r.unreplied || 0) * 10 + (r.low_rating_30d || 0) * 3 + Math.max(0, r.goal_gap_30d || 0) * 0.1;
+            return Object.assign({}, r, { _risk: score });
+          }).sort(function (a, b) { return b._risk - a._risk; }).slice(0, 6);
+          ranked.forEach(function (r) {
+            var cls = (r.unreplied || 0) > 0 ? "is-danger" : (r.low_rating_30d || 0) > 0 ? "is-warn" : "is-good";
+            var t = el("div", { "class": "pxc-tile " + cls });
+            t.appendChild(el("div", { "class": "pxc-label", text: r.office || "—" }));
+            t.appendChild(el("div", { "class": "pxc-value", "style": "font-size:1.5rem;", text: (r.low_rating_30d || 0) + " low · " + (r.unreplied || 0) + " unreplied" }));
+            t.appendChild(el("div", { "class": "pxc-sub", text: "Risk score " + r._risk.toFixed(1) + " · gap " + (r.goal_gap_30d || 0) + " /30d" }));
+            t.appendChild(el("div", { "class": "pxc-hint", text: r.action || "Reply, recover, then push asks" }));
+            rri.appendChild(t);
+          });
+          if (!ranked.length) rri.appendChild(el("div", { "class": "desc", text: "No recovery risk data." }));
+        }
+
         // Compact ranking table (still useful for ranking)
         var off = $("rev-offices-card");
         if (off) {
@@ -6708,114 +6877,130 @@
         if (fresh) fresh.textContent = g.freshness_note || "";
       }
 
-      function renderReferrals(r) {
-        if (!r) return;
-        var meta = $("referrals-meta");
-        if (meta) meta.textContent = (r.lookback || "Last 30d") + " · " + (r.data_freshness || "");
-        var connG = $("ref-conn-grid");
-        if (connG) {
-          connG.innerHTML = "";
-          (r.connector_status || []).forEach(function (c) { connG.appendChild(_connCard(c)); });
+      function renderMembership(m) {
+        if (!m) return;
+        var meta = $("membership-meta");
+        if (meta) meta.textContent = (m.period_label || "Selected period") + " · " + (m.data_freshness || "");
+        var per = $("mem-period");
+        if (per) per.textContent = m.period_label || "Selected period";
+
+        var snap = m.snapshot || {};
+        var head = $("mem-headline");
+        if (head) head.textContent = m.headline || "";
+
+        var grid = $("mem-snap-grid");
+        if (grid) {
+          grid.innerHTML = "";
+          function tile(label, value, sub, hint, cls) {
+            var t = el("div", { "class": "pxc-tile " + (cls || "is-accent") });
+            t.appendChild(el("div", { "class": "pxc-label", text: label }));
+            t.appendChild(el("div", { "class": "pxc-value", text: value }));
+            if (sub) t.appendChild(el("div", { "class": "pxc-sub", text: sub }));
+            if (hint) t.appendChild(el("div", { "class": "pxc-hint", text: hint }));
+            return t;
+          }
+          grid.appendChild(tile("Total subscribers", snap.total_subscribers != null ? String(snap.total_subscribers) : "—", "From Subscribili dashboard", "Aggregate only — no member names", "is-accent"));
+          grid.appendChild(tile("Active members", snap.active_members != null ? String(snap.active_members) : "—", "Currently active billing status", null, "is-good"));
+          grid.appendChild(tile("Cancelled", snap.cancelled != null ? String(snap.cancelled) : "—", "Cancellations to date", null, (snap.cancelled || 0) > 5 ? "is-warn" : "is-accent"));
+          grid.appendChild(tile("Overdue / expired", (snap.overdue != null ? snap.overdue : "—") + " / " + (snap.expired != null ? snap.expired : "—"), "Past-due payments / lapsed plans", "Follow-up needed on overdue", (snap.overdue || 0) > 0 ? "is-warn" : "is-good"));
         }
-        var actG = $("ref-actions-grid");
+
+        var plansG = $("mem-plans-grid");
+        if (plansG) {
+          plansG.innerHTML = "";
+          (m.plans || []).forEach(function (p) {
+            var t = el("div", { "class": "pxc-tile is-accent" });
+            t.appendChild(el("div", { "class": "pxc-label", text: p.plan || "Plan" }));
+            t.appendChild(el("div", { "class": "pxc-value", text: (p.members != null ? String(p.members) : "—") + " members" }));
+            if (p.note) t.appendChild(el("div", { "class": "pxc-sub", text: p.note }));
+            plansG.appendChild(t);
+          });
+          if (!(m.plans || []).length) {
+            plansG.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
+          }
+        }
+
+        var actG = $("mem-actions-grid");
         if (actG) {
           actG.innerHTML = "";
-          (r.top_actions || []).forEach(function (a) { actG.appendChild(_actionCard(a)); });
-        }
-        var sumG = $("ref-summary-grid");
-        if (sumG) {
-          sumG.innerHTML = "";
-          (r.summary_cards || []).forEach(function (c) {
-            sumG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
+          (m.top_actions || []).forEach(function (a) {
+            actG.appendChild(_actionCard({ priority: a.priority, label: a.label, action: a.action }));
           });
+          if (!(m.top_actions || []).length) {
+            actG.appendChild(el("div", { "class": "desc", text: "No urgent membership actions." }));
+          }
         }
-        var off = $("ref-offices-card");
-        if (off) {
-          off.innerHTML = "";
-          off.appendChild(el("h3", { text: "Per office (rating, reviews 30d, low 30d, unreplied, issue, action)" }));
-          var rows = (r.office_rows || []).map(function (o) {
-            return {
-              office: o.office,
-              rating: o.rating,
-              reviews_30d: o.reviews_30d,
-              low_rating_30d: o.low_rating_30d,
-              unreplied: o.unreplied,
-              issue: o.issue,
-              action: o.action
-            };
-          });
-          var ok = _renderTable(off, [
-            { key: "office", label: "Office" },
-            { key: "rating", label: "Rating" },
-            { key: "reviews_30d", label: "Reviews 30d" },
-            { key: "low_rating_30d", label: "Low 30d" },
-            { key: "unreplied", label: "Unreplied" },
-            { key: "issue", label: "Issue" },
-            { key: "action", label: "Action" }
-          ], rows);
-          if (!ok) off.appendChild(el("div", { "class": "desc", text: "Awaiting GBP." }));
-        }
-        var od = $("ref-od-card");
-        if (od) {
-          od.innerHTML = "";
-          od.appendChild(el("h3", { text: "Open Dental referrals (aggregated)" }));
-          var ok2 = _renderTable(od, [
-            { key: "label", label: "Label" },
-            { key: "value", label: "Value" },
-            { key: "basis", label: "Basis" }
-          ], r.query_rows);
-          if (!ok2) od.appendChild(el("div", { "class": "desc", text: "Awaiting Open Dental." }));
-        }
-        renderCloveCare(r.clove_care || r.clove100);
-        var fresh = $("referrals-fresh");
-        if (fresh) fresh.textContent = r.freshness_note || "";
-      }
 
-      function renderCloveCare(c) {
-        var meta = $("ref-c100-meta");
-        if (meta) meta.textContent = c ? ((c.lookback || "Last 30d") + " · " + (c.data_freshness || "")) : "Awaiting Subscribili.";
-        var connG = $("ref-c100-conn-grid");
-        if (connG) {
-          connG.innerHTML = "";
-          if (c && c.connector) connG.appendChild(_connCard(c.connector));
-        }
-        var sumG = $("ref-c100-summary-grid");
-        if (sumG) {
-          sumG.innerHTML = "";
-          ((c && c.summary_cards) || []).forEach(function (s) {
-            sumG.appendChild(_statCard(s.label, s.value, s.basis, s.decision));
+        var ometa = $("mem-offices-meta");
+        if (ometa) ometa.textContent = "New + reactivated + renewed for " + (m.period_label || "selected period") + ". Each card shows what to do next.";
+
+        var ocards = $("mem-office-cards");
+        var rows = m.office_rows || [];
+        if (ocards) {
+          ocards.innerHTML = "";
+          rows.slice().sort(function (a, b) { return (b.period_total || 0) - (a.period_total || 0); }).forEach(function (o) {
+            var card = el("div", { "class": "signal-card" });
+            card.appendChild(el("div", { "class": "sc-office", text: o.office || "—" }));
+            card.appendChild(el("div", { "class": "sc-headline", text: (o.period_total != null ? o.period_total : 0) + " net additions" }));
+            var themes = el("div", { "class": "sc-themes" });
+            function chip(label, val) {
+              var c = el("span", { "class": "sc-theme" });
+              c.appendChild(el("strong", { text: label + ": " }));
+              c.appendChild(document.createTextNode(String(val)));
+              return c;
+            }
+            themes.appendChild(chip("New", o.new_subscribers != null ? o.new_subscribers : 0));
+            themes.appendChild(chip("Reactivated", o.reactivated != null ? o.reactivated : 0));
+            themes.appendChild(chip("Renewed", o.renewed != null ? o.renewed : 0));
+            card.appendChild(themes);
+            if (o.status_label) {
+              var pillCls = "pill " + (o.status_severity === "good" ? "good" : o.status_severity === "warn" ? "warn" : o.status_severity === "danger" ? "danger" : "");
+              var statusRow = el("div", { "style": "margin-top:.4rem;" });
+              statusRow.appendChild(el("span", { "class": pillCls, text: o.status_label }));
+              card.appendChild(statusRow);
+            }
+            if (o.action) {
+              card.appendChild(el("div", { "class": "pxc-hint", text: o.action }));
+            }
+            ocards.appendChild(card);
           });
+          if (!rows.length) ocards.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
         }
-        var off = $("ref-c100-offices-card");
+
+        var off = $("mem-offices-card");
         if (off) {
           off.innerHTML = "";
-          off.appendChild(el("h3", { text: "Offices: members, growth, WoW / MoM" }));
+          off.appendChild(el("h3", { text: "Office period activity" }));
           var ok = _renderTable(off, [
             { key: "office", label: "Office" },
-            { key: "active_members", label: "Active" },
-            { key: "new_7d", label: "New 7d" },
-            { key: "new_30d", label: "New 30d" },
-            { key: "cancellations_30d", label: "Cancel 30d" },
-            { key: "net_growth_30d", label: "Net 30d" },
-            { key: "wow_delta", label: "WoW" },
-            { key: "mom_delta", label: "MoM" },
-            { key: "status", label: "Status" },
-            { key: "action", label: "Action" }
-          ], (c && c.office_rows) || []);
+            { key: "new_subscribers", label: "New" },
+            { key: "reactivated", label: "Reactivated" },
+            { key: "renewed", label: "Renewed" },
+            { key: "period_total", label: "Period total" },
+            { key: "status_label", label: "Status" }
+          ], rows);
           if (!ok) off.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
         }
-        var imp = $("ref-c100-improve-card");
-        if (imp) {
-          imp.innerHTML = "";
-          imp.appendChild(el("h3", { text: "Where to improve" }));
-          var ok2 = _renderTable(imp, [
-            { key: "office", label: "Office" },
-            { key: "signal", label: "Signal" },
-            { key: "action", label: "Action" },
-            { key: "expected_metric", label: "Metric" }
-          ], (c && c.where_to_improve) || []);
-          if (!ok2) imp.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
+
+        var od = m.opendental || {};
+        var odG = $("mem-od-grid");
+        if (odG) {
+          odG.innerHTML = "";
+          function odTile(label, value, sub, cls) {
+            var t = el("div", { "class": "pxc-tile " + (cls || "is-accent") });
+            t.appendChild(el("div", { "class": "pxc-label", text: label }));
+            t.appendChild(el("div", { "class": "pxc-value", text: value }));
+            if (sub) t.appendChild(el("div", { "class": "pxc-sub", text: sub }));
+            return t;
+          }
+          odG.appendChild(odTile("OD connector", od.status_label || "Read-only · 9 clinics", od.status_detail || "Aggregate-only · no PHI", od.status_severity === "good" ? "is-good" : "is-accent"));
+          odG.appendChild(odTile("Cash patients", od.cash_patients_value || "Pending definition", od.cash_patients_basis || "Needs cash-patient rule (no active insurance plan in window)", "is-warn"));
+          odG.appendChild(odTile("Members / conversion", od.conversion_value || "Pending", od.conversion_basis || "Members ÷ cash patients · computed once definition is set", "is-warn"));
+          odG.appendChild(odTile("Goal gap", od.gap_value || "Pending", od.gap_basis || "Set after target membership conversion is approved", "is-accent"));
         }
+
+        var fresh = $("membership-fresh");
+        if (fresh) fresh.textContent = m.freshness_note || "";
       }
 
       function setupTabs() {
