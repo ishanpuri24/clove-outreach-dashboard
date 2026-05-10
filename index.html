@@ -2411,7 +2411,7 @@
             <span class="pill" id="mem-period" aria-live="polite"></span>
           </div>
           <p class="section-meta" id="mem-headline"></p>
-          <div class="pxc cols-4" id="mem-snap-grid"></div>
+          <div class="pxc cols-3" id="mem-snap-grid"></div>
         </section>
 
         <section aria-labelledby="mem-plans">
@@ -2432,21 +2432,9 @@
         </section>
 
         <section aria-labelledby="mem-offices">
-          <h2 id="mem-offices">Office activity</h2>
+          <h2 id="mem-offices">Office yield &amp; growth</h2>
           <div class="section-meta" id="mem-offices-meta"></div>
-          <div class="signal-cards" id="mem-office-cards"></div>
-        </section>
-
-        <section aria-labelledby="mem-rank">
-          <h2 id="mem-rank">Quick ranking table</h2>
-          <div class="section-meta">Compact view of period activity by office.</div>
           <div class="card" id="mem-offices-card"></div>
-        </section>
-
-        <section aria-labelledby="mem-od">
-          <h2 id="mem-od">Open Dental → membership conversion</h2>
-          <div class="section-meta">Aggregate cash-patient conversion. No PHI. Connector wired read-only; metric pending cash-patient definition.</div>
-          <div class="pxc cols-4" id="mem-od-grid"></div>
         </section>
 
         <p class="tab-meta" id="membership-fresh"></p>
@@ -6885,6 +6873,12 @@
         if (per) per.textContent = m.period_label || "Selected period";
 
         var snap = m.snapshot || {};
+        var yieldData = m.cash_patient_yield || {};
+        var yieldTotal = yieldData.total || {};
+        var yieldOffices = yieldData.offices || [];
+        var yieldByOffice = {};
+        yieldOffices.forEach(function (o) { if (o && o.office) yieldByOffice[o.office] = o; });
+
         var head = $("mem-headline");
         if (head) head.textContent = m.headline || "";
 
@@ -6899,10 +6893,13 @@
             if (hint) t.appendChild(el("div", { "class": "pxc-hint", text: hint }));
             return t;
           }
-          grid.appendChild(tile("Total subscribers", snap.total_subscribers != null ? String(snap.total_subscribers) : "—", "From Subscribili dashboard", "Aggregate only — no member names", "is-accent"));
+          var totalYieldDisplay = (yieldTotal.yield_pct != null) ? (yieldTotal.yield_pct + "%") : (yieldTotal.status || "Pending OD daily pull");
           grid.appendChild(tile("Active members", snap.active_members != null ? String(snap.active_members) : "—", "Currently active billing status", null, "is-good"));
-          grid.appendChild(tile("Cancelled", snap.cancelled != null ? String(snap.cancelled) : "—", "Cancellations to date", null, (snap.cancelled || 0) > 5 ? "is-warn" : "is-accent"));
-          grid.appendChild(tile("Overdue / expired", (snap.overdue != null ? snap.overdue : "—") + " / " + (snap.expired != null ? snap.expired : "—"), "Past-due payments / lapsed plans", "Follow-up needed on overdue", (snap.overdue || 0) > 0 ? "is-warn" : "is-good"));
+          grid.appendChild(tile("Total subscribers", snap.total_subscribers != null ? String(snap.total_subscribers) : "—", "From Subscribili", "Aggregate only — no member names", "is-accent"));
+          grid.appendChild(tile("New signups (period)", snap.new_signups_period != null ? String(snap.new_signups_period) : "—", snap.new_signups_basis || "Period signups across offices", null, "is-accent"));
+          grid.appendChild(tile("Growth rate", snap.growth_rate_value || "Pending", snap.growth_rate_basis || "Active members vs prior period", null, "is-warn"));
+          grid.appendChild(tile("Overdue", snap.overdue != null ? String(snap.overdue) : "—", "Past-due payments", "Follow up via Subscribili", (snap.overdue || 0) > 0 ? "is-warn" : "is-good"));
+          grid.appendChild(tile("Cash-patient yield", totalYieldDisplay, snap.cash_patient_yield_basis || "Same-day new members ÷ same-day cash patients", null, "is-warn"));
         }
 
         var plansG = $("mem-plans-grid");
@@ -6932,71 +6929,41 @@
         }
 
         var ometa = $("mem-offices-meta");
-        if (ometa) ometa.textContent = "New + reactivated + renewed for " + (m.period_label || "selected period") + ". Each card shows what to do next.";
+        if (ometa) ometa.textContent = "Yield = same-day new members ÷ same-day cash patients. Period signups from Subscribili until daily OD pull is live.";
 
-        var ocards = $("mem-office-cards");
         var rows = m.office_rows || [];
-        if (ocards) {
-          ocards.innerHTML = "";
-          rows.slice().sort(function (a, b) { return (b.period_total || 0) - (a.period_total || 0); }).forEach(function (o) {
-            var card = el("div", { "class": "signal-card" });
-            card.appendChild(el("div", { "class": "sc-office", text: o.office || "—" }));
-            card.appendChild(el("div", { "class": "sc-headline", text: (o.period_total != null ? o.period_total : 0) + " net additions" }));
-            var themes = el("div", { "class": "sc-themes" });
-            function chip(label, val) {
-              var c = el("span", { "class": "sc-theme" });
-              c.appendChild(el("strong", { text: label + ": " }));
-              c.appendChild(document.createTextNode(String(val)));
-              return c;
-            }
-            themes.appendChild(chip("New", o.new_subscribers != null ? o.new_subscribers : 0));
-            themes.appendChild(chip("Reactivated", o.reactivated != null ? o.reactivated : 0));
-            themes.appendChild(chip("Renewed", o.renewed != null ? o.renewed : 0));
-            card.appendChild(themes);
-            if (o.status_label) {
-              var pillCls = "pill " + (o.status_severity === "good" ? "good" : o.status_severity === "warn" ? "warn" : o.status_severity === "danger" ? "danger" : "");
-              var statusRow = el("div", { "style": "margin-top:.4rem;" });
-              statusRow.appendChild(el("span", { "class": pillCls, text: o.status_label }));
-              card.appendChild(statusRow);
-            }
-            if (o.action) {
-              card.appendChild(el("div", { "class": "pxc-hint", text: o.action }));
-            }
-            ocards.appendChild(card);
-          });
-          if (!rows.length) ocards.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
-        }
-
         var off = $("mem-offices-card");
         if (off) {
           off.innerHTML = "";
-          off.appendChild(el("h3", { text: "Office period activity" }));
-          var ok = _renderTable(off, [
-            { key: "office", label: "Office" },
-            { key: "new_subscribers", label: "New" },
-            { key: "reactivated", label: "Reactivated" },
-            { key: "renewed", label: "Renewed" },
-            { key: "period_total", label: "Period total" },
-            { key: "status_label", label: "Status" }
-          ], rows);
-          if (!ok) off.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
-        }
-
-        var od = m.opendental || {};
-        var odG = $("mem-od-grid");
-        if (odG) {
-          odG.innerHTML = "";
-          function odTile(label, value, sub, cls) {
-            var t = el("div", { "class": "pxc-tile " + (cls || "is-accent") });
-            t.appendChild(el("div", { "class": "pxc-label", text: label }));
-            t.appendChild(el("div", { "class": "pxc-value", text: value }));
-            if (sub) t.appendChild(el("div", { "class": "pxc-sub", text: sub }));
-            return t;
-          }
-          odG.appendChild(odTile("OD connector", od.status_label || "Read-only · 9 clinics", od.status_detail || "Aggregate-only · no PHI", od.status_severity === "good" ? "is-good" : "is-accent"));
-          odG.appendChild(odTile("Cash patients", od.cash_patients_value || "Pending definition", od.cash_patients_basis || "Needs cash-patient rule (no active insurance plan in window)", "is-warn"));
-          odG.appendChild(odTile("Members / conversion", od.conversion_value || "Pending", od.conversion_basis || "Members ÷ cash patients · computed once definition is set", "is-warn"));
-          odG.appendChild(odTile("Goal gap", od.gap_value || "Pending", od.gap_basis || "Set after target membership conversion is approved", "is-accent"));
+          var wrap = el("div", { "class": "table-wrap" });
+          var table = el("table", { "class": "data-table" });
+          var thead = el("thead");
+          var hrow = el("tr");
+          ["Office", "Cash patients today", "New members today", "Period signups", "Yield %", "Growth", "Action"].forEach(function (h) {
+            hrow.appendChild(el("th", { text: h }));
+          });
+          thead.appendChild(hrow);
+          table.appendChild(thead);
+          var tbody = el("tbody");
+          rows.slice().sort(function (a, b) { return (b.period_total || 0) - (a.period_total || 0); }).forEach(function (o) {
+            var y = yieldByOffice[o.office] || {};
+            var tr = el("tr");
+            tr.appendChild(el("td", { text: o.office || "—" }));
+            tr.appendChild(el("td", { text: y.cash_patients_today != null ? String(y.cash_patients_today) : "—" }));
+            tr.appendChild(el("td", { text: y.new_members_today != null ? String(y.new_members_today) : "—" }));
+            tr.appendChild(el("td", { text: o.period_total != null ? String(o.period_total) : "0" }));
+            tr.appendChild(el("td", { text: y.yield_pct != null ? (y.yield_pct + "%") : "—" }));
+            tr.appendChild(el("td", { text: o.growth_label || "—" }));
+            tr.appendChild(el("td", { text: o.action || "—" }));
+            tbody.appendChild(tr);
+          });
+          table.appendChild(tbody);
+          wrap.appendChild(table);
+          off.appendChild(wrap);
+          if (!rows.length) off.appendChild(el("div", { "class": "desc", text: "Awaiting Subscribili." }));
+          var legend = el("div", { "class": "section-meta", "style": "margin-top:.5rem;" });
+          legend.textContent = "Cash patients today / yield — Pending OD daily pull. Period signups labeled until same-day pull is live.";
+          off.appendChild(legend);
         }
 
         var fresh = $("membership-fresh");

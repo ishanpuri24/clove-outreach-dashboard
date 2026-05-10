@@ -17179,7 +17179,13 @@
       "active_members": 302,
       "cancelled": 4,
       "expired": 0,
-      "overdue": 1
+      "overdue": 1,
+      "new_signups_period": 64,
+      "new_signups_basis": "Sum of new + reactivated across offices for the selected Subscribili period.",
+      "growth_rate_value": "Pending prior-period baseline",
+      "growth_rate_basis": "Growth = active members vs prior period (or new members vs prior period). Awaiting prior-period export.",
+      "cash_patient_yield_value": "Pending OD daily pull",
+      "cash_patient_yield_basis": "Yield = same-day new members \u00f7 same-day cash patients."
     },
     "plans": [
       {
@@ -17312,16 +17318,25 @@
         "action": "Maintain ask cadence."
       }
     ],
-    "opendental": {
-      "status_label": "Read-only \u00b7 9 clinics",
-      "status_detail": "Aggregate-only \u00b7 no PHI in this view",
-      "status_severity": "good",
-      "cash_patients_value": "Pending definition",
-      "cash_patients_basis": "Needs cash-patient rule (no active insurance plan in window).",
-      "conversion_value": "Pending",
-      "conversion_basis": "Members \u00f7 cash patients by office, once definition is set.",
-      "gap_value": "Pending",
-      "gap_basis": "Set after target conversion rate is approved."
+    "cash_patient_yield": {
+      "definition": "Yield = same-day new members \u00f7 same-day cash patients.",
+      "total": {
+        "cash_patients_today": null,
+        "new_members_today": null,
+        "yield_pct": null,
+        "status": "Pending OD daily pull"
+      },
+      "offices": [
+        { "office": "Beverly Hills", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Camarillo", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Encino", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Oxnard", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Riverpark", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Santa Monica", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Sherman Oaks", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Thousand Oaks", "cash_patients_today": null, "new_members_today": null, "yield_pct": null },
+        { "office": "Ventura", "cash_patients_today": null, "new_members_today": null, "yield_pct": null }
+      ]
     },
     "freshness_note": "Subscribili manual snapshot \u00b7 2026-05-10. Aggregate-only, no member names or payment details."
   }
