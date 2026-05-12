@@ -113,6 +113,64 @@ GitHub Pages rebuilds with a small diff (one JSON file), and the
 existing `index.html` picks up the new data on the next page load.
 Touch `index.html` only when the dashboard UI itself changes.
 
+### Scheduled refresh orchestrator (self-deployable)
+
+For routine daily refreshes driven by a scheduled task or a fresh
+clone, use the dedicated orchestrator instead of `build_snapshot.py`.
+It does **not** require a private builder, does not stage or send
+outreach, and is safe to run with no connector credentials present:
+
+```bash
+# Defaults: fast mode + no-send. Reads private inputs from
+# /home/user/workspace/cron_tracking/a3b9de2f if present.
+python3 scripts/refresh_marketing_dashboard.py
+
+# Override the private tracking dir (e.g. on a different host):
+python3 scripts/refresh_marketing_dashboard.py --private-dir /path/to/private
+
+# Dry-run (validate inputs, write nothing):
+python3 scripts/refresh_marketing_dashboard.py --check
+
+# Then validate before committing:
+python3 scripts/validate_refresh_block.py
+python3 scripts/validate_public_snapshot.py
+```
+
+What the orchestrator does:
+
+- Re-stamps `data/snapshot.json::generated_at` and writes a compact
+  `routine_refresh` block (mode, last-run timestamps, per-source
+  status, pending-source list).
+- Merges sanitized aggregates from the private tracking directory
+  into `callrail_live.last_7_days` / `last_30_days`. Sources without
+  fresh inputs stay at their last-known-good values and are listed
+  in `routine_refresh.pending_sources`.
+- Persists `daily_learning_state.json` (in the private dir) with the
+  last refresh status, suppresses repeated recommendations by hash,
+  and stores a summarised previous-metrics block.
+- Never writes private IDs, tokens, raw reviews, patient or member
+  records, phone numbers, GCLIDs, personal email addresses, config
+  paths, scheduler IDs, or raw connector payloads into the public
+  snapshot. A built-in sanitization sweep runs before write.
+- Always runs `--no-send`; outbound outreach is **not** wired here.
+  Passing `--allow-send` is intentionally a no-op and is logged.
+
+The private inputs are **never committed** to this repo. Expected
+files in the private tracking dir (all optional - missing files are
+treated as `pending`):
+
+| File | Used for |
+| ---- | -------- |
+| `callrail_7d_sanitized.json` | Live 7d CallRail aggregate |
+| `callrail_30d_sanitized.json` | Live 30d CallRail aggregate |
+| `daily_learning_state.json` | Repeat-recommendation suppression |
+| `analytics_config.json`, `gmb_config.json`, `opendental_config.json`, `membership_config.json` | Connector status flags (read-only) |
+
+The script is self-deployable: a fresh checkout on a new host needs
+only Python 3.9+ and the public repo. If the private directory is
+absent, the orchestrator still writes a valid public snapshot with
+every source marked `pending` and exits 0.
+
 ## Data flow
 
 1. The daily outreach run inside the private operations repo writes

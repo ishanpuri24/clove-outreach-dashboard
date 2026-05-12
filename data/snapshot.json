@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-10T23:42:42.195906+00:00",
+  "generated_at": "2026-05-12T15:35:49.698443+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -15254,7 +15254,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-05-07T16:30:00+00:00",
+    "refreshed_at": "2026-05-07T00:00:00Z",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17582,5 +17582,15 @@
       ],
       "caveat": "All 76 cash patients last 7d were hygiene appointments under current definition \u2014 tracking caveat, not a quality flag."
     }
+  },
+  "routine_refresh": {
+    "last_run_at": "2026-05-12T15:35:49.698455+00:00",
+    "last_run_date": "2026-05-12",
+    "mode": "fast",
+    "sources": {
+      "callrail": "ok: merged sanitized aggregate",
+      "outbound": "disabled: --no-send (default)"
+    },
+    "pending_sources": []
   }
 }
