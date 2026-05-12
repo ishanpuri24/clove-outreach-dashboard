@@ -57,6 +57,15 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_SNAPSHOT = REPO_ROOT / "data" / "snapshot.json"
 
+# Optional companion module: HubSpot CMS optimizer. Imported lazily
+# so the refresh still works in environments where the optimizer's
+# private config / network is unavailable.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    import hubspot_cms_optimizer as _cms_optimizer  # type: ignore
+except Exception:  # pragma: no cover - companion is best-effort
+    _cms_optimizer = None  # type: ignore
+
 DEFAULT_PRIVATE_DIR = Path("/home/user/workspace/cron_tracking/a3b9de2f")
 
 # Sanitized inputs we will consider merging from the private dir.
@@ -257,7 +266,69 @@ def summarize_snapshot(snapshot: dict) -> dict:
     }
 
 
-def refresh(private_dir: Path, fast: bool, no_send: bool, check_only: bool) -> int:
+def merge_cms_actions(
+    snapshot: dict,
+    private_dir: Path,
+    status: dict,
+    *,
+    apply_changes: bool,
+    max_changes: int,
+    check_only: bool,
+) -> dict | None:
+    """Run the HubSpot CMS optimizer and merge its sanitized block.
+
+    Returns the result dict on success, or ``None`` when the
+    optimizer is unavailable / config is absent. Never raises into
+    the orchestrator's main path.
+    """
+    if _cms_optimizer is None:
+        status["hubspot_cms"] = "pending: optimizer module unavailable"
+        return None
+    cfg_path = private_dir / "hubspot_cms_config.json"
+    if not cfg_path.exists():
+        status["hubspot_cms"] = "pending: hubspot_cms_config not present"
+        return None
+    try:
+        result = _cms_optimizer.run(
+            private_dir=private_dir,
+            apply_changes=apply_changes and not check_only,
+            max_changes=max_changes,
+            cooldown_days=_cms_optimizer.DEFAULT_COOLDOWN_DAYS,
+            snapshot=snapshot,
+        )
+    except Exception as e:
+        status["hubspot_cms"] = f"error: {type(e).__name__}"
+        return None
+    block = _cms_optimizer.build_public_block(result)
+    # Defensive sanitization on the merged block.
+    issues = _cms_optimizer.assert_public_sanitized(block)
+    issues += scan_forbidden(block)
+    if issues:
+        status["hubspot_cms"] = "error: sanitization invariant violated; cms_actions dropped"
+        return result
+    snapshot["organic_cms_actions"] = block
+    parts = [
+        f"inventory={result['inventory']['site_pages']}sp/{result['inventory']['landing_pages']}lp",
+        f"considered={result['candidates_considered']}",
+        f"actions={len(result['actions'])}",
+        f"written={len(result['written'])}",
+    ]
+    status["hubspot_cms"] = (
+        "ok: " + ", ".join(parts)
+        + (" (live-writeback)" if result.get("writeback_performed") else " (dry-run)")
+    )
+    return result
+
+
+def refresh(
+    private_dir: Path,
+    fast: bool,
+    no_send: bool,
+    check_only: bool,
+    *,
+    cms_apply: bool = True,
+    cms_max_changes: int = 3,
+) -> int:
     if not PUBLIC_SNAPSHOT.exists():
         print(f"ERROR: missing public snapshot at {PUBLIC_SNAPSHOT}", file=sys.stderr)
         return 2
@@ -272,6 +343,14 @@ def refresh(private_dir: Path, fast: bool, no_send: bool, check_only: bool) -> i
 
     if private_dir.exists():
         merge_callrail(snapshot, private_dir, status)
+        merge_cms_actions(
+            snapshot,
+            private_dir,
+            status,
+            apply_changes=cms_apply,
+            max_changes=cms_max_changes,
+            check_only=check_only,
+        )
     else:
         status["private_dir"] = "pending: tracking directory not present"
 
@@ -291,6 +370,7 @@ def refresh(private_dir: Path, fast: bool, no_send: bool, check_only: bool) -> i
     # Final sanitization safety check on the routine_refresh block we wrote.
     issues = scan_forbidden(snapshot.get("routine_refresh", {}))
     issues += scan_forbidden(snapshot.get("callrail_live", {}))
+    issues += scan_forbidden(snapshot.get("organic_cms_actions", {}))
     if issues:
         print("ERROR: refresh would publish forbidden patterns:", file=sys.stderr)
         for i in issues:
@@ -323,13 +403,23 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     p.add_argument("--allow-send", dest="no_send", action="store_false", help="Attempt to enable outbound; orchestrator still refuses and logs.")
     p.add_argument("--private-dir", default=str(DEFAULT_PRIVATE_DIR), help="Path to the private cron tracking directory.")
     p.add_argument("--check", action="store_true", help="Validate inputs and exit without writing snapshot.json.")
+    p.add_argument("--cms-apply", action="store_true", default=True, help="Allow HubSpot CMS low-risk metadata writeback if config permits (default).")
+    p.add_argument("--cms-dry-run", dest="cms_apply", action="store_false", help="Force HubSpot CMS step to dry-run regardless of config.")
+    p.add_argument("--cms-max-changes", type=int, default=3, help="Cap number of CMS metadata changes per run (default 3).")
     return p.parse_args(argv)
 
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
     private_dir = Path(args.private_dir)
-    return refresh(private_dir=private_dir, fast=args.fast, no_send=args.no_send, check_only=args.check)
+    return refresh(
+        private_dir=private_dir,
+        fast=args.fast,
+        no_send=args.no_send,
+        check_only=args.check,
+        cms_apply=args.cms_apply,
+        cms_max_changes=args.cms_max_changes,
+    )
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-12T15:35:49.698443+00:00",
+  "generated_at": "2026-05-12T20:50:20.053773+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17584,13 +17584,43 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-05-12T15:35:49.698455+00:00",
+    "last_run_at": "2026-05-12T20:50:20.053789+00:00",
     "last_run_date": "2026-05-12",
     "mode": "fast",
     "sources": {
       "callrail": "ok: merged sanitized aggregate",
+      "hubspot_cms": "ok: inventory=50sp/50lp, considered=4, actions=2, written=1 (live-writeback)",
       "outbound": "disabled: --no-send (default)"
     },
     "pending_sources": []
+  },
+  "organic_cms_actions": {
+    "title": "Organic / CMS metadata action log",
+    "last_run_at": "2026-05-12T20:50:18.249400+00:00",
+    "mode": "apply",
+    "publish_mode": "low_risk_metadata_writeback_allowed",
+    "writeback_performed": true,
+    "summary": "2 CMS metadata action(s) considered; 1 applied as draft.",
+    "actions": [
+      {
+        "page": "/app \u2014 Book Appointment",
+        "slug": "/app",
+        "change": "missing_or_weak_title_update",
+        "why": "title len 16",
+        "status": "applied_draft",
+        "metric_to_watch": "CTR 0.2%; clicks 5/28d; impressions 2563/28d",
+        "note": "HubSpot draft (unpublished)"
+      },
+      {
+        "page": "/al \u2014 Al",
+        "slug": "/al",
+        "change": "missing_or_weak_title_update",
+        "why": "title len 12",
+        "status": "proposed",
+        "metric_to_watch": "CTR 0.2%; clicks 6/28d; impressions 3652/28d",
+        "note": "change type not auto-allowed for this page type"
+      }
+    ],
+    "errors": []
   }
 }

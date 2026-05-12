@@ -163,13 +163,109 @@ treated as `pending`):
 | ---- | -------- |
 | `callrail_7d_sanitized.json` | Live 7d CallRail aggregate |
 | `callrail_30d_sanitized.json` | Live 30d CallRail aggregate |
-| `daily_learning_state.json` | Repeat-recommendation suppression |
+| `daily_learning_state.json` | Repeat-recommendation suppression + CMS experiment log |
+| `hubspot_cms_config.json` | HubSpot CMS token, publish_mode, safety tiers |
 | `analytics_config.json`, `gmb_config.json`, `opendental_config.json`, `membership_config.json` | Connector status flags (read-only) |
 
 The script is self-deployable: a fresh checkout on a new host needs
 only Python 3.9+ and the public repo. If the private directory is
 absent, the orchestrator still writes a valid public snapshot with
 every source marked `pending` and exits 0.
+
+### HubSpot CMS automation (low-risk, approval-policy controlled)
+
+The orchestrator calls a companion script,
+`scripts/hubspot_cms_optimizer.py`, once per run. It pulls a minimal
+CMS inventory (site pages + landing pages, capped at 50 each — one
+inventory call per run, low credit cost), cross-references the GSC
+query/page rows already in the public snapshot, and proposes up to
+3 low-risk metadata changes per daily run.
+
+**Private config** lives at
+`hubspot_cms_config.json` inside the private tracking directory.
+The file is **never committed** and the token is never logged. It
+declares two things the optimizer reads:
+
+```jsonc
+{
+  "token": "pat-na1-...",                 // private; do not commit
+  "publish_mode": "low_risk_metadata_writeback_allowed",
+  "safety_tiers": {
+    "auto_allowed": [
+      "missing_or_weak_title_update",
+      "missing_or_weak_meta_description_update",
+      "private_experiment_log_update",
+      "dashboard_sanitized_action_log_update"
+    ],
+    "approval_required": [
+      "body_content_rewrite", "new_page_publish",
+      "template_or_theme_change", "cta_or_form_change",
+      "redirect_change", "domain_change",
+      "script_or_source_code_change"
+    ],
+    "never_allowed_without_new_approval": [
+      "billing_users_oauth_transactional_email",
+      "functions_write", "domain_write"
+    ]
+  }
+}
+```
+
+**Safety tiers**
+
+| Tier | Examples | Behavior |
+| ---- | -------- | -------- |
+| Auto-allowed | Title or meta-description update on a page with weak metadata **and** a clear high-impression / low-CTR GSC signal | Saved as a HubSpot **draft** (unpublished) when `publish_mode = low_risk_metadata_writeback_allowed`. Otherwise dry-run only. |
+| Approval-required | Body rewrites, template/theme, CTA/form, redirects, new-page publish | Never auto-applied. Optimizer skips them entirely in v1. |
+| Never without new approval | Billing, users, OAuth, transactional email, functions, domain writes | Never touched, regardless of any flag. |
+
+The optimizer enforces a per-page **cooldown** (default 14 days). A
+page that received a change or a proposal does not re-enter the
+candidate pool until the cooldown expires — this is what
+prevents repeated metadata churn on the same slug.
+
+**Run it**
+
+```bash
+# Dry-run only (does not call HubSpot writes):
+python3 scripts/hubspot_cms_optimizer.py --check
+
+# Apply low-risk metadata changes as drafts (default daily mode):
+python3 scripts/hubspot_cms_optimizer.py --apply
+
+# Cap to 1 change per run:
+python3 scripts/hubspot_cms_optimizer.py --apply --max-changes 1
+
+# The daily orchestrator invokes it automatically; force its CMS step
+# into dry-run regardless of config:
+python3 scripts/refresh_marketing_dashboard.py --cms-dry-run
+```
+
+**What lands in the public dashboard**
+
+`data/snapshot.json::organic_cms_actions` is a compact, sanitized
+action log. Each row carries only: a public slug + page title, the
+change type, a short "why", a status (`applied_draft`, `proposed`,
+or `error`), and a metric to watch (CTR / clicks / impressions for
+28d). No HubSpot page IDs, portal IDs, tokens, config paths, or raw
+API payloads ever reach the public mirror — both the optimizer and
+the orchestrator scrub the block, and `validate_public_snapshot.py`
+backstops every commit.
+
+**What lands in the private learning state**
+
+`daily_learning_state.json::cms_experiments.log` keeps the longer
+trail: hypothesis, page, change types, date applied, baseline GSC
+metric, metric to watch, status. This is the source of truth the
+cooldown reads.
+
+**What never happens in v1** (regardless of flags):
+
+- No HubSpot body / template / theme / source-code writes.
+- No new-page publish, no redirect change, no CTA/form change.
+- No domain, function, billing, user, OAuth, or transactional-email
+  writes.
+- No `--apply` ever publishes a page; HubSpot drafts only.
 
 ## Data flow
 

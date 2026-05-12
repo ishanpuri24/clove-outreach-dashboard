@@ -2386,6 +2386,12 @@
           <div class="card" id="organic-ahrefs-links"></div>
         </section>
 
+        <section aria-labelledby="organic-cms-actions">
+          <h2 id="organic-cms-actions">CMS metadata action log</h2>
+          <p class="tab-meta" id="organic-cms-meta"></p>
+          <div class="card" id="organic-cms-actions-card"></div>
+        </section>
+
         <section aria-labelledby="organic-summary">
           <h2 id="organic-summary">Aggregate counters</h2>
           <div class="paid-summary-grid" id="organic-summary-grid"></div>
@@ -6018,6 +6024,7 @@
         renderGuardrailStatus(s);
         renderLists(s);
         renderOrganic(s.organic_insights);
+        renderOrganicCmsActions(s.organic_cms_actions);
         renderReviews(s.gmb_insights);
         renderMembership(s.membership_insights || s.referral_insights);
         $("generated").textContent = s.generated_at || "";
@@ -6189,6 +6196,46 @@
         }
         var fresh = $("organic-fresh");
         if (fresh) fresh.textContent = o.freshness_note || "";
+      }
+
+      function renderOrganicCmsActions(c) {
+        var card = $("organic-cms-actions-card");
+        var meta = $("organic-cms-meta");
+        if (!card) return;
+        card.innerHTML = "";
+        if (!c) {
+          if (meta) meta.textContent = "";
+          card.appendChild(el("div", { "class": "desc", text: "Awaiting CMS optimizer." }));
+          return;
+        }
+        if (meta) {
+          var bits = [];
+          if (c.last_run_at) bits.push(String(c.last_run_at).slice(0, 19).replace("T", " ") + "Z");
+          if (c.mode) bits.push("mode: " + c.mode);
+          if (c.publish_mode) bits.push("publish: " + c.publish_mode);
+          bits.push(c.writeback_performed ? "live drafts applied" : "dry-run only");
+          meta.textContent = bits.join(" · ");
+        }
+        if (c.summary) {
+          card.appendChild(el("div", { "class": "desc", text: c.summary }));
+        }
+        var rows = c.actions || [];
+        var ok = _renderTable(card, [
+          { key: "page", label: "Page" },
+          { key: "change", label: "Change" },
+          { key: "why", label: "Why" },
+          { key: "status", label: "Status" },
+          { key: "metric_to_watch", label: "Metric to watch" },
+          { key: "note", label: "Note" }
+        ], rows);
+        if (!ok) {
+          card.appendChild(el("div", { "class": "desc", text: "No CMS metadata actions today." }));
+        }
+        if ((c.errors || []).length) {
+          var errBox = el("div", { "class": "desc" });
+          errBox.appendChild(document.createTextNode("Notes: " + c.errors.join("; ")));
+          card.appendChild(errBox);
+        }
       }
 
       function _organicTrendSvg(series) {
