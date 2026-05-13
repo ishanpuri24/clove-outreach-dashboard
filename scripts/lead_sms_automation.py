@@ -319,11 +319,11 @@ class SheetsAdapter:
     the id stays out of process listings as a top-level token.
     """
 
-    DEFAULT_TIMEOUT_S = 30.0
+    DEFAULT_TIMEOUT_S = 60.0
     SOURCE_ID = "google_sheets__pipedream"
     TOOL_INFO = "google_sheets-get-spreadsheet-info"
-    TOOL_READ_ROWS = "google_sheets-get-values"
-    TOOL_UPDATE_ROW = "google_sheets-update-row"
+    TOOL_READ_ROWS = "google_sheets-get-values-in-range"
+    TOOL_UPDATE_CELL = "google_sheets-update-cell"
 
     def __init__(
         self,
@@ -337,7 +337,8 @@ class SheetsAdapter:
         self.error: str | None = None
         self._binary = binary or os.environ.get("EXTERNAL_TOOL_BIN") or "external-tool"
         self._env_extra = dict(env_extra or {})
-        self._tab_cache: list[dict[str, Any]] | None = None
+        # Cache: tab_title -> {"sheet_id": int, "headers": list[str], "row_count": int}
+        self._tab_cache: dict[str, dict[str, Any]] | None = None
         self._probe()
 
     def _probe(self) -> None:
@@ -361,10 +362,14 @@ class SheetsAdapter:
         condensed into a short reason string; we never propagate raw
         provider output to the public snapshot.
         """
+        # The external-tool CLI expects the parameter map under the
+        # ``arguments`` key (see /usr/local/bin/external-tool::call_tool).
+        # Earlier ``tool_arguments`` shape caused every call to fail with
+        # "Missing required parameters" and scan returned backlog=0.
         req = {
             "source_id": self.SOURCE_ID,
             "tool_name": tool_name,
-            "tool_arguments": payload,
+            "arguments": payload,
         }
         try:
             proc = subprocess.run(
@@ -394,19 +399,16 @@ class SheetsAdapter:
             return data
         return {"_data": data}
 
-    @staticmethod
-    def _unwrap(resp: dict[str, Any]) -> Any:
-        """Pipedream wraps results under several common envelopes.
-
-        Probe ``ret``, ``result``, ``data``, ``response`` in order; fall
-        back to the raw dict if none matches.
-        """
-        for key in ("ret", "result", "data", "response"):
-            if key in resp:
-                return resp[key]
-        return resp
-
     def list_tabs(self) -> list[str]:
+        """Return tab titles and populate the per-tab cache.
+
+        The Pipedream ``google_sheets-get-spreadsheet-info`` tool returns
+        a top-level dict with a ``worksheets`` list. Each entry has
+        ``sheetName`` / ``sheetId`` (integer worksheet id) / ``rowCount``
+        / ``headers`` (the first row as a list of strings). We cache all
+        of this so the scanner can look up ``worksheetId`` for the read
+        call and skip non-lead tabs cheaply by header inspection.
+        """
         if not self.available:
             return []
         resp = self._call(
@@ -419,51 +421,80 @@ class SheetsAdapter:
                 f"({resp.get('_error')})."
             )
             return []
-        info = self._unwrap(resp)
-        sheets = []
-        if isinstance(info, dict):
-            sheets = info.get("sheets") or info.get("Sheets") or []
+        worksheets = resp.get("worksheets") or resp.get("sheets") or []
+        cache: dict[str, dict[str, Any]] = {}
         titles: list[str] = []
-        cache: list[dict[str, Any]] = []
-        for s in sheets or []:
+        for s in worksheets:
             if not isinstance(s, dict):
                 continue
-            props = s.get("properties") or s
-            if not isinstance(props, dict):
+            # The CLI uses ``sheetName``; the raw Sheets API uses
+            # ``properties.title``. Accept either so the adapter survives
+            # a future provider swap without code churn.
+            props = s.get("properties") if isinstance(s.get("properties"), dict) else s
+            title = (
+                s.get("sheetName")
+                or props.get("title")
+                or props.get("Title")
+            )
+            sheet_id = (
+                s.get("sheetId")
+                if s.get("sheetId") is not None
+                else props.get("sheetId")
+            )
+            headers = s.get("headers") or props.get("headers") or []
+            row_count = s.get("rowCount") or props.get("rowCount") or 0
+            if not title or sheet_id is None:
                 continue
-            title = props.get("title") or props.get("Title")
-            sheet_id = props.get("sheetId") or props.get("SheetId")
-            if title:
-                titles.append(str(title))
-                cache.append({"title": str(title), "sheet_id": sheet_id})
+            title_s = str(title)
+            try:
+                sid_int = int(sheet_id)
+            except (TypeError, ValueError):
+                continue
+            cache[title_s] = {
+                "sheet_id": sid_int,
+                "headers": [str(h or "") for h in headers if isinstance(headers, list)],
+                "row_count": int(row_count or 0),
+            }
+            titles.append(title_s)
         self._tab_cache = cache
         return titles
 
-    def sheet_id_for(self, tab: str) -> Any:
+    def tab_info(self, tab: str) -> dict[str, Any] | None:
         if self._tab_cache is None:
             self.list_tabs()
-        for entry in self._tab_cache or []:
-            if entry.get("title") == tab:
-                return entry.get("sheet_id")
-        return None
+        return (self._tab_cache or {}).get(tab)
+
+    def sheet_id_for(self, tab: str) -> Any:
+        info = self.tab_info(tab)
+        return info.get("sheet_id") if info else None
 
     def read_tab(self, tab: str) -> list[list[str]]:
         if not self.available:
             return []
+        info = self.tab_info(tab)
+        if not info:
+            return []
+        worksheet_id = info.get("sheet_id")
+        if worksheet_id is None:
+            return []
+        # ``google_sheets-get-values-in-range`` returns the rows as a
+        # top-level JSON list of lists. If ``range`` is omitted the tool
+        # returns the entire used range of the worksheet, which is what
+        # the scanner needs.
         resp = self._call(
             self.TOOL_READ_ROWS,
             {
-                "spreadsheetId": self.spreadsheet_id,
-                "range": f"'{tab}'",
-                "valueRenderOption": "FORMATTED_VALUE",
+                "sheetId": self.spreadsheet_id,
+                "worksheetId": int(worksheet_id),
             },
         )
         if "_error" in resp:
             return []
-        body = self._unwrap(resp)
-        values: Any = None
-        if isinstance(body, dict):
-            values = body.get("values") or body.get("Values")
+        # The CLI may return a bare list (wrapped as {"_data": [...]} by
+        # ``_call``) or a dict-with-values for legacy callers.
+        values: Any = resp.get("_data")
+        if values is None and isinstance(resp, dict):
+            values = resp.get("values") or resp.get("Values")
         if not isinstance(values, list):
             return []
         normalized: list[list[str]] = []
@@ -493,7 +524,7 @@ class SheetsAdapter:
         """Idempotently update specific cells on a row.
 
         ``updates`` maps 0-based column index -> cell string value. The
-        adapter issues one ``google_sheets-update-row`` call per cell so
+        adapter issues one ``google_sheets-update-cell`` call per cell so
         unrelated cells are never overwritten. Returns ``{"ok": bool,
         "status": "<label>", "cells": <int>}``.
         """
@@ -501,16 +532,20 @@ class SheetsAdapter:
             return {"ok": False, "status": "sheets_unavailable", "cells": 0}
         if not updates:
             return {"ok": True, "status": "noop", "cells": 0}
+        info = self.tab_info(tab)
+        if not info:
+            return {"ok": False, "status": "tab_not_found", "cells": 0}
+        worksheet_id = int(info.get("sheet_id"))
         wrote = 0
         for col_idx, value in updates.items():
-            a1 = f"'{tab}'!{self._col_letter(int(col_idx))}{int(row_number_1based)}"
+            cell_a1 = f"{self._col_letter(int(col_idx))}{int(row_number_1based)}"
             resp = self._call(
-                self.TOOL_UPDATE_ROW,
+                self.TOOL_UPDATE_CELL,
                 {
-                    "spreadsheetId": self.spreadsheet_id,
-                    "range": a1,
-                    "valueInputOption": "USER_ENTERED",
-                    "values": [[str(value)]],
+                    "sheetId": self.spreadsheet_id,
+                    "worksheetId": worksheet_id,
+                    "cell": cell_a1,
+                    "newCell": str(value),
                 },
             )
             if "_error" in resp:
@@ -865,7 +900,19 @@ def scan_leads(
         return result
 
     missing_feedback_tabs: list[str] = []
+    lead_tab_count = 0
     for tab in tabs:
+        # Pre-filter using cached headers from get-spreadsheet-info so we
+        # don't issue a get-values-in-range call for obviously non-lead
+        # tabs (Index, Notes, raw exports, etc.). Per the safety
+        # contract, blank Date does NOT exclude a lead, so we only check
+        # that the tab has both a name and phone column.
+        info = sheets.tab_info(tab) or {}
+        header_preview = info.get("headers") or []
+        if header_preview:
+            preview_idx = header_index(header_preview)
+            if "phone" not in preview_idx or "name" not in preview_idx:
+                continue
         rows = []
         try:
             rows = sheets.read_tab(tab)
@@ -876,6 +923,7 @@ def scan_leads(
         idx = header_index(rows[0])
         if "phone" not in idx or "name" not in idx:
             continue
+        lead_tab_count += 1
         office = office_from_tab(tab)
         source = source_from_tab(tab)
         feedback_cols = {
@@ -964,7 +1012,11 @@ def scan_leads(
 # --------------------------------------------------------------------
 
 def _booking_link_for_office(cfg: dict[str, Any], office: str) -> str:
-    links = ((cfg or {}).get("booking_links") or {})
+    cfg = cfg or {}
+    # The private config uses ``office_booking_links``; legacy fixtures
+    # used ``booking_links``. Accept either so the apply path keeps a
+    # valid link map across config schema changes.
+    links = cfg.get("office_booking_links") or cfg.get("booking_links") or {}
     if not isinstance(links, dict):
         return ""
     return str(links.get(office) or links.get("default") or "")

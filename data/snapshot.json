@@ -17625,7 +17625,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-05-13T02:23:55Z",
+    "as_of": "2026-05-13T02:48:25Z",
     "items": [
       {
         "id": "google-ads-lead-sms",
@@ -17633,13 +17633,13 @@
         "purpose": "Daily check for uncontacted Google Ads leads from the office lead tabs that can backfill now, with office-specific booking links and STOP opt-out language. Can also run hourly for fast response. Sends from the OpenPhone Optimization line.",
         "status": "check",
         "provider": "OpenPhone (Optimization line)",
-        "provider_status": "OpenPhone adapter disabled in private config (openphone.enabled=false).",
-        "send_policy_enabled": false,
+        "provider_status": "OpenPhone adapter configured (Optimization line).",
+        "send_policy_enabled": true,
         "apply_mode": false,
-        "last_run_at_utc": "2026-05-13T02:23:55Z",
+        "last_run_at_utc": "2026-05-13T02:48:25Z",
         "counters": {
-          "backlog": 0,
-          "eligible": 0,
+          "backlog": 226,
+          "eligible": 226,
           "sent_today": 0,
           "replies_pending": 0,
           "booked": 0,
@@ -17647,8 +17647,106 @@
           "sheet_rows_modified": 0,
           "sms_messages_sent": 0
         },
-        "by_office": [],
-        "by_source": [],
+        "by_office": [
+          {
+            "office": "Santa Monica",
+            "backlog": 100,
+            "eligible": 100,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Encino",
+            "backlog": 11,
+            "eligible": 11,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Thousand Oaks",
+            "backlog": 7,
+            "eligible": 7,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Beverly Hills",
+            "backlog": 10,
+            "eligible": 10,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Riverpark",
+            "backlog": 5,
+            "eligible": 5,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Oxnard",
+            "backlog": 4,
+            "eligible": 4,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Ventura",
+            "backlog": 17,
+            "eligible": 17,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Sherman Oaks",
+            "backlog": 69,
+            "eligible": 69,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "office": "Camarillo",
+            "backlog": 3,
+            "eligible": 3,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          }
+        ],
+        "by_source": [
+          {
+            "source_type": "General",
+            "backlog": 205,
+            "eligible": 205,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "source_type": "Emergency",
+            "backlog": 17,
+            "eligible": 17,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          },
+          {
+            "source_type": "Insurance",
+            "backlog": 4,
+            "eligible": 4,
+            "sent_today": 0,
+            "replies_pending": 0,
+            "booked": 0
+          }
+        ],
         "sample_template_public": "Hi [First name], this is Clove Dental [Office]. You filled out a form for an appointment, and we have real-time openings available today. You can book here: [office booking link]. If you want help, reply with what time works. Reply STOP to opt out.",
         "compliance_notes": [
           "New Google Ads lead SMS includes opt-out (Reply STOP).",
@@ -17656,18 +17754,60 @@
           "Quiet hours respected (after 8pm / before 8am recipient local time).",
           "Per-run cap applies before any sends are enabled."
         ],
-        "blockers": [
-          "Google Sheets client not available (ModuleNotFoundError). Install google-api-python-client and configure application default credentials to enable live scanning.",
-          "OpenPhone adapter disabled in private config (openphone.enabled=false).",
-          "send_policy.enabled is false in private config; no real SMS is sent until the operator enables it."
-        ]
+        "blockers": []
       }
     ],
     "before_we_send": {
-      "backlog_count": 0,
-      "eligible_count": 0,
+      "backlog_count": 226,
+      "eligible_count": 226,
       "planned_hourly_cadence": "Checks daily and can backfill uncontacted leads now (up to 25 in the initial backfill run). Can also run hourly for fast response, up to 25 sends per hour.",
-      "per_office_split": [],
+      "per_office_split": [
+        {
+          "office": "Santa Monica",
+          "eligible": 100,
+          "backlog": 100
+        },
+        {
+          "office": "Encino",
+          "eligible": 11,
+          "backlog": 11
+        },
+        {
+          "office": "Thousand Oaks",
+          "eligible": 7,
+          "backlog": 7
+        },
+        {
+          "office": "Beverly Hills",
+          "eligible": 10,
+          "backlog": 10
+        },
+        {
+          "office": "Riverpark",
+          "eligible": 5,
+          "backlog": 5
+        },
+        {
+          "office": "Oxnard",
+          "eligible": 4,
+          "backlog": 4
+        },
+        {
+          "office": "Ventura",
+          "eligible": 17,
+          "backlog": 17
+        },
+        {
+          "office": "Sherman Oaks",
+          "eligible": 69,
+          "backlog": 69
+        },
+        {
+          "office": "Camarillo",
+          "eligible": 3,
+          "backlog": 3
+        }
+      ],
       "max_sends_per_run": 25,
       "quiet_hours": "before 8am and after 8pm PT unless explicitly changed",
       "writeback_behavior": "After a real send, the script stamps the matching row in the Google Sheet (Contacted / Last SMS At) on the operator host. No writes happen during dry-run or check mode.",
@@ -17676,7 +17816,7 @@
     },
     "optimization_os": {
       "title": "OptimizationOS / win-back rules",
-      "as_of": "2026-05-13T02:23:55Z",
+      "as_of": "2026-05-13T02:48:25Z",
       "rules": [
         {
           "rule": "problem_op_gap_fill",
@@ -17732,12 +17872,20 @@
     "provider_check": {
       "provider": "OpenPhone",
       "line": "Optimization line",
-      "status_label": "disabled",
-      "reachable": false,
-      "note": "Provider check skipped (provider disabled or check mode off).",
+      "status_label": "ok",
+      "reachable": true,
+      "note": "Authenticated successfully.",
       "auth_style": "raw_key_not_bearer"
     },
     "safety_note": "No-send by default. Real SMS is gated on a private OpenPhone API key (raw Authorization header, not Bearer), an explicit send-policy flag, and a confirmation flag on the command line. New-lead SMS includes STOP; established-patient optimization SMS does not.",
+    "escalation": {
+      "mode": "aggregate_only",
+      "needs_human": 0,
+      "trello_configured": false,
+      "queued": 0,
+      "note": "Aggregate needs-human count only. No automatic Trello card is created unless escalation.trello.list_id is set and escalation.trello.enabled=true in the private config.",
+      "channel": "trello_or_aggregate"
+    },
     "_sanitization": {
       "no_pii": true,
       "no_phone_numbers": true,
