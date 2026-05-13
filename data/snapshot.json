@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T07:15:24.456089+00:00",
+  "generated_at": "2026-05-13T11:08:21.441956+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -15856,9 +15856,33 @@
     "connector_status": [
       {
         "integration": "Google Analytics 4",
-        "status": "Connected; key events not firing",
+        "status": "Connected; form_submit mapped, call_click/appt_booked pending instrumentation",
         "severity": "warn",
-        "action": "Map conversion key events (form_submit, call_click, appt_booked) so organic conversions report."
+        "action": "form_submit mapped as a GA4 key event on 2026-05-13 (ONCE_PER_SESSION). call_click and appt_booked still need site-side instrumentation before they can be mapped.",
+        "key_events": [
+          {
+            "name": "form_submit",
+            "status": "mapped_as_key_event",
+            "scope": "ONCE_PER_SESSION",
+            "mapped_on": "2026-05-13",
+            "impact_metric": "Organic form_submit conversions reported in GA4",
+            "next_action": "Watch GA4 conversions report 24-48h for organic form_submit volume to appear."
+          },
+          {
+            "name": "call_click",
+            "status": "instrumentation_pending",
+            "scope": "ONCE_PER_SESSION (planned)",
+            "impact_metric": "Organic call_click conversions reported in GA4",
+            "next_action": "Add tel: link click event to site templates, then map as a GA4 key event."
+          },
+          {
+            "name": "appt_booked",
+            "status": "instrumentation_pending",
+            "scope": "ONCE_PER_SESSION (planned)",
+            "impact_metric": "Organic appt_booked conversions reported in GA4",
+            "next_action": "Fire appt_booked on booking-confirmation page (HubSpot/Subscribili flow), then map as a GA4 key event."
+          }
+        ]
       },
       {
         "integration": "Google Search Console",
@@ -15912,6 +15936,14 @@
       }
     ],
     "top_actions": [
+      {
+        "priority": "P1",
+        "label": "GA4 instrumentation queue: call_click + appt_booked",
+        "action": "form_submit is mapped as a GA4 key event (done 2026-05-13). Add tel: link click + booking-confirmation events on site, then map each as a key event in GA4.",
+        "owner": "Marketing engineering",
+        "status": "in_progress",
+        "impact_metric": "Organic conversions surfaced in GA4 (form_submit live; call_click + appt_booked when instrumented)"
+      },
       {
         "priority": "P0",
         "label": "Fix CTR leak: physicians mutual dental insurance",
@@ -16148,8 +16180,8 @@
     "source_status_rows": [
       {
         "source": "GA4",
-        "status": "Connected; conversion tracking needs mapping",
-        "note": "Sessions and channels reporting; key events return 0 \u2014 map form_submit / call_click / appt_booked to surface organic conversions."
+        "status": "Connected; form_submit conversion mapped",
+        "note": "form_submit mapped as a GA4 key event (ONCE_PER_SESSION) on 2026-05-13. call_click and appt_booked are queued for site-side instrumentation; once events fire they will be mapped the same way."
       },
       {
         "source": "GSC",
@@ -17512,51 +17544,30 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-05-13T07:15:24.456104+00:00",
+    "last_run_at": "2026-05-13T11:08:21.441959+00:00",
     "last_run_date": "2026-05-13",
     "mode": "fast",
     "sources": {
       "callrail": "ok: merged sanitized aggregate",
-      "hubspot_cms": "ok: inventory=50sp/50lp, considered=4, actions=2, live=2, draft=0, proposed=0, impact_samples=0 (live-writeback)",
-      "outbound": "disabled: --no-send (default)"
+      "hubspot_cms": "ok: inventory=50sp/50lp, considered=4, actions=0, live=0, draft=0, proposed=0, impact_samples=0 (dry-run)",
+      "outbound": "disabled: --no-send (default)",
+      "ga4_key_events": "ok: form_submit mapped; call_click+appt_booked instrumentation pending",
+      "action_system": "ok: 5 actions tracked"
     },
     "pending_sources": []
   },
   "organic_cms_actions": {
     "title": "Organic / HubSpot CMS automation",
-    "last_run_at": "2026-05-13T07:15:18.373504+00:00",
+    "last_run_at": "2026-05-13T11:08:20.198241+00:00",
     "mode": "apply",
     "publish_mode": "controlled_live_writeback_allowed",
-    "writeback_performed": true,
-    "live_writes": 2,
+    "writeback_performed": false,
+    "live_writes": 0,
     "draft_writes": 0,
     "proposals": 0,
     "impact_samples_updated": 0,
-    "summary": "2 CMS metadata action(s) considered; 2 live \u00b7 0 draft.",
-    "actions": [
-      {
-        "page": "/app \u2014 Book Appointment",
-        "slug": "/app",
-        "page_type": "site_page",
-        "change": "missing_or_weak_title_update",
-        "why": "title len 16",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR 0.2%; clicks 5/28d; impressions 2563/28d",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
-        "page": "/al \u2014 Al",
-        "slug": "/al",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update",
-        "why": "title len 12",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR 0.2%; clicks 6/28d; impressions 3652/28d",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      }
-    ],
+    "summary": "0 CMS metadata action(s) considered; 0 live \u00b7 0 draft.",
+    "actions": [],
     "impact_over_time": [
       {
         "page": "/app \u2014 Book Appointment",
@@ -17608,11 +17619,11 @@
         "applied_at": "2026-05-13T07:15:24.448482+00:00",
         "baseline_ctr_pct": 0.2,
         "baseline_clicks": 6,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
+        "latest_ctr_pct": 2.61,
+        "latest_clicks": 85,
+        "delta_ctr_pct": 2.41,
+        "delta_clicks": 79.0,
+        "samples": 1
       }
     ],
     "errors": []
@@ -17895,6 +17906,93 @@
       "no_patnums": true,
       "no_od_tokens": true,
       "aggregated_only": true
+    },
+    "action_system": {
+      "title": "Action system",
+      "as_of": "2026-05-13T11:08:21.441936+00:00",
+      "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
+      "actions": [
+        {
+          "id": "hubspot-cms-metadata",
+          "name": "HubSpot CMS metadata writeback",
+          "status": "idle",
+          "next_action": "Continue daily learning loop: append impact samples and promote draft changes to live when CTR uplift confirmed.",
+          "last_action": "0 CMS metadata action(s) considered; 0 live \u00b7 0 draft.",
+          "last_action_at": "2026-05-13T11:08:20.198241+00:00",
+          "impact_metric": "GSC clicks / CTR on edited pages (impact_over_time)",
+          "impact_samples": 0,
+          "live_writes": 0,
+          "draft_writes": 0,
+          "blocker": null
+        },
+        {
+          "id": "ga4-form-submit-mapping",
+          "name": "GA4 form_submit conversion mapping",
+          "status": "active_live",
+          "next_action": "Watch GA4 conversions report 24-48h for organic form_submit volume; queue call_click + appt_booked for site instrumentation.",
+          "last_action": "form_submit mapped as a GA4 key event (ONCE_PER_SESSION)",
+          "last_action_at": "2026-05-13",
+          "impact_metric": "GA4 key-event conversions for organic form_submit",
+          "key_events": [
+            {
+              "name": "form_submit",
+              "status": "mapped_as_key_event",
+              "scope": "ONCE_PER_SESSION",
+              "mapped_on": "2026-05-13",
+              "impact_metric": "Organic form_submit conversions reported in GA4",
+              "next_action": "Watch GA4 conversions report 24-48h for organic form_submit volume to appear."
+            },
+            {
+              "name": "call_click",
+              "status": "instrumentation_pending",
+              "scope": "ONCE_PER_SESSION (planned)",
+              "impact_metric": "Organic call_click conversions reported in GA4",
+              "next_action": "Add tel: link click event to site templates, then map as a GA4 key event."
+            },
+            {
+              "name": "appt_booked",
+              "status": "instrumentation_pending",
+              "scope": "ONCE_PER_SESSION (planned)",
+              "impact_metric": "Organic appt_booked conversions reported in GA4",
+              "next_action": "Fire appt_booked on booking-confirmation page (HubSpot/Subscribili flow), then map as a GA4 key event."
+            }
+          ],
+          "blocker": null
+        },
+        {
+          "id": "google-ads-lead-sms",
+          "name": "Google Ads lead SMS backfill",
+          "status": "blocked",
+          "next_action": "Refresh the OpenPhone API key (raw Authorization header) in the private config so apply mode can clear the lead backlog from the office tabs.",
+          "last_action": "0 SMS sent today; 226 eligible leads waiting.",
+          "last_action_at": "2026-05-13T03:06:49Z",
+          "impact_metric": "Backlog cleared / first-time bookings from Google Ads leads",
+          "blocker": "OpenPhone provider auth failed (provider_auth_failed)",
+          "blockers_detail": [
+            "Apply mode produced 0 sends from 226 eligible candidate(s). Top skip reason: provider_auth_failed."
+          ]
+        },
+        {
+          "id": "tracking-stack",
+          "name": "CallRail / Open Dental / Subscribili tracking",
+          "status": "active_live",
+          "next_action": "Daily refresh merges sanitized CallRail aggregates; Open Dental and Subscribili pulls run on the operator host.",
+          "last_action": "CallRail 30d: 3722 calls, answer rate 95.2%",
+          "last_action_at": "2026-05-07T00:00:00Z",
+          "impact_metric": "Answer rate, qualified calls, first-time callers",
+          "blocker": null
+        },
+        {
+          "id": "gmb-new-negative-alerts",
+          "name": "GMB new-negative-review alerts",
+          "status": "pending",
+          "next_action": "On each refresh, surface any new <=3-star reviews in the new-negative queue and route the office owner to respond.",
+          "last_action": "Awaiting first GMB refresh with prior-state comparison.",
+          "last_action_at": "2026-05-09T17:00:00Z",
+          "impact_metric": "Time-to-first-response on negative GMB reviews; star average",
+          "blocker": null
+        }
+      ]
     }
   }
 }

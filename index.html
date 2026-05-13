@@ -2462,6 +2462,19 @@
            aria-labelledby="tab-automations" tabindex="0">
         <p class="tab-meta" id="automations-meta"></p>
 
+        <section aria-labelledby="auto-action-system">
+          <div class="ps-head">
+            <h2 id="auto-action-system">Action system</h2>
+            <span class="pill" id="auto-action-system-pill" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="auto-action-system-meta">
+            Active marketing automations and tracked actions. Aggregate
+            only — no PII, no private IDs. Each row shows status, next
+            action, last action, and the impact metric to watch.
+          </p>
+          <div id="auto-action-system-table"></div>
+        </section>
+
         <section aria-labelledby="auto-before-send">
           <div class="ps-head">
             <h2 id="auto-before-send">Send readiness</h2>
@@ -6239,7 +6252,78 @@
           meta.textContent = line + (pc.note ? " - " + pc.note : "");
         }
       }
+      function _actionSystemStatusPill(status) {
+        var s = String(status || "").toLowerCase();
+        var cls = "pill";
+        var text = status || "—";
+        if (s === "active_live" || s === "ok") { cls += " good"; text = "live"; }
+        else if (s === "active_draft") { cls += " warn"; text = "live (draft)"; }
+        else if (s === "active_dry_run") { cls += " warn"; text = "dry run"; }
+        else if (s === "blocked") { cls += " danger"; text = "blocked"; }
+        else if (s === "pending") { cls += " warn"; text = "pending"; }
+        else if (s === "idle") { cls += " warn"; text = "idle"; }
+        return el("span", { "class": cls, text: text });
+      }
+
+      function renderActionSystem(asys) {
+        var host = $("auto-action-system-table");
+        var pill = $("auto-action-system-pill");
+        if (!host) return;
+        host.innerHTML = "";
+        if (!asys || !(asys.actions || []).length) {
+          host.appendChild(el("div", { "class": "section-meta",
+            text: "Awaiting first action_system run." }));
+          if (pill) pill.textContent = "";
+          return;
+        }
+        if (pill) pill.textContent = asys.as_of ? ("As of " + asys.as_of) : "";
+        var wrap = el("div", { "class": "table-wrap" });
+        var table = el("table", { "class": "data-table" });
+        var thead = el("thead", null, [el("tr", null, [
+          el("th", { text: "Automation" }),
+          el("th", { text: "Status" }),
+          el("th", { text: "Next action" }),
+          el("th", { text: "Last action" }),
+          el("th", { text: "Impact metric" })
+        ])]);
+        table.appendChild(thead);
+        var tb = el("tbody");
+        (asys.actions || []).forEach(function (a) {
+          var nameCell = el("td");
+          nameCell.appendChild(el("strong", { text: a.name || a.id || "—" }));
+          if (a.blocker) {
+            nameCell.appendChild(el("div", { "class": "ps-stat-bench",
+              text: "Blocker: " + a.blocker }));
+          }
+          if ((a.key_events || []).length) {
+            var ke = el("div", { "class": "ps-stat-bench" });
+            ke.textContent = "Key events: " + a.key_events.map(function (k) {
+              return k.name + " (" + k.status + ")";
+            }).join(", ");
+            nameCell.appendChild(ke);
+          }
+          var statusCell = el("td", null, [_actionSystemStatusPill(a.status)]);
+          var lastCell = el("td");
+          lastCell.appendChild(document.createTextNode(a.last_action || "—"));
+          if (a.last_action_at && a.last_action_at !== "—") {
+            lastCell.appendChild(el("div", { "class": "ps-stat-bench",
+              text: a.last_action_at }));
+          }
+          tb.appendChild(el("tr", null, [
+            nameCell,
+            statusCell,
+            el("td", { text: a.next_action || "—" }),
+            lastCell,
+            el("td", { text: a.impact_metric || "—" })
+          ]));
+        });
+        table.appendChild(tb);
+        wrap.appendChild(table);
+        host.appendChild(wrap);
+      }
+
       function renderAutomations(a) {
+        renderActionSystem(a && a.action_system);
         renderBeforeWeSend(a);
         renderOptimizationOS(a);
         renderProviderCheck(a);

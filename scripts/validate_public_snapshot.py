@@ -2688,7 +2688,205 @@ STALE_GA4_SETUP_PHRASES = [
     "connect GA4",
     "Need GA4",
     "need GA4",
+    # GA4 is connected and form_submit is mapped as a key event. The
+    # remaining work is site-side instrumentation for call_click and
+    # appt_booked, not setup. Block stale "key events not firing"
+    # blanket copy too.
+    "GA4 property ID",
+    "GA4 measurement ID",
+    "property ID needed",
+    "connect Google Analytics",
+    "Connect Google Analytics",
+    "Google Analytics not configured",
+    "key events not firing",
+    "conversion tracking needs mapping",
 ]
+
+
+# Private analytics-config / GA4 identifier shapes that must never
+# appear in the public mirror. The dashboard exposes only that
+# form_submit is mapped; the property ID / key-event ID / measurement
+# ID stay private.
+GA4_PRIVATE_ID_PATTERNS = [
+    (r"\bG-[A-Z0-9]{8,}\b", "GA4 measurement ID (G-XXXX)"),
+    (r"\bproperties/\d{6,}\b", "GA4 property path (properties/NNNNNN)"),
+    (
+        r"\bproperty[_-]?id\s*[:=]\s*['\"]?\d{6,}",
+        "GA4 property ID assignment",
+    ),
+    (
+        r"\bkey[_-]?event[_-]?id\s*[:=]\s*['\"]?\d{6,}",
+        "GA4 key-event ID assignment",
+    ),
+]
+
+
+REQUIRED_ACTION_SYSTEM_IDS = {
+    "hubspot-cms-metadata",
+    "ga4-form-submit-mapping",
+    "google-ads-lead-sms",
+    "tracking-stack",
+    "gmb-new-negative-alerts",
+}
+
+ALLOWED_ACTION_SYSTEM_ENTRY_KEYS = {
+    "id", "name", "status", "next_action", "last_action",
+    "last_action_at", "impact_metric", "impact_samples",
+    "live_writes", "draft_writes", "key_events", "blocker",
+    "blockers_detail",
+}
+
+ALLOWED_ACTION_SYSTEM_STATUSES = {
+    "active_live", "active_draft", "active_dry_run",
+    "blocked", "pending", "idle", "ok",
+}
+
+ALLOWED_GA4_KEY_EVENT_KEYS = {
+    "name", "status", "scope", "mapped_on",
+    "impact_metric", "next_action",
+}
+
+ALLOWED_GA4_KEY_EVENT_STATUSES = {
+    "mapped_as_key_event",
+    "instrumentation_pending",
+}
+
+
+def check_action_system(snap: dict[str, Any]) -> None:
+    auto = snap.get("automations")
+    if not isinstance(auto, dict):
+        return
+    asys = auto.get("action_system")
+    if asys is None:
+        _fail(
+            "automations.action_system is required so the dashboard "
+            "can render the action-oriented summary."
+        )
+    if not isinstance(asys, dict):
+        _fail("automations.action_system must be an object.")
+    actions = asys.get("actions")
+    if not isinstance(actions, list) or not actions:
+        _fail(
+            "automations.action_system.actions must be a non-empty list."
+        )
+    seen_ids: set[str] = set()
+    for idx, a in enumerate(actions):
+        if not isinstance(a, dict):
+            _fail(
+                f"automations.action_system.actions[{idx}] must be an object."
+            )
+        extra = set(a.keys()) - ALLOWED_ACTION_SYSTEM_ENTRY_KEYS
+        if extra:
+            _fail(
+                f"automations.action_system.actions[{idx}] has unexpected "
+                f"keys: {sorted(extra)}"
+            )
+        for required in (
+            "id", "name", "status", "next_action",
+            "last_action", "impact_metric",
+        ):
+            if not a.get(required):
+                _fail(
+                    f"automations.action_system.actions[{idx}] missing "
+                    f"required field: {required!r}"
+                )
+        if a["status"] not in ALLOWED_ACTION_SYSTEM_STATUSES:
+            _fail(
+                f"automations.action_system.actions[{idx}].status "
+                f"{a['status']!r} not in allowlist."
+            )
+        seen_ids.add(a["id"])
+        kes = a.get("key_events")
+        if kes is not None:
+            if not isinstance(kes, list):
+                _fail(
+                    f"automations.action_system.actions[{idx}].key_events "
+                    "must be a list."
+                )
+            for kidx, k in enumerate(kes):
+                if not isinstance(k, dict):
+                    _fail(
+                        f"automations.action_system.actions[{idx}]"
+                        f".key_events[{kidx}] must be an object."
+                    )
+                extra_k = set(k.keys()) - ALLOWED_GA4_KEY_EVENT_KEYS
+                if extra_k:
+                    _fail(
+                        f"automations.action_system.actions[{idx}]"
+                        f".key_events[{kidx}] has unexpected keys: "
+                        f"{sorted(extra_k)}"
+                    )
+                if k.get("status") not in ALLOWED_GA4_KEY_EVENT_STATUSES:
+                    _fail(
+                        f"automations.action_system.actions[{idx}]"
+                        f".key_events[{kidx}].status not in allowlist."
+                    )
+    missing = REQUIRED_ACTION_SYSTEM_IDS - seen_ids
+    if missing:
+        _fail(
+            "automations.action_system.actions is missing required "
+            f"entries: {sorted(missing)}"
+        )
+
+
+def check_ga4_form_submit_mapped(snap: dict[str, Any]) -> None:
+    """GA4 form_submit must be marked as a mapped key event."""
+    auto = snap.get("automations", {}) or {}
+    asys = auto.get("action_system", {}) or {}
+    found = False
+    for a in asys.get("actions", []) or []:
+        if a.get("id") == "ga4-form-submit-mapping":
+            for k in a.get("key_events", []) or []:
+                if (
+                    k.get("name") == "form_submit"
+                    and k.get("status") == "mapped_as_key_event"
+                ):
+                    found = True
+                    break
+    if not found:
+        _fail(
+            "automations.action_system must declare form_submit as a "
+            "mapped GA4 key event."
+        )
+    organic = snap.get("organic_insights", {}) or {}
+    ga4_row = None
+    for c in organic.get("connector_status", []) or []:
+        if str(c.get("integration", "")).lower().startswith(
+            "google analytics"
+        ):
+            ga4_row = c
+            break
+    if ga4_row is None:
+        _fail(
+            "organic_insights.connector_status missing Google Analytics row."
+        )
+    status_text = str(ga4_row.get("status", ""))
+    action_text = str(ga4_row.get("action", ""))
+    if (
+        "form_submit" not in status_text
+        and "form_submit" not in action_text
+    ):
+        _fail(
+            "organic_insights GA4 connector_status must reference "
+            "form_submit (mapped key event)."
+        )
+
+
+def check_ga4_private_ids(snapshot_text: str) -> None:
+    findings: list[str] = []
+    for pattern, description in GA4_PRIVATE_ID_PATTERNS:
+        for m in re.finditer(pattern, snapshot_text):
+            findings.append(
+                f"data/snapshot.json: {description} "
+                f"(matched: {m.group(0)!r})"
+            )
+    if findings:
+        joined = "\n  - ".join(findings)
+        _fail(
+            "GA4 private identifier leak detected. Property ID, "
+            "measurement ID, and key-event IDs must stay private.\n"
+            f"  - {joined}"
+        )
 
 
 def check_no_stale_ga4_setup_copy(
@@ -2730,6 +2928,8 @@ def main() -> int:
         check_b2b_reply_detail(snap)
         check_keyword_focus(snap)
         check_automations(snap)
+        check_action_system(snap)
+        check_ga4_form_submit_mapped(snap)
 
         snapshot_text = DATA_FILE.read_text(encoding="utf-8")
         if not INDEX_HTML.exists():
@@ -2738,6 +2938,7 @@ def main() -> int:
 
         check_no_forbidden_patterns(snapshot_text, html_text)
         check_no_stale_ga4_setup_copy(snapshot_text, html_text)
+        check_ga4_private_ids(snapshot_text)
     except ValidationError as exc:
         print(f"FAIL: {exc}")
         return 1

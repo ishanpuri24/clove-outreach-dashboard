@@ -94,6 +94,36 @@ OFFICE_LABEL_ALLOWLIST = {
     "Santa Monica", "Sherman Oaks", "Encino", "Los Angeles",
 }
 
+# GA4 key-event mapping state carried forward on every refresh. GA4
+# itself is configured in the private analytics_config; this block
+# only tracks which key events are mapped vs. pending site-side
+# instrumentation, so the public dashboard can stay action-oriented.
+# No GA4 property ID, measurement ID, or key-event ID is published.
+GA4_KEY_EVENTS_PUBLIC = [
+    {
+        "name": "form_submit",
+        "status": "mapped_as_key_event",
+        "scope": "ONCE_PER_SESSION",
+        "mapped_on": "2026-05-13",
+        "impact_metric": "Organic form_submit conversions reported in GA4",
+        "next_action": "Watch GA4 conversions report 24-48h for organic form_submit volume to appear.",
+    },
+    {
+        "name": "call_click",
+        "status": "instrumentation_pending",
+        "scope": "ONCE_PER_SESSION (planned)",
+        "impact_metric": "Organic call_click conversions reported in GA4",
+        "next_action": "Add tel: link click event to site templates, then map as a GA4 key event.",
+    },
+    {
+        "name": "appt_booked",
+        "status": "instrumentation_pending",
+        "scope": "ONCE_PER_SESSION (planned)",
+        "impact_metric": "Organic appt_booked conversions reported in GA4",
+        "next_action": "Fire appt_booked on booking-confirmation page (HubSpot/Subscribili flow), then map as a GA4 key event.",
+    },
+]
+
 
 def utcnow_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -186,6 +216,223 @@ def merge_callrail(snapshot: dict, private_dir: Path, status: dict) -> None:
     if refreshed:
         live["refreshed_at"] = refreshed
     status["callrail"] = "ok: merged sanitized aggregate"
+
+
+def _ga4_action_for_organic() -> dict:
+    return {
+        "priority": "P1",
+        "label": "GA4 instrumentation queue: call_click + appt_booked",
+        "action": (
+            "form_submit is mapped as a GA4 key event (done 2026-05-13). "
+            "Add tel: link click + booking-confirmation events on site, "
+            "then map each as a key event in GA4."
+        ),
+        "owner": "Marketing engineering",
+        "status": "in_progress",
+        "impact_metric": (
+            "Organic conversions surfaced in GA4 (form_submit live; "
+            "call_click + appt_booked when instrumented)"
+        ),
+    }
+
+
+def update_ga4_status_block(snapshot: dict) -> None:
+    """Stamp GA4 actionable status into organic_insights.
+
+    GA4 is connected. The public mirror only states which key events
+    are mapped vs. pending site-side instrumentation. No property ID,
+    measurement ID, or key-event ID is published.
+    """
+    organic = snapshot.get("organic_insights")
+    if not isinstance(organic, dict):
+        return
+    for c in organic.get("connector_status", []) or []:
+        if not isinstance(c, dict):
+            continue
+        integ = str(c.get("integration", "")).lower()
+        if integ.startswith("google analytics"):
+            c["status"] = (
+                "Connected; form_submit mapped, call_click/appt_booked "
+                "pending instrumentation"
+            )
+            c["severity"] = "warn"
+            c["action"] = (
+                "form_submit mapped as a GA4 key event on 2026-05-13 "
+                "(ONCE_PER_SESSION). call_click and appt_booked still "
+                "need site-side instrumentation before they can be mapped."
+            )
+            c["key_events"] = list(GA4_KEY_EVENTS_PUBLIC)
+    for r in organic.get("source_status_rows", []) or []:
+        if not isinstance(r, dict):
+            continue
+        if str(r.get("source", "")).upper() == "GA4":
+            r["status"] = "Connected; form_submit conversion mapped"
+            r["note"] = (
+                "form_submit mapped as a GA4 key event "
+                "(ONCE_PER_SESSION) on 2026-05-13. call_click and "
+                "appt_booked are queued for site-side instrumentation; "
+                "once events fire they will be mapped the same way."
+            )
+    # Top-action: ensure GA4 instrumentation queue stays on the list
+    # and any stale "map GA4 conversions" entry is removed.
+    actions = organic.get("top_actions")
+    if isinstance(actions, list):
+        filtered = []
+        for a in actions:
+            if not isinstance(a, dict):
+                continue
+            label = (a.get("label") or a.get("action") or "").lower()
+            if "ga4" in label and (
+                "map" in label
+                or "key event" in label
+                or "conversion" in label
+                or "instrumentation" in label
+            ):
+                continue
+            filtered.append(a)
+        organic["top_actions"] = [_ga4_action_for_organic()] + filtered
+
+
+def build_action_system(snapshot: dict, prior_action_system: dict | None) -> dict:
+    """Rebuild the automations.action_system block from current state.
+
+    Carries forward each action's prior `last_action_at` if the new
+    refresh has no fresher info, so the timeline is preserved across
+    runs. Aggregate only — no PII, no private IDs.
+    """
+    prior_by_id: dict[str, dict] = {}
+    if isinstance(prior_action_system, dict):
+        for a in prior_action_system.get("actions", []) or []:
+            if isinstance(a, dict) and a.get("id"):
+                prior_by_id[str(a["id"])] = a
+
+    cms = snapshot.get("organic_cms_actions") or {}
+    auto = snapshot.get("automations") or {}
+    items = auto.get("items") or []
+    lead_sms = items[0] if items else {}
+    lead_sms_counters = lead_sms.get("counters") or {}
+    lead_sms_blockers = lead_sms.get("blockers") or []
+    callrail = snapshot.get("callrail_live") or {}
+    callrail_30d = callrail.get("last_30_days") or {}
+    gmb = snapshot.get("gmb_insights") or {}
+    new_neg = gmb.get("new_negative_alerts") or {}
+
+    if cms.get("live_writes"):
+        cms_status = "active_live"
+    elif cms.get("draft_writes"):
+        cms_status = "active_draft"
+    elif cms.get("writeback_performed"):
+        cms_status = "active_dry_run"
+    else:
+        cms_status = "idle"
+
+    def merge_prior(entry: dict) -> dict:
+        prev = prior_by_id.get(entry["id"]) or {}
+        # carry forward last_action_at when current run has no fresh
+        # timestamp ("—" or empty)
+        if (entry.get("last_action_at") in (None, "", "—")) and prev.get("last_action_at"):
+            entry["last_action_at"] = prev["last_action_at"]
+        return entry
+
+    actions = [
+        merge_prior({
+            "id": "hubspot-cms-metadata",
+            "name": "HubSpot CMS metadata writeback",
+            "status": cms_status,
+            "next_action": (
+                "Continue daily learning loop: append impact samples and "
+                "promote draft changes to live when CTR uplift confirmed."
+            ),
+            "last_action": cms.get("summary") or "Awaiting first CMS optimizer run.",
+            "last_action_at": cms.get("last_run_at") or "—",
+            "impact_metric": "GSC clicks / CTR on edited pages (impact_over_time)",
+            "impact_samples": cms.get("impact_samples_updated", 0),
+            "live_writes": cms.get("live_writes", 0),
+            "draft_writes": cms.get("draft_writes", 0),
+            "blocker": None,
+        }),
+        merge_prior({
+            "id": "ga4-form-submit-mapping",
+            "name": "GA4 form_submit conversion mapping",
+            "status": "active_live",
+            "next_action": (
+                "Watch GA4 conversions report 24-48h for organic "
+                "form_submit volume; queue call_click + appt_booked for "
+                "site instrumentation."
+            ),
+            "last_action": "form_submit mapped as a GA4 key event (ONCE_PER_SESSION)",
+            "last_action_at": "2026-05-13",
+            "impact_metric": "GA4 key-event conversions for organic form_submit",
+            "key_events": list(GA4_KEY_EVENTS_PUBLIC),
+            "blocker": None,
+        }),
+        merge_prior({
+            "id": "google-ads-lead-sms",
+            "name": "Google Ads lead SMS backfill",
+            "status": "blocked",
+            "next_action": (
+                "Refresh the OpenPhone API key (raw Authorization header) "
+                "in the private config so apply mode can clear the lead "
+                "backlog from the office tabs."
+            ),
+            "last_action": (
+                f"{lead_sms_counters.get('sent_today', 0)} SMS sent today; "
+                f"{lead_sms_counters.get('backlog', 0)} eligible leads waiting."
+            ),
+            "last_action_at": lead_sms.get("last_run_at_utc") or "—",
+            "impact_metric": "Backlog cleared / first-time bookings from Google Ads leads",
+            "blocker": "OpenPhone provider auth failed (provider_auth_failed)",
+            "blockers_detail": list(lead_sms_blockers),
+        }),
+        merge_prior({
+            "id": "tracking-stack",
+            "name": "CallRail / Open Dental / Subscribili tracking",
+            "status": "active_live" if callrail_30d else "pending",
+            "next_action": (
+                "Daily refresh merges sanitized CallRail aggregates; "
+                "Open Dental and Subscribili pulls run on the operator host."
+            ),
+            "last_action": (
+                f"CallRail 30d: {callrail_30d.get('total_calls', '—')} calls, "
+                f"answer rate {callrail_30d.get('answer_rate_pct', '—')}%"
+            ) if callrail_30d else "Awaiting first CallRail sanitized aggregate.",
+            "last_action_at": callrail.get("refreshed_at") or "—",
+            "impact_metric": "Answer rate, qualified calls, first-time callers",
+            "blocker": None,
+        }),
+        merge_prior({
+            "id": "gmb-new-negative-alerts",
+            "name": "GMB new-negative-review alerts",
+            "status": "active_live" if new_neg else "pending",
+            "next_action": (
+                "On each refresh, surface any new <=3-star reviews in the "
+                "new-negative queue and route the office owner to respond."
+            ),
+            "last_action": (
+                f"{new_neg.get('count', 0)} new negative review(s) detected since last run."
+            ) if new_neg else "Awaiting first GMB refresh with prior-state comparison.",
+            "last_action_at": new_neg.get("checked_at") or gmb.get("data_freshness") or "—",
+            "impact_metric": "Time-to-first-response on negative GMB reviews; star average",
+            "blocker": None,
+        }),
+    ]
+
+    return {
+        "title": "Action system",
+        "as_of": utcnow_iso(),
+        "description": (
+            "Active marketing automations and tracked actions. Aggregate "
+            "only — no PII, no private IDs, no tokens. Each entry shows "
+            "status, next action, last action, and the impact metric to watch."
+        ),
+        "actions": actions,
+    }
+
+
+def update_action_system_block(snapshot: dict) -> None:
+    auto = snapshot.setdefault("automations", {})
+    prior = auto.get("action_system") if isinstance(auto.get("action_system"), dict) else None
+    auto["action_system"] = build_action_system(snapshot, prior)
 
 
 def update_routine_refresh_block(snapshot: dict, status: dict, mode: str) -> None:
@@ -370,6 +617,17 @@ def refresh(
     else:
         status["outbound"] = "disabled: --no-send (default)"
 
+    # Action-oriented blocks carried forward every run. These are
+    # rebuilt from current snapshot state and prior action_system
+    # entries so the timeline is preserved and stale setup copy is
+    # blocked at the source.
+    update_ga4_status_block(snapshot)
+    update_action_system_block(snapshot)
+    status["ga4_key_events"] = "ok: form_submit mapped; call_click+appt_booked instrumentation pending"
+    status["action_system"] = (
+        f"ok: {len(snapshot['automations']['action_system']['actions'])} actions tracked"
+    )
+
     # Routine refresh stamp.
     snapshot["generated_at"] = utcnow_iso()
     update_routine_refresh_block(snapshot, status, mode_label)
@@ -378,6 +636,9 @@ def refresh(
     issues = scan_forbidden(snapshot.get("routine_refresh", {}))
     issues += scan_forbidden(snapshot.get("callrail_live", {}))
     issues += scan_forbidden(snapshot.get("organic_cms_actions", {}))
+    issues += scan_forbidden(snapshot.get("automations", {}).get("action_system", {}))
+    issues += scan_forbidden(snapshot.get("organic_insights", {}).get("connector_status", []))
+    issues += scan_forbidden(snapshot.get("organic_insights", {}).get("source_status_rows", []))
     if issues:
         print("ERROR: refresh would publish forbidden patterns:", file=sys.stderr)
         for i in issues:
