@@ -17622,5 +17622,54 @@
       }
     ],
     "errors": []
+  },
+  "automations": {
+    "title": "Automations",
+    "as_of": "2026-05-12T20:50:20.053773+00:00",
+    "items": [
+      {
+        "id": "google-ads-lead-sms",
+        "name": "Google Ads lead SMS follow-up",
+        "purpose": "Hourly catch-up text to uncontacted Google Ads leads from the office lead tabs, with office-specific booking links and opt-out language.",
+        "status": "blocked",
+        "provider": "OpenPhone (marketing line ending 3707)",
+        "provider_status": "OpenPhone adapter disabled in private config (openphone.enabled=false).",
+        "send_policy_enabled": false,
+        "apply_mode": false,
+        "last_run_at_utc": "",
+        "counters": {
+          "backlog": 0,
+          "eligible": 0,
+          "sent_today": 0,
+          "replies_pending": 0,
+          "booked": 0,
+          "booked_rate_pct": 0.0,
+          "sheet_rows_modified": 0,
+          "sms_messages_sent": 0
+        },
+        "by_office": [],
+        "by_source": [],
+        "sample_template_public": "Hi [First name], this is the Clove Dental team at [Office]. Thanks for reaching out - want to grab a time that works for you? You can book directly at [office booking link]. Reply STOP to opt out.",
+        "compliance_notes": [
+          "Marketing SMS - includes opt-out (Reply STOP).",
+          "Quiet hours respected (after 8pm / before 8am recipient local time).",
+          "Per-run cap applies before any sends are enabled."
+        ],
+        "blockers": [
+          "OpenPhone adapter disabled until API credentials and send-policy are enabled in the private config.",
+          "Apply path not implemented: finalize OpenPhone REST contract before enabling sends."
+        ]
+      }
+    ],
+    "safety_note": "No-send by default. The scaffold scans uncontacted leads and writes only aggregated counts to this public mirror. Real SMS is gated on a private OpenPhone API key, an explicit send-policy flag, and a confirmation flag on the command line.",
+    "_sanitization": {
+      "no_pii": true,
+      "no_phone_numbers": true,
+      "no_names": true,
+      "no_sheet_ids": true,
+      "no_raw_messages": true,
+      "no_private_links": true,
+      "aggregated_only": true
+    }
   }
 }

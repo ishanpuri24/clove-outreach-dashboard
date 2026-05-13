@@ -1791,12 +1791,26 @@
                 aria-controls="panel-membership" aria-selected="false">
           Membership
         </button>
+        <button class="tab" role="tab" id="tab-automations"
+                aria-controls="panel-automations" aria-selected="false">
+          Automations
+        </button>
       </div>
 
       <!-- =================== GMB Reviews tab =================== -->
       <div id="panel-reviews" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-reviews" tabindex="0">
         <p class="tab-meta" id="reviews-meta"></p>
+
+        <section aria-labelledby="rev-automations-tile"
+                 id="rev-automations-tile-section">
+          <div class="ps-head">
+            <h2 id="rev-automations-tile">Automations</h2>
+            <span class="pill" id="rev-automations-tile-pill" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="rev-automations-tile-meta"></p>
+          <div class="pxc cols-3" id="rev-automations-tile-grid"></div>
+        </section>
 
         <section aria-labelledby="rev-cmd">
           <div class="ps-head">
@@ -2448,6 +2462,23 @@
         </section>
 
         <p class="tab-meta" id="membership-fresh"></p>
+      </div>
+
+      <!-- =================== Automations tab =================== -->
+      <div id="panel-automations" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-automations" tabindex="0" hidden>
+        <p class="tab-meta" id="automations-meta"></p>
+
+        <section aria-labelledby="auto-snap">
+          <div class="ps-head">
+            <h2 id="auto-snap">Automation status</h2>
+            <span class="pill" id="auto-period" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="auto-headline"></p>
+          <div id="auto-items"></div>
+        </section>
+
+        <p class="tab-meta" id="automations-fresh"></p>
       </div>
     </main>
 
@@ -6027,7 +6058,176 @@
         renderOrganicCmsActions(s.organic_cms_actions);
         renderReviews(s.gmb_insights);
         renderMembership(s.membership_insights || s.referral_insights);
+        renderAutomations(s.automations);
+        renderAutomationsTopTile(s.automations);
         $("generated").textContent = s.generated_at || "";
+      }
+
+      // -------- Automations (sanitized, aggregate-only) --------
+      function _autoStatusPill(status) {
+        var s = String(status || "").toLowerCase();
+        var cls = "pill";
+        if (s === "ok" || s === "sending" || s === "active") cls += " good";
+        else if (s === "dry_run") cls += " warn";
+        else if (s === "blocked" || s === "fail") cls += " danger";
+        else cls += " accent";
+        var label = s ? s.replace(/_/g, " ") : "-";
+        return el("span", { "class": cls }, [
+          el("span", { "class": "dot" }), label
+        ]);
+      }
+      function _autoCounterCard(label, value, note) {
+        var card = el("div", { "class": "card" });
+        card.appendChild(el("div", { "class": "kpi-label", text: label }));
+        card.appendChild(el("div", { "class": "kpi-value", text: String(value == null ? "-" : value) }));
+        if (note) card.appendChild(el("div", { "class": "section-meta", text: note }));
+        return card;
+      }
+      function renderAutomationsTopTile(a) {
+        var tile = $("rev-automations-tile-grid");
+        var pill = $("rev-automations-tile-pill");
+        var meta = $("rev-automations-tile-meta");
+        if (!tile) return;
+        tile.innerHTML = "";
+        var items = (a && a.items) || [];
+        var primary = items[0];
+        if (!primary) {
+          if (pill) pill.replaceChildren(_autoStatusPill("pending"));
+          if (meta) meta.textContent = "No automations registered.";
+          return;
+        }
+        if (pill) pill.replaceChildren(_autoStatusPill(primary.status));
+        if (meta) {
+          meta.textContent = primary.name + " - " +
+            (primary.purpose || "");
+        }
+        var c = primary.counters || {};
+        tile.appendChild(_autoCounterCard("Backlog", fmtNum(c.backlog || 0), "Uncontacted leads queued"));
+        tile.appendChild(_autoCounterCard("Eligible this run", fmtNum(c.eligible || 0), "Pass safety + dedupe checks"));
+        tile.appendChild(_autoCounterCard("Sent today", fmtNum(c.sent_today || 0), "0 until provider is enabled"));
+      }
+      function renderAutomations(a) {
+        var host = $("auto-items");
+        if (!host) return;
+        host.innerHTML = "";
+        var meta = $("automations-meta");
+        var head = $("auto-headline");
+        var pill = $("auto-period");
+        if (!a) {
+          if (meta) meta.textContent = "Automations block not present in snapshot.";
+          return;
+        }
+        if (meta) meta.textContent = a.safety_note || "";
+        if (head) head.textContent = "Aggregated, no-PII view of operator-side automations.";
+        if (pill) pill.textContent = a.as_of ? ("As of " + a.as_of) : "";
+
+        var items = a.items || [];
+        if (!items.length) {
+          host.appendChild(el("div", { "class": "section-meta", text: "No automations registered yet." }));
+          return;
+        }
+        items.forEach(function (it) {
+          var card = el("section", { "class": "card", "style": "padding:1rem;margin-top:.8rem;" });
+          var head = el("div", { "class": "ps-head" });
+          head.appendChild(el("h3", { text: it.name || it.id || "Automation" }));
+          head.appendChild(_autoStatusPill(it.status));
+          card.appendChild(head);
+          if (it.purpose) {
+            card.appendChild(el("p", { "class": "section-meta", text: it.purpose }));
+          }
+
+          var c = it.counters || {};
+          var grid = el("div", { "class": "pxc cols-3" });
+          grid.appendChild(_autoCounterCard("Backlog", fmtNum(c.backlog || 0), "Uncontacted leads"));
+          grid.appendChild(_autoCounterCard("Eligible", fmtNum(c.eligible || 0), "Dedupe + safety pass"));
+          grid.appendChild(_autoCounterCard("Sent today", fmtNum(c.sent_today || 0), "Live sends this run"));
+          grid.appendChild(_autoCounterCard("Replies / feedback pending", fmtNum(c.replies_pending || 0), "Contacted, no status yet"));
+          grid.appendChild(_autoCounterCard("Booked", fmtNum(c.booked || 0), "Appointment confirmed"));
+          grid.appendChild(_autoCounterCard("Booked rate", fmtPct(c.booked_rate_pct || 0), "Booked ÷ eligible"));
+          card.appendChild(grid);
+
+          var meta2 = el("div", { "class": "section-meta", "style": "margin-top:.6rem;" });
+          meta2.textContent =
+            "Provider: " + (it.provider || "-") +
+            " · Provider status: " + (it.provider_status || "-") +
+            " · Send policy: " + (it.send_policy_enabled ? "enabled" : "disabled") +
+            " · Mode: " + (it.apply_mode ? "apply" : "dry-run") +
+            " · Last run: " + (it.last_run_at_utc || "never");
+          card.appendChild(meta2);
+
+          if ((it.by_office || []).length) {
+            card.appendChild(el("h4", { text: "By office", "style": "margin-top:.8rem;" }));
+            var t1 = el("table", { "class": "data-table" });
+            var thr = el("tr", null, [
+              el("th", { text: "Office" }), el("th", { text: "Backlog" }),
+              el("th", { text: "Eligible" }), el("th", { text: "Sent today" }),
+              el("th", { text: "Replies pending" }), el("th", { text: "Booked" }),
+            ]);
+            t1.appendChild(el("thead", null, [thr]));
+            var tb = el("tbody");
+            it.by_office.forEach(function (r) {
+              tb.appendChild(el("tr", null, [
+                el("td", { text: r.office }),
+                el("td", { text: fmtNum(r.backlog || 0) }),
+                el("td", { text: fmtNum(r.eligible || 0) }),
+                el("td", { text: fmtNum(r.sent_today || 0) }),
+                el("td", { text: fmtNum(r.replies_pending || 0) }),
+                el("td", { text: fmtNum(r.booked || 0) }),
+              ]));
+            });
+            t1.appendChild(tb);
+            card.appendChild(el("div", { "class": "table-wrap" }, [t1]));
+          }
+
+          if ((it.by_source || []).length) {
+            card.appendChild(el("h4", { text: "By source type", "style": "margin-top:.8rem;" }));
+            var t2 = el("table", { "class": "data-table" });
+            var thr2 = el("tr", null, [
+              el("th", { text: "Source" }), el("th", { text: "Backlog" }),
+              el("th", { text: "Eligible" }), el("th", { text: "Sent today" }),
+              el("th", { text: "Replies pending" }), el("th", { text: "Booked" }),
+            ]);
+            t2.appendChild(el("thead", null, [thr2]));
+            var tb2 = el("tbody");
+            it.by_source.forEach(function (r) {
+              tb2.appendChild(el("tr", null, [
+                el("td", { text: r.source_type }),
+                el("td", { text: fmtNum(r.backlog || 0) }),
+                el("td", { text: fmtNum(r.eligible || 0) }),
+                el("td", { text: fmtNum(r.sent_today || 0) }),
+                el("td", { text: fmtNum(r.replies_pending || 0) }),
+                el("td", { text: fmtNum(r.booked || 0) }),
+              ]));
+            });
+            t2.appendChild(tb2);
+            card.appendChild(el("div", { "class": "table-wrap" }, [t2]));
+          }
+
+          if (it.sample_template_public) {
+            card.appendChild(el("h4", { text: "Sample SMS (generic, no PII)", "style": "margin-top:.8rem;" }));
+            card.appendChild(el("pre", { "class": "card", "style": "white-space:pre-wrap;padding:.7rem;", text: it.sample_template_public }));
+          }
+
+          if ((it.compliance_notes || []).length) {
+            card.appendChild(el("h4", { text: "Compliance", "style": "margin-top:.8rem;" }));
+            var ul = el("ul");
+            it.compliance_notes.forEach(function (n) {
+              ul.appendChild(el("li", { text: n }));
+            });
+            card.appendChild(ul);
+          }
+
+          if ((it.blockers || []).length) {
+            card.appendChild(el("h4", { text: "Blockers", "style": "margin-top:.8rem;" }));
+            var ulb = el("ul");
+            it.blockers.forEach(function (b) {
+              ulb.appendChild(el("li", { text: b }));
+            });
+            card.appendChild(ulb);
+          }
+
+          host.appendChild(card);
+        });
       }
 
       // -------- Organic + Membership (metrics-only, placeholder-safe) --------

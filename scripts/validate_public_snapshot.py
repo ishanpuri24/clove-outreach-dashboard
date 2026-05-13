@@ -2462,6 +2462,182 @@ def check_no_forbidden_patterns(
         )
 
 
+ALLOWED_AUTOMATION_ITEM_KEYS = {
+    "id",
+    "name",
+    "purpose",
+    "status",
+    "provider",
+    "provider_status",
+    "send_policy_enabled",
+    "apply_mode",
+    "last_run_at_utc",
+    "counters",
+    "by_office",
+    "by_source",
+    "sample_template_public",
+    "compliance_notes",
+    "blockers",
+}
+REQUIRED_AUTOMATION_ITEM_KEYS = [
+    "id",
+    "name",
+    "status",
+    "provider",
+    "provider_status",
+    "send_policy_enabled",
+    "apply_mode",
+    "counters",
+    "blockers",
+]
+ALLOWED_AUTOMATION_COUNTER_KEYS = {
+    "backlog",
+    "eligible",
+    "sent_today",
+    "replies_pending",
+    "booked",
+    "booked_rate_pct",
+    "sheet_rows_modified",
+    "sms_messages_sent",
+}
+REQUIRED_AUTOMATION_COUNTER_KEYS = list(ALLOWED_AUTOMATION_COUNTER_KEYS)
+ALLOWED_AUTOMATION_OFFICE_ROW_KEYS = {
+    "office",
+    "backlog",
+    "eligible",
+    "sent_today",
+    "replies_pending",
+    "booked",
+}
+ALLOWED_AUTOMATION_SOURCE_ROW_KEYS = {
+    "source_type",
+    "backlog",
+    "eligible",
+    "sent_today",
+    "replies_pending",
+    "booked",
+}
+
+# Public Automations block must never carry recipient PII or private
+# identifiers. This list mirrors the public-snapshot contract for the
+# automations area: aggregate counts only.
+FORBIDDEN_AUTOMATION_KEYS = {
+    "phone",
+    "phone_number",
+    "phone_numbers",
+    "email",
+    "emails",
+    "first_name",
+    "last_name",
+    "patient_name",
+    "lead_name",
+    "recipient_name",
+    "row",
+    "row_number",
+    "row_index",
+    "sheet_id",
+    "spreadsheet_id",
+    "raw_message",
+    "raw_messages",
+    "api_key",
+    "api_token",
+    "openphone_api_key",
+    "openphone_token",
+    "booking_link",
+    "private_link",
+    "private_links",
+}
+
+
+def _scan_automations_for_forbidden(node: Any, path: str) -> None:
+    if isinstance(node, dict):
+        leaked = FORBIDDEN_AUTOMATION_KEYS.intersection(node.keys())
+        if leaked:
+            _fail(
+                f"automations{path} exposes forbidden keys "
+                f"{sorted(leaked)}; aggregate-only counters allowed."
+            )
+        for k, v in node.items():
+            _scan_automations_for_forbidden(v, f"{path}.{k}")
+    elif isinstance(node, list):
+        for i, item in enumerate(node):
+            _scan_automations_for_forbidden(item, f"{path}[{i}]")
+
+
+def check_automations(snap: dict[str, Any]) -> None:
+    block = snap.get("automations")
+    if block is None:
+        # Automations is optional today; the dashboard tolerates its
+        # absence. If present, it must be fully sanitized.
+        return
+    if not isinstance(block, dict):
+        _fail("automations must be an object when present.")
+    items = block.get("items")
+    if not isinstance(items, list):
+        _fail("automations.items must be a list.")
+    _scan_automations_for_forbidden(block, "")
+    for idx, item in enumerate(items):
+        if not isinstance(item, dict):
+            _fail(f"automations.items[{idx}] must be an object.")
+        missing = [
+            k for k in REQUIRED_AUTOMATION_ITEM_KEYS if k not in item
+        ]
+        if missing:
+            _fail(
+                f"automations.items[{idx}] missing required keys: {missing}"
+            )
+        extra = set(item.keys()) - ALLOWED_AUTOMATION_ITEM_KEYS
+        if extra:
+            _fail(
+                f"automations.items[{idx}] has unexpected keys: "
+                f"{sorted(extra)}"
+            )
+        counters = item.get("counters") or {}
+        if not isinstance(counters, dict):
+            _fail(f"automations.items[{idx}].counters must be an object.")
+        missing_c = [
+            k for k in REQUIRED_AUTOMATION_COUNTER_KEYS if k not in counters
+        ]
+        if missing_c:
+            _fail(
+                f"automations.items[{idx}].counters missing keys: "
+                f"{missing_c}"
+            )
+        extra_c = set(counters.keys()) - ALLOWED_AUTOMATION_COUNTER_KEYS
+        if extra_c:
+            _fail(
+                f"automations.items[{idx}].counters has unexpected keys: "
+                f"{sorted(extra_c)}"
+            )
+        for ck, cv in counters.items():
+            if not isinstance(cv, (int, float)):
+                _fail(
+                    f"automations.items[{idx}].counters['{ck}'] must be "
+                    f"numeric, got {type(cv).__name__}."
+                )
+        for list_key, allowed in (
+            ("by_office", ALLOWED_AUTOMATION_OFFICE_ROW_KEYS),
+            ("by_source", ALLOWED_AUTOMATION_SOURCE_ROW_KEYS),
+        ):
+            rows = item.get(list_key) or []
+            if not isinstance(rows, list):
+                _fail(
+                    f"automations.items[{idx}].{list_key} must be a list."
+                )
+            for ridx, r in enumerate(rows):
+                if not isinstance(r, dict):
+                    _fail(
+                        f"automations.items[{idx}].{list_key}[{ridx}] "
+                        "must be an object."
+                    )
+                extra_r = set(r.keys()) - allowed
+                if extra_r:
+                    _fail(
+                        f"automations.items[{idx}].{list_key}[{ridx}] "
+                        f"has unexpected keys: {sorted(extra_r)}"
+                    )
+
+
 def main() -> int:
     print("Validating public snapshot ...")
     try:
@@ -2477,6 +2653,7 @@ def main() -> int:
         check_google_ads_insights(snap)
         check_b2b_reply_detail(snap)
         check_keyword_focus(snap)
+        check_automations(snap)
 
         snapshot_text = DATA_FILE.read_text(encoding="utf-8")
         if not INDEX_HTML.exists():

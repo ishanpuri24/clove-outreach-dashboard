@@ -508,6 +508,129 @@ See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for full instructions for:
 - Google Sheet remains the private source of truth. Zoho writeback
   is staged behind dedupe and a dry-run period.
 
+## Automations: Google Ads lead SMS follow-up
+
+The dashboard has an **Automations** tab and a top-of-page summary
+tile that surface a sanitized, aggregate-only view of operator-side
+automations. The first automation registered is the **Google Ads
+lead SMS follow-up**.
+
+### What it does (no-send today)
+
+`scripts/lead_sms_automation.py` is a scaffold that:
+
+- Reads a **private** operator config (path supplied via `--config`
+  or `LEAD_SMS_CONFIG` env var). The private config holds the
+  spreadsheet id, OpenPhone API credentials, the marketing-line
+  phone-number id (ending **3707**), per-office booking links, and
+  send-policy flags. The path lives outside this public repo.
+- Scans every lead-shaped tab in the Google Ads Leads Tracker
+  (Santa Monica General/Emergency/Insurance, Encino, Thousand Oaks,
+  Beverly Hills, Riverpark, Oxnard, Ventura, Sherman Oaks,
+  Camarillo, plus the call-tracker tabs).
+- Dedupes uncontacted leads by `(normalized phone, office,
+  source_type)` so the same person is never queued twice.
+- Excludes obvious sample/test rows (placeholder phones,
+  test/sample/demo names, all-same-digit numbers).
+- Refreshes the public Automations snapshot block with aggregate
+  counts only: backlog, eligible, sent today, replies pending,
+  booked, booked rate, by office, by source type.
+- **Never sends an SMS by default.** `--apply` only takes effect
+  when *all* of the following are true: the OpenPhone adapter is
+  enabled in the private config (`openphone.enabled=true`,
+  `api_key` set, `phone_number_id` set), the send policy is
+  enabled (`send_policy.enabled=true`), and the operator explicitly
+  passes `--i-understand-i-am-sending-real-sms` on the command
+  line. If any of those is missing, the script falls back to
+  dry-run and records a blocker.
+
+### Sample SMS template (operator-facing)
+
+The public dashboard renders a name-free version; production fills
+in the first name on the private machine.
+
+```
+Hi [First name], this is the Clove Dental team at [Office].
+Thanks for reaching out - want to grab a time that works for you?
+You can book directly at [office booking link]. Reply STOP to opt
+out.
+```
+
+Compliance notes baked into the template:
+
+- Marketing SMS with an opt-out keyword (`STOP`).
+- Office-specific booking link, never a generic landing page.
+- Per-run cap and quiet-hours window (after 8pm / before 8am
+  recipient local time) are honored by the send loop *before* any
+  sends are enabled.
+
+### Writeback design (intentionally not active yet)
+
+The scaffold prefers to write status back into the existing
+`Contacted`, `Followed Up`, `Appointment Booked`, and
+`Treatment Opted` columns rather than adding new sheet columns.
+Writeback only fires when a send actually happens, which today is
+never. If the operator later decides to add columns (e.g.
+`Last SMS At`, `SMS Result`), the writer is built to be
+idempotent: scanning the same row twice will not double-stamp.
+
+### Run
+
+```sh
+# Default - safe scan, no sends, refreshes public snapshot
+python3 scripts/lead_sms_automation.py --dry-run \
+    --config /path/to/private/lead_sms_config.json
+
+# Same default, suitable for a cron entry
+python3 scripts/lead_sms_automation.py \
+    --config /path/to/private/lead_sms_config.json
+
+# Apply (only when provider + policy + flag all set)
+python3 scripts/lead_sms_automation.py --apply \
+    --i-understand-i-am-sending-real-sms \
+    --config /path/to/private/lead_sms_config.json
+```
+
+Suggested hourly cron entry on the operator machine (placeholder
+path - replace with your private config location):
+
+```cron
+17 * * * * cd /path/to/clove-outreach-dashboard && \
+    LEAD_SMS_CONFIG=/path/to/private/lead_sms_config.json \
+    python3 scripts/lead_sms_automation.py --dry-run >> \
+    /var/log/clove-lead-sms.log 2>&1
+```
+
+### Safety summary
+
+| Guard | State |
+|-------|-------|
+| Default mode | `--dry-run` (no SMS sent, no sheet writes) |
+| Provider adapter | OpenPhone stub, `enabled=false` in private config |
+| Send-policy flag | `send_policy.enabled=false` until operator flips it |
+| Apply mode confirmation | Requires `--i-understand-i-am-sending-real-sms` |
+| Public snapshot | Aggregate-only; validator rejects PII keys |
+| Spreadsheet id | Read from private config; never embedded in the public repo |
+| Booking links | Read from private config; never embedded in the public mirror |
+
+### Public snapshot contract for automations
+
+The validator (`scripts/validate_public_snapshot.py`) enforces the
+following on the `automations` block, in addition to the global
+forbidden-pattern checks (emails, phones, Sheet IDs, Google Ads
+account ids, etc.):
+
+- Only the allowed keys per item are permitted (`id`, `name`,
+  `purpose`, `status`, `provider`, `provider_status`,
+  `send_policy_enabled`, `apply_mode`, `last_run_at_utc`,
+  `counters`, `by_office`, `by_source`, `sample_template_public`,
+  `compliance_notes`, `blockers`).
+- `counters` must be numeric on every field.
+- Person-name keys (`first_name`, `last_name`, `patient_name`,
+  `lead_name`), phone fields, email fields, row numbers, sheet
+  ids, raw messages, provider credentials, and booking links are
+  rejected at any depth inside the block.
+
 ## License
 
 This mirror is published for transparency around the campaign's
