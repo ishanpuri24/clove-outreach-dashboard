@@ -2671,6 +2671,49 @@ def check_automations(snap: dict[str, Any]) -> None:
                     )
 
 
+# GA4 is configured in the private analytics_config. These stale setup
+# phrases must not appear in the public mirror — replace them with the
+# specific action ("key events not firing", "conversion tracking needs
+# mapping") so operators see what to do next, not "we need GA4".
+STALE_GA4_SETUP_PHRASES = [
+    "GA4 property needed",
+    "Provide GA4 property ID",
+    "Provide GA4 property id",
+    "awaiting property ID",
+    "awaiting property id",
+    "GA4 not configured",
+    "GA4 missing",
+    "GA4 needed",
+    "Connect GA4",
+    "connect GA4",
+    "Need GA4",
+    "need GA4",
+]
+
+
+def check_no_stale_ga4_setup_copy(
+    snapshot_text: str, html_text: str
+) -> None:
+    findings: list[str] = []
+    for phrase in STALE_GA4_SETUP_PHRASES:
+        if phrase in snapshot_text:
+            findings.append(
+                f"data/snapshot.json: stale GA4 setup phrase: {phrase!r}"
+            )
+        if phrase in html_text:
+            findings.append(
+                f"index.html: stale GA4 setup phrase: {phrase!r}"
+            )
+    if findings:
+        joined = "\n  - ".join(findings)
+        _fail(
+            "Stale GA4 setup copy detected. GA4 is configured; use "
+            "action-oriented copy like 'key events not firing' or "
+            "'conversion tracking needs mapping' instead.\n"
+            f"  - {joined}"
+        )
+
+
 def main() -> int:
     print("Validating public snapshot ...")
     try:
@@ -2694,6 +2737,7 @@ def main() -> int:
         html_text = INDEX_HTML.read_text(encoding="utf-8")
 
         check_no_forbidden_patterns(snapshot_text, html_text)
+        check_no_stale_ga4_setup_copy(snapshot_text, html_text)
     except ValidationError as exc:
         print(f"FAIL: {exc}")
         return 1

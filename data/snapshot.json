@@ -13576,78 +13576,6 @@
           "actual next-day conversions/day",
           "keep/reverse/scale decision"
         ]
-      },
-      "run_rate_trends": {
-        "title": "Run-rate vs last week and last month",
-        "rule": "Per-day run rates (calls, first-time callers, CallRail-qualified, missed, Google Ads conversions) compared against the prior 7-day and prior 30-day windows. Spend per qualified call is the conversion efficiency read where data is available.",
-        "rows": [
-          {
-            "metric": "Total calls per day",
-            "last_7d": "137.7",
-            "prior_7d": "114.7",
-            "wow_delta": "+20.1%",
-            "last_30d": "123.9",
-            "prior_30d": "110.0",
-            "mom_delta": "+12.6%",
-            "basis": "CallRail total calls per day. Last 7d run rate vs prior 7d, last 30d vs prior 30d.",
-            "decision": "Use as the volume baseline. Watch alongside qualified-call rate before any spend change."
-          },
-          {
-            "metric": "First-time callers per day",
-            "last_7d": "47.4",
-            "prior_7d": "42.3",
-            "wow_delta": "+12.1%",
-            "last_30d": "46.6",
-            "prior_30d": "44.7",
-            "mom_delta": "+4.3%",
-            "basis": "CallRail first_call = true per day. New-patient demand proxy.",
-            "decision": "Drop in first-time callers WoW or MoM is an early warning even when qualified count holds."
-          },
-          {
-            "metric": "CallRail-qualified calls per day",
-            "last_7d": "16.1",
-            "prior_7d": "9.1",
-            "wow_delta": "+76.9%",
-            "last_30d": "15.2",
-            "prior_30d": "12.5",
-            "mom_delta": "+21.6%",
-            "basis": "CallRail-qualified calls per day. Primary paid-media conversion layer.",
-            "decision": "If qualified per day is up MoM, scale candidate offices. If down, hold spend until cause is identified."
-          },
-          {
-            "metric": "Missed calls per day",
-            "last_7d": "5.6",
-            "prior_7d": "8.9",
-            "wow_delta": "-37.1%",
-            "last_30d": "6.1",
-            "prior_30d": "4.5",
-            "mom_delta": "+35.6%",
-            "basis": "Missed and voicemail-without-callback per day. Direct paid-spend leak.",
-            "decision": "Any rise in missed/day is a SLA fix before any budget move - missed calls are paid clicks already spent."
-          },
-          {
-            "metric": "Google Ads conversions per day",
-            "last_7d": "62.9",
-            "prior_7d": "62.9",
-            "wow_delta": "+0.0%",
-            "last_30d": "62.9",
-            "prior_30d": "62.9",
-            "mom_delta": "+0.0%",
-            "basis": "Google Ads account-wide conversions per day (last 30d). Prior-window value not available in this refresh, baseline shown.",
-            "decision": "Compare against CallRail-qualified per day - the gap is the share of conversions outside paid-media qualified."
-          },
-          {
-            "metric": "Spend per qualified call (last 30d)",
-            "last_7d": "$197.02",
-            "prior_7d": "$197.02",
-            "wow_delta": "+0.0%",
-            "last_30d": "$197.02",
-            "prior_30d": "$197.02",
-            "mom_delta": "+0.0%",
-            "basis": "Account-wide last-30-day spend divided by CallRail-qualified calls (30d). Per-campaign GCLID join lands in private builder.",
-            "decision": "Treat this as the true paid-media conversion CPA. Investigate if it rises above account CPA."
-          }
-        ]
       }
     },
     "callrail_call_quality": {
@@ -15928,9 +15856,9 @@
     "connector_status": [
       {
         "integration": "Google Analytics 4",
-        "status": "GA4 property needed",
+        "status": "Connected; key events not firing",
         "severity": "warn",
-        "action": "Provide GA4 property ID."
+        "action": "Map conversion key events (form_submit, call_click, appt_booked) so organic conversions report."
       },
       {
         "integration": "Google Search Console",
@@ -16220,8 +16148,8 @@
     "source_status_rows": [
       {
         "source": "GA4",
-        "status": "GA4 property needed",
-        "note": "Connector linked; awaiting property ID."
+        "status": "Connected; conversion tracking needs mapping",
+        "note": "Sessions and channels reporting; key events return 0 \u2014 map form_submit / call_click / appt_booked to surface organic conversions."
       },
       {
         "source": "GSC",
