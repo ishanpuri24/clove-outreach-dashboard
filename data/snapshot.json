@@ -17625,18 +17625,18 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-05-13T02:48:25Z",
+    "as_of": "2026-05-13T03:06:49Z",
     "items": [
       {
         "id": "google-ads-lead-sms",
         "name": "Google Ads lead SMS follow-up",
         "purpose": "Daily check for uncontacted Google Ads leads from the office lead tabs that can backfill now, with office-specific booking links and STOP opt-out language. Can also run hourly for fast response. Sends from the OpenPhone Optimization line.",
-        "status": "check",
+        "status": "apply",
         "provider": "OpenPhone (Optimization line)",
         "provider_status": "OpenPhone adapter configured (Optimization line).",
         "send_policy_enabled": true,
-        "apply_mode": false,
-        "last_run_at_utc": "2026-05-13T02:48:25Z",
+        "apply_mode": true,
+        "last_run_at_utc": "2026-05-13T03:06:49Z",
         "counters": {
           "backlog": 226,
           "eligible": 226,
@@ -17754,7 +17754,9 @@
           "Quiet hours respected (after 8pm / before 8am recipient local time).",
           "Per-run cap applies before any sends are enabled."
         ],
-        "blockers": []
+        "blockers": [
+          "Apply mode produced 0 sends from 226 eligible candidate(s). Top skip reason: provider_auth_failed."
+        ]
       }
     ],
     "before_we_send": {
@@ -17816,7 +17818,7 @@
     },
     "optimization_os": {
       "title": "OptimizationOS / win-back rules",
-      "as_of": "2026-05-13T02:48:25Z",
+      "as_of": "2026-05-13T03:06:49Z",
       "rules": [
         {
           "rule": "problem_op_gap_fill",
@@ -17872,9 +17874,9 @@
     "provider_check": {
       "provider": "OpenPhone",
       "line": "Optimization line",
-      "status_label": "ok",
-      "reachable": true,
-      "note": "Authenticated successfully.",
+      "status_label": "skipped",
+      "reachable": false,
+      "note": "Provider check skipped (provider disabled or check mode off).",
       "auth_style": "raw_key_not_bearer"
     },
     "safety_note": "No-send by default. Real SMS is gated on a private OpenPhone API key (raw Authorization header, not Bearer), an explicit send-policy flag, and a confirmation flag on the command line. New-lead SMS includes STOP; established-patient optimization SMS does not.",
