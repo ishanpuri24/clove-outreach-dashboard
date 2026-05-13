@@ -567,6 +567,61 @@ class SheetsAdapter:
 # OpenPhone provider adapter (raw-key Authorization header)
 # --------------------------------------------------------------------
 
+# Aggregate, non-PII reason tokens we are willing to surface from an
+# OpenPhone 400 response. Anything not on this list collapses to
+# ``provider_validation`` so we never leak phones, message bodies, IDs,
+# names, or API keys via error text. Tokens deliberately mirror the
+# OpenPhone error code/message shapes we have observed.
+_ALLOWED_400_REASON_TOKENS: tuple[tuple[str, str], ...] = (
+    ("missing_to", ("to is required", "missing to", "\"to\"")),
+    ("missing_from", ("from is required", "missing from", "\"from\"")),
+    ("missing_content", ("content is required", "missing content")),
+    ("invalid_from_format", ("invalid from", "from must be", "from is invalid")),
+    ("invalid_to_format", ("invalid to", "to must be", "invalid phone")),
+    ("from_not_owned", ("not owned", "does not belong", "unauthorized number")),
+    ("unsupported_field", ("unknown field", "unexpected field", "phonenumberid")),
+    ("rate_or_quota", ("quota", "limit exceeded")),
+)
+
+
+def _sanitize_provider_400_reason(parsed: dict[str, Any] | None) -> str:
+    """Map an OpenPhone 400 response body to a short, non-PII tag.
+
+    Only the tags in ``_ALLOWED_400_REASON_TOKENS`` are ever returned.
+    Any unrecognized error collapses to ``validation`` so we never
+    propagate raw provider text (which could echo phones, bodies, or
+    IDs back into logs). Returns just the suffix, e.g. ``missing_to``;
+    callers prefix with ``http_400_``.
+    """
+    if not isinstance(parsed, dict):
+        return "validation"
+    # Collect candidate strings from the common OpenPhone shapes without
+    # ever returning them verbatim.
+    candidates: list[str] = []
+    for key in ("message", "error", "detail", "title", "code"):
+        val = parsed.get(key)
+        if isinstance(val, str):
+            candidates.append(val)
+    errs = parsed.get("errors")
+    if isinstance(errs, list):
+        for item in errs:
+            if isinstance(item, str):
+                candidates.append(item)
+            elif isinstance(item, dict):
+                for k in ("message", "code", "detail", "field"):
+                    v = item.get(k)
+                    if isinstance(v, str):
+                        candidates.append(v)
+    blob = " ".join(candidates).lower()
+    if not blob:
+        return "validation"
+    for tag, needles in _ALLOWED_400_REASON_TOKENS:
+        for needle in needles:
+            if needle in blob:
+                return tag
+    return "validation"
+
+
 class OpenPhoneAdapter:
     """OpenPhone REST client with raw-key auth.
 
@@ -589,6 +644,7 @@ class OpenPhoneAdapter:
         self.enabled = bool(op.get("enabled"))
         self._api_key = str(op.get("api_key") or "")
         self.phone_number_id = str(op.get("phone_number_id") or "")
+        self.from_number = str(op.get("from_number") or "")
         self.base_url = str(op.get("base_url") or self.DEFAULT_BASE_URL).rstrip("/")
         self.from_ending = str(op.get("from_number_ending") or "")
         self.line_name = str(op.get("line_name") or "Clove Optimization line")
@@ -604,6 +660,12 @@ class OpenPhoneAdapter:
     def phone_id_present(self) -> bool:
         return bool(self.phone_number_id)
 
+    @property
+    def from_number_present(self) -> bool:
+        # OpenPhone v1 /messages requires the sending phone in E.164
+        # form as the ``from`` field. phoneNumberId alone yields HTTP 400.
+        return bool(self.from_number) and self.from_number.startswith("+")
+
     def ready(self) -> tuple[bool, str]:
         if not self.enabled:
             return False, (
@@ -612,6 +674,10 @@ class OpenPhoneAdapter:
             )
         if not self.api_key_present:
             return False, "OpenPhone api_key missing in private config."
+        if not self.from_number_present:
+            return False, (
+                "OpenPhone from_number missing or not E.164 in private config."
+            )
         if not self.phone_id_present:
             return False, "OpenPhone phone_number_id missing in private config."
         return True, "OpenPhone adapter configured (Optimization line)."
@@ -714,19 +780,21 @@ class OpenPhoneAdapter:
         """
         if not self.enabled:
             return {"ok": False, "status": "disabled"}
-        if not (self.api_key_present and self.phone_id_present):
+        if not self.api_key_present:
             return {"ok": False, "status": "not_configured"}
+        if not self.from_number_present:
+            return {"ok": False, "status": "missing_from"}
         if not to_phone_e164 or not body:
             return {"ok": False, "status": "bad_input"}
-        payload = {
-            "from": None,  # phoneNumberId is the source of truth
-            "phoneNumberId": self.phone_number_id,
+        # Per OpenPhone v1 handoff: payload must be exactly
+        #   {"from": "<E.164>", "to": ["<E.164>"], "content": "<body>"}
+        # phoneNumberId here causes HTTP 400.
+        payload: dict[str, Any] = {
+            "from": self.from_number,
             "to": [to_phone_e164],
             "content": body,
         }
-        # Remove None values so the API does not reject the request.
-        payload = {k: v for k, v in payload.items() if v is not None}
-        status, _ = self._request("POST", "/messages", payload=payload)
+        status, parsed = self._request("POST", "/messages", payload=payload)
         if status in (200, 201, 202):
             return {"ok": True, "status": "sent"}
         if status in (401, 403):
@@ -735,6 +803,9 @@ class OpenPhoneAdapter:
             return {"ok": False, "status": "rate_limited"}
         if status == 0:
             return {"ok": False, "status": "network_error"}
+        if status == 400:
+            reason = _sanitize_provider_400_reason(parsed)
+            return {"ok": False, "status": f"http_400_{reason}"}
         return {"ok": False, "status": f"http_{status}"}
 
     def poll_replies(
