@@ -508,81 +508,53 @@ See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for full instructions for:
 - Google Sheet remains the private source of truth. Zoho writeback
   is staged behind dedupe and a dry-run period.
 
-## Automations: Google Ads lead SMS follow-up
+## Automations: Marketing dashboard
 
-The dashboard has an **Automations** tab and a top-of-page summary
-tile that surface a sanitized, aggregate-only view of operator-side
-automations. The first automation registered is the **Google Ads
-lead SMS follow-up**.
+The Marketing dashboard's **Automations** tab is the first/default
+tab. It surfaces a sanitized, aggregate-only view of operator-side
+automations: a "Before we send" summary (backlog, eligible, planned
+cadence, per-office split, writeback behavior, where results
+appear), the Google Ads lead SMS follow-up status, an OptimizationOS
+/ win-back reporting table, and a provider connectivity card.
 
-### What it does (no-send today)
+### Google Ads lead SMS follow-up
 
-`scripts/lead_sms_automation.py` is a scaffold that:
+`scripts/lead_sms_automation.py` drives the loop. It:
 
 - Reads a **private** operator config (path supplied via `--config`
-  or `LEAD_SMS_CONFIG` env var). The private config holds the
-  spreadsheet id, OpenPhone API credentials, the marketing-line
-  phone-number id (ending **3707**), per-office booking links, and
+  or `LEAD_SMS_CONFIG`). The private config holds the spreadsheet
+  id, OpenPhone API credentials for the **Optimization line**, the
+  marketing-line `phone_number_id`, per-office booking links, and
   send-policy flags. The path lives outside this public repo.
-- Scans every lead-shaped tab in the Google Ads Leads Tracker
-  (Santa Monica General/Emergency/Insurance, Encino, Thousand Oaks,
-  Beverly Hills, Riverpark, Oxnard, Ventura, Sherman Oaks,
-  Camarillo, plus the call-tracker tabs).
+- Scans every lead-shaped tab in the Google Ads Leads Tracker.
 - Dedupes uncontacted leads by `(normalized phone, office,
-  source_type)` so the same person is never queued twice.
-- Excludes obvious sample/test rows (placeholder phones,
-  test/sample/demo names, all-same-digit numbers).
+  source_type)`.
+- Excludes obvious sample/test rows.
 - Refreshes the public Automations snapshot block with aggregate
-  counts only: backlog, eligible, sent today, replies pending,
-  booked, booked rate, by office, by source type.
-- **Never sends an SMS by default.** `--apply` only takes effect
-  when *all* of the following are true: the OpenPhone adapter is
-  enabled in the private config (`openphone.enabled=true`,
-  `api_key` set, `phone_number_id` set), the send policy is
-  enabled (`send_policy.enabled=true`), and the operator explicitly
-  passes `--i-understand-i-am-sending-real-sms` on the command
-  line. If any of those is missing, the script falls back to
-  dry-run and records a blocker.
+  counts only.
+- **Never sends an SMS by default.** Real sends require *all four*
+  gates: `openphone.enabled=true`, `send_policy.enabled=true`,
+  `--apply`, and `--i-understand-i-am-sending-real-sms`. If any
+  gate is missing, the script falls back to dry-run.
 
-### Sample SMS template (operator-facing)
+### OpenPhone raw-auth gotcha
 
-The public dashboard renders a name-free version; production fills
-in the first name on the private machine.
+OpenPhone's REST API expects the API key as a **raw value** in the
+`Authorization` header, *not* as `Bearer <key>`. The adapter in
+`scripts/lead_sms_automation.py` builds the header by hand to avoid
+any SDK or `requests.auth` helper that prefers `Bearer`. Watch for
+this when swapping in a new credential: a 401/403 with the message
+"authentication failed" usually means a `Bearer` prefix slipped in.
 
-```
-Hi [First name], this is the Clove Dental team at [Office].
-Thanks for reaching out - want to grab a time that works for you?
-You can book directly at [office booking link]. Reply STOP to opt
-out.
-```
-
-Compliance notes baked into the template:
-
-- Marketing SMS with an opt-out keyword (`STOP`).
-- Office-specific booking link, never a generic landing page.
-- Per-run cap and quiet-hours window (after 8pm / before 8am
-  recipient local time) are honored by the send loop *before* any
-  sends are enabled.
-
-### Writeback design (intentionally not active yet)
-
-The scaffold prefers to write status back into the existing
-`Contacted`, `Followed Up`, `Appointment Booked`, and
-`Treatment Opted` columns rather than adding new sheet columns.
-Writeback only fires when a send actually happens, which today is
-never. If the operator later decides to add columns (e.g.
-`Last SMS At`, `SMS Result`), the writer is built to be
-idempotent: scanning the same row twice will not double-stamp.
-
-### Run
+### Modes
 
 ```sh
 # Default - safe scan, no sends, refreshes public snapshot
 python3 scripts/lead_sms_automation.py --dry-run \
     --config /path/to/private/lead_sms_config.json
 
-# Same default, suitable for a cron entry
-python3 scripts/lead_sms_automation.py \
+# Read-only provider connectivity probe (GET only, sanitized output)
+python3 scripts/lead_sms_automation.py --check \
     --config /path/to/private/lead_sms_config.json
 
 # Apply (only when provider + policy + flag all set)
@@ -591,8 +563,8 @@ python3 scripts/lead_sms_automation.py --apply \
     --config /path/to/private/lead_sms_config.json
 ```
 
-Suggested hourly cron entry on the operator machine (placeholder
-path - replace with your private config location):
+Suggested hourly task on the operator machine (replace placeholder
+path with your private config location):
 
 ```cron
 17 * * * * cd /path/to/clove-outreach-dashboard && \
@@ -600,6 +572,36 @@ path - replace with your private config location):
     python3 scripts/lead_sms_automation.py --dry-run >> \
     /var/log/clove-lead-sms.log 2>&1
 ```
+
+The hourly task stays in dry-run until the operator explicitly
+flips `send_policy.enabled=true` and `openphone.enabled=true` in
+the private config and switches the cron command to `--apply
+--i-understand-i-am-sending-real-sms`.
+
+### Sample SMS templates
+
+**Google Ads lead (new contact, STOP required):**
+
+```
+Hi [First name], this is Clove Dental [Office]. We saw your
+appointment request and can help get you seen soon. You can book
+the [Office] team here: [office booking link]. If you prefer,
+reply with the day/time that works and we'll line it up for you.
+Reply STOP to opt out.
+```
+
+**Established-patient optimization SMS (separate rules):**
+no STOP keyword, no emoji, no phone number in the body, ask the
+patient to reply by text (not call), and refer to Sherman Oaks
+(never Studio City).
+
+### Sheet writeback behavior
+
+When a send actually happens (apply mode, all gates satisfied), the
+script stamps the matching sheet row's `Contacted` column (and a
+`Last SMS At` column when present) on the operator host. Writes are
+idempotent: scanning the same row twice does not double-stamp. No
+writes happen during `--dry-run` or `--check`.
 
 ### Safety summary
 

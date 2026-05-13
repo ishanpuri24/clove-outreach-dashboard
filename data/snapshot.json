@@ -17625,18 +17625,18 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-05-12T20:50:20.053773+00:00",
+    "as_of": "2026-05-13T02:23:55Z",
     "items": [
       {
         "id": "google-ads-lead-sms",
         "name": "Google Ads lead SMS follow-up",
-        "purpose": "Hourly catch-up text to uncontacted Google Ads leads from the office lead tabs, with office-specific booking links and opt-out language.",
-        "status": "blocked",
-        "provider": "OpenPhone (marketing line ending 3707)",
+        "purpose": "Hourly catch-up text to uncontacted Google Ads leads from the office lead tabs, with office-specific booking links and STOP opt-out language. Sends from the OpenPhone Optimization line.",
+        "status": "check",
+        "provider": "OpenPhone (Optimization line)",
         "provider_status": "OpenPhone adapter disabled in private config (openphone.enabled=false).",
         "send_policy_enabled": false,
         "apply_mode": false,
-        "last_run_at_utc": "",
+        "last_run_at_utc": "2026-05-13T02:23:55Z",
         "counters": {
           "backlog": 0,
           "eligible": 0,
@@ -17649,19 +17649,95 @@
         },
         "by_office": [],
         "by_source": [],
-        "sample_template_public": "Hi [First name], this is the Clove Dental team at [Office]. Thanks for reaching out - want to grab a time that works for you? You can book directly at [office booking link]. Reply STOP to opt out.",
+        "sample_template_public": "Hi [First name], this is Clove Dental [Office]. We saw your appointment request and can help get you seen soon. You can book the [Office] team here: [office booking link]. If you prefer, reply with the day/time that works and we'll line it up for you. Reply STOP to opt out.",
         "compliance_notes": [
-          "Marketing SMS - includes opt-out (Reply STOP).",
+          "New Google Ads lead SMS includes opt-out (Reply STOP).",
+          "Established-patient optimization SMS rules are separate: no STOP, no emoji, no phone number, ask for a text reply, use Sherman Oaks (not Studio City).",
           "Quiet hours respected (after 8pm / before 8am recipient local time).",
           "Per-run cap applies before any sends are enabled."
         ],
         "blockers": [
-          "OpenPhone adapter disabled until API credentials and send-policy are enabled in the private config.",
-          "Apply path not implemented: finalize OpenPhone REST contract before enabling sends."
+          "Google Sheets client not available (ModuleNotFoundError). Install google-api-python-client and configure application default credentials to enable live scanning.",
+          "OpenPhone adapter disabled in private config (openphone.enabled=false).",
+          "send_policy.enabled is false in private config; no real SMS is sent until the operator enables it."
         ]
       }
     ],
-    "safety_note": "No-send by default. The scaffold scans uncontacted leads and writes only aggregated counts to this public mirror. Real SMS is gated on a private OpenPhone API key, an explicit send-policy flag, and a confirmation flag on the command line.",
+    "before_we_send": {
+      "backlog_count": 0,
+      "eligible_count": 0,
+      "planned_hourly_cadence": "Up to 25 sends per hour, capped at 25 for the initial backfill run.",
+      "per_office_split": [],
+      "max_sends_per_run": 25,
+      "quiet_hours": "before 8am and after 8pm PT unless explicitly changed",
+      "writeback_behavior": "After a real send, the script stamps the matching row in the Google Sheet (Contacted / Last SMS At) on the operator host. No writes happen during dry-run or check mode.",
+      "results_location": "Aggregate counters appear in this Automations tab. Per-recipient detail stays on the operator host only.",
+      "default_mode": "dry_run"
+    },
+    "optimization_os": {
+      "title": "OptimizationOS / win-back rules",
+      "as_of": "2026-05-13T02:23:55Z",
+      "rules": [
+        {
+          "rule": "problem_op_gap_fill",
+          "sent_today": 0,
+          "sent_7d": 0,
+          "sent_30d": 0,
+          "replies": 0,
+          "yes_rate_pct": 0.0,
+          "booked": 0,
+          "needs_human": 0,
+          "status": "pending",
+          "next_action": "Awaiting first intel log on operator host."
+        },
+        {
+          "rule": "tx_pending_gap_fill",
+          "sent_today": 0,
+          "sent_7d": 0,
+          "sent_30d": 0,
+          "replies": 0,
+          "yes_rate_pct": 0.0,
+          "booked": 0,
+          "needs_human": 0,
+          "status": "pending",
+          "next_action": "Awaiting first intel log on operator host."
+        },
+        {
+          "rule": "hygiene_gap_fill",
+          "sent_today": 0,
+          "sent_7d": 0,
+          "sent_30d": 0,
+          "replies": 0,
+          "yes_rate_pct": 0.0,
+          "booked": 0,
+          "needs_human": 0,
+          "status": "pending",
+          "next_action": "Awaiting first intel log on operator host."
+        },
+        {
+          "rule": "deleted_appt_rebook",
+          "sent_today": 0,
+          "sent_7d": 0,
+          "sent_30d": 0,
+          "replies": 0,
+          "yes_rate_pct": 0.0,
+          "booked": 0,
+          "needs_human": 0,
+          "status": "pending",
+          "next_action": "Awaiting first intel log on operator host."
+        }
+      ],
+      "data_source_note": "Aggregate counters only. Raw logs, message bodies, patient identifiers, phone numbers, OpenDental records, and message IDs stay on the operator host."
+    },
+    "provider_check": {
+      "provider": "OpenPhone",
+      "line": "Optimization line",
+      "status_label": "disabled",
+      "reachable": false,
+      "note": "Provider check skipped (provider disabled or check mode off).",
+      "auth_style": "raw_key_not_bearer"
+    },
+    "safety_note": "No-send by default. Real SMS is gated on a private OpenPhone API key (raw Authorization header, not Bearer), an explicit send-policy flag, and a confirmation flag on the command line. New-lead SMS includes STOP; established-patient optimization SMS does not.",
     "_sanitization": {
       "no_pii": true,
       "no_phone_numbers": true,
@@ -17669,6 +17745,11 @@
       "no_sheet_ids": true,
       "no_raw_messages": true,
       "no_private_links": true,
+      "no_openphone_keys": true,
+      "no_phone_number_ids": true,
+      "no_message_ids": true,
+      "no_patnums": true,
+      "no_od_tokens": true,
       "aggregated_only": true
     }
   }

@@ -2537,16 +2537,41 @@ FORBIDDEN_AUTOMATION_KEYS = {
     "row_index",
     "sheet_id",
     "spreadsheet_id",
+    "sheets_id",
     "raw_message",
     "raw_messages",
+    "message_body",
     "api_key",
     "api_token",
     "openphone_api_key",
     "openphone_token",
+    "phone_number_id",
+    "message_id",
+    "messageid",
+    "openphone_message_id",
+    "patnum",
+    "patnums",
+    "patient_id",
+    "od_token",
+    "opendental_token",
     "booking_link",
     "private_link",
     "private_links",
+    "config_path",
+    "private_path",
 }
+
+# Forbidden substrings that must not appear anywhere in the rendered
+# automations block as values. These catch raw OpenPhone keys, the
+# Optimization line phone_number_id shape, private paths, and the
+# spreadsheet/openphone host names.
+FORBIDDEN_AUTOMATION_VALUE_SUBSTRINGS = [
+    "/home/user/workspace/cron_tracking",
+    "lead_sms_config",
+    "docs.google.com",
+    "spreadsheets/d/",
+    "api.openphone.com",
+]
 
 
 def _scan_automations_for_forbidden(node: Any, path: str) -> None:
@@ -2562,6 +2587,14 @@ def _scan_automations_for_forbidden(node: Any, path: str) -> None:
     elif isinstance(node, list):
         for i, item in enumerate(node):
             _scan_automations_for_forbidden(item, f"{path}[{i}]")
+    elif isinstance(node, str):
+        lowered = node.lower()
+        for tok in FORBIDDEN_AUTOMATION_VALUE_SUBSTRINGS:
+            if tok in lowered:
+                _fail(
+                    f"automations{path} contains forbidden substring "
+                    f"'{tok}'."
+                )
 
 
 def check_automations(snap: dict[str, Any]) -> None:
