@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T11:08:21.441956+00:00",
+  "generated_at": "2026-05-13T11:34:25.444631+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17193,7 +17193,1061 @@
         "is_new": false,
         "recipient_label": "Office inbox \u00b7 CC Exec inbox"
       }
-    ]
+    ],
+    "low_review_weekly_trends": {
+      "title": "Weekly low-review trend",
+      "generated_at": "2026-05-13T11:34:25.443029+00:00",
+      "anchor_date": "2026-05-09",
+      "current_week_start": "2026-05-04",
+      "windows": {
+        "last_7d": 7,
+        "prior_7d": 7,
+        "last_28d": 28
+      },
+      "totals": {
+        "last_7d_low": 2,
+        "prior_7d_low": 3,
+        "delta_low": -1,
+        "last_7d_avg_rating": 1.0,
+        "unresolved_open": 1,
+        "oldest_open_age_days": 2
+      },
+      "weekly_buckets": [
+        {
+          "week_start": "2026-04-06",
+          "week_end": "2026-04-12",
+          "low_count": 0,
+          "total_offices_with_low": 0
+        },
+        {
+          "week_start": "2026-04-13",
+          "week_end": "2026-04-19",
+          "low_count": 3,
+          "total_offices_with_low": 3
+        },
+        {
+          "week_start": "2026-04-20",
+          "week_end": "2026-04-26",
+          "low_count": 3,
+          "total_offices_with_low": 2
+        },
+        {
+          "week_start": "2026-04-27",
+          "week_end": "2026-05-03",
+          "low_count": 2,
+          "total_offices_with_low": 2
+        }
+      ],
+      "office_trends": [
+        {
+          "office": "Sherman Oaks",
+          "last_7d_low": 0,
+          "prior_7d_low": 1,
+          "delta": -1,
+          "trend_direction": "down",
+          "last_7d_avg": null,
+          "last_28d_avg": 2.0,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 1,
+              "avg_rating": 1.0
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 1,
+              "avg_rating": 3.0
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [
+            {
+              "theme": "Wait / scheduling",
+              "weeks_seen": 2,
+              "recurring": true
+            },
+            {
+              "theme": "Staff professionalism",
+              "weeks_seen": 1,
+              "recurring": false
+            }
+          ],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 1,
+          "oldest_open_age_days": 2,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Reply to low review, call patient, log recovery",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Reply to low review, call patient, log recovery",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 1,
+              "replied_count": 1,
+              "themes": [
+                {
+                  "theme": "Wait / scheduling",
+                  "count": 1
+                }
+              ],
+              "sanitized_snippets": [
+                {
+                  "date": "2026-04-15",
+                  "rating": 1,
+                  "snippet": "Did not have a positive experience with this practice, struggled to get access to my own patient records, and over a year later I'm suddenly receiving new bills from them even tho\u2026",
+                  "replied": true,
+                  "themes": [
+                    "Wait / scheduling"
+                  ]
+                }
+              ],
+              "action_status": "All replied \u2014 log recovery"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 1,
+              "replied_count": 1,
+              "themes": [
+                {
+                  "theme": "Wait / scheduling",
+                  "count": 1
+                },
+                {
+                  "theme": "Staff professionalism",
+                  "count": 1
+                }
+              ],
+              "sanitized_snippets": [
+                {
+                  "date": "2026-04-22",
+                  "rating": 3,
+                  "snippet": "Staff was very friendly. However, exam room was somewhat unsanitary [debris on floor and on some equipment]. Patient ahead of me walked out due to excessive wait time. Staff did n\u2026",
+                  "replied": true,
+                  "themes": [
+                    "Wait / scheduling",
+                    "Staff professionalism"
+                  ]
+                }
+              ],
+              "action_status": "All replied \u2014 log recovery"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Puri Dentistry",
+          "last_7d_low": 0,
+          "prior_7d_low": 2,
+          "delta": -2,
+          "trend_direction": "down",
+          "last_7d_avg": null,
+          "last_28d_avg": 1.0,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 1,
+              "avg_rating": 1.0
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 2,
+              "avg_rating": 1.0
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [
+            {
+              "theme": "Communication",
+              "weeks_seen": 1,
+              "recurring": false
+            },
+            {
+              "theme": "Wait / scheduling",
+              "weeks_seen": 1,
+              "recurring": false
+            },
+            {
+              "theme": "Insurance / billing",
+              "weeks_seen": 1,
+              "recurring": false
+            }
+          ],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Review themes in huddle this week",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 1,
+              "replied_count": 1,
+              "themes": [],
+              "sanitized_snippets": [
+                {
+                  "date": "2026-04-16",
+                  "rating": 1,
+                  "snippet": "The worst dentist [name removed] didn't want to provide me services because one of them said that I had herpes....my tooth ache is really bad and I don't have the time to go sue y\u2026",
+                  "replied": true,
+                  "themes": []
+                }
+              ],
+              "action_status": "All replied \u2014 log recovery"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 2,
+              "replied_count": 2,
+              "themes": [
+                {
+                  "theme": "Communication",
+                  "count": 2
+                },
+                {
+                  "theme": "Wait / scheduling",
+                  "count": 1
+                },
+                {
+                  "theme": "Insurance / billing",
+                  "count": 1
+                }
+              ],
+              "sanitized_snippets": [
+                {
+                  "date": "2026-04-24",
+                  "rating": 1,
+                  "snippet": "I'm sure these guys do a great job - oncebthey actually get in your mouth - but my experience there today was beyond frustrating. I called yesterday and asked if I could come in A\u2026",
+                  "replied": true,
+                  "themes": [
+                    "Communication"
+                  ]
+                },
+                {
+                  "date": "2026-04-22",
+                  "rating": 1,
+                  "snippet": "I made an appointment to go here, and I clearly stated that I had a referral for an endodontist. I spelled out my name my phone number and gave my insurance information. I never r\u2026",
+                  "replied": true,
+                  "themes": [
+                    "Wait / scheduling",
+                    "Insurance / billing",
+                    "Communication"
+                  ]
+                }
+              ],
+              "action_status": "All replied \u2014 log recovery"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Santa Monica",
+          "last_7d_low": 1,
+          "prior_7d_low": 0,
+          "delta": 1,
+          "trend_direction": "up",
+          "last_7d_avg": 1.0,
+          "last_28d_avg": 1.0,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 1,
+              "avg_rating": 1.0
+            }
+          ],
+          "common_themes": [
+            {
+              "theme": "Communication",
+              "weeks_seen": 1,
+              "recurring": false
+            }
+          ],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
+            "low_then": 1,
+            "low_now": 1,
+            "improved": false
+          },
+          "next_action": "Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 1,
+              "replied_count": 1,
+              "themes": [
+                {
+                  "theme": "Communication",
+                  "count": 1
+                }
+              ],
+              "sanitized_snippets": [
+                {
+                  "date": "2026-05-02",
+                  "rating": 1,
+                  "snippet": "Came here last Saturday, everything was OK. I\u2019m gracious and I had time. Took a while, but maybe they care about your experience so all good. I called and asked if they saw pediat\u2026",
+                  "replied": true,
+                  "themes": [
+                    "Communication"
+                  ]
+                }
+              ],
+              "action_status": "All replied \u2014 log recovery"
+            }
+          ]
+        },
+        {
+          "office": "Encino",
+          "last_7d_low": 1,
+          "prior_7d_low": 0,
+          "delta": 1,
+          "trend_direction": "up",
+          "last_7d_avg": 1.0,
+          "last_28d_avg": 1.0,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 1,
+              "avg_rating": 1.0
+            }
+          ],
+          "common_themes": [
+            {
+              "theme": "Wait / scheduling",
+              "weeks_seen": 1,
+              "recurring": false
+            },
+            {
+              "theme": "Staff professionalism",
+              "weeks_seen": 1,
+              "recurring": false
+            }
+          ],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Huddle on Wait / scheduling \u2014 recurring 1/4 weeks; reply on any open low review",
+            "low_then": 1,
+            "low_now": 1,
+            "improved": false
+          },
+          "next_action": "Huddle on Wait / scheduling \u2014 recurring 1/4 weeks; reply on any open low review",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 1,
+              "replied_count": 1,
+              "themes": [
+                {
+                  "theme": "Wait / scheduling",
+                  "count": 1
+                },
+                {
+                  "theme": "Staff professionalism",
+                  "count": 1
+                }
+              ],
+              "sanitized_snippets": [
+                {
+                  "date": "2026-05-02",
+                  "rating": 1,
+                  "snippet": "I had a very disappointing experience with the (manager [name removed]) at Clove Dental in Encino. My appointment was completely mishandled , I was scheduled with the wrong specia\u2026",
+                  "replied": true,
+                  "themes": [
+                    "Wait / scheduling",
+                    "Staff professionalism"
+                  ]
+                }
+              ],
+              "action_status": "All replied \u2014 log recovery"
+            }
+          ]
+        },
+        {
+          "office": "Thousand Oaks",
+          "last_7d_low": 0,
+          "prior_7d_low": 0,
+          "delta": 0,
+          "trend_direction": "flat",
+          "last_7d_avg": null,
+          "last_28d_avg": 1.0,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 1,
+              "avg_rating": 1.0
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [
+            {
+              "theme": "Communication",
+              "weeks_seen": 1,
+              "recurring": false
+            }
+          ],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Hold cadence; keep asking 2 happy patients/day",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 1,
+              "replied_count": 1,
+              "themes": [
+                {
+                  "theme": "Communication",
+                  "count": 1
+                }
+              ],
+              "sanitized_snippets": [
+                {
+                  "date": "2026-04-14",
+                  "rating": 1,
+                  "snippet": "In agreements with the yelp review they\u2019re pretty deceptive here probably no fault of their own which really sucks just poor communication and obvious lack of training when it com\u2026",
+                  "replied": true,
+                  "themes": [
+                    "Communication"
+                  ]
+                }
+              ],
+              "action_status": "All replied \u2014 log recovery"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Camarillo",
+          "last_7d_low": 0,
+          "prior_7d_low": 0,
+          "delta": 0,
+          "trend_direction": "flat",
+          "last_7d_avg": null,
+          "last_28d_avg": null,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Hold cadence; keep asking 2 happy patients/day",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Beverly Hills",
+          "last_7d_low": 0,
+          "prior_7d_low": 0,
+          "delta": 0,
+          "trend_direction": "flat",
+          "last_7d_avg": null,
+          "last_28d_avg": null,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Hold cadence; keep asking 2 happy patients/day",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Hillview",
+          "last_7d_low": 0,
+          "prior_7d_low": 0,
+          "delta": 0,
+          "trend_direction": "flat",
+          "last_7d_avg": null,
+          "last_28d_avg": null,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [],
+          "response_signals": {
+            "matches_28d": 2,
+            "latest_signal_date": "2026-05-12T22:18:11+00:00",
+            "label": "2 response signals (last 28d)"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Hold cadence; keep asking 2 happy patients/day",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Oxnard Riverpark",
+          "last_7d_low": 0,
+          "prior_7d_low": 0,
+          "delta": 0,
+          "trend_direction": "flat",
+          "last_7d_avg": null,
+          "last_28d_avg": null,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-05-04",
+            "action": "Hold cadence; keep asking 2 happy patients/day",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-04-06",
+              "week_end": "2026-04-12",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-13",
+              "week_end": "2026-04-19",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-20",
+              "week_end": "2026-04-26",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-04-27",
+              "week_end": "2026-05-03",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        }
+      ],
+      "action_queue": [
+        {
+          "priority": "P1",
+          "office": "Santa Monica",
+          "theme": "Service recovery",
+          "weeks_seen": 1,
+          "trend_direction": "up",
+          "prior_action_effect": "no improvement yet",
+          "action": "Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review"
+        },
+        {
+          "priority": "P1",
+          "office": "Encino",
+          "theme": "Service recovery",
+          "weeks_seen": 1,
+          "trend_direction": "up",
+          "prior_action_effect": "no improvement yet",
+          "action": "Huddle on Wait / scheduling \u2014 recurring 1/4 weeks; reply on any open low review"
+        }
+      ],
+      "response_tracking": {
+        "label": "response signals",
+        "basis": "aggregate counts only \u2014 no email bodies, no staff names, no patient names",
+        "total_signals_28d": 2,
+        "offices_with_signals": 1,
+        "checked_at": "2026-05-13T11:24:35.615128+00:00",
+        "next_action": "Improve tracking: have office managers tag review reply emails so we can move from 'response signals' to a definitive reply rate."
+      },
+      "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
+    }
   },
   "membership_insights": {
     "title": "Membership \u00b7 Subscribili / Clove Care",
@@ -17544,21 +18598,22 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-05-13T11:08:21.441959+00:00",
+    "last_run_at": "2026-05-13T11:34:25.444636+00:00",
     "last_run_date": "2026-05-13",
     "mode": "fast",
     "sources": {
       "callrail": "ok: merged sanitized aggregate",
       "hubspot_cms": "ok: inventory=50sp/50lp, considered=4, actions=0, live=0, draft=0, proposed=0, impact_samples=0 (dry-run)",
       "outbound": "disabled: --no-send (default)",
+      "review_weekly_trends": "ok: 9 offices, 2 low last 7d (prior 3), 2 action(s) queued",
       "ga4_key_events": "ok: form_submit mapped; call_click+appt_booked instrumentation pending",
-      "action_system": "ok: 5 actions tracked"
+      "action_system": "ok: 7 actions tracked"
     },
     "pending_sources": []
   },
   "organic_cms_actions": {
     "title": "Organic / HubSpot CMS automation",
-    "last_run_at": "2026-05-13T11:08:20.198241+00:00",
+    "last_run_at": "2026-05-13T11:34:24.341611+00:00",
     "mode": "apply",
     "publish_mode": "controlled_live_writeback_allowed",
     "writeback_performed": false,
@@ -17909,7 +18964,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-05-13T11:08:21.441936+00:00",
+      "as_of": "2026-05-13T11:34:25.444601+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -17918,7 +18973,7 @@
           "status": "idle",
           "next_action": "Continue daily learning loop: append impact samples and promote draft changes to live when CTR uplift confirmed.",
           "last_action": "0 CMS metadata action(s) considered; 0 live \u00b7 0 draft.",
-          "last_action_at": "2026-05-13T11:08:20.198241+00:00",
+          "last_action_at": "2026-05-13T11:34:24.341611+00:00",
           "impact_metric": "GSC clicks / CTR on edited pages (impact_over_time)",
           "impact_samples": 0,
           "live_writes": 0,
@@ -17990,6 +19045,26 @@
           "last_action": "Awaiting first GMB refresh with prior-state comparison.",
           "last_action_at": "2026-05-09T17:00:00Z",
           "impact_metric": "Time-to-first-response on negative GMB reviews; star average",
+          "blocker": null
+        },
+        {
+          "id": "gmb-review-recovery",
+          "name": "Review recovery (low-review reply + follow-up)",
+          "status": "active_live",
+          "next_action": "Hold cadence; coach recurring themes in next huddle.",
+          "last_action": "1 open low-review follow-up(s); oldest 2 day(s) old.",
+          "last_action_at": "2026-05-13T11:34:25.443029+00:00",
+          "impact_metric": "Open low-review follow-ups, oldest-open age, response-signal count",
+          "blocker": null
+        },
+        {
+          "id": "gmb-review-weekly-trend",
+          "name": "GMB weekly low-review trend tracker",
+          "status": "active_live",
+          "next_action": "P1: Santa Monica \u00b7 Service recovery (1/4 weeks) \u2014 Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
+          "last_action": "Last 7d: 2 low reviews (prior 7d: 3, direction: down).",
+          "last_action_at": "2026-05-13T11:34:25.443029+00:00",
+          "impact_metric": "Week-over-week low-review delta, recurring-theme count, avg rating trend, prior-action improvement rate",
           "blocker": null
         }
       ]

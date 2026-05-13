@@ -1649,6 +1649,79 @@
       margin-bottom: 3px;
     }
 
+    /* Weekly low-review trend table + drilldown */
+    .trend-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+    .trend-table th, .trend-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: middle;
+    }
+    .trend-table th {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .trend-table tr.trend-row { cursor: pointer; }
+    .trend-table tr.trend-row:hover { background: var(--surface-hover, rgba(0,0,0,0.03)); }
+    .trend-table tr.trend-row[aria-expanded="true"] td:first-child::before {
+      content: "▾ ";
+    }
+    .trend-table tr.trend-row td:first-child::before {
+      content: "▸ ";
+      color: var(--text-muted);
+    }
+    .trend-table .trend-arrow { font-weight: 700; padding: 0 4px; }
+    .trend-table .trend-arrow.is-up { color: var(--danger); }
+    .trend-table .trend-arrow.is-down { color: var(--good); }
+    .trend-table .trend-arrow.is-flat { color: var(--text-muted); }
+    .trend-table .spark { display: inline-flex; gap: 2px; align-items: flex-end; height: 22px; }
+    .trend-table .spark span {
+      display: inline-block;
+      width: 10px;
+      background: var(--accent, #4c84f7);
+      border-radius: 2px;
+      min-height: 2px;
+    }
+    .trend-table .spark span.is-zero { background: var(--border); }
+    .trend-drill {
+      background: var(--surface, #fafbfc);
+      border-left: 4px solid var(--accent, #4c84f7);
+      padding: 12px 16px;
+    }
+    .trend-drill h4 {
+      margin: 0 0 6px 0;
+      font-size: 1rem;
+    }
+    .trend-drill .drill-week {
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .trend-drill .drill-week:last-child { border-bottom: 0; }
+    .trend-drill .drill-meta {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .trend-drill ul {
+      margin: 4px 0 0 0;
+      padding-left: 20px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+    .trend-drill .drill-action {
+      margin-top: 6px;
+      font-size: 0.95rem;
+    }
+    .trend-drill .drill-action strong {
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-right: 6px;
+    }
     .signal-cards {
       display: grid;
       gap: 12px;
@@ -1820,6 +1893,36 @@
             </span>
           </div>
           <div class="top5-grid" id="rev-actions-grid"></div>
+        </section>
+
+        <section aria-labelledby="rev-trend">
+          <div class="ps-head">
+            <h2 id="rev-trend">Weekly low-review trend</h2>
+            <span class="pill" id="rev-trend-pill" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="rev-trend-meta">
+            Last 7d vs prior 7d, last 4 weekly buckets per office. Click an
+            office row to expand sanitized snippets, themes, and action
+            status for each week. Aggregate counts only — no reviewer or
+            staff names, no profile links, no GBP IDs.
+          </p>
+          <div class="pxc cols-4" id="rev-trend-totals"></div>
+          <div class="card" id="rev-trend-table-card" style="margin-top:1rem;"></div>
+          <h3 style="margin-top:1.2rem;">Action queue (recurring themes &amp; offices trending up)</h3>
+          <div class="section-meta" id="rev-trend-queue-meta">
+            Themes recurring in 2+ of the last 4 weeks, ranked. When an
+            office had an action last week, we report whether ratings or
+            low-review count improved this week.
+          </div>
+          <div class="top5-grid" id="rev-trend-queue-grid"></div>
+          <h3 style="margin-top:1.2rem;">Staff response signals (aggregate)</h3>
+          <div class="section-meta" id="rev-trend-response-meta">
+            Aggregate counts only — no email bodies, no staff names. If
+            signals are limited we label this as <em>response signals</em>,
+            not a definitive reply rate, and surface the action to improve
+            tracking.
+          </div>
+          <div class="pxc cols-3" id="rev-trend-response-grid"></div>
         </section>
 
         <section aria-labelledby="rev-offices">
@@ -7028,6 +7131,232 @@
         return { strengths: topN(posMap, 3), risks: topN(negMap, 3) };
       }
 
+      function _trendArrow(direction, delta) {
+        var cls = "trend-arrow";
+        var glyph = "→";
+        if (direction === "up") { cls += " is-up"; glyph = "▲"; }
+        else if (direction === "down") { cls += " is-down"; glyph = "▼"; }
+        else { cls += " is-flat"; }
+        var d = (delta != null) ? (delta > 0 ? "+" + delta : String(delta)) : "";
+        return el("span", { "class": cls, text: glyph + (d ? " " + d : "") });
+      }
+
+      function _trendSpark(buckets) {
+        var max = 0;
+        (buckets || []).forEach(function (b) { if ((b.low_count || 0) > max) max = b.low_count; });
+        var span = el("span", { "class": "spark" });
+        (buckets || []).forEach(function (b) {
+          var h = max > 0 ? Math.max(2, Math.round((b.low_count / max) * 22)) : 2;
+          var bar = el("span", { "style": "height:" + h + "px;",
+            "title": b.week_start + ": " + (b.low_count || 0) + " low" });
+          if (!b.low_count) bar.className = "is-zero";
+          span.appendChild(bar);
+        });
+        return span;
+      }
+
+      function _drillRow(office, drilldown) {
+        var box = el("div", { "class": "trend-drill" });
+        box.appendChild(el("h4", { text: "Weekly detail — " + office }));
+        (drilldown || []).slice().reverse().forEach(function (wk) {
+          var wkBox = el("div", { "class": "drill-week" });
+          var head = el("div", { "class": "drill-meta" });
+          head.textContent = "Week " + (wk.week_start || "—") + " → " + (wk.week_end || "—") +
+            " · " + (wk.low_count || 0) + " low review" + ((wk.low_count || 0) === 1 ? "" : "s") +
+            " · " + (wk.replied_count || 0) + " replied";
+          wkBox.appendChild(head);
+          if ((wk.themes || []).length) {
+            var tline = el("div", { "class": "drill-meta" });
+            tline.textContent = "Themes: " + wk.themes.map(function (t) {
+              return t.theme + " (" + t.count + ")";
+            }).join(" · ");
+            wkBox.appendChild(tline);
+          }
+          if ((wk.sanitized_snippets || []).length) {
+            var ul = el("ul");
+            wk.sanitized_snippets.forEach(function (s) {
+              var li = el("li");
+              li.appendChild(el("strong", { text: (s.date || "—") + " · " + (s.rating || 0) + "★" + (s.replied ? " · replied" : " · not replied") + " — " }));
+              li.appendChild(document.createTextNode(s.snippet || ""));
+              ul.appendChild(li);
+            });
+            wkBox.appendChild(ul);
+          } else if ((wk.low_count || 0) === 0) {
+            wkBox.appendChild(el("div", { "class": "drill-meta", text: "No low reviews this week." }));
+          }
+          var act = el("div", { "class": "drill-action" });
+          act.appendChild(el("strong", { text: "Action" }));
+          act.appendChild(document.createTextNode(wk.action_status || "—"));
+          wkBox.appendChild(act);
+          box.appendChild(wkBox);
+        });
+        return box;
+      }
+
+      function renderReviewWeeklyTrend(t) {
+        var pill = $("rev-trend-pill");
+        var totals = $("rev-trend-totals");
+        var card = $("rev-trend-table-card");
+        var queueGrid = $("rev-trend-queue-grid");
+        var respGrid = $("rev-trend-response-grid");
+        if (!card) return;
+        if (!t) {
+          if (totals) totals.innerHTML = "";
+          card.innerHTML = "";
+          card.appendChild(el("div", { "class": "section-meta",
+            text: "Weekly trend pending first refresh with office_rows." }));
+          if (pill) pill.textContent = "Pending first refresh";
+          if (queueGrid) queueGrid.innerHTML = "";
+          if (respGrid) respGrid.innerHTML = "";
+          return;
+        }
+        if (pill) pill.textContent = "Anchor " + (t.anchor_date || "—");
+
+        // Totals tiles
+        if (totals) {
+          totals.innerHTML = "";
+          function tile(label, value, sub, cls) {
+            var b = el("div", { "class": "pxc-tile " + (cls || "is-accent") });
+            b.appendChild(el("div", { "class": "pxc-label", text: label }));
+            b.appendChild(el("div", { "class": "pxc-value", text: value }));
+            if (sub) b.appendChild(el("div", { "class": "pxc-sub", text: sub }));
+            return b;
+          }
+          var tt = t.totals || {};
+          var delta = tt.delta_low;
+          var dCls = (delta || 0) > 0 ? "is-danger" : (delta || 0) < 0 ? "is-good" : "is-accent";
+          totals.appendChild(tile("Low reviews · last 7d",
+            String(tt.last_7d_low != null ? tt.last_7d_low : "—"),
+            "Prior 7d: " + (tt.prior_7d_low != null ? tt.prior_7d_low : "—") +
+              " · Δ " + (delta != null ? (delta >= 0 ? "+" : "") + delta : "—"),
+            dCls));
+          totals.appendChild(tile("Avg rating · last 7d (low only)",
+            (tt.last_7d_avg_rating != null ? tt.last_7d_avg_rating + "★" : "—"),
+            "Across offices with low reviews",
+            "is-warn"));
+          totals.appendChild(tile("Open low-review follow-ups",
+            String(tt.unresolved_open != null ? tt.unresolved_open : "—"),
+            "Oldest open: " + (tt.oldest_open_age_days != null ? tt.oldest_open_age_days + "d" : "—"),
+            (tt.unresolved_open || 0) > 0 ? "is-danger" : "is-good"));
+          totals.appendChild(tile("Action queue",
+            String((t.action_queue || []).length),
+            "Themes recurring 2+/4 weeks or offices trending up",
+            (t.action_queue || []).length > 0 ? "is-warn" : "is-good"));
+        }
+
+        // Office trend table with drilldown
+        card.innerHTML = "";
+        var wrap = el("div", { "class": "table-wrap" });
+        var table = el("table", { "class": "trend-table" });
+        var trh = el("tr");
+        ["Office","Last 7d","Δ","Trend","Last 4 weeks","Avg 28d","Open","Response signals","Next action"].forEach(function (h) {
+          trh.appendChild(el("th", { text: h }));
+        });
+        table.appendChild(el("thead", null, [trh]));
+        var tbody = el("tbody");
+        (t.office_trends || []).slice().sort(function (a, b) {
+          // priority: trending up first, then more low last_7d
+          function sc(o) {
+            var s = 0;
+            if (o.trend_direction === "up") s += 100;
+            s += (o.last_7d_low || 0) * 10;
+            s += (o.open_followups || 0) * 5;
+            return -s;
+          }
+          return sc(a) - sc(b);
+        }).forEach(function (o, idx) {
+          var rowId = "trend-drill-" + idx;
+          var tr = el("tr", { "class": "trend-row", "aria-expanded": "false",
+            "data-target": rowId, tabindex: "0", role: "button" });
+          tr.appendChild(el("td", { text: o.office || "—" }));
+          tr.appendChild(el("td", { text: String(o.last_7d_low != null ? o.last_7d_low : "—") }));
+          var dCell = el("td");
+          dCell.appendChild(_trendArrow(o.trend_direction, o.delta));
+          tr.appendChild(dCell);
+          tr.appendChild(el("td", { text: (o.trend_direction || "flat") }));
+          var sCell = el("td");
+          sCell.appendChild(_trendSpark(o.weekly_buckets || []));
+          tr.appendChild(sCell);
+          tr.appendChild(el("td", { text: (o.last_28d_avg != null ? o.last_28d_avg + "★" : "—") }));
+          tr.appendChild(el("td", { text: String(o.open_followups != null ? o.open_followups : "—") }));
+          tr.appendChild(el("td", { text: ((o.response_signals || {}).label) || "—" }));
+          tr.appendChild(el("td", { text: o.next_action || "—" }));
+          tbody.appendChild(tr);
+
+          var drillTr = el("tr", { id: rowId, hidden: "" });
+          var td = el("td", { colspan: "9", "style": "padding:0;" });
+          td.appendChild(_drillRow(o.office, o.drilldown));
+          drillTr.appendChild(td);
+          tbody.appendChild(drillTr);
+
+          function toggle() {
+            var expanded = tr.getAttribute("aria-expanded") === "true";
+            tr.setAttribute("aria-expanded", expanded ? "false" : "true");
+            drillTr.hidden = expanded;
+          }
+          tr.addEventListener("click", toggle);
+          tr.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+          });
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        card.appendChild(wrap);
+
+        // Action queue
+        if (queueGrid) {
+          queueGrid.innerHTML = "";
+          var queue = t.action_queue || [];
+          if (!queue.length) {
+            queueGrid.appendChild(el("div", { "class": "desc",
+              text: "No recurring themes or upward trends detected this week." }));
+          } else {
+            queue.forEach(function (a) {
+              queueGrid.appendChild(_actionCard({
+                priority: a.priority,
+                label: (a.office || "—") + " · " + (a.theme || "—") +
+                  " (" + (a.weeks_seen || 1) + "/4 wks, " +
+                  (a.trend_direction || "flat") + ", " +
+                  (a.prior_action_effect || "—") + ")",
+                action: a.action || "—",
+                owner: "Office managers · Ops"
+              }));
+            });
+          }
+        }
+
+        // Response signals
+        if (respGrid) {
+          respGrid.innerHTML = "";
+          function rTile(label, value, sub, cls) {
+            var b = el("div", { "class": "pxc-tile " + (cls || "is-accent") });
+            b.appendChild(el("div", { "class": "pxc-label", text: label }));
+            b.appendChild(el("div", { "class": "pxc-value", text: value }));
+            if (sub) b.appendChild(el("div", { "class": "pxc-sub", text: sub }));
+            return b;
+          }
+          var rt = t.response_tracking || {};
+          respGrid.appendChild(rTile(
+            "Response signals · last 28d",
+            String(rt.total_signals_28d != null ? rt.total_signals_28d : "—"),
+            "Aggregate, no email bodies, no staff names",
+            (rt.total_signals_28d || 0) > 0 ? "is-good" : "is-warn"
+          ));
+          respGrid.appendChild(rTile(
+            "Offices with signals",
+            String(rt.offices_with_signals != null ? rt.offices_with_signals : "—"),
+            "Out of " + ((t.office_trends || []).length) + " tracked",
+            (rt.offices_with_signals || 0) > 0 ? "is-good" : "is-warn"
+          ));
+          respGrid.appendChild(rTile(
+            "Improve tracking",
+            "Action",
+            rt.next_action || "Tag reply emails so we can show definitive reply rate.",
+            "is-accent"
+          ));
+        }
+      }
+
       function renderReviews(g) {
         if (!g) return;
         var meta = $("reviews-meta");
@@ -7402,6 +7731,8 @@
             off.appendChild(wrap);
           }
         }
+
+        renderReviewWeeklyTrend(g.low_review_weekly_trends);
 
         var fresh = $("reviews-fresh");
         if (fresh) fresh.textContent = g.freshness_note || "";

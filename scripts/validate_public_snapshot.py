@@ -2727,6 +2727,8 @@ REQUIRED_ACTION_SYSTEM_IDS = {
     "google-ads-lead-sms",
     "tracking-stack",
     "gmb-new-negative-alerts",
+    "gmb-review-recovery",
+    "gmb-review-weekly-trend",
 }
 
 ALLOWED_ACTION_SYSTEM_ENTRY_KEYS = {
@@ -2826,6 +2828,230 @@ def check_action_system(snap: dict[str, Any]) -> None:
         _fail(
             "automations.action_system.actions is missing required "
             f"entries: {sorted(missing)}"
+        )
+
+
+# -----------------------------------------------------------------------
+# Review weekly trend block
+#
+# The Reviews tab now ships a weekly low-review trend section that the
+# user can click to drill into per-office, per-week details. The trend
+# block has strict shape + no-PII rules:
+#   * No reviewer names / staff names / patient names / profile links
+#   * No GBP IDs / raw review IDs / account/location IDs
+#   * No email bodies / private paths / connector tokens
+#   * Office labels only from the public allowlist
+#   * Sanitized snippets only (<= 240 chars), stripped of names/URLs/IDs
+# -----------------------------------------------------------------------
+
+REQUIRED_TREND_TOP_KEYS = {
+    "title", "generated_at", "anchor_date", "current_week_start",
+    "windows", "totals", "weekly_buckets", "office_trends",
+    "action_queue", "response_tracking", "privacy_note",
+}
+REQUIRED_TREND_TOTALS_KEYS = {
+    "last_7d_low", "prior_7d_low", "delta_low", "last_7d_avg_rating",
+    "unresolved_open", "oldest_open_age_days",
+}
+ALLOWED_TREND_BUCKET_KEYS = {
+    "week_start", "week_end", "low_count", "total_offices_with_low",
+    "avg_rating",
+}
+ALLOWED_OFFICE_TREND_KEYS = {
+    "office", "last_7d_low", "prior_7d_low", "delta", "trend_direction",
+    "last_7d_avg", "last_28d_avg", "weekly_buckets", "common_themes",
+    "response_signals", "open_followups", "oldest_open_age_days",
+    "prior_action", "next_action", "drilldown",
+}
+ALLOWED_DRILL_WEEK_KEYS = {
+    "week_start", "week_end", "low_count", "replied_count",
+    "themes", "sanitized_snippets", "action_status",
+}
+ALLOWED_DRILL_SNIPPET_KEYS = {
+    "date", "rating", "snippet", "replied", "themes",
+}
+ALLOWED_TREND_DIRECTIONS = {"up", "down", "flat"}
+
+# Keys that must never appear inside the weekly-trend block. These are
+# the shapes that would leak reviewer identity, raw connector state, or
+# private routing config into the public mirror.
+FORBIDDEN_TREND_KEYS = {
+    "reviewer", "reviewer_name", "reviewer_id", "reviewerId",
+    "profile_url", "profile_link", "profileLink", "profilePhotoUrl",
+    "review_id", "reviewId", "name_id", "nameId",
+    "account", "accounts", "location", "locations", "location_id",
+    "locationId", "place_id", "placeId",
+    "office_email", "cc", "recipients", "recipient_email",
+    "email_body", "raw_text", "body", "Body", "raw_review",
+    "private_path", "config_path",
+}
+
+# Patterns that would betray names/profile URLs even if the keys are
+# innocuous. Tested against every string we encounter in the trend
+# block.
+TREND_FORBIDDEN_VALUE_PATTERNS: list[tuple[str, str]] = [
+    (r"https?://(?:maps|business)\.google\.\S+", "Google Maps/Business URL in trend"),
+    (r"\baccounts/\d+\b", "GBP account ID in trend"),
+    (r"\blocations/\d+\b", "GBP location ID in trend"),
+    (r"\breviews/[A-Za-z0-9_-]{6,}\b", "GBP review ID in trend"),
+    (r"\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b", "Email address in trend"),
+    (r"/home/user/workspace/[A-Za-z0-9_\-/]+", "Private filesystem path in trend"),
+    (r"\bcron_tracking/[A-Za-z0-9_\-]+", "Private cron_tracking path in trend"),
+]
+
+
+def _scan_trend_keys(node: Any, path: str, issues: list[str]) -> None:
+    if isinstance(node, dict):
+        leaked = FORBIDDEN_TREND_KEYS.intersection(node.keys())
+        if leaked:
+            issues.append(
+                f"{path}: forbidden key(s) in weekly trend block: "
+                f"{sorted(leaked)}"
+            )
+        for k, v in node.items():
+            _scan_trend_keys(v, f"{path}.{k}", issues)
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            _scan_trend_keys(v, f"{path}[{i}]", issues)
+    elif isinstance(node, str):
+        for pat, desc in TREND_FORBIDDEN_VALUE_PATTERNS:
+            if re.search(pat, node):
+                issues.append(f"{path}: {desc} (value contained: {pat!r})")
+
+
+def check_review_weekly_trends(snap: dict[str, Any]) -> None:
+    gmb = snap.get("gmb_insights")
+    if not isinstance(gmb, dict):
+        return
+    trends = gmb.get("low_review_weekly_trends")
+    if trends is None:
+        # Optional during first run; refresh writes it when office_rows
+        # are present. Don't fail just because it's missing.
+        return
+    if not isinstance(trends, dict):
+        _fail(
+            "gmb_insights.low_review_weekly_trends must be an object."
+        )
+    missing = REQUIRED_TREND_TOP_KEYS - set(trends.keys())
+    if missing:
+        _fail(
+            "gmb_insights.low_review_weekly_trends missing required "
+            f"fields: {sorted(missing)}"
+        )
+    totals = trends.get("totals") or {}
+    miss_t = REQUIRED_TREND_TOTALS_KEYS - set(totals.keys())
+    if miss_t:
+        _fail(
+            "gmb_insights.low_review_weekly_trends.totals missing "
+            f"fields: {sorted(miss_t)}"
+        )
+    buckets = trends.get("weekly_buckets") or []
+    if not isinstance(buckets, list) or len(buckets) < 1:
+        _fail(
+            "gmb_insights.low_review_weekly_trends.weekly_buckets must "
+            "be a non-empty list."
+        )
+    for idx, b in enumerate(buckets):
+        if not isinstance(b, dict):
+            _fail(
+                f"low_review_weekly_trends.weekly_buckets[{idx}] must "
+                "be an object."
+            )
+        extra = set(b.keys()) - ALLOWED_TREND_BUCKET_KEYS
+        if extra:
+            _fail(
+                f"low_review_weekly_trends.weekly_buckets[{idx}] has "
+                f"unexpected keys: {sorted(extra)}"
+            )
+    office_trends = trends.get("office_trends") or []
+    if not isinstance(office_trends, list):
+        _fail(
+            "gmb_insights.low_review_weekly_trends.office_trends must "
+            "be a list."
+        )
+    for idx, ot in enumerate(office_trends):
+        if not isinstance(ot, dict):
+            _fail(
+                f"low_review_weekly_trends.office_trends[{idx}] must "
+                "be an object."
+            )
+        extra = set(ot.keys()) - ALLOWED_OFFICE_TREND_KEYS
+        if extra:
+            _fail(
+                f"low_review_weekly_trends.office_trends[{idx}] has "
+                f"unexpected keys: {sorted(extra)}"
+            )
+        if ot.get("trend_direction") not in ALLOWED_TREND_DIRECTIONS:
+            _fail(
+                f"low_review_weekly_trends.office_trends[{idx}]"
+                f".trend_direction not in allowlist."
+            )
+        drilldown = ot.get("drilldown") or []
+        if not isinstance(drilldown, list):
+            _fail(
+                f"low_review_weekly_trends.office_trends[{idx}]"
+                ".drilldown must be a list."
+            )
+        for dx, wk in enumerate(drilldown):
+            if not isinstance(wk, dict):
+                _fail(
+                    f"low_review_weekly_trends.office_trends[{idx}]"
+                    f".drilldown[{dx}] must be an object."
+                )
+            extra = set(wk.keys()) - ALLOWED_DRILL_WEEK_KEYS
+            if extra:
+                _fail(
+                    f"low_review_weekly_trends.office_trends[{idx}]"
+                    f".drilldown[{dx}] has unexpected keys: "
+                    f"{sorted(extra)}"
+                )
+            snippets = wk.get("sanitized_snippets") or []
+            if not isinstance(snippets, list):
+                _fail(
+                    "low_review_weekly_trends.*.drilldown[*]"
+                    ".sanitized_snippets must be a list."
+                )
+            for sx, s in enumerate(snippets):
+                if not isinstance(s, dict):
+                    _fail(
+                        "low_review_weekly_trends drilldown snippet "
+                        "entries must be objects."
+                    )
+                extra = set(s.keys()) - ALLOWED_DRILL_SNIPPET_KEYS
+                if extra:
+                    _fail(
+                        "low_review_weekly_trends drilldown snippet "
+                        f"has unexpected keys: {sorted(extra)}"
+                    )
+                snip_text = s.get("snippet")
+                if not isinstance(snip_text, str):
+                    _fail(
+                        "low_review_weekly_trends drilldown snippet "
+                        "must have a string snippet field."
+                    )
+                if len(snip_text) > 240:
+                    _fail(
+                        "low_review_weekly_trends drilldown snippet "
+                        f"too long ({len(snip_text)} chars; max 240)."
+                    )
+    rt = trends.get("response_tracking") or {}
+    if not isinstance(rt, dict) or rt.get("label") != "response signals":
+        _fail(
+            "low_review_weekly_trends.response_tracking must declare "
+            "label='response signals' (we never claim a definitive reply rate)."
+        )
+    if "no email bodies" not in (rt.get("basis") or ""):
+        _fail(
+            "low_review_weekly_trends.response_tracking.basis must "
+            "state that no email bodies are used."
+        )
+
+    issues: list[str] = []
+    _scan_trend_keys(trends, "low_review_weekly_trends", issues)
+    if issues:
+        _fail(
+            "low_review_weekly_trends contains forbidden content:\n  - "
+            + "\n  - ".join(issues)
         )
 
 
@@ -2929,6 +3155,7 @@ def main() -> int:
         check_keyword_focus(snap)
         check_automations(snap)
         check_action_system(snap)
+        check_review_weekly_trends(snap)
         check_ga4_form_submit_mapped(snap)
 
         snapshot_text = DATA_FILE.read_text(encoding="utf-8")

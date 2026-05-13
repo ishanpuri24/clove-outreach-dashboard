@@ -50,7 +50,7 @@ import json
 import os
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -293,6 +293,591 @@ def update_ga4_status_block(snapshot: dict) -> None:
         organic["top_actions"] = [_ga4_action_for_organic()] + filtered
 
 
+# ---------------------------------------------------------------------------
+# Review-recovery weekly trend block
+# ---------------------------------------------------------------------------
+#
+# Goal: turn the Reviews tab from a static low-rating list into a weekly
+# trend view per office, with a clickable drilldown showing sanitized
+# snippets, recurring themes, and aggregate staff-response signals.
+#
+# Inputs (read-only, never re-published as-is):
+#   * snapshot["gmb_insights"]["office_rows"]           — current rolling counts
+#   * snapshot["gmb_insights"]["negative_queue"]        — sanitized low reviews
+#   * snapshot["gmb_insights"]["data_freshness"]        — anchor for "now"
+#   * private_dir / "staff_review_reply_signals.json"   — aggregate counts only
+#   * snapshot["gmb_insights"]["low_review_weekly_trends"] (prior, if any)
+#
+# Output (public, sanitized): gmb_insights.low_review_weekly_trends — see
+# `_DEFAULT_TREND_SCHEMA_HINT` for the shape. The validator (check_review_
+# weekly_trends) enforces it and refuses to publish any reviewer name,
+# profile link, GBP ID, raw review ID, email body, private path, etc.
+
+THEME_KEYWORD_MAP = {
+    "Wait / scheduling": ["wait", "waiting", "appoint", "schedule", "late", "hour"],
+    "Insurance / billing": ["insurance", "covered", "charge", "pricing", "billing", "cost", "paid"],
+    "Communication": ["communic", "told", "never", "confirm", "call", "phone", "explain"],
+    "Clinical experience": ["cleaning", "x-ray", "xray", "assistant", "pain", "specialist", "root", "crown", "extract"],
+    "Staff professionalism": ["unprofessional", "rude", "manager", "front desk", "staff"],
+    "Legacy transition": ["former owner", "sold", "chain", "takeover", "transition"],
+}
+
+# Token strippers for drilldown snippets. We already accept the public
+# negative_queue copy that was sanitized upstream, but a second pass is
+# cheap and makes the drilldown safe to expand.
+_NAME_TOKEN_RE = re.compile(r"\b(?:Dr\.|Doctor|Mr\.|Mrs\.|Ms\.)\s+[A-Z][a-zA-Z]{1,30}\b")
+_TITLED_NAME_RE = re.compile(
+    r"\b(?:manager|nurse|hygienist|assistant|receptionist|specialist|dentist)\s+[A-Z][a-zA-Z]{1,30}\b",
+    re.IGNORECASE,
+)
+_BARE_NAME_RE = re.compile(r"\(\s*[A-Z][a-zA-Z]{2,30}(?:\s+[A-Z][a-zA-Z]{2,30})?\s*\)")
+_URL_RE = re.compile(r"https?://\S+|maps\.google\.\S+")
+_GBP_ID_RE = re.compile(r"\b(?:accounts/\d+|locations/\d+|reviews/[A-Za-z0-9_-]+)\b")
+
+
+def sanitize_snippet(text: str, limit: int = 180) -> str:
+    """Strip reviewer/staff names, URLs, GBP IDs, and clamp length.
+
+    The public snapshot already redacts most of this upstream; this is
+    a belt-and-suspenders pass for the drilldown payload, which the
+    user can click to expand.
+    """
+    if not isinstance(text, str) or not text.strip():
+        return ""
+    out = text
+    out = _URL_RE.sub("[link removed]", out)
+    out = _GBP_ID_RE.sub("[id removed]", out)
+    out = _NAME_TOKEN_RE.sub("[name removed]", out)
+    out = _TITLED_NAME_RE.sub(lambda m: m.group(0).split()[0] + " [name removed]", out)
+    out = _BARE_NAME_RE.sub("([name removed])", out)
+    out = re.sub(r"\s+", " ", out).strip()
+    if len(out) > limit:
+        out = out[: limit - 1].rstrip() + "…"
+    return out
+
+
+def _theme_tags(snippet: str) -> list[str]:
+    s = (snippet or "").lower()
+    tags = []
+    for theme, needles in THEME_KEYWORD_MAP.items():
+        if any(n in s for n in needles):
+            tags.append(theme)
+    return tags[:3]
+
+
+def _parse_iso_date(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value:
+        return None
+    try:
+        if "T" in value:
+            return datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return datetime.fromisoformat(value).replace(tzinfo=timezone.utc)
+    except Exception:
+        return None
+
+
+def _week_start(d: datetime) -> datetime:
+    """Monday 00:00 UTC of d's week."""
+    d_utc = d.astimezone(timezone.utc) if d.tzinfo else d.replace(tzinfo=timezone.utc)
+    monday = d_utc - timedelta(days=d_utc.weekday())
+    return datetime(monday.year, monday.month, monday.day, tzinfo=timezone.utc)
+
+
+def _load_staff_reply_signals(private_dir: Path) -> dict:
+    raw = read_json(private_dir / "staff_review_reply_signals.json", None)
+    if not isinstance(raw, dict):
+        return {}
+    # Strip anything other than aggregate counts before we even consider
+    # using these values downstream. We never read or republish bodies.
+    out: dict[str, Any] = {
+        "checked_at": raw.get("checked_at"),
+        "total_matches": int(raw.get("total_matches") or 0),
+        "review_related_signals": int(raw.get("review_related_signals") or 0),
+        "non_review_noise": int(raw.get("non_review_noise") or 0),
+        "office_reply_signals": {},
+    }
+    src = raw.get("office_reply_signals") or {}
+    if isinstance(src, dict):
+        for office, val in src.items():
+            if not isinstance(office, str) or not isinstance(val, dict):
+                continue
+            out["office_reply_signals"][office] = {
+                "matches": int(val.get("matches") or 0),
+                "review_related": int(val.get("review_related") or 0),
+                "latest_date": val.get("latest_date"),
+            }
+    return out
+
+
+def _office_weekly_buckets(office: str, queue: list[dict], anchor: datetime, weeks: int = 4) -> list[dict]:
+    buckets: list[dict] = []
+    for offset in range(weeks):
+        end = _week_start(anchor) - timedelta(days=7 * offset)
+        start = end - timedelta(days=7)
+        in_bucket = [
+            r for r in queue
+            if (r.get("office") == office)
+            and (start <= (_parse_iso_date(r.get("date")) or anchor) < end)
+        ]
+        ratings = [int(r.get("rating") or 0) for r in in_bucket if isinstance(r.get("rating"), (int, float))]
+        avg = round(sum(ratings) / len(ratings), 2) if ratings else None
+        buckets.append({
+            "week_start": start.date().isoformat(),
+            "week_end": (end - timedelta(seconds=1)).date().isoformat(),
+            "low_count": len(in_bucket),
+            "avg_rating": avg,
+        })
+    buckets.reverse()  # oldest -> newest
+    return buckets
+
+
+def _office_drilldown(office: str, queue: list[dict], anchor: datetime, weeks: int = 4) -> list[dict]:
+    """Per-week sanitized drilldown payload for a single office."""
+    out: list[dict] = []
+    for offset in range(weeks):
+        end = _week_start(anchor) - timedelta(days=7 * offset)
+        start = end - timedelta(days=7)
+        rows = [
+            r for r in queue
+            if (r.get("office") == office)
+            and (start <= (_parse_iso_date(r.get("date")) or anchor) < end)
+        ]
+        theme_counts: dict[str, int] = {}
+        snippets: list[dict] = []
+        replied_count = 0
+        for r in sorted(rows, key=lambda x: x.get("date") or "", reverse=True):
+            snip = sanitize_snippet(r.get("snippet") or "")
+            tags = _theme_tags(snip)
+            for t in tags:
+                theme_counts[t] = theme_counts.get(t, 0) + 1
+            replied = bool(r.get("replied"))
+            if replied:
+                replied_count += 1
+            snippets.append({
+                "date": r.get("date") or "—",
+                "rating": int(r.get("rating") or 0),
+                "snippet": snip,
+                "replied": replied,
+                "themes": tags,
+            })
+        n = len(snippets)
+        if n == 0:
+            action_status = "No low reviews this week"
+        elif replied_count == n:
+            action_status = "All replied — log recovery"
+        elif replied_count == 0:
+            action_status = f"Reply within 24h ({n} unreplied)"
+        else:
+            action_status = f"Reply within 24h ({n - replied_count} of {n} unreplied)"
+        out.append({
+            "week_start": start.date().isoformat(),
+            "week_end": (end - timedelta(seconds=1)).date().isoformat(),
+            "low_count": n,
+            "replied_count": replied_count,
+            "themes": sorted(
+                ({"theme": k, "count": v} for k, v in theme_counts.items()),
+                key=lambda t: -t["count"],
+            )[:3],
+            "sanitized_snippets": snippets[:5],
+            "action_status": action_status,
+        })
+    out.reverse()  # oldest -> newest
+    return out
+
+
+def _trend_direction(buckets: list[dict]) -> str:
+    """Direction of the *latest* week vs the prior week.
+
+    Buckets are oldest -> newest. We compare the most recent week to
+    the one before it: a fresh low review or a fresh dry week is what
+    the user actually wants to see, not a smoothed average.
+    """
+    counts = [b.get("low_count", 0) or 0 for b in buckets]
+    if len(counts) < 2:
+        return "flat"
+    last, prev = counts[-1], counts[-2]
+    if last > prev:
+        return "up"
+    if last < prev:
+        return "down"
+    return "flat"
+
+
+def _prior_action_effect(office: str, prior_trends: dict | None) -> dict | None:
+    """Return how the prior weekly bucket compares to the current one."""
+    if not isinstance(prior_trends, dict):
+        return None
+    for o in prior_trends.get("office_trends", []) or []:
+        if o.get("office") != office:
+            continue
+        action = o.get("next_action") or o.get("prior_action", {}).get("action")
+        prior_low = o.get("last_7d_low")
+        prior_week = o.get("current_week_start") or prior_trends.get("current_week_start")
+        if action is None or prior_low is None:
+            return None
+        return {
+            "week_start": prior_week,
+            "action": action,
+            "low_then": prior_low,
+        }
+    return None
+
+
+def _office_response_signals(office: str, signals: dict) -> dict:
+    block = (signals.get("office_reply_signals") or {}).get(office) or {}
+    matches = int(block.get("review_related") or 0)
+    label = "no reply signals detected"
+    if matches >= 2:
+        label = f"{matches} response signals (last 28d)"
+    elif matches == 1:
+        label = "1 response signal (last 28d)"
+    return {
+        "matches_28d": matches,
+        "latest_signal_date": block.get("latest_date"),
+        "label": label,
+    }
+
+
+def _open_followups(office: str, queue: list[dict], anchor: datetime) -> tuple[int, int | None]:
+    """Aggregate unresolved/open low reviews for this office.
+
+    "Open" = low-rating review with replied=false. Oldest open age is
+    in days. No raw IDs surface here.
+    """
+    opens = [
+        r for r in queue
+        if r.get("office") == office and not bool(r.get("replied"))
+    ]
+    if not opens:
+        return 0, None
+    ages = []
+    for r in opens:
+        d = _parse_iso_date(r.get("date"))
+        if d:
+            ages.append((anchor - d).days)
+    oldest = max(ages) if ages else None
+    return len(opens), oldest
+
+
+def build_review_weekly_trends(
+    snapshot: dict, private_dir: Path, prior: dict | None
+) -> dict | None:
+    gmb = snapshot.get("gmb_insights") or {}
+    rows = gmb.get("office_rows") or []
+    queue = gmb.get("negative_queue") or []
+    if not rows:
+        return None
+    anchor = _parse_iso_date(gmb.get("data_freshness")) or datetime.now(timezone.utc)
+    signals = _load_staff_reply_signals(private_dir)
+
+    office_trends: list[dict] = []
+    for o in rows:
+        office = o.get("office")
+        if not office:
+            continue
+        buckets = _office_weekly_buckets(office, queue, anchor)
+        last_7d_low = buckets[-1]["low_count"] if buckets else 0
+        prior_7d_low = buckets[-2]["low_count"] if len(buckets) >= 2 else 0
+        last_7d_avg = buckets[-1]["avg_rating"]
+        last_28d_ratings = [b["avg_rating"] for b in buckets if b["avg_rating"] is not None]
+        last_28d_avg = round(sum(last_28d_ratings) / len(last_28d_ratings), 2) if last_28d_ratings else None
+        opens, oldest = _open_followups(office, queue, anchor)
+        drilldown = _office_drilldown(office, queue, anchor)
+        # recurring themes = themes that show up in 2+ of the last 4 weeks
+        theme_week_count: dict[str, int] = {}
+        for wk in drilldown:
+            for t in wk.get("themes", []):
+                theme_week_count[t["theme"]] = theme_week_count.get(t["theme"], 0) + 1
+        recurring_themes = [
+            {"theme": k, "weeks_seen": v, "recurring": v >= 2}
+            for k, v in sorted(theme_week_count.items(), key=lambda kv: -kv[1])
+        ]
+        direction = _trend_direction(buckets)
+        prior_action = _prior_action_effect(office, prior)
+        if prior_action is not None:
+            prior_action["low_now"] = last_7d_low
+            prior_action["improved"] = (last_7d_low < prior_action.get("low_then", last_7d_low))
+        next_action = o.get("action") or "Reply within 24h, log recovery call"
+        if direction == "up" and recurring_themes:
+            next_action = (
+                f"Huddle on {recurring_themes[0]['theme']} — recurring "
+                f"{recurring_themes[0]['weeks_seen']}/4 weeks; reply on any open low review"
+            )
+        elif last_7d_low == 0 and prior_7d_low == 0:
+            next_action = "Hold cadence; keep asking 2 happy patients/day"
+        office_trends.append({
+            "office": office,
+            "last_7d_low": last_7d_low,
+            "prior_7d_low": prior_7d_low,
+            "delta": last_7d_low - prior_7d_low,
+            "trend_direction": direction,
+            "last_7d_avg": last_7d_avg,
+            "last_28d_avg": last_28d_avg,
+            "weekly_buckets": buckets,
+            "common_themes": recurring_themes[:5],
+            "response_signals": _office_response_signals(office, signals),
+            "open_followups": opens,
+            "oldest_open_age_days": oldest,
+            "prior_action": prior_action,
+            "next_action": next_action,
+            "drilldown": drilldown,
+        })
+
+    last_7d_low_total = sum(t["last_7d_low"] for t in office_trends)
+    prior_7d_low_total = sum(t["prior_7d_low"] for t in office_trends)
+    opens_total = sum(t["open_followups"] for t in office_trends)
+    oldest_age = max(
+        (t["oldest_open_age_days"] for t in office_trends if t["oldest_open_age_days"] is not None),
+        default=None,
+    )
+
+    # Cross-office weekly history (sum over offices, oldest -> newest)
+    weekly_buckets_all: list[dict] = []
+    for i in range(4):
+        weekly_buckets_all.append({
+            "week_start": office_trends[0]["weekly_buckets"][i]["week_start"] if office_trends else "",
+            "week_end": office_trends[0]["weekly_buckets"][i]["week_end"] if office_trends else "",
+            "low_count": sum(t["weekly_buckets"][i]["low_count"] for t in office_trends),
+            "total_offices_with_low": sum(
+                1 for t in office_trends if t["weekly_buckets"][i]["low_count"] > 0
+            ),
+        })
+
+    # Action queue: rank recurring themes + offices trending up
+    action_queue: list[dict] = []
+    for t in office_trends:
+        if t["trend_direction"] == "up" and t["last_7d_low"] > 0:
+            recurring = [c for c in t["common_themes"] if c.get("recurring")]
+            theme_label = recurring[0]["theme"] if recurring else "Service recovery"
+            prior_effect = "improved" if (t.get("prior_action") and t["prior_action"].get("improved")) else "no improvement yet" if t.get("prior_action") else "first cycle"
+            action_queue.append({
+                "priority": "P0" if t["last_7d_low"] >= 2 else "P1",
+                "office": t["office"],
+                "theme": theme_label,
+                "weeks_seen": recurring[0]["weeks_seen"] if recurring else 1,
+                "trend_direction": "up",
+                "prior_action_effect": prior_effect,
+                "action": t["next_action"],
+            })
+    # global recurring theme across offices
+    cross_theme: dict[str, dict] = {}
+    for t in office_trends:
+        for c in t["common_themes"]:
+            if not c.get("recurring"):
+                continue
+            slot = cross_theme.setdefault(c["theme"], {"offices": [], "weeks_seen": 0})
+            slot["offices"].append(t["office"])
+            slot["weeks_seen"] = max(slot["weeks_seen"], c["weeks_seen"])
+    for theme, data in cross_theme.items():
+        if len(data["offices"]) >= 2:
+            action_queue.append({
+                "priority": "P1",
+                "office": "Multi-office",
+                "theme": theme,
+                "weeks_seen": data["weeks_seen"],
+                "trend_direction": "up",
+                "prior_action_effect": "system-wide",
+                "action": f"Coach on {theme} at {', '.join(sorted(set(data['offices']))[:4])} this week",
+            })
+    action_queue.sort(key=lambda a: (a["priority"], -a["weeks_seen"]))
+
+    response_tracking = {
+        "label": "response signals",
+        "basis": "aggregate counts only — no email bodies, no staff names, no patient names",
+        "total_signals_28d": signals.get("review_related_signals", 0),
+        "offices_with_signals": len(signals.get("office_reply_signals") or {}),
+        "checked_at": signals.get("checked_at"),
+        "next_action": (
+            "Improve tracking: have office managers tag review reply emails so we "
+            "can move from 'response signals' to a definitive reply rate."
+        ),
+    }
+
+    avg_last_7d = [t["last_7d_avg"] for t in office_trends if t["last_7d_avg"] is not None]
+    last_7d_avg_global = round(sum(avg_last_7d) / len(avg_last_7d), 2) if avg_last_7d else None
+
+    return {
+        "title": "Weekly low-review trend",
+        "generated_at": utcnow_iso(),
+        "anchor_date": anchor.date().isoformat(),
+        "current_week_start": _week_start(anchor).date().isoformat(),
+        "windows": {"last_7d": 7, "prior_7d": 7, "last_28d": 28},
+        "totals": {
+            "last_7d_low": last_7d_low_total,
+            "prior_7d_low": prior_7d_low_total,
+            "delta_low": last_7d_low_total - prior_7d_low_total,
+            "last_7d_avg_rating": last_7d_avg_global,
+            "unresolved_open": opens_total,
+            "oldest_open_age_days": oldest_age,
+        },
+        "weekly_buckets": weekly_buckets_all,
+        "office_trends": office_trends,
+        "action_queue": action_queue,
+        "response_tracking": response_tracking,
+        "privacy_note": (
+            "Aggregate counts and theme labels only. Snippets are sanitized — "
+            "no reviewer or staff names, no profile links, no GBP IDs, no "
+            "raw review IDs, no email bodies."
+        ),
+    }
+
+
+def update_review_weekly_trends(
+    snapshot: dict, private_dir: Path, status: dict
+) -> None:
+    gmb = snapshot.setdefault("gmb_insights", {})
+    prior = gmb.get("low_review_weekly_trends") if isinstance(gmb.get("low_review_weekly_trends"), dict) else None
+    trends = build_review_weekly_trends(snapshot, private_dir, prior)
+    if trends is None:
+        status["review_weekly_trends"] = "pending: no gmb_insights.office_rows yet"
+        return
+    gmb["low_review_weekly_trends"] = trends
+    status["review_weekly_trends"] = (
+        f"ok: {len(trends['office_trends'])} offices, "
+        f"{trends['totals']['last_7d_low']} low last 7d "
+        f"(prior {trends['totals']['prior_7d_low']}), "
+        f"{len(trends['action_queue'])} action(s) queued"
+    )
+
+
+def persist_review_trends_in_learning_state(
+    private_dir: Path, trends: dict | None
+) -> None:
+    if trends is None:
+        return
+    state_path = private_dir / "daily_learning_state.json"
+    state = read_json(state_path, None)
+    if not isinstance(state, dict):
+        return
+    mem = state.setdefault("review_recovery_memory", {
+        "weekly_history": [],
+        "office_action_history": {},
+    })
+    # Append weekly trend snapshot (cap at 12 weeks of history)
+    entry = {
+        "captured_at": trends.get("generated_at"),
+        "current_week_start": trends.get("current_week_start"),
+        "totals": trends.get("totals"),
+        "office_summary": [
+            {
+                "office": o["office"],
+                "last_7d_low": o["last_7d_low"],
+                "prior_7d_low": o["prior_7d_low"],
+                "trend_direction": o["trend_direction"],
+                "open_followups": o["open_followups"],
+            }
+            for o in trends.get("office_trends", [])
+        ],
+    }
+    history = mem.get("weekly_history") or []
+    # de-dupe by current_week_start so multiple daily refreshes overwrite
+    history = [h for h in history if h.get("current_week_start") != entry["current_week_start"]]
+    history.append(entry)
+    mem["weekly_history"] = history[-12:]
+    # Record next_action per office so we can attribute improvement next week
+    oah = mem.setdefault("office_action_history", {})
+    for o in trends.get("office_trends", []):
+        slot = oah.setdefault(o["office"], [])
+        slot.append({
+            "week_start": trends.get("current_week_start"),
+            "action": o.get("next_action"),
+            "low_then": o.get("last_7d_low"),
+        })
+        oah[o["office"]] = slot[-8:]
+    write_json_atomic(state_path, state)
+
+
+def _review_recovery_action_entry(gmb: dict) -> dict:
+    trends = gmb.get("low_review_weekly_trends") or {}
+    totals = trends.get("totals") or {}
+    queue = trends.get("action_queue") or []
+    unresolved = totals.get("unresolved_open", 0) or 0
+    oldest = totals.get("oldest_open_age_days")
+    p0_offices = [a["office"] for a in queue if a.get("priority") == "P0"]
+    if unresolved > 0:
+        status = "active_live"
+        last_action = (
+            f"{unresolved} open low-review follow-up(s); oldest "
+            f"{oldest} day(s) old."
+        )
+    elif queue:
+        status = "active_live"
+        last_action = f"All low reviews replied; {len(queue)} themes still trending up."
+    else:
+        status = "idle" if trends else "pending"
+        last_action = (
+            "No open follow-ups detected this refresh."
+            if trends else "Awaiting first weekly-trend computation."
+        )
+    next_action = (
+        "Reply within 24h and log recovery call for: "
+        + ", ".join(p0_offices[:4])
+    ) if p0_offices else (
+        "Hold cadence; coach recurring themes in next huddle."
+    )
+    return {
+        "id": "gmb-review-recovery",
+        "name": "Review recovery (low-review reply + follow-up)",
+        "status": status,
+        "next_action": next_action,
+        "last_action": last_action,
+        "last_action_at": trends.get("generated_at") or gmb.get("data_freshness") or "—",
+        "impact_metric": (
+            "Open low-review follow-ups, oldest-open age, response-signal count"
+        ),
+        "blocker": None,
+    }
+
+
+def _review_weekly_trend_action_entry(gmb: dict) -> dict:
+    trends = gmb.get("low_review_weekly_trends") or {}
+    totals = trends.get("totals") or {}
+    direction = "flat"
+    delta = totals.get("delta_low")
+    if isinstance(delta, (int, float)):
+        if delta > 0:
+            direction = "up"
+        elif delta < 0:
+            direction = "down"
+    last_7d = totals.get("last_7d_low")
+    prior_7d = totals.get("prior_7d_low")
+    if trends:
+        status = "active_live"
+        last_action = (
+            f"Last 7d: {last_7d} low reviews "
+            f"(prior 7d: {prior_7d}, direction: {direction})."
+        )
+    else:
+        status = "pending"
+        last_action = "Awaiting first weekly trend computation."
+    queue = trends.get("action_queue") or []
+    if queue:
+        top = queue[0]
+        next_action = (
+            f"{top.get('priority','P1')}: {top.get('office','—')} · "
+            f"{top.get('theme','—')} ({top.get('weeks_seen',1)}/4 weeks) — "
+            f"{top.get('action','review and act')}"
+        )
+    else:
+        next_action = (
+            "Maintain weekly trend tracking; surface any office trending up "
+            "with recurring themes next refresh."
+        )
+    return {
+        "id": "gmb-review-weekly-trend",
+        "name": "GMB weekly low-review trend tracker",
+        "status": status,
+        "next_action": next_action,
+        "last_action": last_action,
+        "last_action_at": trends.get("generated_at") or "—",
+        "impact_metric": (
+            "Week-over-week low-review delta, recurring-theme count, "
+            "avg rating trend, prior-action improvement rate"
+        ),
+        "blocker": None,
+    }
+
+
 def build_action_system(snapshot: dict, prior_action_system: dict | None) -> dict:
     """Rebuild the automations.action_system block from current state.
 
@@ -415,6 +1000,8 @@ def build_action_system(snapshot: dict, prior_action_system: dict | None) -> dic
             "impact_metric": "Time-to-first-response on negative GMB reviews; star average",
             "blocker": None,
         }),
+        merge_prior(_review_recovery_action_entry(gmb)),
+        merge_prior(_review_weekly_trend_action_entry(gmb)),
     ]
 
     return {
@@ -622,6 +1209,11 @@ def refresh(
     # entries so the timeline is preserved and stale setup copy is
     # blocked at the source.
     update_ga4_status_block(snapshot)
+    update_review_weekly_trends(snapshot, private_dir, status)
+    persist_review_trends_in_learning_state(
+        private_dir,
+        snapshot.get("gmb_insights", {}).get("low_review_weekly_trends"),
+    )
     update_action_system_block(snapshot)
     status["ga4_key_events"] = "ok: form_submit mapped; call_click+appt_booked instrumentation pending"
     status["action_system"] = (
@@ -639,6 +1231,7 @@ def refresh(
     issues += scan_forbidden(snapshot.get("automations", {}).get("action_system", {}))
     issues += scan_forbidden(snapshot.get("organic_insights", {}).get("connector_status", []))
     issues += scan_forbidden(snapshot.get("organic_insights", {}).get("source_status_rows", []))
+    issues += scan_forbidden(snapshot.get("gmb_insights", {}).get("low_review_weekly_trends", {}))
     if issues:
         print("ERROR: refresh would publish forbidden patterns:", file=sys.stderr)
         for i in issues:

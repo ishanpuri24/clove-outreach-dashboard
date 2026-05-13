@@ -772,6 +772,81 @@ account ids, etc.):
   ids, raw messages, provider credentials, and booking links are
   rejected at any depth inside the block.
 
+### Review recovery: weekly low-review trend tracking
+
+The Reviews / GMB tab no longer treats low reviews as one-off rows.
+On each refresh the orchestrator builds
+`gmb_insights.low_review_weekly_trends` with the following shape:
+
+- `totals` — last 7d vs prior 7d low-review counts, week-over-week
+  delta, last-7d average rating across offices with low reviews,
+  count of open (unreplied) low reviews, and the oldest open
+  follow-up age in days.
+- `weekly_buckets` — cross-office counts for the last 4 weekly
+  buckets (Monday-anchored, UTC).
+- `office_trends[]` — per office: last 7d / prior 7d low counts,
+  trend direction (`up` / `down` / `flat`), last 7d and last 28d
+  average ratings, the 4 weekly buckets, recurring themes (themes
+  that recur in 2+ of the last 4 weeks), aggregate response
+  signals, open follow-up count, oldest-open age, the prior
+  week's recorded action (and whether the low-review count
+  improved since), and a sanitized per-week `drilldown` for the
+  click-to-expand UI.
+- `action_queue[]` — recurring themes and offices trending up,
+  ranked by priority; cross-office themes seen at 2+ offices are
+  surfaced as multi-office coaching items.
+- `response_tracking` — aggregate staff-reply signal counts,
+  always labelled "response signals" (never a definitive reply
+  rate). When signals are limited or noisy we surface the action
+  to improve tracking.
+
+Per-week history (last 12 weeks) and per-office action history
+(last 8 entries) are persisted in
+`daily_learning_state.review_recovery_memory` so each refresh can
+attribute improvement (or lack of improvement) to the prior
+week's action. The public mirror never republishes that memory.
+
+### Staff response-signal logic
+
+The orchestrator reads
+`cron_tracking/<id>/staff_review_reply_signals.json` (aggregate
+counts only — no email bodies, no staff names, no patient names,
+no message IDs). For each office we surface:
+
+- 28d response signal count
+- date of the most recent signal
+- a one-line label such as "2 response signals (last 28d)" or
+  "no reply signals detected"
+
+We deliberately call this a *signal*, not a reply rate. The
+validator refuses to publish the trend block with anything that
+looks like an email body, profile link, GBP ID, or reviewer name.
+
+### Public snapshot contract for low_review_weekly_trends
+
+The validator (`check_review_weekly_trends`) enforces:
+
+- Top-level keys: `title`, `generated_at`, `anchor_date`,
+  `current_week_start`, `windows`, `totals`, `weekly_buckets`,
+  `office_trends`, `action_queue`, `response_tracking`,
+  `privacy_note`.
+- `totals` must include `last_7d_low`, `prior_7d_low`,
+  `delta_low`, `last_7d_avg_rating`, `unresolved_open`, and
+  `oldest_open_age_days`.
+- Office-trend entries are restricted to a fixed allowlist of
+  keys; `trend_direction` is restricted to `up`/`down`/`flat`.
+- Drilldown weeks may only contain sanitized snippets with the
+  keys `date`, `rating`, `snippet` (≤ 240 chars), `replied`,
+  `themes`. Reviewer / staff / patient names, profile links,
+  GBP IDs (`accounts/N`, `locations/N`, `reviews/...`), Google
+  Maps/Business URLs, email addresses, and private filesystem
+  paths are all rejected at any depth.
+- `response_tracking.label` must be exactly `response signals`
+  and `response_tracking.basis` must state that no email bodies
+  are used.
+- The `automations.action_system` block must include the
+  `gmb-review-recovery` and `gmb-review-weekly-trend` entries.
+
 ## License
 
 This mirror is published for transparency around the campaign's
