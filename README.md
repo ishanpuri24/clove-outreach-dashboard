@@ -512,10 +512,12 @@ See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for full instructions for:
 
 The Marketing dashboard's **Automations** tab is the first/default
 tab. It surfaces a sanitized, aggregate-only view of operator-side
-automations: a "Before we send" summary (backlog, eligible, planned
-cadence, per-office split, writeback behavior, where results
-appear), the Google Ads lead SMS follow-up status, an OptimizationOS
-/ win-back reporting table, and a provider connectivity card.
+automations: a Send readiness summary (backlog, eligible, cadence,
+per-office split, writeback behavior, where results appear), the
+Google Ads lead SMS follow-up status, an OptimizationOS / win-back
+reporting table, and a provider connectivity card. The lead SMS
+loop checks daily and can backfill uncontacted leads now; it can
+also run hourly for fast response.
 
 ### Google Ads lead SMS follow-up
 
@@ -563,8 +565,10 @@ python3 scripts/lead_sms_automation.py --apply \
     --config /path/to/private/lead_sms_config.json
 ```
 
-Suggested hourly task on the operator machine (replace placeholder
-path with your private config location):
+The loop checks daily and can backfill uncontacted leads now. It
+can also run hourly for fast response. Example scheduled task on
+the operator machine (replace placeholder path with your private
+config location):
 
 ```cron
 17 * * * * cd /path/to/clove-outreach-dashboard && \
@@ -573,7 +577,7 @@ path with your private config location):
     /var/log/clove-lead-sms.log 2>&1
 ```
 
-The hourly task stays in dry-run until the operator explicitly
+The scheduled task stays in dry-run until the operator explicitly
 flips `send_policy.enabled=true` and `openphone.enabled=true` in
 the private config and switches the cron command to `--apply
 --i-understand-i-am-sending-real-sms`.
@@ -583,11 +587,10 @@ the private config and switches the cron command to `--apply
 **Google Ads lead (new contact, STOP required):**
 
 ```
-Hi [First name], this is Clove Dental [Office]. We saw your
-appointment request and can help get you seen soon. You can book
-the [Office] team here: [office booking link]. If you prefer,
-reply with the day/time that works and we'll line it up for you.
-Reply STOP to opt out.
+Hi [First name], this is Clove Dental [Office]. You filled out a
+form for an appointment, and we have real-time openings available
+today. You can book here: [office booking link]. If you want help,
+reply with what time works. Reply STOP to opt out.
 ```
 
 **Established-patient optimization SMS (separate rules):**

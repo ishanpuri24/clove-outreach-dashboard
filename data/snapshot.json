@@ -17630,7 +17630,7 @@
       {
         "id": "google-ads-lead-sms",
         "name": "Google Ads lead SMS follow-up",
-        "purpose": "Hourly catch-up text to uncontacted Google Ads leads from the office lead tabs, with office-specific booking links and STOP opt-out language. Sends from the OpenPhone Optimization line.",
+        "purpose": "Daily check for uncontacted Google Ads leads from the office lead tabs that can backfill now, with office-specific booking links and STOP opt-out language. Can also run hourly for fast response. Sends from the OpenPhone Optimization line.",
         "status": "check",
         "provider": "OpenPhone (Optimization line)",
         "provider_status": "OpenPhone adapter disabled in private config (openphone.enabled=false).",
@@ -17649,7 +17649,7 @@
         },
         "by_office": [],
         "by_source": [],
-        "sample_template_public": "Hi [First name], this is Clove Dental [Office]. We saw your appointment request and can help get you seen soon. You can book the [Office] team here: [office booking link]. If you prefer, reply with the day/time that works and we'll line it up for you. Reply STOP to opt out.",
+        "sample_template_public": "Hi [First name], this is Clove Dental [Office]. You filled out a form for an appointment, and we have real-time openings available today. You can book here: [office booking link]. If you want help, reply with what time works. Reply STOP to opt out.",
         "compliance_notes": [
           "New Google Ads lead SMS includes opt-out (Reply STOP).",
           "Established-patient optimization SMS rules are separate: no STOP, no emoji, no phone number, ask for a text reply, use Sherman Oaks (not Studio City).",
@@ -17666,7 +17666,7 @@
     "before_we_send": {
       "backlog_count": 0,
       "eligible_count": 0,
-      "planned_hourly_cadence": "Up to 25 sends per hour, capped at 25 for the initial backfill run.",
+      "planned_hourly_cadence": "Checks daily and can backfill uncontacted leads now (up to 25 in the initial backfill run). Can also run hourly for fast response, up to 25 sends per hour.",
       "per_office_split": [],
       "max_sends_per_run": 25,
       "quiet_hours": "before 8am and after 8pm PT unless explicitly changed",

@@ -2461,15 +2461,16 @@
 
         <section aria-labelledby="auto-before-send">
           <div class="ps-head">
-            <h2 id="auto-before-send">Before we send</h2>
+            <h2 id="auto-before-send">Send readiness</h2>
             <span class="pill accent" id="auto-mode-pill" aria-live="polite">
               <span class="dot"></span><span id="auto-mode-text">dry run</span>
             </span>
           </div>
           <p class="section-meta" id="auto-before-meta">
             Marketing dashboard automations · aggregate counts only.
-            Backlog, planned cadence, per-office split, writeback
-            behavior, and where results appear.
+            Checks daily and can backfill uncontacted leads now; can also
+            run hourly for fast response. Backlog, cadence, per-office
+            split, writeback behavior, and where results appear.
           </p>
           <div class="pxc cols-3" id="auto-before-grid"></div>
           <div id="auto-before-extras"></div>
@@ -6122,7 +6123,7 @@
         grid.appendChild(_autoCounterCard("Max sends/run", fmtNum(bws.max_sends_per_run || 0), bws.planned_hourly_cadence || ""));
         if (!extras) return;
         var lines = [
-          ["Planned cadence", bws.planned_hourly_cadence || ""],
+          ["Cadence", bws.planned_hourly_cadence || ""],
           ["Quiet hours", bws.quiet_hours || ""],
           ["Writeback behavior", bws.writeback_behavior || ""],
           ["Where results appear", bws.results_location || ""],

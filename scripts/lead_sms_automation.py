@@ -242,11 +242,11 @@ def is_yes(v: str | None) -> bool:
 def render_public_sample_sms() -> str:
     """Public, name-free, generic SMS sample for the dashboard."""
     return (
-        "Hi [First name], this is Clove Dental [Office]. We saw your "
-        "appointment request and can help get you seen soon. You can "
-        "book the [Office] team here: [office booking link]. If you "
-        "prefer, reply with the day/time that works and we'll line it "
-        "up for you. Reply STOP to opt out."
+        "Hi [First name], this is Clove Dental [Office]. You filled "
+        "out a form for an appointment, and we have real-time openings "
+        "available today. You can book here: [office booking link]. "
+        "If you want help, reply with what time works. Reply STOP to "
+        "opt out."
     )
 
 
@@ -787,8 +787,9 @@ def _planned_cadence_summary(cfg: dict[str, Any], result: RunResult) -> dict[str
         "backlog_count": int(backlog),
         "eligible_count": int(eligible),
         "planned_hourly_cadence": (
-            f"Up to {max_hourly} sends per hour, capped at "
-            f"{max_backfill} for the initial backfill run."
+            f"Checks daily and can backfill uncontacted leads now (up to "
+            f"{max_backfill} in the initial backfill run). Can also run "
+            f"hourly for fast response, up to {max_hourly} sends per hour."
         ),
         "per_office_split": per_office,
         "max_sends_per_run": max_hourly,
@@ -825,9 +826,10 @@ def build_automations_block(
         "id": "google-ads-lead-sms",
         "name": "Google Ads lead SMS follow-up",
         "purpose": (
-            "Hourly catch-up text to uncontacted Google Ads leads from "
-            "the office lead tabs, with office-specific booking links "
-            "and STOP opt-out language. Sends from the OpenPhone "
+            "Daily check for uncontacted Google Ads leads from the "
+            "office lead tabs that can backfill now, with office-"
+            "specific booking links and STOP opt-out language. Can also "
+            "run hourly for fast response. Sends from the OpenPhone "
             "Optimization line."
         ),
         "status": result.last_run_status,
