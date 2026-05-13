@@ -172,57 +172,95 @@ only Python 3.9+ and the public repo. If the private directory is
 absent, the orchestrator still writes a valid public snapshot with
 every source marked `pending` and exits 0.
 
-### HubSpot CMS automation (low-risk, approval-policy controlled)
+### HubSpot CMS automation (controlled live writeback + daily learning)
 
 The orchestrator calls a companion script,
 `scripts/hubspot_cms_optimizer.py`, once per run. It pulls a minimal
 CMS inventory (site pages + landing pages, capped at 50 each — one
 inventory call per run, low credit cost), cross-references the GSC
-query/page rows already in the public snapshot, and proposes up to
+query/page rows already in the public snapshot, and applies up to
 3 low-risk metadata changes per daily run.
 
 **Private config** lives at
 `hubspot_cms_config.json` inside the private tracking directory.
 The file is **never committed** and the token is never logged. It
-declares two things the optimizer reads:
+declares the publish mode and per-page-type safety tiers:
 
 ```jsonc
 {
-  "token": "pat-na1-...",                 // private; do not commit
-  "publish_mode": "low_risk_metadata_writeback_allowed",
+  "token": "pat-na1-...",                          // private; do not commit
+  "publish_mode": "controlled_live_writeback_allowed",
   "safety_tiers": {
-    "auto_allowed": [
-      "missing_or_weak_title_update",
-      "missing_or_weak_meta_description_update",
+    "auto_live_allowed": [
+      "site_page_title_update",
+      "site_page_meta_description_update",
+      "landing_page_title_update",
+      "landing_page_meta_description_update",
       "private_experiment_log_update",
       "dashboard_sanitized_action_log_update"
     ],
+    "auto_draft_or_propose_only": [
+      "small_body_copy_refresh",
+      "internal_link_module_update_if_api_supported"
+    ],
     "approval_required": [
-      "body_content_rewrite", "new_page_publish",
-      "template_or_theme_change", "cta_or_form_change",
-      "redirect_change", "domain_change",
+      "large_body_content_rewrite",
+      "new_page_publish",
+      "template_or_theme_change",
+      "cta_or_form_change",
+      "redirect_change",
+      "domain_change",
       "script_or_source_code_change"
     ],
     "never_allowed_without_new_approval": [
       "billing_users_oauth_transactional_email",
-      "functions_write", "domain_write"
+      "functions_write",
+      "domain_write"
     ]
+  },
+  "daily_learning_loop": {
+    "enabled": true,
+    "compare_metrics": ["gsc_ctr", "gsc_clicks", "gsc_impressions",
+                        "ga4_sessions", "callrail_calls", "qualified_calls"],
+    "cooldown_days_per_page": 14,
+    "max_live_metadata_changes_per_run": 3
   }
 }
 ```
 
-**Safety tiers**
+**Safety tiers** (current live-write policy)
 
 | Tier | Examples | Behavior |
 | ---- | -------- | -------- |
-| Auto-allowed | Title or meta-description update on a page with weak metadata **and** a clear high-impression / low-CTR GSC signal | Saved as a HubSpot **draft** (unpublished) when `publish_mode = low_risk_metadata_writeback_allowed`. Otherwise dry-run only. |
-| Approval-required | Body rewrites, template/theme, CTA/form, redirects, new-page publish | Never auto-applied. Optimizer skips them entirely in v1. |
-| Never without new approval | Billing, users, OAuth, transactional email, functions, domain writes | Never touched, regardless of any flag. |
+| `auto_live_allowed` | Title or meta-description update on a site page or landing page with weak metadata **and** a clear high-impression / low-CTR GSC signal; internal experiment log entries; the public sanitized action log | Pushed **live** to HubSpot CMS when `publish_mode = controlled_live_writeback_allowed`. If the draft saves but the live push fails, the optimizer keeps the draft and surfaces `applied_draft` with a fallback note. |
+| `auto_draft_or_propose_only` | Small body-copy refreshes, internal-link module updates (when an API exists) | Saved as a HubSpot **draft** only; never auto-published. |
+| `approval_required` | Large body rewrites, template/theme, CTA/form, redirects, new-page publish, source-code change | Never auto-applied. Optimizer surfaces them as proposals for explicit human approval before the next rule update. |
+| `never_allowed_without_new_approval` | Billing, users, OAuth, transactional email, functions, domain writes | Never touched, regardless of any flag. |
 
-The optimizer enforces a per-page **cooldown** (default 14 days). A
-page that received a change or a proposal does not re-enter the
-candidate pool until the cooldown expires — this is what
-prevents repeated metadata churn on the same slug.
+A per-page **cooldown** (default 14 days) keeps the optimizer from
+re-touching a slug it has already changed or proposed — this is what
+prevents repeated metadata churn while we wait for CTR / clicks to
+re-baseline.
+
+**Daily learning loop**. Every run does three things in order:
+
+1. Walks every existing entry in
+   `daily_learning_state.json::cms_experiments.log` and, if today's
+   GSC page rows still cover the same slug, appends a fresh
+   `{as_of, clicks_28d, impressions_28d, ctr_pct_28d, avg_position,
+   delta_ctr_pct_vs_baseline, delta_clicks_vs_baseline}` sample to
+   that entry's `impact_history`.
+2. Picks up to 3 new candidates that pass the cooldown and weak-meta
+   + high-impression-low-CTR rules.
+3. Writes them live (or as drafts where the tier requires it),
+   stamps a baseline, hypothesis, metric-to-watch, status, and
+   `cooldown_until`, and emits a sanitized public block.
+
+The `data/snapshot.json::organic_cms_actions.impact_over_time` block
+(rendered as the "Impact over time" table on the Organic tab) is
+derived from those samples. CTR / clicks / sessions / qualified calls
+for changed pages are compared against their per-page baseline so
+each daily run grows the picture rather than overwriting it.
 
 **Run it**
 
@@ -245,27 +283,63 @@ python3 scripts/refresh_marketing_dashboard.py --cms-dry-run
 
 `data/snapshot.json::organic_cms_actions` is a compact, sanitized
 action log. Each row carries only: a public slug + page title, the
-change type, a short "why", a status (`applied_draft`, `proposed`,
-or `error`), and a metric to watch (CTR / clicks / impressions for
-28d). No HubSpot page IDs, portal IDs, tokens, config paths, or raw
-API payloads ever reach the public mirror — both the optimizer and
-the orchestrator scrub the block, and `validate_public_snapshot.py`
-backstops every commit.
+page type (`site_page` or `landing_page`), the change type, a short
+"why", a status (`applied_live`, `applied_draft`, `proposed`, or
+`error`), an expected impact, and a metric to watch (CTR / clicks /
+impressions for 28d). The same block also exposes
+`live_writes`, `draft_writes`, `proposals`, `impact_samples_updated`,
+and an `impact_over_time` list of recent experiments with their
+baseline vs latest CTR/clicks and the delta. No HubSpot page IDs,
+portal IDs, tokens, config paths, or raw API payloads ever reach the
+public mirror — both the optimizer and the orchestrator scrub the
+block, and `validate_public_snapshot.py` backstops every commit.
+
+The Marketing dashboard surfaces the same block twice:
+
+  * the **Automations tab** (default tab) carries a "HubSpot Organic /
+    CMS automation" card with the live-vs-draft action log;
+  * the **Organic tab** carries the same action log plus the longer
+    Impact-over-time table.
 
 **What lands in the private learning state**
 
 `daily_learning_state.json::cms_experiments.log` keeps the longer
-trail: hypothesis, page, change types, date applied, baseline GSC
-metric, metric to watch, status. This is the source of truth the
-cooldown reads.
+trail: hypothesis, page slug + label, page type, change types,
+applied_at + cooldown_until, baseline (GSC clicks/impressions/CTR/
+position at the time of the change), metric_to_watch (GSC + GA4 +
+CallRail), status, and an `impact_history` list of dated samples
+that successive daily runs append to. This is the source of truth
+the cooldown reads and the dashboard's impact-over-time table is
+derived from.
 
-**What never happens in v1** (regardless of flags):
+**Live-write policy and safety tiers**
 
-- No HubSpot body / template / theme / source-code writes.
-- No new-page publish, no redirect change, no CTA/form change.
-- No domain, function, billing, user, OAuth, or transactional-email
-  writes.
-- No `--apply` ever publishes a page; HubSpot drafts only.
+When `publish_mode = controlled_live_writeback_allowed`, the
+following are auto-applied **live** to HubSpot CMS on every daily
+run (capped at 3 per run, per-page cooldown 14 days):
+
+- Title updates on `site_page` and `landing_page` records when the
+  page has weak/missing metadata **and** a clear high-impression /
+  low-CTR GSC signal.
+- Meta-description updates under the same conditions.
+- Updates to the private experiment log and the public sanitized
+  action log.
+
+When the API only offers a draft endpoint for a given page type, or
+when the live push fails, the optimizer falls back to a HubSpot
+**draft** automatically and the row surfaces as `applied_draft` with
+a fallback note.
+
+**What still requires explicit approval** (regardless of the flag):
+
+- Large body-content rewrites; new-page publish; redirect, CTA, or
+  form changes; template / theme / source-code changes.
+- Domain, function, billing, user, OAuth, or transactional-email
+  writes (these are in `never_allowed_without_new_approval` and the
+  optimizer cannot touch them under any rule).
+
+Force the CMS step into a hard dry-run on any host with
+`python3 scripts/refresh_marketing_dashboard.py --cms-dry-run`.
 
 ## Data flow
 

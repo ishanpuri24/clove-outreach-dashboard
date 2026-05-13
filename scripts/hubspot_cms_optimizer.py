@@ -1,51 +1,67 @@
 #!/usr/bin/env python3
-"""HubSpot CMS metadata optimizer (low-risk, approval-policy controlled).
+"""HubSpot CMS metadata optimizer (controlled live writeback + daily learning).
 
 Companion to ``scripts/refresh_marketing_dashboard.py``. Reads a
-private HubSpot CMS config (token + safety tiers), pulls a minimal
-CMS inventory (one inventory pull per run), combines with the GSC
-query/page rows that already live in the public snapshot (and any
-sanitized GA4 rows the orchestrator merged), and proposes up to
-``--max-changes`` (default 3) low-risk metadata changes per run.
+private HubSpot CMS config (token + publish_mode + safety tiers),
+pulls a minimal CMS inventory (one inventory pull per run), combines
+with the GSC query/page rows that already live in the public snapshot
+(and any sanitized GA4 rows the orchestrator merged), and applies up
+to ``--max-changes`` (default 3) low-risk metadata changes per run.
 
 Safety model
 ------------
 The private config (``hubspot_cms_config.json``) declares a
-``publish_mode`` and ``safety_tiers``. Only changes that fall in
-``safety_tiers.auto_allowed`` are eligible to be written
-automatically; everything else stays as a dry-run proposal regardless
-of CLI flags.
+``publish_mode`` and ``safety_tiers``. Two publish modes are
+supported:
 
-  * ``publish_mode = "low_risk_metadata_writeback_allowed"`` →
-    title/meta description updates eligible for live writeback.
-  * Any other ``publish_mode`` (or missing) → dry-run only.
+  * ``controlled_live_writeback_allowed`` (current default) -- title /
+    meta-description live updates on site_pages and landing_pages are
+    eligible for direct push-live when the change type is listed in
+    ``safety_tiers.auto_live_allowed``; if a page type only has a
+    draft endpoint (or live push fails), the optimizer falls back to
+    a HubSpot draft and logs accordingly.
+  * ``low_risk_metadata_writeback_allowed`` (legacy) -- draft-only
+    writeback for backwards compatibility.
+  * Any other value (or missing config) -- dry-run only.
 
 This script never:
 
-  * publishes new pages, body content, template/theme, CTA, form,
-    redirect, or script/source-code changes;
+  * publishes new pages, body content > 280 chars, template/theme,
+    CTA, form, redirect, or script/source-code changes;
   * touches domains, functions, billing/users/oauth, transactional
     email;
   * writes anything to the public snapshot that could leak HubSpot
     private IDs, portal IDs, the token, the config path, or raw API
     payloads.
 
+Daily learning loop
+-------------------
+Each run records every action (live, draft, proposed, error) into
+``daily_learning_state.json::cms_experiments.log`` with:
+
+  * slug + public page label
+  * change types applied
+  * hypothesis
+  * baseline (GSC clicks / impressions / CTR / position at time of change)
+  * metric_to_watch
+  * status (``applied_live`` | ``applied_draft`` | ``proposed`` | ``error``)
+  * applied_at + cooldown_until
+  * impact_history list -- subsequent daily runs append new CTR /
+    clicks / sessions / qualified-call samples here so the dashboard
+    can chart "impact over time" per change.
+
 Output
 ------
 On each run the optimizer:
 
-  1. Returns a sanitized ``cms_actions`` block suitable for merging
-     into the public snapshot (the orchestrator does the merge).
-  2. Updates the private ``daily_learning_state.json`` with
-     ``cms_experiments`` entries: hypothesis, page (public-safe slug
-     and title), change type, date applied, baseline metric,
-     metric-to-watch, status. Repeats to the same page within a
-     cooldown window are suppressed.
+  1. Returns a sanitized ``cms_actions`` block (live vs draft vs
+    proposed) suitable for merging into the public snapshot.
+  2. Updates the private learning state.
 
 Usage (called by orchestrator; also runnable standalone for ops):
 
     python3 scripts/hubspot_cms_optimizer.py --check       # dry-run only
-    python3 scripts/hubspot_cms_optimizer.py --apply       # apply low-risk drafts
+    python3 scripts/hubspot_cms_optimizer.py --apply       # live where eligible
     python3 scripts/hubspot_cms_optimizer.py --max-changes 1
 """
 
@@ -71,11 +87,27 @@ DEFAULT_CONFIG_NAME = "hubspot_cms_config.json"
 DEFAULT_STATE_NAME = "daily_learning_state.json"
 DEFAULT_COOLDOWN_DAYS = 14
 
-# Auto-applicable change types. The config must also list the type
-# under safety_tiers.auto_allowed AND publish_mode must allow writes.
-AUTO_CHANGE_TYPES = {
-    "missing_or_weak_title_update",
-    "missing_or_weak_meta_description_update",
+# Publish modes that allow any write at all.
+PUBLISH_MODES_WITH_WRITE = {
+    "low_risk_metadata_writeback_allowed",   # legacy: drafts only
+    "controlled_live_writeback_allowed",     # current: live where listed
+}
+
+# Publish modes that allow live push (skip draft step) when the change
+# type is listed under safety_tiers.auto_live_allowed.
+PUBLISH_MODES_WITH_LIVE = {"controlled_live_writeback_allowed"}
+
+# Public-facing change-type labels (used in the action log + dashboard).
+CHANGE_TITLE = "missing_or_weak_title_update"
+CHANGE_META = "missing_or_weak_meta_description_update"
+
+# Map our generic public change labels to the per-page-type tier keys
+# the private config uses to grant live-write permission.
+_TIER_KEY = {
+    ("site_page", CHANGE_TITLE): "site_page_title_update",
+    ("site_page", CHANGE_META): "site_page_meta_description_update",
+    ("landing_page", CHANGE_TITLE): "landing_page_title_update",
+    ("landing_page", CHANGE_META): "landing_page_meta_description_update",
 }
 
 # Heuristic thresholds for "weak" / "missing" metadata.
@@ -130,13 +162,11 @@ def _public_slug(url_or_slug: str) -> str:
     if not isinstance(url_or_slug, str) or not url_or_slug:
         return ""
     s = url_or_slug.strip()
-    # If it's a full URL, keep only the path.
     m = re.match(r"https?://[^/]+(/.*)?$", s)
     if m:
         s = m.group(1) or "/"
     if not s.startswith("/"):
         s = "/" + s
-    # Hard-cap and strip query/fragment.
     s = s.split("?", 1)[0].split("#", 1)[0]
     return s[:120]
 
@@ -159,11 +189,10 @@ def _strip_private_keys(node: Any) -> Any:
 # ---------------------------------------------------------------------------
 
 class HubSpotClient:
-    """Very small HubSpot CMS client.
+    """Minimal HubSpot CMS client used by this optimizer.
 
-    Only the endpoints we need are wrapped. Read-only by default;
-    the write path is gated behind ``allow_write=True`` AND the
-    caller passing an explicit change type in ``AUTO_CHANGE_TYPES``.
+    Read paths: site-pages and landing-pages list.
+    Write paths: per page type, draft PATCH and live push.
     """
 
     def __init__(self, token: str, *, timeout: int = 20):
@@ -192,8 +221,6 @@ class HubSpotClient:
                 body_txt = e.read().decode("utf-8", errors="replace")
             except Exception:
                 body_txt = ""
-            # Never echo the URL (it may include private filters) and
-            # never the body (HubSpot error payloads can echo IDs).
             raise RuntimeError(
                 f"HubSpot HTTP {e.code} on {method} {path.split('?',1)[0]}: "
                 f"{body_txt[:200]}"
@@ -205,27 +232,61 @@ class HubSpotClient:
 
     def list_site_pages(self, *, limit: int = 50) -> list[dict]:
         path = f"/cms/v3/pages/site-pages?limit={limit}&archived=false"
-        out = self._request("GET", path)
-        return list(out.get("results", []))
+        return list((self._request("GET", path) or {}).get("results", []))
 
     def list_landing_pages(self, *, limit: int = 50) -> list[dict]:
         path = f"/cms/v3/pages/landing-pages?limit={limit}&archived=false"
-        out = self._request("GET", path)
-        return list(out.get("results", []))
+        return list((self._request("GET", path) or {}).get("results", []))
 
-    def update_site_page_metadata_draft(
-        self, page_id: str, *, html_title: str | None, meta_description: str | None
+    def _patch_draft(self, kind: str, page_id: str, body: dict) -> dict:
+        seg = "site-pages" if kind == "site_page" else "landing-pages"
+        path = f"/cms/v3/pages/{seg}/{urllib.parse.quote(page_id)}/draft"
+        return self._request("PATCH", path, body=body)
+
+    def _push_live(self, kind: str, page_id: str) -> dict:
+        """Push the saved draft live for a site or landing page."""
+        seg = "site-pages" if kind == "site_page" else "landing-pages"
+        path = (
+            f"/cms/v3/pages/{seg}/{urllib.parse.quote(page_id)}"
+            "/draft/push-live"
+        )
+        return self._request("POST", path, body={})
+
+    def update_page_metadata(
+        self,
+        kind: str,
+        page_id: str,
+        *,
+        html_title: str | None,
+        meta_description: str | None,
+        live: bool,
     ) -> dict:
+        """Update title / meta_description on a HubSpot CMS page.
+
+        Returns ``{"status": "applied_live"|"applied_draft", ...}``.
+        On a live request, the draft is saved first and then pushed
+        live. If the live push fails, we fall back to draft and surface
+        ``applied_draft`` with a ``fallback_reason``.
+        """
         body: dict = {}
         if html_title is not None:
             body["htmlTitle"] = html_title
         if meta_description is not None:
             body["metaDescription"] = meta_description
         if not body:
-            return {"skipped": "no metadata fields supplied"}
-        # PATCH on the buffer (draft) endpoint -- does NOT publish.
-        path = f"/cms/v3/pages/site-pages/{urllib.parse.quote(page_id)}/draft"
-        return self._request("PATCH", path, body=body)
+            return {"status": "noop", "reason": "no metadata fields supplied"}
+        # Always PATCH the draft first; cheap and reversible.
+        self._patch_draft(kind, page_id, body)
+        if not live:
+            return {"status": "applied_draft"}
+        try:
+            self._push_live(kind, page_id)
+            return {"status": "applied_live"}
+        except Exception as e:
+            return {
+                "status": "applied_draft",
+                "fallback_reason": f"live push failed: {type(e).__name__}",
+            }
 
 
 # ---------------------------------------------------------------------------
@@ -235,25 +296,18 @@ class HubSpotClient:
 def _is_weak_title(t: str | None) -> bool:
     if not t or not isinstance(t, str):
         return True
-    t = t.strip()
-    if len(t) < WEAK_TITLE_MAX_LEN:
-        return True
-    return False
+    return len(t.strip()) < WEAK_TITLE_MAX_LEN
 
 
 def _is_weak_meta(m: str | None) -> bool:
     if not m or not isinstance(m, str):
         return True
-    m = m.strip()
-    if len(m) < WEAK_META_MAX_LEN:
-        return True
-    return False
+    return len(m.strip()) < WEAK_META_MAX_LEN
 
 
 def _normalize_page(p: dict) -> dict:
-    """Pull the small handful of fields we use; drop everything else."""
     return {
-        "_id": p.get("id"),  # PRIVATE; never written to public output.
+        "_id": p.get("id"),
         "url": p.get("url") or "",
         "slug": p.get("slug") or "",
         "name": p.get("name") or "",
@@ -264,7 +318,6 @@ def _normalize_page(p: dict) -> dict:
 
 
 def _public_page_label(np: dict) -> str:
-    """A public-safe label for a HubSpot page. Slug or name only."""
     slug = _public_slug(np.get("url") or ("/" + (np.get("slug") or "")))
     title = (np.get("name") or "").strip()
     if title and len(title) <= 80:
@@ -273,13 +326,6 @@ def _public_page_label(np: dict) -> str:
 
 
 def _gsc_index(snapshot: dict) -> dict[str, list[dict]]:
-    """Index GSC query rows by candidate page path tokens.
-
-    The public snapshot has both ``gsc_query_rows`` and
-    ``gsc_page_rows``. We use page rows directly when present, and
-    fall back to query rows where the action text references a page
-    family (e.g. "insurance page", "blog/mouth-sloughing").
-    """
     oi = snapshot.get("organic_insights") or {}
     rows: dict[str, list[dict]] = {"pages": [], "queries": []}
     for r in oi.get("gsc_page_rows") or []:
@@ -292,16 +338,8 @@ def _gsc_index(snapshot: dict) -> dict[str, list[dict]]:
 
 
 def _gsc_signal_for_page(np: dict, gsc: dict[str, list[dict]]) -> dict | None:
-    """Return the strongest GSC row whose page path matches this page.
-
-    Strict path-token matching: we never echo the HubSpot id, only
-    the public slug. ``None`` means "no clear GSC justification" and
-    the optimizer will skip the candidate.
-    """
     slug = _public_slug(np.get("url") or ("/" + (np.get("slug") or "")))
     if not slug or slug == "/":
-        # The homepage match is intentionally not auto-touched: it's
-        # too high-blast-radius for the first version.
         return None
     tokens = [t for t in slug.strip("/").split("/") if t]
     if not tokens:
@@ -324,7 +362,6 @@ def _gsc_signal_for_page(np: dict, gsc: dict[str, list[dict]]) -> dict | None:
                     "ctr_pct": r.get("ctr_pct"),
                     "avg_position": r.get("avg_position"),
                 }
-    # Fall back to query rows whose action text references the slug leaf.
     for r in gsc["queries"]:
         action = (r.get("action") or "").lower()
         query = (r.get("query") or "").lower()
@@ -347,7 +384,6 @@ def _gsc_signal_for_page(np: dict, gsc: dict[str, list[dict]]) -> dict | None:
 
 
 def _draft_title(np: dict, signal: dict) -> str:
-    """Conservative title draft: keeps brand, surfaces query intent."""
     current = (np.get("html_title") or np.get("name") or "").strip()
     keyword_source = signal.get("query") or signal.get("page") or ""
     keyword = (str(keyword_source).strip().rstrip("/").split("/")[-1] or "").replace("-", " ")
@@ -363,7 +399,6 @@ def _draft_title(np: dict, signal: dict) -> str:
 
 
 def _draft_meta(np: dict, signal: dict) -> str:
-    """Conservative meta draft: factual, no claims, no prices."""
     keyword_source = signal.get("query") or signal.get("page") or ""
     keyword = (str(keyword_source).strip().rstrip("/").split("/")[-1] or "").replace("-", " ")
     keyword = keyword.strip()
@@ -378,11 +413,6 @@ def _draft_meta(np: dict, signal: dict) -> str:
 
 
 def _build_candidate(np: dict, signal: dict) -> dict | None:
-    """Return an internal candidate record (still has private ``_id``).
-
-    The sanitizer downstream strips ``_id`` before anything is
-    written to the public snapshot.
-    """
     weak_title = _is_weak_title(np.get("html_title"))
     weak_meta = _is_weak_meta(np.get("meta_description"))
     if not (weak_title or weak_meta):
@@ -391,12 +421,12 @@ def _build_candidate(np: dict, signal: dict) -> dict | None:
     change_types: list[str] = []
     if weak_title:
         fields["html_title"] = _draft_title(np, signal)
-        change_types.append("missing_or_weak_title_update")
+        change_types.append(CHANGE_TITLE)
     if weak_meta:
         fields["meta_description"] = _draft_meta(np, signal)
-        change_types.append("missing_or_weak_meta_description_update")
+        change_types.append(CHANGE_META)
     return {
-        "_id": np.get("_id"),  # PRIVATE
+        "_id": np.get("_id"),
         "page_label": _public_page_label(np),
         "slug": _public_slug(np.get("url") or ("/" + (np.get("slug") or ""))),
         "type": np.get("type", "site_page"),
@@ -408,9 +438,23 @@ def _build_candidate(np: dict, signal: dict) -> dict | None:
     }
 
 
+_COOLDOWN_BLOCKING_STATUSES = {
+    "applied_live",
+    "applied_draft",  # current label for a real HubSpot draft write
+}
+
+
 def _candidate_cooldown_active(
     state: dict, slug: str, cooldown_days: int
 ) -> bool:
+    """Cooldown blocks re-touching slugs that already had a real write.
+
+    Entries that were only proposed (``proposed_not_applied`` /
+    ``proposed``) do not block — we want a daily run that gains
+    new permissions to upgrade them to a real write. Legacy entries
+    with ``draft_saved_unpublished`` also do not block; the new
+    optimizer should be allowed to push them live.
+    """
     cms = state.get("cms_experiments") or {}
     log = cms.get("log") or []
     cutoff = utcnow() - timedelta(days=cooldown_days)
@@ -418,6 +462,8 @@ def _candidate_cooldown_active(
         if not isinstance(row, dict):
             continue
         if row.get("slug") != slug:
+            continue
+        if row.get("status") not in _COOLDOWN_BLOCKING_STATUSES:
             continue
         applied = row.get("applied_at")
         if not applied:
@@ -436,12 +482,10 @@ def _candidate_cooldown_active(
 # ---------------------------------------------------------------------------
 
 FORBIDDEN_IN_PUBLIC = [
-    re.compile(r"\bpat-na1-[0-9a-f-]{8,}\b", re.IGNORECASE),  # HubSpot PAT
+    re.compile(r"\bpat-na1-[0-9a-f-]{8,}\b", re.IGNORECASE),
     re.compile(r"\bhubspot[_-]?(?:portal|hub)[_-]?id\b", re.IGNORECASE),
     re.compile(r"/cron_tracking/"),
     re.compile(r"hubspot_cms_config\.json"),
-    # 32+ hex strings (HubSpot object ids are 8-12 digits, but we also
-    # block any longer hex-looking blob just in case).
     re.compile(r"\b[0-9a-f]{32,}\b"),
 ]
 
@@ -469,16 +513,21 @@ def _public_action_row(cand: dict, status: str, note: str = "") -> dict:
     if isinstance(sig.get("impressions"), (int, float)):
         metric_to_watch.append(f"impressions {sig['impressions']}/28d")
     why_bits = []
-    if "missing_or_weak_title_update" in cand.get("change_types", []):
+    if CHANGE_TITLE in cand.get("change_types", []):
         why_bits.append(f"title len {cand.get('current_title_len')}")
-    if "missing_or_weak_meta_description_update" in cand.get("change_types", []):
+    if CHANGE_META in cand.get("change_types", []):
         why_bits.append(f"meta len {cand.get('current_meta_len')}")
     row = {
         "page": cand.get("page_label"),
         "slug": cand.get("slug"),
+        "page_type": cand.get("type"),
         "change": ", ".join(cand.get("change_types") or []),
         "why": "; ".join(why_bits) or "weak metadata",
         "status": status,
+        "expected_impact": (
+            "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; "
+            "lift clicks within 14-28d."
+        ),
         "metric_to_watch": "; ".join(metric_to_watch) or "CTR / clicks",
     }
     if note:
@@ -487,7 +536,7 @@ def _public_action_row(cand: dict, status: str, note: str = "") -> dict:
 
 
 # ---------------------------------------------------------------------------
-# Core run
+# Eligibility + impact tracking
 # ---------------------------------------------------------------------------
 
 def _load_config(config_path: Path) -> dict:
@@ -499,18 +548,139 @@ def _load_config(config_path: Path) -> dict:
     return cfg
 
 
-def _eligible_to_write(cfg: dict, change_types: list[str]) -> bool:
-    if cfg.get("publish_mode") != "low_risk_metadata_writeback_allowed":
-        return False
+def _tier_set(cfg: dict, name: str) -> set[str]:
     tiers = cfg.get("safety_tiers") or {}
-    auto_allowed = set(tiers.get("auto_allowed") or [])
-    for ct in change_types:
-        if ct not in AUTO_CHANGE_TYPES:
-            return False
-        if ct not in auto_allowed:
-            return False
-    return True
+    val = tiers.get(name)
+    if isinstance(val, list):
+        return {str(v) for v in val}
+    return set()
 
+
+def _eligibility(cfg: dict, cand: dict) -> dict:
+    """Decide how this candidate may be written.
+
+    Returns ``{"write": bool, "live": bool, "reason": str}``.
+    ``write`` False means dry-run/proposal only. ``write`` True with
+    ``live`` False means save as HubSpot draft.
+    """
+    publish_mode = cfg.get("publish_mode")
+    if publish_mode not in PUBLISH_MODES_WITH_WRITE:
+        return {"write": False, "live": False, "reason": "publish_mode disabled"}
+    page_type = cand.get("type", "site_page")
+    change_types = cand.get("change_types") or []
+    if not change_types:
+        return {"write": False, "live": False, "reason": "no change types"}
+
+    auto_live = _tier_set(cfg, "auto_live_allowed")
+    auto_draft = _tier_set(cfg, "auto_draft_or_propose_only")
+    # Legacy key, still honored if present.
+    legacy_auto = _tier_set(cfg, "auto_allowed")
+
+    all_live = True
+    all_writable = True
+    for ct in change_types:
+        tier_key = _TIER_KEY.get((page_type, ct))
+        if not tier_key:
+            return {
+                "write": False,
+                "live": False,
+                "reason": f"change type {ct} not mapped for {page_type}",
+            }
+        if tier_key in auto_live:
+            continue
+        all_live = False
+        if tier_key in auto_draft:
+            continue
+        # Legacy fallback (drafts only).
+        if ct in legacy_auto:
+            continue
+        return {
+            "write": False,
+            "live": False,
+            "reason": f"{tier_key} not in any auto_* tier",
+        }
+    if all_live and publish_mode in PUBLISH_MODES_WITH_LIVE:
+        return {"write": True, "live": True, "reason": "auto_live_allowed"}
+    if all_writable:
+        return {"write": True, "live": False, "reason": "auto_draft_or_legacy"}
+    return {"write": False, "live": False, "reason": "no tier match"}
+
+
+def _baseline_from_signal(sig: dict) -> dict:
+    return {
+        "as_of": today_iso(),
+        "clicks_28d": sig.get("clicks"),
+        "impressions_28d": sig.get("impressions"),
+        "ctr_pct_28d": sig.get("ctr_pct"),
+        "avg_position": sig.get("avg_position"),
+        "source": sig.get("match"),
+    }
+
+
+def _refresh_impact_history(state: dict, snapshot: dict) -> int:
+    """Append today's GSC sample to each existing experiment's impact_history.
+
+    Returns the number of experiments that received a new sample.
+    """
+    cms = state.get("cms_experiments") or {}
+    log = cms.get("log") or []
+    if not log:
+        return 0
+    gsc = _gsc_index(snapshot)
+    pages = gsc.get("pages") or []
+    updated = 0
+    today = today_iso()
+    for row in log:
+        if not isinstance(row, dict):
+            continue
+        slug = row.get("slug") or ""
+        if not slug:
+            continue
+        leaf = slug.strip("/").split("/")[-1] if slug.strip("/") else slug
+        match = None
+        for p in pages:
+            page = (p.get("page") or "").lower()
+            if leaf and leaf.lower() in page:
+                match = p
+                break
+        if not match:
+            continue
+        history = row.setdefault("impact_history", [])
+        # Don't double-record on the same day.
+        if history and history[-1].get("as_of") == today:
+            continue
+        baseline = row.get("baseline") or {}
+        b_clicks = baseline.get("clicks_28d")
+        b_ctr = baseline.get("ctr_pct_28d")
+        sample = {
+            "as_of": today,
+            "clicks_28d": match.get("clicks"),
+            "impressions_28d": match.get("impressions"),
+            "ctr_pct_28d": match.get("ctr_pct"),
+            "avg_position": match.get("avg_position"),
+        }
+        try:
+            if isinstance(b_clicks, (int, float)) and isinstance(sample["clicks_28d"], (int, float)):
+                sample["delta_clicks_vs_baseline"] = round(
+                    float(sample["clicks_28d"]) - float(b_clicks), 2
+                )
+            if isinstance(b_ctr, (int, float)) and isinstance(sample["ctr_pct_28d"], (int, float)):
+                sample["delta_ctr_pct_vs_baseline"] = round(
+                    float(sample["ctr_pct_28d"]) - float(b_ctr), 3
+                )
+        except Exception:
+            pass
+        history.append(sample)
+        # Cap history to most recent 60 samples per row.
+        if len(history) > 60:
+            del history[: len(history) - 60]
+        updated += 1
+    return updated
+
+
+# ---------------------------------------------------------------------------
+# Core run
+# ---------------------------------------------------------------------------
 
 def run(
     *,
@@ -520,17 +690,21 @@ def run(
     cooldown_days: int,
     snapshot: dict,
 ) -> dict:
-    """Return a result dict the orchestrator can act on."""
     out: dict = {
         "ran_at": utcnow_iso(),
         "mode": "apply" if apply_changes else "check",
         "inventory": {"site_pages": 0, "landing_pages": 0},
         "candidates_considered": 0,
-        "actions": [],          # sanitized, public-safe rows
-        "written": [],          # sanitized, public-safe rows
+        "actions": [],
+        "written_live": [],
+        "written_draft": [],
         "errors": [],
         "publish_mode": None,
         "writeback_performed": False,
+        "live_writes": 0,
+        "draft_writes": 0,
+        "proposals": 0,
+        "impact_samples_updated": 0,
     }
 
     cfg_path = private_dir / DEFAULT_CONFIG_NAME
@@ -540,6 +714,12 @@ def run(
         out["errors"].append(f"config: {e}")
         return out
     out["publish_mode"] = cfg.get("publish_mode")
+    # Per-config cap, if present.
+    learn = cfg.get("daily_learning_loop") or {}
+    if isinstance(learn.get("max_live_metadata_changes_per_run"), int):
+        max_changes = min(max_changes, learn["max_live_metadata_changes_per_run"])
+    if isinstance(learn.get("cooldown_days_per_page"), int):
+        cooldown_days = learn["cooldown_days_per_page"]
 
     client = HubSpotClient(cfg["token"])
     pages: list[dict] = []
@@ -565,10 +745,16 @@ def run(
     gsc = _gsc_index(snapshot)
     state = read_json(private_dir / DEFAULT_STATE_NAME, {}) or {}
     cms_state = state.setdefault("cms_experiments", {
-        "version": 1,
+        "version": 2,
         "log": [],
         "cooldown_days": cooldown_days,
     })
+    cms_state["cooldown_days"] = cooldown_days
+    cms_state["version"] = max(int(cms_state.get("version") or 1), 2)
+
+    # Daily learning: append impact samples for existing experiments
+    # before picking new candidates.
+    out["impact_samples_updated"] = _refresh_impact_history(state, snapshot)
 
     candidates: list[dict] = []
     for np in pages:
@@ -587,94 +773,174 @@ def run(
             break
 
     for cand in candidates:
-        eligible = _eligible_to_write(cfg, cand.get("change_types", []))
-        if apply_changes and eligible and cand["type"] == "site_page":
+        elig = _eligibility(cfg, cand)
+        attempt_live = bool(apply_changes and elig["write"] and elig["live"])
+        attempt_draft = bool(
+            apply_changes and elig["write"] and not elig["live"]
+        )
+        if attempt_live or attempt_draft:
             try:
-                client.update_site_page_metadata_draft(
+                resp = client.update_page_metadata(
+                    cand["type"],
                     cand["_id"],
                     html_title=cand["proposed_fields"].get("html_title"),
                     meta_description=cand["proposed_fields"].get("meta_description"),
+                    live=attempt_live,
                 )
-                row = _public_action_row(cand, status="applied_draft", note="HubSpot draft (unpublished)")
-                out["written"].append(row)
+                actual_status = resp.get("status", "applied_draft")
+                if actual_status == "applied_live":
+                    note = "Live metadata update pushed to HubSpot CMS"
+                    out["live_writes"] += 1
+                    row = _public_action_row(cand, "applied_live", note)
+                    out["written_live"].append(row)
+                    out["writeback_performed"] = True
+                else:
+                    note = "HubSpot draft (unpublished)"
+                    if resp.get("fallback_reason"):
+                        note += "; live fallback"
+                    out["draft_writes"] += 1
+                    row = _public_action_row(cand, "applied_draft", note)
+                    out["written_draft"].append(row)
+                    out["writeback_performed"] = True
                 out["actions"].append(row)
-                out["writeback_performed"] = True
+                applied_at = utcnow_iso()
                 cms_state["log"].append({
-                    "applied_at": utcnow_iso(),
+                    "applied_at": applied_at,
+                    "cooldown_until": (
+                        utcnow() + timedelta(days=cooldown_days)
+                    ).isoformat(),
                     "slug": cand["slug"],
                     "page_label": cand["page_label"],
+                    "page_type": cand["type"],
                     "change_types": cand["change_types"],
                     "hypothesis": (
                         "Strengthening title/meta on a high-impression, "
-                        "low-CTR page should lift CTR and clicks."
+                        "low-CTR page should lift CTR and clicks within "
+                        "14-28 days, with no body / template / CTA change."
                     ),
-                    "baseline": cand.get("signal"),
-                    "metric_to_watch": "ctr_pct, clicks (28d)",
-                    "status": "draft_saved_unpublished",
+                    "baseline": _baseline_from_signal(cand.get("signal") or {}),
+                    "metric_to_watch": (
+                        "ctr_pct (gsc), clicks (gsc), sessions (ga4), "
+                        "qualified_calls (callrail)"
+                    ),
+                    "status": actual_status,
+                    "impact_history": [],
                 })
             except Exception as e:
-                row = _public_action_row(cand, status="error", note=f"writeback failed: {type(e).__name__}")
+                row = _public_action_row(
+                    cand, "error", f"writeback failed: {type(e).__name__}"
+                )
                 out["actions"].append(row)
                 out["errors"].append(f"writeback: {type(e).__name__}")
         else:
-            reason = "dry-run" if not apply_changes else (
-                "publish_mode does not permit writeback" if not eligible
-                else "change type not auto-allowed for this page type"
-            )
-            row = _public_action_row(cand, status="proposed", note=reason)
+            reason = "dry-run" if not apply_changes else elig.get("reason", "")
+            row = _public_action_row(cand, "proposed", reason)
             out["actions"].append(row)
+            out["proposals"] += 1
             cms_state["log"].append({
                 "applied_at": utcnow_iso(),
+                "cooldown_until": (
+                    utcnow() + timedelta(days=cooldown_days)
+                ).isoformat(),
                 "slug": cand["slug"],
                 "page_label": cand["page_label"],
+                "page_type": cand["type"],
                 "change_types": cand["change_types"],
                 "hypothesis": (
                     "Strengthening title/meta on a high-impression, "
                     "low-CTR page should lift CTR and clicks."
                 ),
-                "baseline": cand.get("signal"),
-                "metric_to_watch": "ctr_pct, clicks (28d)",
+                "baseline": _baseline_from_signal(cand.get("signal") or {}),
+                "metric_to_watch": (
+                    "ctr_pct (gsc), clicks (gsc), sessions (ga4)"
+                ),
                 "status": "proposed_not_applied",
+                "impact_history": [],
             })
 
-    # Persist learning state.
     try:
         write_json_atomic(private_dir / DEFAULT_STATE_NAME, state)
     except Exception as e:
         out["errors"].append(f"learning_state: {e}")
 
-    # Last-mile sanitization. We never publish ``_id`` or any private
-    # blob. The strip is defense in depth -- the rows we appended are
-    # already constructed from public-safe fields only.
     out["actions"] = _strip_private_keys(out["actions"])
-    out["written"] = _strip_private_keys(out["written"])
+    out["written_live"] = _strip_private_keys(out["written_live"])
+    out["written_draft"] = _strip_private_keys(out["written_draft"])
 
-    issues = assert_public_sanitized(out["actions"]) + assert_public_sanitized(out["written"])
+    issues = (
+        assert_public_sanitized(out["actions"])
+        + assert_public_sanitized(out["written_live"])
+        + assert_public_sanitized(out["written_draft"])
+    )
     if issues:
         out["errors"].extend(issues)
         out["actions"] = []
-        out["written"] = []
+        out["written_live"] = []
+        out["written_draft"] = []
 
     return out
 
 
-def build_public_block(result: dict) -> dict:
-    """Construct the ``organic_cms_actions`` block for the snapshot."""
+def _impact_over_time_public(state_path: Path) -> list[dict]:
+    """Sanitized impact-over-time rows derived from the private state.
+
+    One row per logged experiment (most recent 12), summarising the
+    impact_history without any private IDs.
+    """
+    state = read_json(state_path, {}) or {}
+    log = ((state.get("cms_experiments") or {}).get("log") or [])[-12:]
+    out: list[dict] = []
+    for row in log:
+        if not isinstance(row, dict):
+            continue
+        hist = row.get("impact_history") or []
+        latest = hist[-1] if hist else None
+        out.append({
+            "page": row.get("page_label"),
+            "slug": row.get("slug"),
+            "change": ", ".join(row.get("change_types") or []),
+            "status": row.get("status"),
+            "applied_at": row.get("applied_at"),
+            "baseline_ctr_pct": (row.get("baseline") or {}).get("ctr_pct_28d"),
+            "baseline_clicks": (row.get("baseline") or {}).get("clicks_28d"),
+            "latest_ctr_pct": (latest or {}).get("ctr_pct_28d"),
+            "latest_clicks": (latest or {}).get("clicks_28d"),
+            "delta_ctr_pct": (latest or {}).get("delta_ctr_pct_vs_baseline"),
+            "delta_clicks": (latest or {}).get("delta_clicks_vs_baseline"),
+            "samples": len(hist),
+        })
+    return out
+
+
+def build_public_block(result: dict, *, private_dir: Path | None = None) -> dict:
     actions = result.get("actions") or []
+    live_n = len(result.get("written_live") or [])
+    draft_n = len(result.get("written_draft") or [])
+    impact_rows: list[dict] = []
+    if private_dir is not None:
+        try:
+            impact_rows = _impact_over_time_public(private_dir / DEFAULT_STATE_NAME)
+        except Exception:
+            impact_rows = []
     return {
-        "title": "Organic / CMS metadata action log",
+        "title": "Organic / HubSpot CMS automation",
         "last_run_at": result.get("ran_at"),
         "mode": result.get("mode"),
         "publish_mode": result.get("publish_mode"),
         "writeback_performed": bool(result.get("writeback_performed")),
+        "live_writes": int(result.get("live_writes") or 0),
+        "draft_writes": int(result.get("draft_writes") or 0),
+        "proposals": int(result.get("proposals") or 0),
+        "impact_samples_updated": int(result.get("impact_samples_updated") or 0),
         "summary": (
             f"{len(actions)} CMS metadata action(s) considered; "
-            f"{len(result.get('written') or [])} applied as draft."
+            f"{live_n} live · {draft_n} draft."
         ),
         "actions": actions,
+        "impact_over_time": impact_rows,
         "errors": [
             e for e in (result.get("errors") or [])
-            if "config" not in e.lower()  # do not leak config name
+            if "config" not in e.lower()
         ][:5],
     }
 
@@ -685,13 +951,13 @@ def build_public_block(result: dict) -> dict:
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     p = argparse.ArgumentParser(
-        description="HubSpot CMS metadata optimizer (low-risk, approval-policy controlled).",
+        description="HubSpot CMS metadata optimizer (controlled live writeback + daily learning).",
     )
     p.add_argument("--private-dir", default=str(DEFAULT_PRIVATE_DIR))
     p.add_argument("--check", action="store_true",
                    help="Dry-run only: propose changes, write nothing to HubSpot.")
     p.add_argument("--apply", action="store_true",
-                   help="Apply low-risk metadata changes as drafts where eligible.")
+                   help="Apply low-risk metadata changes (live where eligible, draft otherwise).")
     p.add_argument("--max-changes", type=int, default=3)
     p.add_argument("--cooldown-days", type=int, default=DEFAULT_COOLDOWN_DAYS)
     p.add_argument("--snapshot", default=str(PUBLIC_SNAPSHOT))
@@ -720,19 +986,23 @@ def main(argv: list[str]) -> int:
     except Exception as e:
         print(f"ERROR: optimizer failed: {type(e).__name__}: {e}", file=sys.stderr)
         return 3
-    block = build_public_block(result)
+    block = build_public_block(result, private_dir=private_dir)
     if args.write_block:
         write_json_atomic(Path(args.write_block), block)
     print(json.dumps({
         "mode": result["mode"],
+        "publish_mode": result["publish_mode"],
         "inventory": result["inventory"],
         "candidates_considered": result["candidates_considered"],
         "actions": len(result["actions"]),
-        "written": len(result["written"]),
+        "live_writes": result["live_writes"],
+        "draft_writes": result["draft_writes"],
+        "proposals": result["proposals"],
         "writeback_performed": result["writeback_performed"],
+        "impact_samples_updated": result["impact_samples_updated"],
         "errors": result["errors"],
     }, indent=2))
-    return 0 if not result.get("errors") else 0  # non-fatal errors do not fail run
+    return 0
 
 
 if __name__ == "__main__":

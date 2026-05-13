@@ -2391,9 +2391,12 @@
         </section>
 
         <section aria-labelledby="organic-cms-actions">
-          <h2 id="organic-cms-actions">CMS metadata action log</h2>
+          <h2 id="organic-cms-actions">HubSpot CMS automation — live + draft action log</h2>
           <p class="tab-meta" id="organic-cms-meta"></p>
           <div class="card" id="organic-cms-actions-card"></div>
+          <h3 style="margin-top:1rem;">Impact over time (per change)</h3>
+          <p class="section-meta">Tracks CTR / clicks against the baseline captured when each metadata change went out, so each daily run grows the learning loop.</p>
+          <div class="card" id="organic-cms-impact-card"></div>
         </section>
 
         <section aria-labelledby="organic-summary">
@@ -2492,6 +2495,15 @@
           </div>
           <p class="section-meta" id="auto-optos-meta"></p>
           <div id="auto-optos-table"></div>
+        </section>
+
+        <section aria-labelledby="auto-cms">
+          <div class="ps-head">
+            <h2 id="auto-cms">HubSpot Organic / CMS automation</h2>
+            <span class="pill" id="auto-cms-pill" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="auto-cms-meta">Live + draft metadata updates pushed to HubSpot CMS, with hypothesis, expected impact, and metric to watch. Daily learning loop appends each new sample under "Impact over time" on the Organic tab.</p>
+          <div class="card" id="auto-cms-card"></div>
         </section>
 
         <section aria-labelledby="auto-provider">
@@ -6231,6 +6243,7 @@
         renderBeforeWeSend(a);
         renderOptimizationOS(a);
         renderProviderCheck(a);
+        renderAutoCmsCard(window.__SNAPSHOT__ && window.__SNAPSHOT__.organic_cms_actions);
         var host = $("auto-items");
         if (!host) return;
         host.innerHTML = "";
@@ -6525,11 +6538,14 @@
       function renderOrganicCmsActions(c) {
         var card = $("organic-cms-actions-card");
         var meta = $("organic-cms-meta");
+        var impactCard = $("organic-cms-impact-card");
         if (!card) return;
         card.innerHTML = "";
+        if (impactCard) impactCard.innerHTML = "";
         if (!c) {
           if (meta) meta.textContent = "";
           card.appendChild(el("div", { "class": "desc", text: "Awaiting CMS optimizer." }));
+          if (impactCard) impactCard.appendChild(el("div", { "class": "desc", text: "Impact-over-time samples appear here after the first change." }));
           return;
         }
         if (meta) {
@@ -6537,7 +6553,13 @@
           if (c.last_run_at) bits.push(String(c.last_run_at).slice(0, 19).replace("T", " ") + "Z");
           if (c.mode) bits.push("mode: " + c.mode);
           if (c.publish_mode) bits.push("publish: " + c.publish_mode);
-          bits.push(c.writeback_performed ? "live drafts applied" : "dry-run only");
+          var liveN = c.live_writes || 0;
+          var draftN = c.draft_writes || 0;
+          var propN = c.proposals || 0;
+          bits.push(liveN + " live · " + draftN + " draft · " + propN + " proposed");
+          if (typeof c.impact_samples_updated === "number") {
+            bits.push(c.impact_samples_updated + " impact samples recorded today");
+          }
           meta.textContent = bits.join(" · ");
         }
         if (c.summary) {
@@ -6546,9 +6568,11 @@
         var rows = c.actions || [];
         var ok = _renderTable(card, [
           { key: "page", label: "Page" },
+          { key: "page_type", label: "Type" },
           { key: "change", label: "Change" },
           { key: "why", label: "Why" },
           { key: "status", label: "Status" },
+          { key: "expected_impact", label: "Expected impact" },
           { key: "metric_to_watch", label: "Metric to watch" },
           { key: "note", label: "Note" }
         ], rows);
@@ -6559,6 +6583,65 @@
           var errBox = el("div", { "class": "desc" });
           errBox.appendChild(document.createTextNode("Notes: " + c.errors.join("; ")));
           card.appendChild(errBox);
+        }
+        if (impactCard) {
+          var iRows = c.impact_over_time || [];
+          var iOk = _renderTable(impactCard, [
+            { key: "page", label: "Page" },
+            { key: "change", label: "Change" },
+            { key: "status", label: "Status" },
+            { key: "applied_at", label: "Applied" },
+            { key: "baseline_ctr_pct", label: "Baseline CTR%" },
+            { key: "latest_ctr_pct", label: "Latest CTR%" },
+            { key: "delta_ctr_pct", label: "ΔCTR pts" },
+            { key: "baseline_clicks", label: "Baseline clicks" },
+            { key: "latest_clicks", label: "Latest clicks" },
+            { key: "delta_clicks", label: "Δclicks" },
+            { key: "samples", label: "Samples" }
+          ], iRows);
+          if (!iOk) {
+            impactCard.appendChild(el("div", { "class": "desc", text: "No impact samples yet; tomorrow's run will append the first." }));
+          }
+        }
+      }
+
+      function renderAutoCmsCard(c) {
+        var card = $("auto-cms-card");
+        var pill = $("auto-cms-pill");
+        if (!card) return;
+        card.innerHTML = "";
+        if (!c) {
+          if (pill) pill.textContent = "pending";
+          card.appendChild(el("div", { "class": "desc", text: "HubSpot CMS optimizer has not run yet." }));
+          return;
+        }
+        var liveN = c.live_writes || 0;
+        var draftN = c.draft_writes || 0;
+        var propN = c.proposals || 0;
+        if (pill) {
+          pill.textContent = liveN + " live · " + draftN + " draft · " + propN + " proposed";
+          pill.className = "pill " + (liveN ? "good" : (draftN ? "warn" : "accent"));
+        }
+        var head = el("div", { "class": "section-meta" });
+        var bits = [];
+        if (c.last_run_at) bits.push("Last run: " + String(c.last_run_at).slice(0, 19).replace("T", " ") + "Z");
+        if (c.publish_mode) bits.push("Publish mode: " + c.publish_mode);
+        bits.push(c.summary || "");
+        head.textContent = bits.filter(Boolean).join(" · ");
+        card.appendChild(head);
+
+        var rows = c.actions || [];
+        var ok = _renderTable(card, [
+          { key: "page", label: "Page" },
+          { key: "page_type", label: "Type" },
+          { key: "change", label: "Change" },
+          { key: "status", label: "Status" },
+          { key: "why", label: "Why" },
+          { key: "expected_impact", label: "Expected impact" },
+          { key: "metric_to_watch", label: "Metric to watch" }
+        ], rows);
+        if (!ok) {
+          card.appendChild(el("div", { "class": "desc", text: "No CMS metadata changes attempted today. The daily run will scan again tomorrow." }));
         }
       }
 
@@ -7428,6 +7511,7 @@
           $("status-pill").className = "pill danger";
           return;
         }
+        window.__SNAPSHOT__ = snapshot;
         window.__RENDER__ = function () { renderAll(snapshot); };
         renderAll(snapshot);
         setupTabs();

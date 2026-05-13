@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-12T20:50:20.053773+00:00",
+  "generated_at": "2026-05-13T07:15:24.456089+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17584,41 +17584,107 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-05-12T20:50:20.053789+00:00",
-    "last_run_date": "2026-05-12",
+    "last_run_at": "2026-05-13T07:15:24.456104+00:00",
+    "last_run_date": "2026-05-13",
     "mode": "fast",
     "sources": {
       "callrail": "ok: merged sanitized aggregate",
-      "hubspot_cms": "ok: inventory=50sp/50lp, considered=4, actions=2, written=1 (live-writeback)",
+      "hubspot_cms": "ok: inventory=50sp/50lp, considered=4, actions=2, live=2, draft=0, proposed=0, impact_samples=0 (live-writeback)",
       "outbound": "disabled: --no-send (default)"
     },
     "pending_sources": []
   },
   "organic_cms_actions": {
-    "title": "Organic / CMS metadata action log",
-    "last_run_at": "2026-05-12T20:50:18.249400+00:00",
+    "title": "Organic / HubSpot CMS automation",
+    "last_run_at": "2026-05-13T07:15:18.373504+00:00",
     "mode": "apply",
-    "publish_mode": "low_risk_metadata_writeback_allowed",
+    "publish_mode": "controlled_live_writeback_allowed",
     "writeback_performed": true,
-    "summary": "2 CMS metadata action(s) considered; 1 applied as draft.",
+    "live_writes": 2,
+    "draft_writes": 0,
+    "proposals": 0,
+    "impact_samples_updated": 0,
+    "summary": "2 CMS metadata action(s) considered; 2 live \u00b7 0 draft.",
     "actions": [
       {
         "page": "/app \u2014 Book Appointment",
         "slug": "/app",
+        "page_type": "site_page",
         "change": "missing_or_weak_title_update",
         "why": "title len 16",
-        "status": "applied_draft",
+        "status": "applied_live",
+        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
         "metric_to_watch": "CTR 0.2%; clicks 5/28d; impressions 2563/28d",
-        "note": "HubSpot draft (unpublished)"
+        "note": "Live metadata update pushed to HubSpot CMS"
+      },
+      {
+        "page": "/al \u2014 Al",
+        "slug": "/al",
+        "page_type": "landing_page",
+        "change": "missing_or_weak_title_update",
+        "why": "title len 12",
+        "status": "applied_live",
+        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
+        "metric_to_watch": "CTR 0.2%; clicks 6/28d; impressions 3652/28d",
+        "note": "Live metadata update pushed to HubSpot CMS"
+      }
+    ],
+    "impact_over_time": [
+      {
+        "page": "/app \u2014 Book Appointment",
+        "slug": "/app",
+        "change": "missing_or_weak_title_update",
+        "status": "draft_saved_unpublished",
+        "applied_at": "2026-05-12T20:50:20.047528+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
       },
       {
         "page": "/al \u2014 Al",
         "slug": "/al",
         "change": "missing_or_weak_title_update",
-        "why": "title len 12",
-        "status": "proposed",
-        "metric_to_watch": "CTR 0.2%; clicks 6/28d; impressions 3652/28d",
-        "note": "change type not auto-allowed for this page type"
+        "status": "proposed_not_applied",
+        "applied_at": "2026-05-12T20:50:20.047558+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": 2.61,
+        "latest_clicks": 85,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 1
+      },
+      {
+        "page": "/app \u2014 Book Appointment",
+        "slug": "/app",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-05-13T07:15:22.167983+00:00",
+        "baseline_ctr_pct": 0.2,
+        "baseline_clicks": 5,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/al \u2014 Al",
+        "slug": "/al",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-05-13T07:15:24.448482+00:00",
+        "baseline_ctr_pct": 0.2,
+        "baseline_clicks": 6,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
       }
     ],
     "errors": []

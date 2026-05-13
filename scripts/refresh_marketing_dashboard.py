@@ -299,8 +299,7 @@ def merge_cms_actions(
     except Exception as e:
         status["hubspot_cms"] = f"error: {type(e).__name__}"
         return None
-    block = _cms_optimizer.build_public_block(result)
-    # Defensive sanitization on the merged block.
+    block = _cms_optimizer.build_public_block(result, private_dir=private_dir)
     issues = _cms_optimizer.assert_public_sanitized(block)
     issues += scan_forbidden(block)
     if issues:
@@ -311,12 +310,20 @@ def merge_cms_actions(
         f"inventory={result['inventory']['site_pages']}sp/{result['inventory']['landing_pages']}lp",
         f"considered={result['candidates_considered']}",
         f"actions={len(result['actions'])}",
-        f"written={len(result['written'])}",
+        f"live={result.get('live_writes', 0)}",
+        f"draft={result.get('draft_writes', 0)}",
+        f"proposed={result.get('proposals', 0)}",
+        f"impact_samples={result.get('impact_samples_updated', 0)}",
     ]
-    status["hubspot_cms"] = (
-        "ok: " + ", ".join(parts)
-        + (" (live-writeback)" if result.get("writeback_performed") else " (dry-run)")
-    )
+    if result.get("live_writes"):
+        mode_note = " (live-writeback)"
+    elif result.get("draft_writes"):
+        mode_note = " (draft-writeback)"
+    elif result.get("writeback_performed"):
+        mode_note = " (writeback)"
+    else:
+        mode_note = " (dry-run)"
+    status["hubspot_cms"] = "ok: " + ", ".join(parts) + mode_note
     return result
 
 
