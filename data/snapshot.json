@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-13T11:34:25.444631+00:00",
+  "generated_at": "2026-05-13T15:31:57.076367+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17196,7 +17196,7 @@
     ],
     "low_review_weekly_trends": {
       "title": "Weekly low-review trend",
-      "generated_at": "2026-05-13T11:34:25.443029+00:00",
+      "generated_at": "2026-05-13T15:31:57.075368+00:00",
       "anchor_date": "2026-05-09",
       "current_week_start": "2026-05-04",
       "windows": {
@@ -17434,7 +17434,7 @@
           "oldest_open_age_days": null,
           "prior_action": {
             "week_start": "2026-05-04",
-            "action": "Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
+            "action": "Review themes in huddle this week",
             "low_then": 0,
             "low_now": 0,
             "improved": false
@@ -18598,7 +18598,7 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-05-13T11:34:25.444636+00:00",
+    "last_run_at": "2026-05-13T15:31:57.076390+00:00",
     "last_run_date": "2026-05-13",
     "mode": "fast",
     "sources": {
@@ -18613,7 +18613,7 @@
   },
   "organic_cms_actions": {
     "title": "Organic / HubSpot CMS automation",
-    "last_run_at": "2026-05-13T11:34:24.341611+00:00",
+    "last_run_at": "2026-05-13T15:31:55.362125+00:00",
     "mode": "apply",
     "publish_mode": "controlled_live_writeback_allowed",
     "writeback_performed": false,
@@ -18964,7 +18964,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-05-13T11:34:25.444601+00:00",
+      "as_of": "2026-05-13T15:31:57.076352+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -18973,7 +18973,7 @@
           "status": "idle",
           "next_action": "Continue daily learning loop: append impact samples and promote draft changes to live when CTR uplift confirmed.",
           "last_action": "0 CMS metadata action(s) considered; 0 live \u00b7 0 draft.",
-          "last_action_at": "2026-05-13T11:34:24.341611+00:00",
+          "last_action_at": "2026-05-13T15:31:55.362125+00:00",
           "impact_metric": "GSC clicks / CTR on edited pages (impact_over_time)",
           "impact_samples": 0,
           "live_writes": 0,
@@ -19053,7 +19053,7 @@
           "status": "active_live",
           "next_action": "Hold cadence; coach recurring themes in next huddle.",
           "last_action": "1 open low-review follow-up(s); oldest 2 day(s) old.",
-          "last_action_at": "2026-05-13T11:34:25.443029+00:00",
+          "last_action_at": "2026-05-13T15:31:57.075368+00:00",
           "impact_metric": "Open low-review follow-ups, oldest-open age, response-signal count",
           "blocker": null
         },
@@ -19063,7 +19063,7 @@
           "status": "active_live",
           "next_action": "P1: Santa Monica \u00b7 Service recovery (1/4 weeks) \u2014 Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
           "last_action": "Last 7d: 2 low reviews (prior 7d: 3, direction: down).",
-          "last_action_at": "2026-05-13T11:34:25.443029+00:00",
+          "last_action_at": "2026-05-13T15:31:57.075368+00:00",
           "impact_metric": "Week-over-week low-review delta, recurring-theme count, avg rating trend, prior-action improvement rate",
           "blocker": null
         }
