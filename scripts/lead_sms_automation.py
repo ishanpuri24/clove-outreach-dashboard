@@ -186,6 +186,11 @@ class RunResult:
     needs_human_count: int = 0
     escalations_queued: int = 0
     _private_candidates: list[dict[str, Any]] = field(default_factory=list)
+    # Aggregate skip reasons from the apply path. Reason -> count. Used
+    # to surface a clear blocker when apply mode produces zero sends so
+    # the operator can fix the underlying config gap (e.g. missing
+    # office booking link) instead of seeing a silent 0/0.
+    apply_skips: dict[str, int] = field(default_factory=dict)
 
     def booked_rate_pct(self) -> float:
         if self.eligible <= 0:
@@ -1059,22 +1064,32 @@ def apply_sends(
     hourly_cap = int(sp.get("max_hourly_sends") or 25)
     cap = min(cap, hourly_cap)
 
+    def _skip(reason: str) -> None:
+        result.apply_skips[reason] = result.apply_skips.get(reason, 0) + 1
+
+    candidates = list(result._private_candidates)
     sent = 0
-    for cand in result._private_candidates:
+    offices_missing_link: set[str] = set()
+    for cand in candidates:
         if sent >= cap:
-            break
+            _skip("cap_reached")
+            continue
         phone = cand.get("phone_e164")
         if not phone:
+            _skip("missing_phone")
             continue
         first_name = cand.get("first_name") or ""
         office = cand.get("office") or ""
         booking_link = _booking_link_for_office(cfg, office)
         if not booking_link:
-            # Skip rather than send a partially-rendered message.
+            _skip("missing_booking_link")
+            if office:
+                offices_missing_link.add(office)
             continue
         body = _render_lead_sms(first_name, office, booking_link)
         send_result = openphone.send(phone, body)
         if not send_result.get("ok"):
+            _skip(f"provider_{send_result.get('status') or 'error'}")
             continue
         # Stamp the sheet only after a successful send.
         updates: dict[int, str] = {}
@@ -1094,9 +1109,30 @@ def apply_sends(
         )
         if write.get("ok"):
             result.sheet_rows_modified += 1
+        else:
+            _skip(f"writeback_{write.get('status') or 'failed'}")
         result.sent_today += 1
         result.sms_messages_sent += 1
         sent += 1
+
+    if candidates and sent == 0:
+        # Surface a clear, actionable blocker so the apply path never
+        # silently reports 0/0 with no diagnosis. Aggregate-only — never
+        # includes phones, names, row numbers, or links.
+        top_reason = max(
+            result.apply_skips.items(), key=lambda kv: kv[1]
+        )[0] if result.apply_skips else "unknown"
+        msg = (
+            f"Apply mode produced 0 sends from {len(candidates)} eligible "
+            f"candidate(s). Top skip reason: {top_reason}."
+        )
+        if top_reason == "missing_booking_link" and offices_missing_link:
+            office_list = ", ".join(sorted(offices_missing_link))
+            msg += (
+                f" Add office_booking_links entries (or a 'default' fallback) "
+                f"in the private config for: {office_list}."
+            )
+        result.blockers.append(msg)
 
 
 # --------------------------------------------------------------------

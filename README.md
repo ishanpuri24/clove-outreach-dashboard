@@ -660,6 +660,14 @@ Writes are idempotent: a row whose `AI SMS Status` already reads
 `sent`/`yes` is skipped on subsequent runs. No writes happen during
 `--dry-run` or `--check`.
 
+If apply mode runs and produces zero sends from a non-empty eligible
+backlog, the script surfaces an aggregate-only blocker naming the top
+skip reason (e.g. `missing_booking_link` for offices without an entry
+in `office_booking_links`, or `provider_<status>` for an OpenPhone
+non-success response). The blocker never includes phone numbers,
+names, or row numbers — it points the operator at the underlying
+private-config gap.
+
 ### Safety summary
 
 | Guard | State |
