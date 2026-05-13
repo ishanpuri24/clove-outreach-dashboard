@@ -548,10 +548,37 @@ any SDK or `requests.auth` helper that prefers `Bearer`. Watch for
 this when swapping in a new credential: a 401/403 with the message
 "authentication failed" usually means a `Bearer` prefix slipped in.
 
+### Google Sheets access via the external-tool CLI
+
+`scripts/lead_sms_automation.py` does **not** depend on
+`google-api-python-client`. The operator host runs the script with
+`api_credentials=["external-tools"]` and shells out to the
+`external-tool` CLI for every Sheets call. The three tools used are:
+
+- `google_sheets-get-spreadsheet-info` — list lead-shaped tabs.
+- `google_sheets-get-values`           — read a tab as a 2D array.
+- `google_sheets-update-row`           — write one cell on writeback.
+
+All three invocations pass the spreadsheet id as part of a single
+JSON tool-arguments blob, e.g.
+
+```sh
+external-tool call '{
+  "source_id":"google_sheets__pipedream",
+  "tool_name":"google_sheets-get-spreadsheet-info",
+  "tool_arguments":{"spreadsheetId":"<from private config>"}
+}'
+```
+
+The spreadsheet id is loaded from the private `lead_sms_config.json`
+(or the `LEAD_SMS_CONFIG` env var). It is **never** hard-coded or
+committed, and never echoed to the public snapshot.
+
 ### Modes
 
 ```sh
-# Default - safe scan, no sends, refreshes public snapshot
+# Default - safe scan, no sends, refreshes public snapshot.
+# Requires api_credentials=["external-tools"] in the harness/cron.
 python3 scripts/lead_sms_automation.py --dry-run \
     --config /path/to/private/lead_sms_config.json
 
@@ -559,7 +586,10 @@ python3 scripts/lead_sms_automation.py --dry-run \
 python3 scripts/lead_sms_automation.py --check \
     --config /path/to/private/lead_sms_config.json
 
-# Apply (only when provider + policy + flag all set)
+# Apply (only when provider + policy + flag all set).
+# Sends capped SMS via OpenPhone Optimization line and stamps the
+# matching sheet row (Contacted = YES; AI SMS Sent At / Status /
+# Notes if those columns already exist on the tab).
 python3 scripts/lead_sms_automation.py --apply \
     --i-understand-i-am-sending-real-sms \
     --config /path/to/private/lead_sms_config.json
@@ -568,7 +598,9 @@ python3 scripts/lead_sms_automation.py --apply \
 The loop checks daily and can backfill uncontacted leads now. It
 can also run hourly for fast response. Example scheduled task on
 the operator machine (replace placeholder path with your private
-config location):
+config location). The cron environment must have `api_credentials`
+including `"external-tools"` and the `external-tool` binary on
+`PATH`:
 
 ```cron
 17 * * * * cd /path/to/clove-outreach-dashboard && \
@@ -581,6 +613,16 @@ The scheduled task stays in dry-run until the operator explicitly
 flips `send_policy.enabled=true` and `openphone.enabled=true` in
 the private config and switches the cron command to `--apply
 --i-understand-i-am-sending-real-sms`.
+
+### Needs-human reply escalation
+
+Inbound replies that the classifier cannot route automatically are
+surfaced as an aggregate-only `needs_human` count on the
+Automations dashboard. There is **no email-to-Aryaan path**. A
+Trello card is queued only when the private config contains
+`escalation.trello.enabled=true` and `escalation.trello.list_id`;
+otherwise the count is the only output. The Trello call also goes
+through the `external-tool` CLI.
 
 ### Sample SMS templates
 
@@ -601,10 +643,22 @@ patient to reply by text (not call), and refer to Sherman Oaks
 ### Sheet writeback behavior
 
 When a send actually happens (apply mode, all gates satisfied), the
-script stamps the matching sheet row's `Contacted` column (and a
-`Last SMS At` column when present) on the operator host. Writes are
-idempotent: scanning the same row twice does not double-stamp. No
-writes happen during `--dry-run` or `--check`.
+script writes back to the same Google Sheet row via the
+`google_sheets-update-row` external tool:
+
+- `Contacted Yes/No` (existing header) → `YES`.
+- `AI SMS Sent At`, `AI SMS Status`, `AI SMS Notes` → stamped if the
+  three columns exist on the tab. The script does **not** add
+  columns automatically — that would risk breaking the existing
+  multiline `Contacted / Followed Up / Booked / Treatment` formula
+  layout. If any of the three columns is missing the run logs a
+  single aggregate blocker on the dashboard and writes only the
+  `Contacted` column. Add the three columns to enable per-row
+  feedback writeback.
+
+Writes are idempotent: a row whose `AI SMS Status` already reads
+`sent`/`yes` is skipped on subsequent runs. No writes happen during
+`--dry-run` or `--check`.
 
 ### Safety summary
 

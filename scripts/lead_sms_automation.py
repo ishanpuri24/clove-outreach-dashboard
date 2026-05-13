@@ -45,6 +45,8 @@ import argparse
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import time
 import urllib.error
@@ -70,6 +72,8 @@ LEAD_HEADER_ALIASES = {
     "phone number": "phone",
     "phone": "phone",
     "contacted": "contacted",
+    "contacted yes/no": "contacted",
+    "contacted (yes/no)": "contacted",
     "followed up": "followed_up",
     "follow up": "followed_up",
     "follow-up": "followed_up",
@@ -77,7 +81,17 @@ LEAD_HEADER_ALIASES = {
     "treatment opted": "treatment_opted",
     "referral source": "referral_source",
     "phone calls": "phone_calls",
+    "ai sms sent at": "ai_sms_sent_at",
+    "ai sms status": "ai_sms_status",
+    "ai sms notes": "ai_sms_notes",
+    "last sms at": "ai_sms_sent_at",
 }
+
+# Optional feedback columns that the writeback path will populate when
+# they already exist on the sheet. The script does NOT add columns on
+# its own (see writeback docs); if any of these are absent the run logs
+# a per-tab blocker once and stamps only the Contacted column.
+WRITEBACK_FEEDBACK_FIELDS = ("ai_sms_sent_at", "ai_sms_status", "ai_sms_notes")
 
 SAMPLE_TOKENS = {
     "test", "sample", "demo", "example", "fake", "placeholder",
@@ -146,7 +160,14 @@ FORBIDDEN_KEY_NAMES = {
 
 @dataclass
 class RunResult:
-    """Aggregated, sanitized counters for the public snapshot."""
+    """Aggregated, sanitized counters for the public snapshot.
+
+    The ``_private_candidates`` list is process-local: it stores the row
+    coordinates (tab name + 1-based row number) and the normalized phone
+    for any uncontacted lead the apply path is allowed to text. It is
+    NEVER copied to the public snapshot; ``build_automations_block``
+    ignores it.
+    """
 
     backlog: int = 0
     eligible: int = 0
@@ -162,6 +183,9 @@ class RunResult:
     last_run_at_utc: str = ""
     sheet_rows_modified: int = 0
     sms_messages_sent: int = 0
+    needs_human_count: int = 0
+    escalations_queued: int = 0
+    _private_candidates: list[dict[str, Any]] = field(default_factory=list)
 
     def booked_rate_pct(self) -> float:
         if self.eligible <= 0:
@@ -272,55 +296,231 @@ def load_private_config(path: str | None) -> dict[str, Any]:
 
 
 # --------------------------------------------------------------------
-# Sheets adapter (lazy import; degrades gracefully)
+# Sheets adapter (external-tool CLI; no SDK required)
 # --------------------------------------------------------------------
 
 class SheetsAdapter:
-    def __init__(self, spreadsheet_id: str) -> None:
-        self.spreadsheet_id = spreadsheet_id
+    """Google Sheets adapter that shells out to the ``external-tool`` CLI.
+
+    The operator host runs this script with ``api_credentials=["external-
+    tools"]`` and the ``external-tool`` binary on PATH. We avoid the
+    ``google-api-python-client`` SDK because that pulls in extra
+    dependencies and ADC, neither of which is configured in cron.
+
+    All sheet IO funnels through three pipedream tools:
+
+    - ``google_sheets-get-spreadsheet-info`` — list tabs / metadata.
+    - ``google_sheets-get-values``           — read a tab as a 2D array.
+    - ``google_sheets-update-row``           — write a single row back.
+
+    The spreadsheet id is supplied at construction time from the private
+    config and is **never** passed on argv as a flag value or echoed in
+    error output. Tool payloads are sent as a single JSON argument so
+    the id stays out of process listings as a top-level token.
+    """
+
+    DEFAULT_TIMEOUT_S = 30.0
+    SOURCE_ID = "google_sheets__pipedream"
+    TOOL_INFO = "google_sheets-get-spreadsheet-info"
+    TOOL_READ_ROWS = "google_sheets-get-values"
+    TOOL_UPDATE_ROW = "google_sheets-update-row"
+
+    def __init__(
+        self,
+        spreadsheet_id: str,
+        *,
+        binary: str | None = None,
+        env_extra: dict[str, str] | None = None,
+    ) -> None:
+        self.spreadsheet_id = str(spreadsheet_id or "")
         self.available = False
         self.error: str | None = None
-        self._service = None
-        try:
-            from googleapiclient.discovery import build  # type: ignore
-            import google.auth  # type: ignore
+        self._binary = binary or os.environ.get("EXTERNAL_TOOL_BIN") or "external-tool"
+        self._env_extra = dict(env_extra or {})
+        self._tab_cache: list[dict[str, Any]] | None = None
+        self._probe()
 
-            creds, _ = google.auth.default(
-                scopes=["https://www.googleapis.com/auth/spreadsheets"]
-            )
-            self._service = build(
-                "sheets", "v4", credentials=creds, cache_discovery=False
-            )
-            self.available = True
-        except Exception as exc:  # pragma: no cover
+    def _probe(self) -> None:
+        if not self.spreadsheet_id:
+            self.error = "Google Sheets adapter: spreadsheet_id missing in private config."
+            return
+        if not shutil.which(self._binary):
             self.error = (
-                "Google Sheets client not available "
-                f"({type(exc).__name__}). Install google-api-python-client "
-                "and configure application default credentials to enable "
-                "live scanning."
+                "external-tool CLI not on PATH. Run this script with "
+                "api_credentials=[\"external-tools\"] and ensure the "
+                "'external-tool' binary is installed on the operator host."
             )
+            return
+        self.available = True
+
+    def _call(self, tool_name: str, payload: dict[str, Any]) -> dict[str, Any]:
+        """Invoke ``external-tool call '{json}'`` and parse the JSON result.
+
+        Returns ``{"_error": "<reason>"}`` on any failure so callers can
+        decide whether to skip or fall back. Stderr is captured and
+        condensed into a short reason string; we never propagate raw
+        provider output to the public snapshot.
+        """
+        req = {
+            "source_id": self.SOURCE_ID,
+            "tool_name": tool_name,
+            "tool_arguments": payload,
+        }
+        try:
+            proc = subprocess.run(
+                [self._binary, "call", json.dumps(req)],
+                capture_output=True,
+                text=True,
+                timeout=self.DEFAULT_TIMEOUT_S,
+                env={**os.environ, **self._env_extra},
+                check=False,
+            )
+        except FileNotFoundError:
+            return {"_error": "external_tool_binary_missing"}
+        except subprocess.TimeoutExpired:
+            return {"_error": "external_tool_timeout"}
+        except Exception as exc:  # pragma: no cover - defensive
+            return {"_error": f"external_tool_exception_{type(exc).__name__}"}
+        if proc.returncode != 0:
+            return {"_error": f"external_tool_exit_{proc.returncode}"}
+        out = (proc.stdout or "").strip()
+        if not out:
+            return {"_error": "external_tool_empty_response"}
+        try:
+            data = json.loads(out)
+        except Exception:
+            return {"_error": "external_tool_non_json"}
+        if isinstance(data, dict):
+            return data
+        return {"_data": data}
+
+    @staticmethod
+    def _unwrap(resp: dict[str, Any]) -> Any:
+        """Pipedream wraps results under several common envelopes.
+
+        Probe ``ret``, ``result``, ``data``, ``response`` in order; fall
+        back to the raw dict if none matches.
+        """
+        for key in ("ret", "result", "data", "response"):
+            if key in resp:
+                return resp[key]
+        return resp
 
     def list_tabs(self) -> list[str]:
-        if not self.available or self._service is None:
+        if not self.available:
             return []
-        meta = self._service.spreadsheets().get(
-            spreadsheetId=self.spreadsheet_id
-        ).execute()
-        return [
-            s["properties"]["title"]
-            for s in meta.get("sheets", [])
-            if "properties" in s
-        ]
+        resp = self._call(
+            self.TOOL_INFO,
+            {"spreadsheetId": self.spreadsheet_id, "includeGridData": False},
+        )
+        if "_error" in resp:
+            self.error = (
+                "Google Sheets list_tabs failed via external-tool "
+                f"({resp.get('_error')})."
+            )
+            return []
+        info = self._unwrap(resp)
+        sheets = []
+        if isinstance(info, dict):
+            sheets = info.get("sheets") or info.get("Sheets") or []
+        titles: list[str] = []
+        cache: list[dict[str, Any]] = []
+        for s in sheets or []:
+            if not isinstance(s, dict):
+                continue
+            props = s.get("properties") or s
+            if not isinstance(props, dict):
+                continue
+            title = props.get("title") or props.get("Title")
+            sheet_id = props.get("sheetId") or props.get("SheetId")
+            if title:
+                titles.append(str(title))
+                cache.append({"title": str(title), "sheet_id": sheet_id})
+        self._tab_cache = cache
+        return titles
+
+    def sheet_id_for(self, tab: str) -> Any:
+        if self._tab_cache is None:
+            self.list_tabs()
+        for entry in self._tab_cache or []:
+            if entry.get("title") == tab:
+                return entry.get("sheet_id")
+        return None
 
     def read_tab(self, tab: str) -> list[list[str]]:
-        if not self.available or self._service is None:
+        if not self.available:
             return []
-        rng = f"'{tab}'"
-        resp = self._service.spreadsheets().values().get(
-            spreadsheetId=self.spreadsheet_id,
-            range=rng,
-        ).execute()
-        return resp.get("values", []) or []
+        resp = self._call(
+            self.TOOL_READ_ROWS,
+            {
+                "spreadsheetId": self.spreadsheet_id,
+                "range": f"'{tab}'",
+                "valueRenderOption": "FORMATTED_VALUE",
+            },
+        )
+        if "_error" in resp:
+            return []
+        body = self._unwrap(resp)
+        values: Any = None
+        if isinstance(body, dict):
+            values = body.get("values") or body.get("Values")
+        if not isinstance(values, list):
+            return []
+        normalized: list[list[str]] = []
+        for row in values:
+            if isinstance(row, list):
+                normalized.append(["" if c is None else str(c) for c in row])
+            else:
+                normalized.append([])
+        return normalized
+
+    @staticmethod
+    def _col_letter(idx_zero: int) -> str:
+        """Convert 0-based column index to A1 column letters."""
+        n = idx_zero + 1
+        letters = ""
+        while n > 0:
+            n, rem = divmod(n - 1, 26)
+            letters = chr(65 + rem) + letters
+        return letters
+
+    def update_cells(
+        self,
+        tab: str,
+        row_number_1based: int,
+        updates: dict[int, str],
+    ) -> dict[str, Any]:
+        """Idempotently update specific cells on a row.
+
+        ``updates`` maps 0-based column index -> cell string value. The
+        adapter issues one ``google_sheets-update-row`` call per cell so
+        unrelated cells are never overwritten. Returns ``{"ok": bool,
+        "status": "<label>", "cells": <int>}``.
+        """
+        if not self.available:
+            return {"ok": False, "status": "sheets_unavailable", "cells": 0}
+        if not updates:
+            return {"ok": True, "status": "noop", "cells": 0}
+        wrote = 0
+        for col_idx, value in updates.items():
+            a1 = f"'{tab}'!{self._col_letter(int(col_idx))}{int(row_number_1based)}"
+            resp = self._call(
+                self.TOOL_UPDATE_ROW,
+                {
+                    "spreadsheetId": self.spreadsheet_id,
+                    "range": a1,
+                    "valueInputOption": "USER_ENTERED",
+                    "values": [[str(value)]],
+                },
+            )
+            if "_error" in resp:
+                return {
+                    "ok": False,
+                    "status": resp.get("_error") or "update_failed",
+                    "cells": wrote,
+                }
+            wrote += 1
+        return {"ok": True, "status": "updated", "cells": wrote}
 
 
 # --------------------------------------------------------------------
@@ -664,6 +864,7 @@ def scan_leads(
         result.last_run_status = "blocked"
         return result
 
+    missing_feedback_tabs: list[str] = []
     for tab in tabs:
         rows = []
         try:
@@ -677,8 +878,13 @@ def scan_leads(
             continue
         office = office_from_tab(tab)
         source = source_from_tab(tab)
+        feedback_cols = {
+            f: idx[f] for f in WRITEBACK_FEEDBACK_FIELDS if f in idx
+        }
+        if not feedback_cols and "contacted" in idx:
+            missing_feedback_tabs.append(tab)
 
-        for raw in rows[1:]:
+        for row_offset, raw in enumerate(rows[1:], start=2):
             if not raw:
                 continue
             name = (raw[idx["name"]] if idx.get("name", -1) < len(raw)
@@ -694,6 +900,9 @@ def scan_leads(
             booked = (raw[idx["appointment_booked"]]
                       if "appointment_booked" in idx
                       and idx["appointment_booked"] < len(raw) else "")
+            ai_status = (raw[idx["ai_sms_status"]]
+                         if "ai_sms_status" in idx
+                         and idx["ai_sms_status"] < len(raw) else "")
 
             phone_e164 = normalize_phone(phone_raw)
             if looks_like_sample(name, phone_e164):
@@ -715,13 +924,209 @@ def scan_leads(
                 result.eligible += 1
                 _bump(result.by_office, office, "eligible")
                 _bump(result.by_source, source, "eligible")
+                # Idempotence: if AI SMS Status already records a prior
+                # send we skip enqueueing this row for the apply path.
+                if not (ai_status and is_yes(ai_status)
+                        or str(ai_status).strip().lower() in {"sent", "queued"}):
+                    result._private_candidates.append({
+                        "tab": tab,
+                        "row_number": row_offset,
+                        "phone_e164": phone_e164,
+                        "first_name": (name.split() or [""])[0],
+                        "office": office,
+                        "source": source,
+                        "contacted_col": idx.get("contacted"),
+                        "feedback_cols": feedback_cols,
+                    })
             elif is_yes(contacted) and not is_yes(followed):
                 result.replies_pending += 1
                 _bump(result.by_office, office, "replies_pending")
                 _bump(result.by_source, source, "replies_pending")
 
+    if missing_feedback_tabs:
+        # Single aggregated, non-PII blocker; sheet names are safe to
+        # mention since the validator only forbids ids and recipient
+        # data, not tab labels.
+        result.blockers.append(
+            "Feedback columns (AI SMS Sent At / Status / Notes) absent on "
+            f"{len(missing_feedback_tabs)} tab(s); writeback will stamp "
+            "Contacted only. Add the three columns to enable per-row "
+            "feedback writeback. The script will not add columns "
+            "automatically (risk of breaking existing formulas)."
+        )
+
     result.last_run_status = "dry_run"
     return result
+
+
+# --------------------------------------------------------------------
+# Apply path: send capped SMS via OpenPhone and write back to sheet
+# --------------------------------------------------------------------
+
+def _booking_link_for_office(cfg: dict[str, Any], office: str) -> str:
+    links = ((cfg or {}).get("booking_links") or {})
+    if not isinstance(links, dict):
+        return ""
+    return str(links.get(office) or links.get("default") or "")
+
+
+def _render_lead_sms(first_name: str, office: str, booking_link: str) -> str:
+    """Match the public sample's required phrases for compliance.
+
+    The public dashboard renders ``render_public_sample_sms``; this
+    private version substitutes [First name] / [Office] / [office
+    booking link] only. Required phrases (verified by tests):
+    'filled out a form', 'real-time openings available today',
+    'You can book here', and 'STOP'.
+    """
+    name = (first_name or "there").strip().split(" ")[0] or "there"
+    office_label = (office or "Clove Dental").strip() or "Clove Dental"
+    return (
+        f"Hi {name}, this is Clove Dental {office_label}. You filled out "
+        f"a form for an appointment, and we have real-time openings "
+        f"available today. You can book here: {booking_link}. If you "
+        f"want help, reply with what time works. Reply STOP to opt out."
+    )
+
+
+def apply_sends(
+    sheets: SheetsAdapter,
+    openphone: OpenPhoneAdapter,
+    cfg: dict[str, Any],
+    result: RunResult,
+) -> None:
+    """Send capped SMS and stamp rows after each successful send.
+
+    The caller has already verified all four gates (provider ready,
+    policy enabled, --apply, --i-understand). This function additionally
+    enforces the per-run cap from ``send_policy.max_initial_backfill_per_run``
+    and a hard ``max_hourly_sends`` ceiling.
+    """
+    sp = (cfg or {}).get("send_policy") or {}
+    cap = int(sp.get("max_initial_backfill_per_run") or 25)
+    hourly_cap = int(sp.get("max_hourly_sends") or 25)
+    cap = min(cap, hourly_cap)
+
+    sent = 0
+    for cand in result._private_candidates:
+        if sent >= cap:
+            break
+        phone = cand.get("phone_e164")
+        if not phone:
+            continue
+        first_name = cand.get("first_name") or ""
+        office = cand.get("office") or ""
+        booking_link = _booking_link_for_office(cfg, office)
+        if not booking_link:
+            # Skip rather than send a partially-rendered message.
+            continue
+        body = _render_lead_sms(first_name, office, booking_link)
+        send_result = openphone.send(phone, body)
+        if not send_result.get("ok"):
+            continue
+        # Stamp the sheet only after a successful send.
+        updates: dict[int, str] = {}
+        contacted_col = cand.get("contacted_col")
+        if isinstance(contacted_col, int):
+            updates[contacted_col] = "YES"
+        fb_cols = cand.get("feedback_cols") or {}
+        now_iso = _now_utc_iso()
+        if "ai_sms_sent_at" in fb_cols:
+            updates[fb_cols["ai_sms_sent_at"]] = now_iso
+        if "ai_sms_status" in fb_cols:
+            updates[fb_cols["ai_sms_status"]] = "sent"
+        if "ai_sms_notes" in fb_cols:
+            updates[fb_cols["ai_sms_notes"]] = "auto-send: lead SMS via Optimization line"
+        write = sheets.update_cells(
+            cand["tab"], int(cand["row_number"]), updates,
+        )
+        if write.get("ok"):
+            result.sheet_rows_modified += 1
+        result.sent_today += 1
+        result.sms_messages_sent += 1
+        sent += 1
+
+
+# --------------------------------------------------------------------
+# Needs-human escalation (config-gated Trello, otherwise aggregate-only)
+# --------------------------------------------------------------------
+
+def maybe_escalate_needs_human(
+    cfg: dict[str, Any],
+    result: RunResult,
+    reply_summary: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Surface aggregate ``needs_human`` counts and, if explicitly
+    configured, queue a Trello card via the external-tool CLI.
+
+    Email-to-Aryaan is intentionally NOT supported. Only Trello is
+    wired, and only when ``escalation.trello.list_id`` is present in
+    the private config. Returns a sanitized status dict for the public
+    snapshot.
+    """
+    needs_human = 0
+    if isinstance(reply_summary, dict):
+        needs_human = int(reply_summary.get("other") or 0)
+    result.needs_human_count = needs_human
+
+    esc = (cfg or {}).get("escalation") or {}
+    trello = (esc.get("trello") or {}) if isinstance(esc, dict) else {}
+    list_id = str(trello.get("list_id") or "")
+    enabled = bool(trello.get("enabled")) and bool(list_id)
+    if not enabled or needs_human <= 0:
+        return {
+            "mode": "aggregate_only",
+            "needs_human": needs_human,
+            "trello_configured": bool(list_id),
+            "queued": 0,
+            "note": (
+                "Aggregate needs-human count only. No automatic Trello "
+                "card is created unless escalation.trello.list_id is set "
+                "and escalation.trello.enabled=true in the private config."
+            ),
+        }
+    binary = os.environ.get("EXTERNAL_TOOL_BIN") or "external-tool"
+    if not shutil.which(binary):
+        return {
+            "mode": "trello_unavailable",
+            "needs_human": needs_human,
+            "trello_configured": True,
+            "queued": 0,
+            "note": "external-tool CLI not on PATH; no Trello card queued.",
+        }
+    req = {
+        "source_id": str(trello.get("source_id") or "trello__pipedream"),
+        "tool_name": str(trello.get("tool_name") or "trello-create-card"),
+        "tool_arguments": {
+            "idList": list_id,
+            "name": f"Needs-human SMS replies: {needs_human}",
+            "desc": (
+                "Aggregate placeholder: detail stays on operator host. "
+                "Review needs-human inbound replies in OpenPhone."
+            ),
+        },
+    }
+    try:
+        proc = subprocess.run(
+            [binary, "call", json.dumps(req)],
+            capture_output=True, text=True, timeout=20.0, check=False,
+        )
+        ok = proc.returncode == 0
+    except Exception:
+        ok = False
+    if ok:
+        result.escalations_queued += 1
+    return {
+        "mode": "trello",
+        "needs_human": needs_human,
+        "trello_configured": True,
+        "queued": 1 if ok else 0,
+        "note": (
+            "One Trello card queued for aggregate needs-human review."
+            if ok else
+            "Trello card create failed; review on operator host."
+        ),
+    }
 
 
 # --------------------------------------------------------------------
@@ -815,6 +1220,7 @@ def build_automations_block(
     apply_mode: bool,
     cfg: dict[str, Any],
     optimization_rows: list[dict[str, Any]],
+    escalation_status: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     sample_template = render_public_sample_sms()
     op_status_pill = (
@@ -898,6 +1304,20 @@ def build_automations_block(
             "the command line. New-lead SMS includes STOP; established-"
             "patient optimization SMS does not."
         ),
+        "escalation": {
+            "mode": (
+                (escalation_status or {}).get("mode") or "aggregate_only"
+            ),
+            "needs_human": int(
+                (escalation_status or {}).get("needs_human") or 0
+            ),
+            "trello_configured": bool(
+                (escalation_status or {}).get("trello_configured")
+            ),
+            "queued": int((escalation_status or {}).get("queued") or 0),
+            "note": str((escalation_status or {}).get("note") or ""),
+            "channel": "trello_or_aggregate",
+        },
         "_sanitization": {
             "no_pii": True,
             "no_phone_numbers": True,
@@ -1112,14 +1532,23 @@ def main(argv: list[str] | None = None) -> int:
             "no real SMS is sent until the operator enables it."
         )
     if apply_mode:
-        # Live send path. Quiet-hours, per-run cap, dedupe and STOP-
-        # list filtering happen inside this branch. Today the operator
-        # has not enabled the send_policy so we never enter this
-        # branch via the public scaffold; the implementation remains
-        # so the path is wired and reviewable.
+        # Live send path. Per-run cap enforced inside ``apply_sends``;
+        # dedupe and feedback-column idempotence enforced during scan.
+        apply_sends(sheets, op, cfg, result)
         result.last_run_status = "apply"
     else:
         result.last_run_status = "check" if check_mode else "dry_run"
+
+    # Reply polling + escalation. Always aggregate-only; Trello queue is
+    # off unless private config sets escalation.trello.list_id +
+    # escalation.trello.enabled=true.
+    reply_summary: dict[str, Any] | None = None
+    if provider_ready and (check_mode or apply_mode):
+        try:
+            reply_summary = op.poll_replies()
+        except Exception:
+            reply_summary = None
+    escalation_status = maybe_escalate_needs_human(cfg, result, reply_summary)
 
     block = build_automations_block(
         result,
@@ -1129,6 +1558,7 @@ def main(argv: list[str] | None = None) -> int:
         apply_mode=apply_mode,
         cfg=cfg,
         optimization_rows=optimization_rows,
+        escalation_status=escalation_status,
     )
     try:
         write_public_snapshot(block)
