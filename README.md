@@ -179,7 +179,10 @@ The orchestrator calls a companion script,
 CMS inventory (site pages + landing pages, capped at 50 each — one
 inventory call per run, low credit cost), cross-references the GSC
 query/page rows already in the public snapshot, and applies up to
-3 low-risk metadata changes per daily run.
+10 low-risk metadata changes per daily run in accelerated mode (3 in
+standard mode). See the
+[Accelerated organic growth mode](#accelerated-organic-growth-mode)
+section below for the full safety contract.
 
 **Private config** lives at
 `hubspot_cms_config.json` inside the private tracking directory.
@@ -340,6 +343,46 @@ a fallback note.
 
 Force the CMS step into a hard dry-run on any host with
 `python3 scripts/refresh_marketing_dashboard.py --cms-dry-run`.
+
+### Accelerated organic growth mode
+
+When the private config sets
+`publish_mode = accelerated_controlled_live_writeback_with_small_content_allowed`
+and `accelerated_growth_mode.enabled = true`, the optimizer runs in
+**accelerated** mode. The goal is to drive organic SEO growth faster
+each day while keeping the same hard safety boundary: live writes are
+still limited to title + meta-description on existing site / landing
+pages, and any body / FAQ / internal-link improvement is staged as a
+draft or proposal for operator review.
+
+What changes vs. standard mode:
+
+| Knob | Standard | Accelerated |
+| ---- | -------- | ----------- |
+| Per-page cooldown | 14 days | **7 days** |
+| Max live metadata writes per run | 3 | **10** |
+| Max small-content proposals per run | 0 | **3** |
+| Candidate signals | high-impr / low-CTR | high-impr / low-CTR **plus** near-rank (page 2 → page 1), office/service query match, CallRail/review demand themes, missing/weak metadata on demand-themed slugs |
+| Body / FAQ / internal-link changes | not considered | staged as **drafts/proposals only** (never live) |
+
+Safety tiers (accelerated):
+
+| Tier | Examples | Behavior |
+| ---- | -------- | -------- |
+| `auto_live_allowed` | site/landing page **title** and **meta-description** updates | Pushed **live** to HubSpot CMS, capped at 10/run with a 7-day per-page cooldown. |
+| `auto_draft_or_propose_only` | small existing body-copy improvement, FAQ section update, internal-link block update | **Proposed only** (never live). The optimizer surfaces the change with a short rationale and an explicit reason: HubSpot module structure varies per template, so a careless PATCH could corrupt the page. The operator promotes from the HubSpot UI. |
+| `approval_required` | body rewrite, new page, CTA/form change, redirect, template / source-code change, domain change | Never auto-applied; requires a new approval. |
+| `never_allowed_without_new_approval` | billing, users, OAuth, transactional email, functions, domain writes | Untouched under any flag. |
+
+The public dashboard surfaces a sanitized `accelerated_organic` block
+on the Automations + Organic tabs that shows: growth mode, cooldown,
+caps, why no prior change happened (cooldown introspection), what
+changed in the latest run, the next opportunity queue (slugs blocked
+by run-cap that will be picked up next), and the impact metrics
+watched (GSC CTR / clicks / impressions, GA4 sessions / form_submit,
+CallRail calls / qualified calls). The block contains no HubSpot
+internal IDs, tokens, private paths, or raw API payload keys — both
+the optimizer and the validator backstop this.
 
 ## Data flow
 

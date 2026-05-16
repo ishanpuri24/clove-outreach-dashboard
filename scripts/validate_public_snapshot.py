@@ -730,6 +730,32 @@ FORBIDDEN_PATTERNS: list[tuple[str, str]] = [
         r"\bFU-\d{2,}\b",
         "Internal follow-up tracker id (FU-NN)",
     ),
+    # HubSpot CMS / private config artifacts.
+    (
+        r"\bpat-na1-[0-9a-f-]{8,}",
+        "HubSpot private app token (pat-na1-...)",
+    ),
+    (
+        r"/cron_tracking/",
+        "Private cron_tracking directory path leaked",
+    ),
+    (
+        r"hubspot_cms_config\.json",
+        "Private HubSpot CMS config filename leaked",
+    ),
+    (
+        r"\bhubspot[_-]?(?:portal|hub)[_-]?id\b",
+        "HubSpot portal/hub id reference leaked",
+    ),
+    # GA4 measurement / property ids should never appear in the public mirror.
+    (
+        r"\bG-[A-Z0-9]{8,}\b",
+        "GA4 measurement id (G-XXXXXXXX)",
+    ),
+    (
+        r"\bproperties/\d{6,}\b",
+        "GA4 property id (properties/NNN...)",
+    ),
 ]
 
 # Internal scheduler/task identifier shape: a bare 8-character
@@ -2736,6 +2762,9 @@ ALLOWED_ACTION_SYSTEM_ENTRY_KEYS = {
     "last_action_at", "impact_metric", "impact_samples",
     "live_writes", "draft_writes", "key_events", "blocker",
     "blockers_detail",
+    # Accelerated organic SEO context on the hubspot-cms-metadata row.
+    "growth_mode", "accelerated", "proposals", "small_content_proposals",
+    "cooldown_days", "why_no_prior_change",
 }
 
 ALLOWED_ACTION_SYSTEM_STATUSES = {
@@ -3138,6 +3167,82 @@ def check_no_stale_ga4_setup_copy(
         )
 
 
+REQUIRED_ACCELERATED_ORGANIC_KEYS = [
+    "title",
+    "growth_mode",
+    "accelerated",
+    "publish_mode_pretty",
+    "cooldown_days",
+    "max_changes_cap",
+    "why_no_prior_change",
+    "what_changed_now",
+    "next_opportunity_queue",
+    "impact_metrics_watched",
+    "live_writes",
+    "draft_writes",
+    "proposals",
+    "small_content_proposals",
+    "actions",
+    "safety_tiers",
+]
+
+# Keys that must NEVER appear inside accelerated_organic (private IDs,
+# tokens, raw API payloads). This is a belt-and-suspenders check on top
+# of the forbidden-pattern scan that runs against the full snapshot.
+FORBIDDEN_ACCELERATED_ORGANIC_KEYS = {
+    "token", "access_token", "refresh_token", "portal_id", "portalId",
+    "hub_id", "hubId", "objectId", "object_id", "internal_id",
+    "currentlyPublished", "publishDate", "archivedAt",
+}
+
+
+def _scan_for_forbidden_keys(node: Any, forbidden: set[str], path: str) -> list[str]:
+    issues: list[str] = []
+    if isinstance(node, dict):
+        for k, v in node.items():
+            if k in forbidden:
+                issues.append(f"{path}.{k}: forbidden key in public block")
+            issues.extend(_scan_for_forbidden_keys(v, forbidden, f"{path}.{k}"))
+    elif isinstance(node, list):
+        for i, v in enumerate(node):
+            issues.extend(_scan_for_forbidden_keys(v, forbidden, f"{path}[{i}]"))
+    return issues
+
+
+def check_accelerated_organic(snap: dict[str, Any]) -> None:
+    """Validate shape + sanitization of the accelerated_organic block.
+
+    The block is optional (older snapshots may not have it), but when
+    present it must have the documented shape and contain no private
+    HubSpot identifiers, tokens, or raw API payload keys.
+    """
+    block = snap.get("accelerated_organic")
+    if block is None:
+        return
+    if not isinstance(block, dict):
+        _fail("accelerated_organic must be an object")
+    missing = [k for k in REQUIRED_ACCELERATED_ORGANIC_KEYS if k not in block]
+    if missing:
+        _fail(f"accelerated_organic missing required keys: {missing}")
+    if not isinstance(block.get("accelerated"), bool):
+        _fail("accelerated_organic.accelerated must be a boolean")
+    for nk in ("cooldown_days", "max_changes_cap", "live_writes",
+               "draft_writes", "proposals", "small_content_proposals"):
+        if not isinstance(block.get(nk), int):
+            _fail(f"accelerated_organic.{nk} must be int")
+    for lk in ("next_opportunity_queue", "impact_metrics_watched",
+               "actions"):
+        if not isinstance(block.get(lk), list):
+            _fail(f"accelerated_organic.{lk} must be a list")
+    if not isinstance(block.get("safety_tiers"), dict):
+        _fail("accelerated_organic.safety_tiers must be an object")
+    issues = _scan_for_forbidden_keys(
+        block, FORBIDDEN_ACCELERATED_ORGANIC_KEYS, "$.accelerated_organic"
+    )
+    if issues:
+        _fail("accelerated_organic contains forbidden keys: " + "; ".join(issues))
+
+
 def main() -> int:
     print("Validating public snapshot ...")
     try:
@@ -3157,6 +3262,7 @@ def main() -> int:
         check_action_system(snap)
         check_review_weekly_trends(snap)
         check_ga4_form_submit_mapped(snap)
+        check_accelerated_organic(snap)
 
         snapshot_text = DATA_FILE.read_text(encoding="utf-8")
         if not INDEX_HTML.exists():

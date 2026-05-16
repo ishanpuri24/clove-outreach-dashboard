@@ -6739,13 +6739,20 @@
           var bits = [];
           if (c.last_run_at) bits.push(String(c.last_run_at).slice(0, 19).replace("T", " ") + "Z");
           if (c.mode) bits.push("mode: " + c.mode);
-          if (c.publish_mode) bits.push("publish: " + c.publish_mode);
+          if (c.accelerated) {
+            bits.push("growth: accelerated (" + (c.cooldown_days || 7) + "d cooldown, cap " + (c.max_changes_cap || 10) + ")");
+          } else if (c.growth_mode) {
+            bits.push("growth: " + c.growth_mode);
+          }
           var liveN = c.live_writes || 0;
           var draftN = c.draft_writes || 0;
           var propN = c.proposals || 0;
           bits.push(liveN + " live · " + draftN + " draft · " + propN + " proposed");
           if (typeof c.impact_samples_updated === "number") {
             bits.push(c.impact_samples_updated + " impact samples recorded today");
+          }
+          if (c.why_no_prior_change) {
+            bits.push("why no prior change: " + c.why_no_prior_change);
           }
           meta.textContent = bits.join(" · ");
         }
@@ -6812,10 +6819,22 @@
         var head = el("div", { "class": "section-meta" });
         var bits = [];
         if (c.last_run_at) bits.push("Last run: " + String(c.last_run_at).slice(0, 19).replace("T", " ") + "Z");
-        if (c.publish_mode) bits.push("Publish mode: " + c.publish_mode);
+        if (c.accelerated) {
+          bits.push("Growth mode: accelerated (" + (c.cooldown_days || 7) + "d cooldown, cap " + (c.max_changes_cap || 10) + " metadata + " + (c.max_small_content_cap || 3) + " small-content)");
+        } else if (c.growth_mode) {
+          bits.push("Growth mode: " + c.growth_mode);
+        }
         bits.push(c.summary || "");
+        if (c.why_no_prior_change) bits.push("Why no prior change: " + c.why_no_prior_change);
         head.textContent = bits.filter(Boolean).join(" · ");
         card.appendChild(head);
+        if (c.next_opportunity_queue && c.next_opportunity_queue.length) {
+          var nq = el("div", { "class": "desc" });
+          nq.textContent = "Next opportunity queue: " + c.next_opportunity_queue.map(function (r) {
+            return (r.slug || "?") + " (" + (r.rule || r.reason || "queued") + ")";
+          }).join("; ");
+          card.appendChild(nq);
+        }
 
         var rows = c.actions || [];
         var ok = _renderTable(card, [

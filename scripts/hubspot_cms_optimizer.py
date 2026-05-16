@@ -85,29 +85,58 @@ PUBLIC_SNAPSHOT = REPO_ROOT / "data" / "snapshot.json"
 DEFAULT_PRIVATE_DIR = Path("/home/user/workspace/cron_tracking/a3b9de2f")
 DEFAULT_CONFIG_NAME = "hubspot_cms_config.json"
 DEFAULT_STATE_NAME = "daily_learning_state.json"
-DEFAULT_COOLDOWN_DAYS = 14
+DEFAULT_COOLDOWN_DAYS = 7
+
+ACCELERATED_PUBLISH_MODE = (
+    "accelerated_controlled_live_writeback_with_small_content_allowed"
+)
 
 # Publish modes that allow any write at all.
 PUBLISH_MODES_WITH_WRITE = {
     "low_risk_metadata_writeback_allowed",   # legacy: drafts only
-    "controlled_live_writeback_allowed",     # current: live where listed
+    "controlled_live_writeback_allowed",     # standard: live where listed
+    ACCELERATED_PUBLISH_MODE,                # accelerated: + small content
 }
 
 # Publish modes that allow live push (skip draft step) when the change
 # type is listed under safety_tiers.auto_live_allowed.
-PUBLISH_MODES_WITH_LIVE = {"controlled_live_writeback_allowed"}
+PUBLISH_MODES_WITH_LIVE = {
+    "controlled_live_writeback_allowed",
+    ACCELERATED_PUBLISH_MODE,
+}
+
+# Publish modes that allow small content (body copy / FAQ / internal-link)
+# in DRAFT-or-propose form when explicitly approved in the config.
+PUBLISH_MODES_WITH_SMALL_CONTENT = {ACCELERATED_PUBLISH_MODE}
 
 # Public-facing change-type labels (used in the action log + dashboard).
 CHANGE_TITLE = "missing_or_weak_title_update"
 CHANGE_META = "missing_or_weak_meta_description_update"
+CHANGE_SMALL_BODY = "small_existing_body_copy_improvement"
+CHANGE_FAQ = "faq_section_update"
+CHANGE_INTERNAL_LINK = "internal_link_block_update"
+
+SMALL_CONTENT_CHANGE_TYPES = {
+    CHANGE_SMALL_BODY,
+    CHANGE_FAQ,
+    CHANGE_INTERNAL_LINK,
+}
 
 # Map our generic public change labels to the per-page-type tier keys
-# the private config uses to grant live-write permission.
+# the private config uses to grant live-write permission. Small-content
+# changes use the same tier key for both page types because the config
+# uses page-type-agnostic labels for them.
 _TIER_KEY = {
     ("site_page", CHANGE_TITLE): "site_page_title_update",
     ("site_page", CHANGE_META): "site_page_meta_description_update",
     ("landing_page", CHANGE_TITLE): "landing_page_title_update",
     ("landing_page", CHANGE_META): "landing_page_meta_description_update",
+    ("site_page", CHANGE_SMALL_BODY): "small_existing_body_copy_improvement",
+    ("landing_page", CHANGE_SMALL_BODY): "small_existing_body_copy_improvement",
+    ("site_page", CHANGE_FAQ): "faq_section_update",
+    ("landing_page", CHANGE_FAQ): "faq_section_update",
+    ("site_page", CHANGE_INTERNAL_LINK): "internal_link_block_update",
+    ("landing_page", CHANGE_INTERNAL_LINK): "internal_link_block_update",
 }
 
 # Heuristic thresholds for "weak" / "missing" metadata.
@@ -119,6 +148,26 @@ RECOMMENDED_META_MAX = 155
 # Heuristic for "high impressions / low CTR" candidate selection.
 MIN_IMPRESSIONS_FOR_CTR_LEAK = 1000
 MAX_CTR_PCT_FOR_LEAK = 1.5
+
+# Accelerated-mode signals (lower thresholds, near-rank, demand-themed).
+ACCEL_MIN_IMPRESSIONS = 200
+ACCEL_MAX_CTR_PCT = 2.5
+NEAR_RANK_MIN_POSITION = 7.0
+NEAR_RANK_MAX_POSITION = 20.0
+NEAR_RANK_MIN_IMPRESSIONS = 100
+DEMAND_OFFICE_TOKENS = (
+    "thousand-oaks", "thousand oaks", "newbury-park", "newbury park",
+    "westlake", "agoura", "agoura-hills", "moorpark", "simi", "calabasas",
+    "conejo", "oak-park", "oak park",
+)
+DEMAND_SERVICE_TOKENS = (
+    "invisalign", "implant", "implants", "veneer", "veneers", "crown",
+    "crowns", "whitening", "cleaning", "cleanings", "emergency",
+    "wisdom-teeth", "wisdom teeth", "extraction", "extractions",
+    "root-canal", "root canal", "dentist", "dental", "orthodontic",
+    "orthodontics", "braces", "kids", "pediatric", "membership",
+    "insurance", "consultation", "exam",
+)
 
 HUBSPOT_API_BASE = "https://api.hubapi.com"
 
@@ -337,7 +386,25 @@ def _gsc_index(snapshot: dict) -> dict[str, list[dict]]:
     return rows
 
 
-def _gsc_signal_for_page(np: dict, gsc: dict[str, list[dict]]) -> dict | None:
+def _matches_demand_theme(text: str) -> str | None:
+    t = (text or "").lower()
+    if not t:
+        return None
+    for tok in DEMAND_OFFICE_TOKENS:
+        if tok in t:
+            return f"office:{tok}"
+    for tok in DEMAND_SERVICE_TOKENS:
+        if tok in t:
+            return f"service:{tok}"
+    return None
+
+
+def _gsc_signal_for_page(
+    np: dict,
+    gsc: dict[str, list[dict]],
+    *,
+    accelerated: bool = False,
+) -> dict | None:
     slug = _public_slug(np.get("url") or ("/" + (np.get("slug") or "")))
     if not slug or slug == "/":
         return None
@@ -345,42 +412,120 @@ def _gsc_signal_for_page(np: dict, gsc: dict[str, list[dict]]) -> dict | None:
     if not tokens:
         return None
     leaf = tokens[-1]
+    min_impr = ACCEL_MIN_IMPRESSIONS if accelerated else MIN_IMPRESSIONS_FOR_CTR_LEAK
+    max_ctr = ACCEL_MAX_CTR_PCT if accelerated else MAX_CTR_PCT_FOR_LEAK
+
+    # 1. Page-level: high impressions / low CTR (standard + accelerated).
     for r in gsc["pages"]:
         page = (r.get("page") or "").lower()
-        if leaf and leaf.lower() in page:
-            if (
-                isinstance(r.get("impressions"), (int, float))
-                and r["impressions"] >= MIN_IMPRESSIONS_FOR_CTR_LEAK
-                and isinstance(r.get("ctr_pct"), (int, float))
-                and r["ctr_pct"] <= MAX_CTR_PCT_FOR_LEAK
-            ):
-                return {
-                    "match": "page_row",
-                    "page": _public_slug(r.get("page") or ""),
-                    "clicks": r.get("clicks"),
-                    "impressions": r.get("impressions"),
-                    "ctr_pct": r.get("ctr_pct"),
-                    "avg_position": r.get("avg_position"),
-                }
+        if not (leaf and leaf.lower() in page):
+            continue
+        impressions = r.get("impressions")
+        ctr = r.get("ctr_pct")
+        position = r.get("avg_position")
+        if (
+            isinstance(impressions, (int, float))
+            and impressions >= min_impr
+            and isinstance(ctr, (int, float))
+            and ctr <= max_ctr
+        ):
+            return {
+                "match": "page_row_high_impression_low_ctr",
+                "rule": "high_impression_low_ctr",
+                "page": _public_slug(r.get("page") or ""),
+                "clicks": r.get("clicks"),
+                "impressions": impressions,
+                "ctr_pct": ctr,
+                "avg_position": position,
+            }
+        # 2. Accelerated only: near-rank opportunity (page 2 -> page 1).
+        if accelerated and (
+            isinstance(position, (int, float))
+            and NEAR_RANK_MIN_POSITION <= position <= NEAR_RANK_MAX_POSITION
+            and isinstance(impressions, (int, float))
+            and impressions >= NEAR_RANK_MIN_IMPRESSIONS
+        ):
+            return {
+                "match": "page_row_near_rank",
+                "rule": "near_rank_page_2_to_page_1_opportunity",
+                "page": _public_slug(r.get("page") or ""),
+                "clicks": r.get("clicks"),
+                "impressions": impressions,
+                "ctr_pct": ctr,
+                "avg_position": position,
+            }
+
+    # 3. Query-level: high impressions / low CTR + (accelerated) demand-theme.
     for r in gsc["queries"]:
         action = (r.get("action") or "").lower()
         query = (r.get("query") or "").lower()
-        if leaf and (leaf.lower() in action or leaf.lower() in query):
-            if (
-                isinstance(r.get("impressions"), (int, float))
-                and r["impressions"] >= MIN_IMPRESSIONS_FOR_CTR_LEAK
-                and isinstance(r.get("ctr_pct"), (int, float))
-                and r["ctr_pct"] <= MAX_CTR_PCT_FOR_LEAK
-            ):
+        if not (leaf and (leaf.lower() in action or leaf.lower() in query)):
+            continue
+        impressions = r.get("impressions")
+        ctr = r.get("ctr_pct")
+        if (
+            isinstance(impressions, (int, float))
+            and impressions >= min_impr
+            and isinstance(ctr, (int, float))
+            and ctr <= max_ctr
+        ):
+            return {
+                "match": "query_row_high_impression_low_ctr",
+                "rule": "high_impression_low_ctr",
+                "query": r.get("query"),
+                "clicks": r.get("clicks"),
+                "impressions": impressions,
+                "ctr_pct": ctr,
+                "avg_position": r.get("avg_position"),
+            }
+        if accelerated:
+            theme = _matches_demand_theme(query)
+            if theme and isinstance(impressions, (int, float)) and impressions >= NEAR_RANK_MIN_IMPRESSIONS:
                 return {
-                    "match": "query_row",
+                    "match": "query_row_demand_theme",
+                    "rule": "office_service_query_match",
+                    "demand_theme": theme,
                     "query": r.get("query"),
                     "clicks": r.get("clicks"),
-                    "impressions": r.get("impressions"),
-                    "ctr_pct": r.get("ctr_pct"),
+                    "impressions": impressions,
+                    "ctr_pct": ctr,
                     "avg_position": r.get("avg_position"),
                 }
+
+    # 4. Accelerated only: missing/weak metadata with any demand-theme slug match.
+    if accelerated:
+        theme = _matches_demand_theme(slug)
+        if theme and (_is_weak_title(np.get("html_title")) or _is_weak_meta(np.get("meta_description"))):
+            return {
+                "match": "slug_demand_theme_weak_metadata",
+                "rule": "page_title_or_meta_missing_or_weak",
+                "demand_theme": theme,
+                "query": leaf,
+                "clicks": None,
+                "impressions": None,
+                "ctr_pct": None,
+                "avg_position": None,
+            }
     return None
+
+
+def _callrail_review_themes(snapshot: dict) -> list[str]:
+    """Extract sanitized demand themes from CallRail / review aggregates.
+
+    These are short text labels (no PII) used as a soft signal when
+    deciding which pages to prioritize. We never read raw call bodies
+    or review bodies; we only look at sanitized aggregate counts.
+    """
+    themes: list[str] = []
+    cr = snapshot.get("callrail_live") or {}
+    for row in (cr.get("top_call_intents") or [])[:5]:
+        if isinstance(row, dict) and isinstance(row.get("intent"), str):
+            themes.append(row["intent"].lower())
+    gmb = snapshot.get("gmb_insights") or {}
+    for row in (gmb.get("top_review_themes") or [])[:5]:
+        if isinstance(row, dict) and isinstance(row.get("theme"), str):
+            themes.append(row["theme"].lower())
+    return themes
 
 
 def _draft_title(np: dict, signal: dict) -> str:
@@ -413,6 +558,12 @@ def _draft_meta(np: dict, signal: dict) -> str:
 
 
 def _build_candidate(np: dict, signal: dict) -> dict | None:
+    """Build a metadata-update candidate (title / meta description).
+
+    Small body / FAQ / internal-link improvements are tracked through a
+    separate proposal path (see ``_build_small_content_proposal``) so
+    that the metadata-write loop stays narrow and reversible.
+    """
     weak_title = _is_weak_title(np.get("html_title"))
     weak_meta = _is_weak_meta(np.get("meta_description"))
     if not (weak_title or weak_meta):
@@ -435,6 +586,57 @@ def _build_candidate(np: dict, signal: dict) -> dict | None:
         "proposed_fields": fields,
         "change_types": change_types,
         "signal": signal,
+    }
+
+
+def _build_small_content_proposal(np: dict, signal: dict) -> dict | None:
+    """Stage a small body-copy / FAQ / internal-link improvement.
+
+    These are never written live by this optimizer: the HubSpot CMS
+    page-module structure varies per template, and a careless PATCH can
+    corrupt the rendered page. We surface the proposal with the
+    smallest possible scope (one-paragraph rewrite, single FAQ row,
+    single internal-link block) and a clear ``why`` so the operator
+    can promote it to a HubSpot draft from the UI.
+    """
+    keyword_source = signal.get("query") or signal.get("page") or ""
+    keyword = (str(keyword_source).strip().rstrip("/").split("/")[-1] or "").replace("-", " ").strip()
+    if not keyword:
+        return None
+    # Choose the proposal type based on the signal rule.
+    rule = signal.get("rule") or signal.get("match") or ""
+    if "near_rank" in rule:
+        change_type = CHANGE_FAQ
+        proposal_text = (
+            f"Add a 2-3 question FAQ block answering common '{keyword}' "
+            "questions (eligibility, timing, what's included). Keep total "
+            "added copy under 600 characters."
+        )
+    elif "office_service" in rule or signal.get("demand_theme"):
+        change_type = CHANGE_INTERNAL_LINK
+        proposal_text = (
+            f"Add 1-2 internal links from this page to the matching "
+            f"'{keyword}' service or office page, with descriptive anchor "
+            "text. No new sections; reuse existing copy where possible."
+        )
+    else:
+        change_type = CHANGE_SMALL_BODY
+        proposal_text = (
+            f"Rewrite the opening paragraph to lead with '{keyword}' and "
+            "the patient outcome. Single-paragraph change, under 280 "
+            "characters added; no template/CTA/form changes."
+        )
+    return {
+        "_id": np.get("_id"),
+        "page_label": _public_page_label(np),
+        "slug": _public_slug(np.get("url") or ("/" + (np.get("slug") or ""))),
+        "type": np.get("type", "site_page"),
+        "current_title_len": len((np.get("html_title") or "")),
+        "current_meta_len": len((np.get("meta_description") or "")),
+        "proposed_fields": {"proposal_text": proposal_text},
+        "change_types": [change_type],
+        "signal": signal,
+        "small_content": True,
     }
 
 
@@ -556,6 +758,26 @@ def _tier_set(cfg: dict, name: str) -> set[str]:
     return set()
 
 
+def _accel(cfg: dict) -> dict:
+    """Return the accelerated_growth_mode sub-block (or {} if absent)."""
+    accel = cfg.get("accelerated_growth_mode") or {}
+    return accel if isinstance(accel, dict) else {}
+
+
+def _accel_enabled(cfg: dict) -> bool:
+    accel = _accel(cfg)
+    return bool(accel.get("enabled")) and cfg.get("publish_mode") == ACCELERATED_PUBLISH_MODE
+
+
+def _accel_tier_set(cfg: dict, name: str) -> set[str]:
+    """Pull a tier list from accelerated_growth_mode, falling back to safety_tiers."""
+    accel = _accel(cfg)
+    val = accel.get(name)
+    if isinstance(val, list):
+        return {str(v) for v in val}
+    return _tier_set(cfg, name)
+
+
 def _eligibility(cfg: dict, cand: dict) -> dict:
     """Decide how this candidate may be written.
 
@@ -571,8 +793,25 @@ def _eligibility(cfg: dict, cand: dict) -> dict:
     if not change_types:
         return {"write": False, "live": False, "reason": "no change types"}
 
-    auto_live = _tier_set(cfg, "auto_live_allowed")
-    auto_draft = _tier_set(cfg, "auto_draft_or_propose_only")
+    # Small-content changes (body/FAQ/internal-link) are never written
+    # live by this optimizer. They are surfaced as proposals so an
+    # operator (or a follow-on tool with template-aware writes) can
+    # apply them without risk of corrupting the page's module tree.
+    if any(ct in SMALL_CONTENT_CHANGE_TYPES for ct in change_types):
+        if publish_mode not in PUBLISH_MODES_WITH_SMALL_CONTENT:
+            return {
+                "write": False, "live": False,
+                "reason": "small_content not enabled in publish_mode",
+            }
+        return {
+            "write": False, "live": False,
+            "reason": "small_content_proposed_for_review_no_safe_api_path",
+        }
+
+    # Accelerated mode keeps its tier lists under accelerated_growth_mode
+    # but falls back to safety_tiers if missing.
+    auto_live = _accel_tier_set(cfg, "auto_live_allowed")
+    auto_draft = _accel_tier_set(cfg, "auto_draft_or_propose_only")
     # Legacy key, still honored if present.
     legacy_auto = _tier_set(cfg, "auto_allowed")
 
@@ -704,7 +943,14 @@ def run(
         "live_writes": 0,
         "draft_writes": 0,
         "proposals": 0,
+        "small_content_proposals": 0,
         "impact_samples_updated": 0,
+        "accelerated": False,
+        "growth_mode": "standard",
+        "cooldown_days": cooldown_days,
+        "max_changes_cap": max_changes,
+        "cooldown_blocked_slugs": [],
+        "next_opportunity_queue": [],
     }
 
     cfg_path = private_dir / DEFAULT_CONFIG_NAME
@@ -716,10 +962,26 @@ def run(
     out["publish_mode"] = cfg.get("publish_mode")
     # Per-config cap, if present.
     learn = cfg.get("daily_learning_loop") or {}
-    if isinstance(learn.get("max_live_metadata_changes_per_run"), int):
+    accel = _accel(cfg)
+    accelerated = _accel_enabled(cfg)
+    out["accelerated"] = accelerated
+    out["growth_mode"] = "accelerated" if accelerated else (learn.get("growth_mode") or "standard")
+    # Accelerated config overrides cap + cooldown; otherwise fall back
+    # to daily_learning_loop, otherwise the CLI default.
+    if accelerated and isinstance(accel.get("max_live_metadata_changes_per_run"), int):
+        max_changes = accel["max_live_metadata_changes_per_run"]
+    elif isinstance(learn.get("max_live_metadata_changes_per_run"), int):
         max_changes = min(max_changes, learn["max_live_metadata_changes_per_run"])
-    if isinstance(learn.get("cooldown_days_per_page"), int):
+    if accelerated and isinstance(accel.get("cooldown_days_per_page"), int):
+        cooldown_days = accel["cooldown_days_per_page"]
+    elif isinstance(learn.get("cooldown_days_per_page"), int):
         cooldown_days = learn["cooldown_days_per_page"]
+    max_small_content = 0
+    if accelerated and isinstance(accel.get("max_body_or_section_changes_per_run"), int):
+        max_small_content = max(0, accel["max_body_or_section_changes_per_run"])
+    out["cooldown_days"] = cooldown_days
+    out["max_changes_cap"] = max_changes
+    out["max_small_content_cap"] = max_small_content
 
     client = HubSpotClient(cfg["token"])
     pages: list[dict] = []
@@ -757,20 +1019,42 @@ def run(
     out["impact_samples_updated"] = _refresh_impact_history(state, snapshot)
 
     candidates: list[dict] = []
+    small_candidates: list[dict] = []
+    cooldown_blocked: list[dict] = []
+    next_queue: list[dict] = []
     for np in pages:
-        signal = _gsc_signal_for_page(np, gsc)
+        signal = _gsc_signal_for_page(np, gsc, accelerated=accelerated)
         if not signal:
             continue
         out["candidates_considered"] += 1
         slug = _public_slug(np.get("url") or ("/" + (np.get("slug") or "")))
         if _candidate_cooldown_active(state, slug, cooldown_days):
+            cooldown_blocked.append({
+                "slug": slug,
+                "rule": signal.get("rule"),
+                "reason": f"cooldown_active_{cooldown_days}d",
+            })
             continue
         cand = _build_candidate(np, signal)
-        if not cand:
-            continue
-        candidates.append(cand)
-        if len(candidates) >= max_changes:
-            break
+        if cand:
+            if len(candidates) < max_changes:
+                candidates.append(cand)
+            else:
+                next_queue.append({
+                    "slug": cand["slug"],
+                    "rule": signal.get("rule"),
+                    "change": ", ".join(cand.get("change_types") or []),
+                    "reason": "queued_beyond_run_cap",
+                })
+        # In accelerated mode, also stage one small-content proposal per
+        # page (capped). These never write live; they surface to the
+        # operator with an explicit reason.
+        if accelerated and max_small_content > 0 and len(small_candidates) < max_small_content:
+            sc = _build_small_content_proposal(np, signal)
+            if sc:
+                small_candidates.append(sc)
+    out["cooldown_blocked_slugs"] = cooldown_blocked[:10]
+    out["next_opportunity_queue"] = next_queue[:10]
 
     for cand in candidates:
         elig = _eligibility(cfg, cand)
@@ -858,6 +1142,46 @@ def run(
                 "impact_history": [],
             })
 
+    # Small-content proposals (body / FAQ / internal-link). These are
+    # never written live — the HubSpot module structure varies by
+    # template and a careless PATCH can corrupt the rendered page.
+    # We surface them as draft proposals so the operator can promote
+    # them safely from the HubSpot UI.
+    for cand in small_candidates:
+        elig = _eligibility(cfg, cand)
+        reason = elig.get("reason", "small_content_proposed_for_review_no_safe_api_path")
+        row = _public_action_row(cand, "proposed", reason)
+        row["proposal_text"] = cand["proposed_fields"].get("proposal_text", "")
+        out["actions"].append(row)
+        out["proposals"] += 1
+        out["small_content_proposals"] += 1
+        cms_state["log"].append({
+            "applied_at": utcnow_iso(),
+            "cooldown_until": (
+                utcnow() + timedelta(days=cooldown_days)
+            ).isoformat(),
+            "slug": cand["slug"],
+            "page_label": cand["page_label"],
+            "page_type": cand["type"],
+            "change_types": cand["change_types"],
+            "hypothesis": (
+                "A scoped body/FAQ/internal-link improvement on a "
+                "demand-themed page should lift on-page engagement and "
+                "internal pageviews within 14-28 days. Safety: only "
+                "small, reversible, no template/CTA/form change."
+            ),
+            "baseline": _baseline_from_signal(cand.get("signal") or {}),
+            "metric_to_watch": (
+                "ctr_pct (gsc), clicks (gsc), sessions (ga4), "
+                "internal_links_clicked (ga4)"
+            ),
+            "status": "proposed_not_applied",
+            "acceleration_reason": (
+                "accelerated_mode_small_content_safe_proposal"
+            ),
+            "impact_history": [],
+        })
+
     try:
         write_json_atomic(private_dir / DEFAULT_STATE_NAME, state)
     except Exception as e:
@@ -922,19 +1246,43 @@ def build_public_block(result: dict, *, private_dir: Path | None = None) -> dict
             impact_rows = _impact_over_time_public(private_dir / DEFAULT_STATE_NAME)
         except Exception:
             impact_rows = []
+    accelerated = bool(result.get("accelerated"))
+    growth_mode = result.get("growth_mode") or "standard"
+    cooldown_days = int(result.get("cooldown_days") or DEFAULT_COOLDOWN_DAYS)
+    max_cap = int(result.get("max_changes_cap") or 0)
+    small_cap = int(result.get("max_small_content_cap") or 0)
+    why_no_prior = (
+        f"Prior runs were held by the {cooldown_days}-day per-page "
+        "cooldown after the May 13 live metadata writes. Accelerated "
+        "mode shortens the cooldown and expands the candidate pool."
+    ) if accelerated else (
+        f"Prior runs were held by the {cooldown_days}-day per-page "
+        "cooldown after the most recent live metadata write."
+    )
     return {
         "title": "Organic / HubSpot CMS automation",
         "last_run_at": result.get("ran_at"),
         "mode": result.get("mode"),
         "publish_mode": result.get("publish_mode"),
+        "growth_mode": growth_mode,
+        "accelerated": accelerated,
         "writeback_performed": bool(result.get("writeback_performed")),
         "live_writes": int(result.get("live_writes") or 0),
         "draft_writes": int(result.get("draft_writes") or 0),
         "proposals": int(result.get("proposals") or 0),
+        "small_content_proposals": int(result.get("small_content_proposals") or 0),
         "impact_samples_updated": int(result.get("impact_samples_updated") or 0),
+        "cooldown_days": cooldown_days,
+        "max_changes_cap": max_cap,
+        "max_small_content_cap": small_cap,
+        "why_no_prior_change": why_no_prior,
+        "cooldown_blocked_slugs": result.get("cooldown_blocked_slugs") or [],
+        "next_opportunity_queue": result.get("next_opportunity_queue") or [],
         "summary": (
-            f"{len(actions)} CMS metadata action(s) considered; "
-            f"{live_n} live · {draft_n} draft."
+            f"{len(actions)} CMS action(s) considered; "
+            f"{live_n} live · {draft_n} draft · "
+            f"{int(result.get('proposals') or 0)} proposed "
+            f"({'accelerated' if accelerated else 'standard'} mode)."
         ),
         "actions": actions,
         "impact_over_time": impact_rows,
@@ -958,7 +1306,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
                    help="Dry-run only: propose changes, write nothing to HubSpot.")
     p.add_argument("--apply", action="store_true",
                    help="Apply low-risk metadata changes (live where eligible, draft otherwise).")
-    p.add_argument("--max-changes", type=int, default=3)
+    p.add_argument("--max-changes", type=int, default=10)
     p.add_argument("--cooldown-days", type=int, default=DEFAULT_COOLDOWN_DAYS)
     p.add_argument("--snapshot", default=str(PUBLIC_SNAPSHOT))
     p.add_argument("--write-block", default=None,
@@ -992,14 +1340,21 @@ def main(argv: list[str]) -> int:
     print(json.dumps({
         "mode": result["mode"],
         "publish_mode": result["publish_mode"],
+        "growth_mode": result.get("growth_mode"),
+        "accelerated": result.get("accelerated"),
         "inventory": result["inventory"],
         "candidates_considered": result["candidates_considered"],
         "actions": len(result["actions"]),
         "live_writes": result["live_writes"],
         "draft_writes": result["draft_writes"],
         "proposals": result["proposals"],
+        "small_content_proposals": result.get("small_content_proposals", 0),
         "writeback_performed": result["writeback_performed"],
         "impact_samples_updated": result["impact_samples_updated"],
+        "cooldown_days": result.get("cooldown_days"),
+        "max_changes_cap": result.get("max_changes_cap"),
+        "cooldown_blocked": len(result.get("cooldown_blocked_slugs") or []),
+        "next_queue": len(result.get("next_opportunity_queue") or []),
         "errors": result["errors"],
     }, indent=2))
     return 0

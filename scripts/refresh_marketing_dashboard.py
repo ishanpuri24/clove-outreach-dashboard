@@ -924,7 +924,14 @@ def build_action_system(snapshot: dict, prior_action_system: dict | None) -> dic
             "id": "hubspot-cms-metadata",
             "name": "HubSpot CMS metadata writeback",
             "status": cms_status,
+            "growth_mode": cms.get("growth_mode") or "standard",
+            "accelerated": bool(cms.get("accelerated")),
             "next_action": (
+                "Accelerated daily loop: 10 live metadata writes/run, "
+                "7-day cooldown, expanded candidate pool (high-impr/low-CTR, "
+                "near-rank, demand themes, weak metadata); small "
+                "body/FAQ/internal-link improvements staged as drafts."
+            ) if cms.get("accelerated") else (
                 "Continue daily learning loop: append impact samples and "
                 "promote draft changes to live when CTR uplift confirmed."
             ),
@@ -934,6 +941,10 @@ def build_action_system(snapshot: dict, prior_action_system: dict | None) -> dic
             "impact_samples": cms.get("impact_samples_updated", 0),
             "live_writes": cms.get("live_writes", 0),
             "draft_writes": cms.get("draft_writes", 0),
+            "proposals": cms.get("proposals", 0),
+            "small_content_proposals": cms.get("small_content_proposals", 0),
+            "cooldown_days": cms.get("cooldown_days", 7),
+            "why_no_prior_change": cms.get("why_no_prior_change") or "",
             "blocker": None,
         }),
         merge_prior({
@@ -1140,6 +1151,7 @@ def merge_cms_actions(
         status["hubspot_cms"] = "error: sanitization invariant violated; cms_actions dropped"
         return result
     snapshot["organic_cms_actions"] = block
+    snapshot["accelerated_organic"] = _build_accelerated_organic_block(block)
     parts = [
         f"inventory={result['inventory']['site_pages']}sp/{result['inventory']['landing_pages']}lp",
         f"considered={result['candidates_considered']}",
@@ -1149,6 +1161,8 @@ def merge_cms_actions(
         f"proposed={result.get('proposals', 0)}",
         f"impact_samples={result.get('impact_samples_updated', 0)}",
     ]
+    if result.get("accelerated"):
+        parts.append("growth=accelerated")
     if result.get("live_writes"):
         mode_note = " (live-writeback)"
     elif result.get("draft_writes"):
@@ -1161,6 +1175,73 @@ def merge_cms_actions(
     return result
 
 
+def _build_accelerated_organic_block(cms: dict) -> dict:
+    """Action-first summary of accelerated organic SEO automation.
+
+    Rendered on the Automations + Organic tabs. Aggregate only — never
+    contains HubSpot internal IDs, tokens, private paths, or raw API
+    payloads. Slugs are public URL paths, which are already in the
+    public sitemap.
+    """
+    actions = cms.get("actions") or []
+    next_q = cms.get("next_opportunity_queue") or []
+    blocked = cms.get("cooldown_blocked_slugs") or []
+    why = cms.get("why_no_prior_change") or ""
+    growth_mode = cms.get("growth_mode") or "standard"
+    accelerated = bool(cms.get("accelerated"))
+    live = int(cms.get("live_writes") or 0)
+    draft = int(cms.get("draft_writes") or 0)
+    proposed = int(cms.get("proposals") or 0)
+    small = int(cms.get("small_content_proposals") or 0)
+    return {
+        "title": "Accelerated organic SEO",
+        "growth_mode": growth_mode,
+        "accelerated": accelerated,
+        "publish_mode_pretty": (
+            "Accelerated · live metadata + small-content drafts"
+            if accelerated else "Standard · live metadata only"
+        ),
+        "last_run_at": cms.get("last_run_at"),
+        "cooldown_days": int(cms.get("cooldown_days") or 7),
+        "max_changes_cap": int(cms.get("max_changes_cap") or 0),
+        "max_small_content_cap": int(cms.get("max_small_content_cap") or 0),
+        "why_no_prior_change": why,
+        "what_changed_now": (
+            f"{live} live metadata update(s), {draft} draft, "
+            f"{proposed - small} metadata proposal(s), "
+            f"{small} small-content proposal(s)."
+        ),
+        "next_opportunity_queue": next_q[:8],
+        "cooldown_blocked_slugs": blocked[:8],
+        "impact_metrics_watched": [
+            "gsc_ctr_pct", "gsc_clicks", "gsc_impressions",
+            "ga4_sessions", "ga4_form_submit",
+            "callrail_calls", "qualified_calls",
+        ],
+        "live_writes": live,
+        "draft_writes": draft,
+        "proposals": proposed,
+        "small_content_proposals": small,
+        "actions": actions[:10],
+        "safety_tiers": {
+            "auto_live_allowed": [
+                "site_page_title_update", "site_page_meta_description_update",
+                "landing_page_title_update", "landing_page_meta_description_update",
+            ],
+            "draft_or_proposed_only": [
+                "small_existing_body_copy_improvement",
+                "faq_section_update",
+                "internal_link_block_update",
+            ],
+            "approval_required": [
+                "body_copy_rewrite", "new_page",
+                "cta_or_form_change", "redirect",
+                "template_or_source_code", "domain_change",
+            ],
+        },
+    }
+
+
 def refresh(
     private_dir: Path,
     fast: bool,
@@ -1168,7 +1249,7 @@ def refresh(
     check_only: bool,
     *,
     cms_apply: bool = True,
-    cms_max_changes: int = 3,
+    cms_max_changes: int = 10,
 ) -> int:
     if not PUBLIC_SNAPSHOT.exists():
         print(f"ERROR: missing public snapshot at {PUBLIC_SNAPSHOT}", file=sys.stderr)
@@ -1228,6 +1309,7 @@ def refresh(
     issues = scan_forbidden(snapshot.get("routine_refresh", {}))
     issues += scan_forbidden(snapshot.get("callrail_live", {}))
     issues += scan_forbidden(snapshot.get("organic_cms_actions", {}))
+    issues += scan_forbidden(snapshot.get("accelerated_organic", {}))
     issues += scan_forbidden(snapshot.get("automations", {}).get("action_system", {}))
     issues += scan_forbidden(snapshot.get("organic_insights", {}).get("connector_status", []))
     issues += scan_forbidden(snapshot.get("organic_insights", {}).get("source_status_rows", []))
@@ -1266,7 +1348,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     p.add_argument("--check", action="store_true", help="Validate inputs and exit without writing snapshot.json.")
     p.add_argument("--cms-apply", action="store_true", default=True, help="Allow HubSpot CMS low-risk metadata writeback if config permits (default).")
     p.add_argument("--cms-dry-run", dest="cms_apply", action="store_false", help="Force HubSpot CMS step to dry-run regardless of config.")
-    p.add_argument("--cms-max-changes", type=int, default=3, help="Cap number of CMS metadata changes per run (default 3).")
+    p.add_argument("--cms-max-changes", type=int, default=10, help="Cap number of CMS metadata changes per run (default 10; accelerated mode).")
     return p.parse_args(argv)
 
 
