@@ -448,6 +448,80 @@ the optimizer and the validator backstop this.
   campaign, budget, bid, ad, search-term, and negative-keyword edits
   are manual until a mutation-capable Google Ads tool/scope is
   added, and any future writeback must be explicitly approved.
+- Paid Ads dynamic action system (`paid_ads_action_system`):
+  prioritized, daily-learning action queue surfaced at the top of
+  the Paid Ads tab. Every action carries an owner, status, impact
+  metric, opportunity size, and writeback tier so the dashboard
+  clearly distinguishes "can execute now" from "needs Google Ads
+  mutate access". See "Paid ads automation safety tiers" below for
+  the tiering rules and how to enable true Google Ads mutate/write
+  access.
+
+### Paid ads automation safety tiers
+
+The Paid Ads tab and the Automations tab both render a single
+prioritized queue (`paid_ads_action_system`). Each action is tagged
+with one of three writeback tiers so it is obvious what runs
+automatically today versus what is blocked on connector capability:
+
+| Tier | What it covers | Behavior today |
+|------|----------------|----------------|
+| `executable_now` | Report refresh, dashboard action queue, offline-conversion uploads (only when the ad-click identifier and qualified/booked status exist in the private tracker), customer-list adds, keyword-focus monitoring. | Runs on every daily refresh. No mutation of campaigns, budgets, bids, ads, or keywords. |
+| `mutation_ready_when_write_access_available` | Exact-match negative keywords from irrelevant terms after the search-term review threshold, campaign budget changes, bid strategy changes, campaign / ad-group pauses, ad copy changes. | Queued and surfaced with priority + opportunity size, but **not executed**. Each card shows `Needs Google Ads mutate access`. |
+| `approval_required_higher_risk` | Large budget increases, new campaigns, account-structure rebuilds. | Held for explicit operator approval even after mutate access is enabled. |
+
+Privacy guardrails (also enforced by the validator):
+
+- No Google Ads manager / login / customer IDs (dashed or
+  10-digit), no GCLID values, no raw search terms, no caller phone
+  numbers / names / emails, no CallRail company/account IDs, no
+  Sheet IDs, no tokens, and no private paths are ever published.
+- Office labels are the only identifier shown publicly. Campaign
+  names are kept as the operator's existing campaign label and are
+  scanned for stale boilerplate.
+- The validator (`scripts/validate_public_snapshot.py`) blocks the
+  refresh if any of the above leak, if the action queue contains an
+  unknown writeback tier, or if stale boilerplate like "Connect
+  Google Ads" / "Google Ads not connected" / "Static recommendation
+  list" appears in the published snapshot.
+
+#### How to enable true Google Ads mutate / write access
+
+The connector that ships with the daily refresh exposes:
+
+- Report queries (campaign, ad-group, keyword performance).
+- Keyword ideas (Keyword Planner endpoint).
+- Offline conversion uploads (only when an ad-click identifier
+  is present in the private tracker).
+- Customer / audience list create + add.
+
+It does **not** currently expose budget, bid, pause/enable, negative
+keyword, ad copy, or new-campaign mutations. To unblock those:
+
+1. Add a mutate-capable Google Ads path. Either:
+   - Connect the official Google Ads API with the
+     `https://www.googleapis.com/auth/adwords` scope and grant the
+     manager-level developer token mutation permission (Standard
+     access, not Test), and wire the new mutate tools through the
+     connector layer; or
+   - Add an approved, audited browser automation path that signs
+     into the manager account, applies the named change, and
+     captures a confirmation hash that the daily refresh can record.
+2. Update `cron_tracking/<id>/paid_ads_config.json` so
+   `auto_supported_actions` includes the specific mutations you
+   intend to run automatically (e.g.
+   `exact_negative_keywords_from_irrelevant_terms_after_threshold`).
+   Higher-risk mutations stay in `approval_required` regardless.
+3. Re-run `python3 scripts/refresh_marketing_dashboard.py`. Actions
+   in tier `mutation_ready_when_write_access_available` whose change
+   type now has a configured executor will flip from
+   `Needs Google Ads mutate access` to `Can execute now`.
+
+Until step 1 is complete, every budget / bid / pause / ad / negative
+keyword change is intentionally queued, never executed. The daily
+learning loop tracks before/after metrics (spend, CPA, CVR, CTR,
+qualified calls, high-risk spend share) so each unblocked mutation
+gets graded on its own evidence.
 - Experiment backlog and queue health with sourcing goals and
   warnings.
 - Operator follow-up queue, redacted to action and channel only.

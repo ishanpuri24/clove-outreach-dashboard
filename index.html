@@ -2010,6 +2010,28 @@
            aria-labelledby="tab-ads" tabindex="0" hidden>
         <p class="tab-meta" id="ads-compact-note">Last 30d.</p>
 
+        <!-- Paid ads dynamic action system (top of tab) -->
+        <section aria-labelledby="ads-paction-h"
+                 class="priority-strip" id="ads-paction-section">
+          <div class="ps-head">
+            <h2 id="ads-paction-h">Paid ads action system</h2>
+            <span class="pill" id="ads-paction-pill"
+                  aria-live="polite"></span>
+          </div>
+          <div class="section-meta" id="ads-paction-summary"></div>
+          <div class="paid-summary-grid" id="ads-paction-tiers"></div>
+          <h3 style="margin-top:14px;font-size:1.05rem;">
+            Top 5 actions by opportunity
+          </h3>
+          <div class="action-queue" id="ads-paction-top5"></div>
+          <h3 style="margin-top:14px;font-size:1.05rem;">
+            Full action queue (owner · status · impact · writeback tier)
+          </h3>
+          <div class="action-queue" id="ads-paction-queue"></div>
+          <div class="section-meta" id="ads-paction-blocker"
+               style="margin-top:8px;font-style:italic;"></div>
+        </section>
+
         <!-- Action board: Do these today -->
         <section aria-labelledby="ads-top5"
                  class="priority-strip" id="ads-top5-section">
@@ -6189,6 +6211,7 @@
         renderOperatorOrder(s.google_ads_insights);
         renderPriorityPlaybooks(s.google_ads_insights);
         renderActionQueue(s.google_ads_insights);
+        renderPaidAdsActionSystem(s.paid_ads_action_system);
         renderTrendRollup(s.google_ads_insights);
         renderTrendOffices(s.google_ads_insights);
         renderTrendCampaigns(s.google_ads_insights);
@@ -6368,6 +6391,120 @@
         return el("span", { "class": cls, text: text });
       }
 
+      function _paidTierBadge(tier) {
+        var t = tier || "";
+        var cls = "trend-badge";
+        var text = t;
+        if (t === "executable_now") {
+          cls += " is-good"; text = "Can execute now";
+        } else if (t === "mutation_ready_when_write_access_available") {
+          cls += " is-needs-review"; text = "Needs Google Ads mutate access";
+        } else if (t === "approval_required_higher_risk") {
+          cls += " is-worsening"; text = "Approval required";
+        }
+        return el("span", { "class": cls, text: text });
+      }
+
+      function _paidPriorityBadge(p) {
+        var s = (p || "").toUpperCase();
+        var cls = "trend-badge";
+        if (s === "P0") cls += " is-worsening";
+        else if (s === "P1") cls += " is-needs-review";
+        return el("span", { "class": cls, text: s });
+      }
+
+      function _paidActionCard(q) {
+        var rows = [];
+        rows.push(el("div", { "class": "ac-head" }, [
+          _paidPriorityBadge(q.priority),
+          el("span", { "class": "ac-where" }, [
+            el("strong", { text: q.office || "—" }),
+            " · " + (q.label || "—")
+          ])
+        ]));
+        rows.push(el("div", { "class": "ac-change", text: q.action || "" }));
+        var meta = el("div", { "class": "ps-stat-bench",
+          style: "display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;" });
+        meta.appendChild(_paidTierBadge(q.writeback_tier));
+        meta.appendChild(el("span", { "class": "trend-badge",
+          text: "Owner: " + (q.owner || "—") }));
+        meta.appendChild(el("span", { "class": "trend-badge",
+          text: "Status: " + (q.status || "—") }));
+        if (q.estimated_opportunity_usd != null) {
+          meta.appendChild(el("span", { "class": "trend-badge",
+            text: "Opportunity: $" +
+              Number(q.estimated_opportunity_usd)
+                .toLocaleString(undefined, { maximumFractionDigits: 0 })
+          }));
+        }
+        rows.push(meta);
+        if (q.impact_metric) {
+          rows.push(el("div", { "class": "ps-stat-bench",
+            style: "margin-top:4px;",
+            text: "Impact metric: " + q.impact_metric }));
+        }
+        if (q.blocker) {
+          rows.push(el("div", { "class": "ps-stat-bench",
+            style: "margin-top:4px;color:#a16207;",
+            text: "Blocker: " + q.blocker }));
+        }
+        return el("div", { "class": "action-card" }, rows);
+      }
+
+      function renderPaidAdsActionSystem(pas) {
+        var summaryEl = $("ads-paction-summary");
+        var pillEl = $("ads-paction-pill");
+        var tiersHost = $("ads-paction-tiers");
+        var top5Host = $("ads-paction-top5");
+        var queueHost = $("ads-paction-queue");
+        var blockEl = $("ads-paction-blocker");
+        if (!queueHost) return;
+        [summaryEl, tiersHost, top5Host, queueHost, blockEl].forEach(function (n) {
+          if (n) n.innerHTML = "";
+        });
+        if (pillEl) pillEl.textContent = "";
+        if (!pas || !(pas.queue || []).length) {
+          if (summaryEl) summaryEl.textContent =
+            "Awaiting first Paid Ads action-queue rebuild.";
+          return;
+        }
+        if (pillEl) {
+          pillEl.textContent = pas.as_of ? ("As of " + pas.as_of) : "";
+        }
+        if (summaryEl) summaryEl.textContent = pas.summary || "";
+        var tc = pas.tier_counts || {};
+        if (tiersHost) {
+          [
+            { k: "executable_now",
+              label: "Can execute now",
+              note: "Reports, offline conversions, customer lists, dashboard queue." },
+            { k: "mutation_ready_when_write_access_available",
+              label: "Needs mutate access",
+              note: "Budget, bid, pause, ad, negative keyword changes." },
+            { k: "approval_required_higher_risk",
+              label: "Approval required",
+              note: "Higher-risk actions held for explicit operator approval." }
+          ].forEach(function (row) {
+            var card = el("div", { "class": "ps-stat" }, [
+              el("div", { "class": "ps-stat-label", text: row.label }),
+              el("div", { "class": "ps-stat-value",
+                text: String(tc[row.k] || 0) }),
+              el("div", { "class": "ps-stat-bench", text: row.note })
+            ]);
+            tiersHost.appendChild(card);
+          });
+        }
+        (pas.top_5_by_opportunity || []).forEach(function (q) {
+          top5Host.appendChild(_paidActionCard(q));
+        });
+        (pas.queue || []).forEach(function (q) {
+          queueHost.appendChild(_paidActionCard(q));
+        });
+        if (blockEl && pas.blocker_for_direct_writes) {
+          blockEl.textContent = "Note: " + pas.blocker_for_direct_writes;
+        }
+      }
+
       function renderActionSystem(asys) {
         var host = $("auto-action-system-table");
         var pill = $("auto-action-system-pill");
@@ -6397,6 +6534,17 @@
           if (a.blocker) {
             nameCell.appendChild(el("div", { "class": "ps-stat-bench",
               text: "Blocker: " + a.blocker }));
+          }
+          if (a.tier_counts) {
+            var tc = a.tier_counts || {};
+            nameCell.appendChild(el("div", { "class": "ps-stat-bench",
+              text:
+                "Tiers: " + (tc.executable_now || 0) +
+                " executable now · " +
+                (tc.mutation_ready_when_write_access_available || 0) +
+                " need mutate access · " +
+                (tc.approval_required_higher_risk || 0) +
+                " need approval" }));
           }
           if ((a.key_events || []).length) {
             var ke = el("div", { "class": "ps-stat-bench" });

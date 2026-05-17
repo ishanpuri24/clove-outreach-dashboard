@@ -2701,6 +2701,209 @@ def check_automations(snap: dict[str, Any]) -> None:
 # phrases must not appear in the public mirror — replace them with the
 # specific action ("key events not firing", "conversion tracking needs
 # mapping") so operators see what to do next, not "we need GA4".
+# Paid-ads dynamic action system. Validates the shape of the new
+# prioritized action queue, writeback tiers, and daily learning fields.
+# Aggregate only — no Google Ads customer IDs, login customer IDs,
+# raw search terms, raw call records, GCLIDs, tokens, sheet IDs,
+# CallRail IDs, or private paths.
+
+ALLOWED_PAID_ADS_ACTION_TOP_KEYS = {
+    "title", "as_of", "summary", "writeback_tiers", "tier_counts",
+    "top_5_by_opportunity", "queue", "daily_learning",
+    "blocker_for_direct_writes",
+}
+
+ALLOWED_PAID_ADS_QUEUE_ENTRY_KEYS = {
+    "category", "priority", "office", "label", "action",
+    "owner", "status", "writeback_tier", "can_execute_now",
+    "blocker", "impact_metric", "estimated_opportunity_usd",
+    "estimated_waste_share_pct",
+}
+
+ALLOWED_PAID_ADS_WRITEBACK_TIERS = {
+    "executable_now",
+    "mutation_ready_when_write_access_available",
+    "approval_required_higher_risk",
+}
+
+ALLOWED_PAID_ADS_QUEUE_STATUSES = {
+    "queued", "monitoring", "active_live", "pending", "blocked",
+    "in_progress", "completed",
+}
+
+ALLOWED_PAID_ADS_CATEGORIES = {
+    "waste_to_cut",
+    "budget_to_protect_or_scale",
+    "keyword_focus",
+    "negative_keyword_candidate",
+    "office_or_campaign_opportunity",
+    "tracking_offline_conversions",
+}
+
+REQUIRED_PAID_ADS_LEARNING_FIELDS = {
+    "metric_before", "metric_after", "metric_deltas",
+    "suppressed_repeats_this_run", "self_rating_note",
+    "previous_actions_recorded",
+}
+
+
+def check_paid_ads_action_system(snap: dict[str, Any]) -> None:
+    block = snap.get("paid_ads_action_system")
+    if not isinstance(block, dict):
+        _fail(
+            "snapshot.json paid_ads_action_system must be an object "
+            "containing the dynamic action queue."
+        )
+    extra = set(block.keys()) - ALLOWED_PAID_ADS_ACTION_TOP_KEYS
+    if extra:
+        _fail(
+            "paid_ads_action_system has unexpected keys: "
+            f"{sorted(extra)}"
+        )
+    for required in (
+        "title", "as_of", "summary", "writeback_tiers",
+        "tier_counts", "top_5_by_opportunity", "queue",
+        "daily_learning", "blocker_for_direct_writes",
+    ):
+        if required not in block:
+            _fail(
+                f"paid_ads_action_system missing required field: "
+                f"{required!r}"
+            )
+    tiers = block.get("writeback_tiers")
+    if not isinstance(tiers, dict):
+        _fail("paid_ads_action_system.writeback_tiers must be an object.")
+    missing_tiers = ALLOWED_PAID_ADS_WRITEBACK_TIERS - set(tiers.keys())
+    if missing_tiers:
+        _fail(
+            "paid_ads_action_system.writeback_tiers missing required "
+            f"tier keys: {sorted(missing_tiers)}"
+        )
+    counts = block.get("tier_counts")
+    if not isinstance(counts, dict):
+        _fail("paid_ads_action_system.tier_counts must be an object.")
+    for tk in ALLOWED_PAID_ADS_WRITEBACK_TIERS:
+        if not isinstance(counts.get(tk), int):
+            _fail(
+                f"paid_ads_action_system.tier_counts[{tk!r}] must be an integer."
+            )
+    queue = block.get("queue")
+    if not isinstance(queue, list):
+        _fail("paid_ads_action_system.queue must be a list.")
+    for idx, q in enumerate(queue):
+        if not isinstance(q, dict):
+            _fail(
+                f"paid_ads_action_system.queue[{idx}] must be an object."
+            )
+        extra_q = set(q.keys()) - ALLOWED_PAID_ADS_QUEUE_ENTRY_KEYS
+        if extra_q:
+            _fail(
+                f"paid_ads_action_system.queue[{idx}] has unexpected "
+                f"keys: {sorted(extra_q)}"
+            )
+        if q.get("category") not in ALLOWED_PAID_ADS_CATEGORIES:
+            _fail(
+                f"paid_ads_action_system.queue[{idx}].category "
+                f"{q.get('category')!r} not in allowlist."
+            )
+        if (q.get("priority") or "").upper() not in {"P0", "P1", "P2", "P3"}:
+            _fail(
+                f"paid_ads_action_system.queue[{idx}].priority must be "
+                "one of P0/P1/P2/P3."
+            )
+        if q.get("status") not in ALLOWED_PAID_ADS_QUEUE_STATUSES:
+            _fail(
+                f"paid_ads_action_system.queue[{idx}].status "
+                f"{q.get('status')!r} not in allowlist."
+            )
+        if q.get("writeback_tier") not in ALLOWED_PAID_ADS_WRITEBACK_TIERS:
+            _fail(
+                f"paid_ads_action_system.queue[{idx}].writeback_tier "
+                f"{q.get('writeback_tier')!r} not in allowlist."
+            )
+        if not isinstance(q.get("can_execute_now"), bool):
+            _fail(
+                f"paid_ads_action_system.queue[{idx}].can_execute_now "
+                "must be a boolean."
+            )
+        for required in ("office", "label", "action", "owner", "impact_metric"):
+            if not q.get(required) or not isinstance(q.get(required), str):
+                _fail(
+                    f"paid_ads_action_system.queue[{idx}] missing required "
+                    f"string field: {required!r}"
+                )
+    top5 = block.get("top_5_by_opportunity")
+    if not isinstance(top5, list):
+        _fail("paid_ads_action_system.top_5_by_opportunity must be a list.")
+    if len(top5) > 5:
+        _fail(
+            "paid_ads_action_system.top_5_by_opportunity must contain at "
+            "most 5 entries."
+        )
+    learning = block.get("daily_learning")
+    if not isinstance(learning, dict):
+        _fail("paid_ads_action_system.daily_learning must be an object.")
+    missing_l = REQUIRED_PAID_ADS_LEARNING_FIELDS - set(learning.keys())
+    if missing_l:
+        _fail(
+            "paid_ads_action_system.daily_learning missing required "
+            f"fields: {sorted(missing_l)}"
+        )
+
+
+# Stale paid-ads boilerplate that must not appear in the public mirror.
+# Replace blanket "connect Google Ads" / "set up tracking" copy with the
+# specific action queue tier the user should look at.
+STALE_PAID_ADS_PHRASES = [
+    "Connect Google Ads",
+    "connect Google Ads",
+    "Google Ads not connected",
+    "Set up Google Ads",
+    "set up Google Ads",
+    "Google Ads needs setup",
+    "Google Ads pending setup",
+    "Static recommendation list",
+    "Manual recommendation list",
+]
+
+
+def check_no_stale_paid_ads_copy(
+    snapshot_text: str, html_text: str
+) -> None:
+    for phrase in STALE_PAID_ADS_PHRASES:
+        if phrase in snapshot_text:
+            _fail(
+                f"data/snapshot.json: stale paid-ads boilerplate: {phrase!r}"
+            )
+
+
+# Private Google Ads / CallRail identifier shapes that must never appear
+# in the public mirror.
+PAID_ADS_PRIVATE_ID_PATTERNS = [
+    (r"\bcustomers/\d{6,}\b", "Google Ads customer resource path"),
+    (r"\blogin[_-]?customer[_-]?id\s*[:=]?\s*['\"]?\d{6,}",
+     "Google Ads login_customer_id assignment"),
+    (r"\bmanager[_-]?customer[_-]?id\s*[:=]?\s*['\"]?\d{6,}",
+     "Google Ads manager_customer_id assignment"),
+    (r"\bcompany[_-]?id\s*[:=]?\s*['\"]?\d{6,}",
+     "CallRail company_id assignment"),
+    (r"\baccount[_-]?id\s*[:=]?\s*['\"]?\d{6,}",
+     "CallRail account_id assignment"),
+    (r"\bsheet[_-]?id\s*[:=]?\s*['\"]?[A-Za-z0-9_\-]{20,}",
+     "Sheet ID assignment"),
+]
+
+
+def check_paid_ads_private_ids(snapshot_text: str) -> None:
+    for pat, desc in PAID_ADS_PRIVATE_ID_PATTERNS:
+        m = re.search(pat, snapshot_text)
+        if m:
+            _fail(
+                f"data/snapshot.json contains private paid-ads/CallRail/"
+                f"sheet identifier ({desc}): {m.group(0)!r}"
+            )
+
+
 STALE_GA4_SETUP_PHRASES = [
     "GA4 property needed",
     "Provide GA4 property ID",
@@ -2755,6 +2958,7 @@ REQUIRED_ACTION_SYSTEM_IDS = {
     "gmb-new-negative-alerts",
     "gmb-review-recovery",
     "gmb-review-weekly-trend",
+    "google-ads-dynamic-optimization",
 }
 
 ALLOWED_ACTION_SYSTEM_ENTRY_KEYS = {
@@ -2765,6 +2969,8 @@ ALLOWED_ACTION_SYSTEM_ENTRY_KEYS = {
     # Accelerated organic SEO context on the hubspot-cms-metadata row.
     "growth_mode", "accelerated", "proposals", "small_content_proposals",
     "cooldown_days", "why_no_prior_change",
+    # Paid-ads dynamic optimization tier counts.
+    "tier_counts",
 }
 
 ALLOWED_ACTION_SYSTEM_STATUSES = {
@@ -3260,6 +3466,7 @@ def main() -> int:
         check_keyword_focus(snap)
         check_automations(snap)
         check_action_system(snap)
+        check_paid_ads_action_system(snap)
         check_review_weekly_trends(snap)
         check_ga4_form_submit_mapped(snap)
         check_accelerated_organic(snap)
@@ -3271,7 +3478,9 @@ def main() -> int:
 
         check_no_forbidden_patterns(snapshot_text, html_text)
         check_no_stale_ga4_setup_copy(snapshot_text, html_text)
+        check_no_stale_paid_ads_copy(snapshot_text, html_text)
         check_ga4_private_ids(snapshot_text)
+        check_paid_ads_private_ids(snapshot_text)
     except ValidationError as exc:
         print(f"FAIL: {exc}")
         return 1

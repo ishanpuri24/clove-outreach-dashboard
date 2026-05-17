@@ -878,6 +878,573 @@ def _review_weekly_trend_action_entry(gmb: dict) -> dict:
     }
 
 
+# ---------------------------------------------------------------------------
+# Paid Ads dynamic action system
+# ---------------------------------------------------------------------------
+#
+# Goal: turn the Paid Ads tab from a static recommendation list into a
+# prioritized, daily-learning action queue. Every entry has an owner,
+# a status, an impact metric, an opportunity size, and a writeback
+# tier so the dashboard clearly distinguishes "can execute now" from
+# "needs Google Ads mutate access".
+#
+# Privacy: aggregate only — no Google Ads customer IDs, login customer
+# IDs, raw search terms, raw call records, GCLIDs, tokens, sheet IDs,
+# CallRail IDs, or private paths. Office labels are public.
+
+PAID_ADS_WRITEBACK_TIERS = {
+    "executable_now": [
+        "report_refresh",
+        "dashboard_action_queue",
+        "offline_conversion_upload_when_identifiers_present",
+        "customer_list_update_when_safe",
+    ],
+    "mutation_ready_when_write_access_available": [
+        "exact_match_negative_keywords_from_irrelevant_terms",
+        "low_risk_search_term_exclusions",
+        "campaign_budget_change",
+        "bid_strategy_change",
+        "campaign_pause_or_enable",
+        "ad_copy_change",
+    ],
+    "approval_required_higher_risk": [
+        "large_budget_increase",
+        "account_structure_rebuild",
+        "new_campaign_creation",
+    ],
+}
+
+
+def _safe_num(v: Any, default: float = 0.0) -> float:
+    if isinstance(v, (int, float)):
+        return float(v)
+    return default
+
+
+def _paid_ads_waste_actions(ads: dict) -> list[dict]:
+    """Top waste-to-cut items from the recommended_budget_shift + queue."""
+    rbs = ads.get("recommended_budget_shift") or {}
+    from_list = rbs.get("from") or []
+    waste_total = _safe_num(rbs.get("estimated_waste_to_review_usd"))
+    waste_share = _safe_num(rbs.get("estimated_waste_share_pct"))
+    n = max(1, min(len(from_list), 5))
+    per_item = round(waste_total / n, 2) if n else 0.0
+    out: list[dict] = []
+    for label in from_list[:5]:
+        office = "Unknown"
+        if isinstance(label, str) and " - " in label:
+            office = label.split(" - ", 1)[0]
+        out.append({
+            "category": "waste_to_cut",
+            "priority": "P0",
+            "office": office,
+            "label": label,
+            "action": (
+                "Pause / cut budget 50-80% and sweep negatives until "
+                "search-term review confirms intent and tracking is verified."
+            ),
+            "owner": "Paid ads operator",
+            "status": "queued",
+            "writeback_tier": "mutation_ready_when_write_access_available",
+            "can_execute_now": False,
+            "blocker": "Google Ads mutate access not connected.",
+            "impact_metric": "high-risk spend share, CPA, qualified-call CPA",
+            "estimated_opportunity_usd": per_item,
+            "estimated_waste_share_pct": waste_share,
+        })
+    return out
+
+
+def _paid_ads_protect_or_scale_actions(ads: dict) -> list[dict]:
+    """Protect/scale candidates with the budget guardrail attached."""
+    rbs = ads.get("recommended_budget_shift") or {}
+    to_list = rbs.get("to") or []
+    guardrail = rbs.get("guardrail") or (
+        "Verify call/booking quality per office before scaling, then "
+        "move in small weekly increments."
+    )
+    out: list[dict] = []
+    for label in to_list[:5]:
+        office = "Unknown"
+        if isinstance(label, str) and " - " in label:
+            office = label.split(" - ", 1)[0]
+        out.append({
+            "category": "budget_to_protect_or_scale",
+            "priority": "P1",
+            "office": office,
+            "label": label,
+            "action": (
+                "Hold budget and copy the winning structure into the next "
+                "office only after lead-quality is confirmed. " + guardrail
+            ),
+            "owner": "Paid ads operator",
+            "status": "queued",
+            "writeback_tier": "mutation_ready_when_write_access_available",
+            "can_execute_now": False,
+            "blocker": "Google Ads mutate access not connected.",
+            "impact_metric": "conversions/day, CVR, qualified-call rate",
+            "estimated_opportunity_usd": None,
+        })
+    return out
+
+
+def _paid_ads_keyword_focus_actions(snapshot: dict) -> list[dict]:
+    """Protect/expand keyword-focus and negative-keyword candidate actions."""
+    kf = snapshot.get("google_ads_keyword_focus") or {}
+    out: list[dict] = []
+    for item in (kf.get("focus_keywords") or [])[:5]:
+        if not isinstance(item, dict):
+            continue
+        out.append({
+            "category": "keyword_focus",
+            "priority": "P2",
+            "office": item.get("office") or "All offices",
+            "label": item.get("keyword") or "—",
+            "action": item.get("recommended_action") or "Protect or expand carefully.",
+            "owner": "Paid ads operator",
+            "status": "monitoring",
+            "writeback_tier": "executable_now",
+            "can_execute_now": True,
+            "blocker": None,
+            "impact_metric": "CVR, qualified-call rate per ad group",
+            "estimated_opportunity_usd": None,
+        })
+    for item in (kf.get("negative_or_isolate_candidates") or [])[:5]:
+        if not isinstance(item, dict):
+            continue
+        out.append({
+            "category": "negative_keyword_candidate",
+            "priority": "P1",
+            "office": item.get("office") or "All offices",
+            "label": item.get("keyword") or "—",
+            "action": (
+                "Review the named campaign/ad-group's search terms and "
+                "add exact-match negatives or isolate into a tighter "
+                "campaign. " + (item.get("why_review_or_negative") or "")
+            ).strip(),
+            "owner": "Paid ads operator",
+            "status": "queued",
+            "writeback_tier": "mutation_ready_when_write_access_available",
+            "can_execute_now": False,
+            "blocker": "Google Ads mutate access not connected.",
+            "impact_metric": "wasted clicks share, CPA",
+            "estimated_opportunity_usd": None,
+        })
+    return out
+
+
+def _paid_ads_office_opportunity_actions(ads: dict) -> list[dict]:
+    """Office/campaign opportunity actions from office_spend_opportunities."""
+    opps = ads.get("office_spend_opportunities") or {}
+    rows = opps.get("top_spend_offices") or []
+    out: list[dict] = []
+    for row in rows[:5]:
+        if not isinstance(row, dict):
+            continue
+        office = row.get("office") or "Unknown"
+        spend = _safe_num(row.get("last_30_spend_usd"))
+        opp = row.get("opportunity") or ""
+        is_waste = "fix waste" in opp.lower()
+        out.append({
+            "category": "office_or_campaign_opportunity",
+            "priority": "P1" if is_waste else "P2",
+            "office": office,
+            "label": opp or "Office opportunity",
+            "action": (
+                f"30-day spend ${spend:,.0f}. {opp}. Use the office "
+                "leaderboard and high-risk share to pick this week's "
+                "search-term + tracking audit."
+            ),
+            "owner": "Paid ads operator",
+            "status": "queued",
+            "writeback_tier": "executable_now" if not is_waste else
+                "mutation_ready_when_write_access_available",
+            "can_execute_now": not is_waste,
+            "blocker": None if not is_waste else
+                "Mutations require Google Ads mutate access.",
+            "impact_metric": "office CPA, qualified-call rate",
+            "estimated_opportunity_usd": spend,
+        })
+    return out
+
+
+def _paid_ads_tracking_actions(snapshot: dict) -> list[dict]:
+    """Tracking + offline-conversion status actions (executable now)."""
+    callrail = snapshot.get("callrail_live") or {}
+    cr_30 = callrail.get("last_30_days") or {}
+    ads = snapshot.get("google_ads_insights") or {}
+    api_wb = ads.get("api_writeback_status") or {}
+    out: list[dict] = [{
+        "category": "tracking_offline_conversions",
+        "priority": "P1",
+        "office": "All offices",
+        "label": "CallRail + offline-conversion linkage",
+        "action": (
+            "Daily refresh merges sanitized CallRail aggregates; upload "
+            "offline conversions where the ad-click identifier and "
+            "booked/qualified status are present in the private tracker "
+            "(uploads happen only when identifiers exist, never with "
+            "synthetic data)."
+        ),
+        "owner": "Marketing engineering",
+        "status": "active_live" if cr_30 else "pending",
+        "writeback_tier": "executable_now",
+        "can_execute_now": True,
+        "blocker": None,
+        "impact_metric": (
+            "Answered/qualified call rate, offline-conversion "
+            "imports, Smart Bidding signal quality"
+        ),
+        "estimated_opportunity_usd": None,
+    }, {
+        "category": "tracking_offline_conversions",
+        "priority": "P2",
+        "office": "All offices",
+        "label": "Google Ads mutate-scope readiness",
+        "action": (
+            "Connector currently exposes reports, keyword ideas, offline "
+            "conversion upload, and customer list management. Direct "
+            "edits to budgets, bids, negatives, pauses, and ads are "
+            "blocked until a mutate-capable Google Ads API path or "
+            "approved browser path is wired."
+        ),
+        "owner": "Engineering",
+        "status": "blocked",
+        "writeback_tier": "mutation_ready_when_write_access_available",
+        "can_execute_now": False,
+        "blocker": (api_wb.get("write_status") or
+            "Limited writeback only for offline conversions / "
+            "customer lists; campaign/budget/bid/keyword/ad edits manual."),
+        "impact_metric": "Mutation coverage; auto-applied waste cuts",
+        "estimated_opportunity_usd": None,
+    }]
+    return out
+
+
+def build_paid_ads_action_system(
+    snapshot: dict,
+    prior: dict | None,
+    learning_state: dict | None,
+) -> dict:
+    """Build the dynamic Paid Ads action queue block.
+
+    Combines waste, protect/scale, keyword focus, negative-keyword
+    candidates, office opportunities, and tracking status into one
+    prioritized queue. Each entry carries owner, status, impact
+    metric, opportunity size, and writeback tier.
+
+    Aggregate only. No Google Ads customer/login IDs, GCLIDs, raw
+    search terms, raw call records, sheet IDs, CallRail IDs, tokens,
+    or private paths are emitted.
+    """
+    ads = snapshot.get("google_ads_insights") or {}
+    queue: list[dict] = []
+    queue.extend(_paid_ads_waste_actions(ads))
+    queue.extend(_paid_ads_protect_or_scale_actions(ads))
+    queue.extend(_paid_ads_keyword_focus_actions(snapshot))
+    queue.extend(_paid_ads_office_opportunity_actions(ads))
+    queue.extend(_paid_ads_tracking_actions(snapshot))
+
+    # Suppress duplicates that were already surfaced in a prior refresh
+    # without any state change (same category + label + action).
+    prior_hashes = set()
+    if isinstance(prior, dict):
+        for q in prior.get("queue") or []:
+            if isinstance(q, dict):
+                prior_hashes.add(
+                    hashlib.sha256(
+                        json.dumps(
+                            [q.get("category"), q.get("label"), q.get("action")],
+                            sort_keys=True,
+                        ).encode("utf-8")
+                    ).hexdigest()[:16]
+                )
+    suppressed_repeats: list[dict] = []
+    seen_hashes: set[str] = set()
+    deduped: list[dict] = []
+    for q in queue:
+        h = hashlib.sha256(
+            json.dumps(
+                [q.get("category"), q.get("label"), q.get("action")],
+                sort_keys=True,
+            ).encode("utf-8")
+        ).hexdigest()[:16]
+        if h in seen_hashes:
+            continue
+        seen_hashes.add(h)
+        if h in prior_hashes and q.get("status") in ("queued", "monitoring"):
+            suppressed_repeats.append({
+                "category": q.get("category"),
+                "label": q.get("label"),
+                "office": q.get("office"),
+                "suppressed_at": utcnow_iso(),
+                "reason": "repeat_unchanged_since_prior_refresh",
+            })
+        deduped.append(q)
+
+    # Sort: P0 first, then by estimated_opportunity_usd desc, then category
+    def sort_key(q: dict) -> tuple:
+        pri = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}.get(
+            (q.get("priority") or "").upper(), 4
+        )
+        opp = q.get("estimated_opportunity_usd")
+        opp_v = -_safe_num(opp) if isinstance(opp, (int, float)) else 0.0
+        return (pri, opp_v, q.get("category") or "")
+
+    deduped.sort(key=sort_key)
+    top5 = deduped[:5]
+
+    # Daily learning fields per category: previous_action / before / after /
+    # worked. We can only attach prior values from learning_state.
+    paid_ads_mem = {}
+    if isinstance(learning_state, dict):
+        paid_ads_mem = learning_state.get("paid_ads_memory") or {}
+    prior_actions = list(paid_ads_mem.get("prior_actions") or [])[-50:]
+    prior_metrics = paid_ads_mem.get("metric_before") or {}
+
+    totals = ads.get("totals") or {}
+    current_metrics = {
+        "cost_usd_30d": totals.get("cost_usd"),
+        "conversions_30d": totals.get("conversions"),
+        "cpa_usd_30d": totals.get("cpa_usd"),
+        "ctr_pct_30d": totals.get("ctr_pct"),
+        "conversion_rate_pct_30d": totals.get("conversion_rate_pct"),
+        "high_risk_spend_share_pct": (
+            (ads.get("risk_summary") or {}).get("high_risk_spend_share_pct")
+        ),
+        "qualified_calls_30d": (
+            (snapshot.get("callrail_live") or {}).get("last_30_days", {})
+            .get("callrail_qualified")
+        ),
+    }
+
+    def metric_delta(key: str) -> dict:
+        before = prior_metrics.get(key) if isinstance(prior_metrics, dict) else None
+        after = current_metrics.get(key)
+        delta = None
+        worked = None
+        if isinstance(before, (int, float)) and isinstance(after, (int, float)):
+            delta = round(after - before, 4)
+            # "worked" heuristic per metric direction
+            if key in ("cpa_usd_30d", "high_risk_spend_share_pct"):
+                worked = delta < 0
+            elif key in (
+                "conversions_30d", "ctr_pct_30d",
+                "conversion_rate_pct_30d", "qualified_calls_30d",
+            ):
+                worked = delta > 0
+        return {
+            "metric": key,
+            "before": before,
+            "after": after,
+            "delta": delta,
+            "improved": worked,
+        }
+
+    learning = {
+        "previous_actions_recorded": len(prior_actions),
+        "metric_before": prior_metrics or None,
+        "metric_after": current_metrics,
+        "metric_deltas": [
+            metric_delta(k) for k in (
+                "cost_usd_30d",
+                "conversions_30d",
+                "cpa_usd_30d",
+                "ctr_pct_30d",
+                "conversion_rate_pct_30d",
+                "high_risk_spend_share_pct",
+                "qualified_calls_30d",
+            )
+        ],
+        "suppressed_repeats_this_run": suppressed_repeats[:25],
+        "self_rating_note": (
+            "Improvement is rated by whether CPA / high-risk spend "
+            "share fall and conversions / CVR / qualified calls rise "
+            "between refreshes. Spend reduction alone is not counted "
+            "as a win."
+        ),
+    }
+
+    # Tier rollup so the UI can show "can execute now" vs blocked counts.
+    can_now = sum(1 for q in deduped if q.get("can_execute_now"))
+    needs_mutate = sum(
+        1 for q in deduped
+        if q.get("writeback_tier") == "mutation_ready_when_write_access_available"
+    )
+    needs_approval = sum(
+        1 for q in deduped
+        if q.get("writeback_tier") == "approval_required_higher_risk"
+    )
+
+    return {
+        "title": "Paid Ads dynamic action system",
+        "as_of": utcnow_iso(),
+        "summary": (
+            f"{len(deduped)} action(s) queued; {can_now} executable now, "
+            f"{needs_mutate} need Google Ads mutate access, "
+            f"{needs_approval} need higher-risk approval."
+        ),
+        "writeback_tiers": dict(PAID_ADS_WRITEBACK_TIERS),
+        "tier_counts": {
+            "executable_now": can_now,
+            "mutation_ready_when_write_access_available": needs_mutate,
+            "approval_required_higher_risk": needs_approval,
+        },
+        "top_5_by_opportunity": top5,
+        "queue": deduped,
+        "daily_learning": learning,
+        "blocker_for_direct_writes": (
+            "Current Google Ads connector exposes reports, keyword "
+            "ideas, offline-conversion uploads, and customer-list "
+            "updates only. Budget, bid, pause, ad copy, and negative "
+            "keyword mutations require a mutate-capable API/browser "
+            "path before they can execute automatically."
+        ),
+    }
+
+
+def update_paid_ads_action_system_block(
+    snapshot: dict,
+    private_dir: Path,
+    status: dict,
+) -> None:
+    prior = snapshot.get("paid_ads_action_system") if isinstance(
+        snapshot.get("paid_ads_action_system"), dict
+    ) else None
+    state_path = private_dir / "daily_learning_state.json"
+    learning = read_json(state_path, None) if state_path.exists() else None
+    block = build_paid_ads_action_system(snapshot, prior, learning)
+    snapshot["paid_ads_action_system"] = block
+    status["paid_ads_action_system"] = (
+        f"ok: {len(block['queue'])} actions, "
+        f"{block['tier_counts']['executable_now']} executable now, "
+        f"{block['tier_counts']['mutation_ready_when_write_access_available']} "
+        "blocked on mutate access"
+    )
+
+
+def persist_paid_ads_learning(
+    private_dir: Path,
+    snapshot: dict,
+) -> None:
+    """Persist current paid-ads metrics + recorded actions in learning state.
+
+    Updates ``paid_ads_memory.metric_before`` so the next refresh can
+    compute deltas (before/after/worked) for the same set of actions,
+    and appends a compact prior-actions log capped at 50 entries.
+    """
+    state_path = private_dir / "daily_learning_state.json"
+    state = read_json(state_path, None)
+    if not isinstance(state, dict):
+        return
+    pas = snapshot.get("paid_ads_action_system") or {}
+    mem = state.setdefault("paid_ads_memory", {
+        "prior_actions": [],
+        "metric_before": {},
+        "self_rating_log": [],
+    })
+    # Roll "after" into "before" for the next refresh delta.
+    learning = pas.get("daily_learning") or {}
+    new_before = learning.get("metric_after") or {}
+    mem["metric_before"] = new_before
+    # Append a compact record of this run's top-5 actions.
+    log = list(mem.get("prior_actions") or [])
+    log.append({
+        "as_of": utcnow_iso(),
+        "top5": [
+            {
+                "category": q.get("category"),
+                "office": q.get("office"),
+                "label": q.get("label"),
+                "priority": q.get("priority"),
+                "writeback_tier": q.get("writeback_tier"),
+                "can_execute_now": q.get("can_execute_now"),
+            }
+            for q in pas.get("top_5_by_opportunity") or []
+        ],
+        "metric_deltas": learning.get("metric_deltas") or [],
+        "suppressed_repeats": learning.get("suppressed_repeats_this_run") or [],
+    })
+    mem["prior_actions"] = log[-50:]
+    # Self-rating: count metrics that improved vs declined this run.
+    deltas = learning.get("metric_deltas") or []
+    improved = sum(1 for d in deltas if d.get("improved") is True)
+    declined = sum(1 for d in deltas if d.get("improved") is False)
+    self_log = list(mem.get("self_rating_log") or [])
+    self_log.append({
+        "as_of": utcnow_iso(),
+        "metrics_improved": improved,
+        "metrics_declined": declined,
+        "metrics_tracked": len(deltas),
+        "rating_note": (
+            "Improving" if improved > declined
+            else "Holding" if improved == declined
+            else "Backsliding"
+        ),
+    })
+    mem["self_rating_log"] = self_log[-50:]
+    write_json_atomic(state_path, state)
+
+
+def _google_ads_dynamic_action_entry(snapshot: dict) -> dict:
+    """Surface paid-ads dynamic optimization status in the Automations tab."""
+    pas = snapshot.get("paid_ads_action_system") or {}
+    tier = pas.get("tier_counts") or {}
+    queue_len = len(pas.get("queue") or [])
+    can_now = int(tier.get("executable_now") or 0)
+    needs_mutate = int(
+        tier.get("mutation_ready_when_write_access_available") or 0
+    )
+    if queue_len == 0:
+        status = "pending"
+        last_action = "Awaiting first Paid Ads action-queue rebuild."
+    elif can_now > 0 and needs_mutate == 0:
+        status = "active_live"
+        last_action = (
+            f"{queue_len} paid-ads action(s) queued; all are executable "
+            "in the current connector mode."
+        )
+    elif can_now > 0:
+        status = "active_dry_run"
+        last_action = (
+            f"{queue_len} paid-ads action(s) queued: {can_now} executable "
+            f"now, {needs_mutate} pending Google Ads mutate access."
+        )
+    else:
+        status = "blocked"
+        last_action = (
+            f"{queue_len} paid-ads action(s) queued; all require Google "
+            "Ads mutate access before they can execute."
+        )
+    return {
+        "id": "google-ads-dynamic-optimization",
+        "name": "Google Ads dynamic optimization",
+        "status": status,
+        "next_action": (
+            "Top 5 daily actions shown on the Paid Ads tab. Connect a "
+            "Google Ads mutate-capable path to unblock automatic "
+            "budget/bid/negative/pause/ad changes."
+        ),
+        "last_action": last_action,
+        "last_action_at": pas.get("as_of") or "—",
+        "impact_metric": (
+            "high-risk spend share, CPA, CVR, qualified calls, "
+            "wasted clicks share"
+        ),
+        "blocker": (
+            None if can_now > 0 and needs_mutate == 0
+            else "Google Ads connector currently lacks mutate actions."
+        ),
+        "tier_counts": {
+            "executable_now": can_now,
+            "mutation_ready_when_write_access_available": needs_mutate,
+            "approval_required_higher_risk": int(
+                tier.get("approval_required_higher_risk") or 0
+            ),
+        },
+    }
+
+
 def build_action_system(snapshot: dict, prior_action_system: dict | None) -> dict:
     """Rebuild the automations.action_system block from current state.
 
@@ -1013,6 +1580,7 @@ def build_action_system(snapshot: dict, prior_action_system: dict | None) -> dic
         }),
         merge_prior(_review_recovery_action_entry(gmb)),
         merge_prior(_review_weekly_trend_action_entry(gmb)),
+        merge_prior(_google_ads_dynamic_action_entry(snapshot)),
     ]
 
     return {
@@ -1295,6 +1863,7 @@ def refresh(
         private_dir,
         snapshot.get("gmb_insights", {}).get("low_review_weekly_trends"),
     )
+    update_paid_ads_action_system_block(snapshot, private_dir, status)
     update_action_system_block(snapshot)
     status["ga4_key_events"] = "ok: form_submit mapped; call_click+appt_booked instrumentation pending"
     status["action_system"] = (
@@ -1311,6 +1880,7 @@ def refresh(
     issues += scan_forbidden(snapshot.get("organic_cms_actions", {}))
     issues += scan_forbidden(snapshot.get("accelerated_organic", {}))
     issues += scan_forbidden(snapshot.get("automations", {}).get("action_system", {}))
+    issues += scan_forbidden(snapshot.get("paid_ads_action_system", {}))
     issues += scan_forbidden(snapshot.get("organic_insights", {}).get("connector_status", []))
     issues += scan_forbidden(snapshot.get("organic_insights", {}).get("source_status_rows", []))
     issues += scan_forbidden(snapshot.get("gmb_insights", {}).get("low_review_weekly_trends", {}))
@@ -1326,6 +1896,8 @@ def refresh(
         summarize_snapshot(snapshot),
         new_recommendations=[],
     )
+    if private_dir.exists() and not check_only:
+        persist_paid_ads_learning(private_dir, snapshot)
 
     if check_only:
         print("CHECK: refresh dry-run; no files written.")
