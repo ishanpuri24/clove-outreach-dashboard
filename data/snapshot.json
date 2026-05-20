@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-20T15:32:17.404982+00:00",
+  "generated_at": "2026-05-20T17:54:26.041804+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -456,11 +456,11 @@
     ]
   },
   "google_ads_insights": {
-    "title": "Google Ads Multi-Office Watch",
-    "subtitle": "Updated daily. Public data is aggregated.",
-    "lookback": "LAST_30_DAYS",
-    "data_freshness": "2026-05-10T23:42:42.195906+00:00",
-    "automation_status": "Direct linked account reporting is active for every connected office account (16 in this refresh). Recommendations are dashboard-only and require explicit operator approval before any live change.",
+    "title": "Paid Ads \u00b7 Account-by-account (9 offices)",
+    "subtitle": "Last 30 days \u00b7 Google Ads (read-only); actions queued for manual execution in the UI",
+    "lookback": "30d",
+    "data_freshness": "Pulled 2026-05-19 from Google Ads via Pipedream",
+    "automation_status": "Read-only connector \u2014 pauses/budget changes require manual UI execution",
     "coverage": {
       "linked_offices": 16,
       "offices_pending_link": "internal",
@@ -477,7 +477,14 @@
       "avg_cpc_usd": 4.53,
       "cpa_usd": 47.68,
       "ctr_pct": 3.85,
-      "conversion_rate_pct": 9.5
+      "conversion_rate_pct": 9.5,
+      "monthly_spend_usd": 83811,
+      "monthly_conversions": 1670.7,
+      "monthly_calls": 1594,
+      "blended_cpa_usd": 50.2,
+      "dollar_per_call": 52.6,
+      "recoverable_per_month_usd": 27500,
+      "recoverable_share_pct": 32.8
     },
     "risk_summary": {
       "high": 21,
@@ -693,260 +700,130 @@
     ],
     "office_leaderboard": [
       {
-        "office": "Santa Monica",
-        "status": "reporting",
-        "campaign_count": 9.0,
-        "spend_usd": 12704.94,
-        "clicks": 3596.0,
-        "conversions": 223.0,
-        "phone_calls": 148.0,
-        "avg_cpc_usd": 3.53,
-        "cpa_usd": 56.97,
-        "ctr_pct": 2.94,
-        "conversion_rate_pct": 6.2,
-        "high_risk_spend_usd": 9501.18,
-        "high_risk_campaign_count": 6.0,
-        "high_risk_spend_share_pct": 74.78
+        "office": "Santa Monica+AI",
+        "status": "WORST (tied)",
+        "spend_usd": 13825,
+        "conversions": 218.0,
+        "cpa_usd": 63,
+        "phone_calls": 151,
+        "dollar_per_call": 91.6,
+        "high_risk_spend_usd": 5800,
+        "high_risk_spend_share_pct": 42.0,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 5800,
+        "operator_focus": "Pause 3 zero-conv campaigns ($4.7k); investigate Pmax-dentical (only working Dentical in org)"
       },
       {
         "office": "Sherman Oaks",
-        "status": "reporting",
-        "campaign_count": 9.0,
-        "spend_usd": 12558.6,
-        "clicks": 3443.0,
-        "conversions": 193.0,
-        "phone_calls": 75.0,
-        "avg_cpc_usd": 3.65,
-        "cpa_usd": 65.07,
-        "ctr_pct": 4.22,
-        "conversion_rate_pct": 5.61,
-        "high_risk_spend_usd": 8260.89,
-        "high_risk_campaign_count": 4.0,
-        "high_risk_spend_share_pct": 65.78
+        "status": "WORST (tied)",
+        "spend_usd": 12465,
+        "conversions": 217.3,
+        "cpa_usd": 57,
+        "phone_calls": 108,
+        "dollar_per_call": 115.4,
+        "high_risk_spend_usd": 5500,
+        "high_risk_spend_share_pct": 44.1,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 5500,
+        "operator_focus": "Pause JZ-Search-SO + JZ-PMAX; consolidate 5 PMax to 2"
       },
       {
-        "office": "Beverly Hills",
-        "status": "reporting",
-        "campaign_count": 9.0,
-        "spend_usd": 10362.25,
-        "clicks": 1572.0,
-        "conversions": 171.62,
-        "phone_calls": 212.0,
-        "avg_cpc_usd": 6.59,
-        "cpa_usd": 60.38,
-        "ctr_pct": 3.92,
-        "conversion_rate_pct": 10.92,
-        "high_risk_spend_usd": 2671.51,
-        "high_risk_campaign_count": 1.0,
-        "high_risk_spend_share_pct": 25.78
+        "office": "Beverly Hills+AI",
+        "status": "MIXED",
+        "spend_usd": 11506,
+        "conversions": 173.5,
+        "cpa_usd": 66,
+        "phone_calls": 199,
+        "dollar_per_call": 57.8,
+        "high_risk_spend_usd": 3200,
+        "high_risk_spend_share_pct": 27.8,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 3200,
+        "operator_focus": "Pause Dentical + Spanish; scale JZ-Pmax; wire AI call-tracking"
       },
       {
-        "office": "Puri Dentistry",
-        "status": "reporting",
-        "campaign_count": 7.0,
-        "spend_usd": 8568.09,
-        "clicks": 2025.0,
-        "conversions": 275.97,
-        "phone_calls": 359.0,
-        "avg_cpc_usd": 4.23,
-        "cpa_usd": 31.05,
-        "ctr_pct": 3.09,
-        "conversion_rate_pct": 13.63,
-        "high_risk_spend_usd": 1214.26,
-        "high_risk_campaign_count": 1.0,
-        "high_risk_spend_share_pct": 14.17
-      },
-      {
-        "office": "Encino",
-        "status": "reporting",
-        "campaign_count": 8.0,
-        "spend_usd": 8302.99,
-        "clicks": 1048.0,
-        "conversions": 172.98,
-        "phone_calls": 221.0,
-        "avg_cpc_usd": 7.92,
-        "cpa_usd": 48.0,
-        "ctr_pct": 4.39,
-        "conversion_rate_pct": 16.51,
-        "high_risk_spend_usd": 2878.44,
-        "high_risk_campaign_count": 2.0,
-        "high_risk_spend_share_pct": 34.67
-      },
-      {
-        "office": "Camarillo",
-        "status": "reporting",
-        "campaign_count": 8.0,
-        "spend_usd": 7735.37,
-        "clicks": 1371.0,
-        "conversions": 141.99,
-        "phone_calls": 142.0,
-        "avg_cpc_usd": 5.64,
-        "cpa_usd": 54.48,
-        "ctr_pct": 3.21,
-        "conversion_rate_pct": 10.36,
-        "high_risk_spend_usd": 3469.48,
-        "high_risk_campaign_count": 2.0,
-        "high_risk_spend_share_pct": 44.85
-      },
-      {
-        "office": "Oxnard Riverpark",
-        "status": "reporting",
-        "campaign_count": 7.0,
-        "spend_usd": 7300.86,
-        "clicks": 1365.0,
-        "conversions": 135.98,
-        "phone_calls": 221.0,
-        "avg_cpc_usd": 5.35,
-        "cpa_usd": 53.69,
-        "ctr_pct": 4.16,
-        "conversion_rate_pct": 9.96,
-        "high_risk_spend_usd": 4518.63,
-        "high_risk_campaign_count": 2.0,
-        "high_risk_spend_share_pct": 61.89
+        "office": "Riverpark+AI",
+        "status": "MIXED",
+        "spend_usd": 8303,
+        "conversions": 148.0,
+        "cpa_usd": 56,
+        "phone_calls": 193,
+        "dollar_per_call": 43.0,
+        "high_risk_spend_usd": 2900,
+        "high_risk_spend_share_pct": 34.9,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 2900,
+        "operator_focus": "Pause Dentical; scale Insurance PMax +50%; wire AI call-tracking"
       },
       {
         "office": "Hillview",
-        "status": "reporting",
-        "campaign_count": 6.0,
-        "spend_usd": 6330.96,
-        "clicks": 1080.0,
-        "conversions": 197.95,
-        "phone_calls": 193.0,
-        "avg_cpc_usd": 5.86,
-        "cpa_usd": 31.98,
-        "ctr_pct": 5.1,
-        "conversion_rate_pct": 18.33,
-        "high_risk_spend_usd": 1844.91,
-        "high_risk_campaign_count": 1.0,
-        "high_risk_spend_share_pct": 29.14
+        "status": "STRONG",
+        "spend_usd": 6713,
+        "conversions": 188.9,
+        "cpa_usd": 36,
+        "phone_calls": 92,
+        "dollar_per_call": 73.0,
+        "high_risk_spend_usd": 2500,
+        "high_risk_spend_share_pct": 37.2,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 2500,
+        "operator_focus": "Scale Insurance +50%; pause JZ-Search-Ventura"
+      },
+      {
+        "office": "Encino+AI",
+        "status": "STRONG",
+        "spend_usd": 8780,
+        "conversions": 183.0,
+        "cpa_usd": 48,
+        "phone_calls": 185,
+        "dollar_per_call": 47.5,
+        "high_risk_spend_usd": 2400,
+        "high_risk_spend_share_pct": 27.3,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 2400,
+        "operator_focus": "Pause JZ-Search-Encino ($721 CPA); scale PMX-encino ($13 CPA, org best PMax)"
+      },
+      {
+        "office": "Camarillo",
+        "status": "MIXED",
+        "spend_usd": 8097,
+        "conversions": 141.0,
+        "cpa_usd": 57,
+        "phone_calls": 149,
+        "dollar_per_call": 54.3,
+        "high_risk_spend_usd": 2000,
+        "high_risk_spend_share_pct": 24.7,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 2000,
+        "operator_focus": "Pause Dentical ($586 CPA); convert JZ-Search-Clove to Max Conv; scale Insurance PMax"
       },
       {
         "office": "Thousand Oaks",
-        "status": "reporting",
-        "campaign_count": 7.0,
-        "spend_usd": 5207.02,
-        "clicks": 1020.0,
-        "conversions": 120.99,
-        "phone_calls": 149.0,
-        "avg_cpc_usd": 5.1,
-        "cpa_usd": 43.04,
-        "ctr_pct": 4.3,
-        "conversion_rate_pct": 11.86,
-        "high_risk_spend_usd": 1613.12,
-        "high_risk_campaign_count": 1.0,
-        "high_risk_spend_share_pct": 30.98
+        "status": "CLEANEST",
+        "spend_usd": 5498,
+        "conversions": 126.0,
+        "cpa_usd": 44,
+        "phone_calls": 159,
+        "dollar_per_call": 34.6,
+        "high_risk_spend_usd": 1700,
+        "high_risk_spend_share_pct": 30.9,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 1700,
+        "operator_focus": "Audit Marin geo (+$1.6k risk); Spanish template = clone source"
       },
       {
-        "office": "All Offices / Ayur",
-        "status": "reporting",
-        "campaign_count": 4.0,
-        "spend_usd": 3727.31,
-        "clicks": 926.0,
-        "conversions": 86.0,
-        "phone_calls": 85.0,
-        "avg_cpc_usd": 4.03,
-        "cpa_usd": 43.34,
-        "ctr_pct": 6.19,
-        "conversion_rate_pct": 9.29,
-        "high_risk_spend_usd": 1893.92,
-        "high_risk_campaign_count": 2.0,
-        "high_risk_spend_share_pct": 50.81
-      },
-      {
-        "office": "Ayur - Problem",
-        "status": "reporting",
-        "campaign_count": 2.0,
-        "spend_usd": 2807.29,
-        "clicks": 820.0,
-        "conversions": 100.99,
-        "phone_calls": 76.0,
-        "avg_cpc_usd": 3.42,
-        "cpa_usd": 27.8,
-        "ctr_pct": 4.65,
-        "conversion_rate_pct": 12.32,
-        "high_risk_spend_usd": 0.0,
-        "high_risk_campaign_count": 0.0,
-        "high_risk_spend_share_pct": 0.0
-      },
-      {
-        "office": "Beverly Hills AI",
-        "status": "reporting",
-        "campaign_count": 1.0,
-        "spend_usd": 1015.64,
-        "clicks": 452.0,
-        "conversions": 27.0,
-        "phone_calls": 0.0,
-        "avg_cpc_usd": 2.25,
-        "cpa_usd": 37.62,
-        "ctr_pct": 7.65,
-        "conversion_rate_pct": 5.97,
-        "high_risk_spend_usd": 0.0,
-        "high_risk_campaign_count": 0.0,
-        "high_risk_spend_share_pct": 0.0
-      },
-      {
-        "office": "Sherman Oaks AI",
-        "status": "reporting",
-        "campaign_count": 1.0,
-        "spend_usd": 977.85,
-        "clicks": 314.0,
-        "conversions": 7.0,
-        "phone_calls": 0.0,
-        "avg_cpc_usd": 3.11,
-        "cpa_usd": 139.69,
-        "ctr_pct": 5.42,
-        "conversion_rate_pct": 2.23,
-        "high_risk_spend_usd": 0.0,
-        "high_risk_campaign_count": 0.0,
-        "high_risk_spend_share_pct": 0.0
-      },
-      {
-        "office": "Riverpark AI",
-        "status": "reporting",
-        "campaign_count": 1.0,
-        "spend_usd": 843.62,
-        "clicks": 215.0,
-        "conversions": 16.0,
-        "phone_calls": 0.0,
-        "avg_cpc_usd": 3.92,
-        "cpa_usd": 52.73,
-        "ctr_pct": 6.28,
-        "conversion_rate_pct": 7.44,
-        "high_risk_spend_usd": 0.0,
-        "high_risk_campaign_count": 0.0,
-        "high_risk_spend_share_pct": 0.0
-      },
-      {
-        "office": "Encino AI",
-        "status": "reporting",
-        "campaign_count": 1.0,
-        "spend_usd": 840.56,
-        "clicks": 426.0,
-        "conversions": 10.0,
-        "phone_calls": 0.0,
-        "avg_cpc_usd": 1.97,
-        "cpa_usd": 84.06,
-        "ctr_pct": 4.74,
-        "conversion_rate_pct": 2.35,
-        "high_risk_spend_usd": 0.0,
-        "high_risk_campaign_count": 0.0,
-        "high_risk_spend_share_pct": 0.0
-      },
-      {
-        "office": "Santa Monica AI",
-        "status": "reporting",
-        "campaign_count": 1.0,
-        "spend_usd": 754.22,
-        "clicks": 201.0,
-        "conversions": 8.0,
-        "phone_calls": 1.0,
-        "avg_cpc_usd": 3.75,
-        "cpa_usd": 94.28,
-        "ctr_pct": 3.34,
-        "conversion_rate_pct": 3.98,
-        "high_risk_spend_usd": 0.0,
-        "high_risk_campaign_count": 0.0,
-        "high_risk_spend_share_pct": 0.0
+        "office": "Puri Dentistry",
+        "status": "EFFICIENCY LEADER",
+        "spend_usd": 8624,
+        "conversions": 275.0,
+        "cpa_usd": 31,
+        "phone_calls": 358,
+        "dollar_per_call": 24.1,
+        "high_risk_spend_usd": 1500,
+        "high_risk_spend_share_pct": 17.4,
+        "campaign_count": null,
+        "recoverable_per_month_usd": 1500,
+        "operator_focus": "GROW: +75% Insurance PMax (org-best $10 CPA); clone Spanish template"
       }
     ],
     "account_coverage": [
@@ -2722,11 +2599,7 @@
       "Use the office leaderboard and high-risk spend share to choose where call/quality audits go this week.",
       "High-risk spend currently at $37866.34 (42.06% of 30-day spend across 16 reporting offices)."
     ],
-    "operator_notes": [
-      "Direct linked account reporting is active for every connected office in this refresh; manager-account consolidation remains a private/internal step.",
-      "No live Google Ads changes are made from this dashboard. The currently exposed connector supports reporting and limited writebacks (offline conversions / customer lists), not direct campaign, budget, bid, negative-keyword, or ad mutations.",
-      "Office labels are the only identifier shown publicly. Manager and child customer IDs, dashed and undashed, are intentionally never exposed."
-    ],
+    "operator_notes": "All 9 offices analyzed 2026-05-19. Master plan: clove_paid_ads_action_plan_2026-05-19.md. Largest opportunities: Santa Monica + Sherman Oaks combined ~$11k/mo recoverable.",
     "account_linking_status": {
       "last_checked": "",
       "manager_accounts_visible": "private",
@@ -2745,11 +2618,7 @@
       ],
       "no_ids_disclaimer": "Manager account IDs, customer IDs, and account labels are intentionally never displayed in the public mirror."
     },
-    "api_writeback_status": {
-      "read_status": "Connected for reporting across linked office accounts.",
-      "write_status": "Limited writeback only for offline conversions and customer/audience lists with current connector; campaign edits, budget changes, bid changes, ads, and negative keywords are manual until mutation tools are added.",
-      "required_for_live_changes": "For direct ad editing later, connect/enable Google Ads mutation scopes/tools, then approve exact changes before execution."
-    },
+    "api_writeback_status": "Connector is read-only (Pipedream Google Ads). Direct budget/bid/pause/negative mutations require manual UI execution or a write-capable API path.",
     "manual_action_queue": [
       {
         "priority": "P0",
@@ -14866,7 +14735,115 @@
         }
       ]
     },
-    "compact_freshness_privacy_note": "Updated daily. Public data is aggregated."
+    "compact_freshness_privacy_note": "Updated daily. Public data is aggregated.",
+    "headline": "$83,811/mo across 9 offices \u00b7 1,670 conv \u00b7 $50 blended CPA \u00b7 1594 calls \u00b7 ~$27,500/mo recoverable (~33% of spend)",
+    "focus_areas_org_level": [
+      "Scale Insurance/PMax everywhere \u2014 Puri Insurance PMax at $10 CPA is the org benchmark (+75% budget)",
+      "Investigate Santa Monica Pmax-dentical (only Dentical converting at $17 CPA); if replicable, clone to 7 broken offices",
+      "Clone TO or Puri working Spanish template to the 7 offices with broken Spanish campaigns",
+      "Convert all JZ-Search Manual CPC campaigns to Maximize Conversions (org-wide pattern)",
+      "Apply Desktop \u221280% to \u221290% at every account (mobile carries 88-97% of conv)",
+      "Wire call-tracking on 4 AI subaccounts (Riverpark-AI, BH-AI, Encino-AI, Santa Monica-AI)"
+    ],
+    "biggest_single_office_opportunities": [
+      {
+        "office": "Santa Monica",
+        "amount_usd": 5800,
+        "action": "Pause JZ-Search-SM ($3,070/0 conv), JZ-Pmax ($1,464/0 conv), JZ-Search-Spanish ($306/0 conv)"
+      },
+      {
+        "office": "Sherman Oaks",
+        "amount_usd": 5500,
+        "action": "Pause JZ-Search-SO ($1,404), JZ-PMAX ($1,860), JZ-Search-SO-Spanish ($612); consolidate PMax"
+      },
+      {
+        "office": "Beverly Hills+AI",
+        "amount_usd": 3200,
+        "action": "Pause Dentical + Spanish; consolidate redundant PMax variants"
+      },
+      {
+        "office": "Riverpark+AI",
+        "amount_usd": 2900,
+        "action": "Pause Dentical + Spanish; scale Insurance PMax"
+      },
+      {
+        "office": "Hillview",
+        "amount_usd": 2500,
+        "action": "Pause JZ-Search-Ventura ($158 CPA); scale Insurance"
+      }
+    ],
+    "top_5_fixes_2026_05_19": [
+      {
+        "rank": 1,
+        "action": "+75% budget on Puri Insurance PMax 27-3-2026",
+        "why": "Org-best CPA ($10), 32% conv rate, 92 conv/mo",
+        "expected_impact": "+80-100 incremental conv/mo at <$15 CPA"
+      },
+      {
+        "rank": 2,
+        "action": "Pause Santa Monica zero-conv trio",
+        "why": "$4.7k/mo with 0 conv",
+        "expected_impact": "Free $4.7k for reallocation"
+      },
+      {
+        "rank": 3,
+        "action": "Apply Desktop \u221285% at all 9 accounts",
+        "why": "Mobile carries 88-97% of conv; desktop CPA 3-10x higher",
+        "expected_impact": "~10-15% blended CPA improvement"
+      },
+      {
+        "rank": 4,
+        "action": "Investigate SM Pmax-dentical; clone if replicable",
+        "why": "Only working Dentical in org ($17 CPA, 126 conv); 7 others broken",
+        "expected_impact": "Potential +200-400 conv/mo org-wide"
+      },
+      {
+        "rank": 5,
+        "action": "Wire call-tracking on 4 AI subaccounts",
+        "why": "All four show 0 or near-0 calls despite spend",
+        "expected_impact": "Recover 40-80 attributed calls/mo + correct CPA picture"
+      }
+    ],
+    "recommended_budget_shift_2026_05_19": {
+      "direction": "Pause low-intent JZ/Dentical/Spanish at 7 offices; reallocate to Insurance PMax + General Search everywhere",
+      "weekly_amount_usd": 6395.0
+    },
+    "manual_action_queue_2026_05_19": [
+      {
+        "week": 1,
+        "theme": "Stop the bleed",
+        "items": [
+          "Pauses across all 9 accounts (top fix #2)",
+          "Apply Desktop \u221280%/\u221290% account-level",
+          "Audit JZ-Search-Marin geo at Thousand Oaks"
+        ]
+      },
+      {
+        "week": 2,
+        "theme": "Scale winners",
+        "items": [
+          "+75% Puri Insurance PMax",
+          "+30-50% Insurance at other 8 offices",
+          "Convert Manual CPC JZ-Search-[Office] to Max Conv"
+        ]
+      },
+      {
+        "week": 3,
+        "theme": "Tracking + replication",
+        "items": [
+          "Wire call-tracking on 4 AI accounts",
+          "Pull SM Pmax-dentical setup; decide clone vs kill org-wide",
+          "Pull Puri Insurance PMax LP/assets; clone to 8 offices"
+        ]
+      },
+      {
+        "week": 4,
+        "theme": "Re-measure",
+        "items": [
+          "Pull same 30d window; confirm $27.5k/mo savings landed; update dashboard"
+        ]
+      }
+    ]
   },
   "_sanitization": {
     "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign and ad-group metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
@@ -14993,7 +14970,82 @@
       "Lead senior/caregiver copy with a concrete one-page oral-health resource plus optional short educational session.",
       "For wellness/fitness, frame as Dental Wellness 101 for members, not a generic partnership ask.",
       "For community organizations, ask for the correct older-adult program contact instead of endorsement."
-    ]
+    ],
+    "stale_follow_ups_2026_05_19": [
+      {
+        "priority": "P0",
+        "days_stale": 28,
+        "reply_date": "2026-04-21",
+        "category": "Geriatric Care Managers / Caregiver Resource",
+        "original_action": "Monitor for forwarded contact; light follow-up if no response",
+        "recommended_now": "Send forwarded-contact follow-up TODAY. 2-3 sentences: thank them for forwarding, ask if it landed, offer a brief 15-min call."
+      },
+      {
+        "priority": "P0",
+        "days_stale": 19,
+        "reply_date": "2026-04-30",
+        "category": "Caregiver resource / senior programs",
+        "original_action": "Prepare human-approved one-page senior oral-health resource and send",
+        "recommended_now": "Ship the one-pager this week. Suggested content: 5 oral-health signs caregivers should watch for, when to call us, Clove Care affordable in-house plan blurb."
+      },
+      {
+        "priority": "P1",
+        "days_stale": 26,
+        "reply_date": "2026-04-23",
+        "category": "Church / Community",
+        "original_action": "Consider OASIS/older-adult program call",
+        "recommended_now": "30-min discovery call this week. Frame: free senior oral-health talk at their next gathering, no sales ask."
+      },
+      {
+        "priority": "P1",
+        "days_stale": 25,
+        "reply_date": "2026-04-24",
+        "category": "Gyms / Fitness",
+        "original_action": "Monitor and follow up after 5 business days",
+        "recommended_now": "Send the 5-business-day follow-up NOW (20 days overdue). Reference their 'reviewing partnerships' note."
+      }
+    ],
+    "reply_rate_diagnosis": {
+      "latest_reply": "2026-04-30 (19 days ago)",
+      "reply_volume_30d": 0,
+      "reply_volume_60d": 6,
+      "signal": "Reply rate has collapsed to zero in last 19 days. Either no new sends, or sequences burned out.",
+      "likely_causes": [
+        "No new outbound batches since late April",
+        "4 prior replies left without follow-up (above) \u2014 human-follow-up bottleneck",
+        "Targeting too broad (5 categories from only 6 replies) \u2014 no concentration"
+      ],
+      "next_step": "Decide: pause B2B until human-followups are clear, OR ship next batch focused on ONE category (recommend: Caregiver/Senior since 2 of 6 positives came from that lane)."
+    },
+    "referring_dentist_pipeline": {
+      "status": "Not started \u2014 no provider-to-provider outreach in snapshot",
+      "opportunity": "Specialty referrals (Pedo/Endo/OS/Perio) \u2192 general dentists in 5-mile radius of each office. Highest LTV B2B channel for a DSO.",
+      "recommended_v1_sequence": [
+        {
+          "step": 1,
+          "channel": "Email",
+          "subject": "Quick intro \u2014 [Office] taking referrals",
+          "body_outline": "Hi [Dr. LastName] \u2014 I'm Ishan at Clove Dental [Office]. Wanted to introduce our team and offer a no-friction referral path: we send back a 1-page treatment summary within 48hrs and don't poach restorative. Open to a 15-min coffee?"
+        },
+        {
+          "step": 2,
+          "channel": "LinkedIn connection + note",
+          "days_after": 3,
+          "body_outline": "Short connect note referencing the email"
+        },
+        {
+          "step": 3,
+          "channel": "Office drop-by",
+          "days_after": 10,
+          "body_outline": "Front-desk drop-off: branded referral pad + business card + one-pager on our specialty hours"
+        }
+      ],
+      "target_list_seed": "Pull from Google Maps Places: 'dental office' within 5 miles of each Clove office, exclude existing Clove locations. Estimate ~20-50 targets per office = 180-450 total.",
+      "required_to_start": [
+        "Approval to use real provider names (not PHI but worth confirming)",
+        "Decide office order \u2014 recommend start with Puri Dentistry since it has spare specialty capacity per the Ads data"
+      ]
+    }
   },
   "google_ads_keyword_focus": {
     "title": "Keyword and theme focus",
@@ -15212,10 +15264,12 @@
     "privacy": "Aggregated metrics only. No phone numbers, caller names, account IDs, GCLIDs, or raw call records published."
   },
   "google_ads_refresh": {
-    "status": "BLOCKER",
-    "reason": "Google Ads Manager Account ID (login-customer-id) not present in workspace config. The connector requires a numeric accountId to query campaign spend and conversion data.",
-    "action_required": "Add google_ads_account_id to tracker_config.json or provide directly. Format: xxx-xxx-xxxx numeric.",
-    "impact": "Ads spend/CPA metrics cannot be refreshed this run. CallRail qualified calls used as primary conversion signal per policy."
+    "status": "OK",
+    "method": "Pipedream connector (read-only) per-account pull",
+    "accounts_pulled": 9,
+    "lookback_days": 30,
+    "pulled_at": "2026-05-19T20:40:00Z",
+    "note": "Direct mutate (budget/bid/pause) still requires Google Ads UI; queue surfaced below."
   },
   "organic_insights": {
     "title": "Organic & SEO",
@@ -18252,7 +18306,7 @@
   "membership_insights": {
     "title": "Membership \u00b7 Subscribili / Clove Care",
     "period_label": "Selected Subscribili period (not lifetime)",
-    "data_freshness": "Manual browser export on 2026-05-10",
+    "data_freshness": "Manual browser export on 2026-05-10 (9 DAYS STALE as of 2026-05-19)",
     "headline": "303 total subscribers \u00b7 302 active \u00b7 1 overdue \u00b7 Thousand Oaks (19) leads the period \u00b7 Camarillo (0) needs an enrollment push.",
     "snapshot": {
       "total_subscribers": 303,
@@ -18595,6 +18649,13 @@
         }
       ],
       "caveat": "All 76 cash patients last 7d were hygiene appointments under current definition \u2014 tracking caveat, not a quality flag."
+    },
+    "staleness_alert": {
+      "is_stale": true,
+      "days_stale": 9,
+      "threshold_days": 3,
+      "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
+      "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending."
     }
   },
   "routine_refresh": {
@@ -20079,5 +20140,75 @@
       "self_rating_note": "Improvement is rated by whether CPA / high-risk spend share fall and conversions / CVR / qualified calls rise between refreshes. Spend reduction alone is not counted as a win."
     },
     "blocker_for_direct_writes": "Current Google Ads connector exposes reports, keyword ideas, offline-conversion uploads, and customer-list updates only. Budget, bid, pause, ad copy, and negative keyword mutations require a mutate-capable API/browser path before they can execute automatically."
+  },
+  "daily_learning_loop": {
+    "entries": [
+      {
+        "date": "2026-05-19",
+        "actions_taken": [
+          "Pulled 4 remaining Google Ads accounts (Encino, SM, Camarillo, Puri); shipped 9-office master plan",
+          "Cleared google_ads_refresh BLOCKER in public snapshot",
+          "Rebuilt Ads tab as account-by-account with org total + focus areas at top",
+          "Flagged Subscribili 9d staleness on dashboard",
+          "Surfaced 4 stale B2B follow-ups (1 is 28 days overdue) + referring-dentist v1 sequence"
+        ],
+        "impact_learning": [
+          "SM Pmax-dentical at $17 CPA is the ONLY working Dentical in org \u2014 changes org-wide Dentical recommendation from 'kill all' to 'investigate SM first'",
+          "Puri Insurance PMax at $10 CPA is the new org benchmark for replication",
+          "B2B replies dropped to zero in last 19 days; bottleneck is human follow-up, not new sends"
+        ],
+        "self_rating": {
+          "action_taken": 9,
+          "impact_learning": 9,
+          "dashboard_clarity": 8,
+          "automation_reliability": 6,
+          "privacy_and_safety": 9,
+          "speed_and_credit_efficiency": 7
+        },
+        "remediations_next_run": [
+          "automation_reliability=6: HubSpot CMS write path still requires connector capability that does not exist in this Space. Document the exact private-app token format needed so user can supply it once and the writer can publish.",
+          "speed_and_credit_efficiency=7: This run still re-validated the snapshot 3 times due to schema strictness. Next run should cache the validator schema requirements in skill so first patch passes."
+        ],
+        "blockers": [
+          "HubSpot CMS write tools not in connector \u2014 needs Private App token via custom credential",
+          "Subscribili has no API \u2014 needs manual export cadence or saved credentials",
+          "Google Ads connector is read-only \u2014 mutations require UI"
+        ]
+      }
+    ]
+  },
+  "credit_usage_tracker": {
+    "mode": "lean (user set 2026-05-19)",
+    "defaults": {
+      "one_pull_per_source_per_day": true,
+      "no_subagents_unless_required": true,
+      "no_browser_unless_required": true,
+      "target_reduction_vs_recent": "30-40%"
+    },
+    "tasks_this_run": [
+      {
+        "task": "Google Ads per-account pull (4 new accounts)",
+        "cost_class": "medium",
+        "justified": true,
+        "note": "Required to complete 9-office picture"
+      },
+      {
+        "task": "Master action plan write",
+        "cost_class": "low",
+        "justified": true
+      },
+      {
+        "task": "GitHub clone + patch + push",
+        "cost_class": "low",
+        "justified": true
+      },
+      {
+        "task": "Snapshot validation",
+        "cost_class": "low",
+        "justified": true,
+        "note": "Ran 3x due to schema strictness; reduce to 1 next run"
+      }
+    ],
+    "daily_cap_notes": "On routine days: snapshot-only refresh, no per-account ads pull unless dashboard data older than 7 days."
   }
 }

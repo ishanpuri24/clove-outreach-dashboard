@@ -3395,7 +3395,7 @@
           return;
         }
         if (ads.title && titleEl) titleEl.textContent = ads.title;
-        if (subEl) subEl.textContent = "";
+        if (subEl) subEl.textContent = ads.headline || "";
 
         var coverage = ads.coverage || {};
         var totals = ads.totals || {};
@@ -4072,13 +4072,13 @@
         var table = el("table");
         var thead = el("thead", null, [el("tr", null, [
           el("th", { text: "Office" }),
-          el("th", { text: "Spend" }),
+          el("th", { text: "Spend/mo" }),
           el("th", { text: "Conv" }),
           el("th", { text: "CPA" }),
           el("th", { text: "Calls" }),
-          el("th", { text: "High-risk spend" }),
-          el("th", { text: "High-risk share" }),
-          el("th", { text: "Campaigns" })
+          el("th", { text: "Recoverable/mo" }),
+          el("th", { text: "% of spend" }),
+          el("th", { text: "Operator focus" })
         ])]);
         var tbody = el("tbody");
         rows.forEach(function (r) {
@@ -4098,11 +4098,10 @@
             el("td", { "class": "mono",
               text: fmtNum(r.phone_calls) }),
             el("td", { "class": "mono",
-              text: fmtUsd(r.high_risk_spend_usd) }),
+              text: fmtUsd(r.recoverable_per_month_usd != null ? r.recoverable_per_month_usd : r.high_risk_spend_usd) }),
             el("td", { "class": shareClass,
               text: (hrShare != null ? fmtPct(hrShare) : "-") }),
-            el("td", { "class": "mono",
-              text: fmtNum(r.campaign_count) })
+            el("td", { text: (r.operator_focus || "-") })
           ]));
         });
         table.appendChild(thead);
