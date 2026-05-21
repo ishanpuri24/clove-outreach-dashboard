@@ -1074,6 +1074,8 @@ def _paid_ads_tracking_actions(snapshot: dict) -> list[dict]:
     cr_30 = callrail.get("last_30_days") or {}
     ads = snapshot.get("google_ads_insights") or {}
     api_wb = ads.get("api_writeback_status") or {}
+    if not isinstance(api_wb, dict):
+        api_wb = {"write_status": str(api_wb)}
     out: list[dict] = [{
         "category": "tracking_offline_conversions",
         "priority": "P1",
