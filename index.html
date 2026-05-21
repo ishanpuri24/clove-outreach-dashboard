@@ -1848,8 +1848,12 @@
       <div id="section-error-banner" class="card" hidden
            style="border-color: var(--warn); background: var(--warn-weak); margin-bottom: 12px;"></div>
       <div class="tabs" role="tablist" aria-label="Dashboard sections">
+        <button class="tab" role="tab" id="tab-summary"
+                aria-controls="panel-summary" aria-selected="true">
+          Operator Summary
+        </button>
         <button class="tab" role="tab" id="tab-automations"
-                aria-controls="panel-automations" aria-selected="true">
+                aria-controls="panel-automations" aria-selected="false">
           Automations
         </button>
         <button class="tab" role="tab" id="tab-reviews"
@@ -1872,6 +1876,54 @@
                 aria-controls="panel-membership" aria-selected="false">
           Membership
         </button>
+      </div>
+
+      <!-- =================== Operator Summary tab =================== -->
+      <div id="panel-summary" class="tab-panel" role="tabpanel"
+           aria-labelledby="tab-summary" tabindex="0">
+        <p class="tab-meta" id="summary-meta"></p>
+
+        <div id="summary-stale-banner" class="card" hidden
+             style="border-color: var(--warn); background: var(--warn-weak); margin-bottom: 12px;"></div>
+
+        <section aria-labelledby="summary-kpi">
+          <div class="ps-head">
+            <h2 id="summary-kpi">Today across all marketing initiatives</h2>
+            <span class="pill" id="summary-pill" aria-live="polite"></span>
+          </div>
+          <div class="pxc cols-4" id="summary-kpi-grid"></div>
+        </section>
+
+        <section aria-labelledby="summary-actions">
+          <div class="ps-head">
+            <h2 id="summary-actions">Top 5 actions by opportunity</h2>
+            <span class="pill priority is-high" aria-hidden="true">Operator queue</span>
+          </div>
+          <div id="summary-actions-table"></div>
+        </section>
+
+        <section aria-labelledby="summary-blockers">
+          <div class="ps-head">
+            <h2 id="summary-blockers">Blockers</h2>
+            <span class="pill" id="summary-blockers-pill" aria-live="polite"></span>
+          </div>
+          <div id="summary-blockers-table"></div>
+        </section>
+
+        <section aria-labelledby="summary-paid">
+          <div class="ps-head">
+            <h2 id="summary-paid">Paid ads — office rollup (cut / protect / scale)</h2>
+            <span class="pill" id="summary-paid-pill" aria-live="polite"></span>
+          </div>
+          <div id="summary-paid-table"></div>
+        </section>
+
+        <section aria-labelledby="summary-fresh">
+          <div class="ps-head">
+            <h2 id="summary-fresh">Last refresh by channel</h2>
+          </div>
+          <div id="summary-fresh-table"></div>
+        </section>
       </div>
 
       <!-- =================== GMB Reviews tab =================== -->
@@ -1905,26 +1957,18 @@
             <span class="pill" id="rev-trend-pill" aria-live="polite"></span>
           </div>
           <p class="section-meta" id="rev-trend-meta">
-            Last 7d vs prior 7d, last 4 weekly buckets per office. Click an
-            office row to expand sanitized snippets, themes, and action
-            status for each week. Aggregate counts only — no reviewer or
-            staff names, no profile links, no GBP IDs.
+            Last 7d vs prior 7d · 4 weekly buckets per office · aggregate only.
           </p>
           <div class="pxc cols-4" id="rev-trend-totals"></div>
           <div class="card" id="rev-trend-table-card" style="margin-top:1rem;"></div>
           <h3 style="margin-top:1.2rem;">Action queue (recurring themes &amp; offices trending up)</h3>
           <div class="section-meta" id="rev-trend-queue-meta">
-            Themes recurring in 2+ of the last 4 weeks, ranked. When an
-            office had an action last week, we report whether ratings or
-            low-review count improved this week.
+            Recurring themes (2+ of last 4 weeks) · prior-week action effect.
           </div>
           <div class="top5-grid" id="rev-trend-queue-grid"></div>
           <h3 style="margin-top:1.2rem;">Staff response signals (aggregate)</h3>
           <div class="section-meta" id="rev-trend-response-meta">
-            Aggregate counts only — no email bodies, no staff names. If
-            signals are limited we label this as <em>response signals</em>,
-            not a definitive reply rate, and surface the action to improve
-            tracking.
+            Aggregate signals only — not a definitive reply rate.
           </div>
           <div class="pxc cols-3" id="rev-trend-response-grid"></div>
         </section>
@@ -1932,7 +1976,7 @@
         <section aria-labelledby="rev-offices">
           <h2 id="rev-offices">Office-by-office scorecard</h2>
           <div class="section-meta" id="rev-offices-meta">
-            Each card shows where the office stands on rating, 30d volume vs 1/day goal, what patients like, what they complain about, and the next move.
+            Rating · 30d vs 1/day goal · likes · complaints · next move.
           </div>
           <div class="office-cards" id="rev-office-cards"></div>
         </section>
@@ -2024,10 +2068,22 @@
           </div>
           <div class="section-meta" id="ads-paction-summary"></div>
           <div class="paid-summary-grid" id="ads-paction-tiers"></div>
+
+          <h3 style="margin-top:14px;font-size:1.05rem;">
+            Office rollup — cut / protect / scale (priority: Camarillo · Sherman Oaks · Puri)
+          </h3>
+          <div id="ads-paction-office-table"></div>
+
           <h3 style="margin-top:14px;font-size:1.05rem;">
             Top 5 actions by opportunity
           </h3>
           <div class="action-queue" id="ads-paction-top5"></div>
+
+          <h3 style="margin-top:14px;font-size:1.05rem;">
+            Per-office action plan
+          </h3>
+          <div id="ads-paction-per-office"></div>
+
           <h3 style="margin-top:14px;font-size:1.05rem;">
             Full action queue (owner · status · impact · writeback tier)
           </h3>
@@ -2588,7 +2644,7 @@
 
       <!-- =================== Automations tab =================== -->
       <div id="panel-automations" class="tab-panel" role="tabpanel"
-           aria-labelledby="tab-automations" tabindex="0">
+           aria-labelledby="tab-automations" tabindex="0" hidden>
         <p class="tab-meta" id="automations-meta"></p>
 
         <section aria-labelledby="auto-action-system">
@@ -2597,9 +2653,7 @@
             <span class="pill" id="auto-action-system-pill" aria-live="polite"></span>
           </div>
           <p class="section-meta" id="auto-action-system-meta">
-            Active marketing automations and tracked actions. Aggregate
-            only — no PII, no private IDs. Each row shows status, next
-            action, last action, and the impact metric to watch.
+            Status · next action · last action · impact metric.
           </p>
           <div id="auto-action-system-table"></div>
         </section>
@@ -2612,10 +2666,7 @@
             </span>
           </div>
           <p class="section-meta" id="auto-before-meta">
-            Marketing dashboard automations · aggregate counts only.
-            Checks daily and can backfill uncontacted leads now; can also
-            run hourly for fast response. Backlog, cadence, per-office
-            split, writeback behavior, and where results appear.
+            Backlog · cadence · per-office split · writeback · results.
           </p>
           <div class="pxc cols-3" id="auto-before-grid"></div>
           <div id="auto-before-extras"></div>
@@ -2644,7 +2695,7 @@
             <h2 id="auto-cms">HubSpot Organic / CMS automation</h2>
             <span class="pill" id="auto-cms-pill" aria-live="polite"></span>
           </div>
-          <p class="section-meta" id="auto-cms-meta">Live + draft metadata updates pushed to HubSpot CMS, with hypothesis, expected impact, and metric to watch. Daily learning loop appends each new sample under "Impact over time" on the Organic tab.</p>
+          <p class="section-meta" id="auto-cms-meta">Live + draft metadata · hypothesis · impact · metric.</p>
           <div class="card" id="auto-cms-card"></div>
         </section>
 
@@ -6242,6 +6293,9 @@
 
       function renderAll(s) {
         window.__SECTION_ERRORS__ = [];
+        _safeRender("operator_summary", function () { renderOperatorSummary(s.operator_summary, s); });
+        _safeRender("paid_ads_office_rollup", function () { renderPaidAdsOfficeRollup(s.operator_summary, s.paid_ads_action_system); });
+        _safeRender("gmb_freshness_banner", function () { renderGmbFreshnessBanner(s.gmb_insights, s.operator_summary); });
         _safeRender("exec", function () { renderExec(s); });
         _safeRender("kpis", function () { renderKpis(s); });
         _safeRender("queue", function () { renderQueue(s); });
@@ -6501,6 +6555,196 @@
         return el("div", { "class": "action-card" }, rows);
       }
 
+      // -------- Operator Summary (default tab) --------
+      function _summaryKpiCard(c) {
+        var card = el("div", { "class": "ps-stat" });
+        card.appendChild(el("div", { "class": "ps-stat-label", text: c.label || "" }));
+        card.appendChild(el("div", { "class": "ps-stat-value", text: String(c.value == null ? "—" : c.value) }));
+        if (c.basis) card.appendChild(el("div", { "class": "ps-stat-bench", text: c.basis }));
+        if (c.decision) {
+          var d = el("div", { "class": "ps-stat-bench" });
+          d.appendChild(el("strong", { text: "Decision: " }));
+          d.appendChild(document.createTextNode(c.decision));
+          card.appendChild(d);
+        }
+        return card;
+      }
+
+      function _summaryTable(host, headers, rows, opts) {
+        if (!host) return;
+        host.innerHTML = "";
+        if (!rows || !rows.length) {
+          host.appendChild(el("div", { "class": "section-meta", text: (opts && opts.empty) || "Nothing to show." }));
+          return;
+        }
+        var wrap = el("div", { "class": "table-wrap" });
+        var table = el("table", { "class": "data-table" });
+        var thr = el("tr");
+        headers.forEach(function (h) { thr.appendChild(el("th", { text: h })); });
+        table.appendChild(el("thead", null, [thr]));
+        var tb = el("tbody");
+        rows.forEach(function (r) {
+          var tr = el("tr");
+          r.forEach(function (c) {
+            if (c && typeof c === "object" && c.nodeType) tr.appendChild(c);
+            else tr.appendChild(el("td", { text: c == null ? "—" : String(c) }));
+          });
+          tb.appendChild(tr);
+        });
+        table.appendChild(tb);
+        wrap.appendChild(table);
+        host.appendChild(wrap);
+      }
+
+      function _fmtUsd(v) {
+        if (typeof v !== "number") return "—";
+        if (v >= 1000) return "$" + v.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        return "$" + v.toFixed(0);
+      }
+
+      function renderOperatorSummary(os, snap) {
+        var grid = $("summary-kpi-grid");
+        var pill = $("summary-pill");
+        var actHost = $("summary-actions-table");
+        var blkHost = $("summary-blockers-table");
+        var blkPill = $("summary-blockers-pill");
+        var freshHost = $("summary-fresh-table");
+        var meta = $("summary-meta");
+        var staleBanner = $("summary-stale-banner");
+        if (!grid) return;
+        grid.innerHTML = "";
+        if (!os) {
+          if (meta) meta.textContent = "operator_summary block not present.";
+          return;
+        }
+        if (meta) meta.textContent = os.subtitle || "";
+        if (pill) pill.textContent = os.generated_at ? ("Snapshot " + os.generated_at) : "";
+
+        (os.kpi_cards || []).forEach(function (c) {
+          grid.appendChild(_summaryKpiCard(c));
+        });
+
+        // Stale banner
+        var gf = os.gmb_freshness || {};
+        if (staleBanner) {
+          staleBanner.hidden = !gf.is_stale;
+          if (gf.is_stale) {
+            staleBanner.innerHTML = "";
+            staleBanner.appendChild(el("div", { "class": "item-title", text: "GMB data refresh behind cadence" }));
+            staleBanner.appendChild(el("div", { "class": "item-meta", text: gf.note || "" }));
+          }
+        }
+
+        // Top actions
+        var rows = (os.top_actions || []).map(function (a) {
+          var statusCell = el("td");
+          if (a.executable_now) {
+            statusCell.appendChild(el("span", { "class": "pill good", text: "Executable" }));
+          } else {
+            statusCell.appendChild(el("span", { "class": "pill warn", text: "Blocked" }));
+            if (a.blocker) statusCell.appendChild(el("div", { "class": "ps-stat-bench", text: a.blocker }));
+          }
+          var actionCell = el("td");
+          actionCell.appendChild(el("div", { text: a.action || a.label || "—" }));
+          if (a.office) actionCell.appendChild(el("div", { "class": "ps-stat-bench", text: "Office: " + a.office }));
+          var opp = (typeof a.opportunity_usd === "number") ? _fmtUsd(a.opportunity_usd) : "—";
+          return [a.priority || "P1", a.channel || "—", actionCell, opp, statusCell, a.metric || "—"];
+        });
+        _summaryTable(actHost,
+          ["Priority", "Channel", "Action", "Opportunity", "Status", "Metric to watch"],
+          rows, { empty: "No actions queued." });
+
+        // Blockers
+        var brows = (os.blockers || []).map(function (b) {
+          return [b.channel || "—", b.blocker || "—", b.impact || "—"];
+        });
+        if (blkPill) blkPill.textContent = brows.length ? (brows.length + " open") : "Clear";
+        _summaryTable(blkHost,
+          ["Channel", "Blocker", "Impact"], brows,
+          { empty: "No active blockers." });
+
+        // Channel freshness
+        var cf = os.channel_freshness || {};
+        var frows = [
+          ["Snapshot", os.generated_at || "—", ""],
+          ["Paid Ads", cf.paid_ads || "—", ""],
+          ["Calls", cf.calls || "—", ""],
+          ["GMB Reviews", cf.gmb || "—",
+            cf.gmb_is_stale ? "STALE (" + (cf.gmb_age_days != null ? cf.gmb_age_days + "d" : "—") + " behind)" : "fresh"],
+          ["Organic", cf.organic || "—", ""],
+          ["Membership", cf.membership || "—", ""],
+        ];
+        _summaryTable(freshHost, ["Channel", "Last refresh", "Status"], frows);
+      }
+
+      function renderPaidAdsOfficeRollup(os, pas) {
+        var host = $("summary-paid-table");
+        var pill = $("summary-paid-pill");
+        if (!host) return;
+        host.innerHTML = "";
+        var rollup = (os && os.paid_ads_office_rollup) || [];
+        if (!rollup.length) {
+          host.appendChild(el("div", { "class": "section-meta", text: "Awaiting paid_ads_action_system queue." }));
+          if (pill) pill.textContent = "";
+          return;
+        }
+        var priority = (os && os.paid_ads_priority_offices) || [];
+        var priorityNames = priority.map(function (r) { return r.office; });
+        if (pill) pill.textContent = priorityNames.length
+          ? ("Priority: " + priorityNames.join(", "))
+          : "";
+        var rows = rollup.map(function (r) {
+          var officeCell = el("td");
+          var nameWrap = el("div");
+          nameWrap.appendChild(document.createTextNode(r.office || "—"));
+          if (priorityNames.indexOf(r.office) >= 0) {
+            var p = el("span", { "class": "pill priority is-high", text: "Priority" });
+            p.style.marginLeft = "6px";
+            nameWrap.appendChild(p);
+          }
+          officeCell.appendChild(nameWrap);
+          return [
+            officeCell,
+            _fmtUsd(r.opportunity_usd || 0),
+            String(r.cut || 0),
+            String(r.protect || 0),
+            String(r.scale || 0),
+            String(r.executable_now || 0) + " / " + String(r.queued || 0),
+            String(r.blocked_on_mutate || 0),
+          ];
+        });
+        _summaryTable(host,
+          ["Office", "Opportunity", "Cut", "Protect", "Scale", "Executable / queued", "Blocked on mutate"],
+          rows);
+      }
+
+      function renderGmbFreshnessBanner(gmb, os) {
+        // Show a freshness pill on the Reviews tab header
+        var revMeta = $("reviews-meta");
+        if (!revMeta || !gmb) return;
+        var fs = (gmb && gmb.freshness_status) || (os && os.gmb_freshness) || {};
+        if (!fs || fs.age_days == null) {
+          revMeta.textContent = "";
+          return;
+        }
+        revMeta.innerHTML = "";
+        var pill = el("span", { "class": "pill " + (fs.is_stale ? "danger" : "good") });
+        pill.appendChild(el("span", { "class": "dot" }));
+        pill.appendChild(document.createTextNode(
+          fs.is_stale
+            ? ("GMB " + fs.age_days + "d stale — last refresh " + (fs.data_freshness || "unknown"))
+            : ("GMB fresh — last refresh " + (fs.data_freshness || ""))
+        ));
+        revMeta.appendChild(pill);
+        if (fs.is_stale) {
+          revMeta.appendChild(el("span", {
+            "class": "section-meta",
+            "style": "margin-left:8px;",
+            text: fs.note || ""
+          }));
+        }
+      }
+
       function renderPaidAdsActionSystem(pas) {
         var summaryEl = $("ads-paction-summary");
         var pillEl = $("ads-paction-pill");
@@ -6547,6 +6791,130 @@
         (pas.top_5_by_opportunity || []).forEach(function (q) {
           top5Host.appendChild(_paidActionCard(q));
         });
+
+        // Office rollup table with cut/protect/scale + Camarillo/Sherman Oaks/Puri priority
+        var officeHost = $("ads-paction-office-table");
+        var perOfficeHost = $("ads-paction-per-office");
+        if (officeHost && perOfficeHost) {
+          officeHost.innerHTML = "";
+          perOfficeHost.innerHTML = "";
+          var os = (window.__SNAPSHOT__ && window.__SNAPSHOT__.operator_summary) || {};
+          var rollup = os.paid_ads_office_rollup || [];
+          var priorityNames = (os.paid_ads_priority_offices || []).map(function (r) { return r.office; });
+          if (rollup.length) {
+            var rows = rollup.map(function (r) {
+              var officeCell = el("td");
+              officeCell.appendChild(document.createTextNode(r.office || "—"));
+              if (priorityNames.indexOf(r.office) >= 0) {
+                var p = el("span", { "class": "pill priority is-high", text: "Priority" });
+                p.style.marginLeft = "6px";
+                officeCell.appendChild(p);
+              }
+              return [
+                officeCell,
+                _fmtUsd(r.opportunity_usd || 0),
+                String(r.cut || 0),
+                String(r.protect || 0),
+                String(r.scale || 0),
+                (r.executable_now || 0) + " / " + (r.queued || 0),
+                String(r.blocked_on_mutate || 0),
+              ];
+            });
+            _summaryTable(officeHost,
+              ["Office", "Opportunity", "Cut", "Protect", "Scale", "Executable / queued", "Blocked on mutate"],
+              rows);
+          } else {
+            officeHost.appendChild(el("div", { "class": "section-meta", text: "Office rollup not yet available." }));
+          }
+
+          // Per-office action plan (queue grouped by office, priority offices first)
+          var byOffice = {};
+          (pas.queue || []).forEach(function (q) {
+            var o = q.office || "—";
+            (byOffice[o] = byOffice[o] || []).push(q);
+          });
+          var officeOrder = Object.keys(byOffice).sort(function (a, b) {
+            var ap = priorityNames.indexOf(a) >= 0 ? 0 : 1;
+            var bp = priorityNames.indexOf(b) >= 0 ? 0 : 1;
+            if (ap !== bp) return ap - bp;
+            return a.localeCompare(b);
+          });
+          // Seen actions to suppress generic-repeat noise
+          officeOrder.forEach(function (office) {
+            var items = byOffice[office] || [];
+            if (!items.length) return;
+            var head = el("div", { "class": "ps-head", "style": "margin-top:10px;" });
+            var ttl = el("h4", { text: office });
+            if (priorityNames.indexOf(office) >= 0) {
+              var p2 = el("span", { "class": "pill priority is-high", text: "Priority" });
+              p2.style.marginLeft = "6px";
+              ttl.appendChild(p2);
+            }
+            head.appendChild(ttl);
+            head.appendChild(el("span", { "class": "pill", text: items.length + " queued" }));
+            perOfficeHost.appendChild(head);
+            var seen = {};
+            var rowsP = [];
+            items.forEach(function (q) {
+              var key = (q.category || "") + "|" + (q.action || "");
+              if (seen[key]) {
+                // Collapse duplicate generic advice — show only impact/label change
+                var dupAct = el("td", null, [el("em", { "class": "ps-stat-bench",
+                  text: "↳ Same action; budget/scope differ only." })]);
+                var dupStat = el("td");
+                dupStat.appendChild(el("span", {
+                  "class": "pill " + (q.can_execute_now ? "good" : "warn"),
+                  text: q.can_execute_now ? "Executable" : "Blocked",
+                }));
+                if (!q.can_execute_now && q.blocker) {
+                  dupStat.appendChild(el("div", { "class": "ps-stat-bench", text: q.blocker }));
+                }
+                rowsP.push([
+                  q.priority || "P1",
+                  q.label || "—",
+                  dupAct,
+                  _fmtUsd(q.estimated_opportunity_usd || 0),
+                  dupStat,
+                  q.impact_metric || "—",
+                ]);
+                return;
+              }
+              seen[key] = true;
+              var verdict = (function () {
+                var c = (q.category || "").toLowerCase();
+                if (c.indexOf("waste") >= 0 || c.indexOf("cut") >= 0 || c.indexOf("pause") >= 0) return "CUT";
+                if (c.indexOf("scale") >= 0 || c.indexOf("expand") >= 0 || c.indexOf("lift") >= 0) return "SCALE";
+                if (c.indexOf("protect") >= 0 || c.indexOf("hold") >= 0) return "PROTECT";
+                return q.category || "REVIEW";
+              })();
+              var labelCell = el("td");
+              labelCell.appendChild(el("strong", { text: q.label || "—" }));
+              labelCell.appendChild(el("div", { "class": "ps-stat-bench", text: verdict }));
+              var actionCell = el("td", { text: q.action || "—" });
+              var statusCell = el("td");
+              statusCell.appendChild(el("span", {
+                "class": "pill " + (q.can_execute_now ? "good" : "warn"),
+                text: q.can_execute_now ? "Executable" : "Blocked",
+              }));
+              if (!q.can_execute_now && q.blocker) {
+                statusCell.appendChild(el("div", { "class": "ps-stat-bench", text: q.blocker }));
+              }
+              rowsP.push([
+                q.priority || "P1",
+                labelCell,
+                actionCell,
+                _fmtUsd(q.estimated_opportunity_usd || 0),
+                statusCell,
+                q.impact_metric || "—",
+              ]);
+            });
+            _summaryTable(perOfficeHost,
+              ["Pri", "Campaign", "Action (cut / protect / scale)", "Opportunity", "Status", "Metric"],
+              rowsP);
+          });
+        }
+
+        // Existing flat queue (kept for back-compat below)
         (pas.queue || []).forEach(function (q) {
           queueHost.appendChild(_paidActionCard(q));
         });

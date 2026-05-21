@@ -645,9 +645,54 @@ _COOLDOWN_BLOCKING_STATUSES = {
     "applied_draft",  # current label for a real HubSpot draft write
 }
 
+# Change types considered low-risk metadata. Approved live writes for
+# these touch only the page <title> and <meta name="description"> on
+# already-existing pages. They do not alter body copy, modules, FAQ
+# blocks, internal-link blocks, CTA wiring, or templates, so re-running
+# them does not need a cooldown for safety reasons. Cooldown stays in
+# effect for any change type outside this set.
+LOW_RISK_METADATA_CHANGE_TYPES = {"missing_or_weak_title_update",
+                                  "missing_or_weak_meta_description_update"}
+
+
+def _no_cooldown_for_approved_live_writes(cfg: dict) -> bool:
+    """Whether the config opts the main site into no-cooldown low-risk live writes.
+
+    Operator request (2026-05): on the main HubSpot website, approved
+    low-risk metadata live writes (title / meta only) should not be
+    blocked by the per-page cooldown. Body / module / template changes
+    still respect cooldown.
+    """
+    accel = cfg.get("accelerated_growth_mode") or {}
+    # Explicit opt-in at the accelerated layer wins.
+    if isinstance(accel, dict) and accel.get("no_cooldown_for_approved_live_writes") is True:
+        return True
+    # Otherwise the accelerated publish mode itself implies the operator
+    # has approved live writes for the main HubSpot site — honor that.
+    if cfg.get("publish_mode") == ACCELERATED_PUBLISH_MODE:
+        return True
+    return False
+
+
+def _effective_cooldown_days(cand: dict, cfg: dict, cooldown_days: int) -> int:
+    """Return cooldown days to record for this candidate.
+
+    Approved low-risk metadata live writes record a 0-day cooldown when
+    the config opts in, so the daily run is free to re-evaluate the
+    same title/meta on the main HubSpot site without a 7-day lockout.
+    Anything outside ``LOW_RISK_METADATA_CHANGE_TYPES`` keeps the
+    configured cooldown.
+    """
+    change_types = set(cand.get("change_types") or [])
+    if change_types and change_types.issubset(LOW_RISK_METADATA_CHANGE_TYPES):
+        if _no_cooldown_for_approved_live_writes(cfg):
+            return 0
+    return cooldown_days
+
 
 def _candidate_cooldown_active(
-    state: dict, slug: str, cooldown_days: int
+    state: dict, slug: str, cooldown_days: int,
+    cand: dict | None = None, cfg: dict | None = None,
 ) -> bool:
     """Cooldown blocks re-touching slugs that already had a real write.
 
@@ -656,7 +701,20 @@ def _candidate_cooldown_active(
     new permissions to upgrade them to a real write. Legacy entries
     with ``draft_saved_unpublished`` also do not block; the new
     optimizer should be allowed to push them live.
+
+    When ``cand`` carries only low-risk metadata change types (title /
+    meta) and ``cfg`` opts into ``no_cooldown_for_approved_live_writes``
+    (default true for the accelerated publish mode), cooldown is
+    skipped — the operator has explicitly approved daily re-touching
+    of these fields on the main HubSpot site.
     """
+    if cooldown_days <= 0:
+        return False
+    if cand is not None and cfg is not None:
+        change_types = set(cand.get("change_types") or [])
+        if change_types and change_types.issubset(LOW_RISK_METADATA_CHANGE_TYPES):
+            if _no_cooldown_for_approved_live_writes(cfg):
+                return False
     cms = state.get("cms_experiments") or {}
     log = cms.get("log") or []
     cutoff = utcnow() - timedelta(days=cooldown_days)
@@ -982,6 +1040,10 @@ def run(
     out["cooldown_days"] = cooldown_days
     out["max_changes_cap"] = max_changes
     out["max_small_content_cap"] = max_small_content
+    out["no_cooldown_for_approved_live_writes"] = (
+        _no_cooldown_for_approved_live_writes(cfg)
+    )
+    out["low_risk_metadata_change_types"] = sorted(LOW_RISK_METADATA_CHANGE_TYPES)
 
     client = HubSpotClient(cfg["token"])
     pages: list[dict] = []
@@ -1028,14 +1090,16 @@ def run(
             continue
         out["candidates_considered"] += 1
         slug = _public_slug(np.get("url") or ("/" + (np.get("slug") or "")))
-        if _candidate_cooldown_active(state, slug, cooldown_days):
+        cand = _build_candidate(np, signal)
+        if _candidate_cooldown_active(
+            state, slug, cooldown_days, cand=cand, cfg=cfg,
+        ):
             cooldown_blocked.append({
                 "slug": slug,
                 "rule": signal.get("rule"),
                 "reason": f"cooldown_active_{cooldown_days}d",
             })
             continue
-        cand = _build_candidate(np, signal)
         if cand:
             if len(candidates) < max_changes:
                 candidates.append(cand)
@@ -1088,11 +1152,13 @@ def run(
                     out["writeback_performed"] = True
                 out["actions"].append(row)
                 applied_at = utcnow_iso()
+                eff_cd = _effective_cooldown_days(cand, cfg, cooldown_days)
                 cms_state["log"].append({
                     "applied_at": applied_at,
                     "cooldown_until": (
-                        utcnow() + timedelta(days=cooldown_days)
+                        utcnow() + timedelta(days=eff_cd)
                     ).isoformat(),
+                    "cooldown_days_applied": eff_cd,
                     "slug": cand["slug"],
                     "page_label": cand["page_label"],
                     "page_type": cand["type"],
@@ -1121,11 +1187,13 @@ def run(
             row = _public_action_row(cand, "proposed", reason)
             out["actions"].append(row)
             out["proposals"] += 1
+            eff_cd_p = _effective_cooldown_days(cand, cfg, cooldown_days)
             cms_state["log"].append({
                 "applied_at": utcnow_iso(),
                 "cooldown_until": (
-                    utcnow() + timedelta(days=cooldown_days)
+                    utcnow() + timedelta(days=eff_cd_p)
                 ).isoformat(),
+                "cooldown_days_applied": eff_cd_p,
                 "slug": cand["slug"],
                 "page_label": cand["page_label"],
                 "page_type": cand["type"],
@@ -1275,6 +1343,17 @@ def build_public_block(result: dict, *, private_dir: Path | None = None) -> dict
         "cooldown_days": cooldown_days,
         "max_changes_cap": max_cap,
         "max_small_content_cap": small_cap,
+        "no_cooldown_for_approved_live_writes": bool(
+            result.get("no_cooldown_for_approved_live_writes")
+        ),
+        "low_risk_metadata_change_types": result.get(
+            "low_risk_metadata_change_types"
+        ) or [],
+        "cooldown_policy_note": (
+            "Approved low-risk metadata live writes (title/meta only) on "
+            "the main HubSpot website have no cooldown. Body / module / "
+            "FAQ / internal-link changes keep the standard cooldown."
+        ),
         "why_no_prior_change": why_no_prior,
         "cooldown_blocked_slugs": result.get("cooldown_blocked_slugs") or [],
         "next_opportunity_queue": result.get("next_opportunity_queue") or [],

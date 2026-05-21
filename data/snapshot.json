@@ -18303,6 +18303,14 @@
         "next_action": "Improve tracking: have office managers tag review reply emails so we can move from 'response signals' to a definitive reply rate."
       },
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
+    },
+    "freshness_status": {
+      "data_freshness": "2026-05-09T17:00:00Z",
+      "age_days": 11,
+      "is_stale": true,
+      "stale_threshold_days": 2,
+      "label": "stale",
+      "note": "GMB data is 11d behind snapshot generation; expected daily."
     }
   },
   "membership_insights": {
@@ -18903,7 +18911,14 @@
         "samples": 0
       }
     ],
-    "errors": []
+    "errors": [],
+    "no_cooldown_for_approved_live_writes": true,
+    "low_risk_metadata_change_types": [
+      "missing_or_weak_title_update",
+      "missing_or_weak_meta_description_update"
+    ],
+    "cooldown_policy_note": "Approved low-risk metadata live writes (title/meta only) on the main HubSpot website have no cooldown. Body / module / FAQ / internal-link changes keep the standard cooldown.",
+    "live_write_status_note": "0 live write(s) recorded in this run. Live writes only occur when HubSpot credentials are connected and the change type is on the approved low-risk metadata list."
   },
   "automations": {
     "title": "Automations",
@@ -20212,5 +20227,349 @@
       }
     ],
     "daily_cap_notes": "On routine days: snapshot-only refresh, no per-account ads pull unless dashboard data older than 7 days."
+  },
+  "operator_summary": {
+    "title": "Operator Summary",
+    "subtitle": "Cross-initiative status, decisions, and blockers \u2014 no prose.",
+    "generated_at": "2026-05-21T15:31:30.110904+00:00",
+    "kpi_cards": [
+      {
+        "label": "Paid spend 30d",
+        "value": "$90,038",
+        "basis": "CPA $47.68",
+        "decision": "Recover ~$27,500/mo"
+      },
+      {
+        "label": "Paid action queue",
+        "value": "27 queued",
+        "basis": "8 executable \u00b7 19 need mutate",
+        "decision": "Cut waste; protect winners; scale eligible."
+      },
+      {
+        "label": "GMB avg rating",
+        "value": "4.83 \u2605",
+        "basis": "5 unreplied low reviews",
+        "decision": "Refresh GMB pipeline"
+      },
+      {
+        "label": "GMB low last 7d",
+        "value": "2 \u2193",
+        "basis": "prior 7d 3",
+        "decision": "Huddle on recurring themes; service recovery."
+      },
+      {
+        "label": "Qualified calls 7d",
+        "value": "\u2014",
+        "basis": "973 total \u00b7 good_lead + previously_marked_good_lead = qualified conversion",
+        "decision": "Watch qualified-call CPA per office."
+      },
+      {
+        "label": "CMS writes",
+        "value": "0 live / 0 draft / 3 proposed",
+        "basis": "mode: accelerated",
+        "decision": "Approve live credentials"
+      },
+      {
+        "label": "Lead SMS",
+        "value": "0 sent today",
+        "basis": "backlog 226 \u00b7 eligible 226 \u00b7 apply",
+        "decision": "Move to apply once provider + dedupe verified."
+      },
+      {
+        "label": "Membership cash 7d",
+        "value": "\u2014",
+        "basis": "\u2014",
+        "decision": {
+          "is_stale": true,
+          "days_stale": 9,
+          "threshold_days": 3,
+          "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
+          "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending."
+        }
+      }
+    ],
+    "trend_badges": [
+      {
+        "label": "GMB low 7d",
+        "trend": "\u2193",
+        "current": 2,
+        "prior": 3,
+        "good_direction": "down"
+      }
+    ],
+    "top_actions": [
+      {
+        "channel": "GMB Reviews",
+        "priority": "P0",
+        "office": null,
+        "label": "Reply to 5 unreplied low reviews within 24h",
+        "action": "Reply to 5 unreplied low reviews within 24h",
+        "executable_now": true,
+        "metric": "Star avg \u00b7 low-review count \u00b7 time-to-reply"
+      },
+      {
+        "channel": "GMB Reviews",
+        "priority": "P1",
+        "office": null,
+        "label": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
+        "action": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
+        "executable_now": true,
+        "metric": "Star avg \u00b7 low-review count \u00b7 time-to-reply"
+      },
+      {
+        "channel": "GMB Reviews",
+        "priority": "P1",
+        "office": null,
+        "label": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
+        "action": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
+        "executable_now": true,
+        "metric": "Star avg \u00b7 low-review count \u00b7 time-to-reply"
+      },
+      {
+        "channel": "Paid Ads",
+        "priority": "P1",
+        "office": "Santa Monica",
+        "label": "Fix waste before adding spend",
+        "action": "30-day spend $12,705. Fix waste before adding spend. Use the office leaderboard and high-risk share to pick this week's search-term + tracking audit.",
+        "opportunity_usd": 12704.94,
+        "executable_now": false,
+        "blocker": "Mutations require Google Ads mutate access.",
+        "metric": "office CPA, qualified-call rate"
+      },
+      {
+        "channel": "Paid Ads",
+        "priority": "P1",
+        "office": "Sherman Oaks",
+        "label": "Fix waste before adding spend",
+        "action": "30-day spend $12,559. Fix waste before adding spend. Use the office leaderboard and high-risk share to pick this week's search-term + tracking audit.",
+        "opportunity_usd": 12558.6,
+        "executable_now": false,
+        "blocker": "Mutations require Google Ads mutate access.",
+        "metric": "office CPA, qualified-call rate"
+      }
+    ],
+    "blockers": [
+      {
+        "channel": "Paid Ads",
+        "blocker": "Google Ads mutate access not connected",
+        "impact": "19 actions held"
+      },
+      {
+        "channel": "GMB Reviews",
+        "blocker": "GMB data older than daily cadence",
+        "impact": "GMB data is 11d behind snapshot generation; expected daily."
+      },
+      {
+        "channel": "Membership",
+        "blocker": "Subscribili export stale",
+        "impact": {
+          "is_stale": true,
+          "days_stale": 9,
+          "threshold_days": 3,
+          "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
+          "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending."
+        }
+      },
+      {
+        "channel": "Organic / CMS",
+        "blocker": "HubSpot live-write credentials not connected",
+        "impact": "3 metadata proposals pending"
+      }
+    ],
+    "last_action": {
+      "snapshot_generated_at": "2026-05-21T15:31:30.110904+00:00",
+      "by_channel": {
+        "paid_ads": "Pulled 2026-05-19 from Google Ads via Pipedream",
+        "calls": "2026-05-07T00:00:00Z",
+        "gmb": "2026-05-09T17:00:00Z",
+        "organic": "Updated daily. Public data is aggregated."
+      }
+    },
+    "gmb_freshness": {
+      "data_freshness": "2026-05-09T17:00:00Z",
+      "age_days": 11,
+      "is_stale": true,
+      "stale_threshold_days": 2,
+      "label": "stale",
+      "note": "GMB data is 11d behind snapshot generation; expected daily."
+    },
+    "paid_ads_office_rollup": [
+      {
+        "office": "Sherman Oaks",
+        "queued": 4,
+        "executable_now": 0,
+        "blocked_on_mutate": 4,
+        "opportunity_usd": 27705.14,
+        "cut": 2,
+        "protect": 0,
+        "scale": 0,
+        "other": 2
+      },
+      {
+        "office": "Santa Monica",
+        "queued": 4,
+        "executable_now": 0,
+        "blocked_on_mutate": 4,
+        "opportunity_usd": 20278.21,
+        "cut": 1,
+        "protect": 0,
+        "scale": 0,
+        "other": 3
+      },
+      {
+        "office": "Beverly Hills",
+        "queued": 2,
+        "executable_now": 1,
+        "blocked_on_mutate": 1,
+        "opportunity_usd": 17935.52,
+        "cut": 1,
+        "protect": 0,
+        "scale": 0,
+        "other": 1
+      },
+      {
+        "office": "Puri Dentistry",
+        "queued": 3,
+        "executable_now": 2,
+        "blocked_on_mutate": 1,
+        "opportunity_usd": 8568.09,
+        "cut": 0,
+        "protect": 0,
+        "scale": 1,
+        "other": 2
+      },
+      {
+        "office": "Encino",
+        "queued": 3,
+        "executable_now": 1,
+        "blocked_on_mutate": 2,
+        "opportunity_usd": 8302.99,
+        "cut": 0,
+        "protect": 0,
+        "scale": 0,
+        "other": 3
+      },
+      {
+        "office": "Oxnard Riverpark",
+        "queued": 3,
+        "executable_now": 1,
+        "blocked_on_mutate": 2,
+        "opportunity_usd": 7573.27,
+        "cut": 1,
+        "protect": 0,
+        "scale": 1,
+        "other": 1
+      },
+      {
+        "office": "Camarillo",
+        "queued": 2,
+        "executable_now": 0,
+        "blocked_on_mutate": 2,
+        "opportunity_usd": 0.0,
+        "cut": 0,
+        "protect": 0,
+        "scale": 1,
+        "other": 1
+      },
+      {
+        "office": "Ayur",
+        "queued": 1,
+        "executable_now": 0,
+        "blocked_on_mutate": 1,
+        "opportunity_usd": 0.0,
+        "cut": 0,
+        "protect": 0,
+        "scale": 1,
+        "other": 0
+      },
+      {
+        "office": "Hillview",
+        "queued": 1,
+        "executable_now": 0,
+        "blocked_on_mutate": 1,
+        "opportunity_usd": 0.0,
+        "cut": 0,
+        "protect": 0,
+        "scale": 1,
+        "other": 0
+      },
+      {
+        "office": "All offices",
+        "queued": 2,
+        "executable_now": 1,
+        "blocked_on_mutate": 1,
+        "opportunity_usd": 0.0,
+        "cut": 0,
+        "protect": 0,
+        "scale": 0,
+        "other": 2
+      },
+      {
+        "office": "Ayur - Problem",
+        "queued": 1,
+        "executable_now": 1,
+        "blocked_on_mutate": 0,
+        "opportunity_usd": 0.0,
+        "cut": 0,
+        "protect": 0,
+        "scale": 0,
+        "other": 1
+      },
+      {
+        "office": "Thousand Oaks",
+        "queued": 1,
+        "executable_now": 1,
+        "blocked_on_mutate": 0,
+        "opportunity_usd": 0.0,
+        "cut": 0,
+        "protect": 0,
+        "scale": 0,
+        "other": 1
+      }
+    ],
+    "paid_ads_priority_offices": [
+      {
+        "office": "Sherman Oaks",
+        "queued": 4,
+        "executable_now": 0,
+        "blocked_on_mutate": 4,
+        "opportunity_usd": 27705.14,
+        "cut": 2,
+        "protect": 0,
+        "scale": 0,
+        "other": 2
+      },
+      {
+        "office": "Puri Dentistry",
+        "queued": 3,
+        "executable_now": 2,
+        "blocked_on_mutate": 1,
+        "opportunity_usd": 8568.09,
+        "cut": 0,
+        "protect": 0,
+        "scale": 1,
+        "other": 2
+      },
+      {
+        "office": "Camarillo",
+        "queued": 2,
+        "executable_now": 0,
+        "blocked_on_mutate": 2,
+        "opportunity_usd": 0.0,
+        "cut": 0,
+        "protect": 0,
+        "scale": 1,
+        "other": 1
+      }
+    ],
+    "channel_freshness": {
+      "paid_ads": "Pulled 2026-05-19 from Google Ads via Pipedream",
+      "calls": "2026-05-07T00:00:00Z",
+      "gmb": "2026-05-09T17:00:00Z",
+      "gmb_age_days": 11,
+      "gmb_is_stale": true,
+      "organic": "Updated daily. Public data is aggregated.",
+      "membership": "Manual browser export on 2026-05-10 (9 DAYS STALE as of 2026-05-19)"
+    }
   }
 }
