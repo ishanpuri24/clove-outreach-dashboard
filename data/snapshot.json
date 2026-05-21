@@ -20277,15 +20277,9 @@
       },
       {
         "label": "Membership cash 7d",
-        "value": "\u2014",
-        "basis": "\u2014",
-        "decision": {
-          "is_stale": true,
-          "days_stale": 9,
-          "threshold_days": 3,
-          "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
-          "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending."
-        }
+        "value": "302 active members",
+        "basis": "64 new \u00b7 1 overdue",
+        "decision": "9d stale \u00b7 thr 3d \u2014 Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snap\u2026"
       }
     ],
     "trend_badges": [
@@ -20299,33 +20293,6 @@
     ],
     "top_actions": [
       {
-        "channel": "GMB Reviews",
-        "priority": "P0",
-        "office": null,
-        "label": "Reply to 5 unreplied low reviews within 24h",
-        "action": "Reply to 5 unreplied low reviews within 24h",
-        "executable_now": true,
-        "metric": "Star avg \u00b7 low-review count \u00b7 time-to-reply"
-      },
-      {
-        "channel": "GMB Reviews",
-        "priority": "P1",
-        "office": null,
-        "label": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
-        "action": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
-        "executable_now": true,
-        "metric": "Star avg \u00b7 low-review count \u00b7 time-to-reply"
-      },
-      {
-        "channel": "GMB Reviews",
-        "priority": "P1",
-        "office": null,
-        "label": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
-        "action": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
-        "executable_now": true,
-        "metric": "Star avg \u00b7 low-review count \u00b7 time-to-reply"
-      },
-      {
         "channel": "Paid Ads",
         "priority": "P1",
         "office": "Santa Monica",
@@ -20334,7 +20301,8 @@
         "opportunity_usd": 12704.94,
         "executable_now": false,
         "blocker": "Mutations require Google Ads mutate access.",
-        "metric": "office CPA, qualified-call rate"
+        "metric": "office CPA, qualified-call rate",
+        "priority_reason": null
       },
       {
         "channel": "Paid Ads",
@@ -20345,7 +20313,44 @@
         "opportunity_usd": 12558.6,
         "executable_now": false,
         "blocker": "Mutations require Google Ads mutate access.",
-        "metric": "office CPA, qualified-call rate"
+        "metric": "office CPA, qualified-call rate",
+        "priority_reason": null
+      },
+      {
+        "channel": "Paid Ads",
+        "priority": "P2",
+        "office": "Beverly Hills",
+        "label": "Protect efficient volume",
+        "action": "30-day spend $10,362. Protect efficient volume. Use the office leaderboard and high-risk share to pick this week's search-term + tracking audit.",
+        "opportunity_usd": 10362.25,
+        "executable_now": true,
+        "blocker": "",
+        "metric": "office CPA, qualified-call rate",
+        "priority_reason": null
+      },
+      {
+        "channel": "Paid Ads",
+        "priority": "P2",
+        "office": "Puri Dentistry",
+        "label": "Scale carefully after lead-quality check",
+        "action": "30-day spend $8,568. Scale carefully after lead-quality check. Use the office leaderboard and high-risk share to pick this week's search-term + tracking audit.",
+        "opportunity_usd": 8568.09,
+        "executable_now": true,
+        "blocker": "",
+        "metric": "office CPA, qualified-call rate",
+        "priority_reason": null
+      },
+      {
+        "channel": "Paid Ads",
+        "priority": "P1",
+        "office": "Encino",
+        "label": "Fix waste before adding spend",
+        "action": "30-day spend $8,303. Fix waste before adding spend. Use the office leaderboard and high-risk share to pick this week's search-term + tracking audit.",
+        "opportunity_usd": 8302.99,
+        "executable_now": false,
+        "blocker": "Mutations require Google Ads mutate access.",
+        "metric": "office CPA, qualified-call rate",
+        "priority_reason": null
       }
     ],
     "blockers": [
@@ -20362,13 +20367,7 @@
       {
         "channel": "Membership",
         "blocker": "Subscribili export stale",
-        "impact": {
-          "is_stale": true,
-          "days_stale": 9,
-          "threshold_days": 3,
-          "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
-          "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending."
-        }
+        "impact": "9d stale \u00b7 thr 3d \u2014 Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snap\u2026"
       },
       {
         "channel": "Organic / CMS",

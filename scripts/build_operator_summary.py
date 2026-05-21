@@ -223,16 +223,46 @@ def _calls_summary(snapshot: dict) -> dict:
     }
 
 
+def _stringify_alert(alert: Any) -> str:
+    """Coerce a staleness_alert (str | dict | None) into a concise string."""
+    if alert is None:
+        return ""
+    if isinstance(alert, str):
+        return alert.strip()
+    if isinstance(alert, dict):
+        days = alert.get("days_stale")
+        thr = alert.get("threshold_days")
+        nxt = alert.get("next_action") or alert.get("blocker") or ""
+        head = []
+        if isinstance(days, (int, float)):
+            head.append(f"{int(days)}d stale")
+        if isinstance(thr, (int, float)):
+            head.append(f"thr {int(thr)}d")
+        prefix = " · ".join(head)
+        nxt = str(nxt).strip()
+        if prefix and nxt:
+            # Trim long next-action prose to one short clause.
+            short = nxt.split(".")[0].strip()
+            if len(short) > 90:
+                short = short[:87].rstrip() + "…"
+            return f"{prefix} — {short}"
+        return prefix or (nxt.split(".")[0].strip()[:90] if nxt else "stale")
+    return ""
+
+
 def _membership_summary(snapshot: dict) -> dict:
     m = snapshot.get("membership_insights") or {}
     snap = m.get("snapshot") or {}
     return {
         "headline": m.get("headline") or "",
         "freshness": m.get("data_freshness"),
-        "staleness_alert": m.get("staleness_alert"),
+        "staleness_alert": _stringify_alert(m.get("staleness_alert")),
         "cash_7d_usd": snap.get("cash_7d_usd"),
         "cash_prior_7d_usd": snap.get("cash_prior_7d_usd"),
         "cash_delta_share_pct": snap.get("cash_delta_share_pct"),
+        "active_members": snap.get("active_members"),
+        "new_signups_period": snap.get("new_signups_period"),
+        "overdue": snap.get("overdue"),
     }
 
 
@@ -255,61 +285,96 @@ def _sms_summary(snapshot: dict) -> dict:
 
 
 def _top_actions(snapshot: dict, paid: dict, gmb: dict, organic: dict) -> list[dict]:
-    out: list[dict] = []
-    # Paid ads top 5 by opportunity USD (executable first within tie)
+    """Return top 5 cross-channel actions, primarily ranked by $ opportunity.
+
+    Ranking rules:
+      1. Sort by ``opportunity_usd`` desc — dollar-quantified items dominate.
+      2. Items without a $ figure are admitted only when explicitly P0
+         (operator-flagged urgent) and tagged ``priority_reason`` so the UI
+         can label them "Priority — no $ estimate" rather than mixing them
+         silently above paid-waste items.
+      3. Executable-now breaks ties at equal $.
+    """
+    pool: list[dict] = []
+
+    # Paid ads: every queue item participates; they carry real $ figures.
     pa = snapshot.get("paid_ads_action_system") or {}
-    queue = pa.get("queue") or []
-    ranked = sorted(
-        queue,
-        key=lambda q: (
-            -float(q.get("estimated_opportunity_usd") or 0),
-            0 if q.get("can_execute_now") else 1,
-        ),
-    )
-    for q in ranked[:5]:
-        out.append({
+    for q in pa.get("queue") or []:
+        opp = q.get("estimated_opportunity_usd")
+        pool.append({
             "channel": "Paid Ads",
             "priority": q.get("priority") or "P1",
             "office": q.get("office"),
             "label": q.get("label") or q.get("action"),
             "action": q.get("action"),
-            "opportunity_usd": q.get("estimated_opportunity_usd"),
+            "opportunity_usd": float(opp) if isinstance(opp, (int, float)) else None,
             "executable_now": bool(q.get("can_execute_now")),
             "blocker": q.get("blocker") or "",
             "metric": q.get("impact_metric"),
+            "priority_reason": None,
         })
-    # GMB top actions
-    for a in (gmb.get("top_actions") or [])[:3]:
-        out.append({
+
+    # GMB: admitted only when P0 (urgent reputational), tagged for the UI.
+    for a in (gmb.get("top_actions") or []):
+        pri = a.get("priority") or "P1"
+        if pri != "P0":
+            continue
+        pool.append({
             "channel": "GMB Reviews",
-            "priority": a.get("priority") or "P1",
+            "priority": pri,
             "office": None,
             "label": a.get("label") or a.get("action"),
             "action": a.get("action"),
+            "opportunity_usd": None,
             "executable_now": True,
+            "blocker": "",
             "metric": "Star avg · low-review count · time-to-reply",
+            "priority_reason": "P0 reputational — no $ estimate",
         })
-    # Organic / CMS – surface live writes pending or top proposal
+
+    # Organic / CMS: only the top proposal, only if it's an executable live
+    # write OR there is something to gate on (proposals + no credentials).
     cms_actions = (snapshot.get("organic_cms_actions") or {}).get("actions") or []
     if cms_actions:
         cand = cms_actions[0]
-        out.append({
+        status = cand.get("status")
+        executable = status in ("applied_live", "applied_draft")
+        pool.append({
             "channel": "Organic / CMS",
             "priority": "P1",
             "office": None,
             "label": cand.get("page") or "CMS metadata",
             "action": cand.get("change") or "Title/meta refresh",
-            "executable_now": cand.get("status") in (
-                "applied_live", "applied_draft"
-            ),
+            "opportunity_usd": None,
+            "executable_now": executable,
+            "blocker": ("" if executable
+                        else "Pending HubSpot live-write credentials"),
             "metric": cand.get("metric_to_watch"),
-            "blocker": (
-                "" if cand.get("status") in ("applied_live", "applied_draft")
-                else "Pending HubSpot live-write credentials"
-            ),
+            "priority_reason": ("Live metadata write ready"
+                                if executable else None),
         })
-    out.sort(key=lambda r: (r.get("priority", "P3"), 0 if r.get("executable_now") else 1))
-    return out[:5]
+
+    def _sort_key(r: dict) -> tuple:
+        # Bucket A: has $ opportunity — rank by $ desc.
+        # Bucket B: P0 priority with no $ — comes after bucket A unless $0.
+        # Bucket C: everything else — lowest.
+        opp = r.get("opportunity_usd")
+        has_money = isinstance(opp, (int, float)) and opp > 0
+        is_p0 = r.get("priority") == "P0"
+        if has_money:
+            bucket = 0
+        elif is_p0:
+            bucket = 1
+        else:
+            bucket = 2
+        return (
+            bucket,
+            -(opp or 0),
+            0 if r.get("executable_now") else 1,
+        )
+
+    pool.sort(key=_sort_key)
+    return pool[:5]
 
 
 def _blockers(snapshot: dict, paid: dict, organic: dict, gmb_fresh: dict,
@@ -425,13 +490,20 @@ def build_operator_summary(snapshot: dict) -> dict:
             {"label": "Membership cash 7d",
              "value": (f"${membership['cash_7d_usd']:,.0f}"
                        if isinstance(membership.get('cash_7d_usd'), (int, float))
-                       else "—"),
-             "basis": (f"prior 7d "
-                       f"${membership['cash_prior_7d_usd']:,.0f}"
-                       if isinstance(membership.get('cash_prior_7d_usd'), (int, float))
-                       else "—"),
-             "decision": (membership.get("staleness_alert")
-                          or "Hold cadence")},
+                       else (f"{membership['active_members']} active members"
+                             if isinstance(membership.get('active_members'),
+                                           (int, float))
+                             else "—")),
+             "basis": (f"prior 7d ${membership['cash_prior_7d_usd']:,.0f}"
+                       if isinstance(membership.get('cash_prior_7d_usd'),
+                                     (int, float))
+                       else (f"{membership['new_signups_period'] or 0} new · "
+                             f"{membership['overdue'] or 0} overdue"
+                             if membership.get('active_members') is not None
+                             else "—")),
+             "decision": (membership["staleness_alert"]
+                          if membership.get("staleness_alert")
+                          else "Hold cadence")},
         ],
         "trend_badges": [
             {"label": "GMB low 7d", "trend": gmb_sum["low_trend"],

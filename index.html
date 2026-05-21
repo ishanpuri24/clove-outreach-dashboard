@@ -6556,15 +6556,37 @@
       }
 
       // -------- Operator Summary (default tab) --------
+      function _coerceDecision(v) {
+        // Defensive: card.decision should be a short string. If a dict ever
+        // slips through (e.g. membership_insights.staleness_alert), pick the
+        // most operator-useful field instead of rendering "[object Object]".
+        if (v == null) return "";
+        if (typeof v === "string") return v;
+        if (typeof v === "number" || typeof v === "boolean") return String(v);
+        if (typeof v === "object") {
+          var head = [];
+          if (typeof v.days_stale === "number") head.push(v.days_stale + "d stale");
+          if (typeof v.threshold_days === "number") head.push("thr " + v.threshold_days + "d");
+          var nxt = v.next_action || v.blocker || v.note || "";
+          if (typeof nxt !== "string") nxt = "";
+          if (nxt.length > 110) nxt = nxt.slice(0, 107) + "…";
+          var pre = head.join(" · ");
+          if (pre && nxt) return pre + " — " + nxt.split(".")[0];
+          return pre || nxt.split(".")[0] || "";
+        }
+        return String(v);
+      }
+
       function _summaryKpiCard(c) {
         var card = el("div", { "class": "ps-stat" });
         card.appendChild(el("div", { "class": "ps-stat-label", text: c.label || "" }));
         card.appendChild(el("div", { "class": "ps-stat-value", text: String(c.value == null ? "—" : c.value) }));
         if (c.basis) card.appendChild(el("div", { "class": "ps-stat-bench", text: c.basis }));
-        if (c.decision) {
+        var decisionText = _coerceDecision(c.decision);
+        if (decisionText) {
           var d = el("div", { "class": "ps-stat-bench" });
           d.appendChild(el("strong", { text: "Decision: " }));
-          d.appendChild(document.createTextNode(c.decision));
+          d.appendChild(document.createTextNode(decisionText));
           card.appendChild(d);
         }
         return card;
@@ -6635,7 +6657,9 @@
           }
         }
 
-        // Top actions
+        // Top actions — primarily ranked by $ opportunity (see
+        // build_operator_summary._top_actions). Items with no $ are admitted
+        // only when explicitly P0 and tagged with priority_reason.
         var rows = (os.top_actions || []).map(function (a) {
           var statusCell = el("td");
           if (a.executable_now) {
@@ -6647,8 +6671,16 @@
           var actionCell = el("td");
           actionCell.appendChild(el("div", { text: a.action || a.label || "—" }));
           if (a.office) actionCell.appendChild(el("div", { "class": "ps-stat-bench", text: "Office: " + a.office }));
-          var opp = (typeof a.opportunity_usd === "number") ? _fmtUsd(a.opportunity_usd) : "—";
-          return [a.priority || "P1", a.channel || "—", actionCell, opp, statusCell, a.metric || "—"];
+          var oppCell = el("td");
+          if (typeof a.opportunity_usd === "number" && a.opportunity_usd > 0) {
+            oppCell.appendChild(document.createTextNode(_fmtUsd(a.opportunity_usd)));
+          } else if (a.priority_reason) {
+            oppCell.appendChild(el("span", { "class": "pill warn", text: "Priority" }));
+            oppCell.appendChild(el("div", { "class": "ps-stat-bench", text: a.priority_reason }));
+          } else {
+            oppCell.appendChild(document.createTextNode("—"));
+          }
+          return [a.priority || "P1", a.channel || "—", actionCell, oppCell, statusCell, a.metric || "—"];
         });
         _summaryTable(actHost,
           ["Priority", "Channel", "Action", "Opportunity", "Status", "Metric to watch"],
