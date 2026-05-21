@@ -2599,7 +2599,9 @@
       "Use the office leaderboard and high-risk spend share to choose where call/quality audits go this week.",
       "High-risk spend currently at $37866.34 (42.06% of 30-day spend across 16 reporting offices)."
     ],
-    "operator_notes": "All 9 offices analyzed 2026-05-19. Master plan: clove_paid_ads_action_plan_2026-05-19.md. Largest opportunities: Santa Monica + Sherman Oaks combined ~$11k/mo recoverable.",
+    "operator_notes": [
+      "All 9 offices analyzed 2026-05-19. Master plan: clove_paid_ads_action_plan_2026-05-19.md. Largest opportunities: Santa Monica + Sherman Oaks combined ~$11k/mo recoverable."
+    ],
     "account_linking_status": {
       "last_checked": "",
       "manager_accounts_visible": "private",

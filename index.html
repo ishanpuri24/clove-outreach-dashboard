@@ -1843,6 +1843,10 @@
     </header>
 
     <main id="main">
+      <div id="fatal-error-banner" class="card" hidden
+           style="border-color: var(--danger); background: var(--danger-weak); margin-bottom: 12px;"></div>
+      <div id="section-error-banner" class="card" hidden
+           style="border-color: var(--warn); background: var(--warn-weak); margin-bottom: 12px;"></div>
       <div class="tabs" role="tablist" aria-label="Dashboard sections">
         <button class="tab" role="tab" id="tab-automations"
                 aria-controls="panel-automations" aria-selected="true">
@@ -3838,8 +3842,12 @@
         }
 
         if (actCard) {
-          var ra = ads.recommended_actions || [];
-          var notes = ads.operator_notes || [];
+          // Coerce to array: snapshot may emit a single string when the
+          // upstream signal is a one-line summary instead of a bulleted list.
+          var ra = ads.recommended_actions;
+          ra = Array.isArray(ra) ? ra : (ra ? [String(ra)] : []);
+          var notes = ads.operator_notes;
+          notes = Array.isArray(notes) ? notes : (notes ? [String(notes)] : []);
           actCard.appendChild(el("div", { "class": "section-meta",
             text: "Operator recommendations" }));
           var seenRa = {};
@@ -6194,46 +6202,89 @@
         });
       }
 
+      // Defensive section runner: a crash in one render function must not
+      // blank the whole dashboard. Each section runs in its own try/catch;
+      // failures are logged and surfaced in an in-page banner so the page
+      // stays usable and the issue is debuggable without devtools.
+      function _safeRender(label, fn) {
+        try { fn(); }
+        catch (err) {
+          try { console.error("render section failed: " + label, err); }
+          catch (_) {}
+          if (window.__SECTION_ERRORS__) {
+            window.__SECTION_ERRORS__.push({
+              section: label,
+              message: (err && err.message) || String(err)
+            });
+          }
+        }
+      }
+
+      function _showSectionErrorBanner() {
+        var errs = window.__SECTION_ERRORS__ || [];
+        var banner = $("section-error-banner");
+        if (!banner) return;
+        if (!errs.length) { banner.hidden = true; banner.innerHTML = ""; return; }
+        banner.hidden = false;
+        banner.innerHTML = "";
+        var head = el("div", { "class": "item-title",
+          text: errs.length + " section(s) failed to render. " +
+                "The rest of the dashboard is unaffected." });
+        banner.appendChild(head);
+        var ul = el("ul", { "class": "checks", style: "margin-top:6px;" });
+        errs.slice(0, 10).forEach(function (e) {
+          ul.appendChild(el("li", {
+            text: e.section + ": " + e.message
+          }));
+        });
+        banner.appendChild(ul);
+      }
+
       function renderAll(s) {
-        renderExec(s);
-        renderKpis(s);
-        renderQueue(s);
-        renderScorecard(s);
-        renderAdsInsights(s);
-        renderPaidAdsTopSummary(s.google_ads_insights);
-        renderCallRailCallQuality(s.google_ads_insights);
-        renderWeeklyRunRate(s.google_ads_insights);
-        renderTop5(s.google_ads_insights);
-        renderOfficeSpendOpportunities(s.google_ads_insights);
-        renderConversionRateBenchmarks(s.google_ads_insights);
-        renderAdGroupBenchmarks(s.google_ads_insights);
-        renderOperatorOrder(s.google_ads_insights);
-        renderPriorityPlaybooks(s.google_ads_insights);
-        renderActionQueue(s.google_ads_insights);
-        renderPaidAdsActionSystem(s.paid_ads_action_system);
-        renderTrendRollup(s.google_ads_insights);
-        renderTrendOffices(s.google_ads_insights);
-        renderTrendCampaigns(s.google_ads_insights);
-        renderChangeTracker(s.google_ads_insights);
-        renderDailyImprovementLoop(s.google_ads_insights);
-        renderAdsCoverageTable(s);
-        renderOfficeLeaderboard(s);
-        renderKeywordFocus(s);
-        renderApiWriteback(s);
-        renderTrend(s.daily || []);
-        renderMix(s);
-        renderReplyDetail(s);
-        renderExperiments(s);
-        renderFollowups(s);
-        renderReplies(s);
-        renderGuardrailStatus(s);
-        renderLists(s);
-        renderOrganic(s.organic_insights);
-        renderOrganicCmsActions(s.organic_cms_actions);
-        renderReviews(s.gmb_insights);
-        renderMembership(s.membership_insights || s.referral_insights);
-        renderAutomations(s.automations);
-        $("generated").textContent = s.generated_at || "";
+        window.__SECTION_ERRORS__ = [];
+        _safeRender("exec", function () { renderExec(s); });
+        _safeRender("kpis", function () { renderKpis(s); });
+        _safeRender("queue", function () { renderQueue(s); });
+        _safeRender("scorecard", function () { renderScorecard(s); });
+        _safeRender("ads_insights", function () { renderAdsInsights(s); });
+        _safeRender("ads_top_summary", function () { renderPaidAdsTopSummary(s.google_ads_insights); });
+        _safeRender("callrail_call_quality", function () { renderCallRailCallQuality(s.google_ads_insights); });
+        _safeRender("weekly_run_rate", function () { renderWeeklyRunRate(s.google_ads_insights); });
+        _safeRender("top5", function () { renderTop5(s.google_ads_insights); });
+        _safeRender("office_spend_opportunities", function () { renderOfficeSpendOpportunities(s.google_ads_insights); });
+        _safeRender("conversion_rate_benchmarks", function () { renderConversionRateBenchmarks(s.google_ads_insights); });
+        _safeRender("ad_group_benchmarks", function () { renderAdGroupBenchmarks(s.google_ads_insights); });
+        _safeRender("operator_order", function () { renderOperatorOrder(s.google_ads_insights); });
+        _safeRender("priority_playbooks", function () { renderPriorityPlaybooks(s.google_ads_insights); });
+        _safeRender("action_queue", function () { renderActionQueue(s.google_ads_insights); });
+        _safeRender("paid_ads_action_system", function () { renderPaidAdsActionSystem(s.paid_ads_action_system); });
+        _safeRender("trend_rollup", function () { renderTrendRollup(s.google_ads_insights); });
+        _safeRender("trend_offices", function () { renderTrendOffices(s.google_ads_insights); });
+        _safeRender("trend_campaigns", function () { renderTrendCampaigns(s.google_ads_insights); });
+        _safeRender("change_tracker", function () { renderChangeTracker(s.google_ads_insights); });
+        _safeRender("daily_improvement_loop", function () { renderDailyImprovementLoop(s.google_ads_insights); });
+        _safeRender("ads_coverage_table", function () { renderAdsCoverageTable(s); });
+        _safeRender("office_leaderboard", function () { renderOfficeLeaderboard(s); });
+        _safeRender("keyword_focus", function () { renderKeywordFocus(s); });
+        _safeRender("api_writeback", function () { renderApiWriteback(s); });
+        _safeRender("trend", function () { renderTrend(s.daily || []); });
+        _safeRender("mix", function () { renderMix(s); });
+        _safeRender("reply_detail", function () { renderReplyDetail(s); });
+        _safeRender("experiments", function () { renderExperiments(s); });
+        _safeRender("followups", function () { renderFollowups(s); });
+        _safeRender("replies", function () { renderReplies(s); });
+        _safeRender("guardrail_status", function () { renderGuardrailStatus(s); });
+        _safeRender("lists", function () { renderLists(s); });
+        _safeRender("organic", function () { renderOrganic(s.organic_insights); });
+        _safeRender("organic_cms_actions", function () { renderOrganicCmsActions(s.organic_cms_actions); });
+        _safeRender("reviews", function () { renderReviews(s.gmb_insights); });
+        _safeRender("membership", function () { renderMembership(s.membership_insights || s.referral_insights); });
+        _safeRender("automations", function () { renderAutomations(s.automations); });
+        try {
+          var gen = $("generated");
+          if (gen) gen.textContent = s.generated_at || "";
+        } catch (_) {}
+        _showSectionErrorBanner();
       }
 
       // -------- Automations (sanitized, aggregate-only) --------
@@ -8103,13 +8154,69 @@
         });
       }
 
+      function _showFatalBanner(message, detail) {
+        try {
+          var banner = $("fatal-error-banner");
+          if (!banner) return;
+          banner.hidden = false;
+          banner.innerHTML = "";
+          banner.appendChild(el("div", { "class": "item-title",
+            text: "Dashboard failed to render: " + message }));
+          if (detail) {
+            banner.appendChild(el("div", {
+              "class": "item-meta", style: "margin-top:6px;",
+              text: String(detail).slice(0, 500)
+            }));
+          }
+          var st = $("status-text");
+          var pill = $("status-pill");
+          if (st) st.textContent = "Render error";
+          if (pill) pill.className = "pill danger";
+        } catch (_) {}
+      }
+
+      window.addEventListener("error", function (ev) {
+        _showFatalBanner(
+          (ev && ev.message) || "Unknown script error",
+          ev && ev.error && ev.error.stack
+        );
+      });
+      window.addEventListener("unhandledrejection", function (ev) {
+        var reason = ev && ev.reason;
+        _showFatalBanner(
+          (reason && reason.message) || "Unhandled promise rejection",
+          reason && reason.stack
+        );
+      });
+
+      function _safeBoot(snapshot) {
+        try { boot(snapshot); }
+        catch (err) {
+          _showFatalBanner(
+            (err && err.message) || "boot() threw",
+            err && err.stack
+          );
+        }
+      }
+
       if (window.__SNAPSHOT__) {
-        boot(window.__SNAPSHOT__);
+        _safeBoot(window.__SNAPSHOT__);
       } else {
         fetch("data/snapshot.json", { cache: "no-store" })
-          .then(function (r) { return r.ok ? r.json() : null; })
-          .then(boot)
-          .catch(function () { boot(null); });
+          .then(function (r) {
+            if (!r.ok) {
+              throw new Error("snapshot HTTP " + r.status);
+            }
+            return r.json();
+          })
+          .then(_safeBoot)
+          .catch(function (err) {
+            _showFatalBanner(
+              "snapshot fetch failed: " + ((err && err.message) || err),
+              err && err.stack
+            );
+            _safeBoot(null);
+          });
       }
     })();
   </script>

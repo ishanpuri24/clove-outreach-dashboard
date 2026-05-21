@@ -126,7 +126,9 @@ ai["manual_action_queue_2026_05_19"] = [
 ]
 
 ai["api_writeback_status"] = "Connector is read-only (Pipedream Google Ads). Direct budget/bid/pause/negative mutations require manual UI execution or a write-capable API path."
-ai["operator_notes"] = "All 9 offices analyzed 2026-05-19. Master plan: clove_paid_ads_action_plan_2026-05-19.md. Largest opportunities: Santa Monica + Sherman Oaks combined ~$11k/mo recoverable."
+ai["operator_notes"] = [
+    "All 9 offices analyzed 2026-05-19. Master plan: clove_paid_ads_action_plan_2026-05-19.md. Largest opportunities: Santa Monica + Sherman Oaks combined ~$11k/mo recoverable."
+]
 
 d["google_ads_insights"] = ai
 
