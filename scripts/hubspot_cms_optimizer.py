@@ -363,7 +363,35 @@ def _normalize_page(p: dict) -> dict:
         "html_title": p.get("htmlTitle") or "",
         "meta_description": p.get("metaDescription") or "",
         "type": p.get("_object_type", "site_page"),
+        "currently_published": p.get("currentlyPublished"),
+        "archived": p.get("archived"),
     }
+
+
+# Markers HubSpot puts on auto-created / unpublished scratch pages. We
+# never write to these and never surface their slugs publicly: the slug
+# embeds a per-page UUID (private-ish, and useless as a public path).
+_NON_PUBLISHABLE_SLUG_MARKERS = ("-temporary-slug-", "temporary-slug")
+
+
+def _is_publishable_page(np: dict) -> bool:
+    """Whether a CMS page is a real, published page safe to optimize.
+
+    Excludes archived pages, never-published drafts, and HubSpot's
+    auto-generated ``-temporary-slug-<uuid>`` scratch pages. Writing
+    metadata to these is pointless and leaks a UUID-bearing slug into
+    the public snapshot.
+    """
+    if np.get("archived") is True:
+        return False
+    if np.get("currently_published") is False:
+        return False
+    slug = (np.get("slug") or "").lower()
+    url = (np.get("url") or "").lower()
+    for marker in _NON_PUBLISHABLE_SLUG_MARKERS:
+        if marker in slug or marker in url:
+            return False
+    return True
 
 
 def _public_page_label(np: dict) -> str:
@@ -507,6 +535,28 @@ def _gsc_signal_for_page(
                 "avg_position": None,
             }
     return None
+
+
+def _weak_metadata_signal(np: dict) -> dict:
+    """Synthetic signal for a page whose title/meta is missing or weak.
+
+    Used in live-capable apply runs so a defective <title> or meta
+    description is itself a sufficient reason for a safe, reversible
+    live metadata write — independent of any GSC demand signal. Metric
+    fields are None because this is driven by the on-page defect, not a
+    search-performance threshold.
+    """
+    slug = _public_slug(np.get("url") or ("/" + (np.get("slug") or "")))
+    leaf = (slug.strip("/").split("/")[-1] if slug.strip("/") else slug) or "page"
+    return {
+        "match": "weak_metadata_no_gsc_signal",
+        "rule": "page_title_or_meta_missing_or_weak",
+        "query": leaf,
+        "clicks": None,
+        "impressions": None,
+        "ctr_pct": None,
+        "avg_position": None,
+    }
 
 
 def _callrail_review_themes(snapshot: dict) -> list[str]:
@@ -808,6 +858,58 @@ def _load_config(config_path: Path) -> dict:
     return cfg
 
 
+def _credentials_present(cfg: dict) -> bool:
+    """Whether a usable HubSpot token is present in the config.
+
+    A blank / whitespace-only / obvious-placeholder token counts as
+    missing. We never log or echo the token itself — only this boolean.
+    """
+    tok = cfg.get("token")
+    if not isinstance(tok, str):
+        return False
+    tok = tok.strip()
+    if len(tok) < 8:
+        return False
+    placeholder_markers = ("changeme", "placeholder", "your_token", "xxxx", "<", "todo")
+    low = tok.lower()
+    return not any(m in low for m in placeholder_markers)
+
+
+def _publish_mode_is_live_capable(cfg: dict) -> bool:
+    """Whether the configured publish_mode authorizes any live write.
+
+    True for the accelerated mode and the standard controlled-live mode.
+    The legacy drafts-only mode is not live-capable.
+    """
+    return cfg.get("publish_mode") in PUBLISH_MODES_WITH_LIVE
+
+
+def _compute_live_write_status(out: dict, apply_changes: bool) -> str:
+    """Distinguish *why* a run did or did not perform live writes.
+
+    Avoids the historical ambiguity where any run with zero live writes
+    was labelled a flat "dry-run" regardless of cause. Possible values:
+
+      * ``credentials_missing`` / ``config_missing`` -- set earlier and
+        not overwritten here (the run returns before this is reached).
+      * ``live_written``      -- at least one live metadata write landed.
+      * ``draft_written``     -- only HubSpot drafts were saved.
+      * ``check_dry_run``     -- ``--check`` mode; nothing applied by design.
+      * ``not_live_capable``  -- publish_mode does not authorize live writes.
+      * ``no_eligible_candidates`` -- live-capable + credentialed, but no
+        page qualified for a live metadata write this run (only proposals).
+    """
+    if out.get("live_writes", 0) > 0:
+        return "live_written"
+    if out.get("draft_writes", 0) > 0:
+        return "draft_written"
+    if not apply_changes:
+        return "check_dry_run"
+    if not out.get("live_capable"):
+        return "not_live_capable"
+    return "no_eligible_candidates"
+
+
 def _tier_set(cfg: dict, name: str) -> set[str]:
     tiers = cfg.get("safety_tiers") or {}
     val = tiers.get(name)
@@ -998,6 +1100,9 @@ def run(
         "errors": [],
         "publish_mode": None,
         "writeback_performed": False,
+        "credentials_present": False,
+        "live_capable": False,
+        "live_write_status": "unknown",
         "live_writes": 0,
         "draft_writes": 0,
         "proposals": 0,
@@ -1012,12 +1117,23 @@ def run(
     }
 
     cfg_path = private_dir / DEFAULT_CONFIG_NAME
-    try:
-        cfg = _load_config(cfg_path)
-    except Exception as e:
-        out["errors"].append(f"config: {e}")
+    cfg = read_json(cfg_path, None)
+    if not isinstance(cfg, dict):
+        out["errors"].append("config: hubspot_cms_config not found or unreadable")
+        out["live_write_status"] = "config_missing"
         return out
     out["publish_mode"] = cfg.get("publish_mode")
+    out["live_capable"] = _publish_mode_is_live_capable(cfg)
+    creds_ok = _credentials_present(cfg)
+    out["credentials_present"] = creds_ok
+    # No usable token: never silently degrade to a generic "dry-run".
+    # Surface an explicit credentials_missing status, keep proposals
+    # staged so the operator sees the queued work, and stop before any
+    # network call (which would only raise an opaque auth error).
+    if not creds_ok:
+        out["live_write_status"] = "credentials_missing"
+        out["errors"].append("config: credentials_missing")
+        return out
     # Per-config cap, if present.
     learn = cfg.get("daily_learning_loop") or {}
     accel = _accel(cfg)
@@ -1053,7 +1169,8 @@ def run(
         for p in site_pages:
             np = _normalize_page(p)
             np["type"] = "site_page"
-            pages.append(np)
+            if _is_publishable_page(np):
+                pages.append(np)
     except Exception as e:
         out["errors"].append(f"site_pages: {e}")
     try:
@@ -1062,7 +1179,8 @@ def run(
         for p in landing_pages:
             np = _normalize_page(p)
             np["type"] = "landing_page"
-            pages.append(np)
+            if _is_publishable_page(np):
+                pages.append(np)
     except Exception as e:
         out["errors"].append(f"landing_pages: {e}")
 
@@ -1080,12 +1198,28 @@ def run(
     # before picking new candidates.
     out["impact_samples_updated"] = _refresh_impact_history(state, snapshot)
 
+    # When the publish_mode authorizes live writes and the run is
+    # actually applying, weak title/meta pages are themselves eligible
+    # for a safe live metadata write even without a GSC demand signal:
+    # a missing/short <title> or meta description is a defect to fix on
+    # its own. Without this, the live-write path was structurally starved
+    # because the weak pages rarely overlap the GSC-signalled pages, so
+    # every run degraded to "dry-run" despite a live-capable config.
+    weak_metadata_live_eligible = bool(
+        apply_changes and out.get("live_capable")
+    )
+
     candidates: list[dict] = []
     small_candidates: list[dict] = []
     cooldown_blocked: list[dict] = []
     next_queue: list[dict] = []
     for np in pages:
         signal = _gsc_signal_for_page(np, gsc, accelerated=accelerated)
+        if not signal and weak_metadata_live_eligible and (
+            _is_weak_title(np.get("html_title"))
+            or _is_weak_meta(np.get("meta_description"))
+        ):
+            signal = _weak_metadata_signal(np)
         if not signal:
             continue
         out["candidates_considered"] += 1
@@ -1250,6 +1384,8 @@ def run(
             "impact_history": [],
         })
 
+    out["live_write_status"] = _compute_live_write_status(out, apply_changes)
+
     try:
         write_json_atomic(private_dir / DEFAULT_STATE_NAME, state)
     except Exception as e:
@@ -1335,6 +1471,9 @@ def build_public_block(result: dict, *, private_dir: Path | None = None) -> dict
         "growth_mode": growth_mode,
         "accelerated": accelerated,
         "writeback_performed": bool(result.get("writeback_performed")),
+        "credentials_present": bool(result.get("credentials_present")),
+        "live_capable": bool(result.get("live_capable")),
+        "live_write_status": result.get("live_write_status") or "unknown",
         "live_writes": int(result.get("live_writes") or 0),
         "draft_writes": int(result.get("draft_writes") or 0),
         "proposals": int(result.get("proposals") or 0),
@@ -1373,6 +1512,51 @@ def build_public_block(result: dict, *, private_dir: Path | None = None) -> dict
 
 
 # ---------------------------------------------------------------------------
+# Preflight (no network, no writes)
+# ---------------------------------------------------------------------------
+
+def preflight(private_dir: Path) -> dict:
+    """Report live-write readiness without any network call or write.
+
+    Answers, without touching HubSpot: is a config present, is a usable
+    token present, does the publish_mode authorize live writes, and
+    would an apply run be expected to perform live writes or surface a
+    blocker? Never echoes the token or any private path/ID.
+    """
+    out: dict = {
+        "config_present": False,
+        "credentials_present": False,
+        "publish_mode": None,
+        "live_capable": False,
+        "accelerated": False,
+        "no_cooldown_for_approved_live_writes": False,
+        "expected_live_write_status": "config_missing",
+        "blocker": None,
+    }
+    cfg = read_json(private_dir / DEFAULT_CONFIG_NAME, None)
+    if not isinstance(cfg, dict):
+        out["blocker"] = "hubspot_cms_config not present or unreadable"
+        return out
+    out["config_present"] = True
+    out["publish_mode"] = cfg.get("publish_mode")
+    out["live_capable"] = _publish_mode_is_live_capable(cfg)
+    out["accelerated"] = _accel_enabled(cfg)
+    out["credentials_present"] = _credentials_present(cfg)
+    out["no_cooldown_for_approved_live_writes"] = (
+        _no_cooldown_for_approved_live_writes(cfg)
+    )
+    if not out["credentials_present"]:
+        out["expected_live_write_status"] = "credentials_missing"
+        out["blocker"] = "credentials_missing: token absent or placeholder"
+    elif not out["live_capable"]:
+        out["expected_live_write_status"] = "not_live_capable"
+        out["blocker"] = "publish_mode does not authorize live writes"
+    else:
+        out["expected_live_write_status"] = "live_capable_ready"
+    return out
+
+
+# ---------------------------------------------------------------------------
 # CLI entry
 # ---------------------------------------------------------------------------
 
@@ -1385,6 +1569,8 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
                    help="Dry-run only: propose changes, write nothing to HubSpot.")
     p.add_argument("--apply", action="store_true",
                    help="Apply low-risk metadata changes (live where eligible, draft otherwise).")
+    p.add_argument("--preflight", action="store_true",
+                   help="Report live-write readiness (credentials + publish_mode) without any network call or write.")
     p.add_argument("--max-changes", type=int, default=10)
     p.add_argument("--cooldown-days", type=int, default=DEFAULT_COOLDOWN_DAYS)
     p.add_argument("--snapshot", default=str(PUBLIC_SNAPSHOT))
@@ -1402,6 +1588,9 @@ def main(argv: list[str]) -> int:
     if not private_dir.exists():
         print(f"ERROR: private dir missing: {private_dir.name}", file=sys.stderr)
         return 2
+    if args.preflight:
+        print(json.dumps(preflight(private_dir), indent=2))
+        return 0
     try:
         result = run(
             private_dir=private_dir,
@@ -1429,6 +1618,9 @@ def main(argv: list[str]) -> int:
         "proposals": result["proposals"],
         "small_content_proposals": result.get("small_content_proposals", 0),
         "writeback_performed": result["writeback_performed"],
+        "credentials_present": result.get("credentials_present"),
+        "live_capable": result.get("live_capable"),
+        "live_write_status": result.get("live_write_status"),
         "impact_samples_updated": result["impact_samples_updated"],
         "cooldown_days": result.get("cooldown_days"),
         "max_changes_cap": result.get("max_changes_cap"),

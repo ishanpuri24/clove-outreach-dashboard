@@ -11,16 +11,23 @@ Behavior:
   * Reads private configs and last-known-good summaries from
     ``/home/user/workspace/cron_tracking/a3b9de2f`` when present.
   * In ``--fast`` mode (the default) it does not perform live
-    connector calls. It re-stamps the public snapshot's
+    *metrics* connector calls. It re-stamps the public snapshot's
     ``generated_at`` and refreshes the routine-refresh status block,
     merges sanitized aggregates that already exist on disk, and
     leaves any unavailable metric marked ``pending`` or ``stale``
     rather than fabricating values.
-  * Always runs ``--no-send`` by default. Outbound outreach is never
-    triggered from this script. The script will refuse to send even
-    if ``--no-send`` is removed unless an explicit ``--sender`` is
-    supplied and a sender-bound connector is wired up, which by
-    design is not part of this orchestrator.
+  * The HubSpot CMS metadata writeback is NOT gated by ``--fast`` or
+    ``--no-send``: those flags govern metric pulls and outbound
+    patient/SMS/email comms respectively. Safe, reversible CMS
+    metadata (title/meta) writes still run when the CMS config
+    authorizes live writeback and credentials are present. Use
+    ``--cms-dry-run`` to force the CMS step to propose-only, or
+    ``--check`` to write nothing at all.
+  * Always runs ``--no-send`` by default. Outbound outreach (SMS /
+    email / patient comms) is never triggered from this script. The
+    script will refuse to send even if ``--no-send`` is removed unless
+    an explicit ``--sender`` is supplied and a sender-bound connector
+    is wired up, which by design is not part of this orchestrator.
   * Persists ``daily_learning_state.json`` (in the private tracking
     directory) with the last refresh status and suppressed-repeat
     recommendation tracking, when that file is present.
@@ -1733,14 +1740,26 @@ def merge_cms_actions(
     ]
     if result.get("accelerated"):
         parts.append("growth=accelerated")
+    # Reflect the optimizer's explicit live_write_status so the operator
+    # can tell "credentials missing" or "live-capable but nothing
+    # eligible" apart from a real dry-run. A live-capable config that
+    # simply had no eligible page this run is NOT a dry-run.
+    lw_status = result.get("live_write_status") or "unknown"
+    mode_note_by_status = {
+        "live_written": " (live-writeback)",
+        "draft_written": " (draft-writeback)",
+        "credentials_missing": " (credentials_missing; proposals staged)",
+        "config_missing": " (config_missing)",
+        "check_dry_run": " (dry-run)",
+        "not_live_capable": " (dry-run; publish_mode not live-capable)",
+        "no_eligible_candidates": " (live-capable; no eligible page this run)",
+    }
     if result.get("live_writes"):
         mode_note = " (live-writeback)"
     elif result.get("draft_writes"):
         mode_note = " (draft-writeback)"
-    elif result.get("writeback_performed"):
-        mode_note = " (writeback)"
     else:
-        mode_note = " (dry-run)"
+        mode_note = mode_note_by_status.get(lw_status, " (dry-run)")
     status["hubspot_cms"] = "ok: " + ", ".join(parts) + mode_note
     return result
 
