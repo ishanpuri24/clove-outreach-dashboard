@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-08T15:43:57.845894+00:00",
+  "generated_at": "2026-06-09T15:34:00.548586+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17252,7 +17252,7 @@
     ],
     "low_review_weekly_trends": {
       "title": "Weekly low-review trend",
-      "generated_at": "2026-06-08T15:43:57.818837+00:00",
+      "generated_at": "2026-06-09T15:34:00.521658+00:00",
       "anchor_date": "2026-05-09",
       "current_week_start": "2026-05-04",
       "windows": {
@@ -18669,12 +18669,12 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-06-08T15:43:57.845897+00:00",
-    "last_run_date": "2026-06-08",
+    "last_run_at": "2026-06-09T15:34:00.548590+00:00",
+    "last_run_date": "2026-06-09",
     "mode": "fast",
     "sources": {
       "callrail": "ok: merged sanitized aggregate",
-      "hubspot_cms": "ok: inventory=50sp/50lp, considered=20, actions=13, live=10, draft=0, proposed=3, impact_samples=2, growth=accelerated (live-writeback)",
+      "hubspot_cms": "ok: inventory=50sp/50lp, considered=17, actions=13, live=10, draft=0, proposed=3, impact_samples=2, growth=accelerated (live-writeback)",
       "outbound": "disabled: --no-send (default)",
       "review_weekly_trends": "ok: 9 offices, 2 low last 7d (prior 3), 2 action(s) queued",
       "paid_ads_action_system": "ok: 27 actions, 8 executable now, 19 blocked on mutate access",
@@ -18685,7 +18685,7 @@
   },
   "organic_cms_actions": {
     "title": "Organic / HubSpot CMS automation",
-    "last_run_at": "2026-06-08T15:43:43.388887+00:00",
+    "last_run_at": "2026-06-09T15:33:44.834673+00:00",
     "mode": "apply",
     "publish_mode": "accelerated_controlled_live_writeback_with_small_content_allowed",
     "growth_mode": "accelerated",
@@ -18711,24 +18711,6 @@
     "why_no_prior_change": "Prior runs were held by the 7-day per-page cooldown after the May 13 live metadata writes. Accelerated mode shortens the cooldown and expands the candidate pool.",
     "cooldown_blocked_slugs": [],
     "next_opportunity_queue": [
-      {
-        "slug": "/oxnard-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/ventura-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/beverly-hills-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
       {
         "slug": "/camarillo-general",
         "rule": "page_title_or_meta_missing_or_weak",
@@ -18828,33 +18810,33 @@
         "note": "Live metadata update pushed to HubSpot CMS"
       },
       {
-        "page": "/jz-endodontist \u2014 Endodontist",
-        "slug": "/jz-endodontist",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update",
-        "why": "title len 12",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
-        "page": "/jz-periodontist \u2014 Periodontist",
-        "slug": "/jz-periodontist",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update",
-        "why": "title len 12",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
-        "page": "/al-new-page-0 \u2014 S21 Testing (Clone)",
-        "slug": "/al-new-page-0",
+        "page": "/oxnard-general \u2014 G ads - General Landing (S21) Oxnard",
+        "slug": "/oxnard-general",
         "page_type": "landing_page",
         "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 22; meta len 0",
+        "why": "title len 20; meta len 0",
+        "status": "applied_live",
+        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
+        "metric_to_watch": "CTR / clicks",
+        "note": "Live metadata update pushed to HubSpot CMS"
+      },
+      {
+        "page": "/ventura-general \u2014 G ads - General Landing (S21) Ventura",
+        "slug": "/ventura-general",
+        "page_type": "landing_page",
+        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
+        "why": "title len 20; meta len 0",
+        "status": "applied_live",
+        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
+        "metric_to_watch": "CTR / clicks",
+        "note": "Live metadata update pushed to HubSpot CMS"
+      },
+      {
+        "page": "/beverly-hills-general \u2014 G ads - General Landing (S21) Beverly Hills",
+        "slug": "/beverly-hills-general",
+        "page_type": "landing_page",
+        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
+        "why": "title len 20; meta len 0",
         "status": "applied_live",
         "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
         "metric_to_watch": "CTR / clicks",
@@ -18903,7 +18885,7 @@
         "slug": "/careers",
         "change": "missing_or_weak_title_update",
         "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:47.936384+00:00",
+        "applied_at": "2026-06-09T15:33:49.096271+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -18917,7 +18899,7 @@
         "slug": "/privacy",
         "change": "missing_or_weak_title_update",
         "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:48.968808+00:00",
+        "applied_at": "2026-06-09T15:33:50.285660+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -18931,7 +18913,7 @@
         "slug": "/home-a",
         "change": "missing_or_weak_title_update",
         "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:49.633556+00:00",
+        "applied_at": "2026-06-09T15:33:51.030540+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -18945,7 +18927,7 @@
         "slug": "/test",
         "change": "missing_or_weak_title_update",
         "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:50.439565+00:00",
+        "applied_at": "2026-06-09T15:33:51.962627+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -18959,7 +18941,7 @@
         "slug": "/jz",
         "change": "missing_or_weak_title_update",
         "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:52.238605+00:00",
+        "applied_at": "2026-06-09T15:33:54.012278+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -18973,7 +18955,7 @@
         "slug": "/jz-0",
         "change": "missing_or_weak_title_update",
         "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:53.104484+00:00",
+        "applied_at": "2026-06-09T15:33:54.995434+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -18983,39 +18965,39 @@
         "samples": 0
       },
       {
-        "page": "/jz-endodontist \u2014 Endodontist",
-        "slug": "/jz-endodontist",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:54.935008+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/jz-periodontist \u2014 Periodontist",
-        "slug": "/jz-periodontist",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:56.871342+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/al-new-page-0 \u2014 S21 Testing (Clone)",
-        "slug": "/al-new-page-0",
+        "page": "/oxnard-general \u2014 G ads - General Landing (S21) Oxnard",
+        "slug": "/oxnard-general",
         "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
         "status": "applied_live",
-        "applied_at": "2026-06-08T15:43:57.787093+00:00",
+        "applied_at": "2026-06-09T15:33:56.885195+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/ventura-general \u2014 G ads - General Landing (S21) Ventura",
+        "slug": "/ventura-general",
+        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-09T15:33:58.476098+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/beverly-hills-general \u2014 G ads - General Landing (S21) Beverly Hills",
+        "slug": "/beverly-hills-general",
+        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-09T15:34:00.487280+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -19029,7 +19011,7 @@
         "slug": "/o",
         "change": "small_existing_body_copy_improvement",
         "status": "proposed_not_applied",
-        "applied_at": "2026-06-08T15:43:57.787154+00:00",
+        "applied_at": "2026-06-09T15:34:00.487342+00:00",
         "baseline_ctr_pct": 0.77,
         "baseline_clicks": 624,
         "latest_ctr_pct": null,
@@ -19043,7 +19025,7 @@
         "slug": "/ty",
         "change": "small_existing_body_copy_improvement",
         "status": "proposed_not_applied",
-        "applied_at": "2026-06-08T15:43:57.787171+00:00",
+        "applied_at": "2026-06-09T15:34:00.487361+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -19057,7 +19039,7 @@
         "slug": "/insurance",
         "change": "faq_section_update",
         "status": "proposed_not_applied",
-        "applied_at": "2026-06-08T15:43:57.787185+00:00",
+        "applied_at": "2026-06-09T15:34:00.487375+00:00",
         "baseline_ctr_pct": 2.61,
         "baseline_clicks": 85,
         "latest_ctr_pct": null,
@@ -19350,7 +19332,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-06-08T15:43:57.845880+00:00",
+      "as_of": "2026-06-09T15:34:00.548569+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -19361,7 +19343,7 @@
           "accelerated": true,
           "next_action": "Accelerated daily loop: 10 live metadata writes/run, 7-day cooldown, expanded candidate pool (high-impr/low-CTR, near-rank, demand themes, weak metadata); small body/FAQ/internal-link improvements staged as drafts.",
           "last_action": "13 CMS action(s) considered; 10 live \u00b7 0 draft \u00b7 3 proposed (accelerated mode).",
-          "last_action_at": "2026-06-08T15:43:43.388887+00:00",
+          "last_action_at": "2026-06-09T15:33:44.834673+00:00",
           "impact_metric": "GSC clicks / CTR on edited pages (impact_over_time)",
           "impact_samples": 2,
           "live_writes": 10,
@@ -19445,7 +19427,7 @@
           "status": "active_live",
           "next_action": "Hold cadence; coach recurring themes in next huddle.",
           "last_action": "1 open low-review follow-up(s); oldest 2 day(s) old.",
-          "last_action_at": "2026-06-08T15:43:57.818837+00:00",
+          "last_action_at": "2026-06-09T15:34:00.521658+00:00",
           "impact_metric": "Open low-review follow-ups, oldest-open age, response-signal count",
           "blocker": null
         },
@@ -19455,7 +19437,7 @@
           "status": "active_live",
           "next_action": "P1: Santa Monica \u00b7 Service recovery (1/4 weeks) \u2014 Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
           "last_action": "Last 7d: 2 low reviews (prior 7d: 3, direction: down).",
-          "last_action_at": "2026-06-08T15:43:57.818837+00:00",
+          "last_action_at": "2026-06-09T15:34:00.521658+00:00",
           "impact_metric": "Week-over-week low-review delta, recurring-theme count, avg rating trend, prior-action improvement rate",
           "blocker": null
         },
@@ -19465,7 +19447,7 @@
           "status": "active_dry_run",
           "next_action": "Top 5 daily actions shown on the Paid Ads tab. Connect a Google Ads mutate-capable path to unblock automatic budget/bid/negative/pause/ad changes.",
           "last_action": "27 paid-ads action(s) queued: 8 executable now, 19 pending Google Ads mutate access.",
-          "last_action_at": "2026-06-08T15:43:57.845596+00:00",
+          "last_action_at": "2026-06-09T15:34:00.548172+00:00",
           "impact_metric": "high-risk spend share, CPA, CVR, qualified calls, wasted clicks share",
           "blocker": "Google Ads connector currently lacks mutate actions.",
           "tier_counts": {
@@ -19482,31 +19464,13 @@
     "growth_mode": "accelerated",
     "accelerated": true,
     "publish_mode_pretty": "Accelerated \u00b7 live metadata + small-content drafts",
-    "last_run_at": "2026-06-08T15:43:43.388887+00:00",
+    "last_run_at": "2026-06-09T15:33:44.834673+00:00",
     "cooldown_days": 7,
     "max_changes_cap": 10,
     "max_small_content_cap": 3,
     "why_no_prior_change": "Prior runs were held by the 7-day per-page cooldown after the May 13 live metadata writes. Accelerated mode shortens the cooldown and expands the candidate pool.",
     "what_changed_now": "10 live metadata update(s), 0 draft, 0 metadata proposal(s), 3 small-content proposal(s).",
     "next_opportunity_queue": [
-      {
-        "slug": "/oxnard-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/ventura-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/beverly-hills-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
       {
         "slug": "/camarillo-general",
         "rule": "page_title_or_meta_missing_or_weak",
@@ -19619,33 +19583,33 @@
         "note": "Live metadata update pushed to HubSpot CMS"
       },
       {
-        "page": "/jz-endodontist \u2014 Endodontist",
-        "slug": "/jz-endodontist",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update",
-        "why": "title len 12",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
-        "page": "/jz-periodontist \u2014 Periodontist",
-        "slug": "/jz-periodontist",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update",
-        "why": "title len 12",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
-        "page": "/al-new-page-0 \u2014 S21 Testing (Clone)",
-        "slug": "/al-new-page-0",
+        "page": "/oxnard-general \u2014 G ads - General Landing (S21) Oxnard",
+        "slug": "/oxnard-general",
         "page_type": "landing_page",
         "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 22; meta len 0",
+        "why": "title len 20; meta len 0",
+        "status": "applied_live",
+        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
+        "metric_to_watch": "CTR / clicks",
+        "note": "Live metadata update pushed to HubSpot CMS"
+      },
+      {
+        "page": "/ventura-general \u2014 G ads - General Landing (S21) Ventura",
+        "slug": "/ventura-general",
+        "page_type": "landing_page",
+        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
+        "why": "title len 20; meta len 0",
+        "status": "applied_live",
+        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
+        "metric_to_watch": "CTR / clicks",
+        "note": "Live metadata update pushed to HubSpot CMS"
+      },
+      {
+        "page": "/beverly-hills-general \u2014 G ads - General Landing (S21) Beverly Hills",
+        "slug": "/beverly-hills-general",
+        "page_type": "landing_page",
+        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
+        "why": "title len 20; meta len 0",
         "status": "applied_live",
         "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
         "metric_to_watch": "CTR / clicks",
@@ -19676,7 +19640,7 @@
   },
   "paid_ads_action_system": {
     "title": "Paid Ads dynamic action system",
-    "as_of": "2026-06-08T15:43:57.845596+00:00",
+    "as_of": "2026-06-09T15:34:00.548172+00:00",
     "summary": "27 action(s) queued; 8 executable now, 19 need Google Ads mutate access, 0 need higher-risk approval.",
     "writeback_tiers": {
       "executable_now": [
@@ -20167,7 +20131,7 @@
       }
     ],
     "daily_learning": {
-      "previous_actions_recorded": 25,
+      "previous_actions_recorded": 27,
       "metric_before": {
         "cost_usd_30d": 90037.57,
         "conversions_30d": 1888.47,
@@ -20242,175 +20206,175 @@
           "category": "waste_to_cut",
           "label": "Oxnard Riverpark - JZ-Search-Riverpark",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-08T15:43:57.845370+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.547942+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Sherman Oaks - JZ-Search-Sherman Oaks",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-08T15:43:57.845390+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.547962+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Sherman Oaks - JZ-PMAX",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-08T15:43:57.845397+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.547969+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Santa Monica - JZ-Search-Santa Monica",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-08T15:43:57.845403+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.547976+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Beverly Hills - Beverly Hills",
           "office": "Beverly Hills",
-          "suppressed_at": "2026-06-08T15:43:57.845410+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.547982+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Camarillo - Insurance-Performance Max-15/4/26",
           "office": "Camarillo",
-          "suppressed_at": "2026-06-08T15:43:57.845416+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.547989+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Puri Dentistry - Insurance-Performance Max 27-3-2026",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-08T15:43:57.845423+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.547996+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Ayur - Problem - Perio",
           "office": "Ayur",
-          "suppressed_at": "2026-06-08T15:43:57.845429+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548002+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Oxnard Riverpark - Insurance -Performance Max - 4/7/26",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-08T15:43:57.845435+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548009+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Hillview - PMAX - GBP 8/1/2025",
           "office": "Hillview",
-          "suppressed_at": "2026-06-08T15:43:57.845442+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548015+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "DNM",
           "office": "Ayur - Problem",
-          "suppressed_at": "2026-06-08T15:43:57.845448+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548022+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "(Emergency) pmax- 10/6/2025",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-08T15:43:57.845454+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548028+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "JZ-Search-Marin",
           "office": "Thousand Oaks",
-          "suppressed_at": "2026-06-08T15:43:57.845460+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548034+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "General-Search-27/10",
           "office": "Encino",
-          "suppressed_at": "2026-06-08T15:43:57.845465+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548040+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "pmax -gbp 6/26/25",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-08T15:43:57.845471+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548045+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Sherman Oaks",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-08T15:43:57.845477+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548052+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Santa Monica",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-08T15:43:57.845483+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548058+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Encino",
           "office": "Encino",
-          "suppressed_at": "2026-06-08T15:43:57.845489+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548064+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Pmax",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-08T15:43:57.845497+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548071+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Cam - Dentical",
           "office": "Camarillo",
-          "suppressed_at": "2026-06-08T15:43:57.845503+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548078+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-08T15:43:57.845509+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548084+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-08T15:43:57.845515+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548090+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Protect efficient volume",
           "office": "Beverly Hills",
-          "suppressed_at": "2026-06-08T15:43:57.845521+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548096+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Scale carefully after lead-quality check",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-08T15:43:57.845527+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548102+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Encino",
-          "suppressed_at": "2026-06-08T15:43:57.845533+00:00",
+          "suppressed_at": "2026-06-09T15:34:00.548108+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         }
       ],
