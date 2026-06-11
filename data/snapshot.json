@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-11T02:27:10+00:00",
+  "generated_at": "2026-06-11T15:33:19.466324+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -19383,7 +19383,7 @@
     ],
     "low_review_weekly_trends": {
       "title": "Weekly low-review trend",
-      "generated_at": "2026-06-11T02:27:10+00:00",
+      "generated_at": "2026-06-11T15:33:19.432818+00:00",
       "anchor_date": "2026-06-11",
       "current_week_start": "2026-06-08",
       "windows": {
@@ -19392,19 +19392,19 @@
         "last_28d": 28
       },
       "totals": {
-        "last_7d_low": 3,
+        "last_7d_low": 0,
         "prior_7d_low": 0,
-        "delta_low": 3,
-        "last_7d_avg_rating": 1.33,
+        "delta_low": 0,
+        "last_7d_avg_rating": null,
         "unresolved_open": 1,
-        "oldest_open_age_days": 0
+        "oldest_open_age_days": 35
       },
       "weekly_buckets": [
         {
           "week_start": "2026-05-11",
           "week_end": "2026-05-17",
-          "low_count": 1,
-          "total_offices_with_low": 1
+          "low_count": 0,
+          "total_offices_with_low": 0
         },
         {
           "week_start": "2026-05-18",
@@ -19421,8 +19421,8 @@
         {
           "week_start": "2026-06-01",
           "week_end": "2026-06-07",
-          "low_count": 2,
-          "total_offices_with_low": 2
+          "low_count": 0,
+          "total_offices_with_low": 0
         }
       ],
       "office_trends": [
@@ -19467,102 +19467,56 @@
             "label": "no reply signals detected"
           },
           "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Maintain reply cadence",
-          "drilldown": []
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Maintain reply cadence",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
         },
         {
           "office": "Camarillo",
-          "last_7d_low": 1,
-          "prior_7d_low": 0,
-          "delta": 1,
-          "trend_direction": "up",
-          "last_7d_avg": null,
-          "last_28d_avg": 1.0,
-          "weekly_buckets": [
-            {
-              "week_start": "2026-05-11",
-              "week_end": "2026-05-17",
-              "low_count": 0,
-              "avg_rating": null
-            },
-            {
-              "week_start": "2026-05-18",
-              "week_end": "2026-05-24",
-              "low_count": 0,
-              "avg_rating": null
-            },
-            {
-              "week_start": "2026-05-25",
-              "week_end": "2026-05-31",
-              "low_count": 0,
-              "avg_rating": null
-            },
-            {
-              "week_start": "2026-06-01",
-              "week_end": "2026-06-07",
-              "low_count": 1,
-              "avg_rating": 1.0
-            }
-          ],
-          "common_themes": [],
-          "response_signals": {
-            "matches_28d": 0,
-            "latest_signal_date": null,
-            "label": "no reply signals detected"
-          },
-          "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Huddle on recurring themes",
-          "drilldown": []
-        },
-        {
-          "office": "Encino",
-          "last_7d_low": 1,
-          "prior_7d_low": 0,
-          "delta": 1,
-          "trend_direction": "up",
-          "last_7d_avg": null,
-          "last_28d_avg": 1.0,
-          "weekly_buckets": [
-            {
-              "week_start": "2026-05-11",
-              "week_end": "2026-05-17",
-              "low_count": 0,
-              "avg_rating": null
-            },
-            {
-              "week_start": "2026-05-18",
-              "week_end": "2026-05-24",
-              "low_count": 0,
-              "avg_rating": null
-            },
-            {
-              "week_start": "2026-05-25",
-              "week_end": "2026-05-31",
-              "low_count": 0,
-              "avg_rating": null
-            },
-            {
-              "week_start": "2026-06-01",
-              "week_end": "2026-06-07",
-              "low_count": 0,
-              "avg_rating": null
-            }
-          ],
-          "common_themes": [],
-          "response_signals": {
-            "matches_28d": 0,
-            "latest_signal_date": null,
-            "label": "1 open follow-up(s)"
-          },
-          "open_followups": 1,
-          "oldest_open_age_days": 0,
-          "next_action": "Reply to 1 unreplied low review(s)",
-          "drilldown": []
-        },
-        {
-          "office": "Hillview",
           "last_7d_low": 0,
           "prior_7d_low": 0,
           "delta": 0,
@@ -19602,9 +19556,231 @@
             "label": "no reply signals detected"
           },
           "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Maintain reply cadence",
-          "drilldown": []
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Huddle on recurring themes",
+            "low_then": 1,
+            "low_now": 0,
+            "improved": true
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Encino",
+          "last_7d_low": 0,
+          "prior_7d_low": 0,
+          "delta": 0,
+          "trend_direction": "flat",
+          "last_7d_avg": null,
+          "last_28d_avg": null,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [],
+          "response_signals": {
+            "matches_28d": 0,
+            "latest_signal_date": null,
+            "label": "no reply signals detected"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Reply to 1 unreplied low review(s)",
+            "low_then": 1,
+            "low_now": 0,
+            "improved": true
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
+        },
+        {
+          "office": "Hillview",
+          "last_7d_low": 0,
+          "prior_7d_low": 0,
+          "delta": 0,
+          "trend_direction": "flat",
+          "last_7d_avg": null,
+          "last_28d_avg": null,
+          "weekly_buckets": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "avg_rating": null
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "avg_rating": null
+            }
+          ],
+          "common_themes": [],
+          "response_signals": {
+            "matches_28d": 2,
+            "latest_signal_date": "2026-05-12T22:18:11+00:00",
+            "label": "2 response signals (last 28d)"
+          },
+          "open_followups": 0,
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Maintain reply cadence",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
         },
         {
           "office": "Oxnard Riverpark",
@@ -19647,9 +19823,53 @@
             "label": "no reply signals detected"
           },
           "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Maintain reply cadence",
-          "drilldown": []
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Maintain reply cadence",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
         },
         {
           "office": "Puri Dentistry",
@@ -19692,24 +19912,68 @@
             "label": "no reply signals detected"
           },
           "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Maintain reply cadence",
-          "drilldown": []
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Maintain reply cadence",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
         },
         {
           "office": "Santa Monica",
-          "last_7d_low": 1,
+          "last_7d_low": 0,
           "prior_7d_low": 0,
-          "delta": 1,
-          "trend_direction": "up",
+          "delta": 0,
+          "trend_direction": "flat",
           "last_7d_avg": null,
-          "last_28d_avg": 1.5,
+          "last_28d_avg": null,
           "weekly_buckets": [
             {
               "week_start": "2026-05-11",
               "week_end": "2026-05-17",
-              "low_count": 1,
-              "avg_rating": 1.0
+              "low_count": 0,
+              "avg_rating": null
             },
             {
               "week_start": "2026-05-18",
@@ -19726,8 +19990,8 @@
             {
               "week_start": "2026-06-01",
               "week_end": "2026-06-07",
-              "low_count": 1,
-              "avg_rating": 2.0
+              "low_count": 0,
+              "avg_rating": null
             }
           ],
           "common_themes": [],
@@ -19737,9 +20001,53 @@
             "label": "no reply signals detected"
           },
           "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Huddle on recurring themes",
-          "drilldown": []
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Huddle on recurring themes",
+            "low_then": 1,
+            "low_now": 0,
+            "improved": true
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
         },
         {
           "office": "Sherman Oaks",
@@ -19781,10 +20089,54 @@
             "latest_signal_date": null,
             "label": "no reply signals detected"
           },
-          "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Maintain reply cadence",
-          "drilldown": []
+          "open_followups": 1,
+          "oldest_open_age_days": 35,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Maintain reply cadence",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
         },
         {
           "office": "Thousand Oaks",
@@ -19827,40 +20179,56 @@
             "label": "no reply signals detected"
           },
           "open_followups": 0,
-          "oldest_open_age_days": 0,
-          "next_action": "Maintain reply cadence",
-          "drilldown": []
+          "oldest_open_age_days": null,
+          "prior_action": {
+            "week_start": "2026-06-08",
+            "action": "Maintain reply cadence",
+            "low_then": 0,
+            "low_now": 0,
+            "improved": false
+          },
+          "next_action": "Hold cadence; keep asking 2 happy patients/day",
+          "drilldown": [
+            {
+              "week_start": "2026-05-11",
+              "week_end": "2026-05-17",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-18",
+              "week_end": "2026-05-24",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-05-25",
+              "week_end": "2026-05-31",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            },
+            {
+              "week_start": "2026-06-01",
+              "week_end": "2026-06-07",
+              "low_count": 0,
+              "replied_count": 0,
+              "themes": [],
+              "sanitized_snippets": [],
+              "action_status": "No low reviews this week"
+            }
+          ]
         }
       ],
-      "action_queue": [
-        {
-          "priority": "P2",
-          "office": "Camarillo",
-          "theme": "Service recovery",
-          "weeks_seen": 1,
-          "trend_direction": "up",
-          "prior_action_effect": "new this week",
-          "action": "Huddle on recurring themes"
-        },
-        {
-          "priority": "P1",
-          "office": "Encino",
-          "theme": "Service recovery",
-          "weeks_seen": 1,
-          "trend_direction": "up",
-          "prior_action_effect": "new this week",
-          "action": "Reply to 1 unreplied low review(s)"
-        },
-        {
-          "priority": "P2",
-          "office": "Santa Monica",
-          "theme": "Service recovery",
-          "weeks_seen": 1,
-          "trend_direction": "up",
-          "prior_action_effect": "new this week",
-          "action": "Huddle on recurring themes"
-        }
-      ],
+      "action_queue": [],
       "response_tracking": {
         "label": "response signals",
         "basis": "aggregate counts only \u2014 no email bodies, no staff names, no patient names",
@@ -20236,14 +20604,14 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-06-09T15:34:00.548590+00:00",
-    "last_run_date": "2026-06-09",
+    "last_run_at": "2026-06-11T15:33:19.466327+00:00",
+    "last_run_date": "2026-06-11",
     "mode": "fast",
     "sources": {
       "callrail": "ok: merged sanitized aggregate",
-      "hubspot_cms": "ok: inventory=50sp/50lp, considered=17, actions=13, live=10, draft=0, proposed=3, impact_samples=2, growth=accelerated (live-writeback)",
+      "hubspot_cms": "ok: inventory=50sp/50lp, considered=11, actions=10, live=7, draft=0, proposed=3, impact_samples=81, growth=accelerated (live-writeback)",
       "outbound": "disabled: --no-send (default)",
-      "review_weekly_trends": "ok: 9 offices, 2 low last 7d (prior 3), 2 action(s) queued",
+      "review_weekly_trends": "ok: 9 offices, 0 low last 7d (prior 0), 0 action(s) queued",
       "paid_ads_action_system": "ok: 27 actions, 8 executable now, 19 blocked on mutate access",
       "ga4_key_events": "ok: form_submit mapped; call_click+appt_booked instrumentation pending",
       "action_system": "ok: 8 actions tracked"
@@ -20252,7 +20620,7 @@
   },
   "organic_cms_actions": {
     "title": "Organic / HubSpot CMS automation",
-    "last_run_at": "2026-06-09T15:33:44.834673+00:00",
+    "last_run_at": "2026-06-11T15:33:09.095302+00:00",
     "mode": "apply",
     "publish_mode": "accelerated_controlled_live_writeback_with_small_content_allowed",
     "growth_mode": "accelerated",
@@ -20261,11 +20629,11 @@
     "credentials_present": true,
     "live_capable": true,
     "live_write_status": "live_written",
-    "live_writes": 10,
+    "live_writes": 7,
     "draft_writes": 0,
     "proposals": 3,
     "small_content_proposals": 3,
-    "impact_samples_updated": 2,
+    "impact_samples_updated": 81,
     "cooldown_days": 7,
     "max_changes_cap": 10,
     "max_small_content_cap": 3,
@@ -20277,27 +20645,8 @@
     "cooldown_policy_note": "Approved low-risk metadata live writes (title/meta only) on the main HubSpot website have no cooldown. Body / module / FAQ / internal-link changes keep the standard cooldown.",
     "why_no_prior_change": "Prior runs were held by the 7-day per-page cooldown after the May 13 live metadata writes. Accelerated mode shortens the cooldown and expands the candidate pool.",
     "cooldown_blocked_slugs": [],
-    "next_opportunity_queue": [
-      {
-        "slug": "/camarillo-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/riverpark-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/general-encino",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      }
-    ],
-    "summary": "13 CMS action(s) considered; 10 live \u00b7 0 draft \u00b7 3 proposed (accelerated mode).",
+    "next_opportunity_queue": [],
+    "summary": "10 CMS action(s) considered; 7 live \u00b7 0 draft \u00b7 3 proposed (accelerated mode).",
     "actions": [
       {
         "page": "/ty \u2014 Thank You",
@@ -20377,39 +20726,6 @@
         "note": "Live metadata update pushed to HubSpot CMS"
       },
       {
-        "page": "/oxnard-general \u2014 G ads - General Landing (S21) Oxnard",
-        "slug": "/oxnard-general",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 20; meta len 0",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
-        "page": "/ventura-general \u2014 G ads - General Landing (S21) Ventura",
-        "slug": "/ventura-general",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 20; meta len 0",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
-        "page": "/beverly-hills-general \u2014 G ads - General Landing (S21) Beverly Hills",
-        "slug": "/beverly-hills-general",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 20; meta len 0",
-        "status": "applied_live",
-        "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
-      },
-      {
         "page": "/o \u2014 Clove Dental Home",
         "slug": "/o",
         "page_type": "site_page",
@@ -20448,151 +20764,11 @@
     ],
     "impact_over_time": [
       {
-        "page": "/careers \u2014 Careers",
-        "slug": "/careers",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:49.096271+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/privacy \u2014 Privacy",
-        "slug": "/privacy",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:50.285660+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/home-a \u2014 Home - Ads",
-        "slug": "/home-a",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:51.030540+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/test \u2014 S21 (Test - 3)",
-        "slug": "/test",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:51.962627+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/jz \u2014 JZ",
-        "slug": "/jz",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:54.012278+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/jz-0 \u2014 JZ - Invisalign",
-        "slug": "/jz-0",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:54.995434+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/oxnard-general \u2014 G ads - General Landing (S21) Oxnard",
-        "slug": "/oxnard-general",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:56.885195+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/ventura-general \u2014 G ads - General Landing (S21) Ventura",
-        "slug": "/ventura-general",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:33:58.476098+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/beverly-hills-general \u2014 G ads - General Landing (S21) Beverly Hills",
-        "slug": "/beverly-hills-general",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-09T15:34:00.487280+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/o \u2014 Clove Dental Home",
-        "slug": "/o",
-        "change": "small_existing_body_copy_improvement",
-        "status": "proposed_not_applied",
-        "applied_at": "2026-06-09T15:34:00.487342+00:00",
-        "baseline_ctr_pct": 0.77,
-        "baseline_clicks": 624,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
         "page": "/ty \u2014 Thank You",
         "slug": "/ty",
         "change": "small_existing_body_copy_improvement",
         "status": "proposed_not_applied",
-        "applied_at": "2026-06-09T15:34:00.487361+00:00",
+        "applied_at": "2026-06-10T15:31:57.178942+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
         "latest_ctr_pct": null,
@@ -20606,7 +20782,147 @@
         "slug": "/insurance",
         "change": "faq_section_update",
         "status": "proposed_not_applied",
-        "applied_at": "2026-06-09T15:34:00.487375+00:00",
+        "applied_at": "2026-06-10T15:31:57.178956+00:00",
+        "baseline_ctr_pct": 2.61,
+        "baseline_clicks": 85,
+        "latest_ctr_pct": 2.61,
+        "latest_clicks": 85,
+        "delta_ctr_pct": 0.0,
+        "delta_clicks": 0.0,
+        "samples": 1
+      },
+      {
+        "page": "/ty \u2014 Thank You",
+        "slug": "/ty",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-11T15:33:12.211004+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/careers \u2014 Careers",
+        "slug": "/careers",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-11T15:33:13.498410+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/privacy \u2014 Privacy",
+        "slug": "/privacy",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-11T15:33:15.070111+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/home-a \u2014 Home - Ads",
+        "slug": "/home-a",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-11T15:33:15.846319+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/test \u2014 S21 (Test - 3)",
+        "slug": "/test",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-11T15:33:16.914069+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/jz \u2014 JZ",
+        "slug": "/jz",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-11T15:33:18.505550+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/jz-0 \u2014 JZ - Invisalign",
+        "slug": "/jz-0",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-11T15:33:19.396022+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/o \u2014 Clove Dental Home",
+        "slug": "/o",
+        "change": "small_existing_body_copy_improvement",
+        "status": "proposed_not_applied",
+        "applied_at": "2026-06-11T15:33:19.396087+00:00",
+        "baseline_ctr_pct": 0.77,
+        "baseline_clicks": 624,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/ty \u2014 Thank You",
+        "slug": "/ty",
+        "change": "small_existing_body_copy_improvement",
+        "status": "proposed_not_applied",
+        "applied_at": "2026-06-11T15:33:19.396105+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/insurance \u2014 Insurance Plans",
+        "slug": "/insurance",
+        "change": "faq_section_update",
+        "status": "proposed_not_applied",
+        "applied_at": "2026-06-11T15:33:19.396120+00:00",
         "baseline_ctr_pct": 2.61,
         "baseline_clicks": 85,
         "latest_ctr_pct": null,
@@ -20899,7 +21215,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-06-09T15:34:00.548569+00:00",
+      "as_of": "2026-06-11T15:33:19.466308+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -20909,11 +21225,11 @@
           "growth_mode": "accelerated",
           "accelerated": true,
           "next_action": "Accelerated daily loop: 10 live metadata writes/run, 7-day cooldown, expanded candidate pool (high-impr/low-CTR, near-rank, demand themes, weak metadata); small body/FAQ/internal-link improvements staged as drafts.",
-          "last_action": "13 CMS action(s) considered; 10 live \u00b7 0 draft \u00b7 3 proposed (accelerated mode).",
-          "last_action_at": "2026-06-09T15:33:44.834673+00:00",
+          "last_action": "10 CMS action(s) considered; 7 live \u00b7 0 draft \u00b7 3 proposed (accelerated mode).",
+          "last_action_at": "2026-06-11T15:33:09.095302+00:00",
           "impact_metric": "GSC clicks / CTR on edited pages (impact_over_time)",
-          "impact_samples": 2,
-          "live_writes": 10,
+          "impact_samples": 81,
+          "live_writes": 7,
           "draft_writes": 0,
           "proposals": 3,
           "small_content_proposals": 3,
@@ -20984,7 +21300,7 @@
           "status": "pending",
           "next_action": "On each refresh, surface any new <=3-star reviews in the new-negative queue and route the office owner to respond.",
           "last_action": "Awaiting first GMB refresh with prior-state comparison.",
-          "last_action_at": "2026-05-09T17:00:00Z",
+          "last_action_at": "2026-06-11T02:27:10+00:00",
           "impact_metric": "Time-to-first-response on negative GMB reviews; star average",
           "blocker": null
         },
@@ -20993,8 +21309,8 @@
           "name": "Review recovery (low-review reply + follow-up)",
           "status": "active_live",
           "next_action": "Hold cadence; coach recurring themes in next huddle.",
-          "last_action": "1 open low-review follow-up(s); oldest 2 day(s) old.",
-          "last_action_at": "2026-06-09T15:34:00.521658+00:00",
+          "last_action": "1 open low-review follow-up(s); oldest 35 day(s) old.",
+          "last_action_at": "2026-06-11T15:33:19.432818+00:00",
           "impact_metric": "Open low-review follow-ups, oldest-open age, response-signal count",
           "blocker": null
         },
@@ -21002,9 +21318,9 @@
           "id": "gmb-review-weekly-trend",
           "name": "GMB weekly low-review trend tracker",
           "status": "active_live",
-          "next_action": "P1: Santa Monica \u00b7 Service recovery (1/4 weeks) \u2014 Huddle on Communication \u2014 recurring 1/4 weeks; reply on any open low review",
-          "last_action": "Last 7d: 2 low reviews (prior 7d: 3, direction: down).",
-          "last_action_at": "2026-06-09T15:34:00.521658+00:00",
+          "next_action": "Maintain weekly trend tracking; surface any office trending up with recurring themes next refresh.",
+          "last_action": "Last 7d: 0 low reviews (prior 7d: 0, direction: flat).",
+          "last_action_at": "2026-06-11T15:33:19.432818+00:00",
           "impact_metric": "Week-over-week low-review delta, recurring-theme count, avg rating trend, prior-action improvement rate",
           "blocker": null
         },
@@ -21014,7 +21330,7 @@
           "status": "active_dry_run",
           "next_action": "Top 5 daily actions shown on the Paid Ads tab. Connect a Google Ads mutate-capable path to unblock automatic budget/bid/negative/pause/ad changes.",
           "last_action": "27 paid-ads action(s) queued: 8 executable now, 19 pending Google Ads mutate access.",
-          "last_action_at": "2026-06-09T15:34:00.548172+00:00",
+          "last_action_at": "2026-06-11T15:33:19.465882+00:00",
           "impact_metric": "high-risk spend share, CPA, CVR, qualified calls, wasted clicks share",
           "blocker": "Google Ads connector currently lacks mutate actions.",
           "tier_counts": {
@@ -21031,32 +21347,13 @@
     "growth_mode": "accelerated",
     "accelerated": true,
     "publish_mode_pretty": "Accelerated \u00b7 live metadata + small-content drafts",
-    "last_run_at": "2026-06-09T15:33:44.834673+00:00",
+    "last_run_at": "2026-06-11T15:33:09.095302+00:00",
     "cooldown_days": 7,
     "max_changes_cap": 10,
     "max_small_content_cap": 3,
     "why_no_prior_change": "Prior runs were held by the 7-day per-page cooldown after the May 13 live metadata writes. Accelerated mode shortens the cooldown and expands the candidate pool.",
-    "what_changed_now": "10 live metadata update(s), 0 draft, 0 metadata proposal(s), 3 small-content proposal(s).",
-    "next_opportunity_queue": [
-      {
-        "slug": "/camarillo-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/riverpark-general",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      },
-      {
-        "slug": "/general-encino",
-        "rule": "page_title_or_meta_missing_or_weak",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "reason": "queued_beyond_run_cap"
-      }
-    ],
+    "what_changed_now": "7 live metadata update(s), 0 draft, 0 metadata proposal(s), 3 small-content proposal(s).",
+    "next_opportunity_queue": [],
     "cooldown_blocked_slugs": [],
     "impact_metrics_watched": [
       "gsc_ctr_pct",
@@ -21067,7 +21364,7 @@
       "callrail_calls",
       "qualified_calls"
     ],
-    "live_writes": 10,
+    "live_writes": 7,
     "draft_writes": 0,
     "proposals": 3,
     "small_content_proposals": 3,
@@ -21150,37 +21447,40 @@
         "note": "Live metadata update pushed to HubSpot CMS"
       },
       {
-        "page": "/oxnard-general \u2014 G ads - General Landing (S21) Oxnard",
-        "slug": "/oxnard-general",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 20; meta len 0",
-        "status": "applied_live",
+        "page": "/o \u2014 Clove Dental Home",
+        "slug": "/o",
+        "page_type": "site_page",
+        "change": "small_existing_body_copy_improvement",
+        "why": "weak metadata",
+        "status": "proposed",
         "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
+        "metric_to_watch": "CTR 0.77%; clicks 624/28d; impressions 80970/28d",
+        "note": "small_content_proposed_for_review_no_safe_api_path",
+        "proposal_text": "Rewrite the opening paragraph to lead with 'mouth sloughing' and the patient outcome. Single-paragraph change, under 280 characters added; no template/CTA/form changes."
       },
       {
-        "page": "/ventura-general \u2014 G ads - General Landing (S21) Ventura",
-        "slug": "/ventura-general",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 20; meta len 0",
-        "status": "applied_live",
+        "page": "/ty \u2014 Thank You",
+        "slug": "/ty",
+        "page_type": "site_page",
+        "change": "small_existing_body_copy_improvement",
+        "why": "weak metadata",
+        "status": "proposed",
         "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
         "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
+        "note": "small_content_proposed_for_review_no_safe_api_path",
+        "proposal_text": "Rewrite the opening paragraph to lead with 'ty' and the patient outcome. Single-paragraph change, under 280 characters added; no template/CTA/form changes."
       },
       {
-        "page": "/beverly-hills-general \u2014 G ads - General Landing (S21) Beverly Hills",
-        "slug": "/beverly-hills-general",
-        "page_type": "landing_page",
-        "change": "missing_or_weak_title_update, missing_or_weak_meta_description_update",
-        "why": "title len 20; meta len 0",
-        "status": "applied_live",
+        "page": "/insurance \u2014 Insurance Plans",
+        "slug": "/insurance",
+        "page_type": "site_page",
+        "change": "faq_section_update",
+        "why": "weak metadata",
+        "status": "proposed",
         "expected_impact": "Lift CTR by ~0.3-0.7pp on high-impression, low-CTR queries; lift clicks within 14-28d.",
-        "metric_to_watch": "CTR / clicks",
-        "note": "Live metadata update pushed to HubSpot CMS"
+        "metric_to_watch": "CTR 2.61%; clicks 85/28d; impressions 3253/28d",
+        "note": "small_content_proposed_for_review_no_safe_api_path",
+        "proposal_text": "Add a 2-3 question FAQ block answering common 'aarp vs costco dental insurance' questions (eligibility, timing, what's included). Keep total added copy under 600 characters."
       }
     ],
     "safety_tiers": {
@@ -21207,7 +21507,7 @@
   },
   "paid_ads_action_system": {
     "title": "Paid Ads dynamic action system",
-    "as_of": "2026-06-09T15:34:00.548172+00:00",
+    "as_of": "2026-06-11T15:33:19.465882+00:00",
     "summary": "27 action(s) queued; 8 executable now, 19 need Google Ads mutate access, 0 need higher-risk approval.",
     "writeback_tiers": {
       "executable_now": [
@@ -21692,13 +21992,13 @@
         "status": "blocked",
         "writeback_tier": "mutation_ready_when_write_access_available",
         "can_execute_now": false,
-        "blocker": "Connector is read-only (Pipedream Google Ads). Direct budget/bid/pause/negative mutations require manual UI execution or a write-capable API path.",
+        "blocker": "Read-only Google Ads connector. Pauses/budget changes require manual UI execution.",
         "impact_metric": "Mutation coverage; auto-applied waste cuts",
         "estimated_opportunity_usd": null
       }
     ],
     "daily_learning": {
-      "previous_actions_recorded": 27,
+      "previous_actions_recorded": 29,
       "metric_before": {
         "cost_usd_30d": 90037.57,
         "conversions_30d": 1888.47,
@@ -21773,175 +22073,175 @@
           "category": "waste_to_cut",
           "label": "Oxnard Riverpark - JZ-Search-Riverpark",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-09T15:34:00.547942+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465654+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Sherman Oaks - JZ-Search-Sherman Oaks",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-09T15:34:00.547962+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465675+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Sherman Oaks - JZ-PMAX",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-09T15:34:00.547969+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465682+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Santa Monica - JZ-Search-Santa Monica",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-09T15:34:00.547976+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465689+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Beverly Hills - Beverly Hills",
           "office": "Beverly Hills",
-          "suppressed_at": "2026-06-09T15:34:00.547982+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465695+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Camarillo - Insurance-Performance Max-15/4/26",
           "office": "Camarillo",
-          "suppressed_at": "2026-06-09T15:34:00.547989+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465702+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Puri Dentistry - Insurance-Performance Max 27-3-2026",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-09T15:34:00.547996+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465709+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Ayur - Problem - Perio",
           "office": "Ayur",
-          "suppressed_at": "2026-06-09T15:34:00.548002+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465715+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Oxnard Riverpark - Insurance -Performance Max - 4/7/26",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-09T15:34:00.548009+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465721+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Hillview - PMAX - GBP 8/1/2025",
           "office": "Hillview",
-          "suppressed_at": "2026-06-09T15:34:00.548015+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465728+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "DNM",
           "office": "Ayur - Problem",
-          "suppressed_at": "2026-06-09T15:34:00.548022+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465734+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "(Emergency) pmax- 10/6/2025",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-09T15:34:00.548028+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465740+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "JZ-Search-Marin",
           "office": "Thousand Oaks",
-          "suppressed_at": "2026-06-09T15:34:00.548034+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465746+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "General-Search-27/10",
           "office": "Encino",
-          "suppressed_at": "2026-06-09T15:34:00.548040+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465752+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "pmax -gbp 6/26/25",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-09T15:34:00.548045+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465758+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Sherman Oaks",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-09T15:34:00.548052+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465764+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Santa Monica",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-09T15:34:00.548058+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465771+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Encino",
           "office": "Encino",
-          "suppressed_at": "2026-06-09T15:34:00.548064+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465777+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Pmax",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-09T15:34:00.548071+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465784+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Cam - Dentical",
           "office": "Camarillo",
-          "suppressed_at": "2026-06-09T15:34:00.548078+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465790+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-09T15:34:00.548084+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465797+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-09T15:34:00.548090+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465803+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Protect efficient volume",
           "office": "Beverly Hills",
-          "suppressed_at": "2026-06-09T15:34:00.548096+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465809+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Scale carefully after lead-quality check",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-09T15:34:00.548102+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465815+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Encino",
-          "suppressed_at": "2026-06-09T15:34:00.548108+00:00",
+          "suppressed_at": "2026-06-11T15:33:19.465821+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         }
       ],
