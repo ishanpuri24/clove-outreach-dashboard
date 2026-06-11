@@ -1,0 +1,936 @@
+{
+  "tool": "google_my_business-get-reviews-multiple-locations",
+  "result": {
+    "locationReviews": [
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqlp-h5dnH-EYBSzt1ZQgOTqLWtWFu8NYm0ntJiVfmqX8-SJNvzu3ZUr1ssprJ49yzVog3Vrnw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJwbWBN6qUUjvzKcFsrMpUUB_yHE_FBEybMXDB001MJyLJqJQ=s120-c-rp-mo-br100",
+            "displayName": "Susan Bala"
+          },
+          "starRating": "FIVE",
+          "comment": "I cannot recommend Dr. Maro Oganesyan enough. From the moment I walked into her office, I felt welcomed and cared for. What impressed me most was her honesty and professionalism.\nBefore seeing Dr. Oganesyan, I visited another dentist who told me I had serious gum disease, that I could lose bone, and even risk losing my teeth. Naturally, I was extremely stressed and worried. When I came to Dr. Oganesyan for a second opinion, she took the time to carefully examine everything and explain my situation in a clear and reassuring way.\nInstead of trying to scare me, she was honest and straightforward. She explained that my teeth and gums were actually in good condition overall and that I only had one issue that needed attention—and it was not nearly as serious as I had been led to believe. Her knowledge, integrity, and genuine care immediately put me at ease.\nIt is rare to find a dentist who is both highly skilled and truly honest. Dr. Oganesyan made me feel comfortable, informed, and confident about my dental health. I left her office feeling relieved, satisfied, and grateful that I found someone I can trust.\nIf you are looking for a dentist who genuinely cares about her patients and provides honest recommendations, I highly recommend Dr. Maro Oganesyan.",
+          "createTime": "2026-06-11T00:26:49.492264Z",
+          "updateTime": "2026-06-11T00:26:49.492264Z",
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqlp-h5dnH-EYBSzt1ZQgOTqLWtWFu8NYm0ntJiVfmqX8-SJNvzu3ZUr1ssprJ49yzVog3Vrnw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/16540245410755416746",
+        "review": {
+          "reviewId": "AbFvOqk84-8NfrFDJoxshi_TnQwWJO1rBi7RhMbXng3a23tDWSsBdtQ1g5_b5JH6FZFQZIV6G1ER",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWw6gOiZFOyRjJqUwiuDzUPc4RkoACw0tUBx4nLK0tVyGclfPpf=s120-c-rp-mo-br100",
+            "displayName": "Cody Wizman"
+          },
+          "starRating": "FIVE",
+          "comment": "The employers did a great and awesome job on cleaning my teeth. Thank you Dr.Jilbert. All the best, Cody.",
+          "createTime": "2026-06-11T00:09:28.119996Z",
+          "updateTime": "2026-06-11T00:09:28.119996Z",
+          "name": "accounts/108795149061771855217/locations/16540245410755416746/reviews/AbFvOqk84-8NfrFDJoxshi_TnQwWJO1rBi7RhMbXng3a23tDWSsBdtQ1g5_b5JH6FZFQZIV6G1ER"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqmDx1vEZHG34BkYwn1EMj9OSPIYKlak3EwACr4CctFguSlItfdziK_f7USIXukwe0HBvNtz-w",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjX3gz0GJ9399km_orwcrTG5WMSKvzxieOKmjyDA8ozO7LsWyvE=s120-c-rp-mo-br100",
+            "displayName": "Damaris Mills"
+          },
+          "starRating": "FIVE",
+          "comment": "Very good!",
+          "createTime": "2026-06-10T23:29:31.743750Z",
+          "updateTime": "2026-06-10T23:29:31.743750Z",
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqmDx1vEZHG34BkYwn1EMj9OSPIYKlak3EwACr4CctFguSlItfdziK_f7USIXukwe0HBvNtz-w"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/17491483726222827505",
+        "review": {
+          "reviewId": "AbFvOqmAeQHWdTXIqqHTT292OGT3ojUM2Ji1jteBRDl_TIYaRgM1MIHGLnq_D_PXcd2f99g8aEtXdw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocI86UtJQG5joqWm5R2rTQkma-MSi12VbKMmgnneDs8rWlBg6A=s120-c-rp-mo-br100",
+            "displayName": "Ricky Natichioni"
+          },
+          "starRating": "FIVE",
+          "comment": "Everyone there was extremely helpful and professional. Would highly recommend!",
+          "createTime": "2026-06-10T23:14:56.654870Z",
+          "updateTime": "2026-06-10T23:14:56.654870Z",
+          "name": "accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqmAeQHWdTXIqqHTT292OGT3ojUM2Ji1jteBRDl_TIYaRgM1MIHGLnq_D_PXcd2f99g8aEtXdw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqlGoG9OgOnRfLb12m26O0hcZL8g2ZxiwhApoGnMJpjBF3VGjwX4sk8J-BynpelMt1-BX7tw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjVZKjDEky8VnCiMETRvHcu2EQgBINx3T0RvjhV-tyr1mnYt_Vo=s120-c-rp-mo-br100",
+            "displayName": "Ashley Lazaro"
+          },
+          "starRating": "FIVE",
+          "comment": "Came all the way from Santa Barbara and im generally scared of the dentist but Clove dental is very welcoming and friendly staff. Dr. was very thorough and answered any question I had and explained the best treatment plan.",
+          "createTime": "2026-06-10T23:05:58.085431Z",
+          "updateTime": "2026-06-10T23:06:20.926119Z",
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqlGoG9OgOnRfLb12m26O0hcZL8g2ZxiwhApoGnMJpjBF3VGjwX4sk8J-BynpelMt1-BX7tw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqk7FdYS4c5WrnUwoOnbAUJZh3XHnMTSct_6-yOwOdzez00kYSGLGIPHL4AKs9wNseACttIweQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXWVT4wn9_ZJEGwKoVhhO3Pth2vlKcARGR9rQmji5MLchQ_Hdnt=s120-c-rp-mo-br100",
+            "displayName": "Alice Yeramian"
+          },
+          "starRating": "FIVE",
+          "comment": "Staff were very helpful, Jennifer is a sweet heart. I got to Dr. Maro Oganesyan she is super professional very passionate makes u feel\nVery comfortable. In general a great office, yet I cannot tell enough about Dr. Oganesyan she is A plus plus",
+          "createTime": "2026-06-10T22:45:50.924402Z",
+          "updateTime": "2026-06-10T22:45:50.924402Z",
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqk7FdYS4c5WrnUwoOnbAUJZh3XHnMTSct_6-yOwOdzez00kYSGLGIPHL4AKs9wNseACttIweQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqkWJbE_EijTd7OIm0B_1ESMKAYBdpED4vCpF_izWJb0_PYrL7WOXmt4R2x07wYlLpAmj9u4gw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIgR7lOZHQfgfAGdghRO8F6BDO9XhP0Gg0cZkCh_A-_zZB7Mw=s120-c-rp-mo-br100",
+            "displayName": "mario velazquez"
+          },
+          "starRating": "FIVE",
+          "comment": "Walked in without an appointment and Jennifer made my wife and I feel so welcomed! We were able to get seen right away with Dr.O for same day treatment! Very caring and helpful staff. I'd highly recommend Clove Dental!",
+          "createTime": "2026-06-10T20:16:11.462859Z",
+          "updateTime": "2026-06-10T20:16:11.462859Z",
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqkWJbE_EijTd7OIm0B_1ESMKAYBdpED4vCpF_izWJb0_PYrL7WOXmt4R2x07wYlLpAmj9u4gw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqkO3I3G_ObRTZ1tTMrQ9flWx1Xm0rZxDJm8VntDNx04V6o57gh_TMtr-0AJ_9OPB8G_tnIS",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjVHSkB0hhyamtnXTQno79Q0X-M_C9LLgbm1ayOdghfn3sXC7HXE=s120-c-rp-mo-ba12-br100",
+            "displayName": "M Zarefard"
+          },
+          "starRating": "ONE",
+          "comment": "I brought my mom for dental treatment, on first day they did the scan and they said they need to submit to insurance for approval, then 2 weeks later they called and said, good news it’s approved, so we scheduled an appointment and I have my mom go by herself , then she called me and I spoke with Dr, he said it will be a $650 fee to takes some pictures of the tooth and it’s not covered by insurance. So I told them no and she came back. It’s not a right way of doing business.",
+          "createTime": "2026-06-10T01:35:34.214570Z",
+          "updateTime": "2026-06-10T01:35:34.214570Z",
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqkO3I3G_ObRTZ1tTMrQ9flWx1Xm0rZxDJm8VntDNx04V6o57gh_TMtr-0AJ_9OPB8G_tnIS"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqkhEreO8RqoPO76HQ2J6p3o50Y8lrzPYYHHJftLrxB0NlyHrj_iIauypIIsIIsxsoFCA8JFbA",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJ6wNYG5lqODUAwp-fZi1we2zhASszq76K5s5Mszw7oHQu3EA=s120-c-rp-mo-br100",
+            "displayName": "Jenny Jones"
+          },
+          "starRating": "FIVE",
+          "comment": "I highly recommend this incredible dental practice for everyone. Every single  person here as been incredibly kind to me and understanding of all my dental needs.\n\nI am someone who needs a lot of dental care and I could not recommend them enough! :)))\n\nIt is rare to find a place that has so much positivity  to it across the board but this place manages to do it! :)\n\nI would give them all 10 stars if that were possible. :))",
+          "createTime": "2026-06-09T18:55:47.325846Z",
+          "updateTime": "2026-06-09T18:55:47.325846Z",
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqkhEreO8RqoPO76HQ2J6p3o50Y8lrzPYYHHJftLrxB0NlyHrj_iIauypIIsIIsxsoFCA8JFbA"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqmCPGSx7TpHAvVNbsydGDJV9llANhIE-3XCGkF4tglUjLt0PQFoas4XskVI68ltZVQqo2AIAQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLhqwbHGkoOaMtQeGVkoFzGq1rRfbtaRE_LDN4L-vXwkvRWqg=s120-c-rp-mo-br100",
+            "displayName": "Norma Rodriguez"
+          },
+          "starRating": "FIVE",
+          "comment": "I was so nervous coming in but right away I felt so comfortable when Jennifer greeted me at the front desk. She made the office feel warm welcoming. Dr. Kwon was very gentle and Jennifer was able to translate in Spanish for me. I appreciate Clove Dental! Thank you",
+          "createTime": "2026-06-09T18:38:43.357622Z",
+          "updateTime": "2026-06-09T18:38:43.357622Z",
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqmCPGSx7TpHAvVNbsydGDJV9llANhIE-3XCGkF4tglUjLt0PQFoas4XskVI68ltZVQqo2AIAQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/2451402705824656361",
+        "review": {
+          "reviewId": "AbFvOqmFd1ICpvFlCr_NSsLpaEmVOJz9IF1WEAoEUNM6p9PQBLPYbuDt7YxkTyGNQvRemSJi-uVV",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLH6WjKrXTOapF8vVHtY9tWA9pAM7tTiOFcLVzn19Rh-BMzeA=s120-c-rp-mo-br100",
+            "displayName": "Darlene Phan"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-09T16:49:14.205458Z",
+          "updateTime": "2026-06-09T16:49:14.205458Z",
+          "name": "accounts/108795149061771855217/locations/2451402705824656361/reviews/AbFvOqmFd1ICpvFlCr_NSsLpaEmVOJz9IF1WEAoEUNM6p9PQBLPYbuDt7YxkTyGNQvRemSJi-uVV"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqmkDk5uaPIlSs62OB6xOiIiKuqA7mXAFyf-rBJqprDVDNlYuSeNEZUVmEkeAU-00WbxVKJtRQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjVfBM2RyoFLri1mwuQKOmiTDKjYkbcUlOD4_-dUHEgWdU3Ab9Xz=s120-c-rp-mo-br100",
+            "displayName": "BK Sister Gita"
+          },
+          "starRating": "FIVE",
+          "comment": "Clove Dental Thousand Oaks is the best Dental office. Very welcoming and making me very valuable with Divine smile. Very respectful and friendly. I observe staff are so loving and respectful with each other. It’s very clean and beautiful atmosphere . Feeling what I experience family feeling. My treatment completely pain free.",
+          "createTime": "2026-04-29T19:21:17.887503Z",
+          "updateTime": "2026-06-09T15:01:20.911642Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.\n",
+            "updateTime": "2026-05-01T12:31:27.665732Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqmkDk5uaPIlSs62OB6xOiIiKuqA7mXAFyf-rBJqprDVDNlYuSeNEZUVmEkeAU-00WbxVKJtRQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/17491483726222827505",
+        "review": {
+          "reviewId": "AbFvOqkAYrYdZHDNMUXWH8dKuVpMOj9q8QuHu7ntada2nz7PsJLXJcq8Heqw14xVEjlFCMsOqCjj",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXl_ZEVqmg3XyM2zgueGeh6WmnyKKgs2a4srJ7IkNf5NOzFoVs=s120-c-rp-mo-br100",
+            "displayName": "Chad Tuitama"
+          },
+          "starRating": "FIVE",
+          "comment": "I had an appointment today Monday, June 8th at 10:00am. The office was running uncharacteristically late and the time from lobby to chair was a bit behind. The young lady who was the receptionist was going above and beyond her place to make sure that the clients were taken care of. She had even taken on the role of seating me and asked if I needed a glass of water which was greatly appreciated as I had just taken a long train ride to get there. She did an excellent job of communicating as to the reason why there was a delay. There seemed to have been a short staff situation, and she was giving her all to make sure the clients were all engaged and made to feel comfortable. I believe she was really doing the whole office a favor this morning and held it together for everyone. I know things can get really stressed and come unraveled in situations like that when front staff lose their cool and don’t know how to make things run smoothly. She knew the assignment and took on the  role with grace and respect for the clients. I did not get her name but I do believe she should be commended for her efforts today. I will be returning specifically because she has shown me that there are still professionals out there that believe in real customer service!!! All hail the receptionist!!!!😁🙌👍",
+          "createTime": "2026-06-09T05:41:10.181876Z",
+          "updateTime": "2026-06-09T05:41:10.181876Z",
+          "reviewReply": {
+            "comment": "Hi Chad,\n\nThank you for your kind feedback. \n\nWe’re glad our front desk team was able to support you and keep you comfortable during the delay. Your appreciation means a lot. \n\nWe look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:26:43Z"
+          },
+          "name": "accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqkAYrYdZHDNMUXWH8dKuVpMOj9q8QuHu7ntada2nz7PsJLXJcq8Heqw14xVEjlFCMsOqCjj"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6534318906667721619",
+        "review": {
+          "reviewId": "AbFvOql1-RwW6LZkSctUDiPGEPQyvVyA8Q8_1jMesobSAh99FlpTo2XG-eRI6CfO5aYGjtAkfh7c",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJ3Xw00v1gg96qyk2TC0S8WpxsD-sdMACII-HEPVXYYg3Xtpg=s120-c-rp-mo-br100",
+            "displayName": "Esteban Marquez"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-09T00:08:42.026863Z",
+          "updateTime": "2026-06-09T00:08:42.026863Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-09T13:21:57Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6534318906667721619/reviews/AbFvOql1-RwW6LZkSctUDiPGEPQyvVyA8Q8_1jMesobSAh99FlpTo2XG-eRI6CfO5aYGjtAkfh7c"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqmzYqwMGffFcmSSfK0GXXlZhkM7apvorja6SfO03WPwVQ-9JIskB_Qa1Rhobj3UoLu9KbJUTQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXiZBYzWYt24QaC8rKLCzqx4LmaPOl3UHChq_Epca672kF9a-FY=s120-c-rp-mo-br100",
+            "displayName": "Maria Gutierrez"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-09T00:08:14.760755Z",
+          "updateTime": "2026-06-09T00:08:14.760755Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-09T13:23:42Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqmzYqwMGffFcmSSfK0GXXlZhkM7apvorja6SfO03WPwVQ-9JIskB_Qa1Rhobj3UoLu9KbJUTQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/15322712011963486679",
+        "review": {
+          "reviewId": "AbFvOqlIvppzICoONhLgI1uQ_LE1Ss7mTBNeouN5lXm6m3T8EwrpXNxX-skQnPnIpAP2jTPL9zRodA",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocInVcdKtjMmP74RfbjzntHShyb77sIXXadxG7fVRLT6BUtm5A=s120-c-rp-mo-br100",
+            "displayName": "E S"
+          },
+          "starRating": "ONE",
+          "comment": "Updated review. They messed up my cleaning schedule and now I have to wait until Sept to get cleaning covered. Definitely looking for a new dentist.",
+          "createTime": "2025-12-09T01:35:41.433682Z",
+          "updateTime": "2026-06-08T21:25:13.583890Z",
+          "reviewReply": {
+            "comment": "We're glad to hear you had a positive experience and that Dan was able to assist you well during your visit. We appreciate your support and look forward to seeing you again.",
+            "updateTime": "2025-12-09T13:37:09Z"
+          },
+          "name": "accounts/108795149061771855217/locations/15322712011963486679/reviews/AbFvOqlIvppzICoONhLgI1uQ_LE1Ss7mTBNeouN5lXm6m3T8EwrpXNxX-skQnPnIpAP2jTPL9zRodA"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqlCYBaa132OjVhlwOow54KNiXC74ZkwZHC9TpANdLNCcWIrB_Lw9bylV_vUIHggYdXLoXN9",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjU0qKFLLBubb0wiH5fMcZWx5FQsIVNIgiCypkavA2eEq9zTe1wG=s120-c-rp-mo-br100",
+            "displayName": "Rodolfo Ponce"
+          },
+          "starRating": "FIVE",
+          "comment": "My dentist did the procedure very fast and efficient l. Definitely recommend Clove dental",
+          "createTime": "2025-12-03T17:54:24.096040Z",
+          "updateTime": "2026-06-08T21:24:52.343068Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.\n",
+            "updateTime": "2025-12-08T13:20:20Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqlCYBaa132OjVhlwOow54KNiXC74ZkwZHC9TpANdLNCcWIrB_Lw9bylV_vUIHggYdXLoXN9"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqnM1uEEe70V-uHXwiWrX4mCrRBSQiXMw0GcSRKOLT82mrCdEjooCCBHvHTq1qAnvrPvLt8T4g",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjUS9kcFkDli9CnKV1YSPc3DasnhxNMY7FpR58QTtCR75yveP-gc=s120-c-rp-mo-br100",
+            "displayName": "Jennifer Ball"
+          },
+          "starRating": "FIVE",
+          "comment": "Just had a wonderful cleaning experience with David Tehrani!!!  He is worth going to Clove Dental.",
+          "createTime": "2026-06-08T19:25:17.734134Z",
+          "updateTime": "2026-06-08T19:25:17.734134Z",
+          "reviewReply": {
+            "comment": "Hi Jennifer,\n\nThank you for your kind feedback. \n\nWe’re glad you had a wonderful cleaning experience with David Tehrani. \n\nYour support means a lot, and we look forward to serving you again at Clove Dental.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:29:02.321158Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqnM1uEEe70V-uHXwiWrX4mCrRBSQiXMw0GcSRKOLT82mrCdEjooCCBHvHTq1qAnvrPvLt8T4g"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqmRssraVtC6yQJzzuKVtkX20PXR2VvogfXFHmcJJBSDez2LMVIMCEzM0X-Zn-p7ZDTW8aQQ0g",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjU8UAbkx6cWlnqYSJtKlIe3KBeYmKl-sVT0wezpiL7IsTb4sVI=s120-c-rp-mo-ba12-br100",
+            "displayName": "Harshadrai Mistry"
+          },
+          "starRating": "FIVE",
+          "comment": "Recommend this",
+          "createTime": "2026-06-08T19:12:18.493930Z",
+          "updateTime": "2026-06-08T19:12:18.493930Z",
+          "reviewReply": {
+            "comment": "Hi Harshadrai,\n\nThank you for your kind feedback and 5-star rating. \n\nWe truly appreciate your recommendation and are glad to have provided a positive experience.\n\nWe truly appreciate your trust and look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:24:00Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqmRssraVtC6yQJzzuKVtkX20PXR2VvogfXFHmcJJBSDez2LMVIMCEzM0X-Zn-p7ZDTW8aQQ0g"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOql4ZNt-D8Cjgowbj_YAudW3EXMM0pLckpwGxKBHw1GNAvsfXa5ecP6fTueLpuv2A1YA2oPM5g",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjV5siwj-neZMWnd0MCTkUo4vQhed5Lqq6fNkOCkNrbCWaWY3Jw=s120-c-rp-mo-br100",
+            "displayName": "Magda Rios"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-08T15:39:17.536568Z",
+          "updateTime": "2026-06-08T15:39:17.536568Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-09T13:29:10.633442Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOql4ZNt-D8Cjgowbj_YAudW3EXMM0pLckpwGxKBHw1GNAvsfXa5ecP6fTueLpuv2A1YA2oPM5g"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqlEuFHDOUEzOeYPMupJyxkcHXQPxUWyuEfBarkp-kGxo2i1tTMJZfyN42MOVNjrH-j88H_qzg",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWX6Q1m4oOUHlrOowjUkpdYZk77IQyFtIZQX9R8B-C2bQ3b-24y-Q=s120-c-rp-mo-ba12-br100",
+            "displayName": "Tony Ketcham"
+          },
+          "starRating": "FIVE",
+          "comment": "Everyone in this office is welcoming and friendly. I am a veteran that has been victimized and abused by the providers at the va so often that I no longer feel safe going to the va for my services.\nClove dental is a member of the non va medical system, called \"Community Care\" that is available to some veterans that cannot access services through the va medical system.\nThe difference in the way I am treated so kindly here at clove may not seem to them to be anything out of the normal, but it is far different than the way I have been treated at the va for years.\nThe va constantly looked for reasons to deny me services to which I am entitled through my service to this country. The va system has consistently mistreated and beat me, druggged me against my will, encarcerated me without cause, stolen my property, when they are hired to help veterans.\nI truly needed and appreciate the welcoming attitude shown to me by everyone at clove. It has truly made a world of difference. I appreciate you all.\nTony",
+          "createTime": "2026-06-07T09:04:39.988761Z",
+          "updateTime": "2026-06-07T10:21:03.826560Z",
+          "reviewReply": {
+            "comment": "Hi Tony,\n\nThank you for your kind words.\n\nWe’re truly glad you felt welcomed and cared for at Clove Dental. It means a lot to us to know we could make a positive difference in your experience. \n\nWe’re always here for you whenever you need us.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:19:27Z"
+          },
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqlEuFHDOUEzOeYPMupJyxkcHXQPxUWyuEfBarkp-kGxo2i1tTMJZfyN42MOVNjrH-j88H_qzg"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/2451402705824656361",
+        "review": {
+          "reviewId": "AbFvOqkHjnHjHbzG6pLtXXw8aWEYc9Nc86UOzgQ94rna5HNshrfzIzFMDmlwFXS9F5Qo8isef-fmjw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJmq2eEHKdN7uBjKG8yWEYkWx3VHxH2zwYqTymqCFg0Mo9znA=s120-c-rp-mo-br100",
+            "displayName": "Beatriz Laguna"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-07T03:24:10.287874Z",
+          "updateTime": "2026-06-07T03:24:10.287874Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-09T13:17:34Z"
+          },
+          "name": "accounts/108795149061771855217/locations/2451402705824656361/reviews/AbFvOqkHjnHjHbzG6pLtXXw8aWEYc9Nc86UOzgQ94rna5HNshrfzIzFMDmlwFXS9F5Qo8isef-fmjw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqkz0glcG_ZrfGppZlst1MRtRnRRvkWYUb6dl7RivQhLgnzfxhu2M2qQPHmjtlBUsCaQEKWJjQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWZi83eXsG0OGx82tsMj0iYqnkBRnx0J_AEbyPyuiikNRBNdAvRyQ=s120-c-rp-mo-br100",
+            "displayName": "Sabrina Achola"
+          },
+          "starRating": "FIVE",
+          "comment": "After looking for several dentists in the area I stumbled upon this practice & met Dr.Yee the best dentist so far, talks to you about the procedure through out & is mindful of the patient’s concerns & efforts same goes to the specialist endotologist(who do root canal’s), I called this place & it was exceptional open on Saturdays btw & I got an appointment 24hrs later..(I’m sorry I forgot about the front desk lady & gentleman names they are always cleaned up, tidy looking , very very respectful & kind! Plus the dental techs are superb … anyways this is my 4th treatment with them & I’m planning on doing my full treatment plan…The office is Clean, modern & just breathing taking… All the employees are very personable!!!! Oh I remember their names Louis, Sheryl( I think 🤔)Anna.",
+          "createTime": "2026-04-29T07:55:31.274807Z",
+          "updateTime": "2026-06-06T22:54:12.966835Z",
+          "reviewReply": {
+            "comment": "Hi Sabrina,\n\nThank you for your kind review. \n\nWe’re so glad to hear you had a positive experience with Dr. Yee and our team, and that you felt well cared for throughout your visits. \n\nWe truly appreciate your trust and look forward to continuing your treatment journey with you.\n\nClove Dental Team",
+            "updateTime": "2026-05-05T10:13:55Z"
+          },
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqkz0glcG_ZrfGppZlst1MRtRnRRvkWYUb6dl7RivQhLgnzfxhu2M2qQPHmjtlBUsCaQEKWJjQ",
+          "reviewMediaItems": [
+            {
+              "thumbnailUrl": "https://lh3.googleusercontent.com/grass-cs/ANxoTn145u7gwIRW6CxaXgkuF3cQoRasIcp8YE3XWBQcVLh2tqIkVohyk3WQxxXmAUiz97te1gi0UZwOqvaU-ddNy6Cbh7gL3wvBRizAjJVNVTlLLHHCkxsINvly4_9vDp8W9BQQBzoa5s1Hs4s=k-no"
+            },
+            {
+              "thumbnailUrl": "https://lh3.googleusercontent.com/grass-cs/ANxoTn3lOVqbBYVePLZT7GKfYf8MmNs1WsPwFg0ZVSnuxmws0tUNjdbJwxbIqB01UXYrXYfy5uNdnzEEt8SA-jeFaO61P4sKraDVOQTLttY1SV4j4oPkCS0UtSPRa7n4YWi3bKYvA0pRncUWL6E=k-no"
+            },
+            {
+              "thumbnailUrl": "https://lh3.googleusercontent.com/grass-cs/ANxoTn10sk9tNhPZBdlTMfMvTpk4AtK8j8x6QkJCD7LjXJB8jc6K5IrJsByp2OnmczhuY-pxxIRn6WhkYIGkRrGPPd-9DfmPGqFDONhfP0UVlqqTNLaxxgcVZkvr__q4HkFsYSve8IbDdPNlOq58=k-no"
+            },
+            {
+              "thumbnailUrl": "https://lh3.googleusercontent.com/grass-cs/ANxoTn2W5LAfzbA4dRWw0j_-gBkdbWQTEKTRmK0DLGACX-nUk9Cz9p5CR-O_SNrascIgUcu40oOJekZSblqqK9dLKS3iqKOsvt3FLB-cxMaNi5myo0jet4P4HjPcX-SPJc0_YzvKtISsXXcgAd5e=k-no"
+            }
+          ]
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/3424162762335073167",
+        "review": {
+          "reviewId": "AbFvOqlsECA7uyamFrD0nCwQiUKBXKyu0YmUsSmon_I9SfMs1k5Y55hYwXN7O_0Oug93c0wu8AWSOw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXLyCAqmq0CWFR6quEMIiWTkd7dqqRARwJ0ecsGAHaoHP6WZVM=s120-c-rp-mo-br100",
+            "displayName": "Jason Surkin"
+          },
+          "starRating": "FIVE",
+          "comment": "Sohraab is the best. Really enjoyed my time here at clove dental, highly recommend.",
+          "createTime": "2026-06-06T01:26:12.700847Z",
+          "updateTime": "2026-06-06T01:26:12.700847Z",
+          "reviewReply": {
+            "comment": "Hi Jason,\n\nThank you for your kind feedback. \n\nWe’re glad to hear you had a great experience with Sohraab. \n\nWe truly appreciate your recommendation and look forward to serving you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:27:41Z"
+          },
+          "name": "accounts/108795149061771855217/locations/3424162762335073167/reviews/AbFvOqlsECA7uyamFrD0nCwQiUKBXKyu0YmUsSmon_I9SfMs1k5Y55hYwXN7O_0Oug93c0wu8AWSOw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqnHoSAK2TJYd0fVvE5H1JtrWFFKRnNQUW38dIrx5FdAB2TpQBKCLC67EjZrbysNQC8T6iZTig",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJdTMboOm790dnzsxyr-4h6Sv4q3sMQ2hhIVDig5nSTXOmI4w=s120-c-rp-mo-br100",
+            "displayName": "Ma.elena Joaquin"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-06T00:59:14.533151Z",
+          "updateTime": "2026-06-06T00:59:14.533151Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-09T13:24:19Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqnHoSAK2TJYd0fVvE5H1JtrWFFKRnNQUW38dIrx5FdAB2TpQBKCLC67EjZrbysNQC8T6iZTig"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqkYi6WjbM6G31cRgkrvHA9IgoEAqMXUrn3juXmaOLGCgDg0-rTEeXvnP_J-Q2q8SNkv8KvLSg",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWoUi65pYVvAWhCp8qEF2z0GJJATG2euXy8hodHMQPm4G-9DRzS=s120-c-rp-mo-br100",
+            "displayName": "Gil Cohen"
+          },
+          "starRating": "FIVE",
+          "comment": "I’ve been coming here my entire life but recently went in for a deep cleaning and had such an amazing experience with David. Honestly one of the nicest people I’ve ever met, he was extremely comforting and easygoing throughout the entire process,10/10 recommend!!",
+          "createTime": "2026-06-05T23:17:06.340466Z",
+          "updateTime": "2026-06-05T23:17:06.340466Z",
+          "reviewReply": {
+            "comment": "Hi Gil,\n\nThank you for your kind words and continued trust. \n\nWe’re glad you had a great experience with David and truly appreciate your feedback. \n\nWe look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:19:56Z"
+          },
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqkYi6WjbM6G31cRgkrvHA9IgoEAqMXUrn3juXmaOLGCgDg0-rTEeXvnP_J-Q2q8SNkv8KvLSg"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqlc-iVW2H-sBTg40NIX0cqTKD2KEUCSQ2XHx_fqjZyiVG9hayDp2gZa9L7tW5ETD9sV_DEi",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJo5MmPjiQuP_CZWX1S_L0sJZ_tWm2Um3u57PDNNhBYiFx4KQ=s120-c-rp-mo-br100",
+            "displayName": "Staci Parker"
+          },
+          "starRating": "FIVE",
+          "comment": "I had been looking and looking for a reputable dentist who takes Medi-cal for my sister. I scheduled an appointment based on all the amazing reviews I read.  This office and filled with compassionate, caring, accommodating, kind and helpful people. My sister isn’t mobile and very hard of hearing. They accommodated her being in a wheelchair etc and they’ve been so kind to me too.  Shout out to David, Dalton, Jessica and Jennifer. All so kind and caring.",
+          "createTime": "2026-06-05T21:27:51.142006Z",
+          "updateTime": "2026-06-05T21:27:51.142006Z",
+          "reviewReply": {
+            "comment": "Hi Staci,\n\nThank you for sharing your experience and kind words. \n\nWe’re glad we could accommodate your sister’s needs and make the visit as comfortable as possible. \n\nYour recognition of David, Dalton, Jessica, and Jennifer means a lot to the team.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:29:33.428819Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqlc-iVW2H-sBTg40NIX0cqTKD2KEUCSQ2XHx_fqjZyiVG9hayDp2gZa9L7tW5ETD9sV_DEi"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqlkKqSaNMRhA8OPS1wgbH5yJz7ZSLeQJ4V7JNmEZMajku9Uf-PxghxZKfMqDY_ov9n_TU-TLw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIuVT_9V3K_WI1xMiViROkmRsIqG6ZH1tB-FAPbax8c_QI28w=s120-c-rp-mo-br100",
+            "displayName": "Rafael Duran"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-05T20:45:35.378431Z",
+          "updateTime": "2026-06-05T20:45:35.378431Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-09T13:29:44.712427Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqlkKqSaNMRhA8OPS1wgbH5yJz7ZSLeQJ4V7JNmEZMajku9Uf-PxghxZKfMqDY_ov9n_TU-TLw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqn9Y42Sn5KMdJ0a3JmXPB840FGZ8GghjPl8-WYuBy-ivS3CBLqVUbCD1XBYS-QT6FG6uHR4LA",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocKw8uI1A4rmUYG-Wwh5ERyAX-NqmsR2Gn3fFx8WxlMHRfkLRw=s120-c-rp-mo-br100",
+            "displayName": "ella jones"
+          },
+          "starRating": "FIVE",
+          "comment": "My hygienist David,  Was amazing, the best, he is my angel, great work , very professional and caring . I had a beautiful experience. David is the man .",
+          "createTime": "2026-06-05T18:41:46.861143Z",
+          "updateTime": "2026-06-05T18:41:46.861143Z",
+          "reviewReply": {
+            "comment": "Hi Ella,\n\nThank you for sharing your experience. \n\nWe’re happy to hear you had such a positive experience with David. We truly appreciate your support and look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:20:14Z"
+          },
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqn9Y42Sn5KMdJ0a3JmXPB840FGZ8GghjPl8-WYuBy-ivS3CBLqVUbCD1XBYS-QT6FG6uHR4LA"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqlid_W1qxopiY9MWXsSkOVDWRU7jPmkZNPTUp00Y92IXbZXVV_efX5TSES4nCyGIDsKEd-YbQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIkV1pFsWCGIMXS3p0XyPTt9e_08tWbZfc6cJHUhQPpOVhnU7w=s120-c-rp-mo-br100",
+            "displayName": "Justin Vines"
+          },
+          "starRating": "FIVE",
+          "comment": "David was amazing! He’s the best!",
+          "createTime": "2026-06-05T18:01:10.410818Z",
+          "updateTime": "2026-06-05T18:01:10.410818Z",
+          "reviewReply": {
+            "comment": "Hi Justin,\n\nThank you for your wonderful feedback. \n\nWe’re glad to hear you had a great experience with David, and we truly appreciate you taking the time to share it.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:21:12Z"
+          },
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqlid_W1qxopiY9MWXsSkOVDWRU7jPmkZNPTUp00Y92IXbZXVV_efX5TSES4nCyGIDsKEd-YbQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/17491483726222827505",
+        "review": {
+          "reviewId": "AbFvOqkAgYsISn_OK8QJNcTb1DSbHVBHGL3S9TDDjmWqY4RzCxQlPNuoFXlNvrLddFp9CUodytA3Ug",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWwnTUnIuI_lXnS8dh0kUOpmEm2rENaf00DM38EiOwXLD5U0ByH=s120-c-rp-mo-ba12-br100",
+            "displayName": "S M"
+          },
+          "starRating": "TWO",
+          "comment": "After moving to Santa Monica from Newport Beach, it took me a long time to find a local dentist I felt comfortable with. Because Clove Dental is right up the block in my neighborhood, I hoped they would become my long-term practice. I already had my implants done previously, so I just needed the crowns, a cleaning, and whitening. I didn't blink at the premium pricing—I paid cash out of pocket in full and even signed up for their membership program.\n\nWhile the clinical staff is wonderful, the operational management and lack of professionalism from one of the owners, Dr. Jovhan Jilbert, ruined the experience.\n\nWhen they wanted my business, everything was handled promptly. The moment they were paid in full, the standard dropped. First, I arrived for my tooth delivery appointment only to discover Dr. Jilbert had gone on vacation without giving me advance notice or a phone call to reschedule.\n\nToday was the final straw. I had an 8:00 AM appointment for a check-up and to finish my teeth whitening. Right at 8:00 AM, I was told he was running 5 to 10 minutes late and was put in the chair to watch videos. Nearly an hour later, I was still sitting there with no sign of him. Stalling a patient just to keep them in the chair is completely unacceptable. Because of this, my whitening never got completed, and I wasn't able to ask my follow-up questions. While the crowns feel okay right now, I am not a dentist—I now have to go to a new practice to finish the work I already paid for and find out if the crowns were even placed correctly.\n\nAs a fellow business owner, my advice is simple: if you charge top dollar, you must deliver top-dollar service and transparent communication. High-end clinics strictly enforce cancellation fees when patients miss appointments without proper notice. It is only fair that the same courtesy, respect, and accountability apply to the provider. If I treated my own contracting clients with this level of scheduling disregard and misdirection, I would be out of business tomorrow. Very poor business practice.",
+          "createTime": "2026-06-05T16:30:19.816908Z",
+          "updateTime": "2026-06-05T16:30:19.816908Z",
+          "reviewReply": {
+            "comment": "Hi, \n\nWe sincerely apologize for the delays, lack of communication, and the inconvenience this caused during your treatment.\n\nPlease reach out to our office at your convenience so we can address your concerns directly.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:27:01Z"
+          },
+          "name": "accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqkAgYsISn_OK8QJNcTb1DSbHVBHGL3S9TDDjmWqY4RzCxQlPNuoFXlNvrLddFp9CUodytA3Ug"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/2451402705824656361",
+        "review": {
+          "reviewId": "AbFvOqlqVCi8ge4H_pc6ZAmDBGOjHz2Oleua0XgGviItakl-WeBrH_9X3VBDWzfXZlKOCBism9-1Ig",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWrJyopo74OOyLd2uA6mPF1r5m8ZbROZpqYiDyU9gpevSDfa7Y=s120-c-rp-mo-br100",
+            "displayName": "Sara Karimi"
+          },
+          "starRating": "ONE",
+          "comment": "I'm not happy with dentists because they often push you to get treatments you don't really need, just to make money. They put profit ahead of your health. I don't refer to them at all.",
+          "createTime": "2026-06-05T00:27:14.999385Z",
+          "updateTime": "2026-06-05T00:27:14.999385Z",
+          "reviewReply": {
+            "comment": "Hi Sara,\n\nWe’re sorry to hear about your experience.\n\nWe would like to discuss your concerns further. Please contact our office so we can address your concerns directly.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:16:44Z"
+          },
+          "name": "accounts/108795149061771855217/locations/2451402705824656361/reviews/AbFvOqlqVCi8ge4H_pc6ZAmDBGOjHz2Oleua0XgGviItakl-WeBrH_9X3VBDWzfXZlKOCBism9-1Ig"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqnJ-dCO9H0uOJLeg6-UsBQjsi1MWlcsB9tXzr5mmQ3Rl_sUH3tI6frIDkMKB1r3n0vD4zt9HA",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWdNBwvhR4y7M766lhVgqgv4jNw4n93Jw7FQiJ6Kc_jsOr7JkM=s120-c-rp-mo-br100",
+            "displayName": "Amanda Tetreault"
+          },
+          "starRating": "FIVE",
+          "comment": "David was kind, thorough, and did a beautiful job",
+          "createTime": "2026-06-04T22:01:22.883566Z",
+          "updateTime": "2026-06-04T22:01:22.883566Z",
+          "reviewReply": {
+            "comment": "Hi Amanda,\n\nThank you for your kind feedback. \n\nWe’re glad to hear you had a positive experience and with David and the team.\n\nWe look forward to welcoming you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:30:25.404589Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqnJ-dCO9H0uOJLeg6-UsBQjsi1MWlcsB9tXzr5mmQ3Rl_sUH3tI6frIDkMKB1r3n0vD4zt9HA"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqlgeXpnycjzq_bd-dq6sEjDJxVTyeGHiQA0ye950Oqqx0hVFpU-Zto9HRBmw6qeAc8ZKJ6j",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJYAzw6ceQQAz91BfJ4gxlx7ub3GXJYVjDdcjKIAbfXaYu0vQ=s120-c-rp-mo-br100",
+            "displayName": "Karla Garcia"
+          },
+          "starRating": "FIVE",
+          "comment": "I had such a fantastic experience at this dentistry office! David the person who helped me was truly amazing. They made me feel so comfortable and was incredibly sweet and gentle throughout my visit. It really meant a lot that they took my past negative experiences at other dental offices into consideration, which made a huge difference. Everyone there was truly so kind and happy to help I truly recommend this place to everyone who needs a good dentist!",
+          "createTime": "2026-06-04T20:51:05.044700Z",
+          "updateTime": "2026-06-04T20:51:05.044700Z",
+          "reviewReply": {
+            "comment": "Hi Karla,\n\nThank you for your kind words and thoughtful feedback. \n\nWe’re happy to hear you felt comfortable and well cared for during your visit, and we truly appreciate your recommendation.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:30:49.675498Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqlgeXpnycjzq_bd-dq6sEjDJxVTyeGHiQA0ye950Oqqx0hVFpU-Zto9HRBmw6qeAc8ZKJ6j"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqlwH_TiMGcZTjJ-zW5qolXlk5kV2cTpyQ23a5Bt7CV0Km0Qab-uTS6xIM4bWll5lC6Yv4Av_A",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjWR_7gjGNKeOd1ijXeoibRuQvsJlnpwcWMvfM24YNy-J1r2OxOT=s120-c-rp-mo-br100",
+            "displayName": "miracle Pegasus"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-04T18:49:35.936093Z",
+          "updateTime": "2026-06-04T18:49:35.936093Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-09T13:25:15Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqlwH_TiMGcZTjJ-zW5qolXlk5kV2cTpyQ23a5Bt7CV0Km0Qab-uTS6xIM4bWll5lC6Yv4Av_A"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqkh8zHVRB1VoDC513ue2ogPodaTKLIhI-mNHEENweYr4v9ZbkU6PbFdxC7GlSBSGvhpwgfn",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjX3xPdCFu4bHXghIBs67n6g-r_5CqN-RkSRkGozKKnI7jUiwSV7=s120-c-rp-mo-br100",
+            "displayName": "kathy halsey"
+          },
+          "starRating": "FIVE",
+          "comment": "I received excellent care today at Clove Dental.",
+          "createTime": "2026-06-04T04:36:56.214259Z",
+          "updateTime": "2026-06-04T04:36:56.214259Z",
+          "reviewReply": {
+            "comment": "Hi Kathy,\n\nThank you for your kind feedback. \n\nWe’re glad to hear you had an excellent experience at Clove Dental. Your trust means a lot to us, and we look forward to continuing your care.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:31:55.134743Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqkh8zHVRB1VoDC513ue2ogPodaTKLIhI-mNHEENweYr4v9ZbkU6PbFdxC7GlSBSGvhpwgfn"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/3424162762335073167",
+        "review": {
+          "reviewId": "AbFvOqkZ0UeGenmP5m3nAvpTk3q6YQK0pNkU6-m95qAlC_IOIW1nyV-iK8SYoYs-b65yTOhq5rxa",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocKfok28zwInqEy3DivcYuS1DWfwEf8s5lF2nzgy8YiM0QYFzw=s120-c-rp-mo-br100",
+            "displayName": "Nancy Blanchette"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-04-15T02:05:56.083287Z",
+          "updateTime": "2026-06-03T19:05:10.118932Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-04-17T10:10:45Z"
+          },
+          "name": "accounts/108795149061771855217/locations/3424162762335073167/reviews/AbFvOqkZ0UeGenmP5m3nAvpTk3q6YQK0pNkU6-m95qAlC_IOIW1nyV-iK8SYoYs-b65yTOhq5rxa"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/16540245410755416746",
+        "review": {
+          "reviewId": "AbFvOqnZReKqfI5sj9AKjX_bUB88LJpBYmtFfyyRBzxuZ-VaZA-ywgXYgG0162cWO6U4YAfzRJ93DQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjV4HAiDNDHmH5NJ3sZQubGmcPJVWN_Vv0d9g6M0Lu0W2Su9NX8=s120-c-rp-mo-br100",
+            "displayName": "Putthawan Krissanaban"
+          },
+          "starRating": "FIVE",
+          "comment": "I had a wonderful experience at Clover Dental Beverly Hills. The doctor and the entire team are truly kind, careful, and professional. Everything was handled very smoothly and efficiently, and I felt well taken care of from start to finish.\n\nThe service was quick, easy, and very organized, and they made the whole process comfortable and stress-free. It really feels like five-star care. I’m very grateful for the excellent service and attention to detail. Highly recommend!",
+          "createTime": "2026-06-03T15:24:18.347431Z",
+          "updateTime": "2026-06-03T15:24:18.347431Z",
+          "reviewReply": {
+            "comment": "Hi Putthawan,\n\nThank you for your kind words and thoughtful feedback. \n\nWe’re happy to hear you felt well cared for and had a smooth, comfortable experience with our team. Your recommendation means a lot to us. \n\nWe truly appreciate your trust in Clover Dental Beverly Hills.\n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:15:21Z"
+          },
+          "name": "accounts/108795149061771855217/locations/16540245410755416746/reviews/AbFvOqnZReKqfI5sj9AKjX_bUB88LJpBYmtFfyyRBzxuZ-VaZA-ywgXYgG0162cWO6U4YAfzRJ93DQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/4396979876870755094",
+        "review": {
+          "reviewId": "AbFvOqnlVTQrqSHJAZfaVn0FJ9BjUFJUrItHKjnYjMENJAZCpYSZzqMUcKAl0cn9UoQ7uszU7S076w",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocIltXutIutZchSvuoD7BzPaDtZwFfeH9nw7lkvcka4NbrJpLw=s120-c-rp-mo-br100",
+            "displayName": "Gustavo Aguilar"
+          },
+          "starRating": "FIVE",
+          "comment": "I recommend going to clove dental the best dental experience I have had in 37 years thank you Dr.\"O\" and her assistant Jessica.",
+          "createTime": "2026-06-02T22:10:40.813315Z",
+          "updateTime": "2026-06-02T22:10:40.813315Z",
+          "reviewReply": {
+            "comment": "Hi Gustavo,\n\nThank you for your kind feedback. \n\nWe’re happy to hear you had such a positive experience with Dr. “O” and Jessica.\n\nWe truly appreciate your recommendation. \n\nClove Dental Team",
+            "updateTime": "2026-06-09T13:35:25.384218Z",
+            "reviewReplyState": "APPROVED"
+          },
+          "name": "accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqnlVTQrqSHJAZfaVn0FJ9BjUFJUrItHKjnYjMENJAZCpYSZzqMUcKAl0cn9UoQ7uszU7S076w",
+          "reviewMediaItems": [
+            {
+              "thumbnailUrl": "https://lh3.googleusercontent.com/grass-cs/ANxoTn2ottxb17HJ3p8_GllgFcLsXO82EOk__3G8K0me7-0w3Jy2U0mLe7-QljD0cpvrXGgVz4YdKmB0x8vtafbs8SjFH167IyxG9lU2orytBlZ3U75xO4qQ1dahJSC-X2nJndx8Fg0zjEDpetF1=k-no"
+            }
+          ]
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqkjfHU5Y8c4BSgKp3hIiO3jHBcBUGRhPyn6UHf8Ehvuid1uXCx9D7HviLdX2xOxKI_fKQ4C",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLgrvd5OfRSSXu07AlE3DwpRgMivyOaYbKRdiltW3HnwRlUoA=s120-c-rp-mo-br100",
+            "displayName": "Reyna Jose"
+          },
+          "starRating": "FIVE",
+          "comment": "(Translated by Google) I highly recommend this place. They provide great service and the staff is very friendly.\n\n(Original)\nLes recomiendo mucho este lugar. Dan un buen servicio y el personal es muy amable",
+          "createTime": "2026-06-02T02:34:02.048276Z",
+          "updateTime": "2026-06-02T02:34:02.048276Z",
+          "reviewReply": {
+            "comment": "Hola Reyna,\n\n¡Muchas gracias por su comentario y por la calificación de 5 estrellas.\n\nNos alegra saber que recibió un buen servicio y que nuestro personal fue amable. Agradecemos enormemente su recomendación y esperamos volver a verlo pronto.\n\nEquipo de Clove Dental",
+            "updateTime": "2026-06-02T13:28:40Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqkjfHU5Y8c4BSgKp3hIiO3jHBcBUGRhPyn6UHf8Ehvuid1uXCx9D7HviLdX2xOxKI_fKQ4C"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/17491483726222827505",
+        "review": {
+          "reviewId": "AbFvOqlDzhQn8bQA3lxxLO4dHXDceFuvDgVoQ96lPBB4gisR8Snlv_PICh23UJck5iAdwO1hz1Vh",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjUaYqVLDlS60wNKU2Q6rWM3W8p5B77JwmoDJX6ekwnvIfz97Iz4=s120-c-rp-mo-br100",
+            "displayName": "Jane Watkins"
+          },
+          "starRating": "FOUR",
+          "comment": "I had a hard time understanding the Dentist",
+          "createTime": "2026-06-02T02:09:38.107493Z",
+          "updateTime": "2026-06-02T02:09:38.107493Z",
+          "reviewReply": {
+            "comment": "Hi Jane,\n\nWe’re sorry to hear that you had difficulty understanding the dentist. \n\nClear communication is very important to us. Please feel free to reach out if you’d like any clarification about your visit.\n\nClove Dental Team",
+            "updateTime": "2026-06-02T13:29:44Z"
+          },
+          "name": "accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqlDzhQn8bQA3lxxLO4dHXDceFuvDgVoQ96lPBB4gisR8Snlv_PICh23UJck5iAdwO1hz1Vh"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/17491483726222827505",
+        "review": {
+          "reviewId": "AbFvOqkoZ5raO5zfvkT8AiKvIE67ojpCkP_vtGgMfAAmDqlOHPF1qRayCd2erHteh4gaaXgwbSQLYg",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJ4MQKcB0OGApiTwvYWwNnFiw7VTbkERFOOc3lK0UZdm9RscQ=s120-c-rp-mo-br100",
+            "displayName": "Elizabeth Cornell"
+          },
+          "starRating": "FIVE",
+          "createTime": "2026-06-02T00:49:56.522321Z",
+          "updateTime": "2026-06-02T00:49:56.522321Z",
+          "reviewReply": {
+            "comment": "Thank you so much for rating our service.",
+            "updateTime": "2026-06-02T13:29:55Z"
+          },
+          "name": "accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqkoZ5raO5zfvkT8AiKvIE67ojpCkP_vtGgMfAAmDqlOHPF1qRayCd2erHteh4gaaXgwbSQLYg"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/3424162762335073167",
+        "review": {
+          "reviewId": "AbFvOql0powkhYkueLZsPU6X_4XfJI2pjqTJ986vUxZiPwSlldfZ8uk8DQ6dUN2tQvMMEIOv9wRjPQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjVRiPiWwW7vfUO1J0Sm5UpfE3mp5rlqODERBejEra1CrTEPGingYg=s120-c-rp-mo-br100",
+            "displayName": "Tamas Menyhart"
+          },
+          "starRating": "FIVE",
+          "comment": "Very friendly staff",
+          "createTime": "2026-06-01T19:27:23.399015Z",
+          "updateTime": "2026-06-01T19:27:23.399015Z",
+          "reviewReply": {
+            "comment": "Hi Tamas,\n\nThank you for your 5-star review. \n\nWe’re glad you found our staff very friendly. We appreciate your kind words and look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-02T13:30:58Z"
+          },
+          "name": "accounts/108795149061771855217/locations/3424162762335073167/reviews/AbFvOql0powkhYkueLZsPU6X_4XfJI2pjqTJ986vUxZiPwSlldfZ8uk8DQ6dUN2tQvMMEIOv9wRjPQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/6002784370653219775",
+        "review": {
+          "reviewId": "AbFvOqllv-7sTUlcJZH8a3vCjUxo-hoHNCTtfjwf1uNekehdMweajwaWT4lk7LNTxQHTc7g_OPWQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjX0VGtaEGUr0V9CycKfAXyl6bbXybleg_tPagtpqI3Y_gGQwZT6CA=s120-c-rp-mo-br100",
+            "displayName": "Lucinda Bishop"
+          },
+          "starRating": "FIVE",
+          "comment": "They actually make you feel perfect and comfortable when you’re nervous that’s one thing. I truly love about them because I was so scared of the pain and to be honest the doctor was so gentle and they were so great. I was actually satisfied.",
+          "createTime": "2026-06-01T18:49:09.251820Z",
+          "updateTime": "2026-06-01T18:49:09.251820Z",
+          "reviewReply": {
+            "comment": "Hi Lucinda,\n\nThank you for your kind 5-star feedback.\n\nWe’re so glad to know you felt comfortable and at ease during your visit. Helping nervous patients feel relaxed with gentle care is always our priority.\n\nWe truly appreciate your trust and look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-02T13:24:42Z"
+          },
+          "name": "accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqllv-7sTUlcJZH8a3vCjUxo-hoHNCTtfjwf1uNekehdMweajwaWT4lk7LNTxQHTc7g_OPWQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/15322712011963486679",
+        "review": {
+          "reviewId": "AbFvOqnbvoR796NMWZ_F-u9k1kV8nrYwCYfUo9ffTkcngOT4tNFZ0wMvceMZcjJpVo3WLZkFmL2J",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJpG3P5CIG3p-sFjyffJgCIf7ZUGAmyxBNCzgHRR4p9s8YHUg=s120-c-rp-mo-br100",
+            "displayName": "Manny Tapia"
+          },
+          "starRating": "FIVE",
+          "comment": "Professional and super friendly",
+          "createTime": "2026-06-01T18:18:44.068469Z",
+          "updateTime": "2026-06-01T18:18:44.068469Z",
+          "reviewReply": {
+            "comment": "Hi Manny,\n\nThank you for your kind 5-star feedback. \n\nWe’re glad to hear you had a positive experience and found our team professional and super friendly. \n\nWe truly appreciate you taking the time to share your thoughts.\n\nClove Dental Team",
+            "updateTime": "2026-06-02T13:33:07Z"
+          },
+          "name": "accounts/108795149061771855217/locations/15322712011963486679/reviews/AbFvOqnbvoR796NMWZ_F-u9k1kV8nrYwCYfUo9ffTkcngOT4tNFZ0wMvceMZcjJpVo3WLZkFmL2J"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/15322712011963486679",
+        "review": {
+          "reviewId": "AbFvOqnKDvjUs4IsvhLxgdYPrrjlNDa_9KWR2OF_xIM-r277OQiJ80tMxN_cPoGccG_gOmavAEt6zQ",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocKX1VHUuI6_vpjBljLOY7VmqDHlpBHnNKA9slnjT7UeUhd0=s120-c-rp-mo-br100",
+            "displayName": "Diana Chavez"
+          },
+          "starRating": "FIVE",
+          "comment": "I always get cleanings with Dan he’s great! Been here 4 years",
+          "createTime": "2026-06-01T18:10:47.273901Z",
+          "updateTime": "2026-06-01T18:10:47.273901Z",
+          "reviewReply": {
+            "comment": "Hi Diana,\n\nThank you for your kind feedback.\n\nWe’re glad to hear you’ve consistently had a great experience with Dan over the past 4 years. \n\nWe truly appreciate your continued trust and look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-02T13:33:22Z"
+          },
+          "name": "accounts/108795149061771855217/locations/15322712011963486679/reviews/AbFvOqnKDvjUs4IsvhLxgdYPrrjlNDa_9KWR2OF_xIM-r277OQiJ80tMxN_cPoGccG_gOmavAEt6zQ"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/18149932138550234736",
+        "review": {
+          "reviewId": "AbFvOqkXQm5p3ng7vHA3RECUHOCvA5Mb6stDYABrxoZswSJR42v4UnMblWqSpbBeRLRjJV3eEWMyOw",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocL9k_1XFrmZmZMMVSQErq-AsOvV3iPSNHplDsM9OVU9uQnJgw=s120-c-rp-mo-br100",
+            "displayName": "Richard Wilson"
+          },
+          "starRating": "FIVE",
+          "comment": "Sheila is the best, she has been very good at restoring my dental health through her thorough cleanings and suggestions for my daily home maintenance!👍",
+          "createTime": "2026-06-01T17:19:02.493002Z",
+          "updateTime": "2026-06-01T17:19:02.493002Z",
+          "reviewReply": {
+            "comment": "Hi Richard,\n\nThank you for your 5-star review. \n\nWe’re glad to hear Sheila has helped improve your dental health with thorough cleanings and helpful advice. \n\nWe appreciate your support and look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-02T13:22:39Z"
+          },
+          "name": "accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqkXQm5p3ng7vHA3RECUHOCvA5Mb6stDYABrxoZswSJR42v4UnMblWqSpbBeRLRjJV3eEWMyOw"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/17491483726222827505",
+        "review": {
+          "reviewId": "AbFvOqnLd8RzNZZ-iVyD5I6UH48pwgIP1Y_So41C3PBcvsojnT7MRzh5RM-EREqsQ0ydJ7nZnmLkSA",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJQG1vFEEtXx1mKm1Y8Nj5jLyM1F92RS-GoINj9_loNklvMBg=s120-c-rp-mo-br100",
+            "displayName": "Sanja Cvetkovic"
+          },
+          "starRating": "ONE",
+          "comment": "I write this while I am sitting in their office - that is how furious I am!\n\nThis place was very disappointing. The first time I came in for a cleaning, they did a decent job, so I decided to move forward with Invisalign through them.\n\nHowever, after I had already ordered and fully paid for the Invisalign, the doctor suddenly told me they could not proceed unless I had my wisdom teeth extracted first. I explained that I had already paid, and he assured me he could do the extraction on the same day I came to pick up my Invisalign. He even personally walked to the front desk to let them know and have the appointment arranged.\n\nA couple of weeks later, I arrived at 11:10 AM for my appointment, fully expecting to also have the wisdom teeth extraction done. After waiting for about 30 minutes, I went to check what the delay was. They told me the appointment would take longer than expected because they “didn’t have the room ready” and that I needed to keep waiting.\n\nI then confirmed that I was also scheduled for wisdom teeth extraction, and they responded with, “No, we don’t have you down for that.” I was furious, especially since I had taken time out of my workday for this. There was no apology or accountability whatsoever. Instead, they made a comment implying that I wouldn’t want the doctor who was there that day to perform the extraction — which was honestly shocking and completely unprofessional.\n\nAt that point, I told them I would not be doing the extraction with them at all. I then continued waiting just to pick up my Invisalign, and they finally took me in an hour and a half later.\n\nI truly regret getting Invisalign through this clinic and wish I had thought it through more carefully before committing. It is shocking how many incompetent people work here!\n\nUpdate: I had to request a refund for the Invisalign as the doctor who was in did not know how to fit it in. All this after waiting for so long! I will provide an update on whether they issued the refund.\n\nUpdate 5/31/26 - They did not issue a refund and they also charged my insurance for the cost of the procedure I did not receive. Additionally, they submitted the insurance claim for this visit even though I received zero service that day. I guess I will either have to dispute this or take legal action.",
+          "createTime": "2026-05-15T19:22:56.910949Z",
+          "updateTime": "2026-06-01T04:57:26.317026Z",
+          "reviewReply": {
+            "comment": "Hi Sanja,\n\nWe’re sorry to hear about your experience and the frustration this caused. This is not the standard we aim to provide.\n\nWe’d like the opportunity to review this further. Please contact our office so we can address this directly.\n\nClove Dental Team",
+            "updateTime": "2026-05-29T13:20:04Z"
+          },
+          "name": "accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqnLd8RzNZZ-iVyD5I6UH48pwgIP1Y_So41C3PBcvsojnT7MRzh5RM-EREqsQ0ydJ7nZnmLkSA"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/16540245410755416746",
+        "review": {
+          "reviewId": "AbFvOqn-5CK3F69KVfijqmUbkSCH8-idAVEf9CX6Xh6Dbs151X59ZXAU3P7rEo1bXnshHdp2LVEFXg",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjVhz2N3xSe6eh_MsGihprC25MFybEm9JyTi3m-si6O53qSJK4w3=s120-c-rp-mo-br100",
+            "displayName": "Jivaro E. Ray"
+          },
+          "starRating": "FIVE",
+          "comment": "The staff was courtesy and very professional during my dental procedure visit. Ara, Ashley and Mary were great. Ara Bakian was awesome and very professional. He and his assistant made me feel relaxed and comfortable for the procedure.",
+          "createTime": "2026-04-13T20:09:28.310480Z",
+          "updateTime": "2026-05-31T03:38:30.150005Z",
+          "reviewReply": {
+            "comment": "Hi Jivaro,\n\nThank you so much for your kind 5-star review. We’re glad to hear you found our staff courteous and professional during your dental visit. \n\nWe look forward to welcoming you back again in the future.\n\nClove Dental Team",
+            "updateTime": "2026-04-14T11:21:46Z"
+          },
+          "name": "accounts/108795149061771855217/locations/16540245410755416746/reviews/AbFvOqn-5CK3F69KVfijqmUbkSCH8-idAVEf9CX6Xh6Dbs151X59ZXAU3P7rEo1bXnshHdp2LVEFXg"
+        }
+      },
+      {
+        "name": "accounts/108795149061771855217/locations/16540245410755416746",
+        "review": {
+          "reviewId": "AbFvOqnT9dx67lsTIP5l4LqgpmJ4Z0Arsuz-DB9OC1XCFtseZqWqb2jnZSkEkGCwtsy0j8i1V8Dn",
+          "reviewer": {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLQ3z15i7oDVKf92JpInxqJOE7sJPkS4GNogGNbI-Jy-E_EXg=s120-c-rp-mo-br100",
+            "displayName": "Stefan Gray"
+          },
+          "starRating": "FIVE",
+          "comment": "Everyone was friendly and pleasant the moment I walked in. Ashley and Marie/Mary were very efficient with the paper work. Dr.Ara Bakian was a class act not pushy or aggressive just making sure I was clear about what procedures were needed!! Cheers Team Clive Dental!!!",
+          "createTime": "2026-05-30T22:39:40.165954Z",
+          "updateTime": "2026-05-30T22:39:40.165954Z",
+          "reviewReply": {
+            "comment": "Hi Stefan,\n\nThank you for your kind feedback.\n\nWe’re happy to hear you felt welcomed and well taken care of, and that Ashley, Marie, and Dr. Ara Bakian made your visit comfortable and informative. \n\nWe truly appreciate your support and look forward to seeing you again.\n\nClove Dental Team",
+            "updateTime": "2026-06-02T13:21:28Z"
+          },
+          "name": "accounts/108795149061771855217/locations/16540245410755416746/reviews/AbFvOqnT9dx67lsTIP5l4LqgpmJ4Z0Arsuz-DB9OC1XCFtseZqWqb2jnZSkEkGCwtsy0j8i1V8Dn"
+        }
+      }
+    ],
+    "nextPageToken": "ABHRLXUSyem1wyratZnyIKyFi5yuUCPwf2ghYzXVfL0iwCwziptkrdcF_izKdIPh2pYUxWEeLHfEbVpmzFxqSe8G23eFwHc8Ns15uGTBWkC5pDJF6FFIxh5Ze4Vz0IGrLP4HUQMc2meeWDAJl-iawYrbzWhPzmYd7Q"
+  },
+  "connector": "google_my_business__pipedream",
+  "output_schema": "{locationReviews:[{name:str\n  review:{reviewId:str\n   reviewer:{profilePhotoUrl:str\n    displayName:str}\n   starRating:str\n   comment?:str\n   createTime:str\n   updateTime:str\n   name:str\n   reviewReply?:{comment:str\n    updateTime:str\n    reviewReplyState?:str}\n   reviewMediaItems?:[{thumbnailUrl:str}]}}]\n nextPageToken:str}",
+  "structure": "JSON object with 2 keys: locationReviews, nextPageToken",
+  "preview": "{\"locationReviews\":[{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOqlp-h5dnH-EYBSzt1ZQgOTqLWtWFu8NYm0ntJiVfmqX8-SJNvzu3ZUr1ssprJ49yzVog3Vrnw\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocJwbWBN6qUUjvzKcFsrMpUUB_yHE_FBEybMXDB001MJyLJqJQ=s120-c-rp-mo-br100\",\"displayName\":\"Susan Bala\"},\"starRating\":\"FIVE\",\"comment\":\"I cannot recommend Dr. Maro Oganesyan enough. From the moment I walked into her office, I felt welcomed and cared for. What impressed me most was her honesty and professionalism.\\nBefore seeing Dr. Oganesyan, I visited another dentist who told me I had serious gum disease, that I could lose bone, and even risk losing my teeth. Naturally, I was extremely stressed and worried. When I came to Dr. Oganesyan for a second opinion, she took the time to carefully examine everything and explain my situation in a clear and reassuring way.\\nInstead of trying to scare me, she was honest and straightforward. She explained that my teeth and gums were actually in good condition overall and that I only had one issue that needed attention—and it was not nearly as serious as I had been led to believe. Her knowledge, integrity, and genuine care immediately put me at ease.\\nIt is rare to find a dentist who is both highly skilled and truly honest. Dr. Oganesyan made me feel comfortable, informed, and confident about my dental health. I left her office feeling relieved, satisfied, and grateful that I found someone I can trust.\\nIf you are looking for a dentist who genuinely cares about her patients and provides honest recommendations, I highly recommend Dr. Maro Oganesyan.\",\"createTime\":\"2026-06-11T00:26:49.492264Z\",\"updateTime\":\"2026-06-11T00:26:49.492264Z\",\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqlp-h5dnH-EYBSzt1ZQgOTqLWtWFu8NYm0ntJiVfmqX8-SJNvzu3ZUr1ssprJ49yzVog3Vrnw\"}},{\"name\":\"accounts/108795149061771855217/locations/16540245410755416746\",\"review\":{\"reviewId\":\"AbFvOqk84-8NfrFDJoxshi_TnQwWJO1rBi7RhMbXng3a23tDWSsBdtQ1g5_b5JH6FZFQZIV6G1ER\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjWw6gOiZFOyRjJqUwiuDzUPc4RkoACw0tUBx4nLK0tVyGclfPpf=s120-c-rp-mo-br100\",\"displayName\":\"Cody Wizman\"},\"starRating\":\"FIVE\",\"comment\":\"The employers did a great and awesome job on cleaning my teeth. Thank you Dr.Jilbert. All the best, Cody.\",\"createTime\":\"2026-06-11T00:09:28.119996Z\",\"updateTime\":\"2026-06-11T00:09:28.119996Z\",\"name\":\"accounts/108795149061771855217/locations/16540245410755416746/reviews/AbFvOqk84-8NfrFDJoxshi_TnQwWJO1rBi7RhMbXng3a23tDWSsBdtQ1g5_b5JH6FZFQZIV6G1ER\"}},{\"name\":\"accounts/108795149061771855217/locations/18149932138550234736\",\"review\":{\"reviewId\":\"AbFvOqmDx1vEZHG34BkYwn1EMj9OSPIYKlak3EwACr4CctFguSlItfdziK_f7USIXukwe0HBvNtz-w\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjX3gz0GJ9399km_orwcrTG5WMSKvzxieOKmjyDA8ozO7LsWyvE=s120-c-rp-mo-br100\",\"displayName\":\"Damaris Mills\"},\"starRating\":\"FIVE\",\"comment\":\"Very good!\",\"createTime\":\"2026-06-10T23:29:31.743750Z\",\"updateTime\":\"2026-06-10T23:29:31.743750Z\",\"name\":\"accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqmDx1vEZHG34BkYwn1EMj9OSPIYKlak3EwACr4CctFguSlItfdziK_f7USIXukwe0HBvNtz-w\"}},{\"name\":\"accounts/108795149061771855217/locations/17491483726222827505\",\"review\":{\"reviewId\":\"AbFvOqmAeQHWdTXIqqHTT292OGT3ojUM2Ji1jteBRDl_TIYaRgM1MIHGLnq_D_PXcd2f99g8aEtXdw\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocI86UtJQG5joqWm5R2rTQkma-MSi12VbKMmgnneDs8rWlBg6A=s120-c-rp-mo-br100\",\"displayName\":\"Ricky Natichioni\"},\"starRating\":\"FIVE\",\"comment\":\"Everyone there was extremely helpful and professional. Would highly recommend!\",\"createTime\":\"2026-06-10T23:14:56.654870Z\",\"updateTime\":\"2026-06-10T23:14:56.654870Z\",\"name\":\"accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqmAeQHWdTXIqqHTT292OGT3ojUM2Ji1jteBRDl_TIYaRgM1MIHGLnq_D_PXcd2f99g8aEtXdw\"}},{\"name\":\"accounts/108795149061771855217/locations/6002784370653219775\",\"review\":{\"reviewId\":\"AbFvOqlGoG9OgOnRfLb12m26O0hcZL8g2ZxiwhApoGnMJpjBF3VGjwX4sk8J-BynpelMt1-BX7tw\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjVZKjDEky8VnCiMETRvHcu2EQgBINx3T0RvjhV-tyr1mnYt_Vo=s120-c-rp-mo-br100\",\"displayName\":\"Ashley Lazaro\"},\"starRating\":\"FIVE\",\"comment\":\"Came all the way from Santa Barbara and im generally scared of the dentist but Clove dental is very welcoming and friendly staff. Dr. was very thorough and answered any question I had and explained the best treatment plan.\",\"createTime\":\"2026-06-10T23:05:58.085431Z\",\"updateTime\":\"2026-06-10T23:06:20.926119Z\",\"name\":\"accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqlGoG9OgOnRfLb12m26O0hcZL8g2ZxiwhApoGnMJpjBF3VGjwX4sk8J-BynpelMt1-BX7tw\"}},{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOqk7FdYS4c5WrnUwoOnbAUJZh3XHnMTSct_6-yOwOdzez00kYSGLGIPHL4AKs9wNseACttIweQ\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjXWVT4wn9_ZJEGwKoVhhO3Pth2vlKcARGR9rQmji5MLchQ_Hdnt=s120-c-rp-mo-br100\",\"displayName\":\"Alice Yeramian\"},\"starRating\":\"FIVE\",\"comment\":\"Staff were very helpful, Jennifer is a sweet heart. I got to Dr. Maro Oganesyan she is super professional very passionate makes u feel\\nVery comfortable. In general a great office, yet I cannot tell enough about Dr. Oganesyan she is A plus plus\",\"createTime\":\"2026-06-10T22:45:50.924402Z\",\"updateTime\":\"2026-06-10T22:45:50.924402Z\",\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqk7FdYS4c5WrnUwoOnbAUJZh3XHnMTSct_6-yOwOdzez00kYSGLGIPHL4AKs9wNseACttIweQ\"}},{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOqkWJbE_EijTd7OIm0B_1ESMKAYBdpED4vCpF_izWJb0_PYrL7WOXmt4R2x07wYlLpAmj9u4gw\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocIgR7lOZHQfgfAGdghRO8F6BDO9XhP0Gg0cZkCh_A-_zZB7Mw=s120-c-rp-mo-br100\",\"displayName\":\"mario velazquez\"},\"starRating\":\"FIVE\",\"comment\":\"Walked in without an appointment and Jennifer made my wife and I feel so welcomed! We were able to get seen right away with Dr.O for same day treatment! Very caring and helpful staff. I'd highly recommend Clove Dental!\",\"createTime\":\"2026-06-10T20:16:11.462859Z\",\"updateTime\":\"2026-06-10T20:16:11.462859Z\",\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqkWJbE_EijTd7OIm0B_1ESMKAYBdpED4vCpF_izWJb0_PYrL7WOXmt4R2x07wYlLpAmj9u4gw\"}},{\"name\":\"accounts/108795149061771855217/locations/18149932138550234736\",\"review\":{\"reviewId\":\"AbFvOqkO3I3G_ObRTZ1tTMrQ9flWx1Xm0rZxDJm8VntDNx04V6o57gh_TMtr-0AJ_9OPB8G_tnIS\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjVHSkB0hhyamtnXTQno79Q0X-M_C9LLgbm1ayOdghfn3sXC7HXE=s120-c-rp-mo-ba12-br100\",\"displayName\":\"M Zarefard\"},\"starRating\":\"ONE\",\"comment\":\"I brought my mom for dental treatment, on first day they did the scan and they said they need to submit to insurance for approval, then 2 weeks later they called and said, good news it’s approved, so we scheduled an appointment and I have my mom go by herself , then she called me and I spoke with Dr, he said it will be a $650 fee to takes some pictures of the tooth and it’s not covered by insurance. So I told them no and she came back. It’s not a right way of doing business.\",\"createTime\":\"2026-06-10T01:35:34.214570Z\",\"updateTime\":\"2026-06-10T01:35:34.214570Z\",\"name\":\"accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqkO3I3G_ObRTZ1tTMrQ9flWx1Xm0rZxDJm8VntDNx04V6o57gh_TMtr-0AJ_9OPB8G_tnIS\"}},{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOqkhEreO8RqoPO76HQ2J6p3o50Y8lrzPYYHHJftLrxB0NlyHrj_iIauypIIsIIsxsoFCA8JFbA\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocJ6wNYG5lqODUAwp-fZi1we2zhASszq76K5s5Mszw7oHQu3EA=s120-c-rp-mo-br100\",\"displayName\":\"Jenny Jones\"},\"starRating\":\"FIVE\",\"comment\":\"I highly recommend this incredible dental practice for everyone. Every single  person here as been incredibly kind to me and understanding of all my dental needs.\\n\\nI am someone who needs a lot of dental care and I could not recommend them enough! :)))\\n\\nIt is rare to find a place that has so much positivity  to it across the board but this place manages to do it! :)\\n\\nI would give them all 10 stars if that were possible. :))\",\"createTime\":\"2026-06-09T18:55:47.325846Z\",\"updateTime\":\"2026-06-09T18:55:47.325846Z\",\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqkhEreO8RqoPO76HQ2J6p3o50Y8lrzPYYHHJftLrxB0NlyHrj_iIauypIIsIIsxsoFCA8JFbA\"}},{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOqmCPGSx7TpHAvVNbsydGDJV9llANhIE-3XCGkF4tglUjLt0PQFoas4XskVI68ltZVQqo2AIAQ\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocLhqwbHGkoOaMtQeGVkoFzGq1rRfbtaRE_LDN4L-vXwkvRWqg=s120-c-rp-mo-br100\",\"displayName\":\"Norma Rodriguez\"},\"starRating\":\"FIVE\",\"comment\":\"I was so nervous coming in but right away I felt so comfortable when Jennifer greeted me at the front desk. She made the office feel warm welcoming. Dr. Kwon was very gentle and Jennifer was able to translate in Spanish for me. I appreciate Clove Dental! Thank you\",\"createTime\":\"2026-06-09T18:38:43.357622Z\",\"updateTime\":\"2026-06-09T18:38:43.357622Z\",\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqmCPGSx7TpHAvVNbsydGDJV9llANhIE-3XCGkF4tglUjLt0PQFoas4XskVI68ltZVQqo2AIAQ\"}},{\"name\":\"accounts/108795149061771855217/locations/2451402705824656361\",\"review\":{\"reviewId\":\"AbFvOqmFd1ICpvFlCr_NSsLpaEmVOJz9IF1WEAoEUNM6p9PQBLPYbuDt7YxkTyGNQvRemSJi-uVV\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocLH6WjKrXTOapF8vVHtY9tWA9pAM7tTiOFcLVzn19Rh-BMzeA=s120-c-rp-mo-br100\",\"displayName\":\"Darlene Phan\"},\"starRating\":\"FIVE\",\"createTime\":\"2026-06-09T16:49:14.205458Z\",\"updateTime\":\"2026-06-09T16:49:14.205458Z\",\"name\":\"accounts/108795149061771855217/locations/2451402705824656361/reviews/AbFvOqmFd1ICpvFlCr_NSsLpaEmVOJz9IF1WEAoEUNM6p9PQBLPYbuDt7YxkTyGNQvRemSJi-uVV\"}},{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOqmkDk5uaPIlSs62OB6xOiIiKuqA7mXAFyf-rBJqprDVDNlYuSeNEZUVmEkeAU-00WbxVKJtRQ\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjVfBM2RyoFLri1mwuQKOmiTDKjYkbcUlOD4_-dUHEgWdU3Ab9Xz=s120-c-rp-mo-br100\",\"displayName\":\"BK Sister Gita\"},\"starRating\":\"FIVE\",\"comment\":\"Clove Dental Thousand Oaks is the best Dental office. Very welcoming and making me very valuable with Divine smile. Very respectful and friendly. I observe staff are so loving and respectful with each other. It’s very clean and beautiful atmosphere . Feeling what I experience family feeling. My treatment completely pain free.\",\"createTime\":\"2026-04-29T19:21:17.887503Z\",\"updateTime\":\"2026-06-09T15:01:20.911642Z\",\"reviewReply\":{\"comment\":\"Thank you so much for rating our service.\\n\",\"updateTime\":\"2026-05-01T12:31:27.665732Z\",\"reviewReplyState\":\"APPROVED\"},\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqmkDk5uaPIlSs62OB6xOiIiKuqA7mXAFyf-rBJqprDVDNlYuSeNEZUVmEkeAU-00WbxVKJtRQ\"}},{\"name\":\"accounts/108795149061771855217/locations/17491483726222827505\",\"review\":{\"reviewId\":\"AbFvOqkAYrYdZHDNMUXWH8dKuVpMOj9q8QuHu7ntada2nz7PsJLXJcq8Heqw14xVEjlFCMsOqCjj\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjXl_ZEVqmg3XyM2zgueGeh6WmnyKKgs2a4srJ7IkNf5NOzFoVs=s120-c-rp-mo-br100\",\"displayName\":\"Chad Tuitama\"},\"starRating\":\"FIVE\",\"comment\":\"I had an appointment today Monday, June 8th at 10:00am. The office was running uncharacteristically late and the time from lobby to chair was a bit behind. The young lady who was the receptionist was going above and beyond her place to make sure that the clients were taken care of. She had even taken on the role of seating me and asked if I needed a glass of water which was greatly appreciated as I had just taken a long train ride to get there. She did an excellent job of communicating as to the reason why there was a delay. There seemed to have been a short staff situation, and she was giving her all to make sure the clients were all engaged and made to feel comfortable. I believe she was really doing the whole office a favor this morning and held it together for everyone. I know things can get really stressed and come unraveled in situations like that when front staff lose their cool and don’t know how to make things run smoothly. She knew the assignment and took on the  role with grace and respect for the clients. I did not get her name but I do believe she should be commended for her efforts today. I will be returning specifically because she has shown me that there are still professionals out there that believe in real customer service!!! All hail the receptionist!!!!😁🙌👍\",\"createTime\":\"2026-06-09T05:41:10.181876Z\",\"updateTime\":\"2026-06-09T05:41:10.181876Z\",\"reviewReply\":{\"comment\":\"Hi Chad,\\n\\nThank you for your kind feedback. \\n\\nWe’re glad our front desk team was able to support you and keep you comfortable during the delay. Your appreciation means a lot. \\n\\nWe look forward to seeing you again.\\n\\nClove Dental Team\",\"updateTime\":\"2026-06-09T13:26:43Z\"},\"name\":\"accounts/108795149061771855217/locations/17491483726222827505/reviews/AbFvOqkAYrYdZHDNMUXWH8dKuVpMOj9q8QuHu7ntada2nz7PsJLXJcq8Heqw14xVEjlFCMsOqCjj\"}},{\"name\":\"accounts/108795149061771855217/locations/6534318906667721619\",\"review\":{\"reviewId\":\"AbFvOql1-RwW6LZkSctUDiPGEPQyvVyA8Q8_1jMesobSAh99FlpTo2XG-eRI6CfO5aYGjtAkfh7c\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocJ3Xw00v1gg96qyk2TC0S8WpxsD-sdMACII-HEPVXYYg3Xtpg=s120-c-rp-mo-br100\",\"displayName\":\"Esteban Marquez\"},\"starRating\":\"FIVE\",\"createTime\":\"2026-06-09T00:08:42.026863Z\",\"updateTime\":\"2026-06-09T00:08:42.026863Z\",\"reviewReply\":{\"comment\":\"Thank you so much for rating our service.\",\"updateTime\":\"2026-06-09T13:21:57Z\"},\"name\":\"accounts/108795149061771855217/locations/6534318906667721619/reviews/AbFvOql1-RwW6LZkSctUDiPGEPQyvVyA8Q8_1jMesobSAh99FlpTo2XG-eRI6CfO5aYGjtAkfh7c\"}},{\"name\":\"accounts/108795149061771855217/locations/6002784370653219775\",\"review\":{\"reviewId\":\"AbFvOqmzYqwMGffFcmSSfK0GXXlZhkM7apvorja6SfO03WPwVQ-9JIskB_Qa1Rhobj3UoLu9KbJUTQ\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjXiZBYzWYt24QaC8rKLCzqx4LmaPOl3UHChq_Epca672kF9a-FY=s120-c-rp-mo-br100\",\"displayName\":\"Maria Gutierrez\"},\"starRating\":\"FIVE\",\"createTime\":\"2026-06-09T00:08:14.760755Z\",\"updateTime\":\"2026-06-09T00:08:14.760755Z\",\"reviewReply\":{\"comment\":\"Thank you so much for rating our service.\",\"updateTime\":\"2026-06-09T13:23:42Z\"},\"name\":\"accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqmzYqwMGffFcmSSfK0GXXlZhkM7apvorja6SfO03WPwVQ-9JIskB_Qa1Rhobj3UoLu9KbJUTQ\"}},{\"name\":\"accounts/108795149061771855217/locations/15322712011963486679\",\"review\":{\"reviewId\":\"AbFvOqlIvppzICoONhLgI1uQ_LE1Ss7mTBNeouN5lXm6m3T8EwrpXNxX-skQnPnIpAP2jTPL9zRodA\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocInVcdKtjMmP74RfbjzntHShyb77sIXXadxG7fVRLT6BUtm5A=s120-c-rp-mo-br100\",\"displayName\":\"E S\"},\"starRating\":\"ONE\",\"comment\":\"Updated review. They messed up my cleaning schedule and now I have to wait until Sept to get cleaning covered. Definitely looking for a new dentist.\",\"createTime\":\"2025-12-09T01:35:41.433682Z\",\"updateTime\":\"2026-06-08T21:25:13.583890Z\",\"reviewReply\":{\"comment\":\"We're glad to hear you had a positive experience and that Dan was able to assist you well during your visit. We appreciate your support and look forward to seeing you again.\",\"updateTime\":\"2025-12-09T13:37:09Z\"},\"name\":\"accounts/108795149061771855217/locations/15322712011963486679/reviews/AbFvOqlIvppzICoONhLgI1uQ_LE1Ss7mTBNeouN5lXm6m3T8EwrpXNxX-skQnPnIpAP2jTPL9zRodA\"}},{\"name\":\"accounts/108795149061771855217/locations/6002784370653219775\",\"review\":{\"reviewId\":\"AbFvOqlCYBaa132OjVhlwOow54KNiXC74ZkwZHC9TpANdLNCcWIrB_Lw9bylV_vUIHggYdXLoXN9\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjU0qKFLLBubb0wiH5fMcZWx5FQsIVNIgiCypkavA2eEq9zTe1wG=s120-c-rp-mo-br100\",\"displayName\":\"Rodolfo Ponce\"},\"starRating\":\"FIVE\",\"comment\":\"My dentist did the procedure very fast and efficient l. Definitely recommend Clove dental\",\"createTime\":\"2025-12-03T17:54:24.096040Z\",\"updateTime\":\"2026-06-08T21:24:52.343068Z\",\"reviewReply\":{\"comment\":\"Thank you so much for rating our service.\\n\",\"updateTime\":\"2025-12-08T13:20:20Z\"},\"name\":\"accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqlCYBaa132OjVhlwOow54KNiXC74ZkwZHC9TpANdLNCcWIrB_Lw9bylV_vUIHggYdXLoXN9\"}},{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOqnM1uEEe70V-uHXwiWrX4mCrRBSQiXMw0GcSRKOLT82mrCdEjooCCBHvHTq1qAnvrPvLt8T4g\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjUS9kcFkDli9CnKV1YSPc3DasnhxNMY7FpR58QTtCR75yveP-gc=s120-c-rp-mo-br100\",\"displayName\":\"Jennifer Ball\"},\"starRating\":\"FIVE\",\"comment\":\"Just had a wonderful cleaning experience with David Tehrani!!!  He is worth going to Clove Dental.\",\"createTime\":\"2026-06-08T19:25:17.734134Z\",\"updateTime\":\"2026-06-08T19:25:17.734134Z\",\"reviewReply\":{\"comment\":\"Hi Jennifer,\\n\\nThank you for your kind feedback. \\n\\nWe’re glad you had a wonderful cleaning experience with David Tehrani. \\n\\nYour support means a lot, and we look forward to serving you again at Clove Dental.\\n\\nClove Dental Team\",\"updateTime\":\"2026-06-09T13:29:02.321158Z\",\"reviewReplyState\":\"APPROVED\"},\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOqnM1uEEe70V-uHXwiWrX4mCrRBSQiXMw0GcSRKOLT82mrCdEjooCCBHvHTq1qAnvrPvLt8T4g\"}},{\"name\":\"accounts/108795149061771855217/locations/6002784370653219775\",\"review\":{\"reviewId\":\"AbFvOqmRssraVtC6yQJzzuKVtkX20PXR2VvogfXFHmcJJBSDez2LMVIMCEzM0X-Zn-p7ZDTW8aQQ0g\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjU8UAbkx6cWlnqYSJtKlIe3KBeYmKl-sVT0wezpiL7IsTb4sVI=s120-c-rp-mo-ba12-br100\",\"displayName\":\"Harshadrai Mistry\"},\"starRating\":\"FIVE\",\"comment\":\"Recommend this\",\"createTime\":\"2026-06-08T19:12:18.493930Z\",\"updateTime\":\"2026-06-08T19:12:18.493930Z\",\"reviewReply\":{\"comment\":\"Hi Harshadrai,\\n\\nThank you for your kind feedback and 5-star rating. \\n\\nWe truly appreciate your recommendation and are glad to have provided a positive experience.\\n\\nWe truly appreciate your trust and look forward to seeing you again.\\n\\nClove Dental Team\",\"updateTime\":\"2026-06-09T13:24:00Z\"},\"name\":\"accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqmRssraVtC6yQJzzuKVtkX20PXR2VvogfXFHmcJJBSDez2LMVIMCEzM0X-Zn-p7ZDTW8aQQ0g\"}},{\"name\":\"accounts/108795149061771855217/locations/4396979876870755094\",\"review\":{\"reviewId\":\"AbFvOql4ZNt-D8Cjgowbj_YAudW3EXMM0pLckpwGxKBHw1GNAvsfXa5ecP6fTueLpuv2A1YA2oPM5g\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjV5siwj-neZMWnd0MCTkUo4vQhed5Lqq6fNkOCkNrbCWaWY3Jw=s120-c-rp-mo-br100\",\"displayName\":\"Magda Rios\"},\"starRating\":\"FIVE\",\"createTime\":\"2026-06-08T15:39:17.536568Z\",\"updateTime\":\"2026-06-08T15:39:17.536568Z\",\"reviewReply\":{\"comment\":\"Thank you so much for rating our service.\",\"updateTime\":\"2026-06-09T13:29:10.633442Z\",\"reviewReplyState\":\"APPROVED\"},\"name\":\"accounts/108795149061771855217/locations/4396979876870755094/reviews/AbFvOql4ZNt-D8Cjgowbj_YAudW3EXMM0pLckpwGxKBHw1GNAvsfXa5ecP6fTueLpuv2A1YA2oPM5g\"}},{\"name\":\"accounts/108795149061771855217/locations/18149932138550234736\",\"review\":{\"reviewId\":\"AbFvOqlEuFHDOUEzOeYPMupJyxkcHXQPxUWyuEfBarkp-kGxo2i1tTMJZfyN42MOVNjrH-j88H_qzg\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjWX6Q1m4oOUHlrOowjUkpdYZk77IQyFtIZQX9R8B-C2bQ3b-24y-Q=s120-c-rp-mo-ba12-br100\",\"displayName\":\"Tony Ketcham\"},\"starRating\":\"FIVE\",\"comment\":\"Everyone in this office is welcoming and friendly. I am a veteran that has been victimized and abused by the providers at the va so often that I no longer feel safe going to the va for my services.\\nClove dental is a member of the non va medical system, called \\\"Community Care\\\" that is available to some veterans that cannot access services through the va medical system.\\nThe difference in the way I am treated so kindly here at clove may not seem to them to be anything out of the normal, but it is far different than the way I have been treated at the va for years.\\nThe va constantly looked for reasons to deny me services to which I am entitled through my service to this country. The va system has consistently mistreated and beat me, druggged me against my will, encarcerated me without cause, stolen my property, when they are hired to help veterans.\\nI truly needed and appreciate the welcoming attitude shown to me by everyone at clove. It has truly made a world of difference. I appreciate you all.\\nTony\",\"createTime\":\"2026-06-07T09:04:39.988761Z\",\"updateTime\":\"2026-06-07T10:21:03.826560Z\",\"reviewReply\":{\"comment\":\"Hi Tony,\\n\\nThank you for your kind words.\\n\\nWe’re truly glad you felt welcomed and cared for at Clove Dental. It means a lot to us to know we could make a positive difference in your experience. \\n\\nWe’re always here for you whenever you need us.\\n\\nClove Dental Team\",\"updateTime\":\"2026-06-09T13:19:27Z\"},\"name\":\"accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqlEuFHDOUEzOeYPMupJyxkcHXQPxUWyuEfBarkp-kGxo2i1tTMJZfyN42MOVNjrH-j88H_qzg\"}},{\"name\":\"accounts/108795149061771855217/locations/2451402705824656361\",\"review\":{\"reviewId\":\"AbFvOqkHjnHjHbzG6pLtXXw8aWEYc9Nc86UOzgQ94rna5HNshrfzIzFMDmlwFXS9F5Qo8isef-fmjw\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocJmq2eEHKdN7uBjKG8yWEYkWx3VHxH2zwYqTymqCFg0Mo9znA=s120-c-rp-mo-br100\",\"displayName\":\"Beatriz Laguna\"},\"starRating\":\"FIVE\",\"createTime\":\"2026-06-07T03:24:10.287874Z\",\"updateTime\":\"2026-06-07T03:24:10.287874Z\",\"reviewReply\":{\"comment\":\"Thank you so much for rating our service.\",\"updateTime\":\"2026-06-09T13:17:34Z\"},\"name\":\"accounts/108795149061771855217/locations/2451402705824656361/reviews/AbFvOqkHjnHjHbzG6pLtXXw8aWEYc9Nc86UOzgQ94rna5HNshrfzIzFMDmlwFXS9F5Qo8isef-fmjw\"}},{\"name\":\"accounts/108795149061771855217/locations/18149932138550234736\",\"review\":{\"reviewId\":\"AbFvOqkz0glcG_ZrfGppZlst1MRtRnRRvkWYUb6dl7RivQhLgnzfxhu2M2qQPHmjtlBUsCaQEKWJjQ\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjWZi83eXsG0OGx82tsMj0iYqnkBRnx0J_AEbyPyuiikNRBNdAvRyQ=s120-c-rp-mo-br100\",\"displayName\":\"Sabrina Achola\"},\"starRating\":\"FIVE\",\"comment\":\"After looking for several dentists in the area I stumbled upon this practice & met Dr.Yee the best dentist so far, talks to you about the procedure through out & is mindful of the patient’s concerns & efforts same goes to the specialist endotologist(who do root canal’s), I called this place & it was exceptional open on Saturdays btw & I got an appointment 24hrs later..(I’m sorry I forgot about the front desk lady & gentleman names they are always cleaned up, tidy looking , very very respectful & kind! Plus the dental techs are superb … anyways this is my 4th treatment with them & I’m planning on doing my full treatment plan…The office is Clean, modern & just breathing taking… All the employees are very personable!!!! Oh I remember their names Louis, Sheryl( I think 🤔)Anna.\",\"createTime\":\"2026-04-29T07:55:31.274807Z\",\"updateTime\":\"2026-06-06T22:54:12.966835Z\",\"reviewReply\":{\"comment\":\"Hi Sabrina,\\n\\nThank you for your kind review. \\n\\nWe’re so glad to hear you had a positive experience with Dr. Yee and our team, and that you felt well cared for throughout your visits. \\n\\nWe truly appreciate your trust and look forward to continuing your treatment journey with you.\\n\\nClove Dental Team\",\"updateTime\":\"2026-05-05T10:13:55Z\"},\"name\":\"accounts/108795149061771855217/locations/18149932138550234736/reviews/AbFvOqkz0glcG_ZrfGppZlst1MRtRnRRvkWYUb6dl7RivQhLgnzfxhu2M2qQPHmjtlBUsCaQEKWJjQ\",\"reviewMediaItems\":[{\"thumbnailUrl\":\"https://lh3.googleusercontent.com/grass-cs/ANxoTn145u7gwIRW6CxaXgkuF3cQoRasIcp8YE3XWBQcVLh2tqIkVohyk3WQxxXmAUiz97te1gi0UZwOqvaU-ddNy6Cbh7gL3wvBRizAjJVNVTlLLHHCkxsINvly4_9vDp8W9BQQBzoa5s1Hs4s=k-no\"},{\"thumbnailUrl\":\"https://lh3.googleusercontent.com/grass-cs/ANxoTn3lOVqbBYVePLZT7GKfYf8MmNs1WsPwFg0ZVSnuxmws0tUNjdbJwxbIqB01UXYrXYfy5uNdnzEEt8SA-jeFaO61P4sKraDVOQTLttY1SV4j4oPkCS0UtSPRa7n4YWi3bKYvA0pRncUWL6E=k-no\"},{\"thumbnailUrl\":\"https://lh3.googleusercontent.com/grass-cs/ANxoTn10sk9tNhPZBdlTMfMvTpk4AtK8j8x6QkJCD7LjXJB8jc6K5IrJsByp2OnmczhuY-pxxIRn6WhkYIGkRrGPPd-9DfmPGqFDONhfP0UVlqqTNLaxxgcVZkvr__q4HkFsYSve8IbDdPNlOq58=k-no\"},{\"thumbnailUrl\":\"https://lh3.googleusercontent.com/grass-cs/ANxoTn2W5LAfzbA4dRWw0j_-gBkdbWQTEKTRmK0DLGACX-nUk9Cz9p5CR-O_SNrascIgUcu40oOJekZSblqqK9dLKS3iqKOsvt3FLB-cxMaNi5myo0jet4P4HjPcX-SPJc0_YzvKtISsXXcgAd5e=k-no\"}]}},{\"name\":\"accounts/108795149061771855217/locations/3424162762335073167\",\"review\":{\"reviewId\":\"AbFvOqlsECA7uyamFrD0nCwQiUKBXKyu0YmUsSmon_I9SfMs1k5Y55hYwXN7O_0Oug93c0wu8AWSOw\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a-/ALV-UjXLyCAqmq0CWFR6quEMIiWTkd7dqqRARwJ0ecsGAHaoHP6WZVM=s120-c-rp-mo-br100\",\"displayName\":\"Jason Surkin\"},\"starRating\":\"FIVE\",\"comment\":\"Sohraab is the best. Really enjoyed my time here at clove dental, highly recommend.\",\"createTime\":\"2026-06-06T01:26:12.700847Z\",\"updateTime\":\"2026-06-06T01:26:12.700847Z\",\"reviewReply\":{\"comment\":\"Hi Jason,\\n\\nThank you for your kind feedback. \\n\\nWe’re glad to hear you had a great experience with Sohraab. \\n\\nWe truly appreciate your recommendation and look forward to serving you again.\\n\\nClove Dental Team\",\"updateTime\":\"2026-06-09T13:27:41Z\"},\"name\":\"accounts/108795149061771855217/locations/3424162762335073167/reviews/AbFvOqlsECA7uyamFrD0nCwQiUKBXKyu0YmUsSmon_I9SfMs1k5Y55hYwXN7O_0Oug93c0wu8AWSOw\"}},{\"name\":\"accounts/108795149061771855217/locations/6002784370653219775\",\"review\":{\"reviewId\":\"AbFvOqnHoSAK2TJYd0fVvE5H1JtrWFFKRnNQUW38dIrx5FdAB2TpQBKCLC67EjZrbysNQC8T6iZTig\",\"reviewer\":{\"profilePhotoUrl\":\"https://lh3.googleusercontent.com/a/ACg8ocJdTMboOm790dnzsxyr-4h6Sv4q3sMQ2hhIVDig5nSTXOmI4w=s120-c-rp-mo-br100\",\"displayName\":\"Ma.elena Joaquin\"},\"starRating\":\"FIVE\",\"createTime\":\"2026-06-06T00:59:14.533151Z\",\"updateTime\":\"2026-06-06T00:59:14.533151Z\",\"reviewReply\":{\"comment\":\"Thank you so much for rating our service.\",\"updateTime\":\"2026-06-09T13:24:19Z\"},\"name\":\"accounts/108795149061771855217/locations/6002784370653219775/reviews/AbFvOqnHoSAK2TJYd0fVvE5H1JtrWFFKRn...[truncated]"
+}
