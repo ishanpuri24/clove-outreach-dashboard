@@ -485,14 +485,17 @@
       "dollar_per_call": 52.6,
       "recoverable_per_month_usd": 27500,
       "recoverable_share_pct": 32.8,
-      "yesterday_spend_usd": 1668.0,
-      "daily_runrate_x30_usd": 50025.0,
-      "trailing_30d_spend_usd": 83811.0,
+      "yesterday_spend_usd": 1756.75,
+      "daily_runrate_x30_usd": 58345.58,
+      "trailing_30d_spend_usd": 71094.62,
       "trend_vs_30d_pct": -40.3,
       "target_pct_of_production": 4.0,
       "production_mtd_usd": 828753.62,
       "spend_pct_of_production": 10.1,
-      "blended_status_vs_target": "OVER"
+      "blended_status_vs_target": "OVER",
+      "trailing_7d_spend_usd": 13613.98,
+      "trailing_7d_runrate_x30_usd": 58345.58,
+      "velocity_pct_vs_30d": -17.9
     },
     "risk_summary": {
       "high": 21,
@@ -709,10 +712,10 @@
     "office_leaderboard": [
       {
         "office": "Camarillo",
-        "yesterday_spend_usd": 258.55,
+        "yesterday_spend_usd": 179.41,
         "yesterday_conversions": 3.0,
-        "daily_runrate_x30_usd": 7756.0,
-        "trailing_30d_spend_usd": 8097,
+        "daily_runrate_x30_usd": 6010.9,
+        "trailing_30d_spend_usd": 7218.09,
         "trend_vs_30d_pct": -4.2,
         "production_mtd_usd": 81655.75,
         "spend_pct_of_production": 9.5,
@@ -730,14 +733,24 @@
         "high_risk_spend_usd": 2000,
         "high_risk_spend_share_pct": 24.7,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 5382.4,
+        "last7d_spend_usd": 1402.54,
+        "last7d_avg_daily_usd": 200.36,
+        "last7d_runrate_x30_usd": 6010.9,
+        "last30d_spend_usd": 7218.09,
+        "last30d_avg_daily_usd": 240.6,
+        "velocity_pct_vs_30d": -16.7,
+        "last7d_cpa_usd": 50.09,
+        "last30d_cpa_usd": 51.93,
+        "data_freshness": "2026-06-11"
       },
       {
-        "office": "Riverpark+AI",
-        "yesterday_spend_usd": 224.32,
+        "office": "Oxnard Riverpark",
+        "yesterday_spend_usd": 216.87,
         "yesterday_conversions": 5.0,
-        "daily_runrate_x30_usd": 6730.0,
-        "trailing_30d_spend_usd": 8303,
+        "daily_runrate_x30_usd": 5848.73,
+        "trailing_30d_spend_usd": 6399.75,
         "trend_vs_30d_pct": -18.9,
         "production_mtd_usd": 127004.2,
         "spend_pct_of_production": 5.3,
@@ -755,14 +768,24 @@
         "high_risk_spend_usd": 2900,
         "high_risk_spend_share_pct": 34.9,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 6506.17,
+        "last7d_spend_usd": 1364.7,
+        "last7d_avg_daily_usd": 194.96,
+        "last7d_runrate_x30_usd": 5848.73,
+        "last30d_spend_usd": 6399.75,
+        "last30d_avg_daily_usd": 213.32,
+        "velocity_pct_vs_30d": -8.6,
+        "last7d_cpa_usd": 71.85,
+        "last30d_cpa_usd": 64.0,
+        "data_freshness": "2026-06-11"
       },
       {
-        "office": "Beverly Hills+AI",
-        "yesterday_spend_usd": 220.07,
+        "office": "Beverly Hills",
+        "yesterday_spend_usd": 248.07,
         "yesterday_conversions": 1.0,
-        "daily_runrate_x30_usd": 6602.0,
-        "trailing_30d_spend_usd": 11506,
+        "daily_runrate_x30_usd": 6348.97,
+        "trailing_30d_spend_usd": 7934.02,
         "trend_vs_30d_pct": -42.6,
         "production_mtd_usd": 61585.76,
         "spend_pct_of_production": 10.72,
@@ -780,14 +803,24 @@
         "high_risk_spend_usd": 3200,
         "high_risk_spend_share_pct": 27.8,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 7442.04,
+        "last7d_spend_usd": 1481.43,
+        "last7d_avg_daily_usd": 211.63,
+        "last7d_runrate_x30_usd": 6348.97,
+        "last30d_spend_usd": 7934.02,
+        "last30d_avg_daily_usd": 264.47,
+        "velocity_pct_vs_30d": -20.0,
+        "last7d_cpa_usd": 87.14,
+        "last30d_cpa_usd": 73.53,
+        "data_freshness": "2026-06-11"
       },
       {
         "office": "Hillview",
-        "yesterday_spend_usd": 199.68,
+        "yesterday_spend_usd": 125.88,
         "yesterday_conversions": 2.0,
-        "daily_runrate_x30_usd": 5990.0,
-        "trailing_30d_spend_usd": 6713,
+        "daily_runrate_x30_usd": 4502.55,
+        "trailing_30d_spend_usd": 5782.2,
         "trend_vs_30d_pct": -10.8,
         "production_mtd_usd": 75077.55,
         "spend_pct_of_production": 7.98,
@@ -805,14 +838,24 @@
         "high_risk_spend_usd": 2500,
         "high_risk_spend_share_pct": 37.2,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 3776.42,
+        "last7d_spend_usd": 1050.6,
+        "last7d_avg_daily_usd": 150.09,
+        "last7d_runrate_x30_usd": 4502.55,
+        "last30d_spend_usd": 5782.2,
+        "last30d_avg_daily_usd": 192.74,
+        "velocity_pct_vs_30d": -22.1,
+        "last7d_cpa_usd": 31.46,
+        "last30d_cpa_usd": 30.64,
+        "data_freshness": "2026-06-11"
       },
       {
         "office": "Puri Dentistry",
-        "yesterday_spend_usd": 191.43,
+        "yesterday_spend_usd": 63.38,
         "yesterday_conversions": 11.0,
-        "daily_runrate_x30_usd": 5743.0,
-        "trailing_30d_spend_usd": 8624,
+        "daily_runrate_x30_usd": 3942.17,
+        "trailing_30d_spend_usd": 5871.78,
         "trend_vs_30d_pct": -33.4,
         "production_mtd_usd": 159848.66,
         "spend_pct_of_production": 3.59,
@@ -830,14 +873,24 @@
         "high_risk_spend_usd": 1500,
         "high_risk_spend_share_pct": 17.4,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 1901.37,
+        "last7d_spend_usd": 919.84,
+        "last7d_avg_daily_usd": 131.41,
+        "last7d_runrate_x30_usd": 3942.17,
+        "last30d_spend_usd": 5871.78,
+        "last30d_avg_daily_usd": 195.73,
+        "velocity_pct_vs_30d": -32.9,
+        "last7d_cpa_usd": 20.68,
+        "last30d_cpa_usd": 29.83,
+        "data_freshness": "2026-06-11"
       },
       {
         "office": "Sherman Oaks",
-        "yesterday_spend_usd": 184.88,
+        "yesterday_spend_usd": 212.81,
         "yesterday_conversions": 2.0,
-        "daily_runrate_x30_usd": 5546.0,
-        "trailing_30d_spend_usd": 12465,
+        "daily_runrate_x30_usd": 7782.59,
+        "trailing_30d_spend_usd": 9231.86,
         "trend_vs_30d_pct": -55.5,
         "production_mtd_usd": 94151.38,
         "spend_pct_of_production": 5.89,
@@ -855,14 +908,24 @@
         "high_risk_spend_usd": 5500,
         "high_risk_spend_share_pct": 44.1,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 6384.17,
+        "last7d_spend_usd": 1815.94,
+        "last7d_avg_daily_usd": 259.42,
+        "last7d_runrate_x30_usd": 7782.59,
+        "last30d_spend_usd": 9231.86,
+        "last30d_avg_daily_usd": 307.73,
+        "velocity_pct_vs_30d": -15.7,
+        "last7d_cpa_usd": 69.84,
+        "last30d_cpa_usd": 56.99,
+        "data_freshness": "2026-06-11"
       },
       {
-        "office": "Santa Monica+AI",
-        "yesterday_spend_usd": 145.28,
+        "office": "Santa Monica",
+        "yesterday_spend_usd": 137.69,
         "yesterday_conversions": 1.0,
-        "daily_runrate_x30_usd": 4358.0,
-        "trailing_30d_spend_usd": 13825,
+        "daily_runrate_x30_usd": 6026.59,
+        "trailing_30d_spend_usd": 8987.62,
         "trend_vs_30d_pct": -68.5,
         "production_mtd_usd": 73996.2,
         "spend_pct_of_production": 5.89,
@@ -880,14 +943,24 @@
         "high_risk_spend_usd": 5800,
         "high_risk_spend_share_pct": 42.0,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 4130.79,
+        "last7d_spend_usd": 1406.2,
+        "last7d_avg_daily_usd": 200.89,
+        "last7d_runrate_x30_usd": 6026.59,
+        "last30d_spend_usd": 8987.62,
+        "last30d_avg_daily_usd": 299.59,
+        "velocity_pct_vs_30d": -32.9,
+        "last7d_cpa_usd": 175.78,
+        "last30d_cpa_usd": 88.11,
+        "data_freshness": "2026-06-11"
       },
       {
-        "office": "Encino+AI",
-        "yesterday_spend_usd": 138.7,
+        "office": "Encino",
+        "yesterday_spend_usd": 171.45,
         "yesterday_conversions": 1.0,
-        "daily_runrate_x30_usd": 4161.0,
-        "trailing_30d_spend_usd": 8780,
+        "daily_runrate_x30_usd": 5969.39,
+        "trailing_30d_spend_usd": 7580.12,
         "trend_vs_30d_pct": -52.6,
         "production_mtd_usd": 60698.47,
         "spend_pct_of_production": 6.86,
@@ -905,14 +978,24 @@
         "high_risk_spend_usd": 2400,
         "high_risk_spend_share_pct": 27.3,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 5143.62,
+        "last7d_spend_usd": 1392.86,
+        "last7d_avg_daily_usd": 198.98,
+        "last7d_runrate_x30_usd": 5969.39,
+        "last30d_spend_usd": 7580.12,
+        "last30d_avg_daily_usd": 252.67,
+        "velocity_pct_vs_30d": -21.2,
+        "last7d_cpa_usd": 24.89,
+        "last30d_cpa_usd": 29.84,
+        "data_freshness": "2026-06-11"
       },
       {
         "office": "Thousand Oaks",
-        "yesterday_spend_usd": 104.62,
+        "yesterday_spend_usd": 103.78,
         "yesterday_conversions": 0.0,
-        "daily_runrate_x30_usd": 3139.0,
-        "trailing_30d_spend_usd": 5498,
+        "daily_runrate_x30_usd": 4207.52,
+        "trailing_30d_spend_usd": 5318.89,
         "trend_vs_30d_pct": -42.9,
         "production_mtd_usd": 94735.65,
         "spend_pct_of_production": 3.31,
@@ -930,7 +1013,17 @@
         "high_risk_spend_usd": 1700,
         "high_risk_spend_share_pct": 30.9,
         "campaign_count": null,
-        "status": "PROD PENDING"
+        "status": "PROD PENDING",
+        "yesterday_x30_usd": 3113.48,
+        "last7d_spend_usd": 981.76,
+        "last7d_avg_daily_usd": 140.25,
+        "last7d_runrate_x30_usd": 4207.52,
+        "last30d_spend_usd": 5318.89,
+        "last30d_avg_daily_usd": 177.3,
+        "velocity_pct_vs_30d": -20.9,
+        "last7d_cpa_usd": 28.88,
+        "last30d_cpa_usd": 30.22,
+        "data_freshness": "2026-06-11"
       }
     ],
     "account_coverage": [
@@ -15023,6 +15116,2124 @@
       "total_mtd_usd": 828753.62,
       "fetched_at": "2026-06-11T01:53:36Z",
       "rows_aggregated": 8426
+    },
+    "spend_velocity": {
+      "as_of": "2026-06-11",
+      "windows": {
+        "yesterday": "2026-06-10",
+        "trailing_7d": "2026-06-04 .. 2026-06-10",
+        "trailing_30d": "2026-05-12 .. 2026-06-10"
+      },
+      "org_totals": {
+        "yesterday_spend_usd": 1756.75,
+        "yesterday_x30_usd": 52702.8,
+        "last7d_spend_usd": 13613.98,
+        "last7d_avg_daily_usd": 1944.86,
+        "last7d_runrate_x30_usd": 58345.58,
+        "last30d_spend_usd": 71094.62,
+        "last30d_avg_daily_usd": 2369.82,
+        "offices_count": 11,
+        "data_freshness": "2026-06-11",
+        "velocity_pct_vs_30d": -17.9
+      },
+      "by_office": [
+        {
+          "office": "Sherman Oaks",
+          "yesterday_spend_usd": 212.81,
+          "yesterday_x30_usd": 6384.17,
+          "last7d_spend_usd": 1815.94,
+          "last7d_avg_daily_usd": 259.42,
+          "last7d_runrate_x30_usd": 7782.59,
+          "last30d_spend_usd": 9231.86,
+          "last30d_avg_daily_usd": 307.73,
+          "velocity_pct_vs_30d": -15.7,
+          "last7d_cpa_usd": 69.84,
+          "last30d_cpa_usd": 56.99,
+          "child_account_count": 2,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 427.03
+            },
+            {
+              "date": "2026-05-12",
+              "spend": 15.57
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 363.01
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 34.46
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 408.11
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 54.2
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 415.95
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 39.74
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 277.32
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 25.6
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 448.65
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 32.56
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 465.51
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 34.83
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 369.99
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 32.26
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 304.55
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 35.18
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 329.26
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 36.06
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 224.13
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 10.65
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 249.57
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 41.06
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 317.22
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 26.38
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 244.94
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 18.74
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 288.24
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 39.39
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 206.13
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 29.29
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 259.43
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 43.45
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 174.65
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 27.0
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 222.59
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 28.74
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 152.71
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 26.42
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 200.21
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 38.76
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 178.68
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 35.02
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 150.1
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 32.61
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 265.06
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 33.44
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 227.95
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 27.99
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 96.29
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 35.01
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 332.03
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 34.19
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 296.35
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 37.34
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 184.88
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 32.59
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 172.85
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 39.95
+            }
+          ]
+        },
+        {
+          "office": "Santa Monica",
+          "yesterday_spend_usd": 137.69,
+          "yesterday_x30_usd": 4130.79,
+          "last7d_spend_usd": 1406.2,
+          "last7d_avg_daily_usd": 200.89,
+          "last7d_runrate_x30_usd": 6026.59,
+          "last30d_spend_usd": 8987.62,
+          "last30d_avg_daily_usd": 299.59,
+          "velocity_pct_vs_30d": -32.9,
+          "last7d_cpa_usd": 175.78,
+          "last30d_cpa_usd": 88.11,
+          "child_account_count": 2,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 430.64
+            },
+            {
+              "date": "2026-05-12",
+              "spend": 51.98
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 471.85
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 44.06
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 416.01
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 30.46
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 375.22
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 14.09
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 317.65
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 27.59
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 569.42
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 9.08
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 476.03
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 28.54
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 542.64
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 48.54
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 277.73
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 26.7
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 339.67
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 25.5
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 312.95
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 14.19
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 376.33
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 3.67
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 358.72
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 44.19
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 413.58
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 20.92
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 180.54
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 29.32
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 117.75
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 30.16
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 160.64
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 25.69
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 111.99
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 20.15
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 127.64
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 21.32
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 98.41
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 22.69
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 136.0
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 30.81
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 195.03
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 9.12
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 177.61
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 18.56
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 182.87
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 26.34
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 157.56
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 51.93
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 142.97
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 22.94
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 222.1
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 25.12
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 218.78
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 39.59
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 145.28
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 33.03
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 104.15
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 33.54
+            }
+          ]
+        },
+        {
+          "office": "Beverly Hills",
+          "yesterday_spend_usd": 248.07,
+          "yesterday_x30_usd": 7442.04,
+          "last7d_spend_usd": 1481.43,
+          "last7d_avg_daily_usd": 211.63,
+          "last7d_runrate_x30_usd": 6348.97,
+          "last30d_spend_usd": 7934.02,
+          "last30d_avg_daily_usd": 264.47,
+          "velocity_pct_vs_30d": -20.0,
+          "last7d_cpa_usd": 87.14,
+          "last30d_cpa_usd": 73.53,
+          "child_account_count": 2,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 384.09
+            },
+            {
+              "date": "2026-05-12",
+              "spend": 42.13
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 429.86
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 57.83
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 416.44
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 37.96
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 285.82
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 29.09
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 359.47
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 35.71
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 201.6
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 26.12
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 430.72
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 27.77
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 342.55
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 8.22
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 222.8
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 64.22
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 291.05
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 43.92
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 326.85
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 36.66
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 193.12
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 31.95
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 186.04
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 34.15
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 190.07
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 29.27
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 187.88
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 29.96
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 166.7
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 26.79
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 161.18
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 39.09
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 136.02
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 28.69
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 135.66
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 27.47
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 114.37
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 35.54
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 176.03
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 37.16
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 176.63
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 28.41
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 139.27
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 40.26
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 184.13
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 27.68
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 167.57
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 37.51
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 134.0
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 41.41
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 159.81
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 28.96
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 218.81
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 13.42
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 220.07
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 0.0
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 199.79
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 48.28
+            }
+          ]
+        },
+        {
+          "office": "Encino",
+          "yesterday_spend_usd": 171.45,
+          "yesterday_x30_usd": 5143.62,
+          "last7d_spend_usd": 1392.86,
+          "last7d_avg_daily_usd": 198.98,
+          "last7d_runrate_x30_usd": 5969.39,
+          "last30d_spend_usd": 7580.12,
+          "last30d_avg_daily_usd": 252.67,
+          "velocity_pct_vs_30d": -21.2,
+          "last7d_cpa_usd": 24.89,
+          "last30d_cpa_usd": 29.84,
+          "child_account_count": 2,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 328.49
+            },
+            {
+              "date": "2026-05-12",
+              "spend": 27.99
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 358.29
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 24.9
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 289.4
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 30.31
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 292.53
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 16.26
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 100.25
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 36.72
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 34.47
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 28.22
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 394.19
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 31.33
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 478.61
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 28.07
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 359.11
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 27.5
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 363.39
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 28.17
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 297.73
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 18.86
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 263.1
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 28.67
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 118.47
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 13.87
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 185.34
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 17.97
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 234.14
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 19.08
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 192.16
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 58.14
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 197.08
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 34.52
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 99.74
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 24.38
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 143.31
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 24.58
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 58.06
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 19.38
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 253.39
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 31.27
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 258.26
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 29.72
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 261.82
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 25.99
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 184.55
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 34.25
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 263.13
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 30.75
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 98.94
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 28.89
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 140.67
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 16.01
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 213.39
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 24.98
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 138.7
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 47.16
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 142.26
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 29.19
+            }
+          ]
+        },
+        {
+          "office": "Camarillo",
+          "yesterday_spend_usd": 179.41,
+          "yesterday_x30_usd": 5382.4,
+          "last7d_spend_usd": 1402.54,
+          "last7d_avg_daily_usd": 200.36,
+          "last7d_runrate_x30_usd": 6010.9,
+          "last30d_spend_usd": 7218.09,
+          "last30d_avg_daily_usd": 240.6,
+          "velocity_pct_vs_30d": -16.7,
+          "last7d_cpa_usd": 50.09,
+          "last30d_cpa_usd": 51.93,
+          "child_account_count": 1,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 334.67
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 346.32
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 354.92
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 258.05
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 174.09
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 91.74
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 376.2
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 356.27
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 331.5
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 281.42
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 387.23
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 122.23
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 254.19
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 271.78
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 233.71
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 222.88
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 176.52
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 267.32
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 54.23
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 79.22
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 283.28
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 270.89
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 286.88
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 251.53
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 178.5
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 110.22
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 89.96
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 334.37
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 258.55
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 179.41
+            }
+          ]
+        },
+        {
+          "office": "Oxnard Riverpark",
+          "yesterday_spend_usd": 216.87,
+          "yesterday_x30_usd": 6506.17,
+          "last7d_spend_usd": 1364.7,
+          "last7d_avg_daily_usd": 194.96,
+          "last7d_runrate_x30_usd": 5848.73,
+          "last30d_spend_usd": 6399.75,
+          "last30d_avg_daily_usd": 213.32,
+          "velocity_pct_vs_30d": -8.6,
+          "last7d_cpa_usd": 71.85,
+          "last30d_cpa_usd": 64.0,
+          "child_account_count": 2,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 311.17
+            },
+            {
+              "date": "2026-05-12",
+              "spend": 30.36
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 318.16
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 37.86
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 314.88
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 35.35
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 256.03
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 12.79
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 176.74
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 30.28
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 15.4
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 18.83
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 417.46
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 18.49
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 205.56
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 15.54
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 236.49
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 39.26
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 214.93
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 36.92
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 246.68
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 37.62
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 160.06
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 27.72
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 30.33
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 36.6
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 147.19
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 21.77
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 187.5
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 28.3
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 160.74
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 28.62
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 140.05
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 11.77
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 161.7
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 31.88
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 90.26
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 23.89
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 19.91
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 18.03
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 186.72
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 38.25
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 205.31
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 16.21
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 204.51
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 30.94
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 153.97
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 36.17
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 197.98
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 18.06
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 135.72
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 28.21
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 5.66
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 23.92
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 242.25
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 32.98
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 224.32
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 48.59
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 176.29
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 40.58
+            }
+          ]
+        },
+        {
+          "office": "Puri Dentistry",
+          "yesterday_spend_usd": 63.38,
+          "yesterday_x30_usd": 1901.37,
+          "last7d_spend_usd": 919.84,
+          "last7d_avg_daily_usd": 131.41,
+          "last7d_runrate_x30_usd": 3942.17,
+          "last30d_spend_usd": 5871.78,
+          "last30d_avg_daily_usd": 195.73,
+          "velocity_pct_vs_30d": -32.9,
+          "last7d_cpa_usd": 20.68,
+          "last30d_cpa_usd": 29.83,
+          "child_account_count": 1,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 285.05
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 229.64
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 356.79
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 192.29
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 463.7
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 177.48
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 424.07
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 282.31
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 265.02
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 199.76
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 238.59
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 57.23
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 175.22
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 176.57
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 151.99
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 184.51
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 176.17
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 134.79
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 135.68
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 130.09
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 122.27
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 226.71
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 166.02
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 137.72
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 75.34
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 140.49
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 109.38
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 202.11
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 191.43
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 63.38
+            }
+          ]
+        },
+        {
+          "office": "Hillview",
+          "yesterday_spend_usd": 125.88,
+          "yesterday_x30_usd": 3776.42,
+          "last7d_spend_usd": 1050.6,
+          "last7d_avg_daily_usd": 150.09,
+          "last7d_runrate_x30_usd": 4502.55,
+          "last30d_spend_usd": 5782.2,
+          "last30d_avg_daily_usd": 192.74,
+          "velocity_pct_vs_30d": -22.1,
+          "last7d_cpa_usd": 31.46,
+          "last30d_cpa_usd": 30.64,
+          "child_account_count": 1,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 287.67
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 349.42
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 234.37
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 271.77
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 106.67
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 94.77
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 296.1
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 294.59
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 304.1
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 228.29
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 284.48
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 170.08
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 119.48
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 233.25
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 202.46
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 149.15
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 160.24
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 83.93
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 77.67
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 94.69
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 234.95
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 236.02
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 217.47
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 122.85
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 192.91
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 110.04
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 70.82
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 228.4
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 199.68
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 125.88
+            }
+          ]
+        },
+        {
+          "office": "Thousand Oaks",
+          "yesterday_spend_usd": 103.78,
+          "yesterday_x30_usd": 3113.48,
+          "last7d_spend_usd": 981.76,
+          "last7d_avg_daily_usd": 140.25,
+          "last7d_runrate_x30_usd": 4207.52,
+          "last30d_spend_usd": 5318.89,
+          "last30d_avg_daily_usd": 177.3,
+          "velocity_pct_vs_30d": -20.9,
+          "last7d_cpa_usd": 28.88,
+          "last30d_cpa_usd": 30.22,
+          "child_account_count": 1,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 197.78
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 183.09
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 224.78
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 170.24
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 98.12
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 67.66
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 284.82
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 274.74
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 316.8
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 236.76
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 273.11
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 43.01
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 139.28
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 223.51
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 219.54
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 195.99
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 208.19
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 125.59
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 55.18
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 111.0
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 226.73
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 161.11
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 300.12
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 165.09
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 201.7
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 72.98
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 129.52
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 204.06
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 104.62
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 103.78
+            }
+          ]
+        },
+        {
+          "office": "All Offices / Ayur",
+          "yesterday_spend_usd": 163.84,
+          "yesterday_x30_usd": 4915.32,
+          "last7d_spend_usd": 984.56,
+          "last7d_avg_daily_usd": 140.65,
+          "last7d_runrate_x30_usd": 4219.52,
+          "last30d_spend_usd": 3767.8,
+          "last30d_avg_daily_usd": 125.59,
+          "velocity_pct_vs_30d": 12.0,
+          "last7d_cpa_usd": 82.05,
+          "last30d_cpa_usd": 53.07,
+          "child_account_count": 1,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 136.35
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 213.06
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 141.36
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 75.08
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 75.61
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 107.8
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 191.39
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 140.43
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 85.11
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 105.01
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 152.73
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 112.07
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 82.46
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 110.43
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 133.29
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 129.14
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 148.68
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 109.06
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 115.03
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 73.64
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 128.07
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 118.3
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 99.14
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 100.46
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 192.65
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 94.64
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 66.6
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 192.48
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 173.88
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 163.84
+            }
+          ]
+        },
+        {
+          "office": "Ayur - Problem",
+          "yesterday_spend_usd": 133.57,
+          "yesterday_x30_usd": 4007.02,
+          "last7d_spend_usd": 813.55,
+          "last7d_avg_daily_usd": 116.22,
+          "last7d_runrate_x30_usd": 3486.65,
+          "last30d_spend_usd": 3002.49,
+          "last30d_avg_daily_usd": 100.08,
+          "velocity_pct_vs_30d": 16.1,
+          "last7d_cpa_usd": 35.37,
+          "last30d_cpa_usd": 25.44,
+          "child_account_count": 1,
+          "daily_spend_series": [
+            {
+              "date": "2026-05-12",
+              "spend": 185.55
+            },
+            {
+              "date": "2026-05-13",
+              "spend": 120.76
+            },
+            {
+              "date": "2026-05-14",
+              "spend": 118.78
+            },
+            {
+              "date": "2026-05-15",
+              "spend": 123.95
+            },
+            {
+              "date": "2026-05-16",
+              "spend": 82.21
+            },
+            {
+              "date": "2026-05-17",
+              "spend": 71.53
+            },
+            {
+              "date": "2026-05-18",
+              "spend": 40.0
+            },
+            {
+              "date": "2026-05-19",
+              "spend": 112.02
+            },
+            {
+              "date": "2026-05-20",
+              "spend": 84.48
+            },
+            {
+              "date": "2026-05-21",
+              "spend": 93.82
+            },
+            {
+              "date": "2026-05-22",
+              "spend": 121.01
+            },
+            {
+              "date": "2026-05-23",
+              "spend": 97.7
+            },
+            {
+              "date": "2026-05-24",
+              "spend": 79.15
+            },
+            {
+              "date": "2026-05-25",
+              "spend": 16.84
+            },
+            {
+              "date": "2026-05-26",
+              "spend": 132.34
+            },
+            {
+              "date": "2026-05-27",
+              "spend": 109.97
+            },
+            {
+              "date": "2026-05-28",
+              "spend": 106.34
+            },
+            {
+              "date": "2026-05-29",
+              "spend": 107.18
+            },
+            {
+              "date": "2026-05-30",
+              "spend": 79.59
+            },
+            {
+              "date": "2026-05-31",
+              "spend": 56.69
+            },
+            {
+              "date": "2026-06-01",
+              "spend": 23.85
+            },
+            {
+              "date": "2026-06-02",
+              "spend": 95.74
+            },
+            {
+              "date": "2026-06-03",
+              "spend": 129.44
+            },
+            {
+              "date": "2026-06-04",
+              "spend": 127.91
+            },
+            {
+              "date": "2026-06-05",
+              "spend": 119.39
+            },
+            {
+              "date": "2026-06-06",
+              "spend": 111.21
+            },
+            {
+              "date": "2026-06-07",
+              "spend": 133.71
+            },
+            {
+              "date": "2026-06-08",
+              "spend": 39.26
+            },
+            {
+              "date": "2026-06-09",
+              "spend": 148.51
+            },
+            {
+              "date": "2026-06-10",
+              "spend": 133.57
+            }
+          ]
+        }
+      ]
     }
   },
   "_sanitization": {

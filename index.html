@@ -2327,9 +2327,17 @@
           <div class="grid kpi" id="ads-kpi-grid"></div>
         </section>
 
+        <!-- Spend velocity -->
+        <section aria-labelledby="ads-velocity">
+          <h2 id="ads-velocity">Spend velocity</h2>
+          <p class="section-meta">Yesterday vs trailing-7-day vs trailing-30-day Google Ads spend. Velocity = (7d avg/day − 30d avg/day) ÷ 30d avg/day. Negative = spend pace is cooling (good for budget); positive &gt;+10% = spend is accelerating.</p>
+          <div class="card" id="ads-velocity-card"></div>
+        </section>
+
         <!-- Office leaderboard -->
         <section aria-labelledby="ads-leaderboard">
           <h2 id="ads-leaderboard">Office leaderboard</h2>
+          <p class="section-meta">Per-office paid-ads windows. 4% production ceiling target. Columns: Yesterday → 7d → 30d totals + day averages and the velocity column from the Spend velocity section.</p>
           <div class="card" id="ads-leaderboard-card"></div>
         </section>
 
@@ -4119,6 +4127,54 @@
         card.appendChild(wrap);
       }
 
+      function renderSpendVelocity(s) {
+        var card = $("ads-velocity-card");
+        if (!card) return;
+        card.innerHTML = "";
+        var ads = s.google_ads_insights || {};
+        var sv = ads.spend_velocity || null;
+        if (!sv || !sv.org_totals) {
+          card.appendChild(el("div", { "class": "section-meta",
+            text: "Spend velocity not yet computed for this snapshot." }));
+          return;
+        }
+        var t = sv.org_totals;
+        var w = sv.windows || {};
+        // Org-level KPI strip
+        var grid = el("div", { "class": "grid kpi" });
+        function kpi(label, value, sub, cls) {
+          var k = el("div", { "class": "kpi-item" });
+          k.appendChild(el("div", { "class": "kpi-label", text: label }));
+          k.appendChild(el("div", { "class": "kpi-value" + (cls ? " " + cls : ""), text: value }));
+          if (sub) k.appendChild(el("div", { "class": "kpi-sub section-meta", text: sub }));
+          return k;
+        }
+        grid.appendChild(kpi("Yesterday spend",
+          fmtUsd(t.yesterday_spend_usd),
+          (w.yesterday || "") + " • ×30 = " + fmtUsd(t.yesterday_x30_usd)));
+        grid.appendChild(kpi("Trailing 7d spend",
+          fmtUsd(t.last7d_spend_usd),
+          (w.trailing_7d || "") + " • avg " + fmtUsd(t.last7d_avg_daily_usd) + "/day"));
+        grid.appendChild(kpi("7d run-rate (×30)",
+          fmtUsd(t.last7d_runrate_x30_usd),
+          "7d avg × 30 = projected monthly pace"));
+        grid.appendChild(kpi("Trailing 30d spend",
+          fmtUsd(t.last30d_spend_usd),
+          (w.trailing_30d || "") + " • avg " + fmtUsd(t.last30d_avg_daily_usd) + "/day"));
+        var vp = t.velocity_pct_vs_30d;
+        var vCls = vp == null ? "" : (vp > 10 ? "bad" : (vp < -10 ? "good" : ""));
+        var vTxt = vp == null ? "—" : ((vp >= 0 ? "+" : "") + vp.toFixed(1) + "%");
+        grid.appendChild(kpi("Velocity 7d vs 30d", vTxt,
+          vp == null ? "" : (vp < 0 ? "Spend pace is cooling vs prior 30d" : "Spend pace is accelerating vs prior 30d"),
+          vCls));
+        card.appendChild(grid);
+
+        // As-of + offices count footer
+        card.appendChild(el("div", { "class": "section-meta",
+          text: "As of " + (sv.as_of || "") + " • " + (t.offices_count || 0)
+            + " office buckets • 16 Google Ads child accounts rolled up" }));
+      }
+
       function renderOfficeLeaderboard(s) {
         var card = $("ads-leaderboard-card");
         if (!card) return;
@@ -4135,9 +4191,12 @@
         var thead = el("thead", null, [el("tr", null, [
           el("th", { text: "Office" }),
           el("th", { text: "Yesterday $" }),
-          el("th", { text: "Run-rate (x30)" }),
-          el("th", { text: "Trailing 30d" }),
-          el("th", { text: "Trend vs 30d" }),
+          el("th", { text: "7d spend" }),
+          el("th", { text: "7d / day" }),
+          el("th", { text: "7d run-rate (x30)" }),
+          el("th", { text: "30d total" }),
+          el("th", { text: "30d / day" }),
+          el("th", { text: "Velocity 7d vs 30d" }),
           el("th", { text: "Production MTD" }),
           el("th", { text: "% of prod (target ≤4%)" }),
           el("th", { text: "Status" }),
@@ -4150,9 +4209,11 @@
           if (hrShare != null && hrShare >= 50) {
             shareClass = "mono is-high-risk";
           }
-          var trendPct = r.trend_vs_30d_pct;
-          var trendText = (trendPct == null) ? "-" : ((trendPct >= 0 ? "+" : "") + trendPct.toFixed(1) + "%");
-          var trendClass = "mono" + (trendPct == null ? "" : (trendPct > 10 ? " bad" : (trendPct < -10 ? " good" : "")));
+          // velocity_pct_vs_30d: negative = spend cooling vs 30d trend (good for budget control),
+          // positive = spend accelerating (warn if >+10%).
+          var velPct = r.velocity_pct_vs_30d;
+          var velText = (velPct == null) ? "—" : ((velPct >= 0 ? "+" : "") + velPct.toFixed(1) + "%");
+          var velClass = "mono" + (velPct == null ? "" : (velPct > 10 ? " bad" : (velPct < -10 ? " good" : "")));
           var prodPct = r.spend_pct_of_production;
           var prodPctText = (prodPct == null) ? "pending" : (prodPct.toFixed(1) + "%");
           var prodPctClass = "mono";
@@ -4171,10 +4232,16 @@
             el("td", { "class": "mono",
               text: fmtUsd(r.yesterday_spend_usd) }),
             el("td", { "class": "mono",
-              text: fmtUsd(r.daily_runrate_x30_usd) }),
+              text: fmtUsd(r.last7d_spend_usd) }),
             el("td", { "class": "mono",
-              text: fmtUsd(r.trailing_30d_spend_usd) }),
-            el("td", { "class": trendClass, text: trendText }),
+              text: fmtUsd(r.last7d_avg_daily_usd) }),
+            el("td", { "class": "mono",
+              text: fmtUsd(r.last7d_runrate_x30_usd) }),
+            el("td", { "class": "mono",
+              text: fmtUsd(r.last30d_spend_usd || r.trailing_30d_spend_usd) }),
+            el("td", { "class": "mono",
+              text: fmtUsd(r.last30d_avg_daily_usd) }),
+            el("td", { "class": velClass, text: velText }),
             el("td", { "class": "mono",
               text: (r.production_mtd_usd == null ? "pending" : fmtUsd(r.production_mtd_usd)) }),
             el("td", { "class": prodPctClass, text: prodPctText }),
@@ -6337,6 +6404,7 @@
         _safeRender("change_tracker", function () { renderChangeTracker(s.google_ads_insights); });
         _safeRender("daily_improvement_loop", function () { renderDailyImprovementLoop(s.google_ads_insights); });
         _safeRender("ads_coverage_table", function () { renderAdsCoverageTable(s); });
+        _safeRender("spend_velocity", function () { renderSpendVelocity(s); });
         _safeRender("office_leaderboard", function () { renderOfficeLeaderboard(s); });
         _safeRender("keyword_focus", function () { renderKeywordFocus(s); });
         _safeRender("api_writeback", function () { renderApiWriteback(s); });
