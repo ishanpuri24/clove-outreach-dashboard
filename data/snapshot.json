@@ -490,9 +490,9 @@
       "trailing_30d_spend_usd": 83811.0,
       "trend_vs_30d_pct": -40.3,
       "target_pct_of_production": 4.0,
-      "production_mtd_usd": null,
-      "spend_pct_of_production": null,
-      "blended_status_vs_target": "PENDING"
+      "production_mtd_usd": 828753.62,
+      "spend_pct_of_production": 10.1,
+      "blended_status_vs_target": "OVER"
     },
     "risk_summary": {
       "high": 21,
@@ -19872,13 +19872,13 @@
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Cross-initiative status, decisions, and blockers \u2014 no prose.",
-    "generated_at": "2026-06-11T02:27:10+00:00",
+    "generated_at": "2026-06-11T02:39:53Z",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
         "value": "$90,038",
-        "basis": "CPA $47.68",
-        "decision": "Recover ~$27,500/mo"
+        "basis": "CPA $47.68 \u00b7 10.1% of MTD prod (OVER)",
+        "decision": "Recover $90,363/mo identified"
       },
       {
         "label": "Paid action queue",
@@ -19888,14 +19888,14 @@
       },
       {
         "label": "GMB avg rating",
-        "value": "4.83 \u2605",
-        "basis": "5 unreplied low reviews",
-        "decision": "Refresh GMB pipeline"
+        "value": "4.64 \u2605",
+        "basis": "1 unreplied low review",
+        "decision": "Reply within 24h"
       },
       {
         "label": "GMB low last 7d",
-        "value": "2 \u2193",
-        "basis": "prior 7d 3",
+        "value": "3 \u2191",
+        "basis": "prior 7d 0",
         "decision": "Huddle on recurring themes; service recovery."
       },
       {
@@ -20026,12 +20026,12 @@
       }
     },
     "gmb_freshness": {
-      "data_freshness": "2026-05-09T17:00:00Z",
-      "age_days": 28,
-      "is_stale": true,
+      "data_freshness": "2026-06-11T02:27:10+00:00",
+      "age_days": 0,
+      "is_stale": false,
       "stale_threshold_days": 2,
-      "label": "stale",
-      "note": "GMB data is 28d behind snapshot generation; expected daily."
+      "label": "fresh",
+      "note": "GMB data refreshed today via Business Profile API."
     },
     "paid_ads_office_rollup": [
       {
@@ -20203,13 +20203,14 @@
       }
     ],
     "channel_freshness": {
-      "paid_ads": "Pulled 2026-05-19 from Google Ads via Pipedream",
+      "paid_ads": "Yesterday spend pulled live 2026-06-10 from Google Ads",
       "calls": "2026-05-07T00:00:00Z",
-      "gmb": "2026-05-09T17:00:00Z",
-      "gmb_age_days": 28,
-      "gmb_is_stale": true,
+      "gmb": "2026-06-11T02:27:10+00:00",
+      "gmb_age_days": 0,
+      "gmb_is_stale": false,
       "organic": "Updated daily. Public data is aggregated.",
       "membership": "Manual browser export on 2026-05-10 (9 DAYS STALE as of 2026-05-19)"
-    }
+    },
+    "alerts": []
   }
 }
