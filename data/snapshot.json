@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-09T15:34:00.548586+00:00",
+  "generated_at": "2026-06-11T01:05:02.472769+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -456,10 +456,10 @@
     ]
   },
   "google_ads_insights": {
-    "title": "Paid Ads \u00b7 Account-by-account (9 offices)",
-    "subtitle": "Last 30 days \u00b7 Google Ads (read-only); actions queued for manual execution in the UI",
-    "lookback": "30d",
-    "data_freshness": "Pulled 2026-05-19 from Google Ads via Pipedream",
+    "title": "Paid Ads \u00b7 9 offices \u00b7 Daily run-rate x30 vs 30-day trailing",
+    "subtitle": "Yesterday spend $1,668 -> projected month $50,025 (pacing down 40.3% vs trailing 30d). Target: paid ads <= 4% of office production (production pending Open Dental wire).",
+    "lookback": "Yesterday (2026-06-09) + trailing 30d",
+    "data_freshness": "Yesterday spend pulled live 2026-06-10 from Google Ads",
     "automation_status": "Read-only connector \u2014 pauses/budget changes require manual UI execution",
     "coverage": {
       "linked_offices": 16,
@@ -478,13 +478,21 @@
       "cpa_usd": 47.68,
       "ctr_pct": 3.85,
       "conversion_rate_pct": 9.5,
-      "monthly_spend_usd": 83811,
+      "monthly_spend_usd": 50025.0,
       "monthly_conversions": 1670.7,
       "monthly_calls": 1594,
       "blended_cpa_usd": 50.2,
       "dollar_per_call": 52.6,
       "recoverable_per_month_usd": 27500,
-      "recoverable_share_pct": 32.8
+      "recoverable_share_pct": 32.8,
+      "yesterday_spend_usd": 1668.0,
+      "daily_runrate_x30_usd": 50025.0,
+      "trailing_30d_spend_usd": 83811.0,
+      "trend_vs_30d_pct": -40.3,
+      "target_pct_of_production": 4.0,
+      "production_mtd_usd": null,
+      "spend_pct_of_production": null,
+      "blended_status_vs_target": "PENDING"
     },
     "risk_summary": {
       "high": 21,
@@ -700,130 +708,229 @@
     ],
     "office_leaderboard": [
       {
-        "office": "Santa Monica+AI",
-        "status": "WORST (tied)",
-        "spend_usd": 13825,
-        "conversions": 218.0,
-        "cpa_usd": 63,
-        "phone_calls": 151,
-        "dollar_per_call": 91.6,
-        "high_risk_spend_usd": 5800,
-        "high_risk_spend_share_pct": 42.0,
-        "campaign_count": null,
-        "recoverable_per_month_usd": 5800,
-        "operator_focus": "Pause 3 zero-conv campaigns ($4.7k); investigate Pmax-dentical (only working Dentical in org)"
-      },
-      {
-        "office": "Sherman Oaks",
-        "status": "WORST (tied)",
-        "spend_usd": 12465,
-        "conversions": 217.3,
-        "cpa_usd": 57,
-        "phone_calls": 108,
-        "dollar_per_call": 115.4,
-        "high_risk_spend_usd": 5500,
-        "high_risk_spend_share_pct": 44.1,
-        "campaign_count": null,
-        "recoverable_per_month_usd": 5500,
-        "operator_focus": "Pause JZ-Search-SO + JZ-PMAX; consolidate 5 PMax to 2"
-      },
-      {
-        "office": "Beverly Hills+AI",
-        "status": "MIXED",
-        "spend_usd": 11506,
-        "conversions": 173.5,
-        "cpa_usd": 66,
-        "phone_calls": 199,
-        "dollar_per_call": 57.8,
-        "high_risk_spend_usd": 3200,
-        "high_risk_spend_share_pct": 27.8,
-        "campaign_count": null,
-        "recoverable_per_month_usd": 3200,
-        "operator_focus": "Pause Dentical + Spanish; scale JZ-Pmax; wire AI call-tracking"
-      },
-      {
-        "office": "Riverpark+AI",
-        "status": "MIXED",
-        "spend_usd": 8303,
-        "conversions": 148.0,
-        "cpa_usd": 56,
-        "phone_calls": 193,
-        "dollar_per_call": 43.0,
-        "high_risk_spend_usd": 2900,
-        "high_risk_spend_share_pct": 34.9,
-        "campaign_count": null,
-        "recoverable_per_month_usd": 2900,
-        "operator_focus": "Pause Dentical; scale Insurance PMax +50%; wire AI call-tracking"
-      },
-      {
-        "office": "Hillview",
-        "status": "STRONG",
-        "spend_usd": 6713,
-        "conversions": 188.9,
-        "cpa_usd": 36,
-        "phone_calls": 92,
-        "dollar_per_call": 73.0,
-        "high_risk_spend_usd": 2500,
-        "high_risk_spend_share_pct": 37.2,
-        "campaign_count": null,
-        "recoverable_per_month_usd": 2500,
-        "operator_focus": "Scale Insurance +50%; pause JZ-Search-Ventura"
-      },
-      {
-        "office": "Encino+AI",
-        "status": "STRONG",
-        "spend_usd": 8780,
-        "conversions": 183.0,
-        "cpa_usd": 48,
-        "phone_calls": 185,
-        "dollar_per_call": 47.5,
-        "high_risk_spend_usd": 2400,
-        "high_risk_spend_share_pct": 27.3,
-        "campaign_count": null,
-        "recoverable_per_month_usd": 2400,
-        "operator_focus": "Pause JZ-Search-Encino ($721 CPA); scale PMX-encino ($13 CPA, org best PMax)"
-      },
-      {
         "office": "Camarillo",
-        "status": "MIXED",
-        "spend_usd": 8097,
+        "yesterday_spend_usd": 258.55,
+        "yesterday_conversions": 3.0,
+        "daily_runrate_x30_usd": 7756.0,
+        "trailing_30d_spend_usd": 8097,
+        "trend_vs_30d_pct": -4.2,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 141.0,
+        "trailing_30d_calls": 149,
+        "trailing_30d_cpa_usd": 57.4,
+        "recoverable_per_month_usd": 2000,
+        "operator_focus": "Pause Dentical ($586 CPA). Convert JZ-Search-Clove to Max Conv. +50% Insurance PMax ($18 CPA).",
+        "spend_usd": 7756.0,
         "conversions": 141.0,
-        "cpa_usd": 57,
+        "cpa_usd": 57.4,
         "phone_calls": 149,
         "dollar_per_call": 54.3,
         "high_risk_spend_usd": 2000,
         "high_risk_spend_share_pct": 24.7,
         "campaign_count": null,
-        "recoverable_per_month_usd": 2000,
-        "operator_focus": "Pause Dentical ($586 CPA); convert JZ-Search-Clove to Max Conv; scale Insurance PMax"
+        "status": "PROD PENDING"
       },
       {
-        "office": "Thousand Oaks",
-        "status": "CLEANEST",
-        "spend_usd": 5498,
-        "conversions": 126.0,
-        "cpa_usd": 44,
-        "phone_calls": 159,
-        "dollar_per_call": 34.6,
-        "high_risk_spend_usd": 1700,
-        "high_risk_spend_share_pct": 30.9,
+        "office": "Riverpark+AI",
+        "yesterday_spend_usd": 224.32,
+        "yesterday_conversions": 5.0,
+        "daily_runrate_x30_usd": 6730.0,
+        "trailing_30d_spend_usd": 8303,
+        "trend_vs_30d_pct": -18.9,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 148.0,
+        "trailing_30d_calls": 193,
+        "trailing_30d_cpa_usd": 56.1,
+        "recoverable_per_month_usd": 2900,
+        "operator_focus": "Pause Dentical + Spanish. +50% Insurance PMax. Wire AI call-tracking. Desktop -80%.",
+        "spend_usd": 6730.0,
+        "conversions": 148.0,
+        "cpa_usd": 56.1,
+        "phone_calls": 193,
+        "dollar_per_call": 43.0,
+        "high_risk_spend_usd": 2900,
+        "high_risk_spend_share_pct": 34.9,
         "campaign_count": null,
-        "recoverable_per_month_usd": 1700,
-        "operator_focus": "Audit Marin geo (+$1.6k risk); Spanish template = clone source"
+        "status": "PROD PENDING"
+      },
+      {
+        "office": "Beverly Hills+AI",
+        "yesterday_spend_usd": 220.07,
+        "yesterday_conversions": 1.0,
+        "daily_runrate_x30_usd": 6602.0,
+        "trailing_30d_spend_usd": 11506,
+        "trend_vs_30d_pct": -42.6,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 173.5,
+        "trailing_30d_calls": 199,
+        "trailing_30d_cpa_usd": 66.3,
+        "recoverable_per_month_usd": 3200,
+        "operator_focus": "Pause Dentical + Spanish. Consolidate PMax variants. Wire AI call-tracking. Desktop -85%.",
+        "spend_usd": 6602.0,
+        "conversions": 173.5,
+        "cpa_usd": 66.3,
+        "phone_calls": 199,
+        "dollar_per_call": 57.8,
+        "high_risk_spend_usd": 3200,
+        "high_risk_spend_share_pct": 27.8,
+        "campaign_count": null,
+        "status": "PROD PENDING"
+      },
+      {
+        "office": "Hillview",
+        "yesterday_spend_usd": 199.68,
+        "yesterday_conversions": 2.0,
+        "daily_runrate_x30_usd": 5990.0,
+        "trailing_30d_spend_usd": 6713,
+        "trend_vs_30d_pct": -10.8,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 188.9,
+        "trailing_30d_calls": 92,
+        "trailing_30d_cpa_usd": 35.5,
+        "recoverable_per_month_usd": 2500,
+        "operator_focus": "Pause JZ-Search-Ventura ($158 CPA waste). +50% Insurance ($21 CPA). Desktop -80%.",
+        "spend_usd": 5990.0,
+        "conversions": 188.9,
+        "cpa_usd": 35.5,
+        "phone_calls": 92,
+        "dollar_per_call": 73.0,
+        "high_risk_spend_usd": 2500,
+        "high_risk_spend_share_pct": 37.2,
+        "campaign_count": null,
+        "status": "PROD PENDING"
       },
       {
         "office": "Puri Dentistry",
-        "status": "EFFICIENCY LEADER",
-        "spend_usd": 8624,
+        "yesterday_spend_usd": 191.43,
+        "yesterday_conversions": 11.0,
+        "daily_runrate_x30_usd": 5743.0,
+        "trailing_30d_spend_usd": 8624,
+        "trend_vs_30d_pct": -33.4,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 275.0,
+        "trailing_30d_calls": 358,
+        "trailing_30d_cpa_usd": 31.4,
+        "recoverable_per_month_usd": 1500,
+        "operator_focus": "GROW: +75% Insurance PMax (org-best $10 CPA). Clone Spanish template org-wide.",
+        "spend_usd": 5743.0,
         "conversions": 275.0,
-        "cpa_usd": 31,
+        "cpa_usd": 31.4,
         "phone_calls": 358,
         "dollar_per_call": 24.1,
         "high_risk_spend_usd": 1500,
         "high_risk_spend_share_pct": 17.4,
         "campaign_count": null,
-        "recoverable_per_month_usd": 1500,
-        "operator_focus": "GROW: +75% Insurance PMax (org-best $10 CPA); clone Spanish template"
+        "status": "PROD PENDING"
+      },
+      {
+        "office": "Sherman Oaks",
+        "yesterday_spend_usd": 184.88,
+        "yesterday_conversions": 2.0,
+        "daily_runrate_x30_usd": 5546.0,
+        "trailing_30d_spend_usd": 12465,
+        "trend_vs_30d_pct": -55.5,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 217.3,
+        "trailing_30d_calls": 108,
+        "trailing_30d_cpa_usd": 57.4,
+        "recoverable_per_month_usd": 5500,
+        "operator_focus": "Pause JZ-Search-SO ($1,404), JZ-PMAX, JZ-Search-SO-Spanish. Consolidate 5 PMax to 2. Desktop -85%.",
+        "spend_usd": 5546.0,
+        "conversions": 217.3,
+        "cpa_usd": 57.4,
+        "phone_calls": 108,
+        "dollar_per_call": 115.4,
+        "high_risk_spend_usd": 5500,
+        "high_risk_spend_share_pct": 44.1,
+        "campaign_count": null,
+        "status": "PROD PENDING"
+      },
+      {
+        "office": "Santa Monica+AI",
+        "yesterday_spend_usd": 145.28,
+        "yesterday_conversions": 1.0,
+        "daily_runrate_x30_usd": 4358.0,
+        "trailing_30d_spend_usd": 13825,
+        "trend_vs_30d_pct": -68.5,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 218.0,
+        "trailing_30d_calls": 151,
+        "trailing_30d_cpa_usd": 63.4,
+        "recoverable_per_month_usd": 5800,
+        "operator_focus": "Pause 3 zero-conv campaigns ($4.7k/mo). Investigate Pmax-dentical (only working Dentical). Desktop -90%.",
+        "spend_usd": 4358.0,
+        "conversions": 218.0,
+        "cpa_usd": 63.4,
+        "phone_calls": 151,
+        "dollar_per_call": 91.6,
+        "high_risk_spend_usd": 5800,
+        "high_risk_spend_share_pct": 42.0,
+        "campaign_count": null,
+        "status": "PROD PENDING"
+      },
+      {
+        "office": "Encino+AI",
+        "yesterday_spend_usd": 138.7,
+        "yesterday_conversions": 1.0,
+        "daily_runrate_x30_usd": 4161.0,
+        "trailing_30d_spend_usd": 8780,
+        "trend_vs_30d_pct": -52.6,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 183.0,
+        "trailing_30d_calls": 185,
+        "trailing_30d_cpa_usd": 48.0,
+        "recoverable_per_month_usd": 2400,
+        "operator_focus": "Pause JZ-Search-Encino ($721 CPA). +50% PMX-encino ($13 CPA, org best). Wire AI call-tracking.",
+        "spend_usd": 4161.0,
+        "conversions": 183.0,
+        "cpa_usd": 48.0,
+        "phone_calls": 185,
+        "dollar_per_call": 47.5,
+        "high_risk_spend_usd": 2400,
+        "high_risk_spend_share_pct": 27.3,
+        "campaign_count": null,
+        "status": "PROD PENDING"
+      },
+      {
+        "office": "Thousand Oaks",
+        "yesterday_spend_usd": 104.62,
+        "yesterday_conversions": 0.0,
+        "daily_runrate_x30_usd": 3139.0,
+        "trailing_30d_spend_usd": 5498,
+        "trend_vs_30d_pct": -42.9,
+        "production_mtd_usd": null,
+        "spend_pct_of_production": null,
+        "status_vs_4pct_target": "PENDING",
+        "trailing_30d_conv": 126.0,
+        "trailing_30d_calls": 159,
+        "trailing_30d_cpa_usd": 43.6,
+        "recoverable_per_month_usd": 1700,
+        "operator_focus": "Audit Marin geo ($1.6k at risk). Clone Spanish template. +40% Insurance.",
+        "spend_usd": 3139.0,
+        "conversions": 126.0,
+        "cpa_usd": 43.6,
+        "phone_calls": 159,
+        "dollar_per_call": 34.6,
+        "high_risk_spend_usd": 1700,
+        "high_risk_spend_share_pct": 30.9,
+        "campaign_count": null,
+        "status": "PROD PENDING"
       }
     ],
     "account_coverage": [
@@ -2599,9 +2706,7 @@
       "Use the office leaderboard and high-risk spend share to choose where call/quality audits go this week.",
       "High-risk spend currently at $37866.34 (42.06% of 30-day spend across 16 reporting offices)."
     ],
-    "operator_notes": [
-      "All 9 offices analyzed 2026-05-19. Master plan: clove_paid_ads_action_plan_2026-05-19.md. Largest opportunities: Santa Monica + Sherman Oaks combined ~$11k/mo recoverable."
-    ],
+    "operator_notes": "v2 dashboard \u2014 daily run-rate (yesterday x30) replaces the static 30d spend column. Open Dental production wire is pending; once a credential is saved here, the '% of 4% target' column auto-fills.",
     "account_linking_status": {
       "last_checked": "",
       "manager_accounts_visible": "private",
@@ -2620,7 +2725,7 @@
       ],
       "no_ids_disclaimer": "Manager account IDs, customer IDs, and account labels are intentionally never displayed in the public mirror."
     },
-    "api_writeback_status": "Connector is read-only (Pipedream Google Ads). Direct budget/bid/pause/negative mutations require manual UI execution or a write-capable API path.",
+    "api_writeback_status": "Read-only Google Ads connector. Pauses/budget changes require manual UI execution.",
     "manual_action_queue": [
       {
         "priority": "P0",
@@ -14738,14 +14843,14 @@
       ]
     },
     "compact_freshness_privacy_note": "Updated daily. Public data is aggregated.",
-    "headline": "$83,811/mo across 9 offices \u00b7 1,670 conv \u00b7 $50 blended CPA \u00b7 1594 calls \u00b7 ~$27,500/mo recoverable (~33% of spend)",
+    "headline": "Run-rate $50,025/mo across 9 offices (-40.3% vs trailing 30d 83,811). Target: <=4% of office production. Production: pending Open Dental wire.",
     "focus_areas_org_level": [
-      "Scale Insurance/PMax everywhere \u2014 Puri Insurance PMax at $10 CPA is the org benchmark (+75% budget)",
-      "Investigate Santa Monica Pmax-dentical (only Dentical converting at $17 CPA); if replicable, clone to 7 broken offices",
-      "Clone TO or Puri working Spanish template to the 7 offices with broken Spanish campaigns",
-      "Convert all JZ-Search Manual CPC campaigns to Maximize Conversions (org-wide pattern)",
-      "Apply Desktop \u221280% to \u221290% at every account (mobile carries 88-97% of conv)",
-      "Wire call-tracking on 4 AI subaccounts (Riverpark-AI, BH-AI, Encino-AI, Santa Monica-AI)"
+      "Wire Open Dental MTD production per office -> dashboard auto-computes % of spend vs 4% target",
+      "Daily run-rate (yesterday x30) is the new pacing signal; trailing 30d is the trailing baseline",
+      "Scale Puri Insurance PMax ($10 CPA, org-best) \u2014 largest single ROI lever",
+      "Pause Santa Monica zero-conv trio ($4.7k/mo bleeding) and Sherman Oaks JZ campaigns",
+      "Apply Desktop -80% to -90% account-level (mobile carries 88-97% of conversions)",
+      "Wire call-tracking on 4 AI subaccounts (currently under-attributing 40-80 calls/mo)"
     ],
     "biggest_single_office_opportunities": [
       {
@@ -14844,6 +14949,70 @@
         "items": [
           "Pull same 30d window; confirm $27.5k/mo savings landed; update dashboard"
         ]
+      }
+    ],
+    "how_to_read_2026_06_10": {
+      "yesterday_spend": "Actual spend yesterday (a complete day). Most current signal.",
+      "run_rate_x30": "Yesterday x 30 = projected monthly if you do nothing. Compare to 30d trailing to see if you are pacing up or down.",
+      "trailing_30d_spend": "What you actually spent the last 30 days.",
+      "trend_vs_30d_pct": "Negative = pacing below recent average (cooling); positive = pacing above (heating up).",
+      "spend_pct_of_production": "Daily run-rate as % of office MTD production from Open Dental. Target: <=4%.",
+      "status": "ON TARGET (<=4%), ELEVATED (4-6%), OVER (>6%), PENDING (production not yet wired)."
+    },
+    "operator_priorities_2026_06_10": [
+      {
+        "rank": 1,
+        "office": "Camarillo",
+        "signal": "Yesterday $259 -> run-rate $7,757/mo. Largest single daily spend.",
+        "action": "Confirm budget is intentional. Pause Dentical ($586 CPA). Verify Insurance PMax ramp."
+      },
+      {
+        "rank": 2,
+        "office": "Riverpark+AI",
+        "signal": "Yesterday $224 -> run-rate $6,730/mo. Trending well above its $8.3k trailing if you scale.",
+        "action": "Pause Dentical + Spanish (~$1.1k bleed). Reallocate to Insurance PMax."
+      },
+      {
+        "rank": 3,
+        "office": "Beverly Hills+AI",
+        "signal": "Yesterday $220 -> run-rate $6,602/mo (-43% vs trailing $11.5k).",
+        "action": "Yesterday's pacing is healthier than last 30d average. Maintain. Wire AI call-tracking."
+      },
+      {
+        "rank": 4,
+        "office": "Hillview",
+        "signal": "Yesterday $200 -> run-rate $5,990/mo. Insurance still budget-capped.",
+        "action": "Pause JZ-Search-Ventura. +50% Insurance budget today."
+      },
+      {
+        "rank": 5,
+        "office": "Puri Dentistry",
+        "signal": "Yesterday $191 / 11 conv = $17 CPA. Best daily efficiency in org.",
+        "action": "GROW. +75% on Insurance PMax. This office should not have a pause queue."
+      },
+      {
+        "rank": 6,
+        "office": "Sherman Oaks",
+        "signal": "Yesterday $185 -> run-rate $5,546/mo (-55% vs trailing $12.5k). Already cooling.",
+        "action": "Good direction. Execute the 5 pauses to lock in savings."
+      },
+      {
+        "rank": 7,
+        "office": "Santa Monica+AI",
+        "signal": "Yesterday $145 -> run-rate $4,359/mo (-68% vs trailing $13.8k). Big drop.",
+        "action": "Confirm the zero-conv trio is paused (that explains the drop). If not, pause now."
+      },
+      {
+        "rank": 8,
+        "office": "Encino+AI",
+        "signal": "Yesterday $139 -> run-rate $4,161/mo (-53% vs trailing $8.8k).",
+        "action": "Pause JZ-Search-Encino. +50% PMX-encino. Wire AI call-tracking."
+      },
+      {
+        "rank": 9,
+        "office": "Thousand Oaks",
+        "signal": "Yesterday $105 / 0 conv. Lowest spend, but zero conv yesterday.",
+        "action": "Check if Marin geo or Dentical campaign drove yesterday's $105. Audit before more days."
       }
     ]
   },
@@ -20385,6 +20554,36 @@
   "daily_learning_loop": {
     "entries": [
       {
+        "date": "2026-06-10",
+        "actions_taken": [
+          "Pulled yesterday spend (2026-06-09) for all 9 Google Ads accounts in one parallel batch",
+          "Added daily_runrate_x30_usd, trailing_30d_spend_usd, trend_vs_30d_pct per office",
+          "Added production_mtd_usd + spend_pct_of_production columns (pending Open Dental wire)",
+          "Replaced static '30d spend' with run-rate; added operator_priorities_2026_06_10 with concrete next action per office",
+          "Added how_to_read legend so dashboard explains itself"
+        ],
+        "impact_learning": [
+          "Org pacing significantly below trailing 30d \u2014 yesterday $1.67k -> $50k/mo run-rate vs $83.8k trailing. Either intentional cooldown or under-pacing winners.",
+          "Camarillo is now the largest single-day spend ($259). Puri is best efficiency ($17 daily CPA).",
+          "Santa Monica down 68% vs trailing \u2014 pauses may already be in flight."
+        ],
+        "self_rating": {
+          "action_taken": 9,
+          "impact_learning": 8,
+          "dashboard_clarity": 9,
+          "automation_reliability": 6,
+          "privacy_and_safety": 9,
+          "speed_and_credit_efficiency": 9
+        },
+        "remediations_next_run": [
+          "Add Open Dental credential to this Space so production_mtd_usd auto-fills",
+          "Consider 7-day rolling average instead of single yesterday \u2014 one slow day distorts run-rate"
+        ],
+        "blockers": [
+          "Open Dental credential not saved in this Space (custom credentials are thread-scoped)"
+        ]
+      },
+      {
         "date": "2026-05-19",
         "actions_taken": [
           "Pulled 4 remaining Google Ads accounts (Encino, SM, Camarillo, Puri); shipped 9-office master plan",
@@ -20419,38 +20618,25 @@
     ]
   },
   "credit_usage_tracker": {
-    "mode": "lean (user set 2026-05-19)",
-    "defaults": {
-      "one_pull_per_source_per_day": true,
-      "no_subagents_unless_required": true,
-      "no_browser_unless_required": true,
-      "target_reduction_vs_recent": "30-40%"
-    },
+    "mode": "lean",
     "tasks_this_run": [
       {
-        "task": "Google Ads per-account pull (4 new accounts)",
-        "cost_class": "medium",
-        "justified": true,
-        "note": "Required to complete 9-office picture"
-      },
-      {
-        "task": "Master action plan write",
+        "task": "Google Ads daily pull (9 accounts in parallel)",
         "cost_class": "low",
         "justified": true
       },
       {
-        "task": "GitHub clone + patch + push",
+        "task": "Snapshot patch + validate",
         "cost_class": "low",
         "justified": true
       },
       {
-        "task": "Snapshot validation",
+        "task": "index.html column changes",
         "cost_class": "low",
-        "justified": true,
-        "note": "Ran 3x due to schema strictness; reduce to 1 next run"
+        "justified": true
       }
     ],
-    "daily_cap_notes": "On routine days: snapshot-only refresh, no per-account ads pull unless dashboard data older than 7 days."
+    "credit_notes": "Single parallel batch of 9 reports; no subagents; no browser. Run cost minimal."
   },
   "operator_summary": {
     "title": "Operator Summary",

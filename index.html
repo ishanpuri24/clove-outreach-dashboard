@@ -298,6 +298,9 @@
       background: var(--text-muted);
       display: inline-block;
     }
+    td.mono.good { color: var(--good); font-weight: 600; }
+    td.mono.warn { color: var(--warn); font-weight: 600; }
+    td.mono.bad { color: #c0392b; font-weight: 600; }
     .pill.good { background: var(--good-weak); border-color: var(--good); }
     .pill.good .dot { background: var(--good); }
     .pill.warn { background: var(--warn-weak); border-color: var(--warn); }
@@ -4131,13 +4134,14 @@
         var table = el("table");
         var thead = el("thead", null, [el("tr", null, [
           el("th", { text: "Office" }),
-          el("th", { text: "Spend/mo" }),
-          el("th", { text: "Conv" }),
-          el("th", { text: "CPA" }),
-          el("th", { text: "Calls" }),
-          el("th", { text: "Recoverable/mo" }),
-          el("th", { text: "% of spend" }),
-          el("th", { text: "Operator focus" })
+          el("th", { text: "Yesterday $" }),
+          el("th", { text: "Run-rate (x30)" }),
+          el("th", { text: "Trailing 30d" }),
+          el("th", { text: "Trend vs 30d" }),
+          el("th", { text: "Production MTD" }),
+          el("th", { text: "% of prod (target ≤4%)" }),
+          el("th", { text: "Status" }),
+          el("th", { text: "Improvement action" })
         ])]);
         var tbody = el("tbody");
         rows.forEach(function (r) {
@@ -4146,20 +4150,35 @@
           if (hrShare != null && hrShare >= 50) {
             shareClass = "mono is-high-risk";
           }
+          var trendPct = r.trend_vs_30d_pct;
+          var trendText = (trendPct == null) ? "-" : ((trendPct >= 0 ? "+" : "") + trendPct.toFixed(1) + "%");
+          var trendClass = "mono" + (trendPct == null ? "" : (trendPct > 10 ? " bad" : (trendPct < -10 ? " good" : "")));
+          var prodPct = r.spend_pct_of_production;
+          var prodPctText = (prodPct == null) ? "pending" : (prodPct.toFixed(1) + "%");
+          var prodPctClass = "mono";
+          if (prodPct != null) {
+            if (prodPct <= 4) prodPctClass += " good";
+            else if (prodPct <= 6) prodPctClass += " warn";
+            else prodPctClass += " bad";
+          }
+          var statusText = r.status_vs_4pct_target || "PENDING";
+          var statusClass = "mono";
+          if (statusText === "ON TARGET") statusClass += " good";
+          else if (statusText === "ELEVATED") statusClass += " warn";
+          else if (statusText === "OVER") statusClass += " bad";
           tbody.appendChild(el("tr", null, [
             el("td", { text: r.office || "-" }),
             el("td", { "class": "mono",
-              text: fmtUsd(r.spend_usd) }),
+              text: fmtUsd(r.yesterday_spend_usd) }),
             el("td", { "class": "mono",
-              text: fmtNum(r.conversions) }),
+              text: fmtUsd(r.daily_runrate_x30_usd) }),
             el("td", { "class": "mono",
-              text: (fmtCpa(r.cpa_usd)) }),
+              text: fmtUsd(r.trailing_30d_spend_usd) }),
+            el("td", { "class": trendClass, text: trendText }),
             el("td", { "class": "mono",
-              text: fmtNum(r.phone_calls) }),
-            el("td", { "class": "mono",
-              text: fmtUsd(r.recoverable_per_month_usd != null ? r.recoverable_per_month_usd : r.high_risk_spend_usd) }),
-            el("td", { "class": shareClass,
-              text: (hrShare != null ? fmtPct(hrShare) : "-") }),
+              text: (r.production_mtd_usd == null ? "pending" : fmtUsd(r.production_mtd_usd)) }),
+            el("td", { "class": prodPctClass, text: prodPctText }),
+            el("td", { "class": statusClass, text: statusText }),
             el("td", { text: (r.operator_focus || "-") })
           ]));
         });
