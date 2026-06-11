@@ -714,9 +714,9 @@
         "daily_runrate_x30_usd": 7756.0,
         "trailing_30d_spend_usd": 8097,
         "trend_vs_30d_pct": -4.2,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 81655.75,
+        "spend_pct_of_production": 9.5,
+        "status_vs_4pct_target": "OVER 4% CAP",
         "trailing_30d_conv": 141.0,
         "trailing_30d_calls": 149,
         "trailing_30d_cpa_usd": 57.4,
@@ -739,9 +739,9 @@
         "daily_runrate_x30_usd": 6730.0,
         "trailing_30d_spend_usd": 8303,
         "trend_vs_30d_pct": -18.9,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 127004.2,
+        "spend_pct_of_production": 5.3,
+        "status_vs_4pct_target": "ELEVATED",
         "trailing_30d_conv": 148.0,
         "trailing_30d_calls": 193,
         "trailing_30d_cpa_usd": 56.1,
@@ -764,9 +764,9 @@
         "daily_runrate_x30_usd": 6602.0,
         "trailing_30d_spend_usd": 11506,
         "trend_vs_30d_pct": -42.6,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 61585.76,
+        "spend_pct_of_production": 10.72,
+        "status_vs_4pct_target": "OVER 4% CAP",
         "trailing_30d_conv": 173.5,
         "trailing_30d_calls": 199,
         "trailing_30d_cpa_usd": 66.3,
@@ -789,9 +789,9 @@
         "daily_runrate_x30_usd": 5990.0,
         "trailing_30d_spend_usd": 6713,
         "trend_vs_30d_pct": -10.8,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 75077.55,
+        "spend_pct_of_production": 7.98,
+        "status_vs_4pct_target": "OVER 4% CAP",
         "trailing_30d_conv": 188.9,
         "trailing_30d_calls": 92,
         "trailing_30d_cpa_usd": 35.5,
@@ -814,9 +814,9 @@
         "daily_runrate_x30_usd": 5743.0,
         "trailing_30d_spend_usd": 8624,
         "trend_vs_30d_pct": -33.4,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 159848.66,
+        "spend_pct_of_production": 3.59,
+        "status_vs_4pct_target": "ON TARGET",
         "trailing_30d_conv": 275.0,
         "trailing_30d_calls": 358,
         "trailing_30d_cpa_usd": 31.4,
@@ -839,9 +839,9 @@
         "daily_runrate_x30_usd": 5546.0,
         "trailing_30d_spend_usd": 12465,
         "trend_vs_30d_pct": -55.5,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 94151.38,
+        "spend_pct_of_production": 5.89,
+        "status_vs_4pct_target": "ELEVATED",
         "trailing_30d_conv": 217.3,
         "trailing_30d_calls": 108,
         "trailing_30d_cpa_usd": 57.4,
@@ -864,9 +864,9 @@
         "daily_runrate_x30_usd": 4358.0,
         "trailing_30d_spend_usd": 13825,
         "trend_vs_30d_pct": -68.5,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 73996.2,
+        "spend_pct_of_production": 5.89,
+        "status_vs_4pct_target": "ELEVATED",
         "trailing_30d_conv": 218.0,
         "trailing_30d_calls": 151,
         "trailing_30d_cpa_usd": 63.4,
@@ -889,9 +889,9 @@
         "daily_runrate_x30_usd": 4161.0,
         "trailing_30d_spend_usd": 8780,
         "trend_vs_30d_pct": -52.6,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 60698.47,
+        "spend_pct_of_production": 6.86,
+        "status_vs_4pct_target": "OVER 4% CAP",
         "trailing_30d_conv": 183.0,
         "trailing_30d_calls": 185,
         "trailing_30d_cpa_usd": 48.0,
@@ -914,9 +914,9 @@
         "daily_runrate_x30_usd": 3139.0,
         "trailing_30d_spend_usd": 5498,
         "trend_vs_30d_pct": -42.9,
-        "production_mtd_usd": null,
-        "spend_pct_of_production": null,
-        "status_vs_4pct_target": "PENDING",
+        "production_mtd_usd": 94735.65,
+        "spend_pct_of_production": 3.31,
+        "status_vs_4pct_target": "ON TARGET",
         "trailing_30d_conv": 126.0,
         "trailing_30d_calls": 159,
         "trailing_30d_cpa_usd": 43.6,
@@ -15014,7 +15014,16 @@
         "signal": "Yesterday $105 / 0 conv. Lowest spend, but zero conv yesterday.",
         "action": "Check if Marin geo or Dentical campaign drove yesterday's $105. Audit before more days."
       }
-    ]
+    ],
+    "production_source": {
+      "system": "Open Dental",
+      "endpoint": "/procedurelogs?ProcStatus=C&ClinicNum=<n>",
+      "window_start": "2026-06-01",
+      "window_end": "2026-06-11",
+      "total_mtd_usd": 828753.62,
+      "fetched_at": "2026-06-11T01:53:36Z",
+      "rows_aggregated": 8426
+    }
   },
   "_sanitization": {
     "policy": "Public dashboard exposes only aggregate metrics, category/status summaries, redacted operator action items, operating guardrails, and aggregated Google Ads campaign and ad-group metrics. Individual prospect emails, prospect names, reply sender names/addresses, free-text reply summaries, the operations Google Sheet ID and URL, recipient-level batch details, private operations-repo commit hashes, and Google Ads manager/customer account identifiers are removed.",
@@ -20614,6 +20623,32 @@
           "Subscribili has no API \u2014 needs manual export cadence or saved credentials",
           "Google Ads connector is read-only \u2014 mutations require UI"
         ]
+      },
+      {
+        "date": "2026-06-11",
+        "actions_taken": [
+          "Wired Open Dental procedurelogs (ProcStatus=C) into the Ads tab",
+          "Set production_mtd_usd per office and recomputed spend % of production",
+          "Applied 4% ceiling status (ON TARGET / ELEVATED / OVER 4% CAP)"
+        ],
+        "impact_learning": [
+          "Total MTD production = $828,754 across 9 offices",
+          "Run-rate (\u00d730) vs MTD production exposes which offices are over the 4% cap",
+          "Open Dental /procedurelogs ignores ProcDate filter; must page Offset and filter ProcDate in code"
+        ],
+        "self_rating": {
+          "action_taken": 9,
+          "impact_learning": 9,
+          "dashboard_clarity": 9,
+          "automation_reliability": 8,
+          "privacy_and_safety": 10,
+          "speed_and_credit_efficiency": 7
+        },
+        "remediations_next_run": [
+          "Cache OD production per day to a delta file so daily refreshes only pull today's procs",
+          "Add async parallel clinic pulls to compress runtime"
+        ],
+        "blockers": []
       }
     ]
   },
@@ -20636,7 +20671,25 @@
         "justified": true
       }
     ],
-    "credit_notes": "Single parallel batch of 9 reports; no subagents; no browser. Run cost minimal."
+    "credit_notes": "Single parallel batch of 9 reports; no subagents; no browser. Run cost minimal.",
+    "runs": [
+      {
+        "date": "2026-06-11",
+        "source_pulls": {
+          "open_dental": 1,
+          "google_ads": 0,
+          "callrail": 0,
+          "ga4": 0,
+          "gsc": 0,
+          "ahrefs": 0,
+          "gmb": 0,
+          "hubspot": 0
+        },
+        "browser_calls": 0,
+        "subagents": 0,
+        "notes": "OD wire run; one paged pull across 9 clinics filtered by ProcStatus=C."
+      }
+    ]
   },
   "operator_summary": {
     "title": "Operator Summary",

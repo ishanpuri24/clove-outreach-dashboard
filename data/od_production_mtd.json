@@ -1,0 +1,41 @@
+{
+  "source": "open_dental",
+  "endpoint": "/procedurelogs?ProcStatus=C&ClinicNum=<n> (paged by Offset)",
+  "status": "complete",
+  "window_start": "2026-06-01",
+  "window_end": "2026-06-11",
+  "production_mtd_usd_complete_by_office": {
+    "Hillview": 75077.55,
+    "Camarillo": 81655.75,
+    "Marin": 94735.65,
+    "Riverpark": 127004.2,
+    "Puri": 159848.66,
+    "BH": 61585.76,
+    "Encino": 60698.47,
+    "SO": 94151.38,
+    "SM": 73996.2
+  },
+  "rows_in_window_by_office": {
+    "Hillview": 816,
+    "Camarillo": 1009,
+    "Marin": 1077,
+    "Riverpark": 1296,
+    "Puri": 1398,
+    "BH": 742,
+    "Encino": 758,
+    "SO": 632,
+    "SM": 698
+  },
+  "pages_fetched_by_office": {
+    "Hillview": 24,
+    "Camarillo": 38,
+    "Marin": 25,
+    "Riverpark": 56,
+    "Puri": 48,
+    "BH": 25,
+    "Encino": 18,
+    "SO": 38,
+    "SM": 16
+  },
+  "total_production_mtd_usd": 828753.62
+}
