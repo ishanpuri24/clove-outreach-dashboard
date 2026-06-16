@@ -22723,5 +22723,1592 @@
       "membership": "Manual browser export on 2026-05-10 (9 DAYS STALE as of 2026-05-19)"
     },
     "alerts": []
+  },
+  "gmb_learning_engine": {
+    "version": "v1.0",
+    "generated_at": "2026-06-16T00:12:55.307310+00:00",
+    "corpus_summary": {
+      "review_count": 355,
+      "office_count": 9,
+      "with_text_count": 289
+    },
+    "per_office": {
+      "Beverly Hills": {
+        "total_reviews": 4,
+        "monthly": [
+          {
+            "month": "2026-04",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 2,
+            "avg_rating": 5.0,
+            "five_star_count": 2,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 50,
+            "theme_counts": {
+              "wait_time": 1,
+              "staff": 2,
+              "pain_comfort": 1
+            }
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 0,
+          "total_positive_mentions": 0,
+          "total_negative_mentions": 0,
+          "top_count": 0
+        }
+      },
+      "Camarillo": {
+        "total_reviews": 50,
+        "monthly": [
+          {
+            "month": "2024-09",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-08",
+            "review_count": 1,
+            "avg_rating": 4.0,
+            "five_star_count": 0,
+            "five_star_pct": 0,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2025-11",
+            "review_count": 2,
+            "avg_rating": 5.0,
+            "five_star_count": 2,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 2,
+              "wait_time": 1,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2025-12",
+            "review_count": 8,
+            "avg_rating": 4.38,
+            "five_star_count": 6,
+            "five_star_pct": 75,
+            "neg_count": 1,
+            "neg_pct": 12,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "price_value": 1,
+              "insurance": 1,
+              "staff": 4,
+              "communication": 1,
+              "cleanliness": 1,
+              "wait_time": 1
+            }
+          },
+          {
+            "month": "2026-01",
+            "review_count": 9,
+            "avg_rating": 3.67,
+            "five_star_count": 6,
+            "five_star_pct": 67,
+            "neg_count": 3,
+            "neg_pct": 33,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "insurance": 1,
+              "communication": 3,
+              "billing": 1,
+              "wait_time": 2,
+              "staff": 3,
+              "pain_comfort": 4,
+              "cleanliness": 1
+            }
+          },
+          {
+            "month": "2026-02",
+            "review_count": 4,
+            "avg_rating": 5.0,
+            "five_star_count": 4,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2026-03",
+            "review_count": 5,
+            "avg_rating": 5.0,
+            "five_star_count": 5,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 4,
+              "cleanliness": 1,
+              "pain_comfort": 2,
+              "price_value": 1,
+              "communication": 1
+            }
+          },
+          {
+            "month": "2026-04",
+            "review_count": 9,
+            "avg_rating": 4.56,
+            "five_star_count": 8,
+            "five_star_pct": 89,
+            "neg_count": 1,
+            "neg_pct": 11,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 4,
+              "insurance": 1,
+              "communication": 1,
+              "cleanliness": 1
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 8,
+            "avg_rating": 5.0,
+            "five_star_count": 8,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 6,
+              "communication": 2,
+              "pain_comfort": 4
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 3,
+            "avg_rating": 3.67,
+            "five_star_count": 2,
+            "five_star_pct": 67,
+            "neg_count": 1,
+            "neg_pct": 33,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 7,
+          "total_positive_mentions": 8,
+          "total_negative_mentions": 0,
+          "top_count": 2
+        }
+      },
+      "Encino": {
+        "total_reviews": 50,
+        "monthly": [
+          {
+            "month": "2021-09",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2024-12",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 1,
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-03",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-04",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2025-06",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2025-07",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2025-10",
+            "review_count": 2,
+            "avg_rating": 5.0,
+            "five_star_count": 2,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-12",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2026-04",
+            "review_count": 21,
+            "avg_rating": 5.0,
+            "five_star_count": 21,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 1,
+              "staff": 10,
+              "communication": 4,
+              "pain_comfort": 5,
+              "cleanliness": 1
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 12,
+            "avg_rating": 4.08,
+            "five_star_count": 9,
+            "five_star_pct": 75,
+            "neg_count": 3,
+            "neg_pct": 25,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 8,
+              "communication": 5,
+              "pain_comfort": 3,
+              "price_value": 2,
+              "insurance": 1,
+              "cleanliness": 1,
+              "wait_time": 1
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 8,
+            "avg_rating": 4.5,
+            "five_star_count": 7,
+            "five_star_pct": 88,
+            "neg_count": 1,
+            "neg_pct": 12,
+            "reply_rate_pct": 88,
+            "theme_counts": {
+              "staff": 2,
+              "insurance": 2,
+              "price_value": 1
+            }
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 7,
+          "total_positive_mentions": 7,
+          "total_negative_mentions": 1,
+          "top_count": 2
+        }
+      },
+      "Hillview": {
+        "total_reviews": 1,
+        "monthly": [
+          {
+            "month": "2026-06",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 0,
+          "total_positive_mentions": 0,
+          "total_negative_mentions": 0,
+          "top_count": 0
+        }
+      },
+      "Oxnard Riverpark": {
+        "total_reviews": 50,
+        "monthly": [
+          {
+            "month": "2024-05",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2024-10",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-04",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2025-08",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1,
+              "communication": 1
+            }
+          },
+          {
+            "month": "2025-09",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2025-10",
+            "review_count": 2,
+            "avg_rating": 5.0,
+            "five_star_count": 2,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "pain_comfort": 1,
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-12",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 1,
+              "staff": 1
+            }
+          },
+          {
+            "month": "2026-03",
+            "review_count": 9,
+            "avg_rating": 5.0,
+            "five_star_count": 9,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 3,
+              "pain_comfort": 2,
+              "wait_time": 1
+            }
+          },
+          {
+            "month": "2026-04",
+            "review_count": 17,
+            "avg_rating": 4.76,
+            "five_star_count": 16,
+            "five_star_pct": 94,
+            "neg_count": 1,
+            "neg_pct": 6,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 2,
+              "staff": 9,
+              "pain_comfort": 2,
+              "communication": 3,
+              "price_value": 1
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 5,
+            "avg_rating": 5.0,
+            "five_star_count": 5,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 3,
+              "cleanliness": 1,
+              "communication": 2,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 11,
+            "avg_rating": 5.0,
+            "five_star_count": 11,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 82,
+            "theme_counts": {
+              "staff": 4,
+              "communication": 2,
+              "pain_comfort": 2
+            }
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 5,
+          "total_positive_mentions": 4,
+          "total_negative_mentions": 1,
+          "top_count": 1
+        }
+      },
+      "Puri Dentistry": {
+        "total_reviews": 50,
+        "monthly": [
+          {
+            "month": "2022-11",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 1,
+              "staff": 1,
+              "communication": 1
+            }
+          },
+          {
+            "month": "2023-12",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2024-04",
+            "review_count": 2,
+            "avg_rating": 5.0,
+            "five_star_count": 2,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1,
+              "cleanliness": 1
+            }
+          },
+          {
+            "month": "2025-05",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2025-10",
+            "review_count": 2,
+            "avg_rating": 5.0,
+            "five_star_count": 2,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-12",
+            "review_count": 1,
+            "avg_rating": 1.0,
+            "five_star_count": 0,
+            "five_star_pct": 0,
+            "neg_count": 1,
+            "neg_pct": 100,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "insurance": 1,
+              "wait_time": 1,
+              "staff": 1
+            }
+          },
+          {
+            "month": "2026-04",
+            "review_count": 15,
+            "avg_rating": 4.2,
+            "five_star_count": 12,
+            "five_star_pct": 80,
+            "neg_count": 3,
+            "neg_pct": 20,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 7,
+              "price_value": 2,
+              "wait_time": 3,
+              "insurance": 2,
+              "communication": 2,
+              "pain_comfort": 2
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 24,
+            "avg_rating": 4.96,
+            "five_star_count": 23,
+            "five_star_pct": 96,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 10,
+              "pain_comfort": 3,
+              "wait_time": 1,
+              "communication": 3,
+              "cleanliness": 1,
+              "insurance": 1
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 3,
+            "avg_rating": 4.33,
+            "five_star_count": 2,
+            "five_star_pct": 67,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 6,
+          "total_positive_mentions": 8,
+          "total_negative_mentions": 0,
+          "top_count": 2
+        }
+      },
+      "Santa Monica": {
+        "total_reviews": 50,
+        "monthly": [
+          {
+            "month": "2025-08",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2025-11",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2026-01",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2026-02",
+            "review_count": 5,
+            "avg_rating": 5.0,
+            "five_star_count": 5,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 4,
+              "insurance": 1,
+              "communication": 1
+            }
+          },
+          {
+            "month": "2026-03",
+            "review_count": 12,
+            "avg_rating": 4.17,
+            "five_star_count": 9,
+            "five_star_pct": 75,
+            "neg_count": 2,
+            "neg_pct": 17,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 1,
+              "staff": 11,
+              "cleanliness": 1,
+              "communication": 3,
+              "pain_comfort": 3,
+              "insurance": 2,
+              "price_value": 1
+            }
+          },
+          {
+            "month": "2026-04",
+            "review_count": 8,
+            "avg_rating": 4.62,
+            "five_star_count": 7,
+            "five_star_pct": 88,
+            "neg_count": 1,
+            "neg_pct": 12,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 3,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 14,
+            "avg_rating": 4.71,
+            "five_star_count": 13,
+            "five_star_pct": 93,
+            "neg_count": 1,
+            "neg_pct": 7,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "price_value": 1,
+              "insurance": 1,
+              "wait_time": 1,
+              "staff": 6,
+              "cleanliness": 2,
+              "communication": 1,
+              "pain_comfort": 2,
+              "billing": 1
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 8,
+            "avg_rating": 4.0,
+            "five_star_count": 5,
+            "five_star_pct": 62,
+            "neg_count": 2,
+            "neg_pct": 25,
+            "reply_rate_pct": 62,
+            "theme_counts": {
+              "staff": 5,
+              "price_value": 1,
+              "wait_time": 2,
+              "communication": 2,
+              "pain_comfort": 3,
+              "insurance": 1,
+              "cleanliness": 1
+            }
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 7,
+          "total_positive_mentions": 6,
+          "total_negative_mentions": 4,
+          "top_count": 2
+        }
+      },
+      "Sherman Oaks": {
+        "total_reviews": 50,
+        "monthly": [
+          {
+            "month": "2025-08",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2025-11",
+            "review_count": 2,
+            "avg_rating": 5.0,
+            "five_star_count": 2,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 2
+            }
+          },
+          {
+            "month": "2025-12",
+            "review_count": 6,
+            "avg_rating": 5.0,
+            "five_star_count": 6,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 2,
+              "pain_comfort": 1,
+              "wait_time": 1
+            }
+          },
+          {
+            "month": "2026-01",
+            "review_count": 5,
+            "avg_rating": 5.0,
+            "five_star_count": 5,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 3
+            }
+          },
+          {
+            "month": "2026-02",
+            "review_count": 14,
+            "avg_rating": 4.79,
+            "five_star_count": 13,
+            "five_star_pct": 93,
+            "neg_count": 1,
+            "neg_pct": 7,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 5,
+              "cleanliness": 1,
+              "pain_comfort": 3,
+              "wait_time": 1,
+              "communication": 1
+            }
+          },
+          {
+            "month": "2026-03",
+            "review_count": 9,
+            "avg_rating": 5.0,
+            "five_star_count": 9,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 6
+            }
+          },
+          {
+            "month": "2026-04",
+            "review_count": 6,
+            "avg_rating": 4.0,
+            "five_star_count": 4,
+            "five_star_pct": 67,
+            "neg_count": 1,
+            "neg_pct": 17,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 4,
+              "cleanliness": 1,
+              "insurance": 1,
+              "communication": 4,
+              "billing": 1,
+              "wait_time": 1
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 4,
+            "avg_rating": 3.5,
+            "five_star_count": 2,
+            "five_star_pct": 50,
+            "neg_count": 1,
+            "neg_pct": 25,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 2,
+              "staff": 3,
+              "cleanliness": 1,
+              "pain_comfort": 2
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 3,
+            "avg_rating": 5.0,
+            "five_star_count": 3,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 67,
+            "theme_counts": {
+              "staff": 2,
+              "communication": 1
+            }
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 5,
+          "total_positive_mentions": 7,
+          "total_negative_mentions": 0,
+          "top_count": 2
+        }
+      },
+      "Thousand Oaks": {
+        "total_reviews": 50,
+        "monthly": [
+          {
+            "month": "2024-05",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2024-07",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2024-08",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "price_value": 1,
+              "staff": 1
+            }
+          },
+          {
+            "month": "2025-02",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {}
+          },
+          {
+            "month": "2025-10",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2026-03",
+            "review_count": 1,
+            "avg_rating": 5.0,
+            "five_star_count": 1,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 1
+            }
+          },
+          {
+            "month": "2026-04",
+            "review_count": 4,
+            "avg_rating": 5.0,
+            "five_star_count": 4,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "wait_time": 1,
+              "staff": 3,
+              "cleanliness": 2,
+              "communication": 1,
+              "pain_comfort": 1
+            }
+          },
+          {
+            "month": "2026-05",
+            "review_count": 25,
+            "avg_rating": 5.0,
+            "five_star_count": 25,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 100,
+            "theme_counts": {
+              "staff": 14,
+              "communication": 6,
+              "pain_comfort": 6,
+              "wait_time": 1,
+              "cleanliness": 3
+            }
+          },
+          {
+            "month": "2026-06",
+            "review_count": 15,
+            "avg_rating": 5.0,
+            "five_star_count": 15,
+            "five_star_pct": 100,
+            "neg_count": 0,
+            "neg_pct": 0,
+            "reply_rate_pct": 93,
+            "theme_counts": {
+              "staff": 8,
+              "pain_comfort": 4,
+              "insurance": 1,
+              "wait_time": 2,
+              "communication": 1
+            }
+          }
+        ],
+        "named_staff_mentions": {
+          "unique_staff_mentioned": 8,
+          "total_positive_mentions": 17,
+          "total_negative_mentions": 0,
+          "top_count": 6
+        }
+      }
+    },
+    "theme_summary": [
+      {
+        "theme": "staff",
+        "mentions": 186,
+        "negative_mentions": 18,
+        "negative_share_pct": 10
+      },
+      {
+        "theme": "pain_comfort",
+        "mentions": 66,
+        "negative_mentions": 5,
+        "negative_share_pct": 8
+      },
+      {
+        "theme": "communication",
+        "mentions": 52,
+        "negative_mentions": 10,
+        "negative_share_pct": 19
+      },
+      {
+        "theme": "wait_time",
+        "mentions": 31,
+        "negative_mentions": 6,
+        "negative_share_pct": 19
+      },
+      {
+        "theme": "cleanliness",
+        "mentions": 21,
+        "negative_mentions": 3,
+        "negative_share_pct": 14
+      },
+      {
+        "theme": "insurance",
+        "mentions": 17,
+        "negative_mentions": 10,
+        "negative_share_pct": 59
+      },
+      {
+        "theme": "price_value",
+        "mentions": 12,
+        "negative_mentions": 8,
+        "negative_share_pct": 67
+      },
+      {
+        "theme": "billing",
+        "mentions": 3,
+        "negative_mentions": 1,
+        "negative_share_pct": 33
+      }
+    ],
+    "theme_quotes": {
+      "staff": [
+        {
+          "office": "Beverly Hills",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-04",
+          "excerpt": "The staff was courtesy and very professional during my dental procedure visit. Ara, Ashley and Mary were great. Ara Bakian was awesome and very professional. He and his assistant made me feel relaxed\u2026"
+        },
+        {
+          "office": "Beverly Hills",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-05",
+          "excerpt": "Everyone was friendly and pleasant the moment I walked in. Ashley and Marie/Mary were very efficient with the paper work. Dr.Ara Bakian was a class act not pushy or aggressive just making sure I was\u2026"
+        },
+        {
+          "office": "Beverly Hills",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-06",
+          "excerpt": "I had a wonderful experience at Clover Dental Beverly Hills. The doctor and the entire team are truly kind, careful, and professional. Everything was handled very smoothly and efficiently, and I felt\u2026"
+        },
+        {
+          "office": "Beverly Hills",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-06",
+          "excerpt": "The employers did a great and awesome job on cleaning my teeth. Thank you Dr.Jilbert. All the best, Cody."
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2024-09",
+          "excerpt": "Great staff. Great dentist. Nice office."
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2025-11",
+          "excerpt": "Easy. Straightforward visit. The dental assistant was very pleasant and kind."
+        }
+      ],
+      "pain_comfort": [
+        {
+          "office": "Beverly Hills",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-04",
+          "excerpt": "The staff was courtesy and very professional during my dental procedure visit. Ara, Ashley and Mary were great. Ara Bakian was awesome and very professional. He and his assistant made me feel relaxed\u2026"
+        },
+        {
+          "office": "Beverly Hills",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-06",
+          "excerpt": "I had a wonderful experience at Clover Dental Beverly Hills. The doctor and the entire team are truly kind, careful, and professional. Everything was handled very smoothly and efficiently, and I felt\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2025-11",
+          "excerpt": "My daughter cracked her tooth and needed it removed asap. The staff and dentist at Clove dental were so kind to her and great at keeping her calm before and during the procedure (she's 7). They even\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-01",
+          "excerpt": "Was there for teeth cleaning but came back with problems because dentist scratched much made it painful so that patient comes back a for more business."
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-01",
+          "excerpt": "Watch out for unprofessional/unexperienced cleaning assistants that are overly aggressive.  I have no dental issues due to A+ hygiene practices - however I came home with major pain and inability to\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-01",
+          "excerpt": "I HAD AN EMERGENCY WITH MY BRIDGE COMING LOOSE SO THEY TOOK ME IN THE SAME DAY TO FIX THE PROBLEM. CELESTE WAS VERY FRIENDLY AND GENTLE WITH TREATING THE MATTER. THANK YOU FOR YOUR PROFESSIONAL\u2026"
+        }
+      ],
+      "wait_time": [
+        {
+          "office": "Beverly Hills",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-06",
+          "excerpt": "I had a wonderful experience at Clover Dental Beverly Hills. The doctor and the entire team are truly kind, careful, and professional. Everything was handled very smoothly and efficiently, and I felt\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2025-11",
+          "excerpt": "My daughter cracked her tooth and needed it removed asap. The staff and dentist at Clove dental were so kind to her and great at keeping her calm before and during the procedure (she's 7). They even\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2025-12",
+          "excerpt": "Staff was friendly and procedure was fast and easy"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-01",
+          "excerpt": "Great visit! little wait time in the lobby. Pleasant teeth cleaning encounter with Leanne. Everything went smoothly. :-)"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-01",
+          "excerpt": "I HAD AN EMERGENCY WITH MY BRIDGE COMING LOOSE SO THEY TOOK ME IN THE SAME DAY TO FIX THE PROBLEM. CELESTE WAS VERY FRIENDLY AND GENTLE WITH TREATING THE MATTER. THANK YOU FOR YOUR PROFESSIONAL\u2026"
+        },
+        {
+          "office": "Encino",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2024-12",
+          "excerpt": "The staff were very welcoming.  They were super professional.  The service was prompt and precise."
+        }
+      ],
+      "price_value": [
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2025-12",
+          "excerpt": "worst place to get your dental need. clinic took over 4 months and still do not have denture in hands. Clove dental repletely cancel appointment with short 4\u20135 hour notice. If you as a patient cancel\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-03",
+          "excerpt": "Amazing, affordable and worked with me. Best dentist I have ever been to and the staff that work there are very kind, respectful and super understanding."
+        },
+        {
+          "office": "Encino",
+          "stars": 2,
+          "sentiment": "negative",
+          "month": "2026-05",
+          "excerpt": "So I just went for a clean up and I wished I had read the reviews beforehand. My first impression was the office was simple but clean, the staff was friendly. Dr. was ok explaining my issue but he\u2026"
+        },
+        {
+          "office": "Encino",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-05",
+          "excerpt": "I had a terrible experience at Clove Dental. The first dentist looked at my implant and told me everything was fine. I was charged $1,200 to replace the abutment and crown. He tried multiple times to\u2026"
+        },
+        {
+          "office": "Encino",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-06",
+          "excerpt": "I brought my mom for dental treatment, on first day they did the scan and they said they need to submit to insurance for approval, then 2 weeks later they called and said, good news it\u2019s approved, so\u2026"
+        },
+        {
+          "office": "Oxnard Riverpark",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-04",
+          "excerpt": "My first visit was today and the whole staff were friendly, helpful, thorough, and made sure they explained my game plan to fix my broken and missing teeth.  So grateful I came here.  Estimate given\u2026"
+        }
+      ],
+      "insurance": [
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2025-12",
+          "excerpt": "worst place to get your dental need. clinic took over 4 months and still do not have denture in hands. Clove dental repletely cancel appointment with short 4\u20135 hour notice. If you as a patient cancel\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-01",
+          "excerpt": "If I could leave negative stars I would. Please listen very carefully to this review stay away from this company all they want is to bill the insurance or bill you for as much as possible and as soon\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-04",
+          "excerpt": "I had a really disappointing experience with Clove Dental in Camarillo. I originally scheduled a cleaning, but my appointment was canceled, and when I tried to resolve the issue in person, things\u2026"
+        },
+        {
+          "office": "Encino",
+          "stars": 2,
+          "sentiment": "negative",
+          "month": "2026-05",
+          "excerpt": "So I just went for a clean up and I wished I had read the reviews beforehand. My first impression was the office was simple but clean, the staff was friendly. Dr. was ok explaining my issue but he\u2026"
+        },
+        {
+          "office": "Encino",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-06",
+          "excerpt": "Everyone in this office is welcoming and friendly. I am a veteran that has been victimized and abused by the providers at the va so often that I no longer feel safe going to the va for my services.\u2026"
+        },
+        {
+          "office": "Encino",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-06",
+          "excerpt": "I brought my mom for dental treatment, on first day they did the scan and they said they need to submit to insurance for approval, then 2 weeks later they called and said, good news it\u2019s approved, so\u2026"
+        }
+      ],
+      "communication": [
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2025-12",
+          "excerpt": "worst place to get your dental need. clinic took over 4 months and still do not have denture in hands. Clove dental repletely cancel appointment with short 4\u20135 hour notice. If you as a patient cancel\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-01",
+          "excerpt": "If I could leave negative stars I would. Please listen very carefully to this review stay away from this company all they want is to bill the insurance or bill you for as much as possible and as soon\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-01",
+          "excerpt": "Was there for teeth cleaning but came back with problems because dentist scratched much made it painful so that patient comes back a for more business."
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-01",
+          "excerpt": "Dr. is the best dentist I\u2019ve ever had. She\u2019s so kind, does an incredibly precise job, and has the best energy. I used to have dentist anxiety but she really makes you feel so at ease as her patient.\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-03",
+          "excerpt": "Came in as a new patient today and had a great experience . From the girls in the front to the girls in the back they were very caring answered all my questions. Dr. made me feel comfortable and for\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-04",
+          "excerpt": "I had a really disappointing experience with Clove Dental in Camarillo. I originally scheduled a cleaning, but my appointment was canceled, and when I tried to resolve the issue in person, things\u2026"
+        }
+      ],
+      "cleanliness": [
+        {
+          "office": "Camarillo",
+          "stars": 4,
+          "sentiment": "positive",
+          "month": "2025-12",
+          "excerpt": "The Staff is so friendly and accomodating.I find the office clean and organized."
+        },
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-01",
+          "excerpt": "Watch out for unprofessional/unexperienced cleaning assistants that are overly aggressive.  I have no dental issues due to A+ hygiene practices - however I came home with major pain and inability to\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-03",
+          "excerpt": "Everyone was warm and inviting. I was made to feel comfortable and not be nervous. Dr was kind and gentle. I will need a lot of work done and I trust she will take good care of me. I've never had a\u2026"
+        },
+        {
+          "office": "Camarillo",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-04",
+          "excerpt": "Nice Staff, Nice Dentist, Clean, Looks very kept inside. Smells good inside. Has TV in front to show you things about your teeth, this was nice to see so I see what I need to make better"
+        },
+        {
+          "office": "Encino",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-04",
+          "excerpt": "After looking for several dentists in the area I stumbled upon this practice & met Dr.Yee the best dentist so far, talks to you about the procedure through out & is mindful of the patient\u2019s concerns\u2026"
+        },
+        {
+          "office": "Encino",
+          "stars": 2,
+          "sentiment": "negative",
+          "month": "2026-05",
+          "excerpt": "So I just went for a clean up and I wished I had read the reviews beforehand. My first impression was the office was simple but clean, the staff was friendly. Dr. was ok explaining my issue but he\u2026"
+        }
+      ],
+      "billing": [
+        {
+          "office": "Camarillo",
+          "stars": 1,
+          "sentiment": "negative",
+          "month": "2026-01",
+          "excerpt": "If I could leave negative stars I would. Please listen very carefully to this review stay away from this company all they want is to bill the insurance or bill you for as much as possible and as soon\u2026"
+        },
+        {
+          "office": "Santa Monica",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-05",
+          "excerpt": "My first appointment went great! Everyone was very friendly, very professional and very thorough. See you all at my next cleaning. Thanks so much, Bill."
+        },
+        {
+          "office": "Sherman Oaks",
+          "stars": 5,
+          "sentiment": "positive",
+          "month": "2026-04",
+          "excerpt": "These guys are such pros. Dr. took care of two root canals for me. I fell asleep during one procedure! That\u2019s how good she is. Dr. is a wonderful dentist too! the front desk answers all billing and\u2026"
+        }
+      ]
+    },
+    "anomalies": [
+      {
+        "office": "Camarillo",
+        "month": "2026-06",
+        "metric": "avg_rating",
+        "value": 3.67,
+        "baseline_avg": 4.6,
+        "z_score": -1.93,
+        "direction": "down"
+      },
+      {
+        "office": "Camarillo",
+        "month": "2026-06",
+        "metric": "review_count",
+        "value": 3,
+        "baseline_avg": 7.17,
+        "z_score": -2.14,
+        "direction": "down"
+      },
+      {
+        "office": "Camarillo",
+        "month": "2026-06",
+        "metric": "neg_pct",
+        "value": 33,
+        "baseline_avg": 9.33,
+        "z_score": 2.01,
+        "direction": "up"
+      },
+      {
+        "office": "Encino",
+        "month": "2026-06",
+        "metric": "avg_rating",
+        "value": 4.5,
+        "baseline_avg": 4.85,
+        "z_score": -1.01,
+        "direction": "down"
+      },
+      {
+        "office": "Santa Monica",
+        "month": "2026-06",
+        "metric": "avg_rating",
+        "value": 4.0,
+        "baseline_avg": 4.75,
+        "z_score": -2.49,
+        "direction": "down"
+      },
+      {
+        "office": "Santa Monica",
+        "month": "2026-06",
+        "metric": "neg_pct",
+        "value": 25,
+        "baseline_avg": 6,
+        "z_score": 2.85,
+        "direction": "up"
+      },
+      {
+        "office": "Sherman Oaks",
+        "month": "2026-06",
+        "metric": "review_count",
+        "value": 3,
+        "baseline_avg": 7.33,
+        "z_score": -1.29,
+        "direction": "down"
+      },
+      {
+        "office": "Thousand Oaks",
+        "month": "2026-06",
+        "metric": "review_count",
+        "value": 15,
+        "baseline_avg": 5.5,
+        "z_score": 1.08,
+        "direction": "up"
+      }
+    ],
+    "method_notes": "MoM trend per office; trailing-6-month z-score flags deltas at |z|>=1. Themes auto-tagged via keyword dictionaries. Staff sentiment derived from role-anchored name extraction; public block excludes staff names (kept in private state file).",
+    "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   }
 }

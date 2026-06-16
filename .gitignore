@@ -1,1 +1,5 @@
 __pycache__/
+# Private GMB data (contains reviewer names) — engine outputs only public snapshot.
+data/_gmb_review_corpus.json
+data/_gmb_learning_state.json
+data/_gads_pulls/

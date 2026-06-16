@@ -2053,6 +2053,35 @@
           <div class="card" id="rev-offices-card"></div>
         </section>
 
+        <!-- =================== GMB Learning Engine v1 =================== -->
+        <section aria-labelledby="gmb-learn-h" id="gmb-learning-engine-card" style="margin-top:1.5rem;">
+          <div class="ps-head">
+            <h2 id="gmb-learn-h">GMB Learning Engine</h2>
+            <span class="pill" id="gmb-learn-version" aria-live="polite"></span>
+          </div>
+          <p class="section-meta" id="gmb-learn-meta">
+            Month-over-month signal tracker. Anomalies flagged at |z| ≥ 1 vs trailing-6-month baseline. Aggregate only — no reviewer or staff names.
+          </p>
+
+          <div class="pxc cols-4" id="gmb-learn-kpis"></div>
+
+          <h3 style="margin-top:1.2rem;">Anomaly flags (this month)</h3>
+          <div class="section-meta">Offices whose June metrics deviate ≥1σ from their 6-month baseline.</div>
+          <div class="top5-grid" id="gmb-learn-anomalies"></div>
+
+          <h3 style="margin-top:1.2rem;">Themes across portfolio</h3>
+          <div class="section-meta">Auto-tagged review themes ranked by mention volume. Negative share highlights friction areas.</div>
+          <div class="card" id="gmb-learn-themes-table" style="margin-top:0.5rem;"></div>
+
+          <h3 style="margin-top:1.2rem;">Per-office monthly trend</h3>
+          <div class="section-meta">Last 6 months · review volume, avg rating, 5★ share, reply rate.</div>
+          <div class="card" id="gmb-learn-office-table" style="margin-top:0.5rem;"></div>
+
+          <h3 style="margin-top:1.2rem;">Sanitized theme quotes</h3>
+          <div class="section-meta">Sample patient quotes per theme — staff and reviewer names redacted.</div>
+          <div class="review-cards" id="gmb-learn-theme-quotes"></div>
+        </section>
+
         <p class="tab-meta" id="reviews-fresh"></p>
       </div>
 
@@ -6419,6 +6448,7 @@
         _safeRender("organic", function () { renderOrganic(s.organic_insights); });
         _safeRender("organic_cms_actions", function () { renderOrganicCmsActions(s.organic_cms_actions); });
         _safeRender("reviews", function () { renderReviews(s.gmb_insights); });
+        _safeRender("gmb_learning_engine", function () { renderGmbLearningEngine(s.gmb_learning_engine); });
         _safeRender("membership", function () { renderMembership(s.membership_insights || s.referral_insights); });
         _safeRender("automations", function () { renderAutomations(s.automations); });
         try {
@@ -8440,6 +8470,108 @@
 
         var fresh = $("reviews-fresh");
         if (fresh) fresh.textContent = g.freshness_note || "";
+      }
+
+      // ============== GMB Learning Engine v1 ==============
+      function renderGmbLearningEngine(e) {
+        if (!e) return;
+        var vEl = $("gmb-learn-version");
+        if (vEl) vEl.textContent = (e.version || "v1") + " · " + (e.corpus_summary ? e.corpus_summary.review_count + " reviews · " + e.corpus_summary.office_count + " offices" : "");
+
+        // KPI cards
+        var kpi = $("gmb-learn-kpis");
+        if (kpi) {
+          var cs = e.corpus_summary || {};
+          var anomCount = (e.anomalies || []).length;
+          var posStaff = 0, negStaff = 0;
+          Object.keys(e.per_office || {}).forEach(function(o){
+            var n = e.per_office[o].named_staff_mentions || {};
+            posStaff += n.total_positive_mentions || 0;
+            negStaff += n.total_negative_mentions || 0;
+          });
+          var themesNegative = (e.theme_summary || []).filter(function(t){return t.negative_share_pct >= 40;}).length;
+          kpi.innerHTML =
+            '<div class="card"><div class="kpi-label">Corpus</div><div class="kpi-value">' + (cs.review_count || 0) + '</div><div class="kpi-sub">' + (cs.with_text_count || 0) + ' with text</div></div>' +
+            '<div class="card"><div class="kpi-label">Anomalies (June)</div><div class="kpi-value">' + anomCount + '</div><div class="kpi-sub">|z| ≥ 1 vs 6-mo baseline</div></div>' +
+            '<div class="card"><div class="kpi-label">Staff mentions</div><div class="kpi-value">' + posStaff + ' / ' + negStaff + '</div><div class="kpi-sub">positive / negative</div></div>' +
+            '<div class="card"><div class="kpi-label">High-friction themes</div><div class="kpi-value">' + themesNegative + '</div><div class="kpi-sub">≥ 40% negative share</div></div>';
+        }
+
+        // Anomalies
+        var anomEl = $("gmb-learn-anomalies");
+        if (anomEl) {
+          var anoms = (e.anomalies || []).slice().sort(function(a,b){return Math.abs(b.z_score) - Math.abs(a.z_score);});
+          if (anoms.length === 0) {
+            anomEl.innerHTML = '<div class="card"><div class="kpi-sub">No anomalies this month. All offices within baseline.</div></div>';
+          } else {
+            anomEl.innerHTML = anoms.map(function(a){
+              var arrow = a.direction === "up" ? "↑" : "↓";
+              var bad = (a.metric === "avg_rating" && a.direction === "down") ||
+                        (a.metric === "neg_pct" && a.direction === "up") ||
+                        (a.metric === "review_count" && a.direction === "down");
+              var color = bad ? "#c0392b" : "#27ae60";
+              return '<div class="card"><div class="kpi-label">' + a.office + ' · ' + a.month + '</div>' +
+                     '<div class="kpi-value" style="color:' + color + '">' + a.metric + ' ' + arrow + '</div>' +
+                     '<div class="kpi-sub">' + a.value + ' vs baseline ' + a.baseline_avg + ' (z=' + a.z_score + ')</div></div>';
+            }).join("");
+          }
+        }
+
+        // Themes table
+        var themesEl = $("gmb-learn-themes-table");
+        if (themesEl) {
+          var rows = (e.theme_summary || []).map(function(t){
+            return '<tr><td>' + t.theme.replace(/_/g, " ") + '</td>' +
+                   '<td>' + t.mentions + '</td>' +
+                   '<td>' + t.negative_mentions + '</td>' +
+                   '<td>' + t.negative_share_pct + '%</td></tr>';
+          }).join("");
+          themesEl.innerHTML = '<table style="width:100%;border-collapse:collapse;">' +
+            '<thead><tr><th style="text-align:left;padding:6px;">Theme</th>' +
+            '<th style="text-align:left;padding:6px;">Mentions</th>' +
+            '<th style="text-align:left;padding:6px;">Negative</th>' +
+            '<th style="text-align:left;padding:6px;">Neg share</th></tr></thead>' +
+            '<tbody>' + rows + '</tbody></table>';
+        }
+
+        // Per-office table
+        var officeEl = $("gmb-learn-office-table");
+        if (officeEl) {
+          var offices = Object.keys(e.per_office || {}).sort();
+          var oRows = offices.map(function(o){
+            var data = e.per_office[o];
+            var last6 = (data.monthly || []).slice(-6);
+            var totalRev = data.total_reviews || 0;
+            var avgRow = last6.map(function(m){
+              return '<span style="display:inline-block;margin-right:0.8rem;font-size:0.85rem;">' +
+                     m.month + ': <b>' + (m.avg_rating != null ? m.avg_rating : "—") + '★</b> (' + m.review_count + ' rev, ' + m.reply_rate_pct + '% reply)</span>';
+            }).join("");
+            return '<tr><td style="padding:6px;font-weight:600;vertical-align:top;white-space:nowrap;">' + o + '<br><span style="font-size:0.75rem;color:#666;font-weight:400;">' + totalRev + ' total</span></td>' +
+                   '<td style="padding:6px;">' + (avgRow || '<span style="color:#888;">no monthly data</span>') + '</td></tr>';
+          }).join("");
+          officeEl.innerHTML = '<table style="width:100%;border-collapse:collapse;">' +
+            '<thead><tr><th style="text-align:left;padding:6px;">Office</th>' +
+            '<th style="text-align:left;padding:6px;">Last 6 months</th></tr></thead>' +
+            '<tbody>' + oRows + '</tbody></table>';
+        }
+
+        // Theme quotes
+        var qEl = $("gmb-learn-theme-quotes");
+        if (qEl) {
+          var tq = e.theme_quotes || {};
+          var html = "";
+          Object.keys(tq).forEach(function(theme){
+            html += '<div class="card" style="margin-bottom:0.8rem;"><h4 style="margin-top:0;">' + theme.replace(/_/g, " ") + '</h4>';
+            tq[theme].slice(0,4).forEach(function(q){
+              var sentColor = q.sentiment === "negative" ? "#c0392b" : (q.sentiment === "positive" ? "#27ae60" : "#666");
+              html += '<div style="margin:0.4rem 0;padding:0.4rem 0.6rem;border-left:3px solid ' + sentColor + ';">' +
+                      '<div style="font-size:0.8rem;color:#666;">' + q.office + ' · ' + (q.month || "—") + ' · ' + (q.stars != null ? q.stars + '★' : '') + '</div>' +
+                      '<div style="font-style:italic;font-size:0.9rem;">“' + (q.excerpt || "").replace(/</g,"&lt;") + '”</div></div>';
+            });
+            html += '</div>';
+          });
+          qEl.innerHTML = html;
+        }
       }
 
       function renderMembership(m) {
