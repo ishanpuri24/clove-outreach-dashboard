@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-25T15:32:56.626957+00:00",
+  "generated_at": "2026-06-26T15:32:18.704891+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -19383,7 +19383,7 @@
     ],
     "low_review_weekly_trends": {
       "title": "Weekly low-review trend",
-      "generated_at": "2026-06-25T15:32:56.578539+00:00",
+      "generated_at": "2026-06-26T15:32:18.650462+00:00",
       "anchor_date": "2026-06-11",
       "current_week_start": "2026-06-08",
       "windows": {
@@ -20604,12 +20604,12 @@
     }
   },
   "routine_refresh": {
-    "last_run_at": "2026-06-25T15:32:56.626960+00:00",
-    "last_run_date": "2026-06-25",
+    "last_run_at": "2026-06-26T15:32:18.704894+00:00",
+    "last_run_date": "2026-06-26",
     "mode": "fast",
     "sources": {
       "callrail": "ok: merged sanitized aggregate",
-      "hubspot_cms": "ok: inventory=50sp/50lp, considered=11, actions=10, live=7, draft=0, proposed=3, impact_samples=109, growth=accelerated (live-writeback)",
+      "hubspot_cms": "ok: inventory=50sp/50lp, considered=11, actions=10, live=7, draft=0, proposed=3, impact_samples=111, growth=accelerated (live-writeback)",
       "outbound": "disabled: --no-send (default)",
       "review_weekly_trends": "ok: 9 offices, 0 low last 7d (prior 0), 0 action(s) queued",
       "paid_ads_action_system": "ok: 27 actions, 8 executable now, 19 blocked on mutate access",
@@ -20620,7 +20620,7 @@
   },
   "organic_cms_actions": {
     "title": "Organic / HubSpot CMS automation",
-    "last_run_at": "2026-06-25T15:32:36.101956+00:00",
+    "last_run_at": "2026-06-26T15:32:05.660610+00:00",
     "mode": "apply",
     "publish_mode": "accelerated_controlled_live_writeback_with_small_content_allowed",
     "growth_mode": "accelerated",
@@ -20633,7 +20633,7 @@
     "draft_writes": 0,
     "proposals": 3,
     "small_content_proposals": 3,
-    "impact_samples_updated": 109,
+    "impact_samples_updated": 111,
     "cooldown_days": 7,
     "max_changes_cap": 10,
     "max_small_content_cap": 3,
@@ -20768,146 +20768,6 @@
         "slug": "/ty",
         "change": "small_existing_body_copy_improvement",
         "status": "proposed_not_applied",
-        "applied_at": "2026-06-24T15:31:57.000677+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/insurance \u2014 Insurance Plans",
-        "slug": "/insurance",
-        "change": "faq_section_update",
-        "status": "proposed_not_applied",
-        "applied_at": "2026-06-24T15:31:57.000692+00:00",
-        "baseline_ctr_pct": 2.61,
-        "baseline_clicks": 85,
-        "latest_ctr_pct": 2.61,
-        "latest_clicks": 85,
-        "delta_ctr_pct": 0.0,
-        "delta_clicks": 0.0,
-        "samples": 1
-      },
-      {
-        "page": "/ty \u2014 Thank You",
-        "slug": "/ty",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-25T15:32:39.015728+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/careers \u2014 Careers",
-        "slug": "/careers",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-25T15:32:41.100033+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/privacy \u2014 Privacy",
-        "slug": "/privacy",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-25T15:32:43.545257+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/home-a \u2014 Home - Ads",
-        "slug": "/home-a",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-25T15:32:44.297877+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/test \u2014 S21 (Test - 3)",
-        "slug": "/test",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-25T15:32:46.061996+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/jz \u2014 JZ",
-        "slug": "/jz",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-25T15:32:48.653126+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/jz-0 \u2014 JZ - Invisalign",
-        "slug": "/jz-0",
-        "change": "missing_or_weak_title_update",
-        "status": "applied_live",
-        "applied_at": "2026-06-25T15:32:49.557086+00:00",
-        "baseline_ctr_pct": null,
-        "baseline_clicks": null,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/o \u2014 Clove Dental Home",
-        "slug": "/o",
-        "change": "small_existing_body_copy_improvement",
-        "status": "proposed_not_applied",
-        "applied_at": "2026-06-25T15:32:49.557148+00:00",
-        "baseline_ctr_pct": 0.77,
-        "baseline_clicks": 624,
-        "latest_ctr_pct": null,
-        "latest_clicks": null,
-        "delta_ctr_pct": null,
-        "delta_clicks": null,
-        "samples": 0
-      },
-      {
-        "page": "/ty \u2014 Thank You",
-        "slug": "/ty",
-        "change": "small_existing_body_copy_improvement",
-        "status": "proposed_not_applied",
         "applied_at": "2026-06-25T15:32:49.557166+00:00",
         "baseline_ctr_pct": null,
         "baseline_clicks": null,
@@ -20923,6 +20783,146 @@
         "change": "faq_section_update",
         "status": "proposed_not_applied",
         "applied_at": "2026-06-25T15:32:49.557181+00:00",
+        "baseline_ctr_pct": 2.61,
+        "baseline_clicks": 85,
+        "latest_ctr_pct": 2.61,
+        "latest_clicks": 85,
+        "delta_ctr_pct": 0.0,
+        "delta_clicks": 0.0,
+        "samples": 1
+      },
+      {
+        "page": "/ty \u2014 Thank You",
+        "slug": "/ty",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-26T15:32:08.682834+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/careers \u2014 Careers",
+        "slug": "/careers",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-26T15:32:10.250965+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/privacy \u2014 Privacy",
+        "slug": "/privacy",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-26T15:32:11.590519+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/home-a \u2014 Home - Ads",
+        "slug": "/home-a",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-26T15:32:12.294396+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/test \u2014 S21 (Test - 3)",
+        "slug": "/test",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-26T15:32:13.185716+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/jz \u2014 JZ",
+        "slug": "/jz",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-26T15:32:17.373970+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/jz-0 \u2014 JZ - Invisalign",
+        "slug": "/jz-0",
+        "change": "missing_or_weak_title_update",
+        "status": "applied_live",
+        "applied_at": "2026-06-26T15:32:18.503947+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/o \u2014 Clove Dental Home",
+        "slug": "/o",
+        "change": "small_existing_body_copy_improvement",
+        "status": "proposed_not_applied",
+        "applied_at": "2026-06-26T15:32:18.504063+00:00",
+        "baseline_ctr_pct": 0.77,
+        "baseline_clicks": 624,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/ty \u2014 Thank You",
+        "slug": "/ty",
+        "change": "small_existing_body_copy_improvement",
+        "status": "proposed_not_applied",
+        "applied_at": "2026-06-26T15:32:18.504086+00:00",
+        "baseline_ctr_pct": null,
+        "baseline_clicks": null,
+        "latest_ctr_pct": null,
+        "latest_clicks": null,
+        "delta_ctr_pct": null,
+        "delta_clicks": null,
+        "samples": 0
+      },
+      {
+        "page": "/insurance \u2014 Insurance Plans",
+        "slug": "/insurance",
+        "change": "faq_section_update",
+        "status": "proposed_not_applied",
+        "applied_at": "2026-06-26T15:32:18.504102+00:00",
         "baseline_ctr_pct": 2.61,
         "baseline_clicks": 85,
         "latest_ctr_pct": null,
@@ -21215,7 +21215,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-06-25T15:32:56.626944+00:00",
+      "as_of": "2026-06-26T15:32:18.704875+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21226,9 +21226,9 @@
           "accelerated": true,
           "next_action": "Accelerated daily loop: 10 live metadata writes/run, 7-day cooldown, expanded candidate pool (high-impr/low-CTR, near-rank, demand themes, weak metadata); small body/FAQ/internal-link improvements staged as drafts.",
           "last_action": "10 CMS action(s) considered; 7 live \u00b7 0 draft \u00b7 3 proposed (accelerated mode).",
-          "last_action_at": "2026-06-25T15:32:36.101956+00:00",
+          "last_action_at": "2026-06-26T15:32:05.660610+00:00",
           "impact_metric": "GSC clicks / CTR on edited pages (impact_over_time)",
-          "impact_samples": 109,
+          "impact_samples": 111,
           "live_writes": 7,
           "draft_writes": 0,
           "proposals": 3,
@@ -21310,7 +21310,7 @@
           "status": "active_live",
           "next_action": "Hold cadence; coach recurring themes in next huddle.",
           "last_action": "1 open low-review follow-up(s); oldest 35 day(s) old.",
-          "last_action_at": "2026-06-25T15:32:56.578539+00:00",
+          "last_action_at": "2026-06-26T15:32:18.650462+00:00",
           "impact_metric": "Open low-review follow-ups, oldest-open age, response-signal count",
           "blocker": null
         },
@@ -21320,7 +21320,7 @@
           "status": "active_live",
           "next_action": "Maintain weekly trend tracking; surface any office trending up with recurring themes next refresh.",
           "last_action": "Last 7d: 0 low reviews (prior 7d: 0, direction: flat).",
-          "last_action_at": "2026-06-25T15:32:56.578539+00:00",
+          "last_action_at": "2026-06-26T15:32:18.650462+00:00",
           "impact_metric": "Week-over-week low-review delta, recurring-theme count, avg rating trend, prior-action improvement rate",
           "blocker": null
         },
@@ -21330,7 +21330,7 @@
           "status": "active_dry_run",
           "next_action": "Top 5 daily actions shown on the Paid Ads tab. Connect a Google Ads mutate-capable path to unblock automatic budget/bid/negative/pause/ad changes.",
           "last_action": "27 paid-ads action(s) queued: 8 executable now, 19 pending Google Ads mutate access.",
-          "last_action_at": "2026-06-25T15:32:56.626447+00:00",
+          "last_action_at": "2026-06-26T15:32:18.704260+00:00",
           "impact_metric": "high-risk spend share, CPA, CVR, qualified calls, wasted clicks share",
           "blocker": "Google Ads connector currently lacks mutate actions.",
           "tier_counts": {
@@ -21347,7 +21347,7 @@
     "growth_mode": "accelerated",
     "accelerated": true,
     "publish_mode_pretty": "Accelerated \u00b7 live metadata + small-content drafts",
-    "last_run_at": "2026-06-25T15:32:36.101956+00:00",
+    "last_run_at": "2026-06-26T15:32:05.660610+00:00",
     "cooldown_days": 7,
     "max_changes_cap": 10,
     "max_small_content_cap": 3,
@@ -21507,7 +21507,7 @@
   },
   "paid_ads_action_system": {
     "title": "Paid Ads dynamic action system",
-    "as_of": "2026-06-25T15:32:56.626447+00:00",
+    "as_of": "2026-06-26T15:32:18.704260+00:00",
     "summary": "27 action(s) queued; 8 executable now, 19 need Google Ads mutate access, 0 need higher-risk approval.",
     "writeback_tiers": {
       "executable_now": [
@@ -21998,7 +21998,7 @@
       }
     ],
     "daily_learning": {
-      "previous_actions_recorded": 43,
+      "previous_actions_recorded": 44,
       "metric_before": {
         "cost_usd_30d": 90037.57,
         "conversions_30d": 1888.47,
@@ -22073,175 +22073,175 @@
           "category": "waste_to_cut",
           "label": "Oxnard Riverpark - JZ-Search-Riverpark",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-25T15:32:56.626222+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.703985+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Sherman Oaks - JZ-Search-Sherman Oaks",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-25T15:32:56.626241+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704004+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Sherman Oaks - JZ-PMAX",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-25T15:32:56.626249+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704012+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Santa Monica - JZ-Search-Santa Monica",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-25T15:32:56.626255+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704018+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "waste_to_cut",
           "label": "Beverly Hills - Beverly Hills",
           "office": "Beverly Hills",
-          "suppressed_at": "2026-06-25T15:32:56.626262+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704066+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Camarillo - Insurance-Performance Max-15/4/26",
           "office": "Camarillo",
-          "suppressed_at": "2026-06-25T15:32:56.626269+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704076+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Puri Dentistry - Insurance-Performance Max 27-3-2026",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-25T15:32:56.626275+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704083+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Ayur - Problem - Perio",
           "office": "Ayur",
-          "suppressed_at": "2026-06-25T15:32:56.626281+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704090+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Oxnard Riverpark - Insurance -Performance Max - 4/7/26",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-25T15:32:56.626287+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704096+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "budget_to_protect_or_scale",
           "label": "Hillview - PMAX - GBP 8/1/2025",
           "office": "Hillview",
-          "suppressed_at": "2026-06-25T15:32:56.626294+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704103+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "DNM",
           "office": "Ayur - Problem",
-          "suppressed_at": "2026-06-25T15:32:56.626301+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704110+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "(Emergency) pmax- 10/6/2025",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-25T15:32:56.626306+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704116+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "JZ-Search-Marin",
           "office": "Thousand Oaks",
-          "suppressed_at": "2026-06-25T15:32:56.626312+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704122+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "General-Search-27/10",
           "office": "Encino",
-          "suppressed_at": "2026-06-25T15:32:56.626318+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704129+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "keyword_focus",
           "label": "pmax -gbp 6/26/25",
           "office": "Oxnard Riverpark",
-          "suppressed_at": "2026-06-25T15:32:56.626324+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704134+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Sherman Oaks",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-25T15:32:56.626330+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704141+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Santa Monica",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-25T15:32:56.626336+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704147+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Encino",
           "office": "Encino",
-          "suppressed_at": "2026-06-25T15:32:56.626342+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704153+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Pmax",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-25T15:32:56.626349+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704160+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "negative_keyword_candidate",
           "label": "JZ-Search-Cam - Dentical",
           "office": "Camarillo",
-          "suppressed_at": "2026-06-25T15:32:56.626355+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704166+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Santa Monica",
-          "suppressed_at": "2026-06-25T15:32:56.626361+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704172+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Sherman Oaks",
-          "suppressed_at": "2026-06-25T15:32:56.626366+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704178+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Protect efficient volume",
           "office": "Beverly Hills",
-          "suppressed_at": "2026-06-25T15:32:56.626372+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704184+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Scale carefully after lead-quality check",
           "office": "Puri Dentistry",
-          "suppressed_at": "2026-06-25T15:32:56.626378+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704190+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         },
         {
           "category": "office_or_campaign_opportunity",
           "label": "Fix waste before adding spend",
           "office": "Encino",
-          "suppressed_at": "2026-06-25T15:32:56.626384+00:00",
+          "suppressed_at": "2026-06-26T15:32:18.704196+00:00",
           "reason": "repeat_unchanged_since_prior_refresh"
         }
       ],
