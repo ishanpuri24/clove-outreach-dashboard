@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T15:31:27.222758+00:00",
+  "generated_at": "2026-06-30T21:57:58.271538+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -16,445 +16,16 @@
       "Reply Insights"
     ]
   },
-  "kpis": {
-    "total_sends": 108,
-    "weekdays_run": 9,
-    "latest_date": "2026-05-06",
-    "latest_sends": 12,
-    "latest_cap_usage_pct": 100,
-    "latest_new_contacts_found": 0,
-    "total_reply_signals": 6,
-    "positive_warm_replies": 2,
-    "bounces": 1,
-    "ccs_used_on_initial": 0,
-    "reply_rate_pct": 5.56,
-    "positive_rate_pct": 1.85
-  },
-  "daily": [
-    {
-      "date": "2026-04-21",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 53,
-      "replies": 2,
-      "cumulative": 12,
-      "next_focus": "Continue broadened public-email sourcing across health-adjacent, employer, apartment, chamber, and wellness channels."
-    },
-    {
-      "date": "2026-04-22",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 0,
-      "replies": 0,
-      "cumulative": 24,
-      "next_focus": "Continue health-adjacent and wellness/property/community mix."
-    },
-    {
-      "date": "2026-04-23",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 0,
-      "replies": 2,
-      "cumulative": 36,
-      "next_focus": "Source more high-quality employer/HR and apartment decision-maker emails."
-    },
-    {
-      "date": "2026-04-24",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 0,
-      "replies": 1,
-      "cumulative": 48,
-      "next_focus": "Keep senior/caregiver/home-care as top phone/form follow-up priority."
-    },
-    {
-      "date": "2026-04-27",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 6,
-      "replies": 0,
-      "cumulative": 60,
-      "next_focus": "Source more senior/caregiver public emails; phone/form follow-up for high-fit no-email senior living and home-care targets."
-    },
-    {
-      "date": "2026-04-28",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 9,
-      "replies": 0,
-      "cumulative": 72,
-      "next_focus": "Continue senior/caregiver sourcing; begin human phone/form follow-up for high-fit no-email senior homes."
-    },
-    {
-      "date": "2026-04-29",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 7,
-      "replies": 0,
-      "cumulative": 84,
-      "next_focus": "Continue senior/caregiver sourcing; staged Zoho dry-run/backfill pending dedupe approval."
-    },
-    {
-      "date": "2026-05-01",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 12,
-      "replies": 0,
-      "cumulative": 96,
-      "next_focus": "Recovery run completed at full cap after enriching verified senior/caregiver public-email contacts and applying dedupe exclusions; route prior-batch positive materials request to operator follow-up."
-    },
-    {
-      "date": "2026-05-06",
-      "sent": 12,
-      "cap": 12,
-      "new_contacts_found": 0,
-      "replies": 0,
-      "cumulative": 108,
-      "next_focus": "Employer wellness B2B batch (lunch-and-learn / on-site dental day pitch to employers, schools, universities). No new outreach replies received since May 1. The Orchard Senior Living follow-up active via Aryaan."
-    }
-  ],
-  "reply_mix": {
-    "Positive": 2,
-    "Neutral": 3,
-    "Not Interested / Unsubscribe": 0,
-    "Bounce": 1,
-    "Other": 0
-  },
-  "replies": [
-    {
-      "Date": "2026-04-21",
-      "Organization": "(redacted)",
-      "Category": "Geriatric Care Managers / Caregiver Resource",
-      "Classification": "Positive",
-      "Status": "Needs monitoring",
-      "Bucket": "Positive"
-    },
-    {
-      "Date": "2026-04-21",
-      "Organization": "(redacted)",
-      "Category": "Senior Living",
-      "Classification": "Neutral - Recycle Later",
-      "Status": "Recycle later",
-      "Bucket": "Neutral"
-    },
-    {
-      "Date": "2026-04-23",
-      "Organization": "(redacted)",
-      "Category": "Church / Community",
-      "Classification": "Neutral - Advertising / Referral",
-      "Status": "Logged",
-      "Bucket": "Neutral"
-    },
-    {
-      "Date": "2026-04-23",
-      "Organization": "(redacted)",
-      "Category": "Employer / HR",
-      "Classification": "Bounce",
-      "Status": "Suppressed",
-      "Bucket": "Bounce"
-    },
-    {
-      "Date": "2026-04-24",
-      "Organization": "(redacted)",
-      "Category": "Gyms / Fitness",
-      "Classification": "Neutral - Reviewing Partnerships",
-      "Status": "Monitor next week",
-      "Bucket": "Neutral"
-    },
-    {
-      "Date": "2026-04-30",
-      "Organization": "(redacted)",
-      "Category": "Senior Concerns / Caregiver Resource",
-      "Classification": "Positive - Materials Requested",
-      "Status": "Needs human follow-up",
-      "Bucket": "Positive"
-    }
-  ],
-  "latest_batch_summary": {
-    "size": 12,
-    "note": "Recipient-level details are not exposed in the public dashboard. See channel_mix_latest for category breakdown. 2026-05-01 was a recovery run after the morning's tracker showed no New rows with public emails; verified public-email contacts were enriched and deduped against prior partial-run sends and three excluded senior-resource organizations."
-  },
-  "channel_mix_latest": {
-    "Employer / Wellness B2B": 6,
-    "Schools / University": 3,
-    "Other Employer": 3,
-    "Senior Living / Assisted": 0,
-    "Home Care / Hospice / Health": 0,
-    "Caregiver / Senior Resource": 0
-  },
-  "channel_mix_total": {
-    "Senior Living / Assisted": 13,
-    "Home Care / Hospice / Health": 19,
-    "Caregiver / Senior Resource": 7,
-    "Health-Adjacent (Chiro/PT/Wellness)": 19,
-    "Property / Apartments": 5,
-    "Faith / Community": 10,
-    "Schools / PTA / Rec": 7,
-    "Chambers / Civic": 7,
-    "Other": 9
-  },
-  "channel_scorecard": [
-    {
-      "channel": "Caregiver / Senior Resource",
-      "sends": 7,
-      "positive": 2,
-      "neutral": 0,
-      "bounce": 0,
-      "tier": "Tier 1",
-      "confidence": "High",
-      "signal": "Strong",
-      "note": "Both positive replies to date came from this channel, including a materials-requested signal. Highest reply yield per send. Continue prioritizing sourcing here."
-    },
-    {
-      "channel": "Senior Living / Assisted",
-      "sends": 13,
-      "positive": 0,
-      "neutral": 1,
-      "bounce": 0,
-      "tier": "Tier 1",
-      "confidence": "Medium",
-      "signal": "Warming",
-      "note": "Sustained engagement with one recycle-later signal. Public-email coverage remains the bottleneck; phone/form follow-up recommended for high-fit no-email targets."
-    },
-    {
-      "channel": "Home Care / Hospice / Health",
-      "sends": 19,
-      "positive": 0,
-      "neutral": 0,
-      "bounce": 0,
-      "tier": "Tier 1",
-      "confidence": "Medium",
-      "signal": "Quiet",
-      "note": "Largest tier-1 volume but no replies yet. Test a hospice oral-comfort resource angle and a shorter subject line variant before scaling further."
-    },
-    {
-      "channel": "Health-Adjacent (Chiro/PT/Wellness)",
-      "sends": 19,
-      "positive": 0,
-      "neutral": 1,
-      "bounce": 0,
-      "tier": "Tier 2",
-      "confidence": "Low",
-      "signal": "Marginal",
-      "note": "One reviewing-partnerships neutral. Hold at limited test volume; do not crowd out tier-1 sourcing capacity."
-    },
-    {
-      "channel": "Faith / Community",
-      "sends": 10,
-      "positive": 0,
-      "neutral": 1,
-      "bounce": 0,
-      "tier": "Deprioritized",
-      "confidence": "Low",
-      "signal": "Off-pattern",
-      "note": "Single advertising/referral neutral. Continue deprioritization unless a partner-fit referral pathway emerges."
-    },
-    {
-      "channel": "Property / Apartments",
-      "sends": 5,
-      "positive": 0,
-      "neutral": 0,
-      "bounce": 0,
-      "tier": "Tier 2",
-      "confidence": "Low",
-      "signal": "Untested",
-      "note": "Volume too low to score. Pause unless decision-maker public emails can be sourced cleanly."
-    },
-    {
-      "channel": "Employer / HR",
-      "sends": 0,
-      "positive": 0,
-      "neutral": 0,
-      "bounce": 1,
-      "tier": "Tier 2",
-      "confidence": "Low",
-      "signal": "Suppressed",
-      "note": "Only signal so far is a hard bounce. Suppress address; do not expand without verified-email sourcing."
-    },
-    {
-      "channel": "Chambers / Civic",
-      "sends": 7,
-      "positive": 0,
-      "neutral": 0,
-      "bounce": 0,
-      "tier": "Deprioritized",
-      "confidence": "Low",
-      "signal": "Quiet",
-      "note": "No replies. Keep deprioritized; not a senior-decision-maker channel."
-    },
-    {
-      "channel": "Schools / PTA / Rec",
-      "sends": 7,
-      "positive": 0,
-      "neutral": 0,
-      "bounce": 0,
-      "tier": "Deprioritized",
-      "confidence": "Low",
-      "signal": "Quiet",
-      "note": "No replies. Keep deprioritized; off-thesis for the seminar offer."
-    }
-  ],
-  "experiments": [
-    {
-      "title": "Shorter subject line",
-      "hypothesis": "Trimming the subject to under 45 characters lifts open and reply rate in tier-1 senior channels.",
-      "channel": "Senior Living / Assisted, Caregiver / Senior Resource",
-      "status": "Queued",
-      "next_step": "Author A/B variant and reserve next 6 tier-1 sends for the shorter subject."
-    },
-    {
-      "title": "Materials-first senior follow-up",
-      "hypothesis": "Leading the follow-up with the seminar materials packet (no second ask) converts the prior positive materials request into a scheduled session.",
-      "channel": "Caregiver / Senior Resource",
-      "status": "Active - operator drafting",
-      "next_step": "Operator sends materials packet today; CC ops only after positive engagement, per guardrail."
-    },
-    {
-      "title": "Hospice oral-comfort resource angle",
-      "hypothesis": "A clinical resource framing (oral comfort for end-of-life patients) outperforms generic seminar pitch in hospice/home-health.",
-      "channel": "Home Care / Hospice / Health",
-      "status": "Queued",
-      "next_step": "Draft resource-led variant; reserve next 4 hospice sends for this angle."
-    },
-    {
-      "title": "Phone/form follow-up for no-email high-fit",
-      "hypothesis": "High-fit senior-living and home-care orgs without a public email convert via phone or contact-form follow-up at meaningfully higher rates than waiting for email enrichment.",
-      "channel": "Senior Living / Assisted, Home Care / Hospice / Health",
-      "status": "Active - manual",
-      "next_step": "Operator works the no-email shortlist daily; log outcomes back to the Sheet."
-    },
-    {
-      "title": "Reply-rate baseline lock",
-      "hypothesis": "Holding subject and body constant for 20 sends per tier-1 channel produces a stable reply-rate baseline to compare future copy tests against.",
-      "channel": "All Tier 1",
-      "status": "Backlog",
-      "next_step": "Define control copy; lock variant rotation cadence after the related experiments complete."
-    }
-  ],
-  "queue_health": {
-    "ready_public_emails": 0,
-    "target_buffer": 18,
-    "shortage_risk": "High",
-    "dedupe_exclusions_latest": 3,
-    "sourcing_goal_next_run": "Source at least 18 verified senior/caregiver/home-health public emails before tomorrow's 08:30 PT run to clear the recovery-run pattern.",
-    "warnings": [
-      "Tracker showed zero New rows with public emails this morning before recovery enrichment.",
-      "Three senior-resource organizations excluded by dedupe in latest batch; widen the org pool before reusing the same shortlist.",
-      "Capacity at full cap masks that the buffer is depleted; sourcing must lead, not follow, the run."
-    ]
-  },
-  "human_followups": [
-    {
-      "priority": "P0",
-      "due": "2026-05-01",
-      "channel": "Caregiver / Senior Resource",
-      "action": "Send approved senior concerns materials packet to the prior-scan positive materials request.",
-      "status": "Operator drafting",
-      "note": "Identity redacted in public mirror; tracked by reply ID in private Sheet."
-    },
-    {
-      "priority": "P1",
-      "due": "2026-05-04",
-      "channel": "Senior Living / Assisted",
-      "action": "Phone or contact-form follow-up for high-fit no-email senior homes from this week's shortlist.",
-      "status": "Queued",
-      "note": "Operator-only; do not auto-message."
-    },
-    {
-      "priority": "P1",
-      "due": "2026-05-04",
-      "channel": "Home Care / Hospice / Health",
-      "action": "Phone or contact-form follow-up for high-fit no-email home-care and hospice targets.",
-      "status": "Queued",
-      "note": "Pair with a related experiment framing where appropriate."
-    },
-    {
-      "priority": "P2",
-      "due": "2026-05-05",
-      "channel": "Caregiver / Senior Resource",
-      "action": "Monitor first positive reply for movement; nudge only if no response within five business days.",
-      "status": "Watching",
-      "note": "No auto-replies; operator owns cadence."
-    }
-  ],
-  "guardrail_status": [
-    {
-      "rule": "Daily cap of 12 one-to-one new emails per weekday",
-      "status": "OK",
-      "evidence": "Latest run sent 12 of 12; no day in the loaded window exceeded the cap."
-    },
-    {
-      "rule": "Initial outreach sent only from the connected Clove sender",
-      "status": "OK",
-      "evidence": "Sender locked in task config; no alternate sender observed in the window."
-    },
-    {
-      "rule": "No CC and no BCC on initial outreach",
-      "status": "OK",
-      "evidence": "CCs used on initial outreach: 0."
-    },
-    {
-      "rule": "No auto-reply to interested prospects; operator drafts each reply",
-      "status": "OK",
-      "evidence": "Both positive signals routed to human follow-up; zero automated replies sent."
-    },
-    {
-      "rule": "Suppress bounces, opt-outs, and not-interested permanently",
-      "status": "OK",
-      "evidence": "One bounce in window; address suppressed and not retried."
-    },
-    {
-      "rule": "Public verified emails only; never invent or guess address patterns",
-      "status": "OK",
-      "evidence": "Latest run rebuilt the queue from verified public sources after the morning tracker showed no New rows."
-    },
-    {
-      "rule": "Google Sheet remains source of truth; Zoho writeback staged",
-      "status": "OK",
-      "evidence": "Zoho writeback held pending staged dedupe and dry-run approval."
-    }
-  ],
-  "zoho": {
-    "status": "Connected; writeback documented but live CRM record creation held pending staged dedupe/dry-run approval.",
-    "stage": "Staged - dedupe/dry-run pending approval",
-    "writeback_live": false
-  },
   "github": {
     "source_repo_visibility": "private",
     "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"
   },
-  "guardrails": [
-    "Maximum 12 one-to-one new emails per weekday",
-    "Initial outreach sent only from the connected Clove sender",
-    "No CC or BCC on initial outreach",
-    "Internal follow-up only after a positive reply or scheduling/ops handoff (CC redacted in public mirror)",
-    "No auto-reply to interested prospects; route to operator with suggested draft",
-    "Suppress bounces, opt-outs, and not-interested permanently",
-    "Public verified emails only; never invent or guess email patterns",
-    "Google Sheet is the source of truth; Zoho writeback remains staged"
-  ],
   "next_actions": [
-    "Aryaan: Complete The Orchard Senior Living follow-up call; log outcome to Sheet.",
-    "Operator: Source at least 18 verified senior/caregiver/home-health public emails before next weekday run.",
+    "URGENT: Stop the B2B email duplicate-send loop \u2014 2 prospects each got the same email ~10\u00d7 in 5 days.",
+    "Disable or re-cooldown the cron that fires senior-living + employer-wellness emails at ~01:03/16:03 UTC daily.",
     "Operator: Add Google Ads Manager Account ID to config to enable ads spend/CPA refresh.",
-    "Operator: Review any employer wellness B2B batch replies; route positives to Aryaan per policy.",
     "Approve dedupe + dry-run plan before enabling Zoho live writeback."
   ],
-  "focus_priority": {
-    "tier_1": [
-      "Senior living / assisted / memory care / independent living",
-      "Home care / home health / hospice / VNA",
-      "Caregiver resource centers and senior placement",
-      "Adult day programs and senior centers"
-    ],
-    "tier_2_test_only": [
-      "Health-adjacent (chiro, PT, pharmacy, wellness)",
-      "Employer/HR with senior caregiver populations"
-    ],
-    "deprioritized": [
-      "Generic chambers, churches, schools/PTAs, and community centers"
-    ]
-  },
   "google_ads_insights": {
     "title": "Paid Ads \u00b7 9 offices \u00b7 Daily run-rate x30 vs 30-day trailing",
     "subtitle": "Yesterday spend $1,668 -> projected month $50,025 (pacing down 40.3% vs trailing 30d). Target: paid ads <= 4% of office production (production pending Open Dental wire).",
@@ -17255,188 +16826,8 @@
       "google_ads_insights child customer_id values (never exposed)",
       "google_ads_insights account_label raw text (replaced with mapping-pending placeholder)",
       "google_ads_insights ad_group internal IDs (never exposed)",
-      "b2b_reply_detail timeline excludes sender names, emails, organizations, phone numbers, and raw reply text",
       "google_ads_keyword_focus is keyword-ideas API output only; no customer/manager IDs, no search-term reports"
     ]
-  },
-  "b2b_reply_detail": {
-    "title": "B2B reply detail",
-    "privacy_note": "Aggregated. PII removed.",
-    "classification_breakdown": [
-      {
-        "classification": "Bounce",
-        "count": 1
-      },
-      {
-        "classification": "Neutral",
-        "count": 3
-      },
-      {
-        "classification": "Positive",
-        "count": 2
-      }
-    ],
-    "category_breakdown": [
-      {
-        "category": "Geriatric Care Managers / Caregiver Resource",
-        "count": 1
-      },
-      {
-        "category": "Senior Living",
-        "count": 1
-      },
-      {
-        "category": "Church / Community",
-        "count": 1
-      },
-      {
-        "category": "Employer / HR",
-        "count": 1
-      },
-      {
-        "category": "Gyms / Fitness",
-        "count": 1
-      },
-      {
-        "category": "Caregiver resource / senior programs",
-        "count": 1
-      }
-    ],
-    "reply_timeline": [
-      {
-        "date": "2026-04-21",
-        "category": "Geriatric Care Managers / Caregiver Resource",
-        "classification": "Positive",
-        "public_theme": "Forwarded internally to a better program owner",
-        "status": "Needs monitoring",
-        "suggested_next_action_public": "Monitor for the forwarded contact; if no response, send a light follow-up."
-      },
-      {
-        "date": "2026-04-21",
-        "category": "Senior Living",
-        "classification": "Neutral - Recycle Later",
-        "public_theme": "Timing not right; recycle later",
-        "status": "Recycle later",
-        "suggested_next_action_public": "Recycle in roughly 90 days with a note referencing their timing constraint."
-      },
-      {
-        "date": "2026-04-23",
-        "category": "Church / Community",
-        "classification": "Neutral - Advertising / Referral",
-        "public_theme": "Community channel suggested alternate referral path",
-        "status": "Logged",
-        "suggested_next_action_public": "Consider OASIS/older-adult program call; avoid endorsement ask unless paid advertising is desired."
-      },
-      {
-        "date": "2026-04-23",
-        "category": "Employer / HR",
-        "classification": "Bounce",
-        "public_theme": "Bad address / bounce",
-        "status": "Suppressed",
-        "suggested_next_action_public": "Suppress address and source alternate public contact before any future outreach."
-      },
-      {
-        "date": "2026-04-24",
-        "category": "Gyms / Fitness",
-        "classification": "Neutral - Reviewing Partnerships",
-        "public_theme": "Warm review-later partnership signal",
-        "status": "Monitor next week",
-        "suggested_next_action_public": "Monitor and send light follow-up after 5 business days if no reply."
-      },
-      {
-        "date": "2026-04-30",
-        "category": "Caregiver resource / senior programs",
-        "classification": "Positive - Materials Requested",
-        "public_theme": "Materials requested by senior/caregiver channel",
-        "status": "Needs human follow-up",
-        "suggested_next_action_public": "Prepare human-approved one-page senior oral-health resource and send as follow-up."
-      }
-    ],
-    "what_is_working": [
-      "Senior/caregiver and caregiver-resource channels produced the clearest positive signal.",
-      "Fitness/wellness outreach produced a warm partnership-review signal worth a follow-up.",
-      "Community/faith channels can surface referral paths, but endorsement asks are weaker than program-specific older-adult channels."
-    ],
-    "next_copy_tests": [
-      "Lead senior/caregiver copy with a concrete one-page oral-health resource plus optional short educational session.",
-      "For wellness/fitness, frame as Dental Wellness 101 for members, not a generic partnership ask.",
-      "For community organizations, ask for the correct older-adult program contact instead of endorsement."
-    ],
-    "stale_follow_ups_2026_05_19": [
-      {
-        "priority": "P0",
-        "days_stale": 28,
-        "reply_date": "2026-04-21",
-        "category": "Geriatric Care Managers / Caregiver Resource",
-        "original_action": "Monitor for forwarded contact; light follow-up if no response",
-        "recommended_now": "Send forwarded-contact follow-up TODAY. 2-3 sentences: thank them for forwarding, ask if it landed, offer a brief 15-min call."
-      },
-      {
-        "priority": "P0",
-        "days_stale": 19,
-        "reply_date": "2026-04-30",
-        "category": "Caregiver resource / senior programs",
-        "original_action": "Prepare human-approved one-page senior oral-health resource and send",
-        "recommended_now": "Ship the one-pager this week. Suggested content: 5 oral-health signs caregivers should watch for, when to call us, Clove Care affordable in-house plan blurb."
-      },
-      {
-        "priority": "P1",
-        "days_stale": 26,
-        "reply_date": "2026-04-23",
-        "category": "Church / Community",
-        "original_action": "Consider OASIS/older-adult program call",
-        "recommended_now": "30-min discovery call this week. Frame: free senior oral-health talk at their next gathering, no sales ask."
-      },
-      {
-        "priority": "P1",
-        "days_stale": 25,
-        "reply_date": "2026-04-24",
-        "category": "Gyms / Fitness",
-        "original_action": "Monitor and follow up after 5 business days",
-        "recommended_now": "Send the 5-business-day follow-up NOW (20 days overdue). Reference their 'reviewing partnerships' note."
-      }
-    ],
-    "reply_rate_diagnosis": {
-      "latest_reply": "2026-04-30 (19 days ago)",
-      "reply_volume_30d": 0,
-      "reply_volume_60d": 6,
-      "signal": "Reply rate has collapsed to zero in last 19 days. Either no new sends, or sequences burned out.",
-      "likely_causes": [
-        "No new outbound batches since late April",
-        "4 prior replies left without follow-up (above) \u2014 human-follow-up bottleneck",
-        "Targeting too broad (5 categories from only 6 replies) \u2014 no concentration"
-      ],
-      "next_step": "Decide: pause B2B until human-followups are clear, OR ship next batch focused on ONE category (recommend: Caregiver/Senior since 2 of 6 positives came from that lane)."
-    },
-    "referring_dentist_pipeline": {
-      "status": "Not started \u2014 no provider-to-provider outreach in snapshot",
-      "opportunity": "Specialty referrals (Pedo/Endo/OS/Perio) \u2192 general dentists in 5-mile radius of each office. Highest LTV B2B channel for a DSO.",
-      "recommended_v1_sequence": [
-        {
-          "step": 1,
-          "channel": "Email",
-          "subject": "Quick intro \u2014 [Office] taking referrals",
-          "body_outline": "Hi [Dr. LastName] \u2014 I'm Ishan at Clove Dental [Office]. Wanted to introduce our team and offer a no-friction referral path: we send back a 1-page treatment summary within 48hrs and don't poach restorative. Open to a 15-min coffee?"
-        },
-        {
-          "step": 2,
-          "channel": "LinkedIn connection + note",
-          "days_after": 3,
-          "body_outline": "Short connect note referencing the email"
-        },
-        {
-          "step": 3,
-          "channel": "Office drop-by",
-          "days_after": 10,
-          "body_outline": "Front-desk drop-off: branded referral pad + business card + one-pager on our specialty hours"
-        }
-      ],
-      "target_list_seed": "Pull from Google Maps Places: 'dental office' within 5 miles of each Clove office, exclude existing Clove locations. Estimate ~20-50 targets per office = 180-450 total.",
-      "required_to_start": [
-        "Approval to use real provider names (not PHI but worth confirming)",
-        "Decide office order \u2014 recommend start with Puri Dentistry since it has spare specialty capacity per the Ads data"
-      ]
-    }
   },
   "google_ads_keyword_focus": {
     "title": "Keyword and theme focus",
@@ -20937,268 +20328,8 @@
   "automations": {
     "title": "Automations",
     "as_of": "2026-05-13T03:06:49Z",
-    "items": [
-      {
-        "id": "google-ads-lead-sms",
-        "name": "Google Ads lead SMS follow-up",
-        "purpose": "Daily check for uncontacted Google Ads leads from the office lead tabs that can backfill now, with office-specific booking links and STOP opt-out language. Can also run hourly for fast response. Sends from the OpenPhone Optimization line.",
-        "status": "apply",
-        "provider": "OpenPhone (Optimization line)",
-        "provider_status": "OpenPhone adapter configured (Optimization line).",
-        "send_policy_enabled": true,
-        "apply_mode": true,
-        "last_run_at_utc": "2026-05-13T03:06:49Z",
-        "counters": {
-          "backlog": 226,
-          "eligible": 226,
-          "sent_today": 0,
-          "replies_pending": 0,
-          "booked": 0,
-          "booked_rate_pct": 0.0,
-          "sheet_rows_modified": 0,
-          "sms_messages_sent": 0
-        },
-        "by_office": [
-          {
-            "office": "Santa Monica",
-            "backlog": 100,
-            "eligible": 100,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Encino",
-            "backlog": 11,
-            "eligible": 11,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Thousand Oaks",
-            "backlog": 7,
-            "eligible": 7,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Beverly Hills",
-            "backlog": 10,
-            "eligible": 10,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Riverpark",
-            "backlog": 5,
-            "eligible": 5,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Oxnard",
-            "backlog": 4,
-            "eligible": 4,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Ventura",
-            "backlog": 17,
-            "eligible": 17,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Sherman Oaks",
-            "backlog": 69,
-            "eligible": 69,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "office": "Camarillo",
-            "backlog": 3,
-            "eligible": 3,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          }
-        ],
-        "by_source": [
-          {
-            "source_type": "General",
-            "backlog": 205,
-            "eligible": 205,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "source_type": "Emergency",
-            "backlog": 17,
-            "eligible": 17,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          },
-          {
-            "source_type": "Insurance",
-            "backlog": 4,
-            "eligible": 4,
-            "sent_today": 0,
-            "replies_pending": 0,
-            "booked": 0
-          }
-        ],
-        "sample_template_public": "Hi [First name], this is Clove Dental [Office]. You filled out a form for an appointment, and we have real-time openings available today. You can book here: [office booking link]. If you want help, reply with what time works. Reply STOP to opt out.",
-        "compliance_notes": [
-          "New Google Ads lead SMS includes opt-out (Reply STOP).",
-          "Established-patient optimization SMS rules are separate: no STOP, no emoji, no phone number, ask for a text reply, use Sherman Oaks (not Studio City).",
-          "Quiet hours respected (after 8pm / before 8am recipient local time).",
-          "Per-run cap applies before any sends are enabled."
-        ],
-        "blockers": [
-          "Apply mode produced 0 sends from 226 eligible candidate(s). Top skip reason: provider_auth_failed."
-        ]
-      }
-    ],
-    "before_we_send": {
-      "backlog_count": 226,
-      "eligible_count": 226,
-      "planned_hourly_cadence": "Checks daily and can backfill uncontacted leads now (up to 25 in the initial backfill run). Can also run hourly for fast response, up to 25 sends per hour.",
-      "per_office_split": [
-        {
-          "office": "Santa Monica",
-          "eligible": 100,
-          "backlog": 100
-        },
-        {
-          "office": "Encino",
-          "eligible": 11,
-          "backlog": 11
-        },
-        {
-          "office": "Thousand Oaks",
-          "eligible": 7,
-          "backlog": 7
-        },
-        {
-          "office": "Beverly Hills",
-          "eligible": 10,
-          "backlog": 10
-        },
-        {
-          "office": "Riverpark",
-          "eligible": 5,
-          "backlog": 5
-        },
-        {
-          "office": "Oxnard",
-          "eligible": 4,
-          "backlog": 4
-        },
-        {
-          "office": "Ventura",
-          "eligible": 17,
-          "backlog": 17
-        },
-        {
-          "office": "Sherman Oaks",
-          "eligible": 69,
-          "backlog": 69
-        },
-        {
-          "office": "Camarillo",
-          "eligible": 3,
-          "backlog": 3
-        }
-      ],
-      "max_sends_per_run": 25,
-      "quiet_hours": "before 8am and after 8pm PT unless explicitly changed",
-      "writeback_behavior": "After a real send, the script stamps the matching row in the Google Sheet (Contacted / Last SMS At) on the operator host. No writes happen during dry-run or check mode.",
-      "results_location": "Aggregate counters appear in this Automations tab. Per-recipient detail stays on the operator host only.",
-      "default_mode": "dry_run"
-    },
-    "optimization_os": {
-      "title": "OptimizationOS / win-back rules",
-      "as_of": "2026-05-13T03:06:49Z",
-      "rules": [
-        {
-          "rule": "problem_op_gap_fill",
-          "sent_today": 0,
-          "sent_7d": 0,
-          "sent_30d": 0,
-          "replies": 0,
-          "yes_rate_pct": 0.0,
-          "booked": 0,
-          "needs_human": 0,
-          "status": "pending",
-          "next_action": "Awaiting first intel log on operator host."
-        },
-        {
-          "rule": "tx_pending_gap_fill",
-          "sent_today": 0,
-          "sent_7d": 0,
-          "sent_30d": 0,
-          "replies": 0,
-          "yes_rate_pct": 0.0,
-          "booked": 0,
-          "needs_human": 0,
-          "status": "pending",
-          "next_action": "Awaiting first intel log on operator host."
-        },
-        {
-          "rule": "hygiene_gap_fill",
-          "sent_today": 0,
-          "sent_7d": 0,
-          "sent_30d": 0,
-          "replies": 0,
-          "yes_rate_pct": 0.0,
-          "booked": 0,
-          "needs_human": 0,
-          "status": "pending",
-          "next_action": "Awaiting first intel log on operator host."
-        },
-        {
-          "rule": "deleted_appt_rebook",
-          "sent_today": 0,
-          "sent_7d": 0,
-          "sent_30d": 0,
-          "replies": 0,
-          "yes_rate_pct": 0.0,
-          "booked": 0,
-          "needs_human": 0,
-          "status": "pending",
-          "next_action": "Awaiting first intel log on operator host."
-        }
-      ],
-      "data_source_note": "Aggregate counters only. Raw logs, message bodies, patient identifiers, phone numbers, OpenDental records, and message IDs stay on the operator host."
-    },
-    "provider_check": {
-      "provider": "OpenPhone",
-      "line": "Optimization line",
-      "status_label": "skipped",
-      "reachable": false,
-      "note": "Provider check skipped (provider disabled or check mode off).",
-      "auth_style": "raw_key_not_bearer"
-    },
-    "safety_note": "No-send by default. Real SMS is gated on a private OpenPhone API key (raw Authorization header, not Bearer), an explicit send-policy flag, and a confirmation flag on the command line. New-lead SMS includes STOP; established-patient optimization SMS does not.",
-    "escalation": {
-      "mode": "aggregate_only",
-      "needs_human": 0,
-      "trello_configured": false,
-      "queued": 0,
-      "note": "Aggregate needs-human count only. No automatic Trello card is created unless escalation.trello.list_id is set and escalation.trello.enabled=true in the private config.",
-      "channel": "trello_or_aggregate"
-    },
+    "items": [],
+    "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
       "no_pii": true,
       "no_phone_numbers": true,
@@ -21270,19 +20401,6 @@
             }
           ],
           "blocker": null
-        },
-        {
-          "id": "google-ads-lead-sms",
-          "name": "Google Ads lead SMS backfill",
-          "status": "blocked",
-          "next_action": "Refresh the OpenPhone API key (raw Authorization header) in the private config so apply mode can clear the lead backlog from the office tabs.",
-          "last_action": "0 SMS sent today; 226 eligible leads waiting.",
-          "last_action_at": "2026-05-13T03:06:49Z",
-          "impact_metric": "Backlog cleared / first-time bookings from Google Ads leads",
-          "blocker": "OpenPhone provider auth failed (provider_auth_failed)",
-          "blockers_detail": [
-            "Apply mode produced 0 sends from 226 eligible candidate(s). Top skip reason: provider_auth_failed."
-          ]
         },
         {
           "id": "tracking-stack",
@@ -22506,6 +21624,11 @@
       }
     ],
     "blockers": [
+      {
+        "channel": "B2B Outbound",
+        "blocker": "Runaway loop \u2014 same 2 prospects emailed 9-10x in 5 days; no dedupe.",
+        "impact": "Sender reputation risk; Hiver flagging all sends negative; zero new pipeline."
+      },
       {
         "channel": "Paid Ads",
         "blocker": "Google Ads mutate access not connected",
@@ -24310,5 +23433,41 @@
     ],
     "method_notes": "MoM trend per office; trailing-6-month z-score flags deltas at |z|>=1. Themes auto-tagged via keyword dictionaries. Staff sentiment derived from role-anchored name extraction; public block excludes staff names (kept in private state file).",
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
+  },
+  "b2b_outbound": {
+    "as_of": "2026-06-30T21:57:58.271538+00:00",
+    "source_of_truth": "Gmail SENT label on the sender mailbox, last 30 days",
+    "verified_sends_last_30d": 33,
+    "unique_prospects_last_30d": 2,
+    "alarming_pattern": "Two prospects received the SAME email ~10 times each in 5 days. The automation appears to be on a ~12-hour loop with no deduplication. This will damage sender reputation and is being filtered to negative-sentiment by Hiver.",
+    "duplicate_send_examples": [
+      {
+        "recipient": "prospect_a (auto group, Camarillo area)",
+        "subject": "Lunch-and-learn for Silver Star Automotive Group's team",
+        "send_count_in_5_days": 10,
+        "cadence_observed": "~01:03 UTC and ~16:05 UTC daily"
+      },
+      {
+        "recipient": "prospect_b (senior living, Camarillo area)",
+        "subject": "Partnering with Camarillo Senior Living residents",
+        "send_count_in_5_days": 9,
+        "cadence_observed": "~01:03 UTC and ~16:04 UTC daily"
+      }
+    ],
+    "sourcing_status": "BROKEN. No new prospects sourced in the verified window. The 'sourcing goal of 18 verified emails before next run' was never met; instead the automation re-fires the same 2 contacts.",
+    "zoho_writeback_status": "NOT WRITING. No Zoho leads created for verified sends. Hiver labels show all 33 sends as 'pending/unassigned' with 'sentiment:negative'.",
+    "aryaan_followup_status": "Active in other Clove workflows (Avora provider sync, weekly summary) but NOT executing B2B follow-ups from the dashboard list. The Orchard Senior Living call still has no recorded outcome.",
+    "legitimate_active_thread": {
+      "recipient": "senior_living_contact_c",
+      "thread": "Free dental wellness seminar for The Leonard on Beverly",
+      "status": "90-day check-in sent 2026-07-13 (future-dated) \u2014 open thread"
+    },
+    "recommended_actions": [
+      "1. STOP the duplicate-send loop NOW. Either disable the cron firing every 12h to prospects A + B, or add a 14-day-per-recipient cooldown.",
+      "2. Apologize / unsubscribe both over-emailed contacts before they spam-report (10x in 5d will trip Gmail / Microsoft anti-spam).",
+      "3. Resume sourcing manually \u2014 pick 10-15 NEW senior-living / employer prospects this week and seed the queue.",
+      "4. Disable Zoho writeback claim in dashboard until lead-create logic is actually wired.",
+      "5. Reconcile dashboard KPIs from 'latest_date: 2026-05-06' to actual Gmail SENT date."
+    ]
   }
 }
