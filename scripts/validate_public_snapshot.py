@@ -49,21 +49,8 @@ REQUIRED_TOP_LEVEL_SECTIONS = [
     "generated_at",
     "task",
     "sources",
-    "kpis",
-    "daily",
-    "reply_mix",
-    "replies",
-    "latest_batch_summary",
-    "channel_mix_latest",
-    "channel_mix_total",
-    "channel_scorecard",
-    "experiments",
-    "queue_health",
-    "human_followups",
-    "guardrail_status",
-    "guardrails",
+    "b2b_outbound",
     "next_actions",
-    "focus_priority",
     "google_ads_insights",
     "_sanitization",
 ]
@@ -2953,7 +2940,6 @@ GA4_PRIVATE_ID_PATTERNS = [
 REQUIRED_ACTION_SYSTEM_IDS = {
     "hubspot-cms-metadata",
     "ga4-form-submit-mapping",
-    "google-ads-lead-sms",
     "tracking-stack",
     "gmb-new-negative-alerts",
     "gmb-review-recovery",
@@ -3454,15 +3440,10 @@ def main() -> int:
     try:
         snap = load_snapshot_json()
         check_required_sections(snap)
-        check_kpis(snap)
         check_task_id_redacted(snap)
-        check_experiments_redacted(snap)
         check_sources_redacted(snap)
-        check_replies_redacted(snap)
-        check_latest_batch_redacted(snap)
         check_github_section_redacted(snap)
         check_google_ads_insights(snap)
-        check_b2b_reply_detail(snap)
         check_keyword_focus(snap)
         check_automations(snap)
         check_action_system(snap)

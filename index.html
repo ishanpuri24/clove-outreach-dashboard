@@ -2698,19 +2698,7 @@
           <div id="auto-action-system-table"></div>
         </section>
 
-        <section aria-labelledby="auto-before-send">
-          <div class="ps-head">
-            <h2 id="auto-before-send">Send readiness</h2>
-            <span class="pill accent" id="auto-mode-pill" aria-live="polite">
-              <span class="dot"></span><span id="auto-mode-text">dry run</span>
-            </span>
-          </div>
-          <p class="section-meta" id="auto-before-meta">
-            Backlog · cadence · per-office split · writeback · results.
-          </p>
-          <div class="pxc cols-3" id="auto-before-grid"></div>
-          <div id="auto-before-extras"></div>
-        </section>
+
 
         <section aria-labelledby="auto-snap">
           <div class="ps-head">
@@ -2721,14 +2709,7 @@
           <div id="auto-items"></div>
         </section>
 
-        <section aria-labelledby="auto-optos">
-          <div class="ps-head">
-            <h2 id="auto-optos">OptimizationOS / win-back rules</h2>
-            <span class="pill" id="auto-optos-pill" aria-live="polite"></span>
-          </div>
-          <p class="section-meta" id="auto-optos-meta"></p>
-          <div id="auto-optos-table"></div>
-        </section>
+
 
         <section aria-labelledby="auto-cms">
           <div class="ps-head">
@@ -2739,13 +2720,7 @@
           <div class="card" id="auto-cms-card"></div>
         </section>
 
-        <section aria-labelledby="auto-provider">
-          <div class="ps-head">
-            <h2 id="auto-provider">Provider connectivity</h2>
-            <span class="pill" id="auto-provider-pill" aria-live="polite"></span>
-          </div>
-          <p class="section-meta" id="auto-provider-meta"></p>
-        </section>
+
 
         <p class="tab-meta" id="automations-fresh"></p>
       </div>
@@ -2911,6 +2886,88 @@
       function cssVar(name) {
         return getComputedStyle(document.documentElement)
           .getPropertyValue(name).trim();
+      }
+
+      function renderB2bOutbound(b) {
+        var card = $("b2b-outbound-card");
+        var meta = $("b2b-outbound-meta");
+        var pill = $("b2b-outbound-pill");
+        if (!card) return;
+        card.innerHTML = "";
+        if (!b) {
+          card.appendChild(el("div", { "class": "section-meta", text: "No verified B2B outbound block in snapshot." }));
+          return;
+        }
+        if (meta) {
+          meta.textContent = "Source: " + (b.source_of_truth || "Gmail") +
+            " \u00b7 as of " + (b.as_of || "-");
+        }
+        if (pill) {
+          pill.className = "pill danger";
+          pill.replaceChildren(el("span", { "class": "dot" }),
+            document.createTextNode(" runaway loop"));
+        }
+        if (b.alarming_pattern) {
+          var warn = el("div", { "class": "card",
+            style: "margin-bottom:12px;border-left:4px solid var(--danger,#c0392b);" });
+          warn.appendChild(el("div", { "class": "kpi-label", text: "\u26a0 Alarming pattern" }));
+          warn.appendChild(el("div", { text: b.alarming_pattern }));
+          card.appendChild(warn);
+        }
+        var kpis = el("div", { "class": "grid kpi" });
+        function _kpi(label, val, note) {
+          var c = el("div", { "class": "card" });
+          c.appendChild(el("div", { "class": "kpi-label", text: label }));
+          c.appendChild(el("div", { "class": "kpi-value", text: String(val == null ? "-" : val) }));
+          if (note) c.appendChild(el("div", { "class": "section-meta", text: note }));
+          kpis.appendChild(c);
+        }
+        _kpi("Verified sends (30d)", b.verified_sends_last_30d, "Gmail SENT label");
+        _kpi("Unique prospects (30d)", b.unique_prospects_last_30d, "Should be >> 2");
+        _kpi("Sourcing", (b.sourcing_status || "-").split(".")[0]);
+        _kpi("Zoho writeback", (b.zoho_writeback_status || "-").split(".")[0]);
+        card.appendChild(kpis);
+
+        if (b.duplicate_send_examples && b.duplicate_send_examples.length) {
+          var alertCard = el("div", { "class": "card", style: "margin-top:12px;border-left:4px solid var(--danger,#c0392b);" });
+          alertCard.appendChild(el("div", { "class": "kpi-label", text: "\u26a0 Duplicate-send loop \u2014 contacts being spammed" }));
+          var ul = el("ul", { "class": "checks" });
+          b.duplicate_send_examples.forEach(function (d) {
+            var li = el("li");
+            li.appendChild(el("strong", { text: d.recipient || "-" }));
+            li.appendChild(document.createTextNode(
+              " \u2014 " + (d.send_count_in_5_days || d.send_count || 0) + " sends in 5d" +
+              (d.subject ? " \u00b7 \u201c" + d.subject + "\u201d" : "") +
+              (d.cadence_observed ? " \u00b7 " + d.cadence_observed : "")
+            ));
+            ul.appendChild(li);
+          });
+          alertCard.appendChild(ul);
+          card.appendChild(alertCard);
+        }
+
+        if (b.legitimate_active_thread) {
+          var lt = b.legitimate_active_thread;
+          var ltCard = el("div", { "class": "card", style: "margin-top:12px;" });
+          ltCard.appendChild(el("div", { "class": "kpi-label", text: "Legitimate active thread" }));
+          ltCard.appendChild(el("div", { text:
+            (lt.recipient || lt.contact || "-") +
+            (lt.thread ? " \u2014 " + lt.thread : "") +
+            (lt.status ? " \u00b7 " + lt.status : "") }));
+          card.appendChild(ltCard);
+        }
+
+        if (b.recommended_actions && b.recommended_actions.length) {
+          var actCard = el("div", { "class": "card", style: "margin-top:12px;" });
+          actCard.appendChild(el("div", { "class": "kpi-label", text: "Recommended actions" }));
+          var ol = el("ol");
+          b.recommended_actions.forEach(function (a) {
+            var text = typeof a === "string" ? a : (a.action || a.text || JSON.stringify(a));
+            ol.appendChild(el("li", { text: text }));
+          });
+          actCard.appendChild(ol);
+          card.appendChild(actCard);
+        }
       }
 
       function renderTrend(daily) {
@@ -6412,9 +6469,7 @@
         _safeRender("paid_ads_office_rollup", function () { renderPaidAdsOfficeRollup(s.operator_summary, s.paid_ads_action_system); });
         _safeRender("gmb_freshness_banner", function () { renderGmbFreshnessBanner(s.gmb_insights, s.operator_summary); });
         _safeRender("exec", function () { renderExec(s); });
-        _safeRender("kpis", function () { renderKpis(s); });
-        _safeRender("queue", function () { renderQueue(s); });
-        _safeRender("scorecard", function () { renderScorecard(s); });
+        _safeRender("b2b_outbound", function () { renderB2bOutbound(s.b2b_outbound); });
         _safeRender("ads_insights", function () { renderAdsInsights(s); });
         _safeRender("ads_top_summary", function () { renderPaidAdsTopSummary(s.google_ads_insights); });
         _safeRender("callrail_call_quality", function () { renderCallRailCallQuality(s.google_ads_insights); });
@@ -6438,12 +6493,6 @@
         _safeRender("keyword_focus", function () { renderKeywordFocus(s); });
         _safeRender("api_writeback", function () { renderApiWriteback(s); });
         _safeRender("trend", function () { renderTrend(s.daily || []); });
-        _safeRender("mix", function () { renderMix(s); });
-        _safeRender("reply_detail", function () { renderReplyDetail(s); });
-        _safeRender("experiments", function () { renderExperiments(s); });
-        _safeRender("followups", function () { renderFollowups(s); });
-        _safeRender("replies", function () { renderReplies(s); });
-        _safeRender("guardrail_status", function () { renderGuardrailStatus(s); });
         _safeRender("lists", function () { renderLists(s); });
         _safeRender("organic", function () { renderOrganic(s.organic_insights); });
         _safeRender("organic_cms_actions", function () { renderOrganicCmsActions(s.organic_cms_actions); });
@@ -7142,9 +7191,7 @@
 
       function renderAutomations(a) {
         renderActionSystem(a && a.action_system);
-        renderBeforeWeSend(a);
-        renderOptimizationOS(a);
-        renderProviderCheck(a);
+
         renderAutoCmsCard(window.__SNAPSHOT__ && window.__SNAPSHOT__.organic_cms_actions);
         var host = $("auto-items");
         if (!host) return;

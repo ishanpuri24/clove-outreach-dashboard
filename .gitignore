@@ -3,3 +3,4 @@ __pycache__/
 data/_gmb_review_corpus.json
 data/_gmb_learning_state.json
 data/_gads_pulls/
+data/_snapshot_pre_cleanup_backup.json
