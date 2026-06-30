@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T21:57:58.271538+00:00",
+  "generated_at": "2026-06-30T22:14:31+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -23468,6 +23468,431 @@
       "3. Resume sourcing manually \u2014 pick 10-15 NEW senior-living / employer prospects this week and seed the queue.",
       "4. Disable Zoho writeback claim in dashboard until lead-create logic is actually wired.",
       "5. Reconcile dashboard KPIs from 'latest_date: 2026-05-06' to actual Gmail SENT date."
+    ]
+  },
+  "paid_ads_simple": {
+    "title": "Paid Ads \u2014 by office",
+    "window_note": "Yesterday / Last 7d / Last 30d",
+    "totals": {
+      "last_7d_spend_usd": 6198.49,
+      "last_30d_spend_usd": 37765.08
+    },
+    "rows": [
+      {
+        "office": "Camarillo",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 123.74,
+        "yesterday_clicks": 23,
+        "yesterday_conversions": 4.0,
+        "last_7d_spend_usd": 764.88,
+        "last_7d_clicks": 144,
+        "last_7d_conversions": 15.0,
+        "last_7d_cpa_usd": 50.99,
+        "last_30d_spend_usd": 4741.08,
+        "last_30d_clicks": 839,
+        "last_30d_conversions": 112.0,
+        "last_30d_cpa_usd": 42.33
+      },
+      {
+        "office": "Beverly Hills",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 119.65,
+        "yesterday_clicks": 21,
+        "yesterday_conversions": 2.0,
+        "last_7d_spend_usd": 640.96,
+        "last_7d_clicks": 144,
+        "last_7d_conversions": 18.0,
+        "last_7d_cpa_usd": 35.65,
+        "last_30d_spend_usd": 4448.18,
+        "last_30d_clicks": 896,
+        "last_30d_conversions": 80.0,
+        "last_30d_cpa_usd": 55.6
+      },
+      {
+        "office": "Hillview",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 155.34,
+        "yesterday_clicks": 37,
+        "yesterday_conversions": 7.0,
+        "last_7d_spend_usd": 765.99,
+        "last_7d_clicks": 209,
+        "last_7d_conversions": 31.0,
+        "last_7d_cpa_usd": 24.71,
+        "last_30d_spend_usd": 4384.11,
+        "last_30d_clicks": 970,
+        "last_30d_conversions": 184.9,
+        "last_30d_cpa_usd": 23.71
+      },
+      {
+        "office": "Riverpark",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 126.84,
+        "yesterday_clicks": 16,
+        "yesterday_conversions": 2.0,
+        "last_7d_spend_usd": 968.05,
+        "last_7d_clicks": 144,
+        "last_7d_conversions": 18.5,
+        "last_7d_cpa_usd": 52.34,
+        "last_30d_spend_usd": 4374.2,
+        "last_30d_clicks": 750,
+        "last_30d_conversions": 72.0,
+        "last_30d_cpa_usd": 60.76
+      },
+      {
+        "office": "Encino",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 118.78,
+        "yesterday_clicks": 71,
+        "yesterday_conversions": 1.0,
+        "last_7d_spend_usd": 637.87,
+        "last_7d_clicks": 297,
+        "last_7d_conversions": 17.0,
+        "last_7d_cpa_usd": 37.53,
+        "last_30d_spend_usd": 4341.03,
+        "last_30d_clicks": 1204,
+        "last_30d_conversions": 226.5,
+        "last_30d_cpa_usd": 19.17
+      },
+      {
+        "office": "Sherman Oaks",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 72.47,
+        "yesterday_clicks": 19,
+        "yesterday_conversions": 3.0,
+        "last_7d_spend_usd": 421.75,
+        "last_7d_clicks": 108,
+        "last_7d_conversions": 12.0,
+        "last_7d_cpa_usd": 35.15,
+        "last_30d_spend_usd": 4177.44,
+        "last_30d_clicks": 1408,
+        "last_30d_conversions": 69.0,
+        "last_30d_cpa_usd": 60.56
+      },
+      {
+        "office": "Puri Dentistry",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 143.43,
+        "yesterday_clicks": 43,
+        "yesterday_conversions": 4.0,
+        "last_7d_spend_usd": 813.51,
+        "last_7d_clicks": 227,
+        "last_7d_conversions": 30.0,
+        "last_7d_cpa_usd": 27.12,
+        "last_30d_spend_usd": 4109.16,
+        "last_30d_clicks": 909,
+        "last_30d_conversions": 148.5,
+        "last_30d_cpa_usd": 27.68
+      },
+      {
+        "office": "Santa Monica",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 107.68,
+        "yesterday_clicks": 22,
+        "yesterday_conversions": 1.0,
+        "last_7d_spend_usd": 554.73,
+        "last_7d_clicks": 145,
+        "last_7d_conversions": 4.5,
+        "last_7d_cpa_usd": 123.27,
+        "last_30d_spend_usd": 3727.13,
+        "last_30d_clicks": 1073,
+        "last_30d_conversions": 17.5,
+        "last_30d_cpa_usd": 212.98
+      },
+      {
+        "office": "Thousand Oaks",
+        "yesterday_date": "2026-06-29",
+        "yesterday_spend_usd": 130.11,
+        "yesterday_clicks": 17,
+        "yesterday_conversions": 4.0,
+        "last_7d_spend_usd": 630.75,
+        "last_7d_clicks": 120,
+        "last_7d_conversions": 15.0,
+        "last_7d_cpa_usd": 42.06,
+        "last_30d_spend_usd": 3462.74,
+        "last_30d_clicks": 739,
+        "last_30d_conversions": 143.0,
+        "last_30d_cpa_usd": 24.22
+      }
+    ],
+    "refreshed_at": "2026-06-30T22:14:31+00:00"
+  },
+  "gmb_simple": {
+    "title": "Google Reviews \u2014 by office",
+    "window_note": "Last 7d / Last 30d",
+    "totals": {
+      "reviews_last_7d": 0,
+      "reviews_last_30d": 42
+    },
+    "rows": [
+      {
+        "office": "Thousand Oaks",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 13,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-11T00:26:49.492264+00:00"
+      },
+      {
+        "office": "Encino",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 7,
+        "avg_rating_last_30d": 4.43,
+        "newest_review_at": "2026-06-10T23:29:31.743750+00:00"
+      },
+      {
+        "office": "Riverpark",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 7,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-10T23:05:58.085431+00:00"
+      },
+      {
+        "office": "Santa Monica",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 5,
+        "avg_rating_last_30d": 4.2,
+        "newest_review_at": "2026-06-10T23:14:56.654870+00:00"
+      },
+      {
+        "office": "Camarillo",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 3,
+        "avg_rating_last_30d": 3.67,
+        "newest_review_at": "2026-06-09T16:49:14.205458+00:00"
+      },
+      {
+        "office": "Beverly Hills",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 2,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-11T00:09:28.119996+00:00"
+      },
+      {
+        "office": "Puri Dentistry",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 2,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-01T18:18:44.068469+00:00"
+      },
+      {
+        "office": "Sherman Oaks",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 2,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-06T01:26:12.700847+00:00"
+      },
+      {
+        "office": "Hillview",
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
+        "reviews_last_30d": 1,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-09T00:08:42.026863+00:00"
+      }
+    ],
+    "refreshed_at": "2026-06-30T22:14:31+00:00"
+  },
+  "organic_simple": {
+    "title": "Organic \u2014 Google Search Console",
+    "window_note": "Yesterday / Last 7d / Last 30d",
+    "refreshed_at": "2026-06-30T22:14:31+00:00",
+    "yesterday_date": "2026-06-28",
+    "yesterday_clicks": 151,
+    "yesterday_impressions": 23115,
+    "last_7d_clicks": 1355,
+    "last_7d_impressions": 183786,
+    "last_30d_clicks": 5322,
+    "last_30d_impressions": 721822,
+    "top_queries_7d": [
+      {
+        "query": "clove dental",
+        "clicks": 51,
+        "impressions": 330,
+        "position": 3.6
+      },
+      {
+        "query": "clove dental oxnard",
+        "clicks": 14,
+        "impressions": 99,
+        "position": 6.6
+      },
+      {
+        "query": "clove dental beverly hills",
+        "clicks": 11,
+        "impressions": 117,
+        "position": 6.0
+      },
+      {
+        "query": "clove dental camarillo",
+        "clicks": 11,
+        "impressions": 91,
+        "position": 6.5
+      },
+      {
+        "query": "clove dental santa monica",
+        "clicks": 7,
+        "impressions": 97,
+        "position": 1.2
+      },
+      {
+        "query": "clove dental sherman oaks",
+        "clicks": 7,
+        "impressions": 65,
+        "position": 1.3
+      },
+      {
+        "query": "clove dental thousand oaks",
+        "clicks": 7,
+        "impressions": 102,
+        "position": 1.3
+      },
+      {
+        "query": "mouth sloughing",
+        "clicks": 7,
+        "impressions": 193,
+        "position": 1.9
+      },
+      {
+        "query": "clove dental encino",
+        "clicks": 6,
+        "impressions": 221,
+        "position": 5.5
+      },
+      {
+        "query": "best mouthwash for smokers",
+        "clicks": 5,
+        "impressions": 39,
+        "position": 1.4
+      },
+      {
+        "query": "clove dds",
+        "clicks": 4,
+        "impressions": 5,
+        "position": 1.6
+      },
+      {
+        "query": "clovedds",
+        "clicks": 4,
+        "impressions": 4,
+        "position": 1
+      },
+      {
+        "query": "best mouthwash for smokers breath",
+        "clicks": 3,
+        "impressions": 12,
+        "position": 1.6
+      },
+      {
+        "query": "clove dental careers",
+        "clicks": 3,
+        "impressions": 49,
+        "position": 4.7
+      },
+      {
+        "query": "clove dental oxnard - riverpark",
+        "clicks": 3,
+        "impressions": 26,
+        "position": 1.6
+      }
+    ],
+    "top_pages_7d": [
+      {
+        "page": "https://clovedds.com/blog/mouth-sloughing-what-it-is-why-it-happens-and-when-to-pay-attention",
+        "clicks": 270,
+        "impressions": 20459,
+        "position": 5.9
+      },
+      {
+        "page": "https://clovedds.com/blog/will-a-tooth-abscess-go-away-with-antibiotics-what-you-need-to-know-before-waiting",
+        "clicks": 48,
+        "impressions": 7142,
+        "position": 7.5
+      },
+      {
+        "page": "https://clovedds.com/blog/how-long-do-tonsil-stones-last-and-other-questions",
+        "clicks": 40,
+        "impressions": 7247,
+        "position": 5.2
+      },
+      {
+        "page": "https://clovedds.com/",
+        "clicks": 38,
+        "impressions": 1854,
+        "position": 7.9
+      },
+      {
+        "page": "https://clovedds.com/blog/how-to-encourage-lower-jaw-growth",
+        "clicks": 36,
+        "impressions": 2925,
+        "position": 7.5
+      },
+      {
+        "page": "https://clovedds.com/blog/why-does-my-tongue-feel-weird-common-causes-when-to-see-a-dentist",
+        "clicks": 34,
+        "impressions": 5863,
+        "position": 8.2
+      },
+      {
+        "page": "https://clovedds.com/blog/can-you-drink-protein-shakes-after-wisdom-teeth-removal",
+        "clicks": 33,
+        "impressions": 2424,
+        "position": 4.0
+      },
+      {
+        "page": "https://clovedds.com/riverpark?utm_campaign=gmb&utm_medium=gbp&utm_source=google",
+        "clicks": 33,
+        "impressions": 410,
+        "position": 4.4
+      },
+      {
+        "page": "https://clovedds.com/blog/top-mouthwash-picks-for-smokers-freshen-breath-and-protect-oral-health",
+        "clicks": 32,
+        "impressions": 1873,
+        "position": 6.4
+      },
+      {
+        "page": "https://clovedds.com/blog/how-to-make-turmeric-paste-for-gums",
+        "clicks": 26,
+        "impressions": 2225,
+        "position": 6.7
+      },
+      {
+        "page": "https://clovedds.com/blog/air-pocket-in-tooth-what-it-means-why-it-happens-and-when-to-act",
+        "clicks": 25,
+        "impressions": 1195,
+        "position": 4.8
+      },
+      {
+        "page": "https://clovedds.com/blog/is-your-mouth-sore-from-hpv-or-another-cause",
+        "clicks": 24,
+        "impressions": 5951,
+        "position": 9.7
+      },
+      {
+        "page": "https://clovedds.com/blog/will-bleach-kill-a-tooth-nerve",
+        "clicks": 20,
+        "impressions": 823,
+        "position": 7.5
+      },
+      {
+        "page": "https://clovedds.com/oxnard",
+        "clicks": 18,
+        "impressions": 1232,
+        "position": 17.3
+      },
+      {
+        "page": "https://clovedds.com/blog/headache-after-wisdom-tooth-removal-thousand-oaks-experts-explain-whats-normal",
+        "clicks": 16,
+        "impressions": 4387,
+        "position": 5.4
+      }
     ]
   }
 }

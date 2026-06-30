@@ -8866,6 +8866,7 @@
       }
 
       if (window.__SNAPSHOT__) {
+        try { renderLiveDaily(window.__SNAPSHOT__); } catch (e) { console.error(e); }
         _safeBoot(window.__SNAPSHOT__);
       } else {
         fetch("data/snapshot.json", { cache: "no-store" })
@@ -8875,6 +8876,7 @@
             }
             return r.json();
           })
+          .then(function (snap) { try { renderLiveDaily(snap); } catch (e) { console.error(e); } return snap; })
           .then(_safeBoot)
           .catch(function (err) {
             _showFatalBanner(

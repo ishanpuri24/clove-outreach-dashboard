@@ -53,6 +53,12 @@ REQUIRED_TOP_LEVEL_SECTIONS = [
     "next_actions",
     "google_ads_insights",
     "_sanitization",
+    # v6 live-daily simple blocks (added 2026-06-30). These power
+    # the top-of-page "Live daily — refreshed 5am PT" section and
+    # are written by scripts/pull_live_daily.py.
+    "paid_ads_simple",
+    "gmb_simple",
+    "organic_simple",
 ]
 
 REQUIRED_GOOGLE_ADS_FIELDS = [

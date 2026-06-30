@@ -4,3 +4,9 @@ data/_gmb_review_corpus.json
 data/_gmb_learning_state.json
 data/_gads_pulls/
 data/_snapshot_pre_cleanup_backup.json
+data/_gads_live/
+data/_gads_live_parsed.json
+data/_google_ads_account_map.json
+data/_gsc_live/
+data/_gmb_live/
+data/_account_ids.txt
