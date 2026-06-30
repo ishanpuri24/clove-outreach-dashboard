@@ -1850,6 +1850,23 @@
            style="border-color: var(--danger); background: var(--danger-weak); margin-bottom: 12px;"></div>
       <div id="section-error-banner" class="card" hidden
            style="border-color: var(--warn); background: var(--warn-weak); margin-bottom: 12px;"></div>
+
+      <!-- =================== Live daily (top, above tabs) =================== -->
+      <section id="live-daily" aria-label="Live daily snapshot" style="margin-bottom: 20px;">
+        <div class="ps-head" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+          <h2 style="margin:0;">Live daily</h2>
+          <span class="pill" id="live-daily-pill" style="background: var(--ok-weak, #e6f7ed); color: var(--ok, #0a7f3f); border:1px solid var(--ok, #0a7f3f); padding: 2px 10px; border-radius: 999px; font-size: 12px;">refreshing daily · 5am PT</span>
+          <span id="live-daily-refreshed" style="color: var(--muted, #666); font-size: 12px;"></span>
+        </div>
+        <p style="color: var(--muted, #666); margin: 6px 0 14px 0; font-size: 13px;">Yesterday + last 7d + last 30d across paid ads, Google reviews, organic search, and B2B outbound. Pulled live from Google Ads, GMB, GSC, and Gmail.</p>
+        <div id="live-daily-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 14px;">
+          <div class="card" id="ld-paid" style="padding:14px;"></div>
+          <div class="card" id="ld-gmb" style="padding:14px;"></div>
+          <div class="card" id="ld-organic" style="padding:14px;"></div>
+          <div class="card" id="ld-b2b" style="padding:14px;"></div>
+        </div>
+      </section>
+
       <div class="tabs" role="tablist" aria-label="Dashboard sections">
         <button class="tab" role="tab" id="tab-summary"
                 aria-controls="panel-summary" aria-selected="true">
@@ -8862,6 +8879,102 @@
             (err && err.message) || "boot() threw",
             err && err.stack
           );
+        }
+      }
+
+      // -------- Live daily renderer (top section, above tabs) --------
+      function renderLiveDaily(snap) {
+        if (!snap) return;
+        var fmtUSD = function(n){ if(n==null||isNaN(n)) return '\u2014'; return '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0}); };
+        var fmtUSD2 = function(n){ if(n==null||isNaN(n)) return '\u2014'; return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); };
+        var fmtInt = function(n){ if(n==null||isNaN(n)) return '\u2014'; return Number(n).toLocaleString('en-US'); };
+        var fmtRating = function(n){ if(n==null||isNaN(n)) return '\u2014'; return Number(n).toFixed(2)+' \u2605'; };
+        var esc = function(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+
+        // refreshed_at pill
+        var refEl = document.getElementById('live-daily-refreshed');
+        if (refEl && snap.generated_at) {
+          try {
+            var d = new Date(snap.generated_at);
+            refEl.textContent = 'refreshed ' + d.toLocaleString('en-US', {month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZone:'America/Los_Angeles'}) + ' PT';
+          } catch(e){}
+        }
+
+        // ---- PAID ADS ----
+        var paid = snap.paid_ads_simple;
+        var paidEl = document.getElementById('ld-paid');
+        if (paid && paidEl) {
+          var rows = (paid.rows || []).slice().sort(function(a,b){ return (b.last_7d_spend_usd||0) - (a.last_7d_spend_usd||0); });
+          var html = '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><h3 style="margin:0;font-size:16px;">Paid ads</h3><span style="font-size:11px;color:var(--muted,#666);">by office</span></div>';
+          html += '<div style="display:flex;gap:16px;margin-bottom:10px;font-size:13px;"><div><div style="color:var(--muted,#666);font-size:11px;">7d spend</div><div style="font-weight:600;font-size:18px;">'+fmtUSD(paid.totals && paid.totals.last_7d_spend_usd)+'</div></div><div><div style="color:var(--muted,#666);font-size:11px;">30d spend</div><div style="font-weight:600;font-size:18px;">'+fmtUSD(paid.totals && paid.totals.last_30d_spend_usd)+'</div></div></div>';
+          html += '<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="text-align:left;border-bottom:1px solid var(--border,#e5e5e5);color:var(--muted,#666);"><th style="padding:4px 4px;">Office</th><th style="padding:4px 4px;text-align:right;">Yest</th><th style="padding:4px 4px;text-align:right;">7d</th><th style="padding:4px 4px;text-align:right;">7d CPA</th><th style="padding:4px 4px;text-align:right;">30d</th></tr></thead><tbody>';
+          rows.forEach(function(r){
+            html += '<tr style="border-bottom:1px solid var(--border-weak,#f3f3f3);"><td style="padding:4px 4px;">'+esc(r.office)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtUSD(r.yesterday_spend_usd)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtUSD(r.last_7d_spend_usd)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtUSD2(r.last_7d_cpa_usd)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtUSD(r.last_30d_spend_usd)+'</td></tr>';
+          });
+          html += '</tbody></table>';
+          paidEl.innerHTML = html;
+        } else if (paidEl) {
+          paidEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;">Paid ads</h3><p style="color:var(--muted,#666);font-size:13px;margin:0;">No data yet \u2014 next cron run 5am PT.</p>';
+        }
+
+        // ---- GMB ----
+        var gmb = snap.gmb_simple;
+        var gmbEl = document.getElementById('ld-gmb');
+        if (gmb && gmbEl) {
+          var grows = (gmb.rows || []).slice().sort(function(a,b){ return (b.reviews_last_30d||0) - (a.reviews_last_30d||0); });
+          var ghtml = '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><h3 style="margin:0;font-size:16px;">Google reviews</h3><span style="font-size:11px;color:var(--muted,#666);">by office</span></div>';
+          ghtml += '<div style="display:flex;gap:16px;margin-bottom:10px;font-size:13px;"><div><div style="color:var(--muted,#666);font-size:11px;">7d reviews</div><div style="font-weight:600;font-size:18px;">'+fmtInt(gmb.totals && gmb.totals.reviews_last_7d)+'</div></div><div><div style="color:var(--muted,#666);font-size:11px;">30d reviews</div><div style="font-weight:600;font-size:18px;">'+fmtInt(gmb.totals && gmb.totals.reviews_last_30d)+'</div></div></div>';
+          ghtml += '<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="text-align:left;border-bottom:1px solid var(--border,#e5e5e5);color:var(--muted,#666);"><th style="padding:4px 4px;">Office</th><th style="padding:4px 4px;text-align:right;">7d</th><th style="padding:4px 4px;text-align:right;">30d</th><th style="padding:4px 4px;text-align:right;">30d avg</th></tr></thead><tbody>';
+          grows.forEach(function(r){
+            ghtml += '<tr style="border-bottom:1px solid var(--border-weak,#f3f3f3);"><td style="padding:4px 4px;">'+esc(r.office)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtInt(r.reviews_last_7d)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtInt(r.reviews_last_30d)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtRating(r.avg_rating_last_30d)+'</td></tr>';
+          });
+          ghtml += '</tbody></table>';
+          if (gmb.cache_note) { ghtml += '<p style="color:var(--warn,#b86a00);font-size:11px;margin:8px 0 0 0;">'+esc(gmb.cache_note)+'</p>'; }
+          gmbEl.innerHTML = ghtml;
+        } else if (gmbEl) {
+          gmbEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;">Google reviews</h3><p style="color:var(--muted,#666);font-size:13px;margin:0;">No data yet \u2014 next cron run 5am PT.</p>';
+        }
+
+        // ---- ORGANIC ----
+        var org = snap.organic_simple;
+        var orgEl = document.getElementById('ld-organic');
+        if (org && orgEl) {
+          var ohtml = '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><h3 style="margin:0;font-size:16px;">Organic search</h3><span style="font-size:11px;color:var(--muted,#666);">GSC clovedds.com</span></div>';
+          ohtml += '<div style="display:flex;gap:14px;margin-bottom:10px;font-size:13px;flex-wrap:wrap;"><div><div style="color:var(--muted,#666);font-size:11px;">Yesterday clicks</div><div style="font-weight:600;font-size:18px;">'+fmtInt(org.yesterday_clicks)+'</div></div><div><div style="color:var(--muted,#666);font-size:11px;">7d clicks</div><div style="font-weight:600;font-size:18px;">'+fmtInt(org.last_7d_clicks)+'</div></div><div><div style="color:var(--muted,#666);font-size:11px;">30d clicks</div><div style="font-weight:600;font-size:18px;">'+fmtInt(org.last_30d_clicks)+'</div></div></div>';
+          var topQ = (org.top_queries_7d || []).slice(0, 8);
+          if (topQ.length) {
+            ohtml += '<div style="font-size:11px;color:var(--muted,#666);margin-bottom:4px;">Top queries (7d)</div>';
+            ohtml += '<table style="width:100%;border-collapse:collapse;font-size:12px;"><tbody>';
+            topQ.forEach(function(q){
+              ohtml += '<tr style="border-bottom:1px solid var(--border-weak,#f3f3f3);"><td style="padding:3px 4px;">'+esc(q.query)+'</td><td style="padding:3px 4px;text-align:right;">'+fmtInt(q.clicks)+'</td></tr>';
+            });
+            ohtml += '</tbody></table>';
+          }
+          orgEl.innerHTML = ohtml;
+        } else if (orgEl) {
+          orgEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;">Organic search</h3><p style="color:var(--muted,#666);font-size:13px;margin:0;">No data yet \u2014 next cron run 5am PT.</p>';
+        }
+
+        // ---- B2B OUTBOUND ----
+        var b2b = snap.b2b_outbound;
+        var b2bEl = document.getElementById('ld-b2b');
+        if (b2b && b2bEl) {
+          var bhtml = '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><h3 style="margin:0;font-size:16px;">B2B outbound</h3><span style="font-size:11px;color:var(--muted,#666);">Gmail SENT</span></div>';
+          bhtml += '<div style="display:flex;gap:16px;margin-bottom:10px;font-size:13px;flex-wrap:wrap;"><div><div style="color:var(--muted,#666);font-size:11px;">30d sends</div><div style="font-weight:600;font-size:18px;">'+fmtInt(b2b.verified_sends_last_30d)+'</div></div><div><div style="color:var(--muted,#666);font-size:11px;">Unique prospects</div><div style="font-weight:600;font-size:18px;">'+fmtInt(b2b.unique_prospects_last_30d)+'</div></div></div>';
+          if (b2b.alarming_pattern) {
+            bhtml += '<div style="background:var(--danger-weak,#fdecea);border:1px solid var(--danger,#c0392b);border-radius:6px;padding:8px;font-size:12px;color:var(--danger,#c0392b);"><strong>Issue:</strong> '+esc(b2b.alarming_pattern)+'</div>';
+          }
+          if (b2b.recommended_actions && b2b.recommended_actions.length) {
+            bhtml += '<div style="font-size:11px;color:var(--muted,#666);margin:10px 0 4px 0;">Next actions</div><ul style="margin:0;padding-left:18px;font-size:12px;">';
+            b2b.recommended_actions.slice(0,4).forEach(function(a){
+              var t = (typeof a === 'string') ? a : (a.action || a.title || JSON.stringify(a));
+              bhtml += '<li style="margin-bottom:3px;">'+esc(t)+'</li>';
+            });
+            bhtml += '</ul>';
+          }
+          b2bEl.innerHTML = bhtml;
+        } else if (b2bEl) {
+          b2bEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;">B2B outbound</h3><p style="color:var(--muted,#666);font-size:13px;margin:0;">No data yet.</p>';
         }
       }
 
