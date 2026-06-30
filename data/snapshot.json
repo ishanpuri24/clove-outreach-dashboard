@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T22:14:31+00:00",
+  "generated_at": "2026-06-30T23:14:32+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -21500,56 +21500,32 @@
   },
   "operator_summary": {
     "title": "Operator Summary",
-    "subtitle": "Cross-initiative status, decisions, and blockers \u2014 no prose.",
-    "generated_at": "2026-06-11T02:39:53Z",
+    "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
+    "generated_at": "2026-06-30T23:14:32+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
-        "value": "$90,038",
-        "basis": "CPA $47.68 \u00b7 10.1% of MTD prod (OVER)",
-        "decision": "Recover $90,363/mo identified"
-      },
-      {
-        "label": "Paid action queue",
-        "value": "27 queued",
-        "basis": "8 executable \u00b7 19 need mutate",
+        "value": "$37,765",
+        "basis": "CPA $36 \u00b7 7d $6,198",
         "decision": "Cut waste; protect winners; scale eligible."
       },
       {
-        "label": "GMB avg rating",
-        "value": "4.64 \u2605",
-        "basis": "1 unreplied low review",
-        "decision": "Reply within 24h"
+        "label": "GMB reviews 7d",
+        "value": "25 new",
+        "basis": "30d 46 reviews \u00b7 avg 4.52 \u2605",
+        "decision": "Reply to lows within 24h; service recovery on themes."
       },
       {
-        "label": "GMB low last 7d",
-        "value": "3 \u2191",
-        "basis": "prior 7d 0",
-        "decision": "Huddle on recurring themes; service recovery."
+        "label": "Organic clicks 7d",
+        "value": "1,355",
+        "basis": "30d 5,322 clicks \u00b7 yesterday 151",
+        "decision": "Watch branded vs non-branded mix; ship CMS updates."
       },
       {
-        "label": "Qualified calls 7d",
-        "value": "\u2014",
-        "basis": "973 total \u00b7 good_lead + previously_marked_good_lead = qualified conversion",
-        "decision": "Watch qualified-call CPA per office."
-      },
-      {
-        "label": "CMS writes",
-        "value": "0 live / 0 draft / 3 proposed",
-        "basis": "mode: accelerated",
-        "decision": "Approve live credentials"
-      },
-      {
-        "label": "Lead SMS",
-        "value": "0 sent today",
-        "basis": "backlog 226 \u00b7 eligible 226 \u00b7 apply",
-        "decision": "Move to apply once provider + dedupe verified."
-      },
-      {
-        "label": "Membership cash 7d",
-        "value": "302 active members",
-        "basis": "64 new \u00b7 1 overdue",
-        "decision": "9d stale \u00b7 thr 3d \u2014 Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snap\u2026"
+        "label": "B2B outbound 30d",
+        "value": "33 sends",
+        "basis": "2 unique prospects (Gmail SENT)",
+        "decision": "Stop dedupe-broken loop; rebuild on Zoho with safety guards."
       }
     ],
     "trend_badges": [
@@ -23614,47 +23590,71 @@
         "last_30d_cpa_usd": 24.22
       }
     ],
-    "refreshed_at": "2026-06-30T22:14:31+00:00"
+    "refreshed_at": "2026-06-30T23:14:32+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 by office",
     "window_note": "Last 7d / Last 30d",
     "totals": {
-      "reviews_last_7d": 0,
-      "reviews_last_30d": 42
+      "reviews_last_7d": 25,
+      "reviews_last_30d": 46
     },
     "rows": [
       {
         "office": "Thousand Oaks",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
-        "reviews_last_30d": 13,
-        "avg_rating_last_30d": 5.0,
-        "newest_review_at": "2026-06-11T00:26:49.492264+00:00"
-      },
-      {
-        "office": "Encino",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
-        "reviews_last_30d": 7,
-        "avg_rating_last_30d": 4.43,
-        "newest_review_at": "2026-06-10T23:29:31.743750+00:00"
+        "reviews_last_7d": 6,
+        "avg_rating_last_7d": 4.33,
+        "reviews_last_30d": 9,
+        "avg_rating_last_30d": 4.56,
+        "newest_review_at": "2026-06-30T21:32:54.655651+00:00"
       },
       {
         "office": "Riverpark",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
-        "reviews_last_30d": 7,
-        "avg_rating_last_30d": 5.0,
-        "newest_review_at": "2026-06-10T23:05:58.085431+00:00"
+        "reviews_last_7d": 2,
+        "avg_rating_last_7d": 4.0,
+        "reviews_last_30d": 8,
+        "avg_rating_last_30d": 4.75,
+        "newest_review_at": "2026-06-28T18:16:24.217575+00:00"
+      },
+      {
+        "office": "Puri Dentistry",
+        "reviews_last_7d": 3,
+        "avg_rating_last_7d": 5.0,
+        "reviews_last_30d": 6,
+        "avg_rating_last_30d": 4.5,
+        "newest_review_at": "2026-06-30T21:55:31.823479+00:00"
+      },
+      {
+        "office": "Encino",
+        "reviews_last_7d": 4,
+        "avg_rating_last_7d": 4.0,
+        "reviews_last_30d": 5,
+        "avg_rating_last_30d": 4.2,
+        "newest_review_at": "2026-06-27T21:48:27.713140+00:00"
       },
       {
         "office": "Santa Monica",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
+        "reviews_last_7d": 4,
+        "avg_rating_last_7d": 5.0,
         "reviews_last_30d": 5,
-        "avg_rating_last_30d": 4.2,
-        "newest_review_at": "2026-06-10T23:14:56.654870+00:00"
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-30T01:03:53.958226+00:00"
+      },
+      {
+        "office": "Hillview",
+        "reviews_last_7d": 2,
+        "avg_rating_last_7d": 5.0,
+        "reviews_last_30d": 4,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-25T17:38:43.731595+00:00"
+      },
+      {
+        "office": "Beverly Hills",
+        "reviews_last_7d": 3,
+        "avg_rating_last_7d": 5.0,
+        "reviews_last_30d": 3,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-30T21:13:07.493559+00:00"
       },
       {
         "office": "Camarillo",
@@ -23665,44 +23665,20 @@
         "newest_review_at": "2026-06-09T16:49:14.205458+00:00"
       },
       {
-        "office": "Beverly Hills",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
-        "reviews_last_30d": 2,
-        "avg_rating_last_30d": 5.0,
-        "newest_review_at": "2026-06-11T00:09:28.119996+00:00"
-      },
-      {
-        "office": "Puri Dentistry",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
-        "reviews_last_30d": 2,
-        "avg_rating_last_30d": 5.0,
-        "newest_review_at": "2026-06-01T18:18:44.068469+00:00"
-      },
-      {
         "office": "Sherman Oaks",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
-        "reviews_last_30d": 2,
-        "avg_rating_last_30d": 5.0,
-        "newest_review_at": "2026-06-06T01:26:12.700847+00:00"
-      },
-      {
-        "office": "Hillview",
-        "reviews_last_7d": 0,
-        "avg_rating_last_7d": null,
-        "reviews_last_30d": 1,
-        "avg_rating_last_30d": 5.0,
-        "newest_review_at": "2026-06-09T00:08:42.026863+00:00"
+        "reviews_last_7d": 1,
+        "avg_rating_last_7d": 3.0,
+        "reviews_last_30d": 3,
+        "avg_rating_last_30d": 3.33,
+        "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-06-30T22:14:31+00:00"
+    "refreshed_at": "2026-06-30T23:14:32+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-06-30T22:14:31+00:00",
+    "refreshed_at": "2026-06-30T23:14:32+00:00",
     "yesterday_date": "2026-06-28",
     "yesterday_clicks": 151,
     "yesterday_impressions": 23115,

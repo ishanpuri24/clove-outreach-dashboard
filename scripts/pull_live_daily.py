@@ -304,6 +304,85 @@ def build_organic_simple() -> dict:
     return out
 
 
+def refresh_operator_summary_from_simple(snap: dict) -> None:
+    """Replace stale operator_summary KPI cards using the fresh simple blocks.
+
+    Keeps the structure expected by the existing renderOperatorSummary JS
+    (kpi_cards array of {label, value, basis, decision}). All values are
+    aggregate and PII-free.
+    """
+    op = snap.get("operator_summary")
+    if not isinstance(op, dict):
+        return
+
+    paid = snap.get("paid_ads_simple", {})
+    gmb = snap.get("gmb_simple", {})
+    org = snap.get("organic_simple", {})
+    b2b = snap.get("b2b_outbound", {})
+
+    paid_totals = paid.get("totals", {}) or {}
+    gmb_totals = gmb.get("totals", {}) or {}
+
+    spend_7d = paid_totals.get("last_7d_spend_usd")
+    spend_30d = paid_totals.get("last_30d_spend_usd")
+
+    # Compute 30d weighted CPA across offices
+    cost_30 = 0.0
+    conv_30 = 0.0
+    for r in paid.get("rows", []) or []:
+        cost_30 += float(r.get("last_30d_spend_usd") or 0)
+        conv_30 += float(r.get("last_30d_conversions") or 0)
+    cpa_30 = (cost_30 / conv_30) if conv_30 > 0 else None
+
+    # Compute 30d weighted avg rating across offices
+    rating_num = 0.0
+    rating_den = 0
+    for r in gmb.get("rows", []) or []:
+        n = int(r.get("reviews_last_30d") or 0)
+        rt = r.get("avg_rating_last_30d")
+        if n and rt is not None:
+            rating_num += float(rt) * n
+            rating_den += n
+    avg_rating_30d = round(rating_num / rating_den, 2) if rating_den else None
+
+    def _fmt_usd(v):
+        if v is None:
+            return "\u2014"
+        return "$" + format(int(round(float(v))), ",")
+
+    cards = [
+        {
+            "label": "Paid spend 30d",
+            "value": _fmt_usd(spend_30d),
+            "basis": (f"CPA {_fmt_usd(cpa_30)} \u00b7 7d {_fmt_usd(spend_7d)}"
+                      if cpa_30 is not None else f"7d {_fmt_usd(spend_7d)}"),
+            "decision": "Cut waste; protect winners; scale eligible.",
+        },
+        {
+            "label": "GMB reviews 7d",
+            "value": f"{gmb_totals.get('reviews_last_7d', 0)} new",
+            "basis": f"30d {gmb_totals.get('reviews_last_30d', 0)} reviews \u00b7 avg {avg_rating_30d} \u2605" if avg_rating_30d else f"30d {gmb_totals.get('reviews_last_30d', 0)} reviews",
+            "decision": "Reply to lows within 24h; service recovery on themes.",
+        },
+        {
+            "label": "Organic clicks 7d",
+            "value": f"{org.get('last_7d_clicks', 0):,}",
+            "basis": f"30d {org.get('last_30d_clicks', 0):,} clicks \u00b7 yesterday {org.get('yesterday_clicks', 0)}",
+            "decision": "Watch branded vs non-branded mix; ship CMS updates.",
+        },
+        {
+            "label": "B2B outbound 30d",
+            "value": f"{b2b.get('verified_sends_last_30d', 0)} sends",
+            "basis": f"{b2b.get('unique_prospects_last_30d', 0)} unique prospects (Gmail SENT)",
+            "decision": "Stop dedupe-broken loop; rebuild on Zoho with safety guards.",
+        },
+    ]
+
+    op["kpi_cards"] = cards
+    op["generated_at"] = utcnow()
+    op["subtitle"] = "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail."
+
+
 def main() -> int:
     SNAPSHOT.parent.mkdir(parents=True, exist_ok=True)
 
@@ -318,6 +397,10 @@ def main() -> int:
     snap["gmb_simple"] = build_gmb_simple()
     snap["organic_simple"] = build_organic_simple()
     snap["generated_at"] = utcnow()
+
+    # Refresh operator_summary KPI cards from the new simple blocks so the
+    # Operator Summary tab stops showing stale June-11 numbers.
+    refresh_operator_summary_from_simple(snap)
 
     SNAPSHOT.write_text(json.dumps(snap, indent=2), encoding="utf-8")
     print(f"Wrote {SNAPSHOT}")
