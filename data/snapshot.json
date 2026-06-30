@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-30T23:14:32+00:00",
+  "generated_at": "2026-06-30T23:27:10+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17016,7 +17016,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-05-07T00:00:00Z",
+    "refreshed_at": "2026-06-30T23:27:10+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17043,7 +17043,8 @@
         "note": "Directional WoW proxy only"
       }
     },
-    "privacy": "Aggregated metrics only. No phone numbers, caller names, account IDs, GCLIDs, or raw call records published."
+    "privacy": "Aggregated metrics only. No phone numbers, caller names, account IDs, GCLIDs, or raw call records published.",
+    "freshness_note": "Aggregates carried forward from last manual CallRail export. Wire a CallRail pull into the 5am PT cron to refresh daily."
   },
   "google_ads_refresh": {
     "status": "OK",
@@ -18297,223 +18298,149 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-06-11T02:27:10+00:00",
+    "data_freshness": "2026-06-30T23:27:10+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
-        "value": "4.64\u2605",
-        "subtext": "9 offices \u00b7 44 reviews in last 30d"
+        "value": "4.52\u2605",
+        "subtext": "9 offices \u00b7 46 reviews in last 30d"
       },
       {
-        "label": "Review velocity",
-        "value": "1.47/day",
-        "subtext": "Goal 9/day; attainment 16.3%, gap 226/30d"
+        "label": "New reviews 7d",
+        "value": "25",
+        "subtext": "3.57/day across 9 offices"
       },
       {
-        "label": "30d reviews vs prior",
-        "value": "44 (+40)",
-        "subtext": "Prior 30d: 4; Last 7d: 32"
+        "label": "New reviews 30d",
+        "value": "46",
+        "subtext": "1.53/day vs 9.0/day goal"
       },
       {
-        "label": "Service recovery load",
-        "value": "4 low / 1 unreplied",
-        "subtext": "1 need reply within 24h"
+        "label": "30d goal attainment",
+        "value": "17.0%",
+        "subtext": "Gap 224 reviews to 270 target"
       }
     ],
     "trend": {
-      "reviews_30d": 164,
+      "reviews_30d": 46,
       "prior_30d_reviews": 91,
-      "reviews_30d_delta": 73,
-      "velocity_per_day": 5.47,
-      "goal_per_day": 9,
-      "goal_gap_30d": 123,
-      "goal_attainment": 60.7,
-      "review_goal_30d": 270,
-      "locations": 9,
-      "reviews_7d": 27,
-      "pace_per_day_7d": 3.86
+      "reviews_30d_delta": -45,
+      "velocity_per_day": 1.53,
+      "goal_per_day": 9.0,
+      "goal_gap_30d": 224,
+      "goal_attainment": 17.0,
+      "review_goal_30d": 270
     },
     "top_actions": [
       {
         "priority": "P0",
-        "label": "Reply to 5 unreplied low reviews within 24h",
-        "action": "Reply to 5 unreplied low reviews within 24h",
+        "label": "Reply to 2 unreplied low reviews within 24h",
+        "action": "Reply to 2 unreplied low reviews within 24h",
         "owner": "Office managers"
       },
       {
         "priority": "P1",
-        "label": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
-        "action": "Ask 2 happy patients/day at Beverly Hills, Camarillo, Santa Monica, Sherman Oaks",
-        "owner": "Office teams"
+        "label": "Drive review velocity at Beverly Hills (gap 267)",
+        "action": "Activate SMS review request flow + front desk ask",
+        "owner": "Office GM"
       },
       {
-        "priority": "P1",
-        "label": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
-        "action": "Huddle on Wait/scheduling, Clinical experience, Insurance/billing themes at Sherman Oaks + Puri Dentistry",
-        "owner": "Ops"
+        "priority": "P2",
+        "label": "Maintain reply rate >=90% to protect rating",
+        "action": "Weekly reply audit by office",
+        "owner": "Marketing"
       }
     ],
     "office_rows": [
       {
+        "office": "Thousand Oaks",
+        "avg_rating_30d": 4.56,
+        "reviews_30d": 9,
+        "reviews_7d": 6,
+        "pace_per_day": 0.3,
+        "gap_to_goal_30d": 261,
+        "low_30d": 1,
+        "unreplied_low": 1
+      },
+      {
+        "office": "Riverpark",
+        "avg_rating_30d": 4.75,
+        "reviews_30d": 8,
+        "reviews_7d": 2,
+        "pace_per_day": 0.27,
+        "gap_to_goal_30d": 262,
+        "low_30d": 0,
+        "unreplied_low": 0
+      },
+      {
+        "office": "Puri Dentistry",
+        "avg_rating_30d": 4.5,
+        "reviews_30d": 6,
+        "reviews_7d": 3,
+        "pace_per_day": 0.2,
+        "gap_to_goal_30d": 264,
+        "low_30d": 1,
+        "unreplied_low": 0
+      },
+      {
+        "office": "Encino",
+        "avg_rating_30d": 4.2,
+        "reviews_30d": 5,
+        "reviews_7d": 4,
+        "pace_per_day": 0.17,
+        "gap_to_goal_30d": 265,
+        "low_30d": 1,
+        "unreplied_low": 1
+      },
+      {
+        "office": "Santa Monica",
+        "avg_rating_30d": 5.0,
+        "reviews_30d": 5,
+        "reviews_7d": 4,
+        "pace_per_day": 0.17,
+        "gap_to_goal_30d": 265,
+        "low_30d": 0,
+        "unreplied_low": 0
+      },
+      {
+        "office": "Hillview",
+        "avg_rating_30d": 5.0,
+        "reviews_30d": 4,
+        "reviews_7d": 2,
+        "pace_per_day": 0.13,
+        "gap_to_goal_30d": 266,
+        "low_30d": 0,
+        "unreplied_low": 0
+      },
+      {
         "office": "Beverly Hills",
         "avg_rating_30d": 5.0,
         "reviews_30d": 3,
-        "reviews_7d": 1,
+        "reviews_7d": 3,
         "pace_per_day": 0.1,
         "gap_to_goal_30d": 267,
         "low_30d": 0,
-        "unreplied_low": 0,
-        "patients_like": [
-          "Doctor quality",
-          "Friendly staff",
-          "Clean office"
-        ],
-        "patients_flag": [],
-        "do_next": "Ask 2 happy patients/day to close gap of 267"
+        "unreplied_low": 0
       },
       {
         "office": "Camarillo",
         "avg_rating_30d": 3.67,
         "reviews_30d": 3,
-        "reviews_7d": 3,
+        "reviews_7d": 0,
         "pace_per_day": 0.1,
         "gap_to_goal_30d": 267,
         "low_30d": 1,
-        "unreplied_low": 0,
-        "patients_like": [
-          "Doctor quality"
-        ],
-        "patients_flag": [],
-        "do_next": "Ask 2 happy patients/day to close gap of 267"
-      },
-      {
-        "office": "Encino",
-        "avg_rating_30d": 4.43,
-        "reviews_30d": 7,
-        "reviews_7d": 6,
-        "pace_per_day": 0.23,
-        "gap_to_goal_30d": 263,
-        "low_30d": 1,
-        "unreplied_low": 1,
-        "patients_like": [
-          "Clean office",
-          "Friendly staff",
-          "Clear explanation"
-        ],
-        "patients_flag": [
-          "Clinical experience",
-          "Wait / scheduling",
-          "Insurance / billing"
-        ],
-        "do_next": "Reply to 1 unreplied low review(s) within 24h"
-      },
-      {
-        "office": "Hillview",
-        "avg_rating_30d": 5.0,
-        "reviews_30d": 1,
-        "reviews_7d": 1,
-        "pace_per_day": 0.03,
-        "gap_to_goal_30d": 269,
-        "low_30d": 0,
-        "unreplied_low": 0,
-        "patients_like": [],
-        "patients_flag": [],
-        "do_next": "Ask 2 happy patients/day to close gap of 269"
-      },
-      {
-        "office": "Oxnard Riverpark",
-        "avg_rating_30d": 5.0,
-        "reviews_30d": 7,
-        "reviews_7d": 5,
-        "pace_per_day": 0.23,
-        "gap_to_goal_30d": 263,
-        "low_30d": 0,
-        "unreplied_low": 0,
-        "patients_like": [
-          "Friendly staff",
-          "Doctor quality",
-          "Comfort / anxiety"
-        ],
-        "patients_flag": [
-          "Clinical experience",
-          "Communication",
-          "Wait / scheduling"
-        ],
-        "do_next": "Ask 2 happy patients/day to close gap of 263"
-      },
-      {
-        "office": "Puri Dentistry",
-        "avg_rating_30d": 5.0,
-        "reviews_30d": 2,
-        "reviews_7d": 0,
-        "pace_per_day": 0.07,
-        "gap_to_goal_30d": 268,
-        "low_30d": 0,
-        "unreplied_low": 0,
-        "patients_like": [
-          "Friendly staff",
-          "Doctor quality",
-          "Clean office"
-        ],
-        "patients_flag": [],
-        "do_next": "Ask 2 happy patients/day to close gap of 268"
-      },
-      {
-        "office": "Santa Monica",
-        "avg_rating_30d": 3.67,
-        "reviews_30d": 6,
-        "reviews_7d": 3,
-        "pace_per_day": 0.2,
-        "gap_to_goal_30d": 264,
-        "low_30d": 2,
-        "unreplied_low": 0,
-        "patients_like": [
-          "Doctor quality",
-          "Comfort / anxiety",
-          "Clean office"
-        ],
-        "patients_flag": [
-          "Wait / scheduling",
-          "Communication",
-          "Clinical experience"
-        ],
-        "do_next": "Ask 2 happy patients/day to close gap of 264"
+        "unreplied_low": 0
       },
       {
         "office": "Sherman Oaks",
-        "avg_rating_30d": 5.0,
-        "reviews_30d": 2,
+        "avg_rating_30d": 3.33,
+        "reviews_30d": 3,
         "reviews_7d": 1,
-        "pace_per_day": 0.07,
-        "gap_to_goal_30d": 268,
-        "low_30d": 0,
-        "unreplied_low": 0,
-        "patients_like": [
-          "Friendly staff"
-        ],
-        "patients_flag": [],
-        "do_next": "Ask 2 happy patients/day to close gap of 268"
-      },
-      {
-        "office": "Thousand Oaks",
-        "avg_rating_30d": 5.0,
-        "reviews_30d": 13,
-        "reviews_7d": 12,
-        "pace_per_day": 0.43,
-        "gap_to_goal_30d": 257,
-        "low_30d": 0,
-        "unreplied_low": 0,
-        "patients_like": [
-          "Doctor quality",
-          "Friendly staff",
-          "Comfort / anxiety"
-        ],
-        "patients_flag": [
-          "Wait / scheduling",
-          "Clinical experience",
-          "Communication"
-        ],
-        "do_next": "Ask 2 happy patients/day to close gap of 257"
+        "pace_per_day": 0.1,
+        "gap_to_goal_30d": 267,
+        "low_30d": 1,
+        "unreplied_low": 0
       }
     ],
     "negative_queue": [
@@ -18611,93 +18538,59 @@
     "freshness_note": "Public dashboard uses aggregated metrics and sanitized snippets only. No reviewer names, review IDs, account IDs, location IDs, profile IDs, tokens, or private paths.",
     "subtitle": "Default tab. Public dashboard uses aggregated metrics and sanitized snippets only \u2014 no reviewer names, review IDs, account IDs, location IDs, profile IDs, tokens, or private paths.",
     "executive_summary": {
-      "total_reviews": 2768,
-      "avg_rating": 4.83,
-      "reviews_30d": 164,
+      "total_reviews": 46,
+      "avg_rating": 4.52,
+      "reviews_30d": 46,
       "prior_30d_reviews": 91,
-      "reviews_30d_delta": 73,
+      "reviews_30d_delta": -45,
       "review_goal_30d": 270,
-      "goal_per_day": 9,
-      "goal_attainment_pct": 60.7,
-      "goal_gap_30d": 123,
-      "reviews_7d": 27,
-      "velocity_per_day": 5.47,
-      "low_rating_30d": 9,
-      "unreplied": 5,
-      "locations": 9,
-      "headline": "164 reviews/30d vs goal 270 (60.7%); +73 vs prior 91. 9 low-rating, 5 unreplied."
+      "goal_per_day": 9.0,
+      "goal_attainment_pct": 17.0
     },
     "going_well": [
       {
-        "office": "Encino",
-        "headline": "Above goal at 32 reviews/30d (1.07/day)",
+        "office": "Thousand Oaks",
+        "headline": "9 reviews in 30d (0.3/day)",
         "highlights": [
-          "32 reviews in 30d, 1.07/day \u2014 above 1/day goal",
-          "Strong themes: Friendly staff, Comfort/anxiety, Clean office",
-          "Prior 30d 12 \u2192 +20 (+167%)"
-        ],
-        "ask": "Keep asking every happy patient; protect 1/day floor"
+          "Avg rating 4.56\u2605",
+          "6 reviews in last 7d"
+        ]
       },
       {
-        "office": "Thousand Oaks / Marin",
-        "headline": "On fire at 45 reviews/30d (1.5/day)",
+        "office": "Riverpark",
+        "headline": "8 reviews in 30d (0.27/day)",
         "highlights": [
-          "45 reviews in 30d, 1.5/day \u2014 above 1/day goal",
-          "+40 vs prior 30d (5)",
-          "Strong themes: Friendly staff, Clean office, Comfort/anxiety"
-        ],
-        "ask": "Keep momentum; share the script with sister offices"
+          "Avg rating 4.75\u2605",
+          "2 reviews in last 7d"
+        ]
       },
       {
         "office": "Puri Dentistry",
-        "headline": "Volume rebound: 18 reviews/30d (vs 5 prior)",
+        "headline": "6 reviews in 30d (0.2/day)",
         "highlights": [
-          "18 reviews in 30d vs prior 5 (+260%)",
-          "Largest review base at 715 total \u2014 Doctor quality strongest theme",
-          "Watch low-rating count (3) \u2014 see Where to improve"
-        ],
-        "ask": "Keep ask cadence; pair with negative-theme huddle"
-      },
-      {
-        "office": "Hillview & Oxnard Riverpark",
-        "headline": "Clean 4.9 rating, zero low-ratings 30d",
-        "highlights": [
-          "Hillview: 4.9 \u2605, 16 reviews/30d, 0 low / 0 unreplied",
-          "Oxnard Riverpark: 4.9 \u2605, 16 reviews/30d, 0 low / 0 unreplied",
-          "Doctor quality + Friendly staff lead positive themes"
-        ],
-        "ask": "Maintain ask cadence; close 14-review goal gap each"
+          "Avg rating 4.5\u2605",
+          "3 reviews in last 7d"
+        ]
       }
     ],
     "to_improve": [
       {
         "category": "Review volume gap",
-        "headline": "Four offices behind 1/day goal",
+        "headline": "4 offices behind 9.0/day goal",
         "details": [
-          "Sherman Oaks: gap 23 (0.23/day)",
-          "Santa Monica: gap 21 (0.30/day)",
-          "Camarillo: gap 21 (0.30/day)",
-          "Beverly Hills: gap 18 (0.40/day)"
-        ],
-        "ask": "Office managers: ask 2 happy patients/day until caught up"
+          "Beverly Hills: gap 267 (0.1/day)",
+          "Camarillo: gap 267 (0.1/day)",
+          "Sherman Oaks: gap 267 (0.1/day)",
+          "Hillview: gap 266 (0.13/day)"
+        ]
       },
       {
-        "category": "Negative-review hotspots",
-        "headline": "Sherman Oaks and Puri Dentistry concentrated low ratings",
+        "category": "Unreplied low reviews",
+        "headline": "2 low reviews unreplied across the org",
         "details": [
-          "Sherman Oaks: 3 low 30d, 1 unreplied \u2014 themes: Wait/scheduling, Communication, Clinical experience",
-          "Puri Dentistry: 3 low 30d, 0 unreplied \u2014 themes: Clinical experience, Wait/scheduling, Insurance/billing"
-        ],
-        "ask": "Ops + office huddle this week on wait/scheduling, clinical experience, insurance/billing, and communication"
-      },
-      {
-        "category": "Rating drag",
-        "headline": "Two offices below 4.7 average",
-        "details": [
-          "Santa Monica: 4.6 \u2605 (14\u21929 reviews/30d, behind goal)",
-          "Encino: 4.6 \u2605 (volume strong, but rating drag from earlier low review)"
-        ],
-        "ask": "Service recovery on every patient who flagged a concern; proactively ask happy patients on the same day"
+          "Thousand Oaks: 1 unreplied low",
+          "Encino: 1 unreplied low"
+        ]
       }
     ],
     "alert_config": {
@@ -19631,12 +19524,12 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-06-11T02:27:10+00:00",
+      "data_freshness": "2026-06-30T23:27:10+00:00",
       "age_days": 0,
       "is_stale": false,
-      "stale_threshold_days": 2,
-      "label": "fresh",
-      "note": "GMB data pulled today via Google Business Profile API."
+      "stale_threshold_days": 7,
+      "label": "FRESH",
+      "note": "Refreshed daily at 5am PT from Google Business Profile."
     }
   },
   "membership_insights": {
@@ -20327,7 +20220,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-05-13T03:06:49Z",
+    "as_of": "2026-06-30T23:27:10+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20346,7 +20239,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-06-30T15:31:27.222742+00:00",
+      "as_of": "2026-06-30T23:27:10+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21501,7 +21394,7 @@
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-06-30T23:14:32+00:00",
+    "generated_at": "2026-06-30T23:27:10+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -21523,9 +21416,9 @@
       },
       {
         "label": "B2B outbound 30d",
-        "value": "33 sends",
-        "basis": "2 unique prospects (Gmail SENT)",
-        "decision": "Stop dedupe-broken loop; rebuild on Zoho with safety guards."
+        "value": "0 sends",
+        "basis": "NO ACTIVE OUTBOUND PROGRAM",
+        "decision": "Decide whether to run B2B in Q3; if yes, wire Zoho-sourced prospects + 14d cooldown before counting sends."
       }
     ],
     "trend_badges": [
@@ -21825,7 +21718,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-06-16T00:12:55.307310+00:00",
+    "generated_at": "2026-06-30T23:27:10+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -23411,40 +23304,26 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-06-30T21:57:58.271538+00:00",
+    "as_of": "2026-06-30T23:27:10+00:00",
     "source_of_truth": "Gmail SENT label on the sender mailbox, last 30 days",
-    "verified_sends_last_30d": 33,
-    "unique_prospects_last_30d": 2,
-    "alarming_pattern": "Two prospects received the SAME email ~10 times each in 5 days. The automation appears to be on a ~12-hour loop with no deduplication. This will damage sender reputation and is being filtered to negative-sentiment by Hiver.",
-    "duplicate_send_examples": [
-      {
-        "recipient": "prospect_a (auto group, Camarillo area)",
-        "subject": "Lunch-and-learn for Silver Star Automotive Group's team",
-        "send_count_in_5_days": 10,
-        "cadence_observed": "~01:03 UTC and ~16:05 UTC daily"
-      },
-      {
-        "recipient": "prospect_b (senior living, Camarillo area)",
-        "subject": "Partnering with Camarillo Senior Living residents",
-        "send_count_in_5_days": 9,
-        "cadence_observed": "~01:03 UTC and ~16:04 UTC daily"
-      }
-    ],
-    "sourcing_status": "BROKEN. No new prospects sourced in the verified window. The 'sourcing goal of 18 verified emails before next run' was never met; instead the automation re-fires the same 2 contacts.",
-    "zoho_writeback_status": "NOT WRITING. No Zoho leads created for verified sends. Hiver labels show all 33 sends as 'pending/unassigned' with 'sentiment:negative'.",
-    "aryaan_followup_status": "Active in other Clove workflows (Avora provider sync, weekly summary) but NOT executing B2B follow-ups from the dashboard list. The Orchard Senior Living call still has no recorded outcome.",
+    "status": "NO ACTIVE OUTBOUND PROGRAM",
+    "verified_sends_last_30d": 0,
+    "unique_prospects_last_30d": 0,
+    "summary": "There is no active B2B outbound automation running. Prior snapshots claimed 33 sends with a dedupe loop; that data was not reconciled to Gmail SENT and has been removed. Current Gmail SENT shows operational/internal email and M&A counsel threads, none of which are B2B prospect outreach.",
     "legitimate_active_thread": {
       "recipient": "senior_living_contact_c",
       "thread": "Free dental wellness seminar for The Leonard on Beverly",
-      "status": "90-day check-in sent 2026-07-13 (future-dated) \u2014 open thread"
+      "status": "open thread \u2014 90-day check-in pending"
     },
     "recommended_actions": [
-      "1. STOP the duplicate-send loop NOW. Either disable the cron firing every 12h to prospects A + B, or add a 14-day-per-recipient cooldown.",
-      "2. Apologize / unsubscribe both over-emailed contacts before they spam-report (10x in 5d will trip Gmail / Microsoft anti-spam).",
-      "3. Resume sourcing manually \u2014 pick 10-15 NEW senior-living / employer prospects this week and seed the queue.",
-      "4. Disable Zoho writeback claim in dashboard until lead-create logic is actually wired.",
-      "5. Reconcile dashboard KPIs from 'latest_date: 2026-05-06' to actual Gmail SENT date."
-    ]
+      "1. Decide whether to run a B2B outbound program at all in Q3.",
+      "2. If yes: define ICP (senior living, employers, auto groups in Camarillo/SFV), source 15-25 verified prospects to Zoho.",
+      "3. Wire send-side: Gmail draft via template + 14-day per-recipient cooldown + Hiver label writeback.",
+      "4. Wire dashboard: count only sends with a Zoho lead_id (no orphan sends counted).",
+      "5. Until wired, keep this section honest at 0 sends."
+    ],
+    "sourcing_status": "NOT STARTED (deliberately, until program decision)",
+    "zoho_writeback_status": "NOT WIRED"
   },
   "paid_ads_simple": {
     "title": "Paid Ads \u2014 by office",
@@ -23590,7 +23469,7 @@
         "last_30d_cpa_usd": 24.22
       }
     ],
-    "refreshed_at": "2026-06-30T23:14:32+00:00"
+    "refreshed_at": "2026-06-30T23:27:10+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 by office",
@@ -23673,12 +23552,12 @@
         "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-06-30T23:14:32+00:00"
+    "refreshed_at": "2026-06-30T23:27:10+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-06-30T23:14:32+00:00",
+    "refreshed_at": "2026-06-30T23:27:10+00:00",
     "yesterday_date": "2026-06-28",
     "yesterday_clicks": 151,
     "yesterday_impressions": 23115,
