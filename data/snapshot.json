@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T15:31:26.213247+00:00",
+  "generated_at": "2026-07-02T02:57:59+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17016,7 +17016,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-05-07T00:00:00Z",
+    "refreshed_at": "2026-07-02T02:57:59+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -18298,7 +18298,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-07-01T12:05:27+00:00",
+    "data_freshness": "2026-07-02T02:57:59+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -18307,8 +18307,8 @@
       },
       {
         "label": "New reviews 7d",
-        "value": "23",
-        "subtext": "3.29/day across 9 offices"
+        "value": "21",
+        "subtext": "3.0/day across 9 offices"
       },
       {
         "label": "New reviews 30d",
@@ -18356,7 +18356,7 @@
         "office": "Thousand Oaks",
         "avg_rating_30d": 4.56,
         "reviews_30d": 9,
-        "reviews_7d": 5,
+        "reviews_7d": 3,
         "pace_per_day": 0.3,
         "gap_to_goal_30d": 261,
         "low_30d": 1,
@@ -18553,7 +18553,7 @@
         "headline": "9 reviews in 30d (0.3/day)",
         "highlights": [
           "Avg rating 4.56\u2605",
-          "5 reviews in last 7d"
+          "3 reviews in last 7d"
         ]
       },
       {
@@ -19518,7 +19518,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-07-01T12:05:27+00:00",
+      "data_freshness": "2026-07-02T02:57:59+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -20214,7 +20214,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-07-01T12:05:27+00:00",
+    "as_of": "2026-07-02T02:57:59+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20233,7 +20233,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-07-01T15:31:26.213226+00:00",
+      "as_of": "2026-07-02T02:57:59+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21399,7 +21399,7 @@
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-07-01T12:05:27+00:00",
+    "generated_at": "2026-07-02T02:57:59+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -21409,7 +21409,7 @@
       },
       {
         "label": "GMB reviews 7d",
-        "value": "23 new",
+        "value": "21 new",
         "basis": "30d 46 reviews \u00b7 avg 4.52 \u2605",
         "decision": "Reply to lows within 24h; service recovery on themes."
       },
@@ -21723,7 +21723,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-07-01T12:05:27+00:00",
+    "generated_at": "2026-07-02T02:57:59+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -23309,7 +23309,7 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-07-01T12:05:27+00:00",
+    "as_of": "2026-07-02T02:57:59+00:00",
     "source_of_truth": "Gmail SENT label on the sender mailbox, last 30 days",
     "status": "NO ACTIVE OUTBOUND PROGRAM",
     "verified_sends_last_30d": 0,
@@ -23474,20 +23474,20 @@
         "last_30d_cpa_usd": 24.02
       }
     ],
-    "refreshed_at": "2026-07-01T12:05:27+00:00"
+    "refreshed_at": "2026-07-02T02:57:59+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 by office",
     "window_note": "Last 7d / Last 30d",
     "totals": {
-      "reviews_last_7d": 23,
+      "reviews_last_7d": 21,
       "reviews_last_30d": 46
     },
     "rows": [
       {
         "office": "Thousand Oaks",
-        "reviews_last_7d": 5,
-        "avg_rating_last_7d": 4.2,
+        "reviews_last_7d": 3,
+        "avg_rating_last_7d": 3.67,
         "reviews_last_30d": 9,
         "avg_rating_last_30d": 4.56,
         "newest_review_at": "2026-06-30T21:32:54.655651+00:00"
@@ -23557,12 +23557,12 @@
         "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-07-01T12:05:27+00:00"
+    "refreshed_at": "2026-07-02T02:57:59+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-07-01T12:05:27+00:00",
+    "refreshed_at": "2026-07-02T02:57:59+00:00",
     "yesterday_date": "2026-06-29",
     "yesterday_clicks": 194,
     "yesterday_impressions": 26111,
