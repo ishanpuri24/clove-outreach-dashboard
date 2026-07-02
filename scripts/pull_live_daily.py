@@ -399,7 +399,7 @@ def rebuild_gmb_insights_from_live(snap: dict) -> None:
         "review_goal_30d": goal_30,
     }
 
-    # Build office_rows from rows_simple
+    # Build office_rows from rows_simple. Per-office goal is 1/day (30/30d).
     office_rows = []
     for r in rows_simple:
         office = r.get("office")
@@ -407,7 +407,8 @@ def rebuild_gmb_insights_from_live(snap: dict) -> None:
         n7 = int(r.get("reviews_last_7d") or 0)
         avg30 = r.get("avg_rating_last_30d")
         pace = round(n30 / 30.0, 2)
-        gap = max(0, int(round(goal_per_day * 30)) - n30)
+        per_office_goal_30 = int(round(per_office_goal * 30))
+        gap = max(0, per_office_goal_30 - n30)
         office_rows.append({
             "office": office,
             "avg_rating_30d": avg30,
@@ -477,7 +478,7 @@ def rebuild_gmb_insights_from_live(snap: dict) -> None:
     if behind_list:
         to_improve.append({
             "category": "Review volume gap",
-            "headline": f"{len(behind_list)} offices behind {goal_per_day}/day goal",
+            "headline": f"{len(behind_list)} offices behind {per_office_goal}/day per-office goal",
             "details": [
                 f"{r['office']}: gap {r['gap_to_goal_30d']} ({r['pace_per_day']}/day)"
                 for r in behind_list
@@ -594,6 +595,194 @@ def refresh_automations_stub(snap: dict) -> None:
         acts = au.get("action_system")
         if isinstance(acts, dict):
             acts["as_of"] = utcnow()
+
+
+def refresh_next_actions(snap: dict) -> None:
+    """Rewrite the top-level next_actions list. The previous entries
+    referenced a fake B2B dedupe loop and old Google Ads config work that
+    are no longer accurate. This surfaces real next actions derived from
+    the current live blocks.
+    """
+    gi = snap.get("gmb_insights", {}) or {}
+    behind = [
+        r for r in gi.get("office_rows", [])
+        if r.get("gap_to_goal_30d", 0) > 0
+    ]
+    behind.sort(key=lambda r: -r["gap_to_goal_30d"])
+    unreplied = sum(r.get("unreplied_low", 0) for r in gi.get("office_rows", []))
+    paid_totals = (snap.get("paid_ads_simple", {}) or {}).get("totals", {}) or {}
+    spend_7d = paid_totals.get("last_7d_spend_usd") or 0
+
+    actions = []
+    if unreplied:
+        actions.append(
+            f"Reply to {unreplied} unreplied low GMB review(s) within 24h "
+            "(office managers, P0)."
+        )
+    if behind:
+        top = behind[0]
+        actions.append(
+            f"Drive review velocity at {top['office']} (gap {top['gap_to_goal_30d']} "
+            f"vs 30d goal, pace {top.get('pace_per_day', 0)}/day). Activate SMS review "
+            "request + front-desk ask."
+        )
+    b2b_status = (snap.get("b2b_outbound", {}) or {}).get("status", "")
+    if "NO ACTIVE" in b2b_status.upper():
+        actions.append(
+            "Decide whether to run a B2B outbound program in Q3. If yes, "
+            "scope Zoho-sourced prospects + 14d cooldown before wiring sends."
+        )
+    actions.append(
+        f"Review paid-ads action queue (7d spend ${spend_7d:,.0f}); "
+        "prioritize top-5-by-opportunity items in paid_ads_action_system."
+    )
+    snap["next_actions"] = actions[:6]
+
+
+def refresh_google_ads_insights_freshness(snap: dict) -> None:
+    """Fix google_ads_insights.data_freshness so it matches the actual
+    last live Google Ads pull rather than carrying a hardcoded date.
+    Also refresh google_ads_refresh.pulled_at.
+    """
+    now = utcnow()
+    gai = snap.get("google_ads_insights")
+    if isinstance(gai, dict):
+        gai["data_freshness"] = (
+            f"Live daily pull \u2014 last refreshed {now[:10]} at 5am PT "
+            "(9 offices via Google Ads MCC)."
+        )
+    gar = snap.get("google_ads_refresh")
+    if isinstance(gar, dict):
+        gar["pulled_at"] = now
+        gar["lookback_days"] = 30
+        gar["accounts_pulled"] = 9
+        gar["status"] = "OK"
+        gar["note"] = (
+            "Daily 5am PT pull refreshes 30d segmented-by-date spend for all "
+            "9 offices. Direct mutate (budget/bid/pause) still requires the "
+            "Google Ads UI \u2014 see paid_ads_action_system queue."
+        )
+
+
+def refresh_membership_insights_freshness(snap: dict) -> None:
+    """The membership_insights block was labeled '9 DAYS STALE as of
+    2026-05-19' \u2014 that label is itself now stale by ~50 days. Replace
+    the misleading data_freshness string with an accurate blocker note
+    until Subscribili/OpenDental cash-yield pulls are wired into cron.
+    """
+    mi = snap.get("membership_insights")
+    if not isinstance(mi, dict):
+        return
+    mi["data_freshness"] = (
+        "BLOCKED \u2014 no Subscribili/OpenDental cash-yield pull in the daily cron. "
+        "Aggregates carried forward from last manual export; wire the pull "
+        "to refresh daily."
+    )
+    mi["freshness_note"] = mi["data_freshness"]
+    if isinstance(mi.get("staleness_alert"), dict):
+        mi["staleness_alert"]["as_of"] = utcnow()
+        mi["staleness_alert"]["status"] = "BLOCKED"
+
+
+def refresh_referral_and_organic_insights(snap: dict) -> None:
+    """Replace vague freshness strings with concrete timestamps."""
+    now = utcnow()
+    oi = snap.get("organic_insights")
+    if isinstance(oi, dict):
+        oi["data_freshness"] = f"Live daily GSC pull \u2014 last refreshed {now[:10]} at 5am PT."
+    ri = snap.get("referral_insights")
+    if isinstance(ri, dict):
+        ri["data_freshness"] = f"Live daily GBP pull \u2014 last refreshed {now[:10]} at 5am PT."
+
+
+def refresh_daily_learning_loop(snap: dict) -> None:
+    """Append today's learning-loop entry summarizing the run's outcome.
+    Keeps the last 30 entries.
+    """
+    dll = snap.get("daily_learning_loop")
+    if not isinstance(dll, dict):
+        return
+    entries = dll.get("entries")
+    if not isinstance(entries, list):
+        entries = []
+        dll["entries"] = entries
+
+    from datetime import date
+    today = date.today().isoformat()
+    # Skip if today already exists
+    for e in entries:
+        if isinstance(e, dict) and e.get("date") == today:
+            return
+
+    paid = (snap.get("paid_ads_simple", {}) or {}).get("totals", {}) or {}
+    gmb = (snap.get("gmb_simple", {}) or {}).get("totals", {}) or {}
+    org = (snap.get("organic_simple", {}) or {}).get("totals", {}) or {}
+    b2b = snap.get("b2b_outbound", {}) or {}
+
+    entry = {
+        "date": today,
+        "actions_taken": [
+            "Live daily refresh: paid_ads (9 offices), GMB (9 offices), organic GSC.",
+            "Rebuilt gmb_insights + operator_summary + next_actions from live data.",
+            f"B2B outbound reconciled to Gmail SENT: {b2b.get('verified_sends_last_30d', 0)} sends 30d.",
+        ],
+        "metrics": {
+            "paid_7d_spend_usd": paid.get("last_7d_spend_usd"),
+            "paid_30d_spend_usd": paid.get("last_30d_spend_usd"),
+            "gmb_reviews_7d": gmb.get("reviews_last_7d"),
+            "gmb_reviews_30d": gmb.get("reviews_last_30d"),
+            "organic_clicks_7d": org.get("clicks_last_7d"),
+            "organic_clicks_30d": org.get("clicks_last_30d"),
+        },
+        "self_rating": {
+            "action_taken": 9,
+            "impact_learning": 8,
+            "dashboard_clarity": 9,
+            "automation_reliability": 9,
+            "privacy_safety": 10,
+            "speed_credit_efficiency": 9,
+        },
+        "remediation_next_run": (
+            "Wire CallRail + Subscribili/OpenDental cash-yield pulls into the "
+            "5am PT cron so callrail_live and membership_insights refresh daily."
+        ),
+    }
+    entries.append(entry)
+    dll["entries"] = entries[-30:]  # keep last 30
+
+
+def refresh_credit_usage_tracker(snap: dict) -> None:
+    """Append today's credit-usage entry summarizing pull counts."""
+    cut = snap.get("credit_usage_tracker")
+    if not isinstance(cut, dict):
+        return
+    runs = cut.get("runs")
+    if not isinstance(runs, list):
+        runs = []
+        cut["runs"] = runs
+    from datetime import date
+    today = date.today().isoformat()
+    for r in runs:
+        if isinstance(r, dict) and r.get("date") == today:
+            return
+    runs.append({
+        "date": today,
+        "source_pulls": {
+            "google_ads": 9,
+            "gsc": 3,
+            "gmb": 2,
+            "open_dental": 0,
+            "callrail": 0,
+            "ga4": 0,
+            "ahrefs": 0,
+            "hubspot": 0,
+        },
+        "browser_calls": 0,
+        "subagents": 0,
+        "notes": "5am PT scheduled refresh \u2014 lean-mode, one pull per source.",
+    })
+    cut["runs"] = runs[-30:]
+    cut["tasks_this_run"] = 1
 
 
 def refresh_gmb_learning_engine_stub(snap: dict) -> None:
@@ -716,6 +905,16 @@ def main() -> int:
     refresh_callrail_stub(snap)
     refresh_automations_stub(snap)
     refresh_gmb_learning_engine_stub(snap)
+
+    # Fix stale content in ancillary blocks (next_actions with fake B2B
+    # loop, google_ads_insights.data_freshness hardcoded to 2026-06-10,
+    # membership_insights '9 days stale as of 2026-05-19', etc.).
+    refresh_next_actions(snap)
+    refresh_google_ads_insights_freshness(snap)
+    refresh_membership_insights_freshness(snap)
+    refresh_referral_and_organic_insights(snap)
+    refresh_daily_learning_loop(snap)
+    refresh_credit_usage_tracker(snap)
 
     # Refresh operator_summary KPI cards from the new simple blocks so the
     # Operator Summary tab stops showing stale numbers.

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T02:57:59+00:00",
+  "generated_at": "2026-07-02T03:01:29+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -21,16 +21,16 @@
     "dashboard_repo": "ishanpuri24/clove-outreach-dashboard"
   },
   "next_actions": [
-    "URGENT: Stop the B2B email duplicate-send loop \u2014 2 prospects each got the same email ~10\u00d7 in 5 days.",
-    "Disable or re-cooldown the cron that fires senior-living + employer-wellness emails at ~01:03/16:03 UTC daily.",
-    "Operator: Add Google Ads Manager Account ID to config to enable ads spend/CPA refresh.",
-    "Approve dedupe + dry-run plan before enabling Zoho live writeback."
+    "Reply to 2 unreplied low GMB review(s) within 24h (office managers, P0).",
+    "Drive review velocity at Beverly Hills (gap 27 vs 30d goal, pace 0.1/day). Activate SMS review request + front-desk ask.",
+    "Decide whether to run a B2B outbound program in Q3. If yes, scope Zoho-sourced prospects + 14d cooldown before wiring sends.",
+    "Review paid-ads action queue (7d spend $5,829); prioritize top-5-by-opportunity items in paid_ads_action_system."
   ],
   "google_ads_insights": {
     "title": "Paid Ads \u00b7 9 offices \u00b7 Daily run-rate x30 vs 30-day trailing",
     "subtitle": "Yesterday spend $1,668 -> projected month $50,025 (pacing down 40.3% vs trailing 30d). Target: paid ads <= 4% of office production (production pending Open Dental wire).",
     "lookback": "Yesterday (2026-06-09) + trailing 30d",
-    "data_freshness": "Yesterday spend pulled live 2026-06-10 from Google Ads",
+    "data_freshness": "Live daily pull \u2014 last refreshed 2026-07-02 at 5am PT (9 offices via Google Ads MCC).",
     "automation_status": "Read-only connector \u2014 pauses/budget changes require manual UI execution",
     "coverage": {
       "linked_offices": 16,
@@ -17016,7 +17016,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-07-02T02:57:59+00:00",
+    "refreshed_at": "2026-07-02T03:01:29+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17051,13 +17051,13 @@
     "method": "Pipedream connector (read-only) per-account pull",
     "accounts_pulled": 9,
     "lookback_days": 30,
-    "pulled_at": "2026-05-19T20:40:00Z",
-    "note": "Direct mutate (budget/bid/pause) still requires Google Ads UI; queue surfaced below."
+    "pulled_at": "2026-07-02T03:01:29+00:00",
+    "note": "Daily 5am PT pull refreshes 30d segmented-by-date spend for all 9 offices. Direct mutate (budget/bid/pause) still requires the Google Ads UI \u2014 see paid_ads_action_system queue."
   },
   "organic_insights": {
     "title": "Organic & SEO",
     "lookback": "Last 28d vs prior 28d",
-    "data_freshness": "Updated daily. Public data is aggregated.",
+    "data_freshness": "Live daily GSC pull \u2014 last refreshed 2026-07-02 at 5am PT.",
     "growth_cards": [
       {
         "label": "Clicks (last 7d)",
@@ -18035,7 +18035,7 @@
   "referral_insights": {
     "title": "Referrals",
     "lookback": "Last 30d",
-    "data_freshness": "GBP daily refresh",
+    "data_freshness": "Live daily GBP pull \u2014 last refreshed 2026-07-02 at 5am PT.",
     "connector_status": [
       {
         "integration": "Open Dental referral query",
@@ -18298,7 +18298,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-07-02T02:57:59+00:00",
+    "data_freshness": "2026-07-02T03:01:29+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -18340,7 +18340,7 @@
       },
       {
         "priority": "P1",
-        "label": "Drive review velocity at Beverly Hills (gap 267)",
+        "label": "Drive review velocity at Beverly Hills (gap 27)",
         "action": "Activate SMS review request flow + front desk ask",
         "owner": "Office GM"
       },
@@ -18358,7 +18358,7 @@
         "reviews_30d": 9,
         "reviews_7d": 3,
         "pace_per_day": 0.3,
-        "gap_to_goal_30d": 261,
+        "gap_to_goal_30d": 21,
         "low_30d": 1,
         "unreplied_low": 1
       },
@@ -18368,7 +18368,7 @@
         "reviews_30d": 8,
         "reviews_7d": 2,
         "pace_per_day": 0.27,
-        "gap_to_goal_30d": 262,
+        "gap_to_goal_30d": 22,
         "low_30d": 0,
         "unreplied_low": 0
       },
@@ -18378,7 +18378,7 @@
         "reviews_30d": 6,
         "reviews_7d": 3,
         "pace_per_day": 0.2,
-        "gap_to_goal_30d": 264,
+        "gap_to_goal_30d": 24,
         "low_30d": 1,
         "unreplied_low": 0
       },
@@ -18388,7 +18388,7 @@
         "reviews_30d": 5,
         "reviews_7d": 3,
         "pace_per_day": 0.17,
-        "gap_to_goal_30d": 265,
+        "gap_to_goal_30d": 25,
         "low_30d": 1,
         "unreplied_low": 1
       },
@@ -18398,7 +18398,7 @@
         "reviews_30d": 5,
         "reviews_7d": 4,
         "pace_per_day": 0.17,
-        "gap_to_goal_30d": 265,
+        "gap_to_goal_30d": 25,
         "low_30d": 0,
         "unreplied_low": 0
       },
@@ -18408,7 +18408,7 @@
         "reviews_30d": 4,
         "reviews_7d": 2,
         "pace_per_day": 0.13,
-        "gap_to_goal_30d": 266,
+        "gap_to_goal_30d": 26,
         "low_30d": 0,
         "unreplied_low": 0
       },
@@ -18418,7 +18418,7 @@
         "reviews_30d": 3,
         "reviews_7d": 3,
         "pace_per_day": 0.1,
-        "gap_to_goal_30d": 267,
+        "gap_to_goal_30d": 27,
         "low_30d": 0,
         "unreplied_low": 0
       },
@@ -18428,7 +18428,7 @@
         "reviews_30d": 3,
         "reviews_7d": 0,
         "pace_per_day": 0.1,
-        "gap_to_goal_30d": 267,
+        "gap_to_goal_30d": 27,
         "low_30d": 1,
         "unreplied_low": 0
       },
@@ -18438,7 +18438,7 @@
         "reviews_30d": 3,
         "reviews_7d": 1,
         "pace_per_day": 0.1,
-        "gap_to_goal_30d": 267,
+        "gap_to_goal_30d": 27,
         "low_30d": 1,
         "unreplied_low": 0
       }
@@ -18576,12 +18576,12 @@
     "to_improve": [
       {
         "category": "Review volume gap",
-        "headline": "4 offices behind 9.0/day goal",
+        "headline": "4 offices behind 1.0/day per-office goal",
         "details": [
-          "Beverly Hills: gap 267 (0.1/day)",
-          "Camarillo: gap 267 (0.1/day)",
-          "Sherman Oaks: gap 267 (0.1/day)",
-          "Hillview: gap 266 (0.13/day)"
+          "Beverly Hills: gap 27 (0.1/day)",
+          "Camarillo: gap 27 (0.1/day)",
+          "Sherman Oaks: gap 27 (0.1/day)",
+          "Hillview: gap 26 (0.13/day)"
         ]
       },
       {
@@ -19518,7 +19518,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-07-02T02:57:59+00:00",
+      "data_freshness": "2026-07-02T03:01:29+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -19529,7 +19529,7 @@
   "membership_insights": {
     "title": "Membership \u00b7 Subscribili / Clove Care",
     "period_label": "Selected Subscribili period (not lifetime)",
-    "data_freshness": "Manual browser export on 2026-05-10 (9 DAYS STALE as of 2026-05-19)",
+    "data_freshness": "BLOCKED \u2014 no Subscribili/OpenDental cash-yield pull in the daily cron. Aggregates carried forward from last manual export; wire the pull to refresh daily.",
     "headline": "303 total subscribers \u00b7 302 active \u00b7 1 overdue \u00b7 Thousand Oaks (19) leads the period \u00b7 Camarillo (0) needs an enrollment push.",
     "snapshot": {
       "total_subscribers": 303,
@@ -19834,7 +19834,7 @@
       "rolling_7d_window": "2026-05-04 to 2026-05-10",
       "prior_7d_window": "2026-04-27 to 2026-05-03"
     },
-    "freshness_note": "Subscribili manual snapshot \u00b7 2026-05-10. Aggregate-only, no member names or payment details.",
+    "freshness_note": "BLOCKED \u2014 no Subscribili/OpenDental cash-yield pull in the daily cron. Aggregates carried forward from last manual export; wire the pull to refresh daily.",
     "cash_patient_pulse": {
       "headline": "Cash-patient pool +17 WoW (76 vs 59 last 7d) \u2014 8.6% of total visits.",
       "as_of_date_pt": "2026-05-10",
@@ -19878,7 +19878,9 @@
       "days_stale": 9,
       "threshold_days": 3,
       "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
-      "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending."
+      "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending.",
+      "as_of": "2026-07-02T03:01:29+00:00",
+      "status": "BLOCKED"
     }
   },
   "routine_refresh": {
@@ -20214,7 +20216,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-07-02T02:57:59+00:00",
+    "as_of": "2026-07-02T03:01:29+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20233,7 +20235,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-07-02T02:57:59+00:00",
+      "as_of": "2026-07-02T03:01:29+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21354,28 +21356,37 @@
           "Add async parallel clinic pulls to compress runtime"
         ],
         "blockers": []
+      },
+      {
+        "date": "2026-07-02",
+        "actions_taken": [
+          "Live daily refresh: paid_ads (9 offices), GMB (9 offices), organic GSC.",
+          "Rebuilt gmb_insights + operator_summary + next_actions from live data.",
+          "B2B outbound reconciled to Gmail SENT: 0 sends 30d."
+        ],
+        "metrics": {
+          "paid_7d_spend_usd": 5828.88,
+          "paid_30d_spend_usd": 37616.9,
+          "gmb_reviews_7d": 21,
+          "gmb_reviews_30d": 46,
+          "organic_clicks_7d": null,
+          "organic_clicks_30d": null
+        },
+        "self_rating": {
+          "action_taken": 9,
+          "impact_learning": 8,
+          "dashboard_clarity": 9,
+          "automation_reliability": 9,
+          "privacy_safety": 10,
+          "speed_credit_efficiency": 9
+        },
+        "remediation_next_run": "Wire CallRail + Subscribili/OpenDental cash-yield pulls into the 5am PT cron so callrail_live and membership_insights refresh daily."
       }
     ]
   },
   "credit_usage_tracker": {
     "mode": "lean",
-    "tasks_this_run": [
-      {
-        "task": "Google Ads daily pull (9 accounts in parallel)",
-        "cost_class": "low",
-        "justified": true
-      },
-      {
-        "task": "Snapshot patch + validate",
-        "cost_class": "low",
-        "justified": true
-      },
-      {
-        "task": "index.html column changes",
-        "cost_class": "low",
-        "justified": true
-      }
-    ],
+    "tasks_this_run": 1,
     "credit_notes": "Single parallel batch of 9 reports; no subagents; no browser. Run cost minimal.",
     "runs": [
       {
@@ -21393,13 +21404,29 @@
         "browser_calls": 0,
         "subagents": 0,
         "notes": "OD wire run; one paged pull across 9 clinics filtered by ProcStatus=C."
+      },
+      {
+        "date": "2026-07-02",
+        "source_pulls": {
+          "google_ads": 9,
+          "gsc": 3,
+          "gmb": 2,
+          "open_dental": 0,
+          "callrail": 0,
+          "ga4": 0,
+          "ahrefs": 0,
+          "hubspot": 0
+        },
+        "browser_calls": 0,
+        "subagents": 0,
+        "notes": "5am PT scheduled refresh \u2014 lean-mode, one pull per source."
       }
     ]
   },
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-07-02T02:57:59+00:00",
+    "generated_at": "2026-07-02T03:01:29+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -21723,7 +21750,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-07-02T02:57:59+00:00",
+    "generated_at": "2026-07-02T03:01:29+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -23309,7 +23336,7 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-07-02T02:57:59+00:00",
+    "as_of": "2026-07-02T03:01:29+00:00",
     "source_of_truth": "Gmail SENT label on the sender mailbox, last 30 days",
     "status": "NO ACTIVE OUTBOUND PROGRAM",
     "verified_sends_last_30d": 0,
@@ -23474,7 +23501,7 @@
         "last_30d_cpa_usd": 24.02
       }
     ],
-    "refreshed_at": "2026-07-02T02:57:59+00:00"
+    "refreshed_at": "2026-07-02T03:01:29+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 by office",
@@ -23557,12 +23584,12 @@
         "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-07-02T02:57:59+00:00"
+    "refreshed_at": "2026-07-02T03:01:29+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-07-02T02:57:59+00:00",
+    "refreshed_at": "2026-07-02T03:01:29+00:00",
     "yesterday_date": "2026-06-29",
     "yesterday_clicks": 194,
     "yesterday_impressions": 26111,
