@@ -193,9 +193,14 @@
     .tabs {
       display: flex;
       flex-wrap: wrap;
+      align-items: flex-end;
       gap: 6px;
       border-bottom: 1px solid var(--border);
       margin: 6px 0 18px;
+    }
+    .tab.tab--end { margin-left: auto; }
+    @media (max-width: 720px) {
+      .tab.tab--end { margin-left: 0; }
     }
     .tab {
       min-height: 44px;
@@ -1872,17 +1877,13 @@
                 aria-controls="panel-summary" aria-selected="true">
           Operator Summary
         </button>
-        <button class="tab" role="tab" id="tab-automations"
-                aria-controls="panel-automations" aria-selected="false">
-          Automations
-        </button>
         <button class="tab" role="tab" id="tab-reviews"
                 aria-controls="panel-reviews" aria-selected="false">
-          GMB Reviews
+          Reviews
         </button>
         <button class="tab" role="tab" id="tab-ads"
                 aria-controls="panel-ads" aria-selected="false">
-          Google Ads
+          Paid ads
         </button>
         <button class="tab" role="tab" id="tab-organic"
                 aria-controls="panel-organic" aria-selected="false">
@@ -1890,11 +1891,15 @@
         </button>
         <button class="tab" role="tab" id="tab-outreach"
                 aria-controls="panel-outreach" aria-selected="false">
-          B2B Outreach
+          B2B outreach
         </button>
         <button class="tab" role="tab" id="tab-membership"
                 aria-controls="panel-membership" aria-selected="false">
           Membership
+        </button>
+        <button class="tab tab--end" role="tab" id="tab-automations"
+                aria-controls="panel-automations" aria-selected="false">
+          Automations
         </button>
       </div>
 
@@ -1950,6 +1955,15 @@
       <div id="panel-reviews" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-reviews" tabindex="0" hidden>
         <p class="tab-meta" id="reviews-meta"></p>
+
+        <!-- Daily pulse (mirrors Operator Summary card, but on the Reviews tab) -->
+        <section aria-labelledby="rev-daily-pulse" style="margin-bottom:1.4rem;">
+          <div class="ps-head">
+            <h2 id="rev-daily-pulse">Daily pulse</h2>
+            <span class="pill" id="rev-daily-pulse-pill">refreshes 5am PT</span>
+          </div>
+          <div class="card" id="rev-daily-pulse-card" style="padding:14px;"></div>
+        </section>
 
         <section aria-labelledby="rev-cmd">
           <div class="ps-head">
@@ -2551,11 +2565,16 @@
       <!-- =================== Automations tab =================== -->
       <div id="panel-automations" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-automations" tabindex="0" hidden>
-        <p class="tab-meta" id="automations-meta"></p>
+
+        <!-- Cadence + count strip at the top -->
+        <div id="auto-cadence-strip"
+             style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:4px 0 14px 0;"></div>
+
+        <p class="tab-meta" id="automations-meta" style="margin-bottom:16px;"></p>
 
         <section aria-labelledby="auto-action-system">
           <div class="ps-head">
-            <h2 id="auto-action-system">Action system</h2>
+            <h2 id="auto-action-system">What's running</h2>
             <span class="pill" id="auto-action-system-pill" aria-live="polite"></span>
           </div>
           <p class="section-meta" id="auto-action-system-meta">
@@ -2564,31 +2583,21 @@
           <div id="auto-action-system-table"></div>
         </section>
 
-
-
-        <section aria-labelledby="auto-snap">
+        <section aria-labelledby="auto-cms" style="margin-top:1.4rem;">
           <div class="ps-head">
-            <h2 id="auto-snap">Automation status</h2>
-            <span class="pill" id="auto-period" aria-live="polite"></span>
-          </div>
-          <p class="section-meta" id="auto-headline"></p>
-          <div id="auto-items"></div>
-        </section>
-
-
-
-        <section aria-labelledby="auto-cms">
-          <div class="ps-head">
-            <h2 id="auto-cms">HubSpot Organic / CMS automation</h2>
+            <h2 id="auto-cms">HubSpot CMS writeback</h2>
             <span class="pill" id="auto-cms-pill" aria-live="polite"></span>
           </div>
           <p class="section-meta" id="auto-cms-meta">Live + draft metadata · hypothesis · impact · metric.</p>
           <div class="card" id="auto-cms-card"></div>
         </section>
 
+        <!-- Hidden legacy container kept so old JS doesn't error — empty items list -->
+        <div id="auto-items" hidden></div>
+        <span id="auto-period" hidden></span>
+        <span id="auto-headline" hidden></span>
 
-
-        <p class="tab-meta" id="automations-fresh"></p>
+        <p class="tab-meta" id="automations-fresh" style="margin-top:1.4rem;"></p>
       </div>
     </main>
 
@@ -7201,7 +7210,46 @@
         host.appendChild(wrap);
       }
 
+      function renderAutoCadenceStrip(a) {
+        try {
+          var host = document.getElementById('auto-cadence-strip');
+          if (!host) return;
+          var acts = (a && a.action_system && a.action_system.actions) || [];
+          var active = 0, accel = 0, blocked = 0;
+          acts.forEach(function(x){
+            if ((x.status||'').indexOf('active') === 0) active++;
+            if (x.accelerated || x.growth_mode === 'accelerated') accel++;
+            if (x.blocker) blocked++;
+          });
+          var snap = window.__SNAPSHOT__ || {};
+          var refreshedAt = snap.generated_at;
+          var refreshedStr = 'refresh pending';
+          if (refreshedAt) {
+            try {
+              var d = new Date(refreshedAt);
+              refreshedStr = d.toLocaleString('en-US', {month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZone:'America/Los_Angeles'}) + ' PT';
+            } catch(e){}
+          }
+          function tile(label, value, sub, valueColor) {
+            return '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;">'
+                 + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">' + label + '</div>'
+                 + '<div style="font-weight:700;font-size:22px;color:' + (valueColor||'#0f172a') + ';line-height:1.1;margin-top:2px;">' + value + '</div>'
+                 + '<div style="font-size:10px;color:#475569;margin-top:2px;">' + sub + '</div>'
+                 + '</div>';
+          }
+          host.innerHTML =
+            tile('Cadence', 'Daily', '5am PT via cron') +
+            tile('Active', String(active), acts.length + ' registered') +
+            tile('Accelerated', String(accel), 'in growth mode') +
+            tile('Blocked', String(blocked), blocked > 0 ? 'awaiting fix' : 'all clear', blocked > 0 ? '#b02a1e' : '#0a7c3f');
+
+          var fresh = document.getElementById('automations-fresh');
+          if (fresh) fresh.textContent = 'Refreshed ' + refreshedStr + ' \u00b7 next run 5:00 AM PT.';
+        } catch (e) {}
+      }
+
       function renderAutomations(a) {
+        renderAutoCadenceStrip(a);
         renderActionSystem(a && a.action_system);
 
         renderAutoCmsCard(window.__SNAPSHOT__ && window.__SNAPSHOT__.organic_cms_actions);
@@ -8165,7 +8213,105 @@
         }
       }
 
+      function renderRevDailyPulse() {
+        try {
+          var host = document.getElementById('rev-daily-pulse-card');
+          if (!host) return;
+          var gmb = (window.__SNAPSHOT__ || {}).gmb_simple;
+          if (!gmb || !gmb.summary) {
+            host.innerHTML = '<p style="color:#64748b;font-size:13px;margin:0;">No pulse data yet \u2014 next cron 5am PT.</p>';
+            return;
+          }
+          var sum = gmb.summary;
+          var daily = gmb.daily_yesterday || [];
+          var series = gmb.daily_series_14d || [];
+
+          var vd = (sum.velocity_delta == null) ? 0 : Number(sum.velocity_delta);
+          var vcol = vd > 0 ? '#0a7c3f' : (vd < 0 ? '#b02a1e' : '#334155');
+          var varr = vd > 0 ? '\u25B2' : (vd < 0 ? '\u25BC' : '\u2022');
+          var vpct = (sum.velocity_pct == null) ? '\u2014' : (vd > 0 ? '+' : '') + Math.round(sum.velocity_pct) + '%';
+
+          function fmtI(n){ return (n==null||isNaN(n)) ? '\u2014' : Number(n).toLocaleString('en-US'); }
+          function fmtR(n){ return (n==null||isNaN(n)) ? '\u2014' : Number(n).toFixed(2)+' \u2605'; }
+          function escH(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+
+          // 14d spark
+          var maxSp = 0;
+          for (var i=0; i<series.length; i++){ if((series[i].reviews||0)>maxSp) maxSp = series[i].reviews; }
+          var sw=180, sh=32, bw = series.length ? (sw/series.length - 1) : 0;
+          var spark = '<svg width="'+sw+'" height="'+sh+'" style="display:block;">';
+          for (var j=0; j<series.length; j++){
+            var h = maxSp>0 ? Math.max(2, Math.round((series[j].reviews/maxSp)*(sh-4))) : 2;
+            var x = j*(bw+1);
+            var y = sh - h;
+            var isY = j === series.length-1;
+            spark += '<rect x="'+x.toFixed(1)+'" y="'+y+'" width="'+bw.toFixed(1)+'" height="'+h+'" fill="'+(isY?'#0f172a':'#94a3b8')+'" rx="1"/>';
+          }
+          spark += '</svg>';
+
+          var html = '';
+          // KPI strip
+          html += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;">';
+          html += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;">'
+                + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Yesterday</div>'
+                + '<div style="font-weight:700;font-size:24px;color:#0f172a;line-height:1.1;margin-top:2px;">'+fmtI(sum.yesterday_reviews)+'</div>'
+                + '<div style="font-size:10px;color:#475569;margin-top:2px;">'+(sum.offices_zero_yesterday!=null?(sum.offices_zero_yesterday+' offices at 0'):'')+'</div>'
+                + '</div>';
+          html += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;">'
+                + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Last 7d</div>'
+                + '<div style="font-weight:700;font-size:24px;color:#0f172a;line-height:1.1;margin-top:2px;">'+fmtI(sum.last_7d_reviews)+'</div>'
+                + '<div style="font-size:10px;color:#475569;margin-top:2px;">vs '+fmtI(sum.prior_7d_reviews)+' prior 7d</div>'
+                + '</div>';
+          html += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;">'
+                + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">30d Rolling</div>'
+                + '<div style="font-weight:700;font-size:24px;color:#0f172a;line-height:1.1;margin-top:2px;">'+fmtI(sum.last_30d_reviews)+'</div>'
+                + '<div style="font-size:10px;color:#475569;margin-top:2px;">avg '+fmtR(sum.avg_rating_30d)+'</div>'
+                + '</div>';
+          html += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:10px;">'
+                + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Velocity</div>'
+                + '<div style="font-weight:700;font-size:24px;color:'+vcol+';line-height:1.1;margin-top:2px;">'+varr+' '+vpct+'</div>'
+                + '<div style="font-size:10px;color:#475569;margin-top:2px;">7d '+(vd>0?'+':'')+vd+' vs prior</div>'
+                + '</div>';
+          html += '</div>';
+
+          // Spark strip
+          if (series.length) {
+            html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;padding:10px 12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;">'
+                  + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Last 14 days</div>'
+                  + spark
+                  + '<div style="font-size:11px;color:#475569;margin-left:auto;">peak '+fmtI(maxSp)+'/day</div>'
+                  + '</div>';
+          }
+
+          // Yesterday-by-office
+          html += '<div style="font-size:11px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;margin:4px 0 6px 0;">Yesterday by office</div>';
+          html += '<table style="width:100%;border-collapse:collapse;font-size:13px;"><thead><tr style="text-align:left;border-bottom:1px solid #e2e8f0;color:#334155;font-weight:600;"><th style="padding:5px 4px;">Office</th><th style="padding:5px 4px;text-align:right;">Reviews</th><th style="padding:5px 4px;text-align:right;">Avg</th></tr></thead><tbody>';
+          daily.forEach(function(r){
+            var isZero = (r.reviews_yesterday||0) === 0;
+            var col = isZero ? '#b02a1e' : '#0f172a';
+            var bg = isZero ? '#fef2f2' : 'transparent';
+            html += '<tr style="border-bottom:1px solid #f1f5f9;background:'+bg+';">'
+                  + '<td style="padding:5px 4px;color:'+col+';">'+escH(r.office)+'</td>'
+                  + '<td style="padding:5px 4px;text-align:right;font-weight:600;color:'+col+';">'+fmtI(r.reviews_yesterday)+'</td>'
+                  + '<td style="padding:5px 4px;text-align:right;color:#334155;">'+fmtR(r.avg_rating_yesterday)+'</td>'
+                  + '</tr>';
+          });
+          html += '</tbody></table>';
+
+          if (sum.zero_yesterday_offices && sum.zero_yesterday_offices.length) {
+            html += '<div style="margin-top:12px;padding:10px 12px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;font-size:13px;color:#7f1d1d;">'
+                  + '<strong>Action:</strong> '+sum.zero_yesterday_offices.length+' offices had 0 reviews yesterday \u2014 '+escH(sum.zero_yesterday_offices.join(', '))+'. Trigger post-appt review SMS today.'
+                  + '</div>';
+          }
+          host.innerHTML = html;
+        } catch (err) {
+          var h2 = document.getElementById('rev-daily-pulse-card');
+          if (h2) h2.innerHTML = '<p style="color:#b02a1e;font-size:12px;margin:0;">Pulse render error: '+String(err && err.message || err)+'</p>';
+        }
+      }
+
       function renderReviews(g) {
+        renderRevDailyPulse();
         if (!g) return;
         var meta = $("reviews-meta");
         if (meta) meta.textContent = (g.lookback || "Last 30d") + " · " + (g.data_freshness || "");

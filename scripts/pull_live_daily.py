@@ -1393,11 +1393,87 @@ def refresh_credit_usage_tracker(snap: dict) -> None:
     cut["tasks_this_run"] = 1
 
 
-def refresh_gmb_learning_engine_stub(snap: dict) -> None:
-    """Stamp gmb_learning_engine.generated_at with today. The corpus is
-    rebuilt on a slower cadence; this just removes the 'stale by 2 weeks'
-    banner since the underlying GMB live data is being refreshed daily.
+def merge_live_reviews_into_corpus() -> tuple[int, int]:
+    """Merge new reviews from data/_gmb_live/reviews.json into the private
+    corpus data/_gmb_review_corpus.json (dedup by review name). Returns
+    (added, total) counts. This keeps the GMB Learning Engine input fresh
+    daily without a separate manual rebuild.
     """
+    live = DATA / "_gmb_live" / "reviews.json"
+    corpus_p = DATA / "_gmb_review_corpus.json"
+    if not live.exists():
+        return (0, 0)
+    if corpus_p.exists():
+        try:
+            corpus = json.loads(corpus_p.read_text())
+        except Exception:
+            corpus = {"generated_at": utcnow(), "office_count": 0, "review_count": 0, "by_office": {}, "reviews": []}
+    else:
+        corpus = {"generated_at": utcnow(), "office_count": 0, "review_count": 0, "by_office": {}, "reviews": []}
+
+    existing_names = {r.get("name") for r in corpus.get("reviews", []) if r.get("name")}
+    live_payload = json.loads(live.read_text())
+    added = 0
+    for r in live_payload.get("locationReviews", []):
+        loc_id = r.get("name", "").split("/")[-1]
+        office = LOCATION_TO_OFFICE.get(loc_id)
+        if not office:
+            continue
+        rev = r.get("review", {})
+        rev_name = rev.get("name") or r.get("name")
+        if not rev_name or rev_name in existing_names:
+            continue
+        stars = STAR_TO_INT.get(rev.get("starRating", ""), 0)
+        entry = {
+            "office": office,
+            "reviewer": (rev.get("reviewer") or {}).get("displayName", ""),
+            "stars": stars,
+            "comment": rev.get("comment", ""),
+            "createTime": rev.get("createTime"),
+            "updateTime": rev.get("updateTime"),
+            "reply": (rev.get("reviewReply") or {}).get("comment"),
+            "replyTime": (rev.get("reviewReply") or {}).get("updateTime"),
+            "name": rev_name,
+        }
+        corpus.setdefault("reviews", []).append(entry)
+        existing_names.add(rev_name)
+        added += 1
+
+    corpus["review_count"] = len(corpus.get("reviews", []))
+    corpus["generated_at"] = utcnow()
+    # Rebuild by_office rollup
+    by_office: dict[str, dict] = defaultdict(lambda: {"count": 0, "stars_sum": 0, "stars_n": 0})
+    for r in corpus.get("reviews", []):
+        off = r.get("office") or "unknown"
+        by_office[off]["count"] += 1
+        if r.get("stars"):
+            by_office[off]["stars_sum"] += r["stars"]
+            by_office[off]["stars_n"] += 1
+    corpus["by_office"] = {
+        k: {
+            "count": v["count"],
+            "avg_stars": round(v["stars_sum"] / v["stars_n"], 2) if v["stars_n"] else None,
+        }
+        for k, v in by_office.items()
+    }
+    corpus["office_count"] = len(corpus["by_office"])
+    corpus_p.write_text(json.dumps(corpus, indent=2))
+    return (added, corpus["review_count"])
+
+
+def refresh_gmb_learning_engine_stub(snap: dict) -> None:
+    """Merge live reviews into the private corpus, then stamp
+    ``gmb_learning_engine.generated_at``. The full engine rebuild is heavy
+    (theme extraction, MoM baselines, anomaly scoring) and runs on a
+    slower cadence; but corpus-freshness + timestamp are enough to keep
+    the dashboard from showing 'stale by weeks' and to grow the corpus
+    every day.
+    """
+    try:
+        added, total = merge_live_reviews_into_corpus()
+        print(f"[gmb-corpus] merged +{added} new reviews (total {total})")
+    except Exception as e:
+        print(f"[gmb-corpus] merge skipped: {e}")
     gle = snap.get("gmb_learning_engine")
     if isinstance(gle, dict):
         gle["generated_at"] = utcnow()
