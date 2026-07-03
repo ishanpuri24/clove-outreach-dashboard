@@ -54,33 +54,68 @@ def blocked(p):
     return False
 
 
+def _do_search(body):
+    """Raw call — returns (status, total, list_of_(url, profile))."""
+    try:
+        r = httpx.post(f"{API}/people/search", json=body, **HTTPX_KW)
+    except Exception as e:
+        return (None, 0, [], f"net:{e}")
+    if r.status_code != 200:
+        return (r.status_code, 0, [], f"{r.status_code}:{r.text[:120]}")
+    d = r.json()
+    raw = d.get("profiles", {}) or {}
+    if isinstance(raw, dict):
+        pairs = list(raw.items())
+    elif isinstance(raw, list):
+        pairs = [(p.get("li_url") or p.get("linkedin_url") or f"idx{i}", p) for i,p in enumerate(raw)]
+    else:
+        pairs = []
+    return (200, d.get("metadata",{}).get("total_results", 0), pairs, None)
+
+
 def search_people(company, titles, limit=3):
-    """POST /v1/people/search with company (array) + job_title (array). Returns top profiles."""
-    body = {
+    """Search strategy (ContactOut AND of company+title is too strict for small orgs):
+      1) Try company + job_title arrays. If >0 results, use them.
+      2) Fall back to company-only search, then filter client-side by title keyword match.
+    """
+    # Attempt 1: strict AND
+    status, tot, pairs, err = _do_search({
         "company": [company],
         "job_title": titles,
         "page": 1,
         "reveal_info": False,
-    }
-    try:
-        r = httpx.post(f"{API}/people/search", json=body, **HTTPX_KW)
-    except Exception as e:
-        return {"error": f"net:{e}", "profiles": []}
-    if r.status_code != 200:
-        return {"error": f"{r.status_code}:{r.text[:120]}", "profiles": []}
-    d = r.json()
-    raw_profiles = d.get("profiles", {}) or {}
-    if isinstance(raw_profiles, dict):
-        profiles = list(raw_profiles.items())[:limit]
-    elif isinstance(raw_profiles, list):
-        profiles = [(p.get("li_url") or p.get("linkedin_url") or f"idx{i}", p) for i,p in enumerate(raw_profiles)][:limit]
-    else:
-        profiles = []
+    })
+    if err and status != 200:
+        return {"error": err, "profiles": []}
+
+    if tot == 0 or not pairs:
+        # Attempt 2: company-only, filter client-side
+        status, tot, pairs, err = _do_search({
+            "company": [company],
+            "page": 1,
+            "reveal_info": False,
+        })
+        if err and status != 200:
+            return {"error": err, "profiles": []}
+        # Client-side title filter: any target-title token appears in profile.title
+        title_tokens = set()
+        for t in titles:
+            for tok in t.lower().split():
+                if len(tok) > 2:
+                    title_tokens.add(tok)
+        filtered = []
+        for url, p in pairs:
+            t = (p.get("title") or "").lower()
+            if any(tok in t for tok in title_tokens):
+                filtered.append((url, p))
+        # If title filter kills everything, keep top pairs unfiltered (better than nothing)
+        pairs = filtered or pairs[:limit]
+
     out = []
-    for url, p in profiles:
+    for url, p in pairs[:limit]:
         co = p.get("company") or {}
         co_name = co.get("name") if isinstance(co, dict) else co
-        # Only keep matches where the profile's company matches the target company (case-insensitive substring)
+        # Confirm company match (case-insensitive first-token substring)
         if co_name and company.lower().split()[0] in (co_name or "").lower():
             out.append({
                 "linkedin_url": url,
@@ -89,7 +124,7 @@ def search_people(company, titles, limit=3):
                 "company": co_name,
                 "location": p.get("location"),
             })
-    return {"error": None, "profiles": out, "total": d.get("metadata",{}).get("total_results")}
+    return {"error": None, "profiles": out, "total": tot}
 
 
 def enrich(full_name, company_domain, linkedin_url=None):

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T16:29:18Z",
+  "generated_at": "2026-07-03T18:35:45Z",
   "method": "SMTP RCPT-TO probe (free, no send)",
   "helo": "mail.clovedds.com",
   "mail_from": "postmaster@clovedds.com",
@@ -20,7 +20,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "smtp.secureserver.net",
-      "checked_at": "2026-07-03T16:29:02Z"
+      "checked_at": "2026-07-03T18:35:28Z"
     },
     "silverado.com": {
       "domain": "silverado.com",
@@ -52,7 +52,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "venturatownehouse-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T16:29:11Z"
+      "checked_at": "2026-07-03T18:35:34Z"
     },
     "childtime.com": {
       "domain": "childtime.com",
@@ -162,7 +162,7 @@
       "status": "catch_all",
       "valid_email": "info@cyclebar.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-07-03T16:29:01Z"
+      "checked_at": "2026-07-03T18:35:28Z"
     },
     "circuitworksla.com": {
       "domain": "circuitworksla.com",
@@ -176,7 +176,7 @@
       "status": "catch_all",
       "valid_email": "info@megaformerstudio.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-07-03T16:29:01Z"
+      "checked_at": "2026-07-03T18:35:28Z"
     },
     "showupfitness.com": {
       "domain": "showupfitness.com",
@@ -190,28 +190,28 @@
       "status": "catch_all",
       "valid_email": "info@allegiategym.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-07-03T16:29:01Z"
+      "checked_at": "2026-07-03T18:35:28Z"
     },
     "assistedlivinglocatorsla.com": {
       "domain": "assistedlivinglocatorsla.com",
       "status": "no_match",
       "valid_email": null,
       "mx": "smtp.secureserver.net",
-      "checked_at": "2026-07-03T16:29:02Z"
+      "checked_at": "2026-07-03T18:35:29Z"
     },
     "trainingmate.com": {
       "domain": "trainingmate.com",
       "status": "no_match",
       "valid_email": null,
       "mx": "trainingmate-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T16:29:08Z"
+      "checked_at": "2026-07-03T18:35:32Z"
     },
     "dragonflyshermanoaks.com": {
       "domain": "dragonflyshermanoaks.com",
       "status": "no_match",
       "valid_email": null,
       "mx": "dragonflyshermanoaks-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T16:29:07Z"
+      "checked_at": "2026-07-03T18:35:33Z"
     },
     "fitboxworkout.com": {
       "domain": "fitboxworkout.com",
@@ -225,7 +225,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "welovecamp-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T16:29:06Z"
+      "checked_at": "2026-07-03T18:35:34Z"
     },
     "trifecta-fitness.com": {
       "domain": "trifecta-fitness.com",
@@ -238,14 +238,14 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "goldsgym-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T16:29:06Z"
+      "checked_at": "2026-07-03T18:35:33Z"
     },
     "sessionspersonaltraining.com": {
       "domain": "sessionspersonaltraining.com",
       "status": "no_match",
       "valid_email": null,
       "mx": "sessionspersonaltraining-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T16:29:10Z"
+      "checked_at": "2026-07-03T18:35:39Z"
     },
     "ironmethod.com": {
       "domain": "ironmethod.com",
@@ -301,7 +301,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "eu-smtp-inbound-1.mimecast.com",
-      "checked_at": "2026-07-03T16:29:18Z"
+      "checked_at": "2026-07-03T18:35:45Z"
     },
     "houseofgainsgym.net": {
       "domain": "houseofgainsgym.net",

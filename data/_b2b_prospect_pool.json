@@ -117,7 +117,13 @@
       "review_count": 83,
       "score": 16.98,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts_public": [
+        {
+          "title": "Executive Director",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Childtime of Oxnard",
@@ -177,7 +183,13 @@
       "review_count": 99,
       "score": 15.25,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts_public": [
+        {
+          "title": "General Manager",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Encino Terrace Senior Living",
@@ -192,7 +204,13 @@
       "review_count": 37,
       "score": 15.24,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts_public": [
+        {
+          "title": "Resident Care Assistant",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Oxnard Manor Healthcare Center",
@@ -2457,7 +2475,13 @@
       "review_count": 89,
       "score": 17.12,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts_public": [
+        {
+          "title": "Senior Living Advisor",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "The Pinnacles At Burton",
@@ -3252,7 +3276,13 @@
       "review_count": 1001,
       "score": 15.54,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts_public": [
+        {
+          "title": "Assistant Front Office Manager",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "SIRTAJ Hotel",
@@ -4014,7 +4044,13 @@
       "review_count": 1080,
       "score": 14.97,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts_public": [
+        {
+          "title": "Regional Manager",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Legends Barbell",
@@ -4134,7 +4170,13 @@
       "review_count": 77,
       "score": 16.04,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts_public": [
+        {
+          "title": "Owner",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "COREATHELTICS ACADEMY",

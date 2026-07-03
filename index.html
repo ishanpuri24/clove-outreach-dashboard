@@ -7375,7 +7375,7 @@
         return c;
       }
       function _renderTable(container, headers, rows) {
-        container.innerHTML = "";
+        // v3.3 fix: do NOT wipe container — previous behaviour cleared label/meta appended by callers
         if (!rows || !rows.length) return false;
         var wrap = el("div", { "class": "table-wrap" });
         var table = el("table");
