@@ -2430,174 +2430,13 @@
       <!-- =================== B2B Outreach tab =================== -->
       <div id="panel-outreach" class="tab-panel" role="tabpanel"
            aria-labelledby="tab-outreach" tabindex="0" hidden>
-        <p class="tab-meta">B2B seminar outreach.</p>
-
-        <!-- Executive status -->
-        <section aria-labelledby="exec">
-          <h2 id="exec">Executive status</h2>
-          <div class="card exec-card">
-            <div class="grid cards-2">
-              <div class="stack">
-                <div><strong>Latest run:</strong>
-                  <span id="exec-date" class="mono"></span></div>
-                <div><strong>Sender:</strong>
-                  <span id="exec-sender" class="mono"></span></div>
-                <div><strong>Schedule:</strong>
-                  <span id="exec-schedule"></span></div>
-                <div><strong>Daily cap:</strong>
-                  <span id="exec-cap" class="mono"></span></div>
-              </div>
-              <div class="stack">
-                <div><strong>Source of truth:</strong>
-                  <span id="exec-sheet"></span></div>
-                <div><strong>Zoho writeback:</strong>
-                  <span id="exec-zoho"></span></div>
-                <div><strong>Public mirror:</strong>
-                  <a id="exec-gh" href="#" target="_blank" rel="noopener">dashboard repo</a>
-                </div>
-                <div><strong>Sanitization:</strong>
-                  <span id="exec-sanitization"></span></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- KPIs -->
-        <section aria-labelledby="kpi">
-          <h2 id="kpi">Key indicators</h2>
-          <div class="grid kpi" id="kpi-grid"></div>
-        </section>
-
-        <!-- Queue health / tomorrow readiness -->
-        <section aria-labelledby="queue">
-          <h2 id="queue">Queue health</h2>
-          <div class="card" id="queue-card"></div>
-        </section>
-
-        <!-- Channel scorecard -->
-        <section aria-labelledby="scorecard">
-          <h2 id="scorecard">Channel scorecard</h2>
-          <div class="card" id="scorecard-card"></div>
-        </section>
-
-        <!-- Trend -->
-        <section aria-labelledby="trend">
-          <h2 id="trend">Daily send and reply trend</h2>
-          <div class="section-meta"></div>
-          <div class="card">
-            <svg id="trend-chart" class="chart"
-                 role="img" aria-label="Daily send and cumulative trend"></svg>
-            <div class="legend">
-              <span><span class="swatch" style="background: var(--accent);"></span>Sent that weekday</span>
-              <span><span class="swatch" style="background: var(--warn);"></span>Cumulative sends</span>
-              <span><span class="swatch" style="background: var(--border);"></span>Daily cap (12)</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- Reply mix + channel mix -->
-        <section aria-labelledby="mix">
-          <h2 id="mix">Reply mix and latest channel mix</h2>
-          <div class="grid two">
-            <div class="card">
-              <svg id="reply-chart" class="chart"
-                   role="img" aria-label="Reply classification bar chart"></svg>
-            </div>
-            <div class="card">
-              <svg id="channel-chart" class="chart"
-                   role="img" aria-label="Channel mix bar chart"></svg>
-            </div>
-          </div>
-        </section>
-
-        <!-- How replies are coming back -->
-        <section aria-labelledby="reply-detail">
-          <h2 id="reply-detail">How replies are coming back</h2>
-          <div class="section-meta" id="reply-detail-meta"></div>
-          <div class="grid kpi" id="reply-detail-kpi"></div>
-          <div class="grid two" style="margin-top:12px;">
-            <div class="card" id="reply-detail-classification"></div>
-            <div class="card" id="reply-detail-category"></div>
-          </div>
-          <div class="card" id="reply-detail-timeline"
-               style="margin-top:12px;"></div>
-          <div class="grid two" style="margin-top:12px;">
-            <div class="card" id="reply-detail-working"></div>
-            <div class="card" id="reply-detail-tests"></div>
-          </div>
-        </section>
-
-        <!-- Outreach experiment board -->
-        <section aria-labelledby="experiments">
-          <h2 id="experiments">Outreach experiment board</h2>
-          <div class="section-meta"></div>
-          <div class="card" id="experiments-card"></div>
-        </section>
-
-        <!-- Human follow-ups -->
-        <section aria-labelledby="followups">
-          <h2 id="followups">Human follow-up queue</h2>
-          <div class="section-meta"></div>
-          <div class="card" id="followups-card"></div>
-        </section>
-
-        <!-- Replies -->
-        <section aria-labelledby="replies">
-          <h2 id="replies">Reply insights</h2>
-          <div class="card">
-            <div id="replies-empty" class="section-meta" hidden>
-              No reply signals yet for the loaded history window.
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Category</th>
-                    <th>Bucket</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="replies-body"></tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- Guardrail status -->
-        <section aria-labelledby="guard">
-          <h2 id="guard">Guardrail status</h2>
-          <div class="section-meta"></div>
-          <div class="card" id="guardrail-status-card"></div>
-        </section>
-
-        <!-- Focus tiers -->
-        <section aria-labelledby="focus">
-          <h2 id="focus">Channel priority tiers</h2>
-          <div class="card">
-            <div class="stack">
-              <div>
-                <div><strong>Tier 1 (priority)</strong></div>
-                <ul class="checks" id="tier1-list"></ul>
-              </div>
-              <div>
-                <div><strong>Tier 2 (limited test)</strong></div>
-                <ul class="checks" id="tier2-list"></ul>
-              </div>
-              <div>
-                <div><strong>Deprioritized</strong></div>
-                <ul class="checks" id="depri-list"></ul>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Next actions -->
-        <section aria-labelledby="next">
-          <h2 id="next">Next recommended outreach actions</h2>
-          <div class="card">
-            <ul class="checks" id="next-list"></ul>
-          </div>
+        <p class="tab-meta" id="b2b-outbound-meta">B2B outbound from personal Gmail &mdash; verified sends and next prospects.</p>
+        <div style="margin-bottom:8px;">
+          <span id="b2b-outbound-pill" class="pill"></span>
+        </div>
+        <section aria-labelledby="b2b-h">
+          <h2 id="b2b-h">B2B outbound program</h2>
+          <div id="b2b-outbound-card"></div>
         </section>
       </div>
 
@@ -2617,8 +2456,14 @@
           <div class="top5-grid" id="organic-actions-grid"></div>
         </section>
 
+        <section aria-labelledby="organic-opp">
+          <h2 id="organic-opp">Opportunity queue &mdash; high-impression, low-CTR</h2>
+          <p class="section-meta">Queries with real search demand where a title/meta rewrite or rank push should convert more clicks. Sorted by lift potential.</p>
+          <div class="card" id="organic-opp-queue"></div>
+        </section>
+
         <section aria-labelledby="organic-gsc">
-          <h2 id="organic-gsc">Query opportunities</h2>
+          <h2 id="organic-gsc">Top queries (last 7 days)</h2>
           <div class="card" id="organic-gsc-query"></div>
         </section>
 
@@ -2912,25 +2757,19 @@
         if (!card) return;
         card.innerHTML = "";
         if (!b) {
-          card.appendChild(el("div", { "class": "section-meta", text: "No verified B2B outbound block in snapshot." }));
+          card.appendChild(el("div", { "class": "section-meta", text: "No B2B outbound block in snapshot." }));
           return;
         }
         if (meta) {
-          meta.textContent = "Source: " + (b.source_of_truth || "Gmail") +
+          meta.textContent = "Source: " + (b.source_of_truth || "Gmail SENT") +
             " \u00b7 as of " + (b.as_of || "-");
         }
         if (pill) {
-          pill.className = "pill danger";
+          pill.className = "pill ok";
           pill.replaceChildren(el("span", { "class": "dot" }),
-            document.createTextNode(" runaway loop"));
+            document.createTextNode(" " + (b.status || "active")));
         }
-        if (b.alarming_pattern) {
-          var warn = el("div", { "class": "card",
-            style: "margin-bottom:12px;border-left:4px solid var(--danger,#c0392b);" });
-          warn.appendChild(el("div", { "class": "kpi-label", text: "\u26a0 Alarming pattern" }));
-          warn.appendChild(el("div", { text: b.alarming_pattern }));
-          card.appendChild(warn);
-        }
+        // KPI row
         var kpis = el("div", { "class": "grid kpi" });
         function _kpi(label, val, note) {
           var c = el("div", { "class": "card" });
@@ -2939,51 +2778,70 @@
           if (note) c.appendChild(el("div", { "class": "section-meta", text: note }));
           kpis.appendChild(c);
         }
-        _kpi("Verified sends (30d)", b.verified_sends_last_30d, "Gmail SENT label");
-        _kpi("Unique prospects (30d)", b.unique_prospects_last_30d, "Should be >> 2");
-        _kpi("Sourcing", (b.sourcing_status || "-").split(".")[0]);
-        _kpi("Zoho writeback", (b.zoho_writeback_status || "-").split(".")[0]);
+        _kpi("Verified sends (90d)", b.verified_sends_last_30d, "Gmail SENT prospect threads");
+        _kpi("Unique prospects", b.unique_prospects_last_30d, "unique domains");
+        var poolTotal = (b.prospect_pool && b.prospect_pool.total) || 0;
+        _kpi("Prospect pool", poolTotal, "within 5mi of offices (deduped)");
+        _kpi("Next queue", (b.next_prospects_top10 || []).length, "balanced across offices");
         card.appendChild(kpis);
 
-        if (b.duplicate_send_examples && b.duplicate_send_examples.length) {
-          var alertCard = el("div", { "class": "card", style: "margin-top:12px;border-left:4px solid var(--danger,#c0392b);" });
-          alertCard.appendChild(el("div", { "class": "kpi-label", text: "\u26a0 Duplicate-send loop \u2014 contacts being spammed" }));
+        // Vertical breakdown
+        if (b.vertical_breakdown_last_90d) {
+          var vb = el("div", { "class": "card", style: "margin-top:12px;" });
+          vb.appendChild(el("div", { "class": "kpi-label", text: "Verticals contacted (last 90d)" }));
           var ul = el("ul", { "class": "checks" });
-          b.duplicate_send_examples.forEach(function (d) {
-            var li = el("li");
-            li.appendChild(el("strong", { text: d.recipient || "-" }));
-            li.appendChild(document.createTextNode(
-              " \u2014 " + (d.send_count_in_5_days || d.send_count || 0) + " sends in 5d" +
-              (d.subject ? " \u00b7 \u201c" + d.subject + "\u201d" : "") +
-              (d.cadence_observed ? " \u00b7 " + d.cadence_observed : "")
-            ));
-            ul.appendChild(li);
+          Object.keys(b.vertical_breakdown_last_90d).sort().forEach(function (k) {
+            ul.appendChild(el("li", { text: k.replace(/_/g, " ") + ": " + b.vertical_breakdown_last_90d[k] }));
           });
-          alertCard.appendChild(ul);
-          card.appendChild(alertCard);
+          vb.appendChild(ul);
+          card.appendChild(vb);
         }
 
-        if (b.legitimate_active_thread) {
-          var lt = b.legitimate_active_thread;
-          var ltCard = el("div", { "class": "card", style: "margin-top:12px;" });
-          ltCard.appendChild(el("div", { "class": "kpi-label", text: "Legitimate active thread" }));
-          ltCard.appendChild(el("div", { text:
-            (lt.recipient || lt.contact || "-") +
-            (lt.thread ? " \u2014 " + lt.thread : "") +
-            (lt.status ? " \u00b7 " + lt.status : "") }));
-          card.appendChild(ltCard);
+        // Recent touches table
+        if (b.recent_touches && b.recent_touches.length) {
+          var rt = el("div", { "class": "card", style: "margin-top:12px;" });
+          rt.appendChild(el("div", { "class": "kpi-label", text: "Recent B2B touches (last 90d)" }));
+          var okRt = _renderTable(rt, [
+            { key: "latest_sent", label: "Last sent" },
+            { key: "domain", label: "Domain" },
+            { key: "vertical", label: "Vertical" },
+            { key: "threads", label: "Threads" },
+            { key: "subject_sample", label: "Subject" }
+          ], b.recent_touches);
+          if (!okRt) rt.appendChild(el("div", { "class": "desc", text: "None." }));
+          card.appendChild(rt);
         }
 
-        if (b.recommended_actions && b.recommended_actions.length) {
-          var actCard = el("div", { "class": "card", style: "margin-top:12px;" });
-          actCard.appendChild(el("div", { "class": "kpi-label", text: "Recommended actions" }));
+        // Next prospects (top 10)
+        if (b.next_prospects_top10 && b.next_prospects_top10.length) {
+          var np = el("div", { "class": "card", style: "margin-top:12px;" });
+          np.appendChild(el("div", { "class": "kpi-label", text: "Next 10 prospects to contact (balanced across offices)" }));
+          np.appendChild(el("div", { "class": "section-meta",
+            text: (b.prospect_pool && b.prospect_pool.dedup_rule) || "Deduped against Gmail SENT." }));
+          var okNp = _renderTable(np, [
+            { key: "name", label: "Business" },
+            { key: "vertical", label: "Vertical" },
+            { key: "nearest_office", label: "Office" },
+            { key: "distance_mi", label: "Miles" },
+            { key: "rating", label: "Rating" },
+            { key: "reviews", label: "Reviews" },
+            { key: "score", label: "Score" },
+            { key: "website", label: "Website" }
+          ], b.next_prospects_top10);
+          if (!okNp) np.appendChild(el("div", { "class": "desc", text: "None queued." }));
+          card.appendChild(np);
+        }
+
+        // Next actions
+        if (b.next_actions && b.next_actions.length) {
+          var na = el("div", { "class": "card", style: "margin-top:12px;" });
+          na.appendChild(el("div", { "class": "kpi-label", text: "Next actions" }));
           var ol = el("ol");
-          b.recommended_actions.forEach(function (a) {
-            var text = typeof a === "string" ? a : (a.action || a.text || JSON.stringify(a));
-            ol.appendChild(el("li", { text: text }));
+          b.next_actions.forEach(function (a) {
+            ol.appendChild(el("li", { text: typeof a === "string" ? a : JSON.stringify(a) }));
           });
-          actCard.appendChild(ol);
-          card.appendChild(actCard);
+          na.appendChild(ol);
+          card.appendChild(na);
         }
       }
 
@@ -7448,6 +7306,21 @@
           (o.summary_cards || []).forEach(function (c) {
             sumG.appendChild(_statCard(c.label, c.value, c.basis, c.decision));
           });
+        }
+        var oppQ = $("organic-opp-queue");
+        if (oppQ) {
+          oppQ.innerHTML = "";
+          var okOpp = _renderTable(oppQ, [
+            { key: "query", label: "Query" },
+            { key: "avg_position", label: "Pos." },
+            { key: "impressions", label: "Impr." },
+            { key: "clicks", label: "Clicks" },
+            { key: "ctr_pct", label: "CTR%" },
+            { key: "lift_estimate_clicks", label: "Lift (est. clicks/wk)" },
+            { key: "opportunity_type", label: "Type" },
+            { key: "suggested_action", label: "Suggested action" }
+          ], o.opportunity_queue);
+          if (!okOpp) oppQ.appendChild(el("div", { "class": "desc", text: "No opportunity queue entries yet." }));
         }
         var gscQ = $("organic-gsc-query");
         if (gscQ) {

@@ -1,0 +1,442 @@
+{
+  "generated_at": "2026-07-02T18:10:00-07:00",
+  "lookback_days": 90,
+  "raw_sent_addresses": 40,
+  "excluded_domains_used": {
+    "internal": [
+      "aol.com",
+      "clovedds.com",
+      "gmail.com",
+      "googlemail.com",
+      "hotmail.com",
+      "icloud.com",
+      "outlook.com",
+      "yahoo.com"
+    ],
+    "legal_finance": [
+      "bofa.com",
+      "chase.com",
+      "citi.com",
+      "dykema.com",
+      "forerunnervc.com",
+      "forerunnerventures.com",
+      "goldman.com",
+      "gsb.stanford.edu",
+      "harvard.edu",
+      "hbs.edu",
+      "jpmchase.com",
+      "jpmorgan.com",
+      "kkr.com",
+      "lererhippeau.com",
+      "maveron.com",
+      "mofo.com",
+      "pyapc.com",
+      "stanford.edu",
+      "stlpartners.com",
+      "summitpartners.com",
+      "transformcap.com",
+      "wellsfargo.com",
+      "wharton.upenn.edu"
+    ]
+  },
+  "recipient_bucket_counts": {
+    "prospect": 11,
+    "excluded": 18,
+    "internal": 11
+  },
+  "prospect_vertical_counts": {
+    "hr_heavy_employer": 1,
+    "medical_referrer": 2,
+    "senior_living": 6,
+    "insurance_partner": 1,
+    "schools_daycares": 1
+  },
+  "recipients": [
+    {
+      "email": "patrick@silverstarautos.com",
+      "domain": "silverstarautos.com",
+      "vertical": "hr_heavy_employer",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-07-03T01:02:43+00:00",
+      "thread_count": 10,
+      "subject_sample": "Lunch-and-learn for Silver Star Automotive Group's team"
+    },
+    {
+      "email": "camarillochildrensmedicalgroup@gmail.com",
+      "domain": "gmail.com",
+      "vertical": "medical_referrer",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-07-03T01:02:41+00:00",
+      "thread_count": 5,
+      "subject_sample": "First-tooth referrals for Camarillo Children's Medical Group's families"
+    },
+    {
+      "email": "ridge@ivyliving.com",
+      "domain": "ivyliving.com",
+      "vertical": "senior_living",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-07-03T01:02:38+00:00",
+      "thread_count": 2,
+      "subject_sample": "A dentist in Thousand Oaks - quick question"
+    },
+    {
+      "email": "demo@divi.express",
+      "domain": "divi.express",
+      "vertical": "senior_living",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-07-03T01:02:35+00:00",
+      "thread_count": 10,
+      "subject_sample": "Partnering with Camarillo Senior Living residents"
+    },
+    {
+      "email": "accessibility@atriaseniorliving.com",
+      "domain": "atriaseniorliving.com",
+      "vertical": "senior_living",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-07-03T01:02:33+00:00",
+      "thread_count": 2,
+      "subject_sample": "Dental care at Atria Las Posas"
+    },
+    {
+      "email": "tharris@mofo.com",
+      "domain": "mofo.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-03T01:02:00+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: I do not have any record of you and Anish signing this"
+    },
+    {
+      "email": "jimmy@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-07-03T00:58:45+00:00",
+      "thread_count": 1,
+      "subject_sample": "Fwd: [EXTERNAL] RE: Loss Runs Request _Shalabh Puri WC"
+    },
+    {
+      "email": "astafford@pyapc.com",
+      "domain": "pyapc.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-03T00:53:07+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: TCAP <> Clove | PYA connect"
+    },
+    {
+      "email": "raphael@transformcap.com",
+      "domain": "transformcap.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-03T00:53:07+00:00",
+      "thread_count": 2,
+      "subject_sample": "Re: TCAP <> Clove | PYA connect"
+    },
+    {
+      "email": "drp@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-07-03T00:53:07+00:00",
+      "thread_count": 3,
+      "subject_sample": "Re: TCAP <> Clove | PYA connect"
+    },
+    {
+      "email": "acampanile@pyapc.com",
+      "domain": "pyapc.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-03T00:53:07+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: TCAP <> Clove | PYA connect"
+    },
+    {
+      "email": "jenna@transformcap.com",
+      "domain": "transformcap.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-03T00:53:07+00:00",
+      "thread_count": 2,
+      "subject_sample": "Re: TCAP <> Clove | PYA connect"
+    },
+    {
+      "email": "punit@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-07-03T00:45:35+00:00",
+      "thread_count": 2,
+      "subject_sample": "folder in drive"
+    },
+    {
+      "email": "alex.ward@kkr.com",
+      "domain": "kkr.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-03T00:31:55+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Clove follow up"
+    },
+    {
+      "email": "exec@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-06-09T00:46:17+00:00",
+      "thread_count": 2,
+      "subject_sample": "same points"
+    },
+    {
+      "email": "chadjanis@gmail.com",
+      "domain": "gmail.com",
+      "vertical": "personal_or_internal",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-04T03:13:42+00:00",
+      "thread_count": 1,
+      "subject_sample": "Hi Chad! From a GSB fellow grad"
+    },
+    {
+      "email": "pchandraker4141@gmail.com",
+      "domain": "gmail.com",
+      "vertical": "personal_or_internal",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-04T03:13:42+00:00",
+      "thread_count": 4,
+      "subject_sample": "Hi Chad! From a GSB fellow grad"
+    },
+    {
+      "email": "maurice@lererhippeau.com",
+      "domain": "lererhippeau.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-04T02:30:18+00:00",
+      "thread_count": 1,
+      "subject_sample": "A small personal favor"
+    },
+    {
+      "email": "jason@maveron.com",
+      "domain": "maveron.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-04T02:09:16+00:00",
+      "thread_count": 1,
+      "subject_sample": "A small personal favor + update on Clove"
+    },
+    {
+      "email": "sodonnell@forerunnerventures.com",
+      "domain": "forerunnerventures.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-04T02:04:46+00:00",
+      "thread_count": 1,
+      "subject_sample": "A personal favor + quick update on Clove"
+    },
+    {
+      "email": "kg@forerunnervc.com",
+      "domain": "forerunnervc.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-04T02:04:46+00:00",
+      "thread_count": 1,
+      "subject_sample": "A personal favor + quick update on Clove"
+    },
+    {
+      "email": "bcolao@dykema.com",
+      "domain": "dykema.com",
+      "vertical": "excluded_legal_finance",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-02T22:09:38+00:00",
+      "thread_count": 1,
+      "subject_sample": "Reconnecting"
+    },
+    {
+      "email": "drariz1@gmail.com",
+      "domain": "gmail.com",
+      "vertical": "personal_or_internal",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-02T21:55:17+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Northridge <> Clove"
+    },
+    {
+      "email": "matthew@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-07-02T21:55:17+00:00",
+      "thread_count": 2,
+      "subject_sample": "Re: Northridge <> Clove"
+    },
+    {
+      "email": "shahdad.arami@gmail.com",
+      "domain": "gmail.com",
+      "vertical": "personal_or_internal",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-07-02T21:55:17+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Northridge <> Clove"
+    },
+    {
+      "email": "dhedlund@libertydentalplan.com",
+      "domain": "libertydentalplan.com",
+      "vertical": "insurance_partner",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-06-30T21:43:54+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: [NOENCRYPTION]"
+    },
+    {
+      "email": "kgriffin@mikels-ins.com",
+      "domain": "mikels-ins.com",
+      "vertical": "vendor",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-19T19:05:59+00:00",
+      "thread_count": 1,
+      "subject_sample": "New commercial liability insurance"
+    },
+    {
+      "email": "dwalton@mikels-ins.com",
+      "domain": "mikels-ins.com",
+      "vertical": "vendor",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-06-19T19:05:59+00:00",
+      "thread_count": 1,
+      "subject_sample": "New commercial liability insurance"
+    },
+    {
+      "email": "riya@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-06-19T19:05:59+00:00",
+      "thread_count": 1,
+      "subject_sample": "New commercial liability insurance"
+    },
+    {
+      "email": "aryaan@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-06-17T17:30:10+00:00",
+      "thread_count": 6,
+      "subject_sample": "Fwd: Additional Northridge Dentist Candidate Resumes for your Review"
+    },
+    {
+      "email": "ip@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-06-02T20:57:26+00:00",
+      "thread_count": 2,
+      "subject_sample": ""
+    },
+    {
+      "email": "anna@braininjurycenter.org",
+      "domain": "braininjurycenter.org",
+      "vertical": "medical_referrer",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-05-05T23:24:07+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Free dental wellness seminar"
+    },
+    {
+      "email": "kpeach@discoverymgt.com",
+      "domain": "discoverymgt.com",
+      "vertical": "senior_living",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-05-02T14:00:25+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Free dental wellness talk for seniors"
+    },
+    {
+      "email": "trisha@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-04-26T05:30:55+00:00",
+      "thread_count": 1,
+      "subject_sample": "Clove CONSOLIDATED Master Tracker"
+    },
+    {
+      "email": "enrollment@oxnardfamilycircle.com",
+      "domain": "oxnardfamilycircle.com",
+      "vertical": "schools_daycares",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-04-20T15:33:22+00:00",
+      "thread_count": 1,
+      "subject_sample": "Free dental wellness seminar for Oxnard Family Circle"
+    },
+    {
+      "email": "westhillsadhc@gmail.com",
+      "domain": "gmail.com",
+      "vertical": "senior_living",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-04-20T15:33:03+00:00",
+      "thread_count": 1,
+      "subject_sample": "Free dental wellness seminar for West Hills Adult Day Health Care Center"
+    },
+    {
+      "email": "gacc@crpd.org",
+      "domain": "crpd.org",
+      "vertical": "senior_living",
+      "bucket": "prospect",
+      "latest_sent_date": "2026-04-20T15:32:46+00:00",
+      "thread_count": 1,
+      "subject_sample": "Free dental wellness seminar for Goebel Adult Community Center"
+    },
+    {
+      "email": "bhalcott@gmail.com",
+      "domain": "gmail.com",
+      "vertical": "personal_or_internal",
+      "bucket": "excluded",
+      "latest_sent_date": "2026-04-18T03:44:39+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Reconnecting"
+    },
+    {
+      "email": "yogita@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-04-17T23:01:45+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Test send - \ud83c\udf7e Clove Dental's April 2026 Newsletter \ud83e\uddb7"
+    },
+    {
+      "email": "admin@clovedds.com",
+      "domain": "clovedds.com",
+      "vertical": "internal",
+      "bucket": "internal",
+      "latest_sent_date": "2026-04-17T23:01:45+00:00",
+      "thread_count": 1,
+      "subject_sample": "Re: Test send - \ud83c\udf7e Clove Dental's April 2026 Newsletter \ud83e\uddb7"
+    }
+  ],
+  "verified_prospect_sends_last_90d": 11,
+  "prospect_domains_to_exclude_from_new_outreach": [
+    "atriaseniorliving.com",
+    "braininjurycenter.org",
+    "crpd.org",
+    "discoverymgt.com",
+    "divi.express",
+    "gmail.com",
+    "ivyliving.com",
+    "libertydentalplan.com",
+    "oxnardfamilycircle.com",
+    "silverstarautos.com"
+  ],
+  "prospect_emails_to_exclude_from_new_outreach": [
+    "accessibility@atriaseniorliving.com",
+    "anna@braininjurycenter.org",
+    "camarillochildrensmedicalgroup@gmail.com",
+    "demo@divi.express",
+    "dhedlund@libertydentalplan.com",
+    "enrollment@oxnardfamilycircle.com",
+    "gacc@crpd.org",
+    "kpeach@discoverymgt.com",
+    "patrick@silverstarautos.com",
+    "ridge@ivyliving.com",
+    "westhillsadhc@gmail.com"
+  ]
+}

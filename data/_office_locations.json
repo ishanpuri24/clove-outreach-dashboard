@@ -1,0 +1,11 @@
+[
+  {"office":"Beverly Hills","address":"9001 Wilshire Blvd #303, Beverly Hills, CA 90211","lat":34.0674602,"lng":-118.38794209999999,"place_id":"ChIJfyEbpVa5woARkPX_ygLtL30","phone":"(213) 816-3775","website":"https://clovedds.com/beverly-hills"},
+  {"office":"Camarillo","address":"2107 Pickwick Dr #6427, Camarillo, CA 93010","lat":34.2225697,"lng":-119.04183109999998,"place_id":"ChIJGZD9pBw26IARCMmhZJaG9ZE","phone":"(805) 918-8576","website":"https://clovedds.com/camarillo"},
+  {"office":"Encino","address":"16542 Ventura Blvd #505, Encino, CA 91436","lat":34.1573766,"lng":-118.49394140000001,"place_id":"ChIJFRqjZTWZwoARFjnnLsFwtkQ","phone":"(213) 642-2810","website":"https://clovedds.com/dentist-encino"},
+  {"office":"Sherman Oaks","address":"14652 Ventura Blvd #200, Sherman Oaks, CA 91403","lat":34.1514364,"lng":-118.45269700000001,"place_id":"ChIJf1npn8WXwoARYfquRadJKIg","phone":"(213) 583-4186","website":"https://clovedds.com/sherman-oaks"},
+  {"office":"Thousand Oaks","address":"509 Marin St STE 220, Thousand Oaks, CA 91360","lat":34.1847735,"lng":-118.8828329,"place_id":"ChIJ_e0VeaI66IARVJifnKpv6DE","phone":"(805) 624-3974","website":"https://clovedds.com/thousand-oaks"},
+  {"office":"Santa Monica","address":"1418 7th St #101, Santa Monica, CA 90401","lat":34.0183169,"lng":-118.49207129999999,"place_id":"ChIJoa_xHNGkwoARWpm7l5wc2wA","phone":"(310) 231-6466","website":"https://clovedds.com/santa-monica"},
+  {"office":"Oxnard Riverpark","address":"1000 Town Center Dr #250, Oxnard, CA 93036","lat":34.2431333,"lng":-119.18200820000001,"place_id":"ChIJj7HhL_xM6IARLjTdcI3_lcQ","phone":"(805) 301-1963","website":"https://clovedds.com/riverpark"},
+  {"office":"Hillview","address":"3555 Loma Vista Rd Ste 217, Ventura, CA 93003","lat":34.2771219,"lng":-119.24771119999998,"place_id":"ChIJC1T5k0Ot6YARcAE4XBvqups","phone":"(805) 586-9604","website":"https://clovedds.com/ventura"},
+  {"office":"Puri Dentistry","address":"140 N A St, Oxnard, CA 93030","lat":34.2038366,"lng":-119.17838869999999,"place_id":"ChIJ_73JuS5M6IARoMOOZPftZiM","phone":"(805) 303-2307","website":"https://clovedds.com/oxnard"}
+]

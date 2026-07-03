@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-02T03:01:29+00:00",
+  "generated_at": "2026-07-03T01:21:52+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -23,14 +23,13 @@
   "next_actions": [
     "Reply to 2 unreplied low GMB review(s) within 24h (office managers, P0).",
     "Drive review velocity at Beverly Hills (gap 27 vs 30d goal, pace 0.1/day). Activate SMS review request + front-desk ask.",
-    "Decide whether to run a B2B outbound program in Q3. If yes, scope Zoho-sourced prospects + 14d cooldown before wiring sends.",
     "Review paid-ads action queue (7d spend $5,829); prioritize top-5-by-opportunity items in paid_ads_action_system."
   ],
   "google_ads_insights": {
     "title": "Paid Ads \u00b7 9 offices \u00b7 Daily run-rate x30 vs 30-day trailing",
     "subtitle": "Yesterday spend $1,668 -> projected month $50,025 (pacing down 40.3% vs trailing 30d). Target: paid ads <= 4% of office production (production pending Open Dental wire).",
     "lookback": "Yesterday (2026-06-09) + trailing 30d",
-    "data_freshness": "Live daily pull \u2014 last refreshed 2026-07-02 at 5am PT (9 offices via Google Ads MCC).",
+    "data_freshness": "Live daily pull \u2014 last refreshed 2026-07-03 at 5am PT (9 offices via Google Ads MCC).",
     "automation_status": "Read-only connector \u2014 pauses/budget changes require manual UI execution",
     "coverage": {
       "linked_offices": 16,
@@ -17016,7 +17015,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-07-02T03:01:29+00:00",
+    "refreshed_at": "2026-07-03T01:21:52+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17051,13 +17050,13 @@
     "method": "Pipedream connector (read-only) per-account pull",
     "accounts_pulled": 9,
     "lookback_days": 30,
-    "pulled_at": "2026-07-02T03:01:29+00:00",
+    "pulled_at": "2026-07-03T01:21:52+00:00",
     "note": "Daily 5am PT pull refreshes 30d segmented-by-date spend for all 9 offices. Direct mutate (budget/bid/pause) still requires the Google Ads UI \u2014 see paid_ads_action_system queue."
   },
   "organic_insights": {
     "title": "Organic & SEO",
     "lookback": "Last 28d vs prior 28d",
-    "data_freshness": "Live daily GSC pull \u2014 last refreshed 2026-07-02 at 5am PT.",
+    "data_freshness": "Live daily GSC pull \u2014 last refreshed 2026-07-03 at 5am PT.",
     "growth_cards": [
       {
         "label": "Clicks (last 7d)",
@@ -17116,578 +17115,214 @@
     ],
     "daily_trend": [
       {
-        "date": "2026-02-14",
-        "clicks": 102,
-        "impressions": 18790,
-        "ctr_pct": 0.54,
-        "position": 8.6
-      },
-      {
-        "date": "2026-02-15",
-        "clicks": 123,
-        "impressions": 20645,
-        "ctr_pct": 0.6,
-        "position": 9.0
-      },
-      {
-        "date": "2026-02-16",
-        "clicks": 167,
-        "impressions": 23971,
-        "ctr_pct": 0.7,
-        "position": 7.5
-      },
-      {
-        "date": "2026-02-17",
-        "clicks": 146,
-        "impressions": 25008,
-        "ctr_pct": 0.58,
-        "position": 9.1
-      },
-      {
-        "date": "2026-02-18",
-        "clicks": 151,
-        "impressions": 26163,
-        "ctr_pct": 0.58,
-        "position": 8.0
-      },
-      {
-        "date": "2026-02-19",
-        "clicks": 176,
-        "impressions": 25728,
+        "date": "2026-05-31",
+        "clicks": 152,
+        "impressions": 22311,
         "ctr_pct": 0.68,
-        "position": 8.0
+        "avg_position": 15.2
       },
       {
-        "date": "2026-02-20",
-        "clicks": 144,
-        "impressions": 23605,
-        "ctr_pct": 0.61,
-        "position": 7.9
-      },
-      {
-        "date": "2026-02-21",
-        "clicks": 126,
-        "impressions": 21964,
-        "ctr_pct": 0.57,
-        "position": 7.8
-      },
-      {
-        "date": "2026-02-22",
-        "clicks": 123,
-        "impressions": 24823,
-        "ctr_pct": 0.5,
-        "position": 7.7
-      },
-      {
-        "date": "2026-02-23",
-        "clicks": 162,
-        "impressions": 26100,
-        "ctr_pct": 0.62,
-        "position": 8.6
-      },
-      {
-        "date": "2026-02-24",
-        "clicks": 190,
-        "impressions": 26284,
-        "ctr_pct": 0.72,
-        "position": 8.1
-      },
-      {
-        "date": "2026-02-25",
-        "clicks": 172,
-        "impressions": 26805,
-        "ctr_pct": 0.64,
-        "position": 8.5
-      },
-      {
-        "date": "2026-02-26",
+        "date": "2026-06-01",
         "clicks": 175,
-        "impressions": 26632,
-        "ctr_pct": 0.66,
-        "position": 9.2
-      },
-      {
-        "date": "2026-02-27",
-        "clicks": 155,
-        "impressions": 24642,
-        "ctr_pct": 0.63,
-        "position": 8.0
-      },
-      {
-        "date": "2026-02-28",
-        "clicks": 118,
-        "impressions": 22346,
-        "ctr_pct": 0.53,
-        "position": 7.7
-      },
-      {
-        "date": "2026-03-01",
-        "clicks": 114,
-        "impressions": 21262,
-        "ctr_pct": 0.54,
-        "position": 8.7
-      },
-      {
-        "date": "2026-03-02",
-        "clicks": 170,
-        "impressions": 25976,
-        "ctr_pct": 0.65,
-        "position": 9.0
-      },
-      {
-        "date": "2026-03-03",
-        "clicks": 146,
-        "impressions": 27208,
-        "ctr_pct": 0.54,
-        "position": 8.6
-      },
-      {
-        "date": "2026-03-04",
-        "clicks": 143,
-        "impressions": 25848,
-        "ctr_pct": 0.55,
-        "position": 9.0
-      },
-      {
-        "date": "2026-03-05",
-        "clicks": 137,
-        "impressions": 25356,
-        "ctr_pct": 0.54,
-        "position": 10.2
-      },
-      {
-        "date": "2026-03-06",
-        "clicks": 143,
-        "impressions": 23644,
-        "ctr_pct": 0.6,
-        "position": 8.4
-      },
-      {
-        "date": "2026-03-07",
-        "clicks": 106,
-        "impressions": 22491,
-        "ctr_pct": 0.47,
-        "position": 8.2
-      },
-      {
-        "date": "2026-03-08",
-        "clicks": 115,
-        "impressions": 22557,
-        "ctr_pct": 0.51,
-        "position": 8.0
-      },
-      {
-        "date": "2026-03-09",
-        "clicks": 159,
-        "impressions": 27945,
-        "ctr_pct": 0.57,
-        "position": 7.3
-      },
-      {
-        "date": "2026-03-10",
-        "clicks": 209,
-        "impressions": 28502,
-        "ctr_pct": 0.73,
-        "position": 7.3
-      },
-      {
-        "date": "2026-03-11",
-        "clicks": 187,
-        "impressions": 27705,
-        "ctr_pct": 0.67,
-        "position": 8.0
-      },
-      {
-        "date": "2026-03-12",
-        "clicks": 177,
-        "impressions": 28269,
-        "ctr_pct": 0.63,
-        "position": 8.9
-      },
-      {
-        "date": "2026-03-13",
-        "clicks": 146,
-        "impressions": 24803,
-        "ctr_pct": 0.59,
-        "position": 8.8
-      },
-      {
-        "date": "2026-03-14",
-        "clicks": 120,
-        "impressions": 21732,
-        "ctr_pct": 0.55,
-        "position": 7.9
-      },
-      {
-        "date": "2026-03-15",
-        "clicks": 120,
-        "impressions": 24296,
-        "ctr_pct": 0.49,
-        "position": 9.1
-      },
-      {
-        "date": "2026-03-16",
-        "clicks": 192,
-        "impressions": 28659,
-        "ctr_pct": 0.67,
-        "position": 9.3
-      },
-      {
-        "date": "2026-03-17",
-        "clicks": 195,
-        "impressions": 28679,
-        "ctr_pct": 0.68,
-        "position": 9.4
-      },
-      {
-        "date": "2026-03-18",
-        "clicks": 179,
-        "impressions": 30908,
-        "ctr_pct": 0.58,
-        "position": 8.3
-      },
-      {
-        "date": "2026-03-19",
-        "clicks": 189,
-        "impressions": 32921,
-        "ctr_pct": 0.57,
-        "position": 7.7
-      },
-      {
-        "date": "2026-03-20",
-        "clicks": 169,
-        "impressions": 27424,
-        "ctr_pct": 0.62,
-        "position": 7.5
-      },
-      {
-        "date": "2026-03-21",
-        "clicks": 161,
-        "impressions": 30237,
-        "ctr_pct": 0.53,
-        "position": 9.2
-      },
-      {
-        "date": "2026-03-22",
-        "clicks": 161,
-        "impressions": 32112,
-        "ctr_pct": 0.5,
-        "position": 9.5
-      },
-      {
-        "date": "2026-03-23",
-        "clicks": 228,
-        "impressions": 36233,
-        "ctr_pct": 0.63,
-        "position": 7.4
-      },
-      {
-        "date": "2026-03-24",
-        "clicks": 209,
-        "impressions": 35458,
-        "ctr_pct": 0.59,
-        "position": 7.0
-      },
-      {
-        "date": "2026-03-25",
-        "clicks": 210,
-        "impressions": 35532,
-        "ctr_pct": 0.59,
-        "position": 7.4
-      },
-      {
-        "date": "2026-03-26",
-        "clicks": 204,
-        "impressions": 37388,
-        "ctr_pct": 0.55,
-        "position": 13.4
-      },
-      {
-        "date": "2026-03-27",
-        "clicks": 170,
-        "impressions": 30529,
-        "ctr_pct": 0.56,
-        "position": 8.6
-      },
-      {
-        "date": "2026-03-28",
-        "clicks": 133,
-        "impressions": 26494,
-        "ctr_pct": 0.5,
-        "position": 7.4
-      },
-      {
-        "date": "2026-03-29",
-        "clicks": 144,
-        "impressions": 27099,
-        "ctr_pct": 0.53,
-        "position": 8.1
-      },
-      {
-        "date": "2026-03-30",
-        "clicks": 229,
-        "impressions": 31979,
+        "impressions": 24244,
         "ctr_pct": 0.72,
-        "position": 7.6
+        "avg_position": 13.6
       },
       {
-        "date": "2026-03-31",
-        "clicks": 166,
-        "impressions": 31847,
-        "ctr_pct": 0.52,
-        "position": 7.0
-      },
-      {
-        "date": "2026-04-01",
-        "clicks": 167,
-        "impressions": 32501,
-        "ctr_pct": 0.51,
-        "position": 7.2
-      },
-      {
-        "date": "2026-04-02",
-        "clicks": 198,
-        "impressions": 32414,
-        "ctr_pct": 0.61,
-        "position": 8.4
-      },
-      {
-        "date": "2026-04-03",
-        "clicks": 156,
-        "impressions": 27571,
-        "ctr_pct": 0.57,
-        "position": 7.8
-      },
-      {
-        "date": "2026-04-04",
-        "clicks": 130,
-        "impressions": 25822,
-        "ctr_pct": 0.5,
-        "position": 8.3
-      },
-      {
-        "date": "2026-04-05",
-        "clicks": 129,
-        "impressions": 25502,
-        "ctr_pct": 0.51,
-        "position": 8.5
-      },
-      {
-        "date": "2026-04-06",
-        "clicks": 194,
-        "impressions": 29780,
-        "ctr_pct": 0.65,
-        "position": 9.1
-      },
-      {
-        "date": "2026-04-07",
-        "clicks": 223,
-        "impressions": 29743,
-        "ctr_pct": 0.75,
-        "position": 8.3
-      },
-      {
-        "date": "2026-04-08",
-        "clicks": 201,
-        "impressions": 30519,
-        "ctr_pct": 0.66,
-        "position": 8.2
-      },
-      {
-        "date": "2026-04-09",
-        "clicks": 159,
-        "impressions": 32753,
-        "ctr_pct": 0.49,
-        "position": 8.8
-      },
-      {
-        "date": "2026-04-10",
-        "clicks": 140,
-        "impressions": 30420,
-        "ctr_pct": 0.46,
-        "position": 8.5
-      },
-      {
-        "date": "2026-04-11",
-        "clicks": 120,
-        "impressions": 28682,
-        "ctr_pct": 0.42,
-        "position": 9.8
-      },
-      {
-        "date": "2026-04-12",
-        "clicks": 129,
-        "impressions": 29209,
-        "ctr_pct": 0.44,
-        "position": 9.8
-      },
-      {
-        "date": "2026-04-13",
-        "clicks": 163,
-        "impressions": 32942,
-        "ctr_pct": 0.49,
-        "position": 9.9
-      },
-      {
-        "date": "2026-04-14",
-        "clicks": 169,
-        "impressions": 31906,
-        "ctr_pct": 0.53,
-        "position": 9.3
-      },
-      {
-        "date": "2026-04-15",
-        "clicks": 159,
-        "impressions": 32765,
-        "ctr_pct": 0.49,
-        "position": 10.6
-      },
-      {
-        "date": "2026-04-16",
-        "clicks": 177,
-        "impressions": 31458,
-        "ctr_pct": 0.56,
-        "position": 10.9
-      },
-      {
-        "date": "2026-04-17",
-        "clicks": 140,
-        "impressions": 28894,
-        "ctr_pct": 0.48,
-        "position": 8.6
-      },
-      {
-        "date": "2026-04-18",
-        "clicks": 108,
-        "impressions": 26229,
-        "ctr_pct": 0.41,
-        "position": 9.1
-      },
-      {
-        "date": "2026-04-19",
-        "clicks": 102,
-        "impressions": 27844,
-        "ctr_pct": 0.37,
-        "position": 9.8
-      },
-      {
-        "date": "2026-04-20",
-        "clicks": 171,
-        "impressions": 26741,
-        "ctr_pct": 0.64,
-        "position": 11.4
-      },
-      {
-        "date": "2026-04-21",
-        "clicks": 158,
-        "impressions": 21062,
-        "ctr_pct": 0.75,
-        "position": 11.3
-      },
-      {
-        "date": "2026-04-22",
-        "clicks": 181,
-        "impressions": 21099,
-        "ctr_pct": 0.86,
-        "position": 12.7
-      },
-      {
-        "date": "2026-04-23",
-        "clicks": 183,
-        "impressions": 20966,
-        "ctr_pct": 0.87,
-        "position": 12.7
-      },
-      {
-        "date": "2026-04-24",
-        "clicks": 153,
-        "impressions": 18988,
-        "ctr_pct": 0.81,
-        "position": 11.9
-      },
-      {
-        "date": "2026-04-25",
-        "clicks": 107,
-        "impressions": 17627,
-        "ctr_pct": 0.61,
-        "position": 13.8
-      },
-      {
-        "date": "2026-04-26",
-        "clicks": 101,
-        "impressions": 18773,
-        "ctr_pct": 0.54,
-        "position": 15.8
-      },
-      {
-        "date": "2026-04-27",
-        "clicks": 168,
-        "impressions": 20627,
-        "ctr_pct": 0.81,
-        "position": 12.4
-      },
-      {
-        "date": "2026-04-28",
-        "clicks": 171,
-        "impressions": 22128,
-        "ctr_pct": 0.77,
-        "position": 13.0
-      },
-      {
-        "date": "2026-04-29",
-        "clicks": 162,
-        "impressions": 21907,
-        "ctr_pct": 0.74,
-        "position": 12.4
-      },
-      {
-        "date": "2026-04-30",
-        "clicks": 159,
-        "impressions": 23036,
-        "ctr_pct": 0.69,
-        "position": 12.5
-      },
-      {
-        "date": "2026-05-01",
-        "clicks": 142,
-        "impressions": 21897,
-        "ctr_pct": 0.65,
-        "position": 10.9
-      },
-      {
-        "date": "2026-05-02",
-        "clicks": 102,
-        "impressions": 19195,
-        "ctr_pct": 0.53,
-        "position": 12.4
-      },
-      {
-        "date": "2026-05-03",
-        "clicks": 117,
-        "impressions": 20308,
-        "ctr_pct": 0.58,
-        "position": 13.1
-      },
-      {
-        "date": "2026-05-04",
-        "clicks": 172,
-        "impressions": 23738,
-        "ctr_pct": 0.72,
-        "position": 12.2
-      },
-      {
-        "date": "2026-05-05",
-        "clicks": 158,
-        "impressions": 23214,
-        "ctr_pct": 0.68,
-        "position": 10.7
-      },
-      {
-        "date": "2026-05-06",
-        "clicks": 171,
-        "impressions": 24245,
+        "date": "2026-06-02",
+        "clicks": 170,
+        "impressions": 24005,
         "ctr_pct": 0.71,
-        "position": 11.4
+        "avg_position": 12.6
+      },
+      {
+        "date": "2026-06-03",
+        "clicks": 190,
+        "impressions": 23015,
+        "ctr_pct": 0.83,
+        "avg_position": 11.8
+      },
+      {
+        "date": "2026-06-04",
+        "clicks": 190,
+        "impressions": 23771,
+        "ctr_pct": 0.8,
+        "avg_position": 12.7
+      },
+      {
+        "date": "2026-06-05",
+        "clicks": 163,
+        "impressions": 21253,
+        "ctr_pct": 0.77,
+        "avg_position": 12.0
+      },
+      {
+        "date": "2026-06-06",
+        "clicks": 131,
+        "impressions": 19801,
+        "ctr_pct": 0.66,
+        "avg_position": 11.0
+      },
+      {
+        "date": "2026-06-07",
+        "clicks": 127,
+        "impressions": 21077,
+        "ctr_pct": 0.6,
+        "avg_position": 12.1
+      },
+      {
+        "date": "2026-06-08",
+        "clicks": 196,
+        "impressions": 24542,
+        "ctr_pct": 0.8,
+        "avg_position": 10.5
+      },
+      {
+        "date": "2026-06-09",
+        "clicks": 213,
+        "impressions": 25965,
+        "ctr_pct": 0.82,
+        "avg_position": 10.0
+      },
+      {
+        "date": "2026-06-10",
+        "clicks": 197,
+        "impressions": 25724,
+        "ctr_pct": 0.77,
+        "avg_position": 9.6
+      },
+      {
+        "date": "2026-06-11",
+        "clicks": 206,
+        "impressions": 25421,
+        "ctr_pct": 0.81,
+        "avg_position": 9.3
+      },
+      {
+        "date": "2026-06-12",
+        "clicks": 203,
+        "impressions": 23458,
+        "ctr_pct": 0.87,
+        "avg_position": 10.1
+      },
+      {
+        "date": "2026-06-13",
+        "clicks": 130,
+        "impressions": 22368,
+        "ctr_pct": 0.58,
+        "avg_position": 11.2
+      },
+      {
+        "date": "2026-06-14",
+        "clicks": 165,
+        "impressions": 23828,
+        "ctr_pct": 0.69,
+        "avg_position": 12.5
+      },
+      {
+        "date": "2026-06-15",
+        "clicks": 226,
+        "impressions": 28313,
+        "ctr_pct": 0.8,
+        "avg_position": 12.0
+      },
+      {
+        "date": "2026-06-16",
+        "clicks": 190,
+        "impressions": 28077,
+        "ctr_pct": 0.68,
+        "avg_position": 11.2
+      },
+      {
+        "date": "2026-06-17",
+        "clicks": 201,
+        "impressions": 28426,
+        "ctr_pct": 0.71,
+        "avg_position": 11.5
+      },
+      {
+        "date": "2026-06-18",
+        "clicks": 223,
+        "impressions": 28524,
+        "ctr_pct": 0.78,
+        "avg_position": 12.1
+      },
+      {
+        "date": "2026-06-19",
+        "clicks": 211,
+        "impressions": 27012,
+        "ctr_pct": 0.78,
+        "avg_position": 14.0
+      },
+      {
+        "date": "2026-06-20",
+        "clicks": 164,
+        "impressions": 23225,
+        "ctr_pct": 0.71,
+        "avg_position": 12.0
+      },
+      {
+        "date": "2026-06-21",
+        "clicks": 144,
+        "impressions": 23676,
+        "ctr_pct": 0.61,
+        "avg_position": 12.2
+      },
+      {
+        "date": "2026-06-22",
+        "clicks": 233,
+        "impressions": 26628,
+        "ctr_pct": 0.88,
+        "avg_position": 11.1
+      },
+      {
+        "date": "2026-06-23",
+        "clicks": 209,
+        "impressions": 27440,
+        "ctr_pct": 0.76,
+        "avg_position": 12.3
+      },
+      {
+        "date": "2026-06-24",
+        "clicks": 226,
+        "impressions": 28097,
+        "ctr_pct": 0.8,
+        "avg_position": 12.8
+      },
+      {
+        "date": "2026-06-25",
+        "clicks": 207,
+        "impressions": 27759,
+        "ctr_pct": 0.75,
+        "avg_position": 11.8
+      },
+      {
+        "date": "2026-06-26",
+        "clicks": 184,
+        "impressions": 25575,
+        "ctr_pct": 0.72,
+        "avg_position": 11.4
+      },
+      {
+        "date": "2026-06-27",
+        "clicks": 145,
+        "impressions": 25172,
+        "ctr_pct": 0.58,
+        "avg_position": 14.3
+      },
+      {
+        "date": "2026-06-28",
+        "clicks": 151,
+        "impressions": 23115,
+        "ctr_pct": 0.65,
+        "avg_position": 11.8
+      },
+      {
+        "date": "2026-06-29",
+        "clicks": 194,
+        "impressions": 26111,
+        "ctr_pct": 0.74,
+        "avg_position": 11.2
       }
     ],
     "connector_status": [
@@ -17850,110 +17485,286 @@
     ],
     "gsc_query_rows": [
       {
-        "query": "physicians mutual dental insurance",
-        "clicks": 6,
-        "impressions": 3652,
-        "ctr_pct": 0.2,
-        "avg_position": 1.5,
-        "action": "Rewrite insurance landing title/meta; CTR leak."
+        "query": "clove dental",
+        "clicks": 60,
+        "impressions": 399,
+        "ctr_pct": 15.04,
+        "avg_position": 3.3,
+        "action": "monitor"
       },
       {
-        "query": "can pericoronitis kill you",
-        "clicks": 26,
-        "impressions": 3135,
-        "ctr_pct": 0.8,
-        "avg_position": 4.8,
-        "action": "Rewrite title/meta for urgency + same-day exam CTA."
+        "query": "clove dental oxnard",
+        "clicks": 18,
+        "impressions": 116,
+        "ctr_pct": 15.52,
+        "avg_position": 5.8,
+        "action": "monitor"
       },
       {
-        "query": "why does my tongue feel weird",
-        "clicks": 5,
-        "impressions": 2563,
-        "ctr_pct": 0.2,
-        "avg_position": 6.8,
-        "action": "Expand content; add appointment CTA."
+        "query": "clove dental beverly hills",
+        "clicks": 12,
+        "impressions": 136,
+        "ctr_pct": 8.82,
+        "avg_position": 5.4,
+        "action": "monitor"
       },
       {
-        "query": "costco dental insurance",
-        "clicks": 50,
-        "impressions": 1508,
-        "ctr_pct": 3.3,
-        "avg_position": 6.4,
-        "action": "Improve insurance hub; strengthen internal links."
+        "query": "clove dental camarillo",
+        "clicks": 12,
+        "impressions": 117,
+        "ctr_pct": 10.26,
+        "avg_position": 5.4,
+        "action": "monitor"
       },
       {
-        "query": "clove dental login",
-        "clicks": 13,
-        "impressions": 603,
-        "ctr_pct": 2.2,
-        "avg_position": 6.7,
-        "action": "Create or clarify patient portal/login page/sitelink."
+        "query": "clove dental santa monica",
+        "clicks": 9,
+        "impressions": 124,
+        "ctr_pct": 7.26,
+        "avg_position": 1.2,
+        "action": "protect"
+      },
+      {
+        "query": "mouth sloughing",
+        "clicks": 9,
+        "impressions": 210,
+        "ctr_pct": 4.29,
+        "avg_position": 1.9,
+        "action": "monitor"
+      },
+      {
+        "query": "clove dental sherman oaks",
+        "clicks": 8,
+        "impressions": 88,
+        "ctr_pct": 9.09,
+        "avg_position": 1.3,
+        "action": "protect"
       },
       {
         "query": "clove dental thousand oaks",
-        "clicks": 17,
-        "impressions": 460,
-        "ctr_pct": 3.7,
-        "avg_position": 2.6,
-        "action": "Strengthen office page title/meta and GBP links."
+        "clicks": 8,
+        "impressions": 129,
+        "ctr_pct": 6.2,
+        "avg_position": 1.3,
+        "action": "protect"
       },
       {
-        "query": "puri dentistry",
-        "clicks": 11,
-        "impressions": 401,
-        "ctr_pct": 2.7,
-        "avg_position": 3.8,
-        "action": "Improve Clove/Puri brand-transition copy."
+        "query": "best mouthwash for smokers",
+        "clicks": 6,
+        "impressions": 44,
+        "ctr_pct": 13.64,
+        "avg_position": 1.4,
+        "action": "protect"
+      },
+      {
+        "query": "clove dental encino",
+        "clicks": 6,
+        "impressions": 312,
+        "ctr_pct": 1.92,
+        "avg_position": 4.4,
+        "action": "metadata_test"
+      },
+      {
+        "query": "clove dds",
+        "clicks": 4,
+        "impressions": 7,
+        "ctr_pct": 57.14,
+        "avg_position": 1.6,
+        "action": "protect"
+      },
+      {
+        "query": "clove dental hillview",
+        "clicks": 4,
+        "impressions": 16,
+        "ctr_pct": 25.0,
+        "avg_position": 1.1,
+        "action": "protect"
+      },
+      {
+        "query": "clove dental oxnard - riverpark",
+        "clicks": 4,
+        "impressions": 36,
+        "ctr_pct": 11.11,
+        "avg_position": 1.6,
+        "action": "protect"
+      },
+      {
+        "query": "clovedds",
+        "clicks": 4,
+        "impressions": 4,
+        "ctr_pct": 100,
+        "avg_position": 1,
+        "action": "protect"
+      },
+      {
+        "query": "best mouthwash for smokers breath",
+        "clicks": 3,
+        "impressions": 13,
+        "ctr_pct": 23.08,
+        "avg_position": 1.6,
+        "action": "protect"
+      },
+      {
+        "query": "clove dental careers",
+        "clicks": 3,
+        "impressions": 60,
+        "ctr_pct": 5.0,
+        "avg_position": 4.6,
+        "action": "monitor"
+      },
+      {
+        "query": "clove dental ventura",
+        "clicks": 3,
+        "impressions": 45,
+        "ctr_pct": 6.67,
+        "avg_position": 1,
+        "action": "protect"
       },
       {
         "query": "dentist near me",
         "clicks": 3,
-        "impressions": 548,
-        "ctr_pct": 0.5,
-        "avg_position": 14.2,
-        "action": "Local SEO + internal links; not a paid action."
+        "impressions": 121,
+        "ctr_pct": 2.48,
+        "avg_position": 13.1,
+        "action": "monitor"
+      },
+      {
+        "query": "does sensodyne work",
+        "clicks": 3,
+        "impressions": 373,
+        "ctr_pct": 0.8,
+        "avg_position": 8.5,
+        "action": "metadata_test"
+      },
+      {
+        "query": "dr puri",
+        "clicks": 3,
+        "impressions": 4,
+        "ctr_pct": 75.0,
+        "avg_position": 2.5,
+        "action": "protect"
       }
     ],
     "gsc_page_rows": [
       {
-        "page": "/blog/mouth-sloughing",
-        "clicks": 624,
-        "impressions": 80970,
-        "ctr_pct": 0.77,
-        "avg_position": 4.9,
-        "action": "Improve title/meta; add appointment CTA."
+        "page": "https://clovedds.com/blog/mouth-sloughing-what-it-is-why-it-happens-and-when-to-pay-attention",
+        "clicks": 304,
+        "impressions": 23731,
+        "ctr_pct": 1.28,
+        "avg_position": 5.9,
+        "action": "metadata_test"
       },
       {
-        "page": "/blog/how-long-do-tonsil-stones-last",
-        "clicks": 168,
-        "impressions": 41796,
-        "ctr_pct": 0.4,
-        "avg_position": 4.2,
-        "action": "Rewrite title/meta; same-day appointment block."
+        "page": "https://clovedds.com/blog/will-a-tooth-abscess-go-away-with-antibiotics-what-you-need-to-know-before-waiting",
+        "clicks": 56,
+        "impressions": 8285,
+        "ctr_pct": 0.68,
+        "avg_position": 7.3,
+        "action": "metadata_test"
       },
       {
-        "page": "/blog/will-a-tooth-abscess-go-away-with-antibiotics",
-        "clicks": 133,
-        "impressions": 26427,
-        "ctr_pct": 0.5,
+        "page": "https://clovedds.com/",
+        "clicks": 49,
+        "impressions": 2385,
+        "ctr_pct": 2.05,
+        "avg_position": 7.9,
+        "action": "monitor"
+      },
+      {
+        "page": "https://clovedds.com/blog/why-does-my-tongue-feel-weird-common-causes-when-to-see-a-dentist",
+        "clicks": 47,
+        "impressions": 6896,
+        "ctr_pct": 0.68,
+        "avg_position": 7.8,
+        "action": "metadata_test"
+      },
+      {
+        "page": "https://clovedds.com/blog/how-long-do-tonsil-stones-last-and-other-questions",
+        "clicks": 46,
+        "impressions": 8506,
+        "ctr_pct": 0.54,
+        "avg_position": 5.1,
+        "action": "metadata_test"
+      },
+      {
+        "page": "https://clovedds.com/riverpark?utm_campaign=gmb&utm_medium=gbp&utm_source=google",
+        "clicks": 41,
+        "impressions": 524,
+        "ctr_pct": 7.82,
+        "avg_position": 4.5,
+        "action": "monitor"
+      },
+      {
+        "page": "https://clovedds.com/blog/can-you-drink-protein-shakes-after-wisdom-teeth-removal",
+        "clicks": 40,
+        "impressions": 2810,
+        "ctr_pct": 1.42,
+        "avg_position": 4.0,
+        "action": "metadata_test"
+      },
+      {
+        "page": "https://clovedds.com/blog/how-to-encourage-lower-jaw-growth",
+        "clicks": 40,
+        "impressions": 3441,
+        "ctr_pct": 1.16,
+        "avg_position": 7.7,
+        "action": "metadata_test"
+      },
+      {
+        "page": "https://clovedds.com/blog/top-mouthwash-picks-for-smokers-freshen-breath-and-protect-oral-health",
+        "clicks": 40,
+        "impressions": 2155,
+        "ctr_pct": 1.86,
         "avg_position": 6.2,
-        "action": "Urgent-care CTA; internal link to offices."
+        "action": "metadata_test"
       },
       {
-        "page": "/sherman-oaks",
-        "clicks": 84,
-        "impressions": 4758,
-        "ctr_pct": 1.77,
-        "avg_position": 23.2,
-        "action": "Fix local SEO/title/internal links; ranking issue."
+        "page": "https://clovedds.com/blog/is-your-mouth-sore-from-hpv-or-another-cause",
+        "clicks": 32,
+        "impressions": 6890,
+        "ctr_pct": 0.46,
+        "avg_position": 9.7,
+        "action": "metadata_test"
       },
       {
-        "page": "/blog/aarp-vs-costco-dental-insurance",
-        "clicks": 85,
-        "impressions": 3253,
-        "ctr_pct": 2.61,
-        "avg_position": 8.9,
-        "action": "Update insurance CTA + internal links."
+        "page": "https://clovedds.com/blog/air-pocket-in-tooth-what-it-means-why-it-happens-and-when-to-act",
+        "clicks": 27,
+        "impressions": 1408,
+        "ctr_pct": 1.92,
+        "avg_position": 4.7,
+        "action": "metadata_test"
+      },
+      {
+        "page": "https://clovedds.com/blog/how-to-make-turmeric-paste-for-gums",
+        "clicks": 26,
+        "impressions": 2556,
+        "ctr_pct": 1.02,
+        "avg_position": 6.7,
+        "action": "metadata_test"
+      },
+      {
+        "page": "https://clovedds.com/blog/headache-after-wisdom-tooth-removal-thousand-oaks-experts-explain-whats-normal",
+        "clicks": 22,
+        "impressions": 5077,
+        "ctr_pct": 0.43,
+        "avg_position": 5.4,
+        "action": "metadata_test"
+      },
+      {
+        "page": "https://clovedds.com/blog/will-bleach-kill-a-tooth-nerve",
+        "clicks": 22,
+        "impressions": 975,
+        "ctr_pct": 2.26,
+        "avg_position": 7.5,
+        "action": "monitor"
+      },
+      {
+        "page": "https://clovedds.com/oxnard",
+        "clicks": 22,
+        "impressions": 1568,
+        "ctr_pct": 1.4,
+        "avg_position": 19.3,
+        "action": "monitor"
       }
     ],
     "ahrefs_link_rows": [
@@ -18030,12 +17841,94 @@
         "status": "Connected",
         "note": "Updated daily. Public data is aggregated."
       }
+    ],
+    "opportunity_queue": [
+      {
+        "query": "aarp dental insurance",
+        "impressions": 950,
+        "clicks": 1,
+        "ctr_pct": 0.11,
+        "avg_position": 8.2,
+        "lift_estimate_clicks": 27,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      },
+      {
+        "query": "physicians mutual dental",
+        "impressions": 697,
+        "clicks": 2,
+        "ctr_pct": 0.29,
+        "avg_position": 7.8,
+        "lift_estimate_clicks": 18,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      },
+      {
+        "query": "can pericoronitis kill you",
+        "impressions": 510,
+        "clicks": 2,
+        "ctr_pct": 0.39,
+        "avg_position": 5.4,
+        "lift_estimate_clicks": 13,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      },
+      {
+        "query": "tongue feels weird",
+        "impressions": 432,
+        "clicks": 3,
+        "ctr_pct": 0.69,
+        "avg_position": 5.0,
+        "lift_estimate_clicks": 9,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      },
+      {
+        "query": "does sensodyne work",
+        "impressions": 373,
+        "clicks": 3,
+        "ctr_pct": 0.8,
+        "avg_position": 8.5,
+        "lift_estimate_clicks": 8,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      },
+      {
+        "query": "aarp dental insurance plan",
+        "impressions": 281,
+        "clicks": 1,
+        "ctr_pct": 0.36,
+        "avg_position": 9.7,
+        "lift_estimate_clicks": 7,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      },
+      {
+        "query": "my tongue feels weird",
+        "impressions": 226,
+        "clicks": 2,
+        "ctr_pct": 0.88,
+        "avg_position": 4.7,
+        "lift_estimate_clicks": 4,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      },
+      {
+        "query": "costco dental insurance",
+        "impressions": 197,
+        "clicks": 2,
+        "ctr_pct": 1.02,
+        "avg_position": 7.4,
+        "lift_estimate_clicks": 3,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      }
     ]
   },
   "referral_insights": {
     "title": "Referrals",
     "lookback": "Last 30d",
-    "data_freshness": "Live daily GBP pull \u2014 last refreshed 2026-07-02 at 5am PT.",
+    "data_freshness": "Live daily GBP pull \u2014 last refreshed 2026-07-03 at 5am PT.",
     "connector_status": [
       {
         "integration": "Open Dental referral query",
@@ -18298,7 +18191,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-07-02T03:01:29+00:00",
+    "data_freshness": "2026-07-03T01:21:52+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -18307,8 +18200,8 @@
       },
       {
         "label": "New reviews 7d",
-        "value": "21",
-        "subtext": "3.0/day across 9 offices"
+        "value": "15",
+        "subtext": "2.14/day across 9 offices"
       },
       {
         "label": "New reviews 30d",
@@ -18366,7 +18259,7 @@
         "office": "Riverpark",
         "avg_rating_30d": 4.75,
         "reviews_30d": 8,
-        "reviews_7d": 2,
+        "reviews_7d": 1,
         "pace_per_day": 0.27,
         "gap_to_goal_30d": 22,
         "low_30d": 0,
@@ -18396,7 +18289,7 @@
         "office": "Santa Monica",
         "avg_rating_30d": 5.0,
         "reviews_30d": 5,
-        "reviews_7d": 4,
+        "reviews_7d": 3,
         "pace_per_day": 0.17,
         "gap_to_goal_30d": 25,
         "low_30d": 0,
@@ -18406,7 +18299,7 @@
         "office": "Hillview",
         "avg_rating_30d": 5.0,
         "reviews_30d": 4,
-        "reviews_7d": 2,
+        "reviews_7d": 0,
         "pace_per_day": 0.13,
         "gap_to_goal_30d": 26,
         "low_30d": 0,
@@ -18416,7 +18309,7 @@
         "office": "Beverly Hills",
         "avg_rating_30d": 5.0,
         "reviews_30d": 3,
-        "reviews_7d": 3,
+        "reviews_7d": 1,
         "pace_per_day": 0.1,
         "gap_to_goal_30d": 27,
         "low_30d": 0,
@@ -18561,7 +18454,7 @@
         "headline": "8 reviews in 30d (0.27/day)",
         "highlights": [
           "Avg rating 4.75\u2605",
-          "2 reviews in last 7d"
+          "1 reviews in last 7d"
         ]
       },
       {
@@ -19518,7 +19411,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-07-02T03:01:29+00:00",
+      "data_freshness": "2026-07-03T01:21:52+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -19879,7 +19772,7 @@
       "threshold_days": 3,
       "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
       "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending.",
-      "as_of": "2026-07-02T03:01:29+00:00",
+      "as_of": "2026-07-03T01:21:52+00:00",
       "status": "BLOCKED"
     }
   },
@@ -20216,7 +20109,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-07-02T03:01:29+00:00",
+    "as_of": "2026-07-03T01:21:52+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20235,7 +20128,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-07-02T03:01:29+00:00",
+      "as_of": "2026-07-03T01:21:52+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21381,6 +21274,31 @@
           "speed_credit_efficiency": 9
         },
         "remediation_next_run": "Wire CallRail + Subscribili/OpenDental cash-yield pulls into the 5am PT cron so callrail_live and membership_insights refresh daily."
+      },
+      {
+        "date": "2026-07-03",
+        "actions_taken": [
+          "Live daily refresh: paid_ads (9 offices), GMB (9 offices), organic GSC.",
+          "Rebuilt gmb_insights + operator_summary + next_actions from live data.",
+          "B2B outbound reconciled to Gmail SENT: 11 sends 30d."
+        ],
+        "metrics": {
+          "paid_7d_spend_usd": 5828.88,
+          "paid_30d_spend_usd": 37616.9,
+          "gmb_reviews_7d": 15,
+          "gmb_reviews_30d": 46,
+          "organic_clicks_7d": null,
+          "organic_clicks_30d": null
+        },
+        "self_rating": {
+          "action_taken": 9,
+          "impact_learning": 8,
+          "dashboard_clarity": 9,
+          "automation_reliability": 9,
+          "privacy_safety": 10,
+          "speed_credit_efficiency": 9
+        },
+        "remediation_next_run": "Wire CallRail + Subscribili/OpenDental cash-yield pulls into the 5am PT cron so callrail_live and membership_insights refresh daily."
       }
     ]
   },
@@ -21420,13 +21338,29 @@
         "browser_calls": 0,
         "subagents": 0,
         "notes": "5am PT scheduled refresh \u2014 lean-mode, one pull per source."
+      },
+      {
+        "date": "2026-07-03",
+        "source_pulls": {
+          "google_ads": 9,
+          "gsc": 3,
+          "gmb": 2,
+          "open_dental": 0,
+          "callrail": 0,
+          "ga4": 0,
+          "ahrefs": 0,
+          "hubspot": 0
+        },
+        "browser_calls": 0,
+        "subagents": 0,
+        "notes": "5am PT scheduled refresh \u2014 lean-mode, one pull per source."
       }
     ]
   },
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-07-02T03:01:29+00:00",
+    "generated_at": "2026-07-03T01:21:52+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -21436,7 +21370,7 @@
       },
       {
         "label": "GMB reviews 7d",
-        "value": "21 new",
+        "value": "15 new",
         "basis": "30d 46 reviews \u00b7 avg 4.52 \u2605",
         "decision": "Reply to lows within 24h; service recovery on themes."
       },
@@ -21448,8 +21382,8 @@
       },
       {
         "label": "B2B outbound 30d",
-        "value": "0 sends",
-        "basis": "NO ACTIVE OUTBOUND PROGRAM",
+        "value": "11 sends",
+        "basis": "ACTIVE \u2014 running from personal Gmail",
         "decision": "Decide whether to run B2B in Q3; if yes, wire Zoho-sourced prospects + 14d cooldown before counting sends."
       }
     ],
@@ -21750,7 +21684,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-07-02T03:01:29+00:00",
+    "generated_at": "2026-07-03T01:21:52+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -23336,26 +23270,214 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-07-02T03:01:29+00:00",
-    "source_of_truth": "Gmail SENT label on the sender mailbox, last 30 days",
-    "status": "NO ACTIVE OUTBOUND PROGRAM",
-    "verified_sends_last_30d": 0,
-    "unique_prospects_last_30d": 0,
-    "summary": "There is no active B2B outbound automation running. Prior snapshots claimed 33 sends with a dedupe loop; that data was not reconciled to Gmail SENT and has been removed. Current Gmail SENT shows operational/internal email and M&A counsel threads, none of which are B2B prospect outreach.",
-    "legitimate_active_thread": {
-      "recipient": "senior_living_contact_c",
-      "thread": "Free dental wellness seminar for The Leonard on Beverly",
-      "status": "open thread \u2014 90-day check-in pending"
+    "as_of": "2026-07-03T01:21:52+00:00",
+    "source_of_truth": "Gmail SENT (verified) + Maps-sourced 5mi prospect pool",
+    "status": "ACTIVE \u2014 running from personal Gmail",
+    "verified_sends_last_30d": 11,
+    "unique_prospects_last_30d": 10,
+    "vertical_breakdown_last_90d": {
+      "hr_heavy_employer": 1,
+      "medical_referrer": 2,
+      "senior_living": 6,
+      "insurance_partner": 1,
+      "schools_daycares": 1
     },
-    "recommended_actions": [
-      "1. Decide whether to run a B2B outbound program at all in Q3.",
-      "2. If yes: define ICP (senior living, employers, auto groups in Camarillo/SFV), source 15-25 verified prospects to Zoho.",
-      "3. Wire send-side: Gmail draft via template + 14-day per-recipient cooldown + Hiver label writeback.",
-      "4. Wire dashboard: count only sends with a Zoho lead_id (no orphan sends counted).",
-      "5. Until wired, keep this section honest at 0 sends."
+    "recent_touches": [
+      {
+        "domain": "silverstarautos.com",
+        "vertical": "hr_heavy_employer",
+        "threads": 10,
+        "latest_sent": "2026-07-03",
+        "subject_sample": "Lunch-and-learn for Silver Star Automotive Group's team"
+      },
+      {
+        "domain": "gmail.com",
+        "vertical": "medical_referrer",
+        "threads": 5,
+        "latest_sent": "2026-07-03",
+        "subject_sample": "First-tooth referrals for Camarillo Children's Medical Group's families"
+      },
+      {
+        "domain": "ivyliving.com",
+        "vertical": "senior_living",
+        "threads": 2,
+        "latest_sent": "2026-07-03",
+        "subject_sample": "A dentist in Thousand Oaks - quick question"
+      },
+      {
+        "domain": "divi.express",
+        "vertical": "senior_living",
+        "threads": 10,
+        "latest_sent": "2026-07-03",
+        "subject_sample": "Partnering with Camarillo Senior Living residents"
+      },
+      {
+        "domain": "atriaseniorliving.com",
+        "vertical": "senior_living",
+        "threads": 2,
+        "latest_sent": "2026-07-03",
+        "subject_sample": "Dental care at Atria Las Posas"
+      },
+      {
+        "domain": "libertydentalplan.com",
+        "vertical": "insurance_partner",
+        "threads": 1,
+        "latest_sent": "2026-06-30",
+        "subject_sample": "Re: [NOENCRYPTION]"
+      },
+      {
+        "domain": "braininjurycenter.org",
+        "vertical": "medical_referrer",
+        "threads": 1,
+        "latest_sent": "2026-05-05",
+        "subject_sample": "Re: Free dental wellness seminar"
+      },
+      {
+        "domain": "discoverymgt.com",
+        "vertical": "senior_living",
+        "threads": 1,
+        "latest_sent": "2026-05-02",
+        "subject_sample": "Re: Free dental wellness talk for seniors"
+      },
+      {
+        "domain": "oxnardfamilycircle.com",
+        "vertical": "schools_daycares",
+        "threads": 1,
+        "latest_sent": "2026-04-20",
+        "subject_sample": "Free dental wellness seminar for Oxnard Family Circle"
+      },
+      {
+        "domain": "gmail.com",
+        "vertical": "senior_living",
+        "threads": 1,
+        "latest_sent": "2026-04-20",
+        "subject_sample": "Free dental wellness seminar for West Hills Adult Day Health Care Center"
+      }
     ],
-    "sourcing_status": "NOT STARTED (deliberately, until program decision)",
-    "zoho_writeback_status": "NOT WIRED"
+    "prospect_pool": {
+      "total": 159,
+      "by_vertical": {
+        "senior_living": 71,
+        "schools_daycare": 88
+      },
+      "by_office": {
+        "Hillview": 22,
+        "Thousand Oaks": 34,
+        "Oxnard Riverpark": 30,
+        "Encino": 37,
+        "Camarillo": 36
+      },
+      "source": "Google Maps Places within 5mi of each office (senior living + preschool/daycare); more verticals queued.",
+      "dedup_rule": "Excluded 21 domains already contacted + legal/finance domains; 14-day per-recipient cooldown."
+    },
+    "next_prospects_top10": [
+      {
+        "name": "Camarillo KinderCare",
+        "vertical": "schools_daycare",
+        "nearest_office": "Camarillo",
+        "distance_mi": 0.23,
+        "website": "https://www.kindercare.com/our-centers/camarillo/ca/301645?utm_campaign=kc-lg&utm_source=yext&utm_medium=pro&utm_keyword=&utm_platform=&utm_matchtype=&utm_adgroupid=&utm_content=gmb&y_source=1_NTA4MDEyLTcxNS1sb2NhdGlvbi53ZWJzaXRl",
+        "rating": 4.5,
+        "reviews": 26,
+        "score": 14.49
+      },
+      {
+        "name": "Fun Two Three Preschool",
+        "vertical": "schools_daycare",
+        "nearest_office": "Encino",
+        "distance_mi": 1.91,
+        "website": "http://fun2-three.com/",
+        "rating": 5,
+        "reviews": 109,
+        "score": 19.01
+      },
+      {
+        "name": "Integrity Care Managing & Senior Living Solutions, Inc.",
+        "vertical": "senior_living",
+        "nearest_office": "Hillview",
+        "distance_mi": 0.77,
+        "website": "http://www.integritycare4seniors.com/",
+        "rating": 4.9,
+        "reviews": 149,
+        "score": 22.66
+      },
+      {
+        "name": "Clearwater at Riverpark",
+        "vertical": "senior_living",
+        "nearest_office": "Oxnard Riverpark",
+        "distance_mi": 0.07,
+        "website": "https://clearwateratriverpark.com/",
+        "rating": 4.7,
+        "reviews": 59,
+        "score": 19.11
+      },
+      {
+        "name": "Silverado Thousand Oaks Memory Care Community",
+        "vertical": "senior_living",
+        "nearest_office": "Thousand Oaks",
+        "distance_mi": 0.59,
+        "website": "https://www.silverado.com/locations/thousand-oaks/",
+        "rating": 5,
+        "reviews": 121,
+        "score": 22.6
+      },
+      {
+        "name": "Coast 2 Coast Camps of Camarillo",
+        "vertical": "schools_daycare",
+        "nearest_office": "Camarillo",
+        "distance_mi": 0.23,
+        "website": "https://www.c2ccamps.com/camarillo-ca",
+        "rating": 4.8,
+        "reviews": 19,
+        "score": 14.05
+      },
+      {
+        "name": "Funtastic Daycare",
+        "vertical": "schools_daycare",
+        "nearest_office": "Encino",
+        "distance_mi": 0.81,
+        "website": "http://funtasticdaycares.com/?utm_source=gmb&utm_medium=referral",
+        "rating": 4.9,
+        "reviews": 48,
+        "score": 17.53
+      },
+      {
+        "name": "Ventura Townehouse",
+        "vertical": "senior_living",
+        "nearest_office": "Hillview",
+        "distance_mi": 1.09,
+        "website": "http://www.venturatownehouse.com/?utm_source=google&utm_medium=organic&utm_campaign=GMB%20Listing",
+        "rating": 4.3,
+        "reviews": 83,
+        "score": 16.98
+      },
+      {
+        "name": "Childtime of Oxnard",
+        "vertical": "schools_daycare",
+        "nearest_office": "Oxnard Riverpark",
+        "distance_mi": 1.23,
+        "website": "https://www.childtime.com/your-local-school/oxnard-ca-0259/?utm_source=google&utm_medium=local&utm_campaign=localmaps&utm_content=259",
+        "rating": 4.5,
+        "reviews": 61,
+        "score": 16.29
+      },
+      {
+        "name": "Senior Concerns-Conejo Valley",
+        "vertical": "senior_living",
+        "nearest_office": "Thousand Oaks",
+        "distance_mi": 0.81,
+        "website": "https://www.seniorconcerns.org/",
+        "rating": 4.5,
+        "reviews": 30,
+        "score": 14.2
+      }
+    ],
+    "cadence": "Personal Gmail send. 14-day cooldown per recipient. Never re-email the same domain within window.",
+    "next_actions": [
+      "Send week: pick 5 from next_prospects_top10 (mix of senior_living + schools_daycare).",
+      "Add HR-heavy employers + local SMBs to next Maps pull (both verticals still pending).",
+      "Wire cooldown check into a send helper so no prospect is emailed within 14d of last touch."
+    ]
   },
   "paid_ads_simple": {
     "title": "Paid Ads \u2014 by office",
@@ -23501,13 +23623,13 @@
         "last_30d_cpa_usd": 24.02
       }
     ],
-    "refreshed_at": "2026-07-02T03:01:29+00:00"
+    "refreshed_at": "2026-07-03T01:21:52+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 by office",
     "window_note": "Last 7d / Last 30d",
     "totals": {
-      "reviews_last_7d": 21,
+      "reviews_last_7d": 15,
       "reviews_last_30d": 46
     },
     "rows": [
@@ -23521,8 +23643,8 @@
       },
       {
         "office": "Riverpark",
-        "reviews_last_7d": 2,
-        "avg_rating_last_7d": 4.0,
+        "reviews_last_7d": 1,
+        "avg_rating_last_7d": 3.0,
         "reviews_last_30d": 8,
         "avg_rating_last_30d": 4.75,
         "newest_review_at": "2026-06-28T18:16:24.217575+00:00"
@@ -23545,7 +23667,7 @@
       },
       {
         "office": "Santa Monica",
-        "reviews_last_7d": 4,
+        "reviews_last_7d": 3,
         "avg_rating_last_7d": 5.0,
         "reviews_last_30d": 5,
         "avg_rating_last_30d": 5.0,
@@ -23553,15 +23675,15 @@
       },
       {
         "office": "Hillview",
-        "reviews_last_7d": 2,
-        "avg_rating_last_7d": 5.0,
+        "reviews_last_7d": 0,
+        "avg_rating_last_7d": null,
         "reviews_last_30d": 4,
         "avg_rating_last_30d": 5.0,
         "newest_review_at": "2026-06-25T17:38:43.731595+00:00"
       },
       {
         "office": "Beverly Hills",
-        "reviews_last_7d": 3,
+        "reviews_last_7d": 1,
         "avg_rating_last_7d": 5.0,
         "reviews_last_30d": 3,
         "avg_rating_last_30d": 5.0,
@@ -23584,12 +23706,12 @@
         "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-07-02T03:01:29+00:00"
+    "refreshed_at": "2026-07-03T01:21:52+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-07-02T03:01:29+00:00",
+    "refreshed_at": "2026-07-03T01:21:52+00:00",
     "yesterday_date": "2026-06-29",
     "yesterday_clicks": 194,
     "yesterday_impressions": 26111,
