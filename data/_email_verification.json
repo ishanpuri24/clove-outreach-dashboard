@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-07-03T02:19:39Z",
+  "generated_at": "2026-07-03T16:24:25Z",
   "method": "SMTP RCPT-TO probe (free, no send)",
   "helo": "mail.clovedds.com",
   "mail_from": "postmaster@clovedds.com",
-  "verified_domain_count": 20,
-  "verified_this_run": 4,
+  "verified_domain_count": 80,
+  "verified_this_run": 12,
   "counts": {
-    "valid": 4,
-    "catch_all": 5,
+    "valid": 12,
+    "catch_all": 13,
     "invalid": 0,
-    "no_mx": 4,
-    "no_match": 7,
+    "no_mx": 13,
+    "no_match": 42,
     "unknown": 0,
     "bounced_history": 0
   },
@@ -20,7 +20,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "smtp.secureserver.net",
-      "checked_at": "2026-07-03T02:19:17Z"
+      "checked_at": "2026-07-03T16:24:09Z"
     },
     "silverado.com": {
       "domain": "silverado.com",
@@ -52,14 +52,14 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "venturatownehouse-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T02:19:23Z"
+      "checked_at": "2026-07-03T16:24:15Z"
     },
     "childtime.com": {
       "domain": "childtime.com",
       "status": "no_match",
       "valid_email": null,
       "mx": "childtime-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T02:19:29Z"
+      "checked_at": "2026-07-03T16:17:37Z"
     },
     "coastlineschool.org": {
       "domain": "coastlineschool.org",
@@ -79,7 +79,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "us-smtp-inbound-1.mimecast.com",
-      "checked_at": "2026-07-03T02:19:39Z"
+      "checked_at": "2026-07-03T16:17:51Z"
     },
     "encinoterrace.com": {
       "domain": "encinoterrace.com",
@@ -93,35 +93,35 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "oxnardhc-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T02:15:32Z"
+      "checked_at": "2026-07-03T16:17:48Z"
     },
     "kindercare.com": {
       "domain": "kindercare.com",
       "status": "no_match",
       "valid_email": null,
       "mx": "kindercare-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-03T02:15:38Z"
+      "checked_at": "2026-07-03T16:17:50Z"
     },
     "seniorconcerns.org": {
       "domain": "seniorconcerns.org",
       "status": "catch_all",
       "valid_email": "info@seniorconcerns.org",
       "mx": "seniorconcerns.org.1.0001.arsmtp.com",
-      "checked_at": "2026-07-03T02:15:39Z"
+      "checked_at": "2026-07-03T16:17:49Z"
     },
     "belmontvillage.com": {
       "domain": "belmontvillage.com",
       "status": "catch_all",
       "valid_email": "info@belmontvillage.com",
       "mx": "mxa-004b7401.gslb.pphosted.com",
-      "checked_at": "2026-07-03T02:15:40Z"
+      "checked_at": "2026-07-03T16:17:50Z"
     },
     "meridiansenior.com": {
       "domain": "meridiansenior.com",
       "status": "catch_all",
       "valid_email": "info@meridiansenior.com",
       "mx": "d231279a.ess.barracudanetworks.com",
-      "checked_at": "2026-07-03T02:15:41Z"
+      "checked_at": "2026-07-03T16:17:51Z"
     },
     "c2ccamps.com": {
       "domain": "c2ccamps.com",
@@ -135,21 +135,432 @@
       "status": "catch_all",
       "valid_email": "info@lexingtonliving.net",
       "mx": "mxa-00512801.gslb.pphosted.com",
-      "checked_at": "2026-07-03T02:15:42Z"
+      "checked_at": "2026-07-03T16:17:51Z"
     },
     "assistedlivinglocators.com": {
       "domain": "assistedlivinglocators.com",
       "status": "catch_all",
       "valid_email": "info@assistedlivinglocators.com",
       "mx": "d358270a.ess.barracudanetworks.com",
-      "checked_at": "2026-07-03T02:15:43Z"
+      "checked_at": "2026-07-03T16:17:52Z"
     },
     "venturachildrenslc.com": {
       "domain": "venturachildrenslc.com",
       "status": "no_match",
       "valid_email": null,
       "mx": "mail.venturachildrenslc.com",
-      "checked_at": "2026-07-03T02:16:55Z"
+      "checked_at": "2026-07-03T16:19:03Z"
+    },
+    "sofitel.accor.com": {
+      "domain": "sofitel.accor.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:17:24Z"
+    },
+    "cyclebar.com": {
+      "domain": "cyclebar.com",
+      "status": "catch_all",
+      "valid_email": "info@cyclebar.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:24:08Z"
+    },
+    "circuitworksla.com": {
+      "domain": "circuitworksla.com",
+      "status": "valid",
+      "valid_email": "info@circuitworksla.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:24Z"
+    },
+    "megaformerstudio.com": {
+      "domain": "megaformerstudio.com",
+      "status": "catch_all",
+      "valid_email": "info@megaformerstudio.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:24:08Z"
+    },
+    "showupfitness.com": {
+      "domain": "showupfitness.com",
+      "status": "valid",
+      "valid_email": "info@showupfitness.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:24Z"
+    },
+    "allegiategym.com": {
+      "domain": "allegiategym.com",
+      "status": "catch_all",
+      "valid_email": "info@allegiategym.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:24:08Z"
+    },
+    "assistedlivinglocatorsla.com": {
+      "domain": "assistedlivinglocatorsla.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "smtp.secureserver.net",
+      "checked_at": "2026-07-03T16:24:09Z"
+    },
+    "trainingmate.com": {
+      "domain": "trainingmate.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "trainingmate-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:24:14Z"
+    },
+    "dragonflyshermanoaks.com": {
+      "domain": "dragonflyshermanoaks.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "dragonflyshermanoaks-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:24:13Z"
+    },
+    "fitboxworkout.com": {
+      "domain": "fitboxworkout.com",
+      "status": "valid",
+      "valid_email": "info@fitboxworkout.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:30Z"
+    },
+    "welovecamp.com": {
+      "domain": "welovecamp.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "welovecamp-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:24:14Z"
+    },
+    "trifecta-fitness.com": {
+      "domain": "trifecta-fitness.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:17:33Z"
+    },
+    "goldsgym.com": {
+      "domain": "goldsgym.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "goldsgym-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:24:16Z"
+    },
+    "sessionspersonaltraining.com": {
+      "domain": "sessionspersonaltraining.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "sessionspersonaltraining-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:24:18Z"
+    },
+    "ironmethod.com": {
+      "domain": "ironmethod.com",
+      "status": "valid",
+      "valid_email": "info@ironmethod.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:37Z"
+    },
+    "marriott.com": {
+      "domain": "marriott.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "marriott-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:38Z"
+    },
+    "thezooculture.com": {
+      "domain": "thezooculture.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "thezooculture-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:39Z"
+    },
+    "pwrgrls.com": {
+      "domain": "pwrgrls.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:40Z"
+    },
+    "basecampfitness.com": {
+      "domain": "basecampfitness.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "basecampfitness-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:41Z"
+    },
+    "oxnardmvmnt.com": {
+      "domain": "oxnardmvmnt.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "oxnardmvmnt-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:41Z"
+    },
+    "sixtyhotels.com": {
+      "domain": "sixtyhotels.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "sixtyhotels-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:42Z"
+    },
+    "dorchestercollection.com": {
+      "domain": "dorchestercollection.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "eu-smtp-inbound-1.mimecast.com",
+      "checked_at": "2026-07-03T16:24:25Z"
+    },
+    "houseofgainsgym.net": {
+      "domain": "houseofgainsgym.net",
+      "status": "catch_all",
+      "valid_email": "info@houseofgainsgym.net",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:42Z"
+    },
+    "fithouse818.com": {
+      "domain": "fithouse818.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "fithouse818-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:43Z"
+    },
+    "24hourfitness.com": {
+      "domain": "24hourfitness.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "24hourfitness-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:47Z"
+    },
+    "sunriseseniorliving.com": {
+      "domain": "sunriseseniorliving.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "sunriseseniorliving-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:49Z"
+    },
+    "moses-fitness.com": {
+      "domain": "moses-fitness.com",
+      "status": "catch_all",
+      "valid_email": "info@moses-fitness.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:50Z"
+    },
+    "fit19.com": {
+      "domain": "fit19.com",
+      "status": "catch_all",
+      "valid_email": "info@fit19.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:50Z"
+    },
+    "phitprogym.com": {
+      "domain": "phitprogym.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:17:51Z"
+    },
+    "trifitla.com": {
+      "domain": "trifitla.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "trifitla-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:51Z"
+    },
+    "about.google": {
+      "domain": "about.google",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:17:52Z"
+    },
+    "seabridgebootcamp.com": {
+      "domain": "seabridgebootcamp.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mx00.ionos.com",
+      "checked_at": "2026-07-03T16:17:52Z"
+    },
+    "planetfitness.com": {
+      "domain": "planetfitness.com",
+      "status": "catch_all",
+      "valid_email": "info@planetfitness.com",
+      "mx": "planetfitness-com.p10.spamhero.com",
+      "checked_at": "2026-07-03T16:17:53Z"
+    },
+    "direct-book.com": {
+      "domain": "direct-book.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mxa.siteminder.com",
+      "checked_at": "2026-07-03T16:17:54Z"
+    },
+    "fredfitness.com": {
+      "domain": "fredfitness.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "fredfitness-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:17:56Z"
+    },
+    "goodshepherdcamarillo.com": {
+      "domain": "goodshepherdcamarillo.com",
+      "status": "valid",
+      "valid_email": "admin@goodshepherdcamarillo.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:57Z"
+    },
+    "loeboardandcare.com": {
+      "domain": "loeboardandcare.com",
+      "status": "valid",
+      "valid_email": "info@loeboardandcare.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:17:57Z"
+    },
+    "stepstonechildcare.com": {
+      "domain": "stepstonechildcare.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:17:58Z"
+    },
+    "aegisliving.com": {
+      "domain": "aegisliving.com",
+      "status": "valid",
+      "valid_email": "info@aegisliving.com",
+      "mx": "mx1-us1.ppe-hosted.com",
+      "checked_at": "2026-07-03T16:17:59Z"
+    },
+    "ironfitnessx.com": {
+      "domain": "ironfitnessx.com",
+      "status": "catch_all",
+      "valid_email": "info@ironfitnessx.com",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:18:00Z"
+    },
+    "colleenslittlerugrats.godaddysites.com": {
+      "domain": "colleenslittlerugrats.godaddysites.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:18:00Z"
+    },
+    "preschool-sopns.com": {
+      "domain": "preschool-sopns.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:18:00Z"
+    },
+    "bigandtiny10thst.com": {
+      "domain": "bigandtiny10thst.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "bigandtiny10thst-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:18:00Z"
+    },
+    "lesnayaskazkadaycare.com": {
+      "domain": "lesnayaskazkadaycare.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:18:00Z"
+    },
+    "tlcventura.org": {
+      "domain": "tlcventura.org",
+      "status": "valid",
+      "valid_email": "office@tlcventura.org",
+      "mx": "aspmx.l.google.com",
+      "checked_at": "2026-07-03T16:18:01Z"
+    },
+    "fountainview.com": {
+      "domain": "fountainview.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mx1.emailsrvr.com",
+      "checked_at": "2026-07-03T16:18:03Z"
+    },
+    "alivefitness.net": {
+      "domain": "alivefitness.net",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T16:18:03Z"
+    },
+    "carlyle-inn.com": {
+      "domain": "carlyle-inn.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mx001.netsol.xion.oxcs.net",
+      "checked_at": "2026-07-03T16:18:06Z"
+    },
+    "oakmontseniorliving.com": {
+      "domain": "oakmontseniorliving.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "us-smtp-inbound-1.mimecast.com",
+      "checked_at": "2026-07-03T16:18:08Z"
+    },
+    "montanapreschoolsantamonica.com": {
+      "domain": "montanapreschoolsantamonica.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mx1-usg2.ppe-hosted.com",
+      "checked_at": "2026-07-03T16:18:11Z"
+    },
+    "eosfitness.com": {
+      "domain": "eosfitness.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "eosfitness-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:18:12Z"
+    },
+    "transformingage.org": {
+      "domain": "transformingage.org",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "transformingage-org.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:18:14Z"
+    },
+    "burnfitness.com": {
+      "domain": "burnfitness.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "burnfitness.com",
+      "checked_at": "2026-07-03T16:18:16Z"
+    },
+    "conejoadulted.org": {
+      "domain": "conejoadulted.org",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "conejoadulted-org.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:18:18Z"
+    },
+    "crunch.com": {
+      "domain": "crunch.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "crunch-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:18:20Z"
+    },
+    "threeangelspreschool.org": {
+      "domain": "threeangelspreschool.org",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "smtp.secureserver.net",
+      "checked_at": "2026-07-03T16:18:22Z"
+    },
+    "avantgardeseniorliving.com": {
+      "domain": "avantgardeseniorliving.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "avantgardeseniorliving-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T16:18:23Z"
+    },
+    "littleneighborhoodschool.com": {
+      "domain": "littleneighborhoodschool.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mx1.hostinger.com",
+      "checked_at": "2026-07-03T16:18:40Z"
+    },
+    "camarillocommunitychurch.com": {
+      "domain": "camarillocommunitychurch.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mail.dovertech.com",
+      "checked_at": "2026-07-03T16:19:30Z"
+    },
+    "hillcrestroyale.com": {
+      "domain": "hillcrestroyale.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "162.241.216.14",
+      "checked_at": "2026-07-03T16:20:25Z"
     }
   }
 }

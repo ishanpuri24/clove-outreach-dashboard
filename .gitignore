@@ -10,3 +10,7 @@ data/_google_ads_account_map.json
 data/_gsc_live/
 data/_gmb_live/
 data/_account_ids.txt
+
+# v3.3 privacy: ContactOut enrichment PII (real emails, LinkedIn URLs, names)
+data/_contactout_enrich_log.jsonl
+data/_contactout_private.json

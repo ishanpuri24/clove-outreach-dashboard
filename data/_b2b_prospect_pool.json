@@ -1,17 +1,24 @@
 {
-  "generated_at": "2026-07-02T18:15:00-07:00",
-  "total_prospects": 159,
-  "total_with_website": 135,
+  "generated_at": "2026-07-03T16:14:52.959111+00:00",
+  "total_prospects": 377,
+  "total_with_website": 316,
   "by_vertical": {
-    "senior_living": 71,
-    "schools_daycare": 88
+    "senior_living": 113,
+    "schools_daycare": 148,
+    "hr_heavy_employers": 53,
+    "hotels": 17,
+    "gyms_wellness": 46
   },
   "by_office": {
     "Hillview": 22,
     "Thousand Oaks": 34,
     "Oxnard Riverpark": 30,
     "Encino": 37,
-    "Camarillo": 36
+    "Camarillo": 36,
+    "Beverly Hills": 72,
+    "Puri Dentistry": 49,
+    "Santa Monica": 55,
+    "Sherman Oaks": 42
   },
   "dedup_source": "excluded 21 domains + 11 verified prospect emails already contacted",
   "radius_miles_per_office": 5,
@@ -28,7 +35,8 @@
       "rating": 4.9,
       "review_count": 149,
       "score": 22.66,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Silverado Thousand Oaks Memory Care Community",
@@ -42,7 +50,8 @@
       "rating": 5,
       "review_count": 121,
       "score": 22.6,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Clearwater at Riverpark",
@@ -56,7 +65,8 @@
       "rating": 4.7,
       "review_count": 59,
       "score": 19.11,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Fun Two Three Preschool",
@@ -70,7 +80,8 @@
       "rating": 5,
       "review_count": 109,
       "score": 19.01,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Funtastic Daycare",
@@ -84,7 +95,14 @@
       "rating": 4.9,
       "review_count": 48,
       "score": 17.53,
-      "has_website": true
+      "has_website": true,
+      "co_contacts_public": [
+        {
+          "title": "Business Owner",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Ventura Townehouse",
@@ -98,7 +116,8 @@
       "rating": 4.3,
       "review_count": 83,
       "score": 16.98,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Childtime of Oxnard",
@@ -112,7 +131,8 @@
       "rating": 4.5,
       "review_count": 61,
       "score": 16.29,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Coastline Bible Preschool",
@@ -126,7 +146,8 @@
       "rating": 4.8,
       "review_count": 36,
       "score": 16.26,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Encino Creative Kids Daycare/Preschool",
@@ -140,7 +161,8 @@
       "rating": 5,
       "review_count": 33,
       "score": 15.97,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Village at Sherman Oaks",
@@ -154,7 +176,8 @@
       "rating": 4.5,
       "review_count": 99,
       "score": 15.25,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Encino Terrace Senior Living",
@@ -168,7 +191,8 @@
       "rating": 4.5,
       "review_count": 37,
       "score": 15.24,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Oxnard Manor Healthcare Center",
@@ -182,7 +206,8 @@
       "rating": 4.2,
       "review_count": 71,
       "score": 14.73,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Camarillo KinderCare",
@@ -196,7 +221,8 @@
       "rating": 4.5,
       "review_count": 26,
       "score": 14.49,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Senior Concerns-Conejo Valley",
@@ -210,7 +236,8 @@
       "rating": 4.5,
       "review_count": 30,
       "score": 14.2,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Belmont Village Senior Living Encino",
@@ -224,7 +251,8 @@
       "rating": 4.3,
       "review_count": 44,
       "score": 14.18,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Cypress Place",
@@ -238,7 +266,8 @@
       "rating": 4.5,
       "review_count": 59,
       "score": 14.09,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Coast 2 Coast Camps of Camarillo",
@@ -252,7 +281,8 @@
       "rating": 4.8,
       "review_count": 19,
       "score": 14.05,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Lexington Assisted Living",
@@ -266,7 +296,8 @@
       "rating": 4.4,
       "review_count": 53,
       "score": 13.5,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Assisted Living Locators Thousand Oaks",
@@ -280,7 +311,8 @@
       "rating": 5,
       "review_count": 15,
       "score": 13.39,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Ventura Children's Learning Center",
@@ -294,7 +326,8 @@
       "rating": 4.7,
       "review_count": 34,
       "score": 13.17,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Aegis Living Ventura",
@@ -308,7 +341,8 @@
       "rating": 4,
       "review_count": 36,
       "score": 12.75,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Good Shepherd Early Childhood Center",
@@ -322,7 +356,8 @@
       "rating": 4.7,
       "review_count": 15,
       "score": 12.65,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Land Of Enchantment Board And Care",
@@ -336,7 +371,8 @@
       "rating": 4.8,
       "review_count": 16,
       "score": 12.47,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Oakmont of Camarillo",
@@ -350,7 +386,8 @@
       "rating": 4,
       "review_count": 35,
       "score": 12.31,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Colleen's Little Rugrats",
@@ -364,7 +401,8 @@
       "rating": 5,
       "review_count": 17,
       "score": 12.26,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Sherman Oaks Presbyterian Nursery School",
@@ -378,7 +416,8 @@
       "rating": 5,
       "review_count": 19,
       "score": 12.19,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Lesnaya Skazka Daycare",
@@ -392,7 +431,8 @@
       "rating": 4.7,
       "review_count": 25,
       "score": 11.52,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Riverpark Family Childcare",
@@ -406,7 +446,8 @@
       "rating": 5,
       "review_count": 11,
       "score": 11.51,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "TLC Preschool",
@@ -420,7 +461,8 @@
       "rating": 4.7,
       "review_count": 12,
       "score": 11.49,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Fountainview At Eisenberg Village",
@@ -434,7 +476,8 @@
       "rating": 4.5,
       "review_count": 50,
       "score": 11.45,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Hillcrest Royale Retirement",
@@ -448,7 +491,8 @@
       "rating": 5,
       "review_count": 10,
       "score": 11.28,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "AlmaVia of Camarillo",
@@ -462,7 +506,8 @@
       "rating": 4.5,
       "review_count": 20,
       "score": 11.21,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Horizon Hills Parenting Program",
@@ -476,7 +521,8 @@
       "rating": 4.9,
       "review_count": 16,
       "score": 11.13,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "AvantGarde Senior Living | Tarzana",
@@ -490,7 +536,8 @@
       "rating": 4.2,
       "review_count": 29,
       "score": 11.11,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Seven Cs Childcare Center",
@@ -504,7 +551,8 @@
       "rating": 5,
       "review_count": 10,
       "score": 10.9,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Three Angels Child Care Center",
@@ -518,7 +566,8 @@
       "rating": 4.6,
       "review_count": 19,
       "score": 10.83,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Encino Presbyterian Children's Center",
@@ -532,7 +581,8 @@
       "rating": 4.3,
       "review_count": 13,
       "score": 10.76,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Sage Academy Early Childhood Center",
@@ -546,7 +596,8 @@
       "rating": 4.6,
       "review_count": 20,
       "score": 10.66,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Palms At Bonaventure Assisted Living & Memory Care",
@@ -560,7 +611,8 @@
       "rating": 4.9,
       "review_count": 73,
       "score": 10.54,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Vered of Encino",
@@ -574,7 +626,8 @@
       "rating": 4.6,
       "review_count": 10,
       "score": 10.5,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Royal Oaks Inn - Assisted Living & Memory Care",
@@ -588,7 +641,8 @@
       "rating": 5,
       "review_count": 12,
       "score": 10.46,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Tutor Time of Ventura",
@@ -602,7 +656,8 @@
       "rating": 4.5,
       "review_count": 20,
       "score": 10.38,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Aasta Assisted Living of Camarillo",
@@ -616,7 +671,8 @@
       "rating": 4.3,
       "review_count": 12,
       "score": 10.36,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Array Assisted Living",
@@ -630,7 +686,8 @@
       "rating": 5,
       "review_count": 8,
       "score": 10.1,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Assisted Living Specialist - Calabasas, Tarzana, Santa Monica",
@@ -644,7 +701,8 @@
       "rating": 5,
       "review_count": 14,
       "score": 9.95,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Ventura County Senior Care: Ocean Breeze Estates at Blue Oak",
@@ -658,7 +716,8 @@
       "rating": 5,
       "review_count": 8,
       "score": 9.92,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Cypress Meadows Senior Apartments",
@@ -672,7 +731,8 @@
       "rating": 4.6,
       "review_count": 15,
       "score": 9.92,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Magana Family Child Care",
@@ -686,7 +746,8 @@
       "rating": 5,
       "review_count": 12,
       "score": 9.88,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Brookdale Gardens of Tarzana",
@@ -700,7 +761,8 @@
       "rating": 4.2,
       "review_count": 26,
       "score": 9.83,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Carousel Montessori Preschool",
@@ -714,7 +776,8 @@
       "rating": 5,
       "review_count": 11,
       "score": 9.69,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Magical Years Preschool",
@@ -728,7 +791,8 @@
       "rating": 5,
       "review_count": 15,
       "score": 9.68,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "First Baptist Hummingbird Preschool",
@@ -742,7 +806,8 @@
       "rating": 4.7,
       "review_count": 14,
       "score": 9.66,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Life's little Blessings Daycare",
@@ -756,7 +821,8 @@
       "rating": 5,
       "review_count": 9,
       "score": 9.6,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Gardens at Park Balboa",
@@ -770,7 +836,8 @@
       "rating": 4.6,
       "review_count": 24,
       "score": 9.54,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Brio Manor Board and Elderly Care",
@@ -784,7 +851,8 @@
       "rating": 5,
       "review_count": 7,
       "score": 9.34,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Bella Nova Villa",
@@ -798,7 +866,8 @@
       "rating": 5,
       "review_count": 9,
       "score": 9.3,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "A Peace of Home, LLC",
@@ -812,7 +881,8 @@
       "rating": 5,
       "review_count": 10,
       "score": 9.15,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "The Orfalea Child Development Center, Ventura College",
@@ -826,7 +896,8 @@
       "rating": 5,
       "review_count": 6,
       "score": 9.14,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Sherman Oaks Lutheran Children's Center",
@@ -840,7 +911,8 @@
       "rating": 4.4,
       "review_count": 13,
       "score": 9.14,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Camino Del Sol Senior Apartments",
@@ -854,7 +926,8 @@
       "rating": 4.1,
       "review_count": 22,
       "score": 9.09,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Happy Preschool Land",
@@ -868,7 +941,8 @@
       "rating": 4.6,
       "review_count": 14,
       "score": 9.04,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Grace Living",
@@ -882,7 +956,8 @@
       "rating": 5,
       "review_count": 8,
       "score": 9.03,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Sherman Oaks Child Care",
@@ -896,7 +971,8 @@
       "rating": 5,
       "review_count": 11,
       "score": 9.03,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Mount Cross Child Development Center",
@@ -910,7 +986,8 @@
       "rating": 5,
       "review_count": 8,
       "score": 8.98,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Be Well Senior Living / Sherman Oaks / Morrison",
@@ -924,7 +1001,8 @@
       "rating": 5,
       "review_count": 9,
       "score": 8.9,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Thousand Oaks Home Care - 451 Columbia",
@@ -938,7 +1016,8 @@
       "rating": 5,
       "review_count": 7,
       "score": 8.88,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Shining Stars Preschool and Infant Center",
@@ -952,7 +1031,8 @@
       "rating": 4.4,
       "review_count": 8,
       "score": 8.78,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Little Tree Preschool",
@@ -966,7 +1046,8 @@
       "rating": 5,
       "review_count": 7,
       "score": 8.78,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Nurtury Preschool",
@@ -980,7 +1061,8 @@
       "rating": 4.7,
       "review_count": 12,
       "score": 8.72,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Camarillo Senior Living",
@@ -994,7 +1076,8 @@
       "rating": 4.2,
       "review_count": 20,
       "score": 8.68,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Encanto Living",
@@ -1008,7 +1091,8 @@
       "rating": 5,
       "review_count": 9,
       "score": 8.66,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Child's World School",
@@ -1022,7 +1106,8 @@
       "rating": 4.6,
       "review_count": 11,
       "score": 8.6,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Stephanie's Family Child Care & Preschool",
@@ -1036,7 +1121,8 @@
       "rating": 4.4,
       "review_count": 7,
       "score": 8.51,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Encino Parents Nursery School",
@@ -1050,7 +1136,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 8.49,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Navita Residences Camarillo",
@@ -1064,7 +1151,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 8.34,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Golden Horizon RCFE",
@@ -1078,7 +1166,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 8.25,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "The Vistas at Oxnard Senior Living",
@@ -1092,7 +1181,8 @@
       "rating": 4.5,
       "review_count": 37,
       "score": 8.18,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Sage Mountain",
@@ -1106,7 +1196,8 @@
       "rating": 4.1,
       "review_count": 52,
       "score": 8.14,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Lovely Bees Day Child Care",
@@ -1120,7 +1211,8 @@
       "rating": 4.4,
       "review_count": 7,
       "score": 8.09,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "WILD CHILD DAYCARE",
@@ -1134,7 +1226,8 @@
       "rating": 5,
       "review_count": 6,
       "score": 8.07,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Archwood Assisted Living",
@@ -1148,7 +1241,8 @@
       "rating": 5,
       "review_count": 9,
       "score": 8.05,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Newbury Oaks Preschool",
@@ -1162,7 +1256,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 8.04,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "My Destiny Pre-School & Child Care Thousand Oaks",
@@ -1176,7 +1271,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 8.04,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Nexus Garden Preschool",
@@ -1190,7 +1286,8 @@
       "rating": 5,
       "review_count": 4,
       "score": 7.94,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Gem Oaks Assisted Living RCFE",
@@ -1204,7 +1301,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 7.83,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Pleasant Valley Christian Pre-School",
@@ -1218,7 +1316,8 @@
       "rating": 4.3,
       "review_count": 6,
       "score": 7.69,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Monogram Villas",
@@ -1232,7 +1331,8 @@
       "rating": 5,
       "review_count": 8,
       "score": 7.67,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "CVUSD Preschool",
@@ -1246,7 +1346,8 @@
       "rating": 4.5,
       "review_count": 8,
       "score": 7.61,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Ventura Grand Chateau",
@@ -1260,7 +1361,8 @@
       "rating": 4.3,
       "review_count": 7,
       "score": 7.6,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Nature's Explorers Childcare",
@@ -1274,7 +1376,8 @@
       "rating": 4.6,
       "review_count": 5,
       "score": 7.34,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Seeds Early Learning Montessori",
@@ -1288,7 +1391,8 @@
       "rating": 3.8,
       "review_count": 10,
       "score": 7.33,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Little Scholars Montessori",
@@ -1302,7 +1406,8 @@
       "rating": 3.7,
       "review_count": 7,
       "score": 6.99,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Vita Living, Inc.",
@@ -1316,7 +1421,8 @@
       "rating": 5,
       "review_count": 4,
       "score": 6.97,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Sherman Oaks Cooperative Nursery School",
@@ -1330,7 +1436,8 @@
       "rating": 5,
       "review_count": 6,
       "score": 6.96,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "ENCOUNTER Preschool (formerly BFC Preschool)",
@@ -1344,7 +1451,8 @@
       "rating": 5,
       "review_count": 4,
       "score": 6.82,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Ponderosa Village",
@@ -1358,7 +1466,8 @@
       "rating": 3.8,
       "review_count": 5,
       "score": 6.71,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Honey Tree Early Childhood Center",
@@ -1372,7 +1481,8 @@
       "rating": 4.5,
       "review_count": 6,
       "score": 6.63,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Happy Ventures Preschool",
@@ -1386,7 +1496,8 @@
       "rating": 5,
       "review_count": 4,
       "score": 6.53,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Greenleaf Mindful Montessori LLC",
@@ -1400,7 +1511,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 6.44,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Orchard",
@@ -1414,7 +1526,8 @@
       "rating": 5,
       "review_count": 11,
       "score": 6.21,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Coastal Haven Senior Living",
@@ -1428,7 +1541,8 @@
       "rating": 5,
       "review_count": 5,
       "score": 6.12,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Cisneros Family Childcare",
@@ -1442,7 +1556,8 @@
       "rating": 4,
       "review_count": 4,
       "score": 6.04,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "ABC Little School",
@@ -1456,7 +1571,8 @@
       "rating": 4.8,
       "review_count": 4,
       "score": 5.97,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Home Sweet Home Care",
@@ -1470,7 +1586,8 @@
       "rating": 4.2,
       "review_count": 5,
       "score": 5.47,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Bernadette Home Care",
@@ -1484,7 +1601,8 @@
       "rating": 3.6,
       "review_count": 5,
       "score": 5.35,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "RiverPark Little Learners Childcare",
@@ -1498,7 +1616,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 5.05,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Jamie's in home daycare",
@@ -1512,7 +1631,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 5.02,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "St Columba's Children's Learning Center",
@@ -1526,7 +1646,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 4.91,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Cottages of Lake Balboa",
@@ -1540,7 +1661,8 @@
       "rating": 4,
       "review_count": 4,
       "score": 4.8,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Peace Lutheran Preschool & Early Learning Center",
@@ -1554,7 +1676,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 4.74,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Oak Creek Senior Villas",
@@ -1568,7 +1691,8 @@
       "rating": 4.5,
       "review_count": 2,
       "score": 4.56,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Sonshine Preschool",
@@ -1582,7 +1706,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 4.52,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "The Legacy Collection LLC",
@@ -1596,7 +1721,8 @@
       "rating": 3.7,
       "review_count": 3,
       "score": 4.35,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "ABC KIDS PRESCHOOL AND INFANT CARE",
@@ -1610,7 +1736,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 4.32,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Tarzana Senior Living",
@@ -1624,7 +1751,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 4.15,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "ANITA'S CARE VILLA Residential Care For Elderly Or Assisted Living Facility Home For Senior Care",
@@ -1638,7 +1766,8 @@
       "rating": 5,
       "review_count": 4,
       "score": 4.02,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Sunshine Health Place",
@@ -1652,7 +1781,8 @@
       "rating": 4,
       "review_count": 2,
       "score": 3.85,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Oak Park Senior Living",
@@ -1666,7 +1796,8 @@
       "rating": 5,
       "review_count": 2,
       "score": 3.49,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Cottonwood",
@@ -1680,7 +1811,8 @@
       "rating": 5,
       "review_count": 3,
       "score": 3.47,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Brookhaven Assisted Living at Mobil",
@@ -1694,7 +1826,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.33,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Gan Camarillo Preschool",
@@ -1708,7 +1841,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.3,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Elegant Senior Living Encino",
@@ -1722,7 +1856,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.28,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Child Development Resources",
@@ -1736,7 +1871,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.22,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Las Posas Children's Center",
@@ -1750,7 +1886,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.16,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Bethany Christian School",
@@ -1764,7 +1901,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.09,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Lucero Family Child Care",
@@ -1778,7 +1916,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.07,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Notre Dame Learning Center",
@@ -1792,7 +1931,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 3.04,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Creative Little Minds",
@@ -1806,7 +1946,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 2.9,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Aspire Senior Living Encino",
@@ -1820,7 +1961,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 2.87,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Camarillo Progressive Montessori School",
@@ -1834,7 +1976,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 2.74,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Wolff RiverPark Senior Living",
@@ -1848,7 +1991,8 @@
       "rating": 2.5,
       "review_count": 2,
       "score": 2.73,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Wonder Preschool",
@@ -1862,7 +2006,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 2.68,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Daydreamer's Daycare & Preschool",
@@ -1876,7 +2021,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 2.67,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Be Me Preschool",
@@ -1890,7 +2036,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 2.65,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Elms Residential Home Care",
@@ -1904,7 +2051,8 @@
       "rating": 3,
       "review_count": 2,
       "score": 2.32,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Balboa Assisted Living",
@@ -1918,7 +2066,8 @@
       "rating": 5,
       "review_count": 1,
       "score": 2.2,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "El Rio Child Development Center",
@@ -1932,7 +2081,8 @@
       "rating": 2,
       "review_count": 1,
       "score": 1.27,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "SELECT SENIOR LIVING",
@@ -1946,7 +2096,8 @@
       "rating": 1,
       "review_count": 1,
       "score": 0.56,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "We Care Senior Facility",
@@ -1960,7 +2111,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Promiseland Preschool",
@@ -1974,7 +2126,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Velasquez Family Daycare",
@@ -1988,7 +2141,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Cornerstone Christian Schools",
@@ -2002,7 +2156,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "United Methodist Child Development",
@@ -2016,7 +2171,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Coastal Children's Center- Camarillo",
@@ -2030,7 +2186,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Hillcrest Christian School",
@@ -2044,7 +2201,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Carden Conejo School",
@@ -2058,7 +2216,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Ascension Lutheran Early Childhood Center",
@@ -2072,7 +2231,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Revo Academy",
@@ -2086,7 +2246,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Coastal Haven Senior Living II",
@@ -2100,7 +2261,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Little Maeg's Childcare",
@@ -2114,7 +2276,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Ventura Villa Assisted Living",
@@ -2128,7 +2291,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Home Sweet Home Duvali",
@@ -2142,7 +2306,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": false
+      "has_website": false,
+      "co_contacts": []
     },
     {
       "name": "Loma Vista Elementary School",
@@ -2156,7 +2321,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "La Famiglia Preschool",
@@ -2170,7 +2336,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Our Lady-The Assumption School",
@@ -2184,7 +2351,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Ventura Montessori School Inc",
@@ -2198,7 +2366,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Growing Minds Learning Center - Teloma",
@@ -2212,7 +2381,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Catalyst Kids Mound",
@@ -2226,7 +2396,8 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
     },
     {
       "name": "Maha Montessori",
@@ -2240,7 +2411,3314 @@
       "rating": 0,
       "review_count": 0,
       "score": 0.0,
-      "has_website": true
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sunrise of Beverly Hills",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.56,
+      "address": "201 N Crescent Dr, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 274-4479",
+      "website": "https://www.sunriseseniorliving.com/communities/ca/sunrise-of-beverly-hills?utm_source=directory_listings&utm_medium=clicks&utm_campaign=google",
+      "domain": "sunriseseniorliving.com",
+      "rating": 4.6,
+      "review_count": 81,
+      "score": 14.24,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sunny Hills Assisted Living",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.63,
+      "address": "8717 W Olympic Blvd, Los Angeles, CA 90035, USA",
+      "phone": "(310) 659-4301",
+      "website": "",
+      "domain": "",
+      "rating": 3.3,
+      "review_count": 8,
+      "score": 1.32,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Assisted Living Locators Los Angeles",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.99,
+      "address": "433 N Camden Dr #600, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 750-0681",
+      "website": "http://www.assistedlivinglocatorsla.com/",
+      "domain": "assistedlivinglocatorsla.com",
+      "rating": 5,
+      "review_count": 89,
+      "score": 17.12,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Pinnacles At Burton",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.46,
+      "address": "8757 Burton Wy, Los Angeles, CA 90048, USA",
+      "phone": "(310) 278-8323",
+      "website": "http://thepinnaclesatburton.com/",
+      "domain": "thepinnaclesatburton.com",
+      "rating": 4.4,
+      "review_count": 16,
+      "score": 8.12,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Melrose Gardens",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.59,
+      "address": "960 N Martel Ave, Los Angeles, CA 90046, USA",
+      "phone": "(323) 876-1746",
+      "website": "http://www.melrosegardens.com/",
+      "domain": "melrosegardens.com",
+      "rating": 4.4,
+      "review_count": 35,
+      "score": 7.37,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Beverly Hills Loving Care",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.65,
+      "address": "1019 S Wooster St, Los Angeles, CA 90035, USA",
+      "phone": "(310) 652-1323",
+      "website": "http://www.beverlyhillslovingcare.com/",
+      "domain": "beverlyhillslovingcare.com",
+      "rating": 3.3,
+      "review_count": 9,
+      "score": 1.38,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Hollywood Hills Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 4.96,
+      "address": "1745 N Gramercy Pl, Los Angeles, CA 90028, USA",
+      "phone": "(323) 645-2770",
+      "website": "https://hollywoodseniorliving.com/?utm_source=GMB&utm_medium=organic",
+      "domain": "hollywoodseniorliving.com",
+      "rating": 4.7,
+      "review_count": 39,
+      "score": 5.17,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Plaza At Westwood Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.97,
+      "address": "2228 Westwood Blvd, Los Angeles, CA 90064, USA",
+      "phone": "(310) 475-8861",
+      "website": "https://www.theplazawestwood.com/",
+      "domain": "theplazawestwood.com",
+      "rating": 4.4,
+      "review_count": 32,
+      "score": 6.68,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Beverly Hills Senior Housing",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.61,
+      "address": "225 N Crescent Dr, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 276-5209",
+      "website": "https://www.mhfla.org/properties/beverly-hills-senior-housing/",
+      "domain": "mhfla.org",
+      "rating": 4.3,
+      "review_count": 3,
+      "score": 3.61,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Savant of West Hollywood",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.15,
+      "address": "1025 N Fairfax Ave, Los Angeles, CA 90046, USA",
+      "phone": "(323) 656-7900",
+      "website": "http://www.savantseniorliving.com/westhollywood",
+      "domain": "savantseniorliving.com",
+      "rating": 4.4,
+      "review_count": 41,
+      "score": 8.31,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "West Pico Terrace Assisted Living Center",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.35,
+      "address": "6050 W Pico Blvd, Los Angeles, CA 90035, USA",
+      "phone": "(323) 653-5565",
+      "website": "https://www.cvterraceal.com/",
+      "domain": "cvterraceal.com",
+      "rating": 2.7,
+      "review_count": 10,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "CityView",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.67,
+      "address": "515 N La Brea Ave, Los Angeles, CA 90036, USA",
+      "phone": "(323) 938-2131",
+      "website": "http://www.cityview.care/",
+      "domain": "cityview.care",
+      "rating": 4.3,
+      "review_count": 83,
+      "score": 8.33,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Melrose Villas Assisted Living",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.58,
+      "address": "823 N Poinsettia Pl, Los Angeles, CA 90046, USA",
+      "phone": "(323) 746-7840",
+      "website": "",
+      "domain": "",
+      "rating": 4.8,
+      "review_count": 4,
+      "score": 4.26,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Larrabee Assisted Living",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.31,
+      "address": "825 Larrabee St, West Hollywood, CA 90069, USA",
+      "phone": "(818) 641-9222",
+      "website": "http://www.larrabee825.com/",
+      "domain": "larrabee825.com",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.52,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Better Living & Care Home",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.67,
+      "address": "734 N La Jolla Ave, Los Angeles, CA 90046, USA",
+      "phone": "(323) 651-2733",
+      "website": "",
+      "domain": "",
+      "rating": 4,
+      "review_count": 3,
+      "score": 2.38,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Beverly Hills gardens",
+      "vertical": "senior_living",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.04,
+      "address": "1470 S Robertson Blvd, Los Angeles, CA 90035, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 3,
+      "review_count": 3,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Le Petit Gan International Preschool Beverly Hills",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.27,
+      "address": "177 S Robertson Blvd, Beverly Hills, CA 90211, USA",
+      "phone": "(310) 499-8615",
+      "website": "http://www.lepetitgan.com/",
+      "domain": "lepetitgan.com",
+      "rating": 4.6,
+      "review_count": 10,
+      "score": 8.05,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Temple Emanuel of Beverly Hills Early Childhood Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.34,
+      "address": "300 N Clark Dr, Beverly Hills, CA 90211, USA",
+      "phone": "(310) 409-4640",
+      "website": "https://tebhecc.org/book-a-tour",
+      "domain": "tebhecc.org",
+      "rating": 5,
+      "review_count": 3,
+      "score": 5.76,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Le Petit Gan International Preschool Los Angeles",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.53,
+      "address": "1071 S Fairfax Ave, Los Angeles, CA 90048, USA",
+      "phone": "(310) 866-0570",
+      "website": "https://lepetitganpreschool.com/",
+      "domain": "lepetitganpreschool.com",
+      "rating": 4.6,
+      "review_count": 37,
+      "score": 10.22,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Beverly Hills Presbyterian Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.03,
+      "address": "505 N Rodeo Dr, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 271-5197",
+      "website": "http://bhpp.org/",
+      "domain": "bhpp.org",
+      "rating": 5,
+      "review_count": 5,
+      "score": 6.78,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Wild Sage Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.83,
+      "address": "923 1/2, S Stanley Ave, Los Angeles, CA 90036, USA",
+      "phone": "(323) 528-6066",
+      "website": "https://wildsagepreschool.com/",
+      "domain": "wildsagepreschool.com",
+      "rating": 5,
+      "review_count": 4,
+      "score": 5.39,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Beverlywood Montessori Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.26,
+      "address": "1653 S Robertson Blvd, Los Angeles, CA 90035, USA",
+      "phone": "(310) 552-1155",
+      "website": "http://www.beverlywoodmontessori.com/",
+      "domain": "beverlywoodmontessori.com",
+      "rating": 4.6,
+      "review_count": 11,
+      "score": 7.27,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Piper Preschool - Los Angeles",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.05,
+      "address": "1475 S Robertson Blvd, Los Angeles, CA 90035, USA",
+      "phone": "(310) 201-4900",
+      "website": "http://piperpreschool.com/lacampus",
+      "domain": "piperpreschool.com",
+      "rating": 5,
+      "review_count": 9,
+      "score": 8.69,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Intiwasi Spanish Immersion School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.82,
+      "address": "9017 W Pico Blvd, Los Angeles, CA 90035, USA",
+      "phone": "(424) 527-0098",
+      "website": "https://www.intiwasischool.com/",
+      "domain": "intiwasischool.com",
+      "rating": 4.7,
+      "review_count": 14,
+      "score": 8.97,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Green Beginning Community Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.43,
+      "address": "3047 S Robertson Blvd, Los Angeles, CA 90034, USA",
+      "phone": "(310) 841-6100",
+      "website": "http://www.greenbeginningpreschool.com/",
+      "domain": "greenbeginningpreschool.com",
+      "rating": 4.8,
+      "review_count": 18,
+      "score": 8.01,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "International Children's Academy",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.71,
+      "address": "1046 S Robertson Blvd, Los Angeles, CA 90035, USA",
+      "phone": "(310) 657-6798",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 3,
+      "score": 5.49,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Little Sunshines Early Learning Center and Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.03,
+      "address": "300 S Gardner St, Los Angeles, CA 90036, USA",
+      "phone": "(747) 217-3413",
+      "website": "http://www.littlesunshines.org/",
+      "domain": "littlesunshines.org",
+      "rating": 4.3,
+      "review_count": 6,
+      "score": 4.1,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Rochel Family Daycare",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.63,
+      "address": "435 S Swall Dr, Beverly Hills, CA 90211, USA",
+      "phone": "(310) 409-6549",
+      "website": "http://rochelfamilydaycare.yolasite.com/",
+      "domain": "rochelfamilydaycare.yolasite.com",
+      "rating": 5,
+      "review_count": 14,
+      "score": 10.83,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "West Hollywood Children's Academy",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.56,
+      "address": "1030 N Vista St, Los Angeles, CA 90046, USA",
+      "phone": "(310) 748-1656",
+      "website": "https://wehochildrensacademy.com/",
+      "domain": "wehochildrensacademy.com",
+      "rating": 4.5,
+      "review_count": 25,
+      "score": 7.22,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Fountain Day School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.32,
+      "address": "1128 N Orange Grove Ave, West Hollywood, CA 90046, USA",
+      "phone": "(323) 654-8958",
+      "website": "http://www.fountaindayschool.com/",
+      "domain": "fountaindayschool.com",
+      "rating": 5,
+      "review_count": 13,
+      "score": 8.14,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Le Petit Bebe Daycare",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.35,
+      "address": "6268 Del Valle Dr, Los Angeles, CA 90048, USA",
+      "phone": "(310) 779-2454",
+      "website": "http://www.lepetitbebedaycarela.com/",
+      "domain": "lepetitbebedaycarela.com",
+      "rating": 4.7,
+      "review_count": 30,
+      "score": 10.54,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Gan Chabad Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.12,
+      "address": "1536 S Robertson Blvd #4232, Los Angeles, CA 90035, USA",
+      "phone": "(310) 271-6193 ext. 112",
+      "website": "http://www.ganchabadpreschool.org/",
+      "domain": "ganchabadpreschool.org",
+      "rating": 4,
+      "review_count": 1,
+      "score": 1.29,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Rancho Co-op Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.91,
+      "address": "2551 Motor Ave, Los Angeles, CA 90064, USA",
+      "phone": "(657) 215-1510",
+      "website": "http://ranchopreschool.la/",
+      "domain": "ranchopreschool.la",
+      "rating": 4.3,
+      "review_count": 11,
+      "score": 5.34,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Just Like Mom's Toddler \u2022 Preschool \u2022 Kindergarten",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 3.16,
+      "address": "1535 N Poinsettia Pl, Los Angeles, CA 90046, USA",
+      "phone": "(323) 688-2424",
+      "website": "http://justlikemomspreschool.com/",
+      "domain": "justlikemomspreschool.com",
+      "rating": 4.6,
+      "review_count": 37,
+      "score": 7.65,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "A Child's Place",
+      "vertical": "schools_daycare",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.36,
+      "address": "8568 Venice Blvd., Los Angeles, CA 90034, USA",
+      "phone": "(310) 204-6833",
+      "website": "http://achildsplacela.com/",
+      "domain": "achildsplacela.com",
+      "rating": 4.9,
+      "review_count": 7,
+      "score": 6.05,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Fatburger Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.02,
+      "address": "9606 N Santa Monica Blvd, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 319-1850",
+      "website": "https://fatburger.com/contact-us/",
+      "domain": "fatburger.com",
+      "rating": 1.2,
+      "review_count": 16,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 3.48,
+      "address": "2335 Pontius Ave, Los Angeles, CA 90064, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": null,
+      "review_count": 0,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Four Seasons Los Angeles Worldwide Sales Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.4,
+      "address": "350 S Beverly Dr #100, Beverly Hills, CA 90212, USA",
+      "phone": "(310) 286-7545",
+      "website": "http://www.fourseasons.com/group_bookings_worldwide_sales_offices/",
+      "domain": "fourseasons.com",
+      "rating": 4.3,
+      "review_count": 18,
+      "score": 7.9,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Starbucks Regional Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 9.61,
+      "address": "2950 N Hollywood Way #175, Burbank, CA 91505, USA",
+      "phone": "",
+      "website": "http://www.starbucks.com/",
+      "domain": "starbucks.com",
+      "rating": 1.6,
+      "review_count": 54,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Nordstrom HQ",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 3.16,
+      "address": "8680 Hayden Pl, Culver City, CA 90232, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 3.2,
+      "review_count": 13,
+      "score": 0.69,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Anastasia Beverly Hills Corporate Headquarters",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 2.58,
+      "address": "10635 Santa Monica Blvd, Los Angeles, CA 90025, USA",
+      "phone": "(800) 310-3773",
+      "website": "http://www.anastasiabeverlyhills.com/",
+      "domain": "anastasiabeverlyhills.com",
+      "rating": 2.8,
+      "review_count": 12,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Robeks Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 9.7,
+      "address": "5220 Pacific Concourse Dr, Los Angeles, CA 90045, USA",
+      "phone": "(310) 727-0500",
+      "website": "http://www.robeks.com/",
+      "domain": "robeks.com",
+      "rating": 3.9,
+      "review_count": 7,
+      "score": 0.81,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "House of Blues Corporate Headquarters",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 3.45,
+      "address": "7060 Hollywood Blvd, Hollywood, CA 90028, USA",
+      "phone": "(323) 769-4600",
+      "website": "http://www.houseofblues.com/",
+      "domain": "houseofblues.com",
+      "rating": 3.2,
+      "review_count": 14,
+      "score": 0.67,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Maple Plaza Ltd",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.61,
+      "address": "345 N Maple Dr #101, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 271-7362",
+      "website": "",
+      "domain": "",
+      "rating": 4.2,
+      "review_count": 44,
+      "score": 9.16,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Native Grill & Wings Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.09,
+      "address": "9720 Wilshire Blvd #500, Beverly Hills, CA 90212, USA",
+      "phone": "(480) 247-8610",
+      "website": "http://www.nativegrillandwings.com/",
+      "domain": "nativegrillandwings.com",
+      "rating": 3,
+      "review_count": 10,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "HQ",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 7.04,
+      "address": "1033 6th St Unit 110b, Santa Monica, CA 90403, USA",
+      "phone": "",
+      "website": "https://www.linkedin.com/in/zac-carm-consulting-634b02175/",
+      "domain": "linkedin.com",
+      "rating": 4.1,
+      "review_count": 20,
+      "score": 1.45,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 19.92,
+      "address": "9928 Flower St, Bellflower, CA 90706, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 4,
+      "review_count": 1,
+      "score": 0.3,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Optum California Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 15.6,
+      "address": "19191 S Vermont Ave, Torrance, CA 90502, USA",
+      "phone": "(310) 354-4200",
+      "website": "",
+      "domain": "",
+      "rating": 2.7,
+      "review_count": 59,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Fashion Nova",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.69,
+      "address": "407 N Maple Dr, Beverly Hills, CA 90210, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 2.7,
+      "review_count": 7,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "AT&T Corporate Offices",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 23.46,
+      "address": "12900 Park Plaza Dr, Cerritos, CA 90703, USA",
+      "phone": "",
+      "website": "https://www.att.com/",
+      "domain": "att.com",
+      "rating": 1.3,
+      "review_count": 32,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Alo Yoga Headquarters",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.23,
+      "address": "9830 Wilshire Blvd, Beverly Hills, CA 90212, USA",
+      "phone": "",
+      "website": "http://aloyoga.com/",
+      "domain": "aloyoga.com",
+      "rating": 1.7,
+      "review_count": 59,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Rosewood Hotels & Resorts - US Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.58,
+      "address": "9220 Sunset Blvd #200, West Hollywood, CA 90069, USA",
+      "phone": "(310) 228-5000",
+      "website": "http://www.rosewoodhotels.com/",
+      "domain": "rosewoodhotels.com",
+      "rating": 3.7,
+      "review_count": 7,
+      "score": 2.54,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Bandolier Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.27,
+      "address": "201 N Robertson Blvd, Beverly Hills, CA 90211, USA",
+      "phone": "",
+      "website": "http://www.bandolierstyle.com/",
+      "domain": "bandolierstyle.com",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.91,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "LA Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 7.5,
+      "address": "333 S Beaudry Ave, Los Angeles, CA 90017, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": null,
+      "review_count": 0,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Beyond Yoga - Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 5.27,
+      "address": "11248 Playa Ct, Culver City, CA 90230, USA",
+      "phone": "(213) 662-6377",
+      "website": "https://beyondyoga.com/",
+      "domain": "beyondyoga.com",
+      "rating": 3.3,
+      "review_count": 28,
+      "score": 0.75,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "SIXTY Beverly Hills",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.47,
+      "address": "9360 Wilshire Blvd, Beverly Hills, CA 90212, USA",
+      "phone": "(310) 273-1400",
+      "website": "https://www.sixtyhotels.com/beverly-hills/?utm_source=local-listings&utm_medium=organic&utm_campaign=yext-beverly-hills",
+      "domain": "sixtyhotels.com",
+      "rating": 4.1,
+      "review_count": 1001,
+      "score": 15.54,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "SIRTAJ Hotel",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.56,
+      "address": "120 S Reeves Dr, Beverly Hills, CA 90212, USA",
+      "phone": "(310) 248-2402",
+      "website": "https://sirtajhotelbeverlyhills.com/",
+      "domain": "sirtajhotelbeverlyhills.com",
+      "rating": 3.7,
+      "review_count": 350,
+      "score": 8.28,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Beverly Hills Hotel",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.76,
+      "address": "9641 Sunset Blvd, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 276-2251",
+      "website": "https://www.dorchestercollection.com/los-angeles/the-beverly-hills-hotel",
+      "domain": "dorchestercollection.com",
+      "rating": 4.6,
+      "review_count": 1242,
+      "score": 19.31,
+      "has_website": true,
+      "co_contacts_public": [
+        {
+          "title": "Director of Operations",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
+    },
+    {
+      "name": "Hollywood Inn Suites Hotel",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 11.78,
+      "address": "1030 W El Segundo Blvd, Gardena, CA 90247, USA",
+      "phone": "(424) 266-9450",
+      "website": "https://www.hollywoodsuiteshotel.com/",
+      "domain": "hollywoodsuiteshotel.com",
+      "rating": 3.7,
+      "review_count": 1070,
+      "score": 2.12,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Beverly Hills Marriott",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.86,
+      "address": "1150 S Beverly Dr, Los Angeles, CA 90035, USA",
+      "phone": "(310) 553-6561",
+      "website": "https://www.marriott.com/en-us/hotels/laxbv-beverly-hills-marriott/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0",
+      "domain": "marriott.com",
+      "rating": 4.1,
+      "review_count": 1858,
+      "score": 16.05,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sofitel Los Angeles at Beverly Hills",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.87,
+      "address": "8555 Beverly Blvd #90048, Los Angeles, CA 90048, USA",
+      "phone": "(310) 278-5444",
+      "website": "http://sofitel.accor.com/hotels/0937?merchantid=seo-maps-US-0937&sourceid=aw-cen&utm_source=google+Maps&utm_medium=seo+maps&utm_campaign=seo+maps&utm_term=Sofitel-Launch",
+      "domain": "sofitel.accor.com",
+      "rating": 4.6,
+      "review_count": 5820,
+      "score": 26.84,
+      "has_website": true,
+      "co_contacts_public": [
+        {
+          "title": "Director of Operations",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
+    },
+    {
+      "name": "Crescent Hotel Beverly Hills",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.75,
+      "address": "403 N Crescent Dr, Beverly Hills, CA 90210, USA",
+      "phone": "(424) 283-2214",
+      "website": "https://crescentbh.com/",
+      "domain": "crescentbh.com",
+      "rating": 3.9,
+      "review_count": 404,
+      "score": 10.63,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Freehand Los Angeles",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 7.69,
+      "address": "416 W 8th St, Los Angeles, CA 90014, USA",
+      "phone": "(213) 612-0021",
+      "website": "https://freehandhotels.com/los-angeles/?utm_source=google-my-business&utm_medium=organic&utm_campaign=hotel-los-angeles",
+      "domain": "freehandhotels.com",
+      "rating": 4.1,
+      "review_count": 3329,
+      "score": 3.87,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Hotel del Flores",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.76,
+      "address": "409 N Crescent Dr, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 274-5115",
+      "website": "http://www.hoteldelflores.com/",
+      "domain": "hoteldelflores.com",
+      "rating": 2.8,
+      "review_count": 217,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Wilshire Crest Hotel",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.31,
+      "address": "6301 Orange St, Los Angeles, CA 90048, USA",
+      "phone": "(323) 936-5131",
+      "website": "https://wilshirecresthotel.com/",
+      "domain": "wilshirecresthotel.com",
+      "rating": 3.9,
+      "review_count": 382,
+      "score": 9.72,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Carlyle Inn",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.78,
+      "address": "1119 S Robertson Blvd, Los Angeles, CA 90035, USA",
+      "phone": "(310) 275-4445",
+      "website": "http://www.carlyle-inn.com/",
+      "domain": "carlyle-inn.com",
+      "rating": 4.2,
+      "review_count": 597,
+      "score": 15.04,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Hotel Beverly Terrace - Beverly Hills/West Hollywood",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.9,
+      "address": "469 N Doheny Dr, Beverly Hills, CA 90210, USA",
+      "phone": "(310) 274-8141",
+      "website": "http://www.hotelbeverlyterrace.com/",
+      "domain": "hotelbeverlyterrace.com",
+      "rating": 3.9,
+      "review_count": 484,
+      "score": 10.73,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Ramada Plaza by Wyndham West Hollywood Hotel & Suites",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.56,
+      "address": "8585 Santa Monica Blvd 405-101and 10 Freeways, West Hollywood, CA 90069, USA",
+      "phone": "(310) 734-4746",
+      "website": "https://www.wyndhamhotels.com/ramada/west-hollywood-california/ramada-plaza-hotel-suites-west-hollywood-beverly-hills/overview?CID=LC:wmcic5n98gs1g0r:320&iata=00093796",
+      "domain": "wyndhamhotels.com",
+      "rating": 3.5,
+      "review_count": 1433,
+      "score": 6.35,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Hotel Olympic",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 0.62,
+      "address": "8755 W Olympic Blvd, Los Angeles, CA 90035, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 2.6,
+      "review_count": 11,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "SureStay Hotel By Best Western Beverly Hills",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.82,
+      "address": "7721 Beverly Blvd, Los Angeles, CA 90048, USA",
+      "phone": "(323) 692-1777",
+      "website": "http://www.surestaybeverlyhills.com/",
+      "domain": "surestaybeverlyhills.com",
+      "rating": 3.3,
+      "review_count": 408,
+      "score": 3.03,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Beverly Laurel Hotel at West Hollywood",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 1.47,
+      "address": "8018 Beverly Blvd, Los Angeles, CA 90048, USA",
+      "phone": "(323) 651-2441",
+      "website": "https://direct-book.com/properties/BeverlyLaurelMotorHotelDirect",
+      "domain": "direct-book.com",
+      "rating": 4.1,
+      "review_count": 749,
+      "score": 12.91,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Rumi",
+      "vertical": "hotels",
+      "nearest_office": "Beverly Hills",
+      "distance_mi": 4.66,
+      "address": "820 S Oxford Ave, Los Angeles, CA 90005, USA",
+      "phone": "(424) 394-8721",
+      "website": "https://hotels.cloudbeds.com/reservation/TeLfcu#checkin=2020-09-06&checkout=2020-09-07",
+      "domain": "hotels.cloudbeds.com",
+      "rating": 4.1,
+      "review_count": 566,
+      "score": 6.32,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Regency Palms Oxnard",
+      "vertical": "senior_living",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.32,
+      "address": "1020 Bismark Way, Oxnard, CA 93033, USA",
+      "phone": "(805) 247-0227",
+      "website": "http://regencypalmsoxnard.com/",
+      "domain": "regencypalmsoxnard.com",
+      "rating": 4.4,
+      "review_count": 14,
+      "score": 5.85,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sycamore Senior Village",
+      "vertical": "senior_living",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.45,
+      "address": "333 N F St, Oxnard, CA 93030, USA",
+      "phone": "(833) 845-9819",
+      "website": "https://www.sycamoreseniorvillagecali.com/",
+      "domain": "sycamoreseniorvillagecali.com",
+      "rating": 2.6,
+      "review_count": 24,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Heritage Park Apartments",
+      "vertical": "senior_living",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.8,
+      "address": "820 S E St Office, Oxnard, CA 93030, USA",
+      "phone": "(805) 483-7922",
+      "website": "https://www.heritageparkapts.com/",
+      "domain": "heritageparkapts.com",
+      "rating": 4.3,
+      "review_count": 15,
+      "score": 7.04,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Orchard Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 6.37,
+      "address": "10949 Telegraph Rd, Ventura, CA 93004, USA",
+      "phone": "(805) 671-9700",
+      "website": "https://theorchardseniorliving.com/",
+      "domain": "theorchardseniorliving.com",
+      "rating": 4.4,
+      "review_count": 101,
+      "score": 2.86,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "My little Sunshine Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.74,
+      "address": "936 W 5th St, Oxnard, CA 93030, USA",
+      "phone": "(805) 803-4747",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 2,
+      "score": 4.33,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Peppermint Junction",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.88,
+      "address": "2150 E Gonzales Rd, Oxnard, CA 93036, USA",
+      "phone": "(805) 988-6065",
+      "website": "http://www.peppermintjunction.net/",
+      "domain": "peppermintjunction.net",
+      "rating": 4.2,
+      "review_count": 21,
+      "score": 6.16,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Our Redeemer Lutheran Church and Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.5,
+      "address": "721 Doris Ave, Oxnard, CA 93030, USA",
+      "phone": "(805) 983-0612",
+      "website": "http://lcoor.org/",
+      "domain": "lcoor.org",
+      "rating": 4.5,
+      "review_count": 6,
+      "score": 5.94,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Growing Minds Children's Center (GMCC)",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.71,
+      "address": "1777 Statham Blvd, Oxnard, CA 93033, USA",
+      "phone": "(805) 830-2177",
+      "website": "https://gmccenter.com/",
+      "domain": "gmccenter.com",
+      "rating": 4.9,
+      "review_count": 8,
+      "score": 7.13,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "ABC Kids Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.32,
+      "address": "1900 W 5th St, Oxnard, CA 93030, USA",
+      "phone": "(805) 834-3112",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 6,
+      "score": 7.06,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "My Little Sunshine Preschool and Daycare Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.14,
+      "address": "905 Redwood St, Oxnard, CA 93033, USA",
+      "phone": "(805) 336-7311",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 5,
+      "score": 5.7,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "City of Oxnard Pre-School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.31,
+      "address": "910 Hill St, Oxnard, CA 93033, USA",
+      "phone": "(805) 385-8102",
+      "website": "",
+      "domain": "",
+      "rating": 1,
+      "review_count": 1,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Colonia Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.88,
+      "address": "1500 Camino Del Sol, Oxnard, CA 93030, USA",
+      "phone": "(805) 486-0850",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.68,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Ocean View Early Education School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 3.51,
+      "address": "4600 Olds Rd, Oxnard, CA 93033, USA",
+      "phone": "(805) 488-5277",
+      "website": "https://ovees.oceanviewsd.org/",
+      "domain": "ovees.oceanviewsd.org",
+      "rating": 5,
+      "review_count": 1,
+      "score": 1.69,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Lil' Saints Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.77,
+      "address": "2121 Saviers Rd, Oxnard, CA 93033, USA",
+      "phone": "(805) 240-9700",
+      "website": "",
+      "domain": "",
+      "rating": 3,
+      "review_count": 1,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Patagonia Headquarters",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 8.93,
+      "address": "259 W Santa Clara St, Ventura, CA 93001, USA",
+      "phone": "(805) 643-8616",
+      "website": "https://www.patagonia.com/home/",
+      "domain": "patagonia.com",
+      "rating": 3.2,
+      "review_count": 17,
+      "score": 0.25,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Las Islas Billing Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.93,
+      "address": "2643 Saviers Rd, Oxnard, CA 93033, USA",
+      "phone": "(805) 385-9424",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.28,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "C.P.S. Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.54,
+      "address": "1171-1191 S Rose Ave, Oxnard, CA 93033, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 3,
+      "review_count": 1,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Harbor Freight Tools Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 27.38,
+      "address": "26677 Agoura Rd, Calabasas, CA 91302, USA",
+      "phone": "(818) 836-5000",
+      "website": "https://www.harborfreight.com/",
+      "domain": "harborfreight.com",
+      "rating": 2.1,
+      "review_count": 252,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Administrative Offices - Lassens Natural Foods & Vitamins",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 4.66,
+      "address": "1650 Palma Dr Unit 208, Ventura, CA 93003, USA",
+      "phone": "(805) 620-4850",
+      "website": "http://www.lassens.com/",
+      "domain": "lassens.com",
+      "rating": 5,
+      "review_count": 6,
+      "score": 3.53,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Corporate Oaks",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 20.81,
+      "address": "1 Baxter Way, Westlake Village, CA 91362, USA",
+      "phone": "(805) 370-1763",
+      "website": "",
+      "domain": "",
+      "rating": 4,
+      "review_count": 2,
+      "score": 0.48,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "General Motors Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 21.94,
+      "address": "30930 Russell Ranch Rd, Westlake Village, CA 91362, USA",
+      "phone": "(805) 373-6392",
+      "website": "",
+      "domain": "",
+      "rating": 1.7,
+      "review_count": 6,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Wood Ranch Home Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 20.61,
+      "address": "2835 Townsgate Rd Ste 200, Westlake Village, CA 91361, USA",
+      "phone": "(805) 719-9000",
+      "website": "https://www.woodranch.com/",
+      "domain": "woodranch.com",
+      "rating": 2.7,
+      "review_count": 12,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Irvine Company",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 85.21,
+      "address": "550 Newport Center Dr Ste 500, Newport Beach, CA 92660, USA",
+      "phone": "(949) 720-2000",
+      "website": "https://www.irvinecompany.com/",
+      "domain": "irvinecompany.com",
+      "rating": 2.8,
+      "review_count": 122,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Reiter Brothers, Inc.",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.65,
+      "address": "730 S A St, Oxnard, CA 93030, USA",
+      "phone": "(805) 483-1000",
+      "website": "http://www.berry.net/",
+      "domain": "berry.net",
+      "rating": 4.7,
+      "review_count": 3,
+      "score": 4.7,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "MidiCi (Corporate office) The Neapolitian Pizza Company",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 37.96,
+      "address": "17555 Ventura Blvd, Encino, CA 91316, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 4,
+      "review_count": 4,
+      "score": 0.7,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Mission Produce, Inc.",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.43,
+      "address": "2710 Camino Del Sol, Oxnard, CA 93030, USA",
+      "phone": "(805) 981-3650",
+      "website": "https://www.missionproduce.com/",
+      "domain": "missionproduce.com",
+      "rating": 3.1,
+      "review_count": 119,
+      "score": 0.72,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Kevita",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.34,
+      "address": "300 N Elevar St, Oxnard, CA 93030, USA",
+      "phone": "(805) 200-2489",
+      "website": "http://www.kevita.com/",
+      "domain": "kevita.com",
+      "rating": 4.1,
+      "review_count": 8,
+      "score": 3.71,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Yolanda's Mexican Caf\u00e9 Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 5.11,
+      "address": "1363 Donlon St Ste 20, Ventura, CA 93003, USA",
+      "phone": "(805) 656-6231",
+      "website": "http://www.yolandasmexicancafe.com/",
+      "domain": "yolandasmexicancafe.com",
+      "rating": 3.7,
+      "review_count": 6,
+      "score": 1.07,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Northeast Valley Health Corporation (Corporate Office)",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 43.56,
+      "address": "1172 N Maclay Ave, San Fernando, CA 91340, USA",
+      "phone": "(818) 898-1388",
+      "website": "https://www.nevhc.org/",
+      "domain": "nevhc.org",
+      "rating": 4.2,
+      "review_count": 12,
+      "score": 1.34,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Driscoll's Mountain View",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.15,
+      "address": "1526 Mountain View Ave, Oxnard, CA 93030, USA",
+      "phone": "(805) 385-7389",
+      "website": "",
+      "domain": "",
+      "rating": 3.5,
+      "review_count": 56,
+      "score": 3.76,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Synrgo - Ventura Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 4.85,
+      "address": "5850 Thille St, Ventura, CA 93003, USA",
+      "phone": "(805) 658-0239",
+      "website": "",
+      "domain": "",
+      "rating": null,
+      "review_count": 0,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Community Memorial Hospital Business Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 3.18,
+      "address": "5855 Olivas Park Dr, Ventura, CA 93003, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 2.4,
+      "review_count": 5,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Surfside I Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 4.27,
+      "address": "199 E Surfside Dr, Port Hueneme, CA 93041, USA",
+      "phone": "(805) 488-3304",
+      "website": "https://surfsideone.squarespace.com/",
+      "domain": "surfsideone.squarespace.com",
+      "rating": null,
+      "review_count": 0,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "24 Hour Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.36,
+      "address": "400 Town Center Dr, Oxnard, CA 93036, USA",
+      "phone": "(805) 288-8509",
+      "website": "https://www.24hourfitness.com/gyms/oxnard-ca/oxnard-collection-super-sport?Adb_id=GGL_LOC_ACQ_CDP",
+      "domain": "24hourfitness.com",
+      "rating": 4.4,
+      "review_count": 1080,
+      "score": 14.97,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Legends Barbell",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.09,
+      "address": "2251 E Gonzales Rd, Oxnard, CA 93036, USA",
+      "phone": "(805) 983-2639",
+      "website": "https://legendsbarbell.com/",
+      "domain": "legendsbarbell.com",
+      "rating": 3.3,
+      "review_count": 360,
+      "score": 2.83,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "E\u014dS Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.82,
+      "address": "150 W Esplanade Dr, Oxnard, CA 93036, USA",
+      "phone": "(805) 751-3535",
+      "website": "https://www.eosfitness.com/gym/oxnard-e-vineyard-ave-w-esplanade-dr?utm_source=local&utm_medium=organic&utm_campaign=evergreen_gmb",
+      "domain": "eosfitness.com",
+      "rating": 4.1,
+      "review_count": 447,
+      "score": 11.26,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Planet Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 1.3,
+      "address": "2059 N Oxnard Blvd, Oxnard, CA 93036, USA",
+      "phone": "(805) 981-8181",
+      "website": "https://www.planetfitness.com/gyms/oxnard-ca?utm_medium=organic&utm_source=extnet",
+      "domain": "planetfitness.com",
+      "rating": 4.1,
+      "review_count": 606,
+      "score": 12.82,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Fitness 19",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.24,
+      "address": "2721 S Rose Ave, Oxnard, CA 93033, USA",
+      "phone": "(805) 486-2219",
+      "website": "https://www.fit19.com/locations/oxnard?utm_campaign=Google%20Business%20Profile&utm_source=ppc&utm_medium=Oxnard%20-%20SoCi%20GMB",
+      "domain": "fit19.com",
+      "rating": 4.5,
+      "review_count": 384,
+      "score": 13.96,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Anytime Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.96,
+      "address": "702 N Ventura Rd, Oxnard, CA 93030, USA",
+      "phone": "(805) 983-7770",
+      "website": "https://www.anytimefitness.com/locations/oxnard-california-3063/?utm_source=google&utm_medium=organic-businesslisting&utm_campaign=gbp-listing&utm_content=3063",
+      "domain": "anytimefitness.com",
+      "rating": 3.8,
+      "review_count": 105,
+      "score": 7.13,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "LA Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.06,
+      "address": "1361 W Channel Islands Blvd, Oxnard, CA 93033, USA",
+      "phone": "(805) 200-4855",
+      "website": "https://www.lafitness.com/Pages/clubhome.aspx?clubid=1190&utm_source=google&utm_medium=googlemaps&utm_campaign=maps",
+      "domain": "lafitness.com",
+      "rating": 4.1,
+      "review_count": 327,
+      "score": 10.27,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "House Of Gains Gym",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.22,
+      "address": "3075 Saviers Rd, Oxnard, CA 93033, USA",
+      "phone": "(805) 253-0437",
+      "website": "http://www.houseofgainsgym.net/",
+      "domain": "houseofgainsgym.net",
+      "rating": 4.9,
+      "review_count": 129,
+      "score": 14.51,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "TRIFECTA Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.86,
+      "address": "990 S A St, Oxnard, CA 93030, USA",
+      "phone": "(805) 853-3033",
+      "website": "http://www.trifecta-fitness.com/",
+      "domain": "trifecta-fitness.com",
+      "rating": 4.9,
+      "review_count": 77,
+      "score": 16.04,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "COREATHELTICS ACADEMY",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.11,
+      "address": "WILSON PARK, 315 N A St, Oxnard, CA 93030, USA",
+      "phone": "(805) 666-1174",
+      "website": "",
+      "domain": "",
+      "rating": 4.9,
+      "review_count": 34,
+      "score": 14.47,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "UFC GYM Oxnard",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.32,
+      "address": "451 W Esplanade Dr, Oxnard, CA 93036, USA",
+      "phone": "(805) 900-4832",
+      "website": "https://www.ufcgym.com/locations/oxnard",
+      "domain": "ufcgym.com",
+      "rating": 3.6,
+      "review_count": 244,
+      "score": 5.09,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Oxnard MVMNT",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.44,
+      "address": "3000 Paseo Mercado #110, Oxnard, CA 93036, USA",
+      "phone": "(805) 826-1470",
+      "website": "http://www.oxnardmvmnt.com/",
+      "domain": "oxnardmvmnt.com",
+      "rating": 5,
+      "review_count": 202,
+      "score": 16.04,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Warfield Gymnasium",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.82,
+      "address": "1099 Addor St, Port Hueneme, CA 93041, USA",
+      "phone": "(805) 982-5173",
+      "website": "https://ventura.navylifesw.com/fitness/fitness-centers",
+      "domain": "ventura.navylifesw.com",
+      "rating": 4.4,
+      "review_count": 112,
+      "score": 9.31,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Transformation Fitness in Oxnard",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 0.06,
+      "address": "562 #2 S A St, Oxnard, CA 93030, USA",
+      "phone": "(805) 666-1174",
+      "website": "",
+      "domain": "",
+      "rating": null,
+      "review_count": 0,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Seabridge Bootcamp and Bodybuilding Gym Oxnard - Fitness, weightlifting & Classes",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.72,
+      "address": "1201 Victoria Ave, Oxnard, CA 93035, USA",
+      "phone": "(805) 907-1497",
+      "website": "https://www.seabridgebootcamp.com/",
+      "domain": "seabridgebootcamp.com",
+      "rating": 4.9,
+      "review_count": 144,
+      "score": 13.55,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Bee-Fit Wellness Center",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Puri Dentistry",
+      "distance_mi": 2.89,
+      "address": "Building, 1171 29th Ave, Port Hueneme, CA 93041, USA",
+      "phone": "(805) 982-4726",
+      "website": "http://navylifesw.com/ventura/fitness/fitnesscentersgyms/",
+      "domain": "navylifesw.com",
+      "rating": 4.6,
+      "review_count": 47,
+      "score": 8.59,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Ivy Park at Santa Monica",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.6,
+      "address": "1312 15th St, Santa Monica, CA 90404, USA",
+      "phone": "(310) 899-1976",
+      "website": "http://ivyliving.com/santamonica",
+      "domain": "ivyliving.com",
+      "rating": 4.3,
+      "review_count": 39,
+      "score": 9.63,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Welbrook Santa Monica",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.75,
+      "address": "1450 17th St, Santa Monica, CA 90404, USA",
+      "phone": "(424) 282-3002",
+      "website": "http://www.welbrookmemorycare.com/",
+      "domain": "welbrookmemorycare.com",
+      "rating": 4.7,
+      "review_count": 23,
+      "score": 10.63,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Bentley Suites by SCH",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.73,
+      "address": "851 4th St, Santa Monica, CA 90403, USA",
+      "phone": "(213) 283-8532",
+      "website": "https://schcares.com/bentley-suites",
+      "domain": "schcares.com",
+      "rating": 4.2,
+      "review_count": 5,
+      "score": 4.24,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Santa Monica Christian Towers",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.21,
+      "address": "1233 6th St, Santa Monica, CA 90401, USA",
+      "phone": "(310) 394-3017",
+      "website": "https://falkenberg-gilliam.com/property/santa-monica-christian-towers/",
+      "domain": "falkenberg-gilliam.com",
+      "rating": 3.7,
+      "review_count": 14,
+      "score": 4.01,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Santa Monica Home & Care",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.69,
+      "address": "912 10th St, Santa Monica, CA 90403, USA",
+      "phone": "(310) 576-0044",
+      "website": "http://santamonicahomeandcare.com/",
+      "domain": "santamonicahomeandcare.com",
+      "rating": 5,
+      "review_count": 2,
+      "score": 4.36,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Ivy House",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.39,
+      "address": "1322 12th St, Santa Monica, CA 90401, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.86,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Ocean Pearl Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 2.76,
+      "address": "2590 S Westgate Ave, Los Angeles, CA 90064, USA",
+      "phone": "(424) 392-3482",
+      "website": "https://beitshalomgroup.com/oceanpearlseniorliving/",
+      "domain": "beitshalomgroup.com",
+      "rating": 5,
+      "review_count": 3,
+      "score": 3.94,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Westmont of Culver City",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 4.61,
+      "address": "11141 Washington Blvd, Culver City, CA 90232, USA",
+      "phone": "(310) 736-4118",
+      "website": "https://westmontliving.com/our-communities/california/culver-city/westmont-of-culver-city/",
+      "domain": "westmontliving.com",
+      "rating": 4.5,
+      "review_count": 42,
+      "score": 5.19,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Wilshire House | An RHF Community",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.45,
+      "address": "1125 3rd St #100, Santa Monica, CA 90403, USA",
+      "phone": "(310) 395-4545",
+      "website": "http://www.rhf.org/location/wilshire-house/",
+      "domain": "rhf.org",
+      "rating": 4.4,
+      "review_count": 5,
+      "score": 5.14,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Silvercrest Senior Citizens",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.23,
+      "address": "1530 5th St, Santa Monica, CA 90401, USA",
+      "phone": "(310) 393-5336",
+      "website": "",
+      "domain": "",
+      "rating": 4.4,
+      "review_count": 7,
+      "score": 6.14,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Terraza Court Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 4.7,
+      "address": "10955 Washington Blvd, Culver City, CA 90232, USA",
+      "phone": "(310) 838-7800",
+      "website": "http://www.terrazacourtseniorliving.com/",
+      "domain": "terrazacourtseniorliving.com",
+      "rating": 3.7,
+      "review_count": 23,
+      "score": 1.99,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Indalo Homes",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.02,
+      "address": "1201 Pearl St, Santa Monica, CA 90405, USA",
+      "phone": "(310) 773-9834",
+      "website": "https://www.indalo-homes.com/",
+      "domain": "indalo-homes.com",
+      "rating": 5,
+      "review_count": 6,
+      "score": 7.37,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Ciela Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 5.83,
+      "address": "17310 Vereda De La Montura, Pacific Palisades, CA 90272, USA",
+      "phone": "(310) 310-8218",
+      "website": "https://www.liveciela.com/",
+      "domain": "liveciela.com",
+      "rating": 4.9,
+      "review_count": 42,
+      "score": 4.21,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Palisades Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.57,
+      "address": "958 Lincoln Blvd, Santa Monica, CA 90403, USA",
+      "phone": "(310) 434-9917",
+      "website": "https://www.palisadespreschool.org/",
+      "domain": "palisadespreschool.org",
+      "rating": 4.4,
+      "review_count": 5,
+      "score": 5.06,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Westside Waldorf School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.63,
+      "address": "1439 15th St, Santa Monica, CA 90404, USA",
+      "phone": "(310) 454-7064",
+      "website": "https://www.westsidewaldorf.org/",
+      "domain": "westsidewaldorf.org",
+      "rating": 5,
+      "review_count": 6,
+      "score": 7.79,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Beginnings Learning Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.91,
+      "address": "1516 19th St, Santa Monica, CA 90404, USA",
+      "phone": "(424) 425-3510",
+      "website": "https://beginningslc.com/",
+      "domain": "beginningslc.com",
+      "rating": 4.7,
+      "review_count": 23,
+      "score": 10.4,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Big and Tiny 10th st",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.22,
+      "address": "1444 10th St, Santa Monica, CA 90401, USA",
+      "phone": "(310) 392-0113",
+      "website": "https://bigandtiny10thst.com/",
+      "domain": "bigandtiny10thst.com",
+      "rating": 4.7,
+      "review_count": 40,
+      "score": 13.33,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "First Presbyterian Nursery School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.44,
+      "address": "1248 2nd St, Santa Monica, CA 90401, USA",
+      "phone": "(310) 451-9259",
+      "website": "http://www.first-pres.net/",
+      "domain": "first-pres.net",
+      "rating": 5,
+      "review_count": 10,
+      "score": 9.84,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Santa Monica Early Childhood Lab School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.55,
+      "address": "1802 4th St, Santa Monica, CA 90401, USA",
+      "phone": "(310) 434-3811",
+      "website": "https://www.growingplace.org/lab-school",
+      "domain": "growingplace.org",
+      "rating": 3.4,
+      "review_count": 17,
+      "score": 2.34,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Early Years School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.84,
+      "address": "302 Montana Ave, Santa Monica, CA 90403, USA",
+      "phone": "(310) 394-0463",
+      "website": "https://www.theearlyyearsschool.com/",
+      "domain": "theearlyyearsschool.com",
+      "rating": 5,
+      "review_count": 7,
+      "score": 8.08,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Montana Preschool & Toddlers",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.53,
+      "address": "2621 Wilshire Blvd, Santa Monica, CA 90403, USA",
+      "phone": "(310) 663-2169",
+      "website": "http://www.montanapreschoolsantamonica.com/",
+      "domain": "montanapreschoolsantamonica.com",
+      "rating": 4.8,
+      "review_count": 55,
+      "score": 12.72,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Garden of Angels School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.02,
+      "address": "1009 18th St, Santa Monica, CA 90403, USA",
+      "phone": "(310) 453-4680",
+      "website": "http://www.garden-of-angels.com/",
+      "domain": "garden-of-angels.com",
+      "rating": 5,
+      "review_count": 6,
+      "score": 7.37,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Maple Tree Academy",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.76,
+      "address": "1814 14th St, Santa Monica, CA 90404, USA",
+      "phone": "(310) 314-1111",
+      "website": "http://www.mtacademy.com/",
+      "domain": "mtacademy.com",
+      "rating": 3.9,
+      "review_count": 11,
+      "score": 4.39,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Santa Monica Family YMCA",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.13,
+      "address": "1332 6th St, Santa Monica, CA 90401, USA",
+      "phone": "(310) 393-2721",
+      "website": "http://www.ymcasm.org/",
+      "domain": "ymcasm.org",
+      "rating": 3.9,
+      "review_count": 244,
+      "score": 10.58,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "LA Nature Kids Preschool and Day Camp",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.75,
+      "address": "2016 5th St, Santa Monica, CA 90405, USA",
+      "phone": "(909) 809-4751",
+      "website": "https://lanaturekids.com/",
+      "domain": "lanaturekids.com",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.73,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Kigala Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.8,
+      "address": "2705 Pico Blvd, Santa Monica, CA 90405, USA",
+      "phone": "(310) 340-1730",
+      "website": "https://kigala.org/locations/santa-monica-ca/",
+      "domain": "kigala.org",
+      "rating": 4.7,
+      "review_count": 30,
+      "score": 9.82,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Cassidy Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.15,
+      "address": "2122 Wilshire Blvd, Santa Monica, CA 90403, USA",
+      "phone": "(310) 829-5700",
+      "website": "https://cassidypreschool.com/",
+      "domain": "cassidypreschool.com",
+      "rating": 5,
+      "review_count": 4,
+      "score": 5.98,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Stepping Stone Child Care and Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.86,
+      "address": "2527 25th St, Santa Monica, CA 90405, USA",
+      "phone": "(310) 453-6316",
+      "website": "http://www.stepstonechildcare.com/",
+      "domain": "stepstonechildcare.com",
+      "rating": 5,
+      "review_count": 40,
+      "score": 12.38,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Westside Montessori School",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.46,
+      "address": "757 Pier Ave, Santa Monica, CA 90405, USA",
+      "phone": "(310) 399-3292",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.46,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Smartstart Developmental Learning Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.08,
+      "address": "2505 Lincoln Blvd, Santa Monica, CA 90405, USA",
+      "phone": "(310) 452-5437",
+      "website": "https://www.smartstartschool.com/",
+      "domain": "smartstartschool.com",
+      "rating": 3.5,
+      "review_count": 16,
+      "score": 2.66,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "First UMC Preschool and TK of Santa Monica",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.59,
+      "address": "1008 11th St, Santa Monica, CA 90403, USA",
+      "phone": "(310) 395-7292",
+      "website": "http://santamonicaumc.org/preschool/",
+      "domain": "santamonicaumc.org",
+      "rating": 4.4,
+      "review_count": 5,
+      "score": 5.05,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sunny Days Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.92,
+      "address": "1423 Franklin St, Santa Monica, CA 90404, USA",
+      "phone": "(424) 229-5166",
+      "website": "http://www.sunnydaysschoolhouse.com/",
+      "domain": "sunnydaysschoolhouse.com",
+      "rating": 5,
+      "review_count": 10,
+      "score": 7.91,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Google Venice",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.81,
+      "address": "",
+      "phone": "(310) 310-6000",
+      "website": "https://about.google/company-info/locations/",
+      "domain": "about.google",
+      "rating": 4.2,
+      "review_count": 657,
+      "score": 13.08,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Red Bull North America",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.65,
+      "address": "1740 Stewart St Ste 320, Santa Monica, CA 90404, USA",
+      "phone": "(310) 393-4647",
+      "website": "http://redbull.com/",
+      "domain": "redbull.com",
+      "rating": 4.3,
+      "review_count": 36,
+      "score": 8.09,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Temu LA Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.19,
+      "address": "725 Arizona Ave Ste 202, Santa Monica, CA 90401, USA",
+      "phone": "",
+      "website": "https://www.temu.com/",
+      "domain": "temu.com",
+      "rating": 2.2,
+      "review_count": 45,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Main Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 28.17,
+      "address": "14251 Firestone Blvd, La Mirada, CA 90638, USA",
+      "phone": "(562) 402-8080",
+      "website": "",
+      "domain": "",
+      "rating": 3.7,
+      "review_count": 3,
+      "score": 0.42,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Walmart Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 5.01,
+      "address": "5404 Jandy Pl, Los Angeles, CA 90066, USA",
+      "phone": "",
+      "website": "http://corporate.walmart.com/",
+      "domain": "corporate.walmart.com",
+      "rating": null,
+      "review_count": 0,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "HQ",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 14.44,
+      "address": "2001 Alameda St, Los Angeles, CA 90058, USA",
+      "phone": "",
+      "website": "",
+      "domain": "",
+      "rating": 1,
+      "review_count": 1,
+      "score": 0.0,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Burn Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.34,
+      "address": "1233 3rd Street Promenade, Santa Monica, CA 90401, USA",
+      "phone": "(424) 330-4603",
+      "website": "http://www.burnfitness.com/",
+      "domain": "burnfitness.com",
+      "rating": 4.2,
+      "review_count": 87,
+      "score": 11.17,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Fred Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.25,
+      "address": "1344 4th St, Santa Monica, CA 90401, USA",
+      "phone": "(310) 394-3733",
+      "website": "https://fredfitness.com/?utm_source=google&utm_medium=organic&utm_campaign=google_profile",
+      "domain": "fredfitness.com",
+      "rating": 4.5,
+      "review_count": 87,
+      "score": 14.13,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Equinox Santa Monica",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.35,
+      "address": "201 Santa Monica Blvd, Santa Monica, CA 90401, USA",
+      "phone": "(310) 593-8888",
+      "website": "https://www.equinox.com/clubs/southern-california/los-angeles/santamonica?cid=gmb",
+      "domain": "equinox.com",
+      "rating": 3.4,
+      "review_count": 178,
+      "score": 4.31,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Phit Pro Gym",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.33,
+      "address": "819 Wilshire Blvd, Santa Monica, CA 90401, USA",
+      "phone": "(310) 569-9131",
+      "website": "http://www.phitprogym.com/",
+      "domain": "phitprogym.com",
+      "rating": 5,
+      "review_count": 26,
+      "score": 13.72,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Allegiate Gym",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.1,
+      "address": "719 Broadway, Santa Monica, CA 90401, USA",
+      "phone": "(424) 238-8625",
+      "website": "http://www.allegiategym.com/",
+      "domain": "allegiategym.com",
+      "rating": 4.9,
+      "review_count": 75,
+      "score": 17.64,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sessions Personal Training - Santa Monica",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.27,
+      "address": "417 Colorado Ave, Santa Monica, CA 90401, USA",
+      "phone": "(310) 807-6718",
+      "website": "https://www.sessionspersonaltraining.com/",
+      "domain": "sessionspersonaltraining.com",
+      "rating": 4.9,
+      "review_count": 60,
+      "score": 16.39,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Circuit Works",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.6,
+      "address": "1837 Lincoln Blvd, Santa Monica, CA 90404, USA",
+      "phone": "(209) 255-6830",
+      "website": "http://circuitworksla.com/",
+      "domain": "circuitworksla.com",
+      "rating": 5,
+      "review_count": 475,
+      "score": 24.77,
+      "has_website": true,
+      "co_contacts_public": [
+        {
+          "title": "Owner/Mgr.",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
+    },
+    {
+      "name": "JOHN REED Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.41,
+      "address": "1202 3rd Street Promenade, Santa Monica, CA 90405, USA",
+      "phone": "(424) 231-5535",
+      "website": "https://us.johnreed.fitness/",
+      "domain": "us.johnreed.fitness",
+      "rating": 3.8,
+      "review_count": 192,
+      "score": 8.67,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "IRON Fitness Santa Monica",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.94,
+      "address": "1919 Broadway, Santa Monica, CA 90404, USA",
+      "phone": "(424) 476-6348",
+      "website": "http://ironfitnessx.com/",
+      "domain": "ironfitnessx.com",
+      "rating": 4.4,
+      "review_count": 96,
+      "score": 12.27,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Basecamp Fitness Santa Monica",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.16,
+      "address": "1315 Lincoln Blvd Ste 130, Santa Monica, CA 90401, USA",
+      "phone": "(310) 451-2861",
+      "website": "https://www.basecampfitness.com/studio/santa-monica?utm_source=google&utm_medium=organic-business-listing&utm_campaign=gbp-listing",
+      "domain": "basecampfitness.com",
+      "rating": 4.7,
+      "review_count": 79,
+      "score": 15.85,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Gold's Gym Venice",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.85,
+      "address": "360 Hampton Dr, Venice, CA 90291, USA",
+      "phone": "(310) 392-6004",
+      "website": "https://www.goldsgym.com/veniceca/",
+      "domain": "goldsgym.com",
+      "rating": 4.4,
+      "review_count": 1498,
+      "score": 17.09,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Show Up Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.33,
+      "address": "1207 4th St #150, Santa Monica, CA 90403, USA",
+      "phone": "(530) 520-2664",
+      "website": "http://www.showupfitness.com/",
+      "domain": "showupfitness.com",
+      "rating": 5,
+      "review_count": 76,
+      "score": 18.09,
+      "has_website": true,
+      "co_contacts_public": [
+        {
+          "title": "Owner",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
+    },
+    {
+      "name": "The Megaformer Studio",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.21,
+      "address": "416 Broadway, Santa Monica, CA 90401, USA",
+      "phone": "(310) 801-1838",
+      "website": "http://www.megaformerstudio.com/",
+      "domain": "megaformerstudio.com",
+      "rating": 4.8,
+      "review_count": 128,
+      "score": 18.5,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Training Mate Santa Monica",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 0.11,
+      "address": "1454 Lincoln Blvd, Santa Monica, CA 90401, USA",
+      "phone": "(424) 744-8806",
+      "website": "https://trainingmate.com/locations/santa-monica/?utm_source=google&utm_medium=organic&utm_campaign=gmb-listing-santa-monica",
+      "domain": "trainingmate.com",
+      "rating": 4.9,
+      "review_count": 100,
+      "score": 18.78,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "TRIFIT LA",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.33,
+      "address": "2425 Colorado Ave Ste B100, Santa Monica, CA 90404, USA",
+      "phone": "(310) 829-2227",
+      "website": "http://www.trifitla.com/",
+      "domain": "trifitla.com",
+      "rating": 4.5,
+      "review_count": 186,
+      "score": 14.21,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "CAMP Los Angeles",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 1.31,
+      "address": "2723 Lincoln Blvd, Santa Monica, CA 90405, USA",
+      "phone": "(424) 229-5945",
+      "website": "http://www.welovecamp.com/",
+      "domain": "welovecamp.com",
+      "rating": 4.9,
+      "review_count": 291,
+      "score": 19.59,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "The Gym LA",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Santa Monica",
+      "distance_mi": 2.86,
+      "address": "11567 Santa Monica Blvd, Los Angeles, CA 90025, USA",
+      "phone": "(424) 248-8496",
+      "website": "http://www.thegym.la/",
+      "domain": "thegym.la",
+      "rating": 4.3,
+      "review_count": 161,
+      "score": 9.23,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Carmel Oaks Assisted Living",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.47,
+      "address": "4607 Lennox Ave, Sherman Oaks, CA 91423, USA",
+      "phone": "(760) 400-0947",
+      "website": "http://www.carmeloaksassistedliving.com/",
+      "domain": "carmeloaksassistedliving.com",
+      "rating": 3.9,
+      "review_count": 7,
+      "score": 3.83,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Valley Vista Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 3.27,
+      "address": "7040 Van Nuys Blvd, Van Nuys, CA 91405, USA",
+      "phone": "(818) 906-4400",
+      "website": "http://www.valleyvistaseniorliving.com/?utm_source=GBP&utm_medium=organic",
+      "domain": "valleyvistaseniorliving.com",
+      "rating": 4.5,
+      "review_count": 19,
+      "score": 5.77,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Valley Village Senior Living, Inc.",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 3.39,
+      "address": "5541 Vantage Ave, Valley Village, CA 91607, USA",
+      "phone": "(747) 253-0007",
+      "website": "http://www.valleyvillageseniorliving.com/",
+      "domain": "valleyvillageseniorliving.com",
+      "rating": 5,
+      "review_count": 5,
+      "score": 4.48,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sagewood Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.98,
+      "address": "6420 Nagle Ave, Valley Glen, CA 91401, USA",
+      "phone": "(818) 747-8319",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 1,
+      "score": 1.89,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Sweet Home Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 3.02,
+      "address": "6460 Varna Ave, Valley Glen, CA 91401, USA",
+      "phone": "(818) 616-4103",
+      "website": "https://sweethomeseniorliving.com/",
+      "domain": "sweethomeseniorliving.com",
+      "rating": 5,
+      "review_count": 7,
+      "score": 5.62,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Northridge Valley Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 6.85,
+      "address": "8700 Lindley Ave, Northridge, CA 91325, USA",
+      "phone": "(818) 650-4828",
+      "website": "https://northridgevalleyseniorliving.com/?utm_source=GMB&utm_medium=organic",
+      "domain": "northridgevalleyseniorliving.com",
+      "rating": 4.6,
+      "review_count": 41,
+      "score": 2.6,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Van Nuys Senior Living, Inc.",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 3.8,
+      "address": "14822 Cohasset St, Van Nuys, CA 91405, USA",
+      "phone": "(818) 731-6635",
+      "website": "http://www.vannuysseniorliving.com/",
+      "domain": "vannuysseniorliving.com",
+      "rating": 5,
+      "review_count": 3,
+      "score": 3.16,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Cedars Assisted Living",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 5.82,
+      "address": "17300 Roscoe Blvd, Northridge, CA 91325, USA",
+      "phone": "(818) 344-2042",
+      "website": "http://www.cedarsassistedliving.net/",
+      "domain": "cedarsassistedliving.net",
+      "rating": 4.4,
+      "review_count": 31,
+      "score": 2.87,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Walnut Garden Luxury Senior Living",
+      "vertical": "senior_living",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.8,
+      "address": "12805 Collins St, Valley Village, CA 91607, USA",
+      "phone": "(818) 509-7989",
+      "website": "http://www.walnutgardenseniorliving.com/",
+      "domain": "walnutgardenseniorliving.com",
+      "rating": 5,
+      "review_count": 11,
+      "score": 7.01,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "WeVillage Sherman Oaks - Childcare & Preschool in Sherman Oaks",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.68,
+      "address": "13335 Ventura Blvd, Sherman Oaks, CA 91423, USA",
+      "phone": "(818) 233-8218",
+      "website": "https://wevillage.com/",
+      "domain": "wevillage.com",
+      "rating": 4.5,
+      "review_count": 33,
+      "score": 9.07,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Apple School Early Childhood Educational Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.54,
+      "address": "14123 Victory Blvd, Van Nuys, CA 91401, USA",
+      "phone": "(818) 779-7924",
+      "website": "http://www.appleschoolecec.com/",
+      "domain": "appleschoolecec.com",
+      "rating": 5,
+      "review_count": 20,
+      "score": 9.02,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "COV Developmental Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.68,
+      "address": "6565 Vesper Ave, Van Nuys, CA 91411, USA",
+      "phone": "(818) 786-2120",
+      "website": "https://www.covtoday.org/covpreschool",
+      "domain": "covtoday.org",
+      "rating": 5,
+      "review_count": 12,
+      "score": 7.41,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "My Lastochka Day Care Center Sherman Oaks",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.16,
+      "address": "4428 Mammoth Ave, Sherman Oaks, CA 91423, USA",
+      "phone": "(310) 210-4464",
+      "website": "https://littleneighborhoodschool.com/",
+      "domain": "littleneighborhoodschool.com",
+      "rating": 4.9,
+      "review_count": 27,
+      "score": 11.75,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Canyon Crest Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.53,
+      "address": "2323 Roscomare Rd, Los Angeles, CA 90077, USA",
+      "phone": "(424) 667-2707",
+      "website": "https://canyoncrestpreschool.com/",
+      "domain": "canyoncrestpreschool.com",
+      "rating": 5,
+      "review_count": 3,
+      "score": 4.12,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Sunnyside Preschool Sherman Oaks",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.6,
+      "address": "14125 Burbank Blvd, Sherman Oaks, CA 91401, USA",
+      "phone": "(818) 785-8574",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 2,
+      "score": 3.82,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Gan Shelanu Preschool Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.95,
+      "address": "13625 Burbank Blvd, Van Nuys, CA 91401, USA",
+      "phone": "(818) 909-7500",
+      "website": "http://www.gan-shelanu.com/",
+      "domain": "gan-shelanu.com",
+      "rating": 5,
+      "review_count": 3,
+      "score": 4.55,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Early Years Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.45,
+      "address": "14701 Burbank Blvd, Sherman Oaks, CA 91411, USA",
+      "phone": "(818) 904-3354",
+      "website": "",
+      "domain": "",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.46,
+      "has_website": false,
+      "co_contacts": []
+    },
+    {
+      "name": "Great Beginnings Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 3.65,
+      "address": "12052 Emelita St, North Hollywood, CA 91607, USA",
+      "phone": "(818) 763-5859",
+      "website": "http://greatbeginnings.org/",
+      "domain": "greatbeginnings.org",
+      "rating": 4.8,
+      "review_count": 24,
+      "score": 6.84,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Small World Children Preschool",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 3.39,
+      "address": "6503 Coldwater Canyon Ave, Valley Glen, CA 91606, USA",
+      "phone": "(818) 760-6747",
+      "website": "https://www.smallworldchildrenpreschool.com/",
+      "domain": "smallworldchildrenpreschool.com",
+      "rating": 5,
+      "review_count": 7,
+      "score": 5.2,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Exploring Minds Montessori Hazeltine",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.14,
+      "address": "5128 Hazeltine Ave, Sherman Oaks, CA 91423, USA",
+      "phone": "(818) 465-3216",
+      "website": "https://montessoriminds.com/",
+      "domain": "montessoriminds.com",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.58,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "VBS Early Childhood Center",
+      "vertical": "schools_daycare",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.42,
+      "address": "15739 Ventura Blvd, Encino, CA 91436, USA",
+      "phone": "(818) 788-0567",
+      "website": "http://www.vbs.org/ecc",
+      "domain": "vbs.org",
+      "rating": 3,
+      "review_count": 2,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Public Storage Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 9.03,
+      "address": "701 Western Ave, Glendale, CA 91201, USA",
+      "phone": "(800) 688-8057",
+      "website": "https://www.publicstorage.com/contact-us",
+      "domain": "publicstorage.com",
+      "rating": 2,
+      "review_count": 569,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Woodland Hills Corporate Center",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 7.99,
+      "address": "21021 Ventura Blvd #210, Woodland Hills, CA 91364, USA",
+      "phone": "(818) 340-8090",
+      "website": "https://thesomersetgroup.com/properties/woodland-hills-corporate-center/",
+      "domain": "thesomersetgroup.com",
+      "rating": 3,
+      "review_count": 2,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "FivePoint Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 19.19,
+      "address": "25124 Springfield Ct, Valencia, CA 91355, USA",
+      "phone": "(661) 255-4000",
+      "website": "https://www.fivepoint.com/",
+      "domain": "fivepoint.com",
+      "rating": 2.8,
+      "review_count": 4,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Regus - Encino Corporate Center",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.35,
+      "address": "Encino Corporate Center, 16501 Ventura Blvd suite 400, Encino, CA 91436, USA",
+      "phone": "(747) 233-3600",
+      "website": "https://www.regus.com/en/us/2104?utm_source=google_uberall&utm_medium=places&utm_campaign=uberall&utm_content=uberall",
+      "domain": "regus.com",
+      "rating": 4.2,
+      "review_count": 17,
+      "score": 5.32,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "BurgerIM Headquarters",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.8,
+      "address": "16861 Ventura Blvd #100, Encino, CA 91436, USA",
+      "phone": "(818) 650-8307",
+      "website": "http://www.burgerim.com/",
+      "domain": "burgerim.com",
+      "rating": 3.3,
+      "review_count": 22,
+      "score": 1.33,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Warner Corporate Center",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 8.55,
+      "address": "21300 Victory Blvd Ste 210, Woodland Hills, CA 91367, USA",
+      "phone": "(818) 999-9033",
+      "website": "https://www.douglasemmett.com/Warner-Corporate-Center",
+      "domain": "douglasemmett.com",
+      "rating": 4.5,
+      "review_count": 15,
+      "score": 1.81,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Black Angus Steakhouse Corporate Office",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 8.35,
+      "address": "111 N 1st St #204, Burbank, CA 91502, USA",
+      "phone": "(818) 208-9903",
+      "website": "http://blackangus.com/",
+      "domain": "blackangus.com",
+      "rating": 1,
+      "review_count": 8,
+      "score": 0.0,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "LADWP Corporate Offices",
+      "vertical": "hr_heavy_employers",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.12,
+      "address": "6060 Sepulveda Blvd, Van Nuys, CA 91411, USA",
+      "phone": "",
+      "website": "http://ladwp.com/",
+      "domain": "ladwp.com",
+      "rating": 5,
+      "review_count": 1,
+      "score": 2.21,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Fithouse 818",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.48,
+      "address": "15037 Ventura Blvd, Sherman Oaks, CA 91403, USA",
+      "phone": "(818) 809-2438",
+      "website": "http://www.fithouse818.com/",
+      "domain": "fithouse818.com",
+      "rating": 4.9,
+      "review_count": 53,
+      "score": 15.47,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Zoo Culture Gym",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.4,
+      "address": "16571 Ventura Blvd, Encino, CA 91436, USA",
+      "phone": "(818) 849-5681",
+      "website": "http://www.thezooculture.com/",
+      "domain": "thezooculture.com",
+      "rating": 4.5,
+      "review_count": 1098,
+      "score": 15.97,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Iron Method",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.43,
+      "address": "14374 Ventura Blvd, Sherman Oaks, CA 91423, USA",
+      "phone": "(818) 616-4222",
+      "website": "http://ironmethod.com/",
+      "domain": "ironmethod.com",
+      "rating": 5,
+      "review_count": 45,
+      "score": 15.73,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Alive Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 1.37,
+      "address": "5522 Van Nuys Blvd, Sherman Oaks, CA 91401, USA",
+      "phone": "(818) 907-8600",
+      "website": "https://www.alivefitness.net/",
+      "domain": "alivefitness.net",
+      "rating": 4.8,
+      "review_count": 32,
+      "score": 11.33,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Crunch Fitness - Van Nuys",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.86,
+      "address": "6723 Van Nuys Blvd, Van Nuys, CA 91405, USA",
+      "phone": "(818) 742-6044",
+      "website": "https://www.crunch.com/locations/van-nuys",
+      "domain": "crunch.com",
+      "rating": 4.2,
+      "review_count": 772,
+      "score": 11.13,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "PWRGRLS - Women's Strength Club",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.8,
+      "address": "4537 Sepulveda Blvd, Sherman Oaks, CA 91403, USA",
+      "phone": "(818) 454-2771",
+      "website": "https://www.pwrgrls.com/",
+      "domain": "pwrgrls.com",
+      "rating": 5,
+      "review_count": 49,
+      "score": 15.29,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "CYCLEBAR",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.01,
+      "address": "14622 Ventura Blvd #201, Sherman Oaks, CA 91403, USA",
+      "phone": "(818) 510-3444",
+      "website": "https://www.cyclebar.com/location/sherman-oaks",
+      "domain": "cyclebar.com",
+      "rating": 4.9,
+      "review_count": 139,
+      "score": 20.36,
+      "has_website": true,
+      "co_contacts_public": [
+        {
+          "title": "Studio Manager and Cyclestar",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
+    },
+    {
+      "name": "RESULTS Fitness Center",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 2.45,
+      "address": "12735 Ventura Blvd, Studio City, CA 91604, USA",
+      "phone": "(818) 505-3027",
+      "website": "https://resultsstudio.com/studiocity/",
+      "domain": "resultsstudio.com",
+      "rating": 4.9,
+      "review_count": 32,
+      "score": 10.01,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Active Impact Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.48,
+      "address": "14267 Ventura Blvd, Sherman Oaks, CA 91423, USA",
+      "phone": "(818) 212-8442",
+      "website": "https://activeimpactfitness.com/",
+      "domain": "activeimpactfitness.com",
+      "rating": 5,
+      "review_count": 9,
+      "score": 9.4,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "FITBOX Boxing & Strength",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.15,
+      "address": "14539 Ventura Blvd, Sherman Oaks, CA 91423, USA",
+      "phone": "(310) 882-0823",
+      "website": "http://www.fitboxworkout.com/",
+      "domain": "fitboxworkout.com",
+      "rating": 4.9,
+      "review_count": 60,
+      "score": 16.64,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "Speakeasy Fitness - Van Nuys",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 4.33,
+      "address": "7869 Van Nuys Blvd, Panorama City, CA 91402, USA",
+      "phone": "(818) 646-4588",
+      "website": "http://speakeasy-fitness.com/",
+      "domain": "speakeasy-fitness.com",
+      "rating": 4.2,
+      "review_count": 1912,
+      "score": 9.03,
+      "has_website": true,
+      "co_contacts": []
+    },
+    {
+      "name": "DRAGONFLY CYCLE + TRAIN",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 0.23,
+      "address": "4455 Van Nuys Blvd, Sherman Oaks, CA 91403, USA",
+      "phone": "(818) 325-8900",
+      "website": "http://www.dragonflyshermanoaks.com/",
+      "domain": "dragonflyshermanoaks.com",
+      "rating": 4.9,
+      "review_count": 77,
+      "score": 17.46,
+      "has_website": true,
+      "co_contacts_public": [
+        {
+          "title": "Owner",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
+    },
+    {
+      "name": "Moses Fitness",
+      "vertical": "gyms_wellness",
+      "nearest_office": "Sherman Oaks",
+      "distance_mi": 3.37,
+      "address": "12811 Victory Blvd, Valley Glen, CA 91606, USA",
+      "phone": "(818) 261-4349",
+      "website": "http://moses-fitness.com/",
+      "domain": "moses-fitness.com",
+      "rating": 4.9,
+      "review_count": 374,
+      "score": 14.15,
+      "has_website": true,
+      "co_contacts": []
     }
   ]
 }

@@ -164,11 +164,15 @@ def main() -> None:
         reverse=True,
     )
     # Cap per run: full verifier can be slow; run again tomorrow to widen coverage.
-    RUN_BUDGET = int((__import__("os").environ.get("VERIFY_BUDGET") or "20"))
+    # v3.3: 80/run + parallel probing via ThreadPoolExecutor.
+    RUN_BUDGET = int((__import__("os").environ.get("VERIFY_BUDGET") or "80"))
+    MAX_WORKERS = int((__import__("os").environ.get("VERIFY_WORKERS") or "6"))
     to_check = ranked[:RUN_BUDGET]
 
     results: dict = dict(previous)
-    checked = 0
+
+    # Build worklist: skip bounced_history and already-known valid/invalid/no_mx
+    worklist = []
     for p in to_check:
         d = (p.get("domain") or "").lower().strip()
         if not d:
@@ -179,10 +183,30 @@ def main() -> None:
             continue
         if d in results and results[d].get("status") in ("valid", "invalid", "no_mx"):
             continue  # already known
-        r = verify_domain(d)
-        results[d] = r
-        checked += 1
-        print(f"  {d} -> {r.get('status')} ({r.get('valid_email') or '-'})")
+        worklist.append(d)
+
+    # De-duplicate domain list while preserving score order
+    seen = set()
+    dedup_worklist = []
+    for d in worklist:
+        if d not in seen:
+            seen.add(d)
+            dedup_worklist.append(d)
+
+    checked = 0
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool_ex:
+        futures = {pool_ex.submit(verify_domain, d): d for d in dedup_worklist}
+        for fut in as_completed(futures):
+            d = futures[fut]
+            try:
+                r = fut.result()
+            except Exception as e:
+                r = {"domain": d, "status": "unknown", "valid_email": None,
+                     "checked_at": utcnow(), "error": str(e)[:120]}
+            results[d] = r
+            checked += 1
+            print(f"  {d} -> {r.get('status')} ({r.get('valid_email') or '-'})")
 
     counts = {"valid": 0, "catch_all": 0, "invalid": 0, "no_mx": 0,
               "no_match": 0, "unknown": 0, "bounced_history": 0}

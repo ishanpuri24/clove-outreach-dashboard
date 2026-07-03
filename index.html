@@ -2853,7 +2853,7 @@
         _kpi("Unique prospects", b.unique_prospects_last_30d, "unique domains");
         var poolTotal = (b.prospect_pool && b.prospect_pool.total) || 0;
         _kpi("Prospect pool", poolTotal, "within 5mi of offices (deduped)");
-        _kpi("Next queue", (b.next_prospects_top10 || []).length, "balanced across offices");
+        _kpi("Next queue", (b.next_prospects_top25 || b.next_prospects_top10 || []).length, "balanced across offices");
         var ev = b.email_verification || null;
         if (ev) {
           var cnt = ev.counts || {};
@@ -2928,23 +2928,36 @@
           card.appendChild(rt);
         }
 
-        // Next prospects (top 10)
-        if (b.next_prospects_top10 && b.next_prospects_top10.length) {
+        // Next prospects (top 25) — v3.3
+        var npList = b.next_prospects_top25 || b.next_prospects_top10 || [];
+        if (npList.length) {
           var np = el("div", { "class": "card", style: "margin-top:12px;" });
-          np.appendChild(el("div", { "class": "kpi-label", text: "Next 10 prospects to contact (balanced across offices)" }));
+          np.appendChild(el("div", { "class": "kpi-label", text: "Next " + npList.length + " prospects to contact (balanced across all 9 offices)" }));
           np.appendChild(el("div", { "class": "section-meta",
             text: (b.prospect_pool && b.prospect_pool.dedup_rule) || "Deduped against Gmail SENT." }));
+          // Flatten decision_maker for table rendering (name/linkedin never surfaced publicly; only title + verified flag + masked email)
+          var flat = npList.map(function(r){
+            var dm = r.decision_maker || {};
+            return Object.assign({}, r, {
+              dm_title: dm.title || "-",
+              dm_verified: dm.has_verified_email ? "\u2713" : "-",
+              dm_email: dm.masked_email || "-"
+            });
+          });
           var okNp = _renderTable(np, [
             { key: "name", label: "Business" },
             { key: "vertical", label: "Vertical" },
             { key: "nearest_office", label: "Office" },
             { key: "distance_mi", label: "Miles" },
             { key: "rating", label: "Rating" },
-            { key: "email_status", label: "Email" },
-            { key: "masked_email", label: "Address (masked)" },
+            { key: "email_status", label: "Generic email" },
+            { key: "masked_email", label: "Generic (masked)" },
+            { key: "dm_title", label: "DM title" },
+            { key: "dm_verified", label: "DM verified" },
+            { key: "dm_email", label: "DM email (masked)" },
             { key: "score", label: "Score" },
             { key: "website", label: "Website" }
-          ], b.next_prospects_top10);
+          ], flat);
           if (!okNp) np.appendChild(el("div", { "class": "desc", text: "None queued." }));
           card.appendChild(np);
         }

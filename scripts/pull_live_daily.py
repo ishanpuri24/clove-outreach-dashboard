@@ -652,14 +652,14 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
                         "invalid": 5, "bounced_history": 6}
                 return (order.get(st, 1), -(p.get("score") or 0))
             usable.sort(key=_rank_key)
-            # Balance top-10 across offices: round-robin best-per-office
+            # Balance top-25 across offices: round-robin best-per-office (v3.3)
             by_off: dict = {}
             for p in usable:
                 by_off.setdefault(p["nearest_office"], []).append(p)
             offices_sorted = sorted(by_off.keys())
             picked: list = []
             idx = 0
-            while len(picked) < 10 and any(by_off[o] for o in offices_sorted):
+            while len(picked) < 25 and any(by_off[o] for o in offices_sorted):
                 o = offices_sorted[idx % len(offices_sorted)]
                 if by_off[o]:
                     picked.append(by_off[o].pop(0))
@@ -674,12 +674,39 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
                     m = lp[0] + "***" + lp[-1]
                 return m + " [at] " + dom
 
+            # Load private ContactOut contacts (never committed — gitignored)
+            co_private_path = REPO_ROOT / "data" / "_contactout_private.json"
+            co_private = {}
+            if co_private_path.exists():
+                try:
+                    co_private = (json.loads(co_private_path.read_text()) or {}).get("contacts_by_domain", {})
+                except Exception:
+                    co_private = {}
+
             for p in picked:
                 dom = (p.get("domain") or "").lower().strip()
                 v = ver_map.get(dom) or {}
                 vstatus = v.get("status") or "unchecked"
                 # Only surface an email when we probed and got 'valid'.
                 masked_em = _mask_email(v.get("valid_email") or "") if vstatus == "valid" else "-"
+                # v3.3: surface ContactOut decision-maker contact — PRIVATE data, mask everything in public snapshot.
+                dm = None
+                priv_entry = co_private.get(dom) or {}
+                priv_contacts = priv_entry.get("contacts") or []
+                if priv_contacts:
+                    best = None
+                    for c in priv_contacts:
+                        em = (c.get("best_email") or "").lower()
+                        if em and dom and dom in em:
+                            best = c
+                            break
+                    best = best or priv_contacts[0]
+                    dm = {
+                        "title": best.get("title"),  # role is safe to publish (aggregate)
+                        "has_verified_email": bool(best.get("best_email")),
+                        "masked_email": _mask_email(best.get("best_email") or "") if best.get("best_email") else "-",
+                        "source": "contactout",
+                    }
                 next_prospects.append({
                     "name": p.get("name"),
                     "vertical": p.get("vertical"),
@@ -691,6 +718,7 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
                     "score": p.get("score"),
                     "email_status": vstatus,
                     "masked_email": masked_em,
+                    "decision_maker": dm,
                 })
         except Exception:
             pass
@@ -734,7 +762,7 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
                 f"{len(bounced_domains)} hard-bounced domains; 14-day per-recipient cooldown."
             ),
         },
-        "next_prospects_top10": next_prospects,
+        "next_prospects_top25": next_prospects,
         "email_verification": {
             "method": "SMTP RCPT-TO probe (free, no send)",
             "verified_domain_count": len({d for d in ver_map.keys()}) if isinstance(ver_map, dict) else 0,
@@ -746,9 +774,10 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
         "cadence": "Personal Gmail send. 14-day cooldown per recipient. Never re-email the same domain within window.",
         "next_actions": [
             f"Bounce rate is {bounce_rate_pct}% ({bounce_status}). Keep <2% \u2014 {len(bounced_emails)} address(es) permanently excluded.",
-            "Send week: pick 5 from next_prospects_top10 (mix of senior_living + schools_daycare).",
-            "Add HR-heavy employers + local SMBs to next Maps pull (both verticals still pending).",
-            "Verify each next-prospect email with an SMTP RCPT-TO probe (or ContactOut direct API if key added) before adding to the send queue.",
+            "Send week: pick 10 from next_prospects_top25 (mix of senior_living / schools_daycare / gyms_wellness / hotels / hr_heavy_employers).",
+            "Prefer prospects with decision_maker.has_verified_email = true \u2014 ContactOut surfaced direct owner/GM/director contacts.",
+            "Continue enriching pool with ContactOut (2000/mo quota, currently used <50).",
+            "Verifier now runs at 80 domains/day with parallel probing \u2014 pool coverage grows fast.",
         ],
     }
 
