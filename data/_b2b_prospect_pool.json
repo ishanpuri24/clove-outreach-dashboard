@@ -285,7 +285,18 @@
       "review_count": 59,
       "score": 14.09,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Administrative Assistant",
+          "has_verified_email": false,
+          "source": "contactout"
+        },
+        {
+          "title": "retired psychologist",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Coast 2 Coast Camps of Camarillo",
@@ -315,7 +326,18 @@
       "review_count": 53,
       "score": 13.5,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Administrator",
+          "has_verified_email": false,
+          "source": "contactout"
+        },
+        {
+          "title": "Executive Director",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Assisted Living Locators Thousand Oaks",
@@ -375,7 +397,13 @@
       "review_count": 15,
       "score": 12.65,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Educational Director",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Land Of Enchantment Board And Care",
@@ -480,7 +508,18 @@
       "review_count": 12,
       "score": 11.49,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Owner",
+          "has_verified_email": false,
+          "source": "contactout"
+        },
+        {
+          "title": "Director of Operations and Partnerships",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Fountainview At Eisenberg Village",
@@ -525,7 +564,13 @@
       "review_count": 20,
       "score": 11.21,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Community Relations Director",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Horizon Hills Parenting Program",
@@ -2445,7 +2490,13 @@
       "review_count": 81,
       "score": 14.24,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Sales And Marketing Specialist",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Sunny Hills Assisted Living",
@@ -3348,7 +3399,13 @@
       "review_count": 1858,
       "score": 16.05,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Front Office Manager",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Sofitel Los Angeles at Beverly Hills",
@@ -4080,7 +4137,18 @@
       "review_count": 447,
       "score": 11.26,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "General Manager",
+          "has_verified_email": false,
+          "source": "contactout"
+        },
+        {
+          "title": "General Manager",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Planet Fitness",
@@ -4095,7 +4163,18 @@
       "review_count": 606,
       "score": 12.82,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Owner/Franchisee",
+          "has_verified_email": true,
+          "source": "contactout"
+        },
+        {
+          "title": "Franchisee",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Fitness 19",
@@ -4110,7 +4189,18 @@
       "review_count": 384,
       "score": 13.96,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "General Manager ",
+          "has_verified_email": false,
+          "source": "contactout"
+        },
+        {
+          "title": "General Manager",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Anytime Fitness",
@@ -4866,7 +4956,18 @@
       "review_count": 87,
       "score": 11.17,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Owner",
+          "has_verified_email": false,
+          "source": "contactout"
+        },
+        {
+          "title": "General Manager",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Fred Fitness",
@@ -4881,7 +4982,13 @@
       "review_count": 87,
       "score": 14.13,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "General Manager",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "Equinox Santa Monica",
@@ -5088,7 +5195,18 @@
       "review_count": 186,
       "score": 14.21,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Cycle Instructor",
+          "has_verified_email": false,
+          "source": "contactout"
+        },
+        {
+          "title": "Front Desk Member Services",
+          "has_verified_email": true,
+          "source": "contactout"
+        }
+      ]
     },
     {
       "name": "CAMP Los Angeles",
@@ -5760,7 +5878,13 @@
       "review_count": 374,
       "score": 14.15,
       "has_website": true,
-      "co_contacts": []
+      "co_contacts": [
+        {
+          "title": "Owner",
+          "has_verified_email": false,
+          "source": "contactout"
+        }
+      ]
     }
   ]
 }
