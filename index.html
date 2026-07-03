@@ -2783,7 +2783,45 @@
         var poolTotal = (b.prospect_pool && b.prospect_pool.total) || 0;
         _kpi("Prospect pool", poolTotal, "within 5mi of offices (deduped)");
         _kpi("Next queue", (b.next_prospects_top10 || []).length, "balanced across offices");
+        var br = b.bounces_last_90d || null;
+        if (br) {
+          _kpi("Bounce rate (90d)",
+            (br.external_bounce_rate_pct != null ? br.external_bounce_rate_pct + "%" : "-"),
+            (br.status || "") + " \u00b7 target <2%");
+        }
         card.appendChild(kpis);
+
+        // Bounce hygiene card
+        if (br) {
+          var bc = el("div", { "class": "card", style: "margin-top:12px;" });
+          bc.appendChild(el("div", { "class": "kpi-label", text: "Bounce hygiene (last 90d)" }));
+          var statusClass = br.status === "HEALTHY" ? "pill ok" : (br.status === "WATCH" ? "pill warn" : "pill bad");
+          var pillRow = el("div", { style: "margin-top:6px;" });
+          var pillEl = el("span", { "class": statusClass });
+          pillEl.appendChild(el("span", { "class": "dot" }));
+          pillEl.appendChild(document.createTextNode(" " + (br.status || "-")));
+          pillRow.appendChild(pillEl);
+          pillRow.appendChild(document.createTextNode(
+            "  \u00b7  " + (br.external_bounce_count || 0) + " hard bounce(s), " +
+            (br.external_bounce_rate_pct || 0) + "% of sends, " +
+            (br.permanently_excluded_count || 0) + " address(es) permanently excluded."
+          ));
+          bc.appendChild(pillRow);
+          if (br.note) {
+            bc.appendChild(el("div", { "class": "section-meta", text: br.note, style: "margin-top:6px;" }));
+          }
+          if (br.detail && br.detail.length) {
+            var okBd = _renderTable(bc, [
+              { key: "latest_bounce", label: "Last bounce" },
+              { key: "masked", label: "Address (masked)" },
+              { key: "domain", label: "Domain" },
+              { key: "bounce_count", label: "Count" },
+              { key: "response_codes", label: "SMTP code" }
+            ], br.detail);
+            if (!okBd) bc.appendChild(el("div", { "class": "desc", text: "No external bounces." }));
+          }
+          card.appendChild(bc);
+        }
 
         // Vertical breakdown
         if (b.vertical_breakdown_last_90d) {

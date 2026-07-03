@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T01:21:52+00:00",
+  "generated_at": "2026-07-03T02:06:19+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17015,7 +17015,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-07-03T01:21:52+00:00",
+    "refreshed_at": "2026-07-03T02:06:19+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17050,7 +17050,7 @@
     "method": "Pipedream connector (read-only) per-account pull",
     "accounts_pulled": 9,
     "lookback_days": 30,
-    "pulled_at": "2026-07-03T01:21:52+00:00",
+    "pulled_at": "2026-07-03T02:06:19+00:00",
     "note": "Daily 5am PT pull refreshes 30d segmented-by-date spend for all 9 offices. Direct mutate (budget/bid/pause) still requires the Google Ads UI \u2014 see paid_ads_action_system queue."
   },
   "organic_insights": {
@@ -18191,7 +18191,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-07-03T01:21:52+00:00",
+    "data_freshness": "2026-07-03T02:06:19+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -19411,7 +19411,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-07-03T01:21:52+00:00",
+      "data_freshness": "2026-07-03T02:06:19+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -19772,7 +19772,7 @@
       "threshold_days": 3,
       "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
       "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending.",
-      "as_of": "2026-07-03T01:21:52+00:00",
+      "as_of": "2026-07-03T02:06:19+00:00",
       "status": "BLOCKED"
     }
   },
@@ -20109,7 +20109,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-07-03T01:21:52+00:00",
+    "as_of": "2026-07-03T02:06:19+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20128,7 +20128,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-07-03T01:21:52+00:00",
+      "as_of": "2026-07-03T02:06:19+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21360,7 +21360,7 @@
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-07-03T01:21:52+00:00",
+    "generated_at": "2026-07-03T02:06:19+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -21684,7 +21684,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-07-03T01:21:52+00:00",
+    "generated_at": "2026-07-03T02:06:19+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -23270,7 +23270,7 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-07-03T01:21:52+00:00",
+    "as_of": "2026-07-03T02:06:19+00:00",
     "source_of_truth": "Gmail SENT (verified) + Maps-sourced 5mi prospect pool",
     "status": "ACTIVE \u2014 running from personal Gmail",
     "verified_sends_last_30d": 11,
@@ -23354,6 +23354,38 @@
         "subject_sample": "Free dental wellness seminar for West Hills Adult Day Health Care Center"
       }
     ],
+    "bounces_last_90d": {
+      "external_bounce_count": 2,
+      "external_bounce_rate_pct": 18.2,
+      "status": "HIGH",
+      "total_bounce_messages_seen": 20,
+      "permanently_excluded_count": 2,
+      "permanently_excluded_domains": [
+        "divi.express",
+        "silverstarautos.com"
+      ],
+      "detail": [
+        {
+          "masked": "p***k [at] silverstarautos.com",
+          "domain": "silverstarautos.com",
+          "bounce_count": 1,
+          "latest_bounce": "2026-07-03",
+          "response_codes": [
+            "550"
+          ]
+        },
+        {
+          "masked": "d***o [at] divi.express",
+          "domain": "divi.express",
+          "bounce_count": 1,
+          "latest_bounce": "2026-07-03",
+          "response_codes": [
+            "550"
+          ]
+        }
+      ],
+      "note": "Hard bounces (SMTP 550) from Gmail Mailer-Daemon last 90d. These addresses/domains are permanently excluded from future outreach. Target rate <2%."
+    },
     "prospect_pool": {
       "total": 159,
       "by_vertical": {
@@ -23368,7 +23400,7 @@
         "Camarillo": 36
       },
       "source": "Google Maps Places within 5mi of each office (senior living + preschool/daycare); more verticals queued.",
-      "dedup_rule": "Excluded 21 domains already contacted + legal/finance domains; 14-day per-recipient cooldown."
+      "dedup_rule": "Excluded 21 domains already contacted + legal/finance domains + 2 hard-bounced domains; 14-day per-recipient cooldown."
     },
     "next_prospects_top10": [
       {
@@ -23474,9 +23506,10 @@
     ],
     "cadence": "Personal Gmail send. 14-day cooldown per recipient. Never re-email the same domain within window.",
     "next_actions": [
+      "Bounce rate is 18.2% (HIGH). Keep <2% \u2014 2 address(es) permanently excluded.",
       "Send week: pick 5 from next_prospects_top10 (mix of senior_living + schools_daycare).",
       "Add HR-heavy employers + local SMBs to next Maps pull (both verticals still pending).",
-      "Wire cooldown check into a send helper so no prospect is emailed within 14d of last touch."
+      "Verify each next-prospect email with an SMTP RCPT-TO probe (or ContactOut direct API if key added) before adding to the send queue."
     ]
   },
   "paid_ads_simple": {
@@ -23623,7 +23656,7 @@
         "last_30d_cpa_usd": 24.02
       }
     ],
-    "refreshed_at": "2026-07-03T01:21:52+00:00"
+    "refreshed_at": "2026-07-03T02:06:19+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 by office",
@@ -23706,12 +23739,12 @@
         "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-07-03T01:21:52+00:00"
+    "refreshed_at": "2026-07-03T02:06:19+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-07-03T01:21:52+00:00",
+    "refreshed_at": "2026-07-03T02:06:19+00:00",
     "yesterday_date": "2026-06-29",
     "yesterday_clicks": 194,
     "yesterday_impressions": 26111,

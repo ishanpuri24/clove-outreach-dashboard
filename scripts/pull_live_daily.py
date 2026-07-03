@@ -544,6 +544,40 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
     """
     dedup_file = DATA / "_gmail_sent_dedup.json"
     pool_file = DATA / "_b2b_prospect_pool.json"
+    bounces_file = DATA / "_bounces.json"
+
+    # Load bounces (hard 550s from Gmail Mailer-Daemon, last 90d)
+    bounced_emails: set = set()
+    bounced_domains: set = set()
+    bounce_details: list = []
+    total_bounce_msgs = 0
+    if bounces_file.exists():
+        try:
+            bj = json.loads(bounces_file.read_text())
+            total_bounce_msgs = int(bj.get("total_bounce_messages") or 0)
+            def _mask_local(local: str) -> str:
+                if not local:
+                    return "***"
+                if len(local) <= 2:
+                    return local[0] + "*"
+                return local[0] + "***" + local[-1]
+            for em, meta in (bj.get("external_prospect_bounces") or {}).items():
+                em_l = em.strip().lower()
+                if not em_l or "@" not in em_l:
+                    continue
+                bounced_emails.add(em_l)
+                local, dom = em_l.split("@", 1)
+                bounced_domains.add(dom)
+                bounce_details.append({
+                    "masked": _mask_local(local) + " [at] " + dom,
+                    "domain": dom,
+                    "bounce_count": int(meta.get("bounce_count") or 1),
+                    "latest_bounce": (meta.get("latest_bounce") or "")[:10],
+                    "response_codes": meta.get("response_codes") or [],
+                })
+            bounce_details.sort(key=lambda x: x.get("latest_bounce") or "", reverse=True)
+        except Exception:
+            pass
 
     verified_sends = 0
     verified_prospects: list = []
@@ -585,8 +619,20 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
             pool_by_vert = pool.get("by_vertical") or {}
             pool_by_office = pool.get("by_office") or {}
             all_p = pool.get("prospects") or []
-            # Only keep prospects with a website (usable for research + email)
-            usable = [p for p in all_p if p.get("has_website")]
+            # Only keep prospects with a website (usable for research + email);
+            # also drop any prospect whose website domain already hard-bounced.
+            def _dom_from_website(w: str) -> str:
+                if not w:
+                    return ""
+                s = w.lower().split("//", 1)[-1]
+                s = s.split("/", 1)[0]
+                if s.startswith("www."):
+                    s = s[4:]
+                return s
+            usable = [
+                p for p in all_p
+                if p.get("has_website") and _dom_from_website(p.get("website") or "") not in bounced_domains
+            ]
             # Balance top-10 across offices: round-robin best-per-office
             by_off: dict = {}
             for p in usable:
@@ -613,6 +659,13 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
         except Exception:
             pass
 
+    # Bounce rate = external bounces / verified sends in last 30d (proxy)
+    bounce_ct = len(bounce_details)
+    bounce_rate_pct = (
+        round(100.0 * bounce_ct / verified_sends, 1) if verified_sends else 0.0
+    )
+    bounce_status = "HEALTHY" if bounce_rate_pct < 2 else ("WATCH" if bounce_rate_pct < 5 else "HIGH")
+
     snap["b2b_outbound"] = {
         "as_of": utcnow(),
         "source_of_truth": "Gmail SENT (verified) + Maps-sourced 5mi prospect pool",
@@ -621,19 +674,37 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
         "unique_prospects_last_30d": len(set([p for p in verified_prospects if p])),
         "vertical_breakdown_last_90d": vertical_counts,
         "recent_touches": recent_touches[:10],
+        "bounces_last_90d": {
+            "external_bounce_count": bounce_ct,
+            "external_bounce_rate_pct": bounce_rate_pct,
+            "status": bounce_status,
+            "total_bounce_messages_seen": total_bounce_msgs,
+            "permanently_excluded_count": len(bounced_emails),
+            "permanently_excluded_domains": sorted(list(bounced_domains)),
+            "detail": bounce_details,
+            "note": (
+                "Hard bounces (SMTP 550) from Gmail Mailer-Daemon last 90d. "
+                "These addresses/domains are permanently excluded from future outreach. "
+                "Target rate <2%."
+            ),
+        },
         "prospect_pool": {
             "total": pool_total,
             "by_vertical": pool_by_vert,
             "by_office": pool_by_office,
             "source": "Google Maps Places within 5mi of each office (senior living + preschool/daycare); more verticals queued.",
-            "dedup_rule": "Excluded 21 domains already contacted + legal/finance domains; 14-day per-recipient cooldown.",
+            "dedup_rule": (
+                "Excluded 21 domains already contacted + legal/finance domains + "
+                f"{len(bounced_domains)} hard-bounced domains; 14-day per-recipient cooldown."
+            ),
         },
         "next_prospects_top10": next_prospects,
         "cadence": "Personal Gmail send. 14-day cooldown per recipient. Never re-email the same domain within window.",
         "next_actions": [
+            f"Bounce rate is {bounce_rate_pct}% ({bounce_status}). Keep <2% \u2014 {len(bounced_emails)} address(es) permanently excluded.",
             "Send week: pick 5 from next_prospects_top10 (mix of senior_living + schools_daycare).",
             "Add HR-heavy employers + local SMBs to next Maps pull (both verticals still pending).",
-            "Wire cooldown check into a send helper so no prospect is emailed within 14d of last touch.",
+            "Verify each next-prospect email with an SMTP RCPT-TO probe (or ContactOut direct API if key added) before adding to the send queue.",
         ],
     }
 

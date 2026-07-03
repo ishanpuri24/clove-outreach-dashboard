@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-07-02T19:05:00-07:00",
+  "source": "Gmail INBOX Mailer-Daemon delivery failures, last 90d",
+  "total_bounce_messages": 20,
+  "external_prospect_bounces": {
+    "patrick@silverstarautos.com": {
+      "bounce_count": 1,
+      "latest_bounce": "2026-07-03T01:02:46+00:00",
+      "response_codes": [
+        "550"
+      ]
+    },
+    "demo@divi.express": {
+      "bounce_count": 1,
+      "latest_bounce": "2026-07-03T01:02:38+00:00",
+      "response_codes": [
+        "550"
+      ]
+    }
+  },
+  "internal_bounces": [
+    "qinuo@clovedds.com",
+    "bizdev@clovedds.com"
+  ]
+}
