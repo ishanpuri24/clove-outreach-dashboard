@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T02:06:19+00:00",
+  "generated_at": "2026-07-03T02:19:16+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17015,7 +17015,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-07-03T02:06:19+00:00",
+    "refreshed_at": "2026-07-03T02:19:39+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17050,7 +17050,7 @@
     "method": "Pipedream connector (read-only) per-account pull",
     "accounts_pulled": 9,
     "lookback_days": 30,
-    "pulled_at": "2026-07-03T02:06:19+00:00",
+    "pulled_at": "2026-07-03T02:19:39+00:00",
     "note": "Daily 5am PT pull refreshes 30d segmented-by-date spend for all 9 offices. Direct mutate (budget/bid/pause) still requires the Google Ads UI \u2014 see paid_ads_action_system queue."
   },
   "organic_insights": {
@@ -18191,7 +18191,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-07-03T02:06:19+00:00",
+    "data_freshness": "2026-07-03T02:19:16+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -19411,7 +19411,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-07-03T02:06:19+00:00",
+      "data_freshness": "2026-07-03T02:19:16+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -19772,7 +19772,7 @@
       "threshold_days": 3,
       "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
       "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending.",
-      "as_of": "2026-07-03T02:06:19+00:00",
+      "as_of": "2026-07-03T02:19:39+00:00",
       "status": "BLOCKED"
     }
   },
@@ -20109,7 +20109,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-07-03T02:06:19+00:00",
+    "as_of": "2026-07-03T02:19:39+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20128,7 +20128,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-07-03T02:06:19+00:00",
+      "as_of": "2026-07-03T02:19:39+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21360,7 +21360,7 @@
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-07-03T02:06:19+00:00",
+    "generated_at": "2026-07-03T02:19:39+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -21684,7 +21684,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-07-03T02:06:19+00:00",
+    "generated_at": "2026-07-03T02:19:39+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -23270,7 +23270,7 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-07-03T02:06:19+00:00",
+    "as_of": "2026-07-03T02:19:39+00:00",
     "source_of_truth": "Gmail SENT (verified) + Maps-sourced 5mi prospect pool",
     "status": "ACTIVE \u2014 running from personal Gmail",
     "verified_sends_last_30d": 11,
@@ -23404,44 +23404,52 @@
     },
     "next_prospects_top10": [
       {
-        "name": "Camarillo KinderCare",
+        "name": "Coast 2 Coast Camps of Camarillo",
         "vertical": "schools_daycare",
         "nearest_office": "Camarillo",
         "distance_mi": 0.23,
-        "website": "https://www.kindercare.com/our-centers/camarillo/ca/301645?utm_campaign=kc-lg&utm_source=yext&utm_medium=pro&utm_keyword=&utm_platform=&utm_matchtype=&utm_adgroupid=&utm_content=gmb&y_source=1_NTA4MDEyLTcxNS1sb2NhdGlvbi53ZWJzaXRl",
-        "rating": 4.5,
-        "reviews": 26,
-        "score": 14.49
+        "website": "https://www.c2ccamps.com/camarillo-ca",
+        "rating": 4.8,
+        "reviews": 19,
+        "score": 14.05,
+        "email_status": "valid",
+        "masked_email": "i***o [at] c2ccamps.com"
       },
       {
-        "name": "Fun Two Three Preschool",
+        "name": "Encino Creative Kids Daycare/Preschool",
         "vertical": "schools_daycare",
         "nearest_office": "Encino",
-        "distance_mi": 1.91,
-        "website": "http://fun2-three.com/",
+        "distance_mi": 0.94,
+        "website": "http://www.encinocreativekids.com/",
         "rating": 5,
-        "reviews": 109,
-        "score": 19.01
+        "reviews": 33,
+        "score": 15.97,
+        "email_status": "valid",
+        "masked_email": "i***o [at] encinocreativekids.com"
       },
       {
-        "name": "Integrity Care Managing & Senior Living Solutions, Inc.",
+        "name": "Aegis Living Ventura",
         "vertical": "senior_living",
         "nearest_office": "Hillview",
-        "distance_mi": 0.77,
-        "website": "http://www.integritycare4seniors.com/",
-        "rating": 4.9,
-        "reviews": 149,
-        "score": 22.66
+        "distance_mi": 1.17,
+        "website": "https://www.aegisliving.com/locations/aegis-living-ventura-ca/?utm_campaign=gmb",
+        "rating": 4,
+        "reviews": 36,
+        "score": 12.75,
+        "email_status": "unchecked",
+        "masked_email": "-"
       },
       {
-        "name": "Clearwater at Riverpark",
-        "vertical": "senior_living",
+        "name": "Colleen's Little Rugrats",
+        "vertical": "schools_daycare",
         "nearest_office": "Oxnard Riverpark",
-        "distance_mi": 0.07,
-        "website": "https://clearwateratriverpark.com/",
-        "rating": 4.7,
-        "reviews": 59,
-        "score": 19.11
+        "distance_mi": 1.52,
+        "website": "http://colleenslittlerugrats.godaddysites.com/",
+        "rating": 5,
+        "reviews": 17,
+        "score": 12.26,
+        "email_status": "unchecked",
+        "masked_email": "-"
       },
       {
         "name": "Silverado Thousand Oaks Memory Care Community",
@@ -23451,59 +23459,85 @@
         "website": "https://www.silverado.com/locations/thousand-oaks/",
         "rating": 5,
         "reviews": 121,
-        "score": 22.6
+        "score": 22.6,
+        "email_status": "valid",
+        "masked_email": "i***o [at] silverado.com"
       },
       {
-        "name": "Coast 2 Coast Camps of Camarillo",
+        "name": "Good Shepherd Early Childhood Center",
         "vertical": "schools_daycare",
         "nearest_office": "Camarillo",
-        "distance_mi": 0.23,
-        "website": "https://www.c2ccamps.com/camarillo-ca",
-        "rating": 4.8,
-        "reviews": 19,
-        "score": 14.05
+        "distance_mi": 0.29,
+        "website": "https://goodshepherdcamarillo.com/ministries/early-childhood-center/",
+        "rating": 4.7,
+        "reviews": 15,
+        "score": 12.65,
+        "email_status": "unchecked",
+        "masked_email": "-"
       },
       {
-        "name": "Funtastic Daycare",
-        "vertical": "schools_daycare",
-        "nearest_office": "Encino",
-        "distance_mi": 0.81,
-        "website": "http://funtasticdaycares.com/?utm_source=gmb&utm_medium=referral",
-        "rating": 4.9,
-        "reviews": 48,
-        "score": 17.53
-      },
-      {
-        "name": "Ventura Townehouse",
+        "name": "Encino Terrace Senior Living",
         "vertical": "senior_living",
-        "nearest_office": "Hillview",
-        "distance_mi": 1.09,
-        "website": "http://www.venturatownehouse.com/?utm_source=google&utm_medium=organic&utm_campaign=GMB%20Listing",
-        "rating": 4.3,
-        "reviews": 83,
-        "score": 16.98
+        "nearest_office": "Encino",
+        "distance_mi": 0.69,
+        "website": "http://www.encinoterrace.com/",
+        "rating": 4.5,
+        "reviews": 37,
+        "score": 15.24,
+        "email_status": "valid",
+        "masked_email": "i***o [at] encinoterrace.com"
       },
       {
-        "name": "Childtime of Oxnard",
+        "name": "TLC Preschool",
+        "vertical": "schools_daycare",
+        "nearest_office": "Hillview",
+        "distance_mi": 0.47,
+        "website": "https://www.tlcventura.org/tlc-preschool/pages/preschool-program-tuition",
+        "rating": 4.7,
+        "reviews": 12,
+        "score": 11.49,
+        "email_status": "unchecked",
+        "masked_email": "-"
+      },
+      {
+        "name": "Three Angels Child Care Center",
         "vertical": "schools_daycare",
         "nearest_office": "Oxnard Riverpark",
-        "distance_mi": 1.23,
-        "website": "https://www.childtime.com/your-local-school/oxnard-ca-0259/?utm_source=google&utm_medium=local&utm_campaign=localmaps&utm_content=259",
-        "rating": 4.5,
-        "reviews": 61,
-        "score": 16.29
+        "distance_mi": 2.14,
+        "website": "https://threeangelspreschool.org/",
+        "rating": 4.6,
+        "reviews": 19,
+        "score": 10.83,
+        "email_status": "unchecked",
+        "masked_email": "-"
       },
       {
-        "name": "Senior Concerns-Conejo Valley",
+        "name": "Land Of Enchantment Board And Care",
         "vertical": "senior_living",
         "nearest_office": "Thousand Oaks",
-        "distance_mi": 0.81,
-        "website": "https://www.seniorconcerns.org/",
-        "rating": 4.5,
-        "reviews": 30,
-        "score": 14.2
+        "distance_mi": 0.83,
+        "website": "https://www.loeboardandcare.com/",
+        "rating": 4.8,
+        "reviews": 16,
+        "score": 12.47,
+        "email_status": "unchecked",
+        "masked_email": "-"
       }
     ],
+    "email_verification": {
+      "method": "SMTP RCPT-TO probe (free, no send)",
+      "verified_domain_count": 20,
+      "counts": {
+        "valid": 4,
+        "catch_all": 5,
+        "no_match": 7,
+        "no_mx": 4,
+        "invalid": 0,
+        "bounced_history": 0,
+        "unknown": 0
+      },
+      "note": "Only rows with email_status = 'valid' are safe to send today. 'catch_all' = domain accepts everything, treat as risky."
+    },
     "cadence": "Personal Gmail send. 14-day cooldown per recipient. Never re-email the same domain within window.",
     "next_actions": [
       "Bounce rate is 18.2% (HIGH). Keep <2% \u2014 2 address(es) permanently excluded.",
@@ -23656,7 +23690,7 @@
         "last_30d_cpa_usd": 24.02
       }
     ],
-    "refreshed_at": "2026-07-03T02:06:19+00:00"
+    "refreshed_at": "2026-07-03T02:19:16+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 by office",
@@ -23739,12 +23773,12 @@
         "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-07-03T02:06:19+00:00"
+    "refreshed_at": "2026-07-03T02:19:16+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-07-03T02:06:19+00:00",
+    "refreshed_at": "2026-07-03T02:19:16+00:00",
     "yesterday_date": "2026-06-29",
     "yesterday_clicks": 194,
     "yesterday_impressions": 26111,
@@ -23936,5 +23970,64 @@
         "position": 19.3
       }
     ]
+  },
+  "outreach_volume": {
+    "as_of": "2026-07-03T02:19:39+00:00",
+    "totals": {
+      "prospect_sends_last_7d": 30,
+      "prospect_sends_last_30d": 30,
+      "prospect_sends_last_90d": 35,
+      "unique_prospect_domains_last_90d": 10
+    },
+    "capacity": {
+      "weekly_target": 45,
+      "monthly_target": 180,
+      "weekly_utilization_pct": 66.7,
+      "headroom_this_week": 15
+    },
+    "by_week": [
+      {
+        "week": "2026-W17",
+        "sends": 3
+      },
+      {
+        "week": "2026-W18",
+        "sends": 1
+      },
+      {
+        "week": "2026-W19",
+        "sends": 1
+      },
+      {
+        "week": "2026-W27",
+        "sends": 30
+      }
+    ],
+    "by_month": [
+      {
+        "month": "2026-04",
+        "sends": 3
+      },
+      {
+        "month": "2026-05",
+        "sends": 2
+      },
+      {
+        "month": "2026-06",
+        "sends": 1
+      },
+      {
+        "month": "2026-07",
+        "sends": 29
+      }
+    ],
+    "planned_queue": {
+      "maps_pool_total": 159,
+      "verified_valid_ready_now": 4,
+      "catch_all_risky": 5,
+      "needs_verification": 139,
+      "dead": 11
+    },
+    "cadence_rule": "Warm up: 5 sends/office/week x 9 offices = 45/week ceiling. 14-day cooldown per recipient. Skip catch_all until reply is confirmed."
   }
 }

@@ -1,0 +1,155 @@
+{
+  "generated_at": "2026-07-03T02:19:39Z",
+  "method": "SMTP RCPT-TO probe (free, no send)",
+  "helo": "mail.clovedds.com",
+  "mail_from": "postmaster@clovedds.com",
+  "verified_domain_count": 20,
+  "verified_this_run": 4,
+  "counts": {
+    "valid": 4,
+    "catch_all": 5,
+    "invalid": 0,
+    "no_mx": 4,
+    "no_match": 7,
+    "unknown": 0,
+    "bounced_history": 0
+  },
+  "results": {
+    "integritycare4seniors.com": {
+      "domain": "integritycare4seniors.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "smtp.secureserver.net",
+      "checked_at": "2026-07-03T02:19:17Z"
+    },
+    "silverado.com": {
+      "domain": "silverado.com",
+      "status": "valid",
+      "valid_email": "info@silverado.com",
+      "mx": "mxa-007eb801.gslb.pphosted.com",
+      "checked_at": "2026-07-03T02:14:37Z"
+    },
+    "clearwateratriverpark.com": {
+      "domain": "clearwateratriverpark.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T02:14:37Z"
+    },
+    "fun2-three.com": {
+      "domain": "fun2-three.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T02:14:37Z"
+    },
+    "funtasticdaycares.com": {
+      "domain": "funtasticdaycares.com",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T02:14:37Z"
+    },
+    "venturatownehouse.com": {
+      "domain": "venturatownehouse.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "venturatownehouse-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T02:19:23Z"
+    },
+    "childtime.com": {
+      "domain": "childtime.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "childtime-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T02:19:29Z"
+    },
+    "coastlineschool.org": {
+      "domain": "coastlineschool.org",
+      "status": "no_mx",
+      "valid_email": null,
+      "checked_at": "2026-07-03T02:14:48Z"
+    },
+    "encinocreativekids.com": {
+      "domain": "encinocreativekids.com",
+      "status": "valid",
+      "valid_email": "info@encinocreativekids.com",
+      "mx": "mail.encinocreativekids.com",
+      "checked_at": "2026-07-03T02:15:04Z"
+    },
+    "srgseniorliving.com": {
+      "domain": "srgseniorliving.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "us-smtp-inbound-1.mimecast.com",
+      "checked_at": "2026-07-03T02:19:39Z"
+    },
+    "encinoterrace.com": {
+      "domain": "encinoterrace.com",
+      "status": "valid",
+      "valid_email": "info@encinoterrace.com",
+      "mx": "mx1-us1.ppe-hosted.com",
+      "checked_at": "2026-07-03T02:15:26Z"
+    },
+    "oxnardhc.com": {
+      "domain": "oxnardhc.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "oxnardhc-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T02:15:32Z"
+    },
+    "kindercare.com": {
+      "domain": "kindercare.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "kindercare-com.mail.protection.outlook.com",
+      "checked_at": "2026-07-03T02:15:38Z"
+    },
+    "seniorconcerns.org": {
+      "domain": "seniorconcerns.org",
+      "status": "catch_all",
+      "valid_email": "info@seniorconcerns.org",
+      "mx": "seniorconcerns.org.1.0001.arsmtp.com",
+      "checked_at": "2026-07-03T02:15:39Z"
+    },
+    "belmontvillage.com": {
+      "domain": "belmontvillage.com",
+      "status": "catch_all",
+      "valid_email": "info@belmontvillage.com",
+      "mx": "mxa-004b7401.gslb.pphosted.com",
+      "checked_at": "2026-07-03T02:15:40Z"
+    },
+    "meridiansenior.com": {
+      "domain": "meridiansenior.com",
+      "status": "catch_all",
+      "valid_email": "info@meridiansenior.com",
+      "mx": "d231279a.ess.barracudanetworks.com",
+      "checked_at": "2026-07-03T02:15:41Z"
+    },
+    "c2ccamps.com": {
+      "domain": "c2ccamps.com",
+      "status": "valid",
+      "valid_email": "info@c2ccamps.com",
+      "mx": "smtp.google.com",
+      "checked_at": "2026-07-03T02:15:41Z"
+    },
+    "lexingtonliving.net": {
+      "domain": "lexingtonliving.net",
+      "status": "catch_all",
+      "valid_email": "info@lexingtonliving.net",
+      "mx": "mxa-00512801.gslb.pphosted.com",
+      "checked_at": "2026-07-03T02:15:42Z"
+    },
+    "assistedlivinglocators.com": {
+      "domain": "assistedlivinglocators.com",
+      "status": "catch_all",
+      "valid_email": "info@assistedlivinglocators.com",
+      "mx": "d358270a.ess.barracudanetworks.com",
+      "checked_at": "2026-07-03T02:15:43Z"
+    },
+    "venturachildrenslc.com": {
+      "domain": "venturachildrenslc.com",
+      "status": "no_match",
+      "valid_email": null,
+      "mx": "mail.venturachildrenslc.com",
+      "checked_at": "2026-07-03T02:16:55Z"
+    }
+  }
+}

@@ -2434,6 +2434,10 @@
         <div style="margin-bottom:8px;">
           <span id="b2b-outbound-pill" class="pill"></span>
         </div>
+        <section aria-labelledby="outreach-volume-h">
+          <h2 id="outreach-volume-h">Outreach volume</h2>
+          <div id="outreach-volume-card"></div>
+        </section>
         <section aria-labelledby="b2b-h">
           <h2 id="b2b-h">B2B outbound program</h2>
           <div id="b2b-outbound-card"></div>
@@ -2750,6 +2754,73 @@
           .getPropertyValue(name).trim();
       }
 
+      function renderOutreachVolume(v) {
+        var card = $("outreach-volume-card");
+        if (!card) return;
+        card.innerHTML = "";
+        if (!v) {
+          card.appendChild(el("div", { "class": "section-meta", text: "No outreach volume block yet." }));
+          return;
+        }
+        var t = v.totals || {};
+        var cap = v.capacity || {};
+        var pq = v.planned_queue || {};
+
+        // KPI row
+        var kpis = el("div", { "class": "grid kpi" });
+        function _kv(lbl, val, note) {
+          var c = el("div", { "class": "card" });
+          c.appendChild(el("div", { "class": "kpi-label", text: lbl }));
+          c.appendChild(el("div", { "class": "kpi-value", text: String(val == null ? "-" : val) }));
+          if (note) c.appendChild(el("div", { "class": "section-meta", text: note }));
+          kpis.appendChild(c);
+        }
+        _kv("Sends last 7d", t.prospect_sends_last_7d, cap.headroom_this_week + " headroom left this week");
+        _kv("Sends last 30d", t.prospect_sends_last_30d, t.unique_prospect_domains_last_90d + " unique domains in 90d");
+        _kv("Weekly capacity", cap.weekly_target, cap.weekly_utilization_pct + "% used this week");
+        _kv("Ready to send now", pq.verified_valid_ready_now, pq.needs_verification + " still need SMTP probe");
+        card.appendChild(kpis);
+
+        // Weekly mini-chart (last 8 weeks)
+        var chartCard = el("div", { "class": "card", style: "margin-top:12px;" });
+        chartCard.appendChild(el("div", { "class": "kpi-label", text: "Weekly send volume (ISO weeks)" }));
+        var weeks = (v.by_week || []).slice(-8);
+        if (weeks.length) {
+          var maxW = Math.max.apply(null, weeks.map(function (w) { return w.sends; }).concat([cap.weekly_target || 45]));
+          var rows = el("div", { style: "display:flex;gap:8px;align-items:flex-end;height:120px;margin-top:8px;" });
+          weeks.forEach(function (w) {
+            var h = Math.max(2, Math.round(100 * w.sends / (maxW || 1)));
+            var col = el("div", { style: "flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;" });
+            var bar = el("div", { style: "width:60%;background:#4c8bf5;height:" + h + "%;border-radius:3px 3px 0 0;", title: w.sends + " sends" });
+            col.appendChild(bar);
+            col.appendChild(el("div", { "class": "section-meta", text: String(w.sends) }));
+            col.appendChild(el("div", { "class": "section-meta", text: w.week.replace("-W", " wk ") }));
+            rows.appendChild(col);
+          });
+          chartCard.appendChild(rows);
+          chartCard.appendChild(el("div", { "class": "section-meta",
+            text: "Capacity ceiling: " + (cap.weekly_target || 45) + "/week (5/office x 9 offices)", style: "margin-top:8px;" }));
+        } else {
+          chartCard.appendChild(el("div", { "class": "desc", text: "No weekly history yet." }));
+        }
+        card.appendChild(chartCard);
+
+        // Planned queue breakdown
+        var pqCard = el("div", { "class": "card", style: "margin-top:12px;" });
+        pqCard.appendChild(el("div", { "class": "kpi-label", text: "Planned queue \u2014 what's ready to email" }));
+        var ul = el("ul", { "class": "checks" });
+        ul.appendChild(el("li", { text: "Maps prospect pool total: " + (pq.maps_pool_total || 0) }));
+        ul.appendChild(el("li", { text: "Verified valid (send today): " + (pq.verified_valid_ready_now || 0) }));
+        ul.appendChild(el("li", { text: "Catch-all (risky, skip until reply): " + (pq.catch_all_risky || 0) }));
+        ul.appendChild(el("li", { text: "Needs SMTP probe: " + (pq.needs_verification || 0) }));
+        ul.appendChild(el("li", { text: "Dead (no MX, no match, bounced): " + (pq.dead || 0) }));
+        pqCard.appendChild(ul);
+        if (v.cadence_rule) {
+          pqCard.appendChild(el("div", { "class": "section-meta", text: v.cadence_rule, style: "margin-top:6px;" }));
+        }
+        card.appendChild(pqCard);
+      }
+
       function renderB2bOutbound(b) {
         var card = $("b2b-outbound-card");
         var meta = $("b2b-outbound-meta");
@@ -2783,6 +2854,13 @@
         var poolTotal = (b.prospect_pool && b.prospect_pool.total) || 0;
         _kpi("Prospect pool", poolTotal, "within 5mi of offices (deduped)");
         _kpi("Next queue", (b.next_prospects_top10 || []).length, "balanced across offices");
+        var ev = b.email_verification || null;
+        if (ev) {
+          var cnt = ev.counts || {};
+          _kpi("Verified valid", cnt.valid || 0,
+            (cnt.catch_all || 0) + " catch-all \u00b7 " +
+            ((cnt.no_match || 0) + (cnt.no_mx || 0) + (cnt.invalid || 0) + (cnt.bounced_history || 0)) + " dead");
+        }
         var br = b.bounces_last_90d || null;
         if (br) {
           _kpi("Bounce rate (90d)",
@@ -2862,7 +2940,8 @@
             { key: "nearest_office", label: "Office" },
             { key: "distance_mi", label: "Miles" },
             { key: "rating", label: "Rating" },
-            { key: "reviews", label: "Reviews" },
+            { key: "email_status", label: "Email" },
+            { key: "masked_email", label: "Address (masked)" },
             { key: "score", label: "Score" },
             { key: "website", label: "Website" }
           ], b.next_prospects_top10);
@@ -6382,6 +6461,7 @@
         _safeRender("paid_ads_office_rollup", function () { renderPaidAdsOfficeRollup(s.operator_summary, s.paid_ads_action_system); });
         _safeRender("gmb_freshness_banner", function () { renderGmbFreshnessBanner(s.gmb_insights, s.operator_summary); });
         _safeRender("exec", function () { renderExec(s); });
+        _safeRender("outreach_volume", function () { renderOutreachVolume(s.outreach_volume); });
         _safeRender("b2b_outbound", function () { renderB2bOutbound(s.b2b_outbound); });
         _safeRender("ads_insights", function () { renderAdsInsights(s); });
         _safeRender("ads_top_summary", function () { renderPaidAdsTopSummary(s.google_ads_insights); });

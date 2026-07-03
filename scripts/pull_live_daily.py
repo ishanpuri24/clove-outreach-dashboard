@@ -579,6 +579,15 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
         except Exception:
             pass
 
+    # Preload email verification once for use both in ranking and summary
+    ver_map: dict = {}
+    try:
+        _vp = DATA / "_email_verification.json"
+        if _vp.exists():
+            ver_map = (json.loads(_vp.read_text()).get("results") or {})
+    except Exception:
+        ver_map = {}
+
     verified_sends = 0
     verified_prospects: list = []
     vertical_counts: dict = {}
@@ -633,6 +642,16 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
                 p for p in all_p
                 if p.get("has_website") and _dom_from_website(p.get("website") or "") not in bounced_domains
             ]
+            # Prefer prospects whose domain has a verified-valid mailbox.
+            def _rank_key(p):
+                d = (p.get("domain") or "").lower()
+                st = (ver_map.get(d) or {}).get("status") or "unchecked"
+                # valid > unchecked > catch_all > no_match > no_mx > invalid/bounced
+                order = {"valid": 0, "unchecked": 1, "catch_all": 2,
+                        "no_match": 3, "no_mx": 4,
+                        "invalid": 5, "bounced_history": 6}
+                return (order.get(st, 1), -(p.get("score") or 0))
+            usable.sort(key=_rank_key)
             # Balance top-10 across offices: round-robin best-per-office
             by_off: dict = {}
             for p in usable:
@@ -645,7 +664,22 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
                 if by_off[o]:
                     picked.append(by_off[o].pop(0))
                 idx += 1
+            def _mask_email(em: str) -> str:
+                if not em or "@" not in em:
+                    return "-"
+                lp, dom = em.split("@", 1)
+                if len(lp) <= 2:
+                    m = lp[0] + "*"
+                else:
+                    m = lp[0] + "***" + lp[-1]
+                return m + " [at] " + dom
+
             for p in picked:
+                dom = (p.get("domain") or "").lower().strip()
+                v = ver_map.get(dom) or {}
+                vstatus = v.get("status") or "unchecked"
+                # Only surface an email when we probed and got 'valid'.
+                masked_em = _mask_email(v.get("valid_email") or "") if vstatus == "valid" else "-"
                 next_prospects.append({
                     "name": p.get("name"),
                     "vertical": p.get("vertical"),
@@ -655,6 +689,8 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
                     "rating": p.get("rating"),
                     "reviews": p.get("review_count"),
                     "score": p.get("score"),
+                    "email_status": vstatus,
+                    "masked_email": masked_em,
                 })
         except Exception:
             pass
@@ -699,6 +735,14 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
             ),
         },
         "next_prospects_top10": next_prospects,
+        "email_verification": {
+            "method": "SMTP RCPT-TO probe (free, no send)",
+            "verified_domain_count": len({d for d in ver_map.keys()}) if isinstance(ver_map, dict) else 0,
+            "counts": (
+                (lambda d: {k: sum(1 for r in d.values() if (r.get('status') or '') == k) for k in ['valid','catch_all','no_match','no_mx','invalid','bounced_history','unknown']})(ver_map) if isinstance(ver_map, dict) else {}
+            ),
+            "note": "Only rows with email_status = 'valid' are safe to send today. 'catch_all' = domain accepts everything, treat as risky.",
+        },
         "cadence": "Personal Gmail send. 14-day cooldown per recipient. Never re-email the same domain within window.",
         "next_actions": [
             f"Bounce rate is {bounce_rate_pct}% ({bounce_status}). Keep <2% \u2014 {len(bounced_emails)} address(es) permanently excluded.",
@@ -706,6 +750,108 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
             "Add HR-heavy employers + local SMBs to next Maps pull (both verticals still pending).",
             "Verify each next-prospect email with an SMTP RCPT-TO probe (or ContactOut direct API if key added) before adding to the send queue.",
         ],
+    }
+
+
+def build_outreach_volume(snap: dict) -> None:
+    """Compute historical + planned outreach volume from Gmail dedup + verifier."""
+    from collections import Counter
+    from datetime import datetime, timedelta, timezone as _tz
+
+    dedup_file = DATA / "_gmail_sent_dedup.json"
+    ver_file = DATA / "_email_verification.json"
+    pool_file = DATA / "_b2b_prospect_pool.json"
+
+    weekly: dict = {}
+    monthly: dict = {}
+    per_day: dict = {}
+    total_prospect_sends = 0
+    unique_domains: set = set()
+
+    if dedup_file.exists():
+        try:
+            dd = json.loads(dedup_file.read_text())
+            for r in dd.get("recipients") or []:
+                if r.get("bucket") != "prospect":
+                    continue
+                dt_s = (r.get("latest_sent_date") or "")[:10]
+                if not dt_s:
+                    continue
+                thr = int(r.get("thread_count") or 1)
+                total_prospect_sends += thr
+                unique_domains.add(r.get("domain") or "")
+                try:
+                    dt = datetime.strptime(dt_s, "%Y-%m-%d").replace(tzinfo=_tz.utc)
+                except Exception:
+                    continue
+                # ISO week key (Mon-Sun)
+                iso_year, iso_week, _ = dt.isocalendar()
+                wkey = f"{iso_year}-W{iso_week:02d}"
+                weekly[wkey] = weekly.get(wkey, 0) + thr
+                mkey = dt.strftime("%Y-%m")
+                monthly[mkey] = monthly.get(mkey, 0) + thr
+                per_day[dt_s] = per_day.get(dt_s, 0) + thr
+        except Exception:
+            pass
+
+    # Verified pool depth
+    ver_counts = {"valid": 0, "catch_all": 0, "no_match": 0, "no_mx": 0,
+                  "invalid": 0, "bounced_history": 0, "unknown": 0}
+    if ver_file.exists():
+        try:
+            res = json.loads(ver_file.read_text()).get("results") or {}
+            for r in res.values():
+                s = r.get("status") or "unknown"
+                ver_counts[s] = ver_counts.get(s, 0) + 1
+        except Exception:
+            pass
+
+    pool_total = 0
+    if pool_file.exists():
+        try:
+            pool_total = int(json.loads(pool_file.read_text()).get("total_prospects") or 0)
+        except Exception:
+            pool_total = 0
+
+    # Simple 7d rolling total for send velocity
+    now = datetime.now(_tz.utc)
+    d7 = sum(v for k, v in per_day.items()
+             if (now - datetime.strptime(k, "%Y-%m-%d").replace(tzinfo=_tz.utc)).days <= 7)
+    d30 = sum(v for k, v in per_day.items()
+              if (now - datetime.strptime(k, "%Y-%m-%d").replace(tzinfo=_tz.utc)).days <= 30)
+    d90 = total_prospect_sends
+
+    # Capacity target: 5 sends/week/office * 9 offices == 45/week ceiling for warm-up phase
+    weekly_capacity_target = 45
+    monthly_capacity_target = weekly_capacity_target * 4
+
+    weeks_sorted = sorted(weekly.keys())
+    months_sorted = sorted(monthly.keys())
+
+    snap["outreach_volume"] = {
+        "as_of": utcnow(),
+        "totals": {
+            "prospect_sends_last_7d": d7,
+            "prospect_sends_last_30d": d30,
+            "prospect_sends_last_90d": d90,
+            "unique_prospect_domains_last_90d": len([d for d in unique_domains if d]),
+        },
+        "capacity": {
+            "weekly_target": weekly_capacity_target,
+            "monthly_target": monthly_capacity_target,
+            "weekly_utilization_pct": round(100.0 * d7 / weekly_capacity_target, 1) if weekly_capacity_target else 0,
+            "headroom_this_week": max(0, weekly_capacity_target - d7),
+        },
+        "by_week": [{"week": k, "sends": weekly[k]} for k in weeks_sorted],
+        "by_month": [{"month": k, "sends": monthly[k]} for k in months_sorted],
+        "planned_queue": {
+            "maps_pool_total": pool_total,
+            "verified_valid_ready_now": ver_counts.get("valid", 0),
+            "catch_all_risky": ver_counts.get("catch_all", 0),
+            "needs_verification": max(0, pool_total - sum(ver_counts.values())),
+            "dead": ver_counts.get("no_mx", 0) + ver_counts.get("invalid", 0) + ver_counts.get("bounced_history", 0) + ver_counts.get("no_match", 0),
+        },
+        "cadence_rule": "Warm up: 5 sends/office/week x 9 offices = 45/week ceiling. 14-day cooldown per recipient. Skip catch_all until reply is confirmed.",
     }
 
 
@@ -1159,8 +1305,21 @@ def main() -> int:
     # top_actions, trend, freshness_status).
     rebuild_gmb_insights_from_live(snap)
 
+    # Refresh SMTP mailbox verifier (free, incremental — 20/day budget).
+    try:
+        import subprocess, sys
+        _script = Path(__file__).resolve().parent / "smtp_verify_prospects.py"
+        subprocess.run(
+            [sys.executable, str(_script)],
+            timeout=600, env={**os.environ, "VERIFY_BUDGET": os.environ.get("VERIFY_BUDGET", "20")},
+            check=False,
+        )
+    except Exception as _e:
+        print(f"[warn] verifier skipped: {_e}")
+
     # Rebuild b2b_outbound from real Gmail SENT + Maps-sourced prospect pool.
     rebuild_b2b_outbound_from_gmail(snap)
+    build_outreach_volume(snap)
 
     # Stamp the secondary blocks so the dashboard stops showing 'stale by
     # weeks' banners. These blocks keep their last curated content.
