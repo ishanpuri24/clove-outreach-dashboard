@@ -164,12 +164,17 @@ def build_paid_ads_simple() -> dict:
 
 
 def build_gmb_simple() -> dict:
-    """Aggregate per-office GMB reviews from the latest pull.
+    """Aggregate per-office GMB reviews with daily-first, 30d-rolling, and velocity.
 
     Reads ``data/_gmb_live/reviews.json`` (preferred) or falls back to
-    ``data/gmb_raw_reviews.json``. Computes review counts and average
-    rating per office for last 7d / 30d. Reviewer PII stays in the
-    private file only.
+    ``data/gmb_raw_reviews.json``. Reviewer PII stays in the private file only.
+
+    Emits:
+      - ``daily_yesterday`` — per-office reviews yesterday (PT) + total
+      - ``rolling_30d``    — per-office 30d counts + avg rating + newest
+      - ``velocity``       — 7d vs prior-7d delta, per office + total
+      - ``daily_series_14d`` — total reviews/day for the last 14 PT days (for spark)
+      - ``rows`` (legacy)  — 7d/30d table kept for back-compat
     """
     src = DATA / "_gmb_live" / "reviews.json"
     if not src.exists():
@@ -177,7 +182,7 @@ def build_gmb_simple() -> dict:
     if not src.exists():
         return {
             "title": "Google Reviews — by office",
-            "window_note": "Last 7d / Last 30d",
+            "window_note": "Yesterday / 30d rolling / velocity",
             "rows": [],
             "refreshed_at": utcnow(),
             "note": "No GMB data file found.",
@@ -186,13 +191,27 @@ def build_gmb_simple() -> dict:
     payload = json.loads(src.read_text())
     revs = payload.get("locationReviews", [])
 
-    now = datetime.now(timezone.utc)
-    cutoff_7 = now - timedelta(days=7)
-    cutoff_30 = now - timedelta(days=30)
+    from zoneinfo import ZoneInfo
+    PT = ZoneInfo("America/Los_Angeles")
+    now_utc = datetime.now(timezone.utc)
+    now_pt = now_utc.astimezone(PT)
+    today_pt = now_pt.date()
+    yesterday_pt = today_pt - timedelta(days=1)
+
+    cutoff_7 = now_utc - timedelta(days=7)
+    cutoff_14 = now_utc - timedelta(days=14)
+    cutoff_30 = now_utc - timedelta(days=30)
+    cutoff_prev7 = now_utc - timedelta(days=14)  # start of prior-7 window
 
     per_office: dict[str, dict] = defaultdict(
-        lambda: {"r7": 0, "r30": 0, "stars7": [], "stars30": [], "newest": None}
+        lambda: {
+            "yest": 0, "stars_yest": [],
+            "r7": 0, "stars7": [],
+            "r_prev7": 0,
+            "r30": 0, "stars30": [], "newest": None,
+        }
     )
+    daily_totals: dict[str, int] = defaultdict(int)
 
     for r in revs:
         loc_id = r["name"].split("/")[-1]
@@ -206,27 +225,102 @@ def build_gmb_simple() -> dict:
         except Exception:
             continue
         star = STAR_TO_INT.get(review.get("starRating", ""))
-        bucket = per_office[office]
-        if bucket["newest"] is None or dt > bucket["newest"]:
-            bucket["newest"] = dt
-        if dt >= cutoff_30:
-            bucket["r30"] += 1
-            if star:
-                bucket["stars30"].append(star)
-        if dt >= cutoff_7:
-            bucket["r7"] += 1
-            if star:
-                bucket["stars7"].append(star)
+        b = per_office[office]
+        if b["newest"] is None or dt > b["newest"]:
+            b["newest"] = dt
 
-    rows = []
-    for office in sorted(LOCATION_TO_OFFICE.values()):
+        # Yesterday bucket (PT day)
+        dt_pt_date = dt.astimezone(PT).date()
+        if dt_pt_date == yesterday_pt:
+            b["yest"] += 1
+            if star:
+                b["stars_yest"].append(star)
+
+        # Rolling 14d series (PT day granularity)
+        if dt >= cutoff_14:
+            daily_totals[dt_pt_date.isoformat()] += 1
+
+        # Last 7d
+        if dt >= cutoff_7:
+            b["r7"] += 1
+            if star:
+                b["stars7"].append(star)
+        # Prior 7d (8-14 days ago)
+        elif dt >= cutoff_prev7:
+            b["r_prev7"] += 1
+
+        # Last 30d
+        if dt >= cutoff_30:
+            b["r30"] += 1
+            if star:
+                b["stars30"].append(star)
+
+    offices_sorted = sorted(LOCATION_TO_OFFICE.values())
+
+    # ---- daily_yesterday ----
+    daily_yesterday_rows = []
+    for office in offices_sorted:
+        b = per_office.get(office) or {"yest": 0, "stars_yest": []}
+        avg = round(sum(b["stars_yest"]) / len(b["stars_yest"]), 2) if b["stars_yest"] else None
+        daily_yesterday_rows.append({
+            "office": office,
+            "reviews_yesterday": b["yest"],
+            "avg_rating_yesterday": avg,
+        })
+    daily_yesterday_rows.sort(key=lambda x: -x["reviews_yesterday"])
+
+    # ---- rolling_30d ----
+    rolling_30d_rows = []
+    for office in offices_sorted:
+        b = per_office.get(office) or {"r30": 0, "stars30": [], "newest": None}
+        avg30 = round(sum(b["stars30"]) / len(b["stars30"]), 2) if b["stars30"] else None
+        newest = b["newest"].isoformat() if b["newest"] else None
+        rolling_30d_rows.append({
+            "office": office,
+            "reviews_last_30d": b["r30"],
+            "avg_rating_last_30d": avg30,
+            "newest_review_at": newest,
+        })
+    rolling_30d_rows.sort(key=lambda x: -x["reviews_last_30d"])
+
+    # ---- velocity: 7d vs prior 7d ----
+    velocity_rows = []
+    for office in offices_sorted:
+        b = per_office.get(office) or {"r7": 0, "r_prev7": 0}
+        d = b["r7"] - b["r_prev7"]
+        pct = None
+        if b["r_prev7"] > 0:
+            pct = round((d / b["r_prev7"]) * 100.0, 0)
+        elif b["r7"] > 0:
+            pct = 100.0
+        velocity_rows.append({
+            "office": office,
+            "reviews_last_7d": b["r7"],
+            "reviews_prior_7d": b["r_prev7"],
+            "delta": d,
+            "pct_change": pct,
+        })
+    velocity_rows.sort(key=lambda x: -(x["reviews_last_7d"] or 0))
+
+    # ---- daily_series_14d (for sparkline) ----
+    daily_series = []
+    for i in range(13, -1, -1):
+        day = today_pt - timedelta(days=i)
+        daily_series.append({
+            "date": day.isoformat(),
+            "reviews": daily_totals.get(day.isoformat(), 0),
+        })
+
+    # ---- legacy rows (kept for back-compat) ----
+    legacy_rows = []
+    for office in offices_sorted:
         b = per_office.get(office) or {
             "r7": 0, "r30": 0, "stars7": [], "stars30": [], "newest": None,
         }
         avg7 = round(sum(b["stars7"]) / len(b["stars7"]), 2) if b["stars7"] else None
         avg30 = round(sum(b["stars30"]) / len(b["stars30"]), 2) if b["stars30"] else None
         newest = b["newest"].isoformat() if b["newest"] else None
-        rows.append({
+        legacy_rows.append({
             "office": office,
             "reviews_last_7d": b["r7"],
             "avg_rating_last_7d": avg7,
@@ -234,16 +328,52 @@ def build_gmb_simple() -> dict:
             "avg_rating_last_30d": avg30,
             "newest_review_at": newest,
         })
+    legacy_rows.sort(key=lambda x: -x["reviews_last_30d"])
 
-    rows.sort(key=lambda x: -x["reviews_last_30d"])
+    total_yest = sum(r["reviews_yesterday"] for r in daily_yesterday_rows)
+    total_7d = sum(r["reviews_last_7d"] for r in velocity_rows)
+    total_prev7 = sum(r["reviews_prior_7d"] for r in velocity_rows)
+    total_30d = sum(r["reviews_last_30d"] for r in rolling_30d_rows)
+    total_delta = total_7d - total_prev7
+    total_pct = None
+    if total_prev7 > 0:
+        total_pct = round((total_delta / total_prev7) * 100.0, 0)
+    elif total_7d > 0:
+        total_pct = 100.0
+
+    # Overall avg rating (30d, weighted)
+    all_stars = []
+    for office in offices_sorted:
+        all_stars.extend((per_office.get(office) or {}).get("stars30", []))
+    avg_30d = round(sum(all_stars) / len(all_stars), 2) if all_stars else None
+
+    # Offices at zero yesterday (action target)
+    zero_yesterday = [r["office"] for r in daily_yesterday_rows if r["reviews_yesterday"] == 0]
+
     return {
-        "title": "Google Reviews — by office",
-        "window_note": "Last 7d / Last 30d",
-        "totals": {
-            "reviews_last_7d": sum(r["reviews_last_7d"] for r in rows),
-            "reviews_last_30d": sum(r["reviews_last_30d"] for r in rows),
+        "title": "Google Reviews — daily first, then 30d rolling",
+        "window_note": "Yesterday (PT) / 30d rolling / 7d vs prior 7d velocity",
+        "summary": {
+            "yesterday_reviews": total_yest,
+            "last_7d_reviews": total_7d,
+            "prior_7d_reviews": total_prev7,
+            "velocity_delta": total_delta,
+            "velocity_pct": total_pct,
+            "last_30d_reviews": total_30d,
+            "avg_rating_30d": avg_30d,
+            "offices_zero_yesterday": len(zero_yesterday),
+            "zero_yesterday_offices": zero_yesterday,
         },
-        "rows": rows,
+        "daily_yesterday": daily_yesterday_rows,
+        "rolling_30d": rolling_30d_rows,
+        "velocity": velocity_rows,
+        "daily_series_14d": daily_series,
+        # legacy — kept so old renderers don't break
+        "totals": {
+            "reviews_last_7d": total_7d,
+            "reviews_last_30d": total_30d,
+        },
+        "rows": legacy_rows,
         "refreshed_at": utcnow(),
     }
 
@@ -621,12 +751,53 @@ def rebuild_b2b_outbound_from_gmail(snap: dict) -> None:
     pool_total = 0
     pool_by_vert: dict = {}
     pool_by_office: dict = {}
+    coverage_matrix: dict = {}     # v3.5: office x vertical counts
+    saturation_gaps: list = []     # v3.5: top gaps ranked by opportunity size
+    coverage_summary: dict = {}    # v3.5: cells_filled, cells_empty, saturation_pct
     if pool_file.exists():
         try:
             pool = json.loads(pool_file.read_text())
             pool_total = int(pool.get("total_prospects") or 0)
             pool_by_vert = pool.get("by_vertical") or {}
             pool_by_office = pool.get("by_office") or {}
+            # v3.5: build office x vertical coverage matrix from raw prospects
+            from collections import Counter as _Ctr
+            _all_offices = ["Beverly Hills","Camarillo","Encino","Hillview","Oxnard Riverpark",
+                            "Puri Dentistry","Santa Monica","Sherman Oaks","Thousand Oaks"]
+            _all_verticals = ["senior_living","schools_daycare","hr_heavy_employers",
+                              "gyms_wellness","hotels","salons_spas","law_medical_offices"]
+            _grid = {o: _Ctr() for o in _all_offices}
+            for p in (pool.get("prospects") or []):
+                o = p.get("nearest_office"); v = p.get("vertical")
+                if o in _grid and v:
+                    _grid[o][v] += 1
+            coverage_matrix = {o: {v: int(_grid[o].get(v,0)) for v in _all_verticals} for o in _all_offices}
+            # Rank gaps: empty cells first, then thin cells (<8 prospects)
+            _target_per_cell = 15
+            gap_rows = []
+            for o in _all_offices:
+                for v in _all_verticals:
+                    n = coverage_matrix[o][v]
+                    if n < _target_per_cell:
+                        gap_rows.append({
+                            "office": o, "vertical": v,
+                            "current": n,
+                            "target": _target_per_cell,
+                            "gap": _target_per_cell - n,
+                            "priority": "empty" if n == 0 else ("thin" if n < 8 else "nearly_full"),
+                        })
+            gap_rows.sort(key=lambda r: (0 if r["priority"]=="empty" else (1 if r["priority"]=="thin" else 2), -r["gap"]))
+            saturation_gaps = gap_rows[:25]
+            cells_total = len(_all_offices) * len(_all_verticals)
+            cells_filled = sum(1 for o in _all_offices for v in _all_verticals if coverage_matrix[o][v] > 0)
+            cells_at_target = sum(1 for o in _all_offices for v in _all_verticals if coverage_matrix[o][v] >= _target_per_cell)
+            coverage_summary = {
+                "cells_total": cells_total,
+                "cells_filled": cells_filled,
+                "cells_at_target": cells_at_target,
+                "saturation_pct": round(100.0 * cells_at_target / cells_total, 1),
+                "target_per_cell": _target_per_cell,
+            }
             all_p = pool.get("prospects") or []
             # Only keep prospects with a website (usable for research + email);
             # also drop any prospect whose website domain already hard-bounced.

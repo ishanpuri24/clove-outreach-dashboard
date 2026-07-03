@@ -8927,22 +8927,128 @@
           paidEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;">Paid ads</h3><p style="color:var(--muted,#666);font-size:13px;margin:0;">No data yet \u2014 next cron run 5am PT.</p>';
         }
 
-        // ---- GMB ----
+        // ---- GMB (daily first → 30d rolling → velocity) ----
         var gmb = snap.gmb_simple;
         var gmbEl = document.getElementById('ld-gmb');
         if (gmb && gmbEl) {
-          var grows = (gmb.rows || []).slice().sort(function(a,b){ return (b.reviews_last_30d||0) - (a.reviews_last_30d||0); });
-          var ghtml = '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;"><h3 style="margin:0;font-size:16px;">Google reviews</h3><span style="font-size:11px;color:var(--muted,#666);">by office</span></div>';
-          ghtml += '<div style="display:flex;gap:16px;margin-bottom:10px;font-size:13px;"><div><div style="color:var(--muted,#666);font-size:11px;">7d reviews</div><div style="font-weight:600;font-size:18px;">'+fmtInt(gmb.totals && gmb.totals.reviews_last_7d)+'</div></div><div><div style="color:var(--muted,#666);font-size:11px;">30d reviews</div><div style="font-weight:600;font-size:18px;">'+fmtInt(gmb.totals && gmb.totals.reviews_last_30d)+'</div></div></div>';
-          ghtml += '<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="text-align:left;border-bottom:1px solid var(--border,#e5e5e5);color:var(--muted,#666);"><th style="padding:4px 4px;">Office</th><th style="padding:4px 4px;text-align:right;">7d</th><th style="padding:4px 4px;text-align:right;">30d</th><th style="padding:4px 4px;text-align:right;">30d avg</th></tr></thead><tbody>';
-          grows.forEach(function(r){
-            ghtml += '<tr style="border-bottom:1px solid var(--border-weak,#f3f3f3);"><td style="padding:4px 4px;">'+esc(r.office)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtInt(r.reviews_last_7d)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtInt(r.reviews_last_30d)+'</td><td style="padding:4px 4px;text-align:right;">'+fmtRating(r.avg_rating_last_30d)+'</td></tr>';
-          });
-          ghtml += '</tbody></table>';
-          if (gmb.cache_note) { ghtml += '<p style="color:var(--warn,#b86a00);font-size:11px;margin:8px 0 0 0;">'+esc(gmb.cache_note)+'</p>'; }
-          gmbEl.innerHTML = ghtml;
+          try {
+            var sum = gmb.summary || {};
+            var daily = gmb.daily_yesterday || [];
+            var roll = gmb.rolling_30d || (gmb.rows || []);
+            var vel = gmb.velocity || [];
+            var series = gmb.daily_series_14d || [];
+
+            // velocity color: green up / red down / slate flat
+            var velDelta = (sum.velocity_delta == null) ? 0 : Number(sum.velocity_delta);
+            var velColor = velDelta > 0 ? '#0a7c3f' : (velDelta < 0 ? '#b02a1e' : '#334155');
+            var velArrow = velDelta > 0 ? '\u25B2' : (velDelta < 0 ? '\u25BC' : '\u2022');
+            var velPctStr = (sum.velocity_pct == null) ? '\u2014' : (velDelta > 0 ? '+' : '') + Math.round(sum.velocity_pct) + '%';
+
+            // 14d sparkline
+            var maxSp = 0;
+            for (var i = 0; i < series.length; i++) { if ((series[i].reviews || 0) > maxSp) maxSp = series[i].reviews; }
+            var spWidth = 140, spHeight = 28, barW = series.length ? (spWidth / series.length - 1) : 0;
+            var spark = '<svg width="' + spWidth + '" height="' + spHeight + '" style="display:block;">';
+            for (var j = 0; j < series.length; j++) {
+              var h = maxSp > 0 ? Math.max(2, Math.round((series[j].reviews / maxSp) * (spHeight - 4))) : 2;
+              var x = j * (barW + 1);
+              var y = spHeight - h;
+              var isYest = j === series.length - 1;
+              spark += '<rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + barW.toFixed(1) + '" height="' + h + '" fill="' + (isYest ? '#0f172a' : '#94a3b8') + '" rx="1"/>';
+            }
+            spark += '</svg>';
+
+            var ghtml = '';
+            ghtml += '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;"><h3 style="margin:0;font-size:16px;color:#0f172a;">Google reviews</h3><span style="font-size:11px;color:#64748b;">Yesterday \u2192 30d \u2192 velocity</span></div>';
+
+            // ---- KPI STRIP: 4 tiles ----
+            ghtml += '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px;">';
+            // Yesterday
+            ghtml += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;">'
+                   + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Yesterday</div>'
+                   + '<div style="font-weight:700;font-size:22px;color:#0f172a;line-height:1.1;margin-top:2px;">' + fmtInt(sum.yesterday_reviews) + '</div>'
+                   + '<div style="font-size:10px;color:#475569;margin-top:2px;">' + (sum.offices_zero_yesterday != null ? (sum.offices_zero_yesterday + ' offices at 0') : '') + '</div>'
+                   + '</div>';
+            // 7d
+            ghtml += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;">'
+                   + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Last 7d</div>'
+                   + '<div style="font-weight:700;font-size:22px;color:#0f172a;line-height:1.1;margin-top:2px;">' + fmtInt(sum.last_7d_reviews) + '</div>'
+                   + '<div style="font-size:10px;color:#475569;margin-top:2px;">vs ' + fmtInt(sum.prior_7d_reviews) + ' prior 7d</div>'
+                   + '</div>';
+            // 30d
+            ghtml += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;">'
+                   + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">30d Rolling</div>'
+                   + '<div style="font-weight:700;font-size:22px;color:#0f172a;line-height:1.1;margin-top:2px;">' + fmtInt(sum.last_30d_reviews) + '</div>'
+                   + '<div style="font-size:10px;color:#475569;margin-top:2px;">avg ' + fmtRating(sum.avg_rating_30d) + '</div>'
+                   + '</div>';
+            // Velocity
+            ghtml += '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:8px;">'
+                   + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Velocity</div>'
+                   + '<div style="font-weight:700;font-size:22px;color:' + velColor + ';line-height:1.1;margin-top:2px;">' + velArrow + ' ' + velPctStr + '</div>'
+                   + '<div style="font-size:10px;color:#475569;margin-top:2px;">7d ' + (velDelta > 0 ? '+' : '') + velDelta + ' vs prior</div>'
+                   + '</div>';
+            ghtml += '</div>';
+
+            // ---- 14d sparkline strip ----
+            if (series.length) {
+              ghtml += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;padding:8px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;">'
+                     + '<div style="font-size:10px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;">Last 14d</div>'
+                     + spark
+                     + '<div style="font-size:11px;color:#475569;margin-left:auto;">peak ' + fmtInt(maxSp) + '/day</div>'
+                     + '</div>';
+            }
+
+            // ---- DAILY — yesterday per office ----
+            ghtml += '<div style="font-size:11px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;margin:6px 0 4px 0;">Yesterday by office</div>';
+            ghtml += '<table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px;"><thead><tr style="text-align:left;border-bottom:1px solid #e2e8f0;color:#334155;font-weight:600;"><th style="padding:4px 4px;">Office</th><th style="padding:4px 4px;text-align:right;">Reviews</th><th style="padding:4px 4px;text-align:right;">Avg</th></tr></thead><tbody>';
+            daily.forEach(function(r){
+              var isZero = (r.reviews_yesterday || 0) === 0;
+              var color = isZero ? '#b02a1e' : '#0f172a';
+              var bg = isZero ? '#fef2f2' : 'transparent';
+              ghtml += '<tr style="border-bottom:1px solid #f1f5f9;background:' + bg + ';">'
+                     + '<td style="padding:4px 4px;color:' + color + ';">' + esc(r.office) + '</td>'
+                     + '<td style="padding:4px 4px;text-align:right;font-weight:600;color:' + color + ';">' + fmtInt(r.reviews_yesterday) + '</td>'
+                     + '<td style="padding:4px 4px;text-align:right;color:#334155;">' + fmtRating(r.avg_rating_yesterday) + '</td>'
+                     + '</tr>';
+            });
+            ghtml += '</tbody></table>';
+
+            // ---- 30d rolling + velocity combined ----
+            var velMap = {};
+            vel.forEach(function(v){ velMap[v.office] = v; });
+            ghtml += '<div style="font-size:11px;font-weight:600;color:#0f172a;text-transform:uppercase;letter-spacing:0.4px;margin:6px 0 4px 0;">30d rolling &amp; 7d velocity</div>';
+            ghtml += '<table style="width:100%;border-collapse:collapse;font-size:12px;"><thead><tr style="text-align:left;border-bottom:1px solid #e2e8f0;color:#334155;font-weight:600;"><th style="padding:4px 4px;">Office</th><th style="padding:4px 4px;text-align:right;">30d</th><th style="padding:4px 4px;text-align:right;">30d avg</th><th style="padding:4px 4px;text-align:right;">7d</th><th style="padding:4px 4px;text-align:right;">Prior 7d</th><th style="padding:4px 4px;text-align:right;">\u0394</th></tr></thead><tbody>';
+            roll.forEach(function(r){
+              var v = velMap[r.office] || {};
+              var d = v.delta;
+              var dColor = d > 0 ? '#0a7c3f' : (d < 0 ? '#b02a1e' : '#64748b');
+              var dStr = (d == null) ? '\u2014' : (d > 0 ? '+' : '') + d;
+              ghtml += '<tr style="border-bottom:1px solid #f1f5f9;">'
+                     + '<td style="padding:4px 4px;color:#0f172a;">' + esc(r.office) + '</td>'
+                     + '<td style="padding:4px 4px;text-align:right;font-weight:600;color:#0f172a;">' + fmtInt(r.reviews_last_30d) + '</td>'
+                     + '<td style="padding:4px 4px;text-align:right;color:#334155;">' + fmtRating(r.avg_rating_last_30d) + '</td>'
+                     + '<td style="padding:4px 4px;text-align:right;color:#334155;">' + fmtInt(v.reviews_last_7d) + '</td>'
+                     + '<td style="padding:4px 4px;text-align:right;color:#64748b;">' + fmtInt(v.reviews_prior_7d) + '</td>'
+                     + '<td style="padding:4px 4px;text-align:right;font-weight:600;color:' + dColor + ';">' + dStr + '</td>'
+                     + '</tr>';
+            });
+            ghtml += '</tbody></table>';
+
+            // ---- Zero-yesterday action ----
+            if (sum.zero_yesterday_offices && sum.zero_yesterday_offices.length) {
+              ghtml += '<div style="margin-top:10px;padding:8px 10px;background:#fef2f2;border:1px solid #fecaca;border-radius:6px;font-size:12px;color:#7f1d1d;">'
+                     + '<strong>Action:</strong> ' + sum.zero_yesterday_offices.length + ' offices had 0 reviews yesterday \u2014 '
+                     + esc(sum.zero_yesterday_offices.join(', '))
+                     + '. Trigger post-appt review SMS today.</div>';
+            }
+
+            if (gmb.cache_note) { ghtml += '<p style="color:#b45309;font-size:11px;margin:8px 0 0 0;">' + esc(gmb.cache_note) + '</p>'; }
+            gmbEl.innerHTML = ghtml;
+          } catch (err) {
+            gmbEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;color:#0f172a;">Google reviews</h3><p style="color:#b02a1e;font-size:12px;margin:0;">Render error: ' + esc(String(err && err.message || err)) + '</p>';
+          }
         } else if (gmbEl) {
-          gmbEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;">Google reviews</h3><p style="color:var(--muted,#666);font-size:13px;margin:0;">No data yet \u2014 next cron run 5am PT.</p>';
+          gmbEl.innerHTML = '<h3 style="margin:0 0 6px 0;font-size:16px;color:#0f172a;">Google reviews</h3><p style="color:#64748b;font-size:13px;margin:0;">No data yet \u2014 next cron run 5am PT.</p>';
         }
 
         // ---- ORGANIC ----

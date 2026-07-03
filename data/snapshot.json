@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-03T18:35:27+00:00",
+  "generated_at": "2026-07-03T19:02:27+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17015,7 +17015,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-07-03T18:35:45+00:00",
+    "refreshed_at": "2026-07-03T19:02:44+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17050,7 +17050,7 @@
     "method": "Pipedream connector (read-only) per-account pull",
     "accounts_pulled": 9,
     "lookback_days": 30,
-    "pulled_at": "2026-07-03T18:35:45+00:00",
+    "pulled_at": "2026-07-03T19:02:44+00:00",
     "note": "Daily 5am PT pull refreshes 30d segmented-by-date spend for all 9 offices. Direct mutate (budget/bid/pause) still requires the Google Ads UI \u2014 see paid_ads_action_system queue."
   },
   "organic_insights": {
@@ -18191,7 +18191,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-07-03T18:35:27+00:00",
+    "data_freshness": "2026-07-03T19:02:27+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -19411,7 +19411,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-07-03T18:35:27+00:00",
+      "data_freshness": "2026-07-03T19:02:27+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -19772,7 +19772,7 @@
       "threshold_days": 3,
       "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
       "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending.",
-      "as_of": "2026-07-03T18:35:45+00:00",
+      "as_of": "2026-07-03T19:02:44+00:00",
       "status": "BLOCKED"
     }
   },
@@ -20109,7 +20109,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-07-03T18:35:45+00:00",
+    "as_of": "2026-07-03T19:02:44+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20128,7 +20128,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-07-03T18:35:45+00:00",
+      "as_of": "2026-07-03T19:02:44+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21360,7 +21360,7 @@
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-07-03T18:35:45+00:00",
+    "generated_at": "2026-07-03T19:02:44+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -21684,7 +21684,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-07-03T18:35:45+00:00",
+    "generated_at": "2026-07-03T19:02:44+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -23270,7 +23270,7 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-07-03T18:35:45+00:00",
+    "as_of": "2026-07-03T19:02:44+00:00",
     "source_of_truth": "Gmail SENT (verified) + Maps-sourced 5mi prospect pool",
     "status": "ACTIVE \u2014 running from personal Gmail",
     "verified_sends_last_30d": 11,
@@ -23918,11 +23918,258 @@
         "last_30d_cpa_usd": 24.02
       }
     ],
-    "refreshed_at": "2026-07-03T18:35:27+00:00"
+    "refreshed_at": "2026-07-03T19:02:26+00:00"
   },
   "gmb_simple": {
-    "title": "Google Reviews \u2014 by office",
-    "window_note": "Last 7d / Last 30d",
+    "title": "Google Reviews \u2014 daily first, then 30d rolling",
+    "window_note": "Yesterday (PT) / 30d rolling / 7d vs prior 7d velocity",
+    "summary": {
+      "yesterday_reviews": 0,
+      "last_7d_reviews": 14,
+      "prior_7d_reviews": 21,
+      "velocity_delta": -7,
+      "velocity_pct": -33.0,
+      "last_30d_reviews": 46,
+      "avg_rating_30d": 4.52,
+      "offices_zero_yesterday": 9,
+      "zero_yesterday_offices": [
+        "Beverly Hills",
+        "Camarillo",
+        "Encino",
+        "Hillview",
+        "Puri Dentistry",
+        "Riverpark",
+        "Santa Monica",
+        "Sherman Oaks",
+        "Thousand Oaks"
+      ]
+    },
+    "daily_yesterday": [
+      {
+        "office": "Beverly Hills",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Camarillo",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Encino",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Hillview",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Puri Dentistry",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Riverpark",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Santa Monica",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Sherman Oaks",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Thousand Oaks",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      }
+    ],
+    "rolling_30d": [
+      {
+        "office": "Thousand Oaks",
+        "reviews_last_30d": 9,
+        "avg_rating_last_30d": 4.56,
+        "newest_review_at": "2026-06-30T21:32:54.655651+00:00"
+      },
+      {
+        "office": "Riverpark",
+        "reviews_last_30d": 8,
+        "avg_rating_last_30d": 4.75,
+        "newest_review_at": "2026-06-28T18:16:24.217575+00:00"
+      },
+      {
+        "office": "Puri Dentistry",
+        "reviews_last_30d": 6,
+        "avg_rating_last_30d": 4.5,
+        "newest_review_at": "2026-06-30T21:55:31.823479+00:00"
+      },
+      {
+        "office": "Encino",
+        "reviews_last_30d": 5,
+        "avg_rating_last_30d": 4.2,
+        "newest_review_at": "2026-06-27T21:48:27.713140+00:00"
+      },
+      {
+        "office": "Santa Monica",
+        "reviews_last_30d": 5,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-30T01:03:53.958226+00:00"
+      },
+      {
+        "office": "Hillview",
+        "reviews_last_30d": 4,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-25T17:38:43.731595+00:00"
+      },
+      {
+        "office": "Beverly Hills",
+        "reviews_last_30d": 3,
+        "avg_rating_last_30d": 5.0,
+        "newest_review_at": "2026-06-30T21:13:07.493559+00:00"
+      },
+      {
+        "office": "Camarillo",
+        "reviews_last_30d": 3,
+        "avg_rating_last_30d": 3.67,
+        "newest_review_at": "2026-06-09T16:49:14.205458+00:00"
+      },
+      {
+        "office": "Sherman Oaks",
+        "reviews_last_30d": 3,
+        "avg_rating_last_30d": 3.33,
+        "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
+      }
+    ],
+    "velocity": [
+      {
+        "office": "Encino",
+        "reviews_last_7d": 3,
+        "reviews_prior_7d": 2,
+        "delta": 1,
+        "pct_change": 50.0
+      },
+      {
+        "office": "Santa Monica",
+        "reviews_last_7d": 3,
+        "reviews_prior_7d": 1,
+        "delta": 2,
+        "pct_change": 200.0
+      },
+      {
+        "office": "Thousand Oaks",
+        "reviews_last_7d": 3,
+        "reviews_prior_7d": 5,
+        "delta": -2,
+        "pct_change": -40.0
+      },
+      {
+        "office": "Puri Dentistry",
+        "reviews_last_7d": 2,
+        "reviews_prior_7d": 3,
+        "delta": -1,
+        "pct_change": -33.0
+      },
+      {
+        "office": "Beverly Hills",
+        "reviews_last_7d": 1,
+        "reviews_prior_7d": 2,
+        "delta": -1,
+        "pct_change": -50.0
+      },
+      {
+        "office": "Riverpark",
+        "reviews_last_7d": 1,
+        "reviews_prior_7d": 5,
+        "delta": -4,
+        "pct_change": -80.0
+      },
+      {
+        "office": "Sherman Oaks",
+        "reviews_last_7d": 1,
+        "reviews_prior_7d": 0,
+        "delta": 1,
+        "pct_change": 100.0
+      },
+      {
+        "office": "Camarillo",
+        "reviews_last_7d": 0,
+        "reviews_prior_7d": 0,
+        "delta": 0,
+        "pct_change": null
+      },
+      {
+        "office": "Hillview",
+        "reviews_last_7d": 0,
+        "reviews_prior_7d": 3,
+        "delta": -3,
+        "pct_change": -100.0
+      }
+    ],
+    "daily_series_14d": [
+      {
+        "date": "2026-06-20",
+        "reviews": 3
+      },
+      {
+        "date": "2026-06-21",
+        "reviews": 2
+      },
+      {
+        "date": "2026-06-22",
+        "reviews": 3
+      },
+      {
+        "date": "2026-06-23",
+        "reviews": 4
+      },
+      {
+        "date": "2026-06-24",
+        "reviews": 3
+      },
+      {
+        "date": "2026-06-25",
+        "reviews": 5
+      },
+      {
+        "date": "2026-06-26",
+        "reviews": 3
+      },
+      {
+        "date": "2026-06-27",
+        "reviews": 3
+      },
+      {
+        "date": "2026-06-28",
+        "reviews": 2
+      },
+      {
+        "date": "2026-06-29",
+        "reviews": 4
+      },
+      {
+        "date": "2026-06-30",
+        "reviews": 3
+      },
+      {
+        "date": "2026-07-01",
+        "reviews": 0
+      },
+      {
+        "date": "2026-07-02",
+        "reviews": 0
+      },
+      {
+        "date": "2026-07-03",
+        "reviews": 0
+      }
+    ],
     "totals": {
       "reviews_last_7d": 14,
       "reviews_last_30d": 46
@@ -24001,12 +24248,12 @@
         "newest_review_at": "2026-06-28T06:35:19.004680+00:00"
       }
     ],
-    "refreshed_at": "2026-07-03T18:35:27+00:00"
+    "refreshed_at": "2026-07-03T19:02:27+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-07-03T18:35:27+00:00",
+    "refreshed_at": "2026-07-03T19:02:27+00:00",
     "yesterday_date": "2026-06-29",
     "yesterday_clicks": 194,
     "yesterday_impressions": 26111,
@@ -24200,7 +24447,7 @@
     ]
   },
   "outreach_volume": {
-    "as_of": "2026-07-03T18:35:45+00:00",
+    "as_of": "2026-07-03T19:02:44+00:00",
     "totals": {
       "prospect_sends_last_7d": 30,
       "prospect_sends_last_30d": 30,
