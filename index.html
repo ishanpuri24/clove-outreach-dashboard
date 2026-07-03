@@ -2977,6 +2977,8 @@
 
       function renderTrend(daily) {
         var svg = $("trend-chart");
+        // v3.4: legacy trend-chart removed from DOM; no-op safely
+        if (!svg) return;
         clearSvg(svg);
         if (!daily || !daily.length) return;
         var rect = svg.getBoundingClientRect();
@@ -3130,23 +3132,27 @@
       }
 
       function renderExec(s) {
+        // v3.4: legacy exec/status card removed from DOM in redesign — guard every write
         var k = s.kpis || {}, t = s.task || {};
-        $("exec-date").textContent = fmtDate(k.latest_date);
-        $("exec-sender").textContent = t.sender || "-";
-        $("exec-schedule").textContent = t.schedule || "-";
-        $("exec-cap").textContent = (t.daily_cap || 12) + " per weekday";
-        $("exec-sheet").textContent = "Google Sheet (private; redacted in public mirror)";
-        $("exec-zoho").textContent = (s.zoho && s.zoho.stage) || "-";
+        function _set(id, val) { var e = $(id); if (e) e.textContent = val; }
+        _set("exec-date", fmtDate(k.latest_date));
+        _set("exec-sender", t.sender || "-");
+        _set("exec-schedule", t.schedule || "-");
+        _set("exec-cap", (t.daily_cap || 12) + " per weekday");
+        _set("exec-sheet", "Google Sheet (private; redacted in public mirror)");
+        _set("exec-zoho", (s.zoho && s.zoho.stage) || "-");
         var gh = $("exec-gh");
-        var repo = (s.github && s.github.dashboard_repo) || "ishanpuri24/clove-outreach-dashboard";
-        gh.href = "https://github.com/" + repo;
-        gh.textContent = repo;
-        $("exec-sanitization").textContent =
-          "Identities, reply text, Sheet ID, and private commits are not exposed";
+        if (gh) {
+          var repo = (s.github && s.github.dashboard_repo) || "ishanpuri24/clove-outreach-dashboard";
+          gh.href = "https://github.com/" + repo;
+          gh.textContent = repo;
+        }
+        _set("exec-sanitization",
+          "Identities, reply text, Sheet ID, and private commits are not exposed");
         var pillStatus = statusFromQueue(s.queue_health);
         var pill = $("status-pill");
-        pill.className = "pill " + pillStatus[0];
-        $("status-text").textContent = pillStatus[1];
+        if (pill) pill.className = "pill " + pillStatus[0];
+        _set("status-text", pillStatus[1]);
       }
 
       function renderQueue(s) {
