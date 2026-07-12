@@ -222,6 +222,9 @@ def build_gmb_simple() -> dict:
         ct = review.get("createTime") or ""
         try:
             dt = datetime.fromisoformat(ct.replace("Z", "+00:00"))
+            # Guard: ensure timezone-aware UTC so comparisons against cutoffs work
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
         except Exception:
             continue
         star = STAR_TO_INT.get(review.get("starRating", ""))
