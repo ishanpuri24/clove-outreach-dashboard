@@ -85,10 +85,16 @@ def build_paid_ads_simple() -> dict:
     Each input file is a Google Ads create-report payload with
     date-segmented rows for the last 30 days. We compute three windows
     per office: yesterday, last 7 days, last 30 days.
+
+    Also tracks staleness (newest file mtime) and truncated JSON files so the
+    dashboard can surface a soft warning when Google Ads pulls fail.
     """
+    import time as _t
     gads_dir = DATA / "_gads_live"
     rows: list[dict] = []
     tot7 = tot30 = 0.0
+    newest_mtime = 0.0
+    truncated_offices: list[str] = []
 
     for cid, office in OFFICE_MAP.items():
         fp = gads_dir / f"{cid}.json"
@@ -97,7 +103,9 @@ def build_paid_ads_simple() -> dict:
         try:
             payload = json.loads(fp.read_text())
         except Exception:
+            truncated_offices.append(office)
             continue
+        newest_mtime = max(newest_mtime, fp.stat().st_mtime)
         results = payload.get("results", [])
         if not results:
             continue
@@ -151,6 +159,10 @@ def build_paid_ads_simple() -> dict:
         tot30 += sum30["cost"]
 
     rows.sort(key=lambda x: -x["last_30d_spend_usd"])
+    # Staleness detection
+    now_ts = _t.time()
+    stale_hours = round((now_ts - newest_mtime) / 3600, 1) if newest_mtime else None
+    is_stale = bool(stale_hours and stale_hours > 36)
     return {
         "title": "Paid Ads — by office",
         "window_note": "Yesterday / Last 7d / Last 30d",
@@ -159,6 +171,9 @@ def build_paid_ads_simple() -> dict:
             "last_30d_spend_usd": round(tot30, 2),
         },
         "rows": rows,
+        "stale": is_stale,
+        "stale_hours": stale_hours,
+        "truncated_offices": truncated_offices,
         "refreshed_at": utcnow(),
     }
 
