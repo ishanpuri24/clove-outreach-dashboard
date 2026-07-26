@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-07-24T12:15:42Z",
+  "generated_at": "2026-07-26T12:12:18Z",
   "method": "SMTP RCPT-TO probe (free, no send)",
   "helo": "mail.clovedds.com",
   "mail_from": "postmaster@clovedds.com",
   "verified_domain_count": 80,
   "verified_this_run": 5,
   "counts": {
-    "valid": 19,
+    "valid": 20,
     "catch_all": 13,
     "invalid": 0,
     "no_mx": 13,
-    "no_match": 35,
+    "no_match": 34,
     "unknown": 0,
     "bounced_history": 0
   },
@@ -162,7 +162,7 @@
       "status": "catch_all",
       "valid_email": "info@cyclebar.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-07-24T12:15:24Z"
+      "checked_at": "2026-07-26T12:12:10Z"
     },
     "circuitworksla.com": {
       "domain": "circuitworksla.com",
@@ -176,7 +176,7 @@
       "status": "catch_all",
       "valid_email": "info@megaformerstudio.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-07-24T12:15:23Z"
+      "checked_at": "2026-07-26T12:12:10Z"
     },
     "showupfitness.com": {
       "domain": "showupfitness.com",
@@ -190,7 +190,7 @@
       "status": "catch_all",
       "valid_email": "info@allegiategym.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-07-24T12:15:23Z"
+      "checked_at": "2026-07-26T12:12:10Z"
     },
     "assistedlivinglocatorsla.com": {
       "domain": "assistedlivinglocatorsla.com",
@@ -225,7 +225,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "welovecamp-com.mail.protection.outlook.com",
-      "checked_at": "2026-07-24T12:15:29Z"
+      "checked_at": "2026-07-26T12:12:18Z"
     },
     "trifecta-fitness.com": {
       "domain": "trifecta-fitness.com",
@@ -298,10 +298,10 @@
     },
     "dorchestercollection.com": {
       "domain": "dorchestercollection.com",
-      "status": "no_match",
-      "valid_email": null,
+      "status": "valid",
+      "valid_email": "info@dorchestercollection.com",
       "mx": "eu-smtp-inbound-1.mimecast.com",
-      "checked_at": "2026-07-24T12:15:42Z"
+      "checked_at": "2026-07-26T12:12:11Z"
     },
     "houseofgainsgym.net": {
       "domain": "houseofgainsgym.net",

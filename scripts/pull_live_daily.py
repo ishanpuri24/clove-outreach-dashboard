@@ -203,7 +203,28 @@ def build_gmb_simple() -> dict:
             "note": "No GMB data file found.",
         }
 
-    payload = json.loads(src.read_text())
+    try:
+        payload = json.loads(src.read_text())
+    except json.JSONDecodeError as e:
+        # Corrupted / truncated live file — fall back to corpus if available so
+        # the whole pipeline doesn't abort. The escalation log will still fire
+        # via truncated_offices/staleness surfaces below.
+        print(f"[gmb] WARNING: {src} is invalid JSON ({e}); falling back to empty payload")
+        corpus_p = DATA / "_gmb_review_corpus.json"
+        if corpus_p.exists():
+            try:
+                corpus = json.loads(corpus_p.read_text())
+                # corpus is {reviewName: reviewObj}; rebuild pseudo-locationReviews
+                pseudo = []
+                for _rn, r in (corpus or {}).items():
+                    if isinstance(r, dict) and r.get("name"):
+                        pseudo.append({"name": r["name"], "review": r})
+                payload = {"locationReviews": pseudo}
+                print(f"[gmb] recovered {len(pseudo)} reviews from corpus")
+            except Exception:
+                payload = {"locationReviews": []}
+        else:
+            payload = {"locationReviews": []}
     revs = payload.get("locationReviews", [])
 
     from zoneinfo import ZoneInfo
@@ -1430,7 +1451,11 @@ def merge_live_reviews_into_corpus() -> tuple[int, int]:
         corpus = {"generated_at": utcnow(), "office_count": 0, "review_count": 0, "by_office": {}, "reviews": []}
 
     existing_names = {r.get("name") for r in corpus.get("reviews", []) if r.get("name")}
-    live_payload = json.loads(live.read_text())
+    try:
+        live_payload = json.loads(live.read_text())
+    except json.JSONDecodeError as e:
+        print(f"[gmb-corpus] WARNING: live reviews.json is invalid JSON ({e}); skipping merge")
+        return (0, len(corpus.get("reviews", [])))
     added = 0
     for r in live_payload.get("locationReviews", []):
         loc_id = r.get("name", "").split("/")[-1]

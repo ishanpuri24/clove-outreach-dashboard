@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-07-26T12:11:26Z",
+  "_stub_note": "CallRail credential not configured. This is a stub; wire a real CallRail pull when credentials are available.",
+  "windows": {
+    "last_7d": {
+      "calls": 0,
+      "answered": 0,
+      "missed": 0,
+      "first_time": 0,
+      "qualified": 0
+    },
+    "last_30d": {
+      "calls": 0,
+      "answered": 0,
+      "missed": 0,
+      "first_time": 0,
+      "qualified": 0
+    }
+  },
+  "by_office": []
+}
