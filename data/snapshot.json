@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-28T12:14:29+00:00",
+  "generated_at": "2026-07-29T12:08:05+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -29,7 +29,7 @@
     "title": "Paid Ads \u00b7 9 offices \u00b7 Daily run-rate x30 vs 30-day trailing",
     "subtitle": "Yesterday spend $1,668 -> projected month $50,025 (pacing down 40.3% vs trailing 30d). Target: paid ads <= 4% of office production (production pending Open Dental wire).",
     "lookback": "Yesterday (2026-06-09) + trailing 30d",
-    "data_freshness": "Live daily pull \u2014 last refreshed 2026-07-28 at 5am PT (9 offices via Google Ads MCC).",
+    "data_freshness": "Live daily pull \u2014 last refreshed 2026-07-29 at 5am PT (9 offices via Google Ads MCC).",
     "automation_status": "Read-only connector \u2014 pauses/budget changes require manual UI execution",
     "coverage": {
       "linked_offices": 16,
@@ -17015,7 +17015,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-07-28T12:14:37+00:00",
+    "refreshed_at": "2026-07-29T12:08:13+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17050,13 +17050,13 @@
     "method": "Pipedream connector (read-only) per-account pull",
     "accounts_pulled": 9,
     "lookback_days": 30,
-    "pulled_at": "2026-07-28T12:14:37+00:00",
+    "pulled_at": "2026-07-29T12:08:13+00:00",
     "note": "Daily 5am PT pull refreshes 30d segmented-by-date spend for all 9 offices. Direct mutate (budget/bid/pause) still requires the Google Ads UI \u2014 see paid_ads_action_system queue."
   },
   "organic_insights": {
     "title": "Organic & SEO",
     "lookback": "Last 28d vs prior 28d",
-    "data_freshness": "Live daily GSC pull \u2014 last refreshed 2026-07-28 at 5am PT.",
+    "data_freshness": "Live daily GSC pull \u2014 last refreshed 2026-07-29 at 5am PT.",
     "growth_cards": [
       {
         "label": "Clicks (last 7d)",
@@ -17918,7 +17918,7 @@
   "referral_insights": {
     "title": "Referrals",
     "lookback": "Last 30d",
-    "data_freshness": "Live daily GBP pull \u2014 last refreshed 2026-07-28 at 5am PT.",
+    "data_freshness": "Live daily GBP pull \u2014 last refreshed 2026-07-29 at 5am PT.",
     "connector_status": [
       {
         "integration": "Open Dental referral query",
@@ -18181,7 +18181,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-07-28T12:14:29+00:00",
+    "data_freshness": "2026-07-29T12:08:05+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -19400,7 +19400,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-07-28T12:14:29+00:00",
+      "data_freshness": "2026-07-29T12:08:05+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -19761,7 +19761,7 @@
       "threshold_days": 3,
       "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
       "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending.",
-      "as_of": "2026-07-28T12:14:37+00:00",
+      "as_of": "2026-07-29T12:08:13+00:00",
       "status": "BLOCKED"
     }
   },
@@ -20098,7 +20098,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-07-28T12:14:37+00:00",
+    "as_of": "2026-07-29T12:08:13+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20117,7 +20117,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-07-28T12:14:37+00:00",
+      "as_of": "2026-07-29T12:08:13+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -21888,6 +21888,31 @@
           "speed_credit_efficiency": 9
         },
         "remediation_next_run": "Wire CallRail + Subscribili/OpenDental cash-yield pulls into the 5am PT cron so callrail_live and membership_insights refresh daily."
+      },
+      {
+        "date": "2026-07-29",
+        "actions_taken": [
+          "Live daily refresh: paid_ads (9 offices), GMB (9 offices), organic GSC.",
+          "Rebuilt gmb_insights + operator_summary + next_actions from live data.",
+          "B2B outbound reconciled to Gmail SENT: 11 sends 30d."
+        ],
+        "metrics": {
+          "paid_7d_spend_usd": 2990.23,
+          "paid_30d_spend_usd": 16220.06,
+          "gmb_reviews_7d": 16,
+          "gmb_reviews_30d": 16,
+          "organic_clicks_7d": null,
+          "organic_clicks_30d": null
+        },
+        "self_rating": {
+          "action_taken": 9,
+          "impact_learning": 8,
+          "dashboard_clarity": 9,
+          "automation_reliability": 9,
+          "privacy_safety": 10,
+          "speed_credit_efficiency": 9
+        },
+        "remediation_next_run": "Wire CallRail + Subscribili/OpenDental cash-yield pulls into the 5am PT cron so callrail_live and membership_insights refresh daily."
       }
     ]
   },
@@ -22327,13 +22352,29 @@
         "browser_calls": 0,
         "subagents": 0,
         "notes": "5am PT scheduled refresh \u2014 lean-mode, one pull per source."
+      },
+      {
+        "date": "2026-07-29",
+        "source_pulls": {
+          "google_ads": 9,
+          "gsc": 3,
+          "gmb": 2,
+          "open_dental": 0,
+          "callrail": 0,
+          "ga4": 0,
+          "ahrefs": 0,
+          "hubspot": 0
+        },
+        "browser_calls": 0,
+        "subagents": 0,
+        "notes": "5am PT scheduled refresh \u2014 lean-mode, one pull per source."
       }
     ]
   },
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-07-28T12:14:37+00:00",
+    "generated_at": "2026-07-29T12:08:13+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -22657,7 +22698,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-07-28T12:14:37+00:00",
+    "generated_at": "2026-07-29T12:08:13+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -24243,7 +24284,7 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-07-28T12:14:37+00:00",
+    "as_of": "2026-07-29T12:08:13+00:00",
     "source_of_truth": "Gmail SENT (verified) + Maps-sourced 5mi prospect pool",
     "status": "ACTIVE \u2014 running from personal Gmail",
     "verified_sends_last_30d": 11,
@@ -24917,26 +24958,29 @@
       }
     ],
     "stale": true,
-    "stale_hours": 48.1,
+    "stale_hours": 72.0,
     "truncated_offices": [],
-    "refreshed_at": "2026-07-28T12:14:29+00:00"
+    "refreshed_at": "2026-07-29T12:08:05+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 daily first, then 30d rolling",
     "window_note": "Yesterday (PT) / 30d rolling / 7d vs prior 7d velocity",
     "summary": {
-      "yesterday_reviews": 3,
+      "yesterday_reviews": 0,
       "last_7d_reviews": 16,
       "prior_7d_reviews": 0,
       "velocity_delta": 16,
       "velocity_pct": 100.0,
       "last_30d_reviews": 16,
       "avg_rating_30d": 4.25,
-      "offices_zero_yesterday": 6,
+      "offices_zero_yesterday": 9,
       "zero_yesterday_offices": [
         "Beverly Hills",
+        "Camarillo",
+        "Encino",
         "Hillview",
         "Puri Dentistry",
+        "Riverpark",
         "Santa Monica",
         "Sherman Oaks",
         "Thousand Oaks"
@@ -24944,22 +24988,17 @@
     },
     "daily_yesterday": [
       {
+        "office": "Beverly Hills",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
         "office": "Camarillo",
-        "reviews_yesterday": 1,
-        "avg_rating_yesterday": 5.0
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
       },
       {
         "office": "Encino",
-        "reviews_yesterday": 1,
-        "avg_rating_yesterday": 5.0
-      },
-      {
-        "office": "Riverpark",
-        "reviews_yesterday": 1,
-        "avg_rating_yesterday": 5.0
-      },
-      {
-        "office": "Beverly Hills",
         "reviews_yesterday": 0,
         "avg_rating_yesterday": null
       },
@@ -24970,6 +25009,11 @@
       },
       {
         "office": "Puri Dentistry",
+        "reviews_yesterday": 0,
+        "avg_rating_yesterday": null
+      },
+      {
+        "office": "Riverpark",
         "reviews_yesterday": 0,
         "avg_rating_yesterday": null
       },
@@ -25112,10 +25156,6 @@
     ],
     "daily_series_14d": [
       {
-        "date": "2026-07-15",
-        "reviews": 0
-      },
-      {
         "date": "2026-07-16",
         "reviews": 0
       },
@@ -25165,6 +25205,10 @@
       },
       {
         "date": "2026-07-28",
+        "reviews": 0
+      },
+      {
+        "date": "2026-07-29",
         "reviews": 0
       }
     ],
@@ -25246,12 +25290,12 @@
         "newest_review_at": "2026-05-14T22:06:39.081345+00:00"
       }
     ],
-    "refreshed_at": "2026-07-28T12:14:29+00:00"
+    "refreshed_at": "2026-07-29T12:08:05+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-07-28T12:14:29+00:00",
+    "refreshed_at": "2026-07-29T12:08:05+00:00",
     "yesterday_date": "2026-07-26",
     "yesterday_clicks": 193,
     "yesterday_impressions": 26027,
@@ -25445,7 +25489,7 @@
     ]
   },
   "outreach_volume": {
-    "as_of": "2026-07-28T12:14:37+00:00",
+    "as_of": "2026-07-29T12:08:13+00:00",
     "totals": {
       "prospect_sends_last_7d": 0,
       "prospect_sends_last_30d": 30,
