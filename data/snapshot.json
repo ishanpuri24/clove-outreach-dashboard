@@ -25545,5 +25545,6 @@
       "dead": 47
     },
     "cadence_rule": "Warm up: 5 sends/office/week x 9 offices = 45/week ceiling. 14-day cooldown per recipient. Skip catch_all until reply is confirmed."
-  }
+  },
+  "replies": []
 }
