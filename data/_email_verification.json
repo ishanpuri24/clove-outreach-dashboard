@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-12T12:07:52Z",
+  "generated_at": "2026-08-13T12:05:14Z",
   "method": "SMTP RCPT-TO probe (free, no send)",
   "helo": "mail.clovedds.com",
   "mail_from": "postmaster@clovedds.com",
@@ -162,7 +162,7 @@
       "status": "catch_all",
       "valid_email": "info@cyclebar.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-08-12T12:07:45Z"
+      "checked_at": "2026-08-13T12:05:09Z"
     },
     "circuitworksla.com": {
       "domain": "circuitworksla.com",
@@ -176,7 +176,7 @@
       "status": "catch_all",
       "valid_email": "info@megaformerstudio.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-08-12T12:07:46Z"
+      "checked_at": "2026-08-13T12:05:09Z"
     },
     "showupfitness.com": {
       "domain": "showupfitness.com",
@@ -190,7 +190,7 @@
       "status": "catch_all",
       "valid_email": "info@allegiategym.com",
       "mx": "aspmx.l.google.com",
-      "checked_at": "2026-08-12T12:07:45Z"
+      "checked_at": "2026-08-13T12:05:09Z"
     },
     "assistedlivinglocatorsla.com": {
       "domain": "assistedlivinglocatorsla.com",
@@ -225,7 +225,7 @@
       "status": "no_match",
       "valid_email": null,
       "mx": "welovecamp-com.mail.protection.outlook.com",
-      "checked_at": "2026-08-12T12:07:52Z"
+      "checked_at": "2026-08-13T12:05:14Z"
     },
     "trifecta-fitness.com": {
       "domain": "trifecta-fitness.com",
