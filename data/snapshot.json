@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-14T12:07:22+00:00",
+  "generated_at": "2026-09-14T12:09:06+00:00",
   "task": {
     "id": "daily-refresh",
     "schedule": "Weekdays 08:30 America/Los_Angeles",
@@ -17014,7 +17014,7 @@
     }
   },
   "callrail_live": {
-    "refreshed_at": "2026-09-14T12:07:31+00:00",
+    "refreshed_at": "2026-09-14T12:09:13+00:00",
     "qualification_rule": "good_lead + previously_marked_good_lead = qualified conversion",
     "last_7_days": {
       "total_calls": 973,
@@ -17049,7 +17049,7 @@
     "method": "Pipedream connector (read-only) per-account pull",
     "accounts_pulled": 9,
     "lookback_days": 30,
-    "pulled_at": "2026-09-14T12:07:31+00:00",
+    "pulled_at": "2026-09-14T12:09:13+00:00",
     "note": "Daily 5am PT pull refreshes 30d segmented-by-date spend for all 9 offices. Direct mutate (budget/bid/pause) still requires the Google Ads UI \u2014 see paid_ads_action_system queue."
   },
   "organic_insights": {
@@ -17841,7 +17841,18 @@
         "note": "Updated daily. Public data is aggregated."
       }
     ],
-    "opportunity_queue": []
+    "opportunity_queue": [
+      {
+        "query": "siento la lengua rara",
+        "impressions": 145,
+        "clicks": 2,
+        "ctr_pct": 1.38,
+        "avg_position": 6.0,
+        "lift_estimate_clicks": 2,
+        "opportunity_type": "ctr_under_index",
+        "suggested_action": "Rewrite meta title + description so top-10 rank actually earns clicks."
+      }
+    ]
   },
   "referral_insights": {
     "title": "Referrals",
@@ -18109,7 +18120,7 @@
   "gmb_insights": {
     "title": "GMB Reviews",
     "lookback": "Last 30d",
-    "data_freshness": "2026-09-14T12:07:22+00:00",
+    "data_freshness": "2026-09-14T12:09:06+00:00",
     "summary_cards": [
       {
         "label": "Overall rating",
@@ -19315,7 +19326,7 @@
       "privacy_note": "Aggregate counts and theme labels only. Snippets are sanitized \u2014 no reviewer or staff names, no profile links, no GBP IDs, no raw review IDs, no email bodies."
     },
     "freshness_status": {
-      "data_freshness": "2026-09-14T12:07:22+00:00",
+      "data_freshness": "2026-09-14T12:09:06+00:00",
       "age_days": 0,
       "is_stale": false,
       "stale_threshold_days": 7,
@@ -19676,7 +19687,7 @@
       "threshold_days": 3,
       "blocker": "Subscribili has no API connector. Refreshing requires manual browser export + paste into private state.",
       "next_action": "Schedule fresh Subscribili export OR provide credentials so a writer can fetch the snapshot weekly. Until then, growth-rate and cash-patient-yield remain Pending.",
-      "as_of": "2026-09-14T12:07:31+00:00",
+      "as_of": "2026-09-14T12:09:13+00:00",
       "status": "BLOCKED"
     }
   },
@@ -20013,7 +20024,7 @@
   },
   "automations": {
     "title": "Automations",
-    "as_of": "2026-09-14T12:07:31+00:00",
+    "as_of": "2026-09-14T12:09:13+00:00",
     "items": [],
     "safety_note": "Aggregate operating counters only. No PII, message bodies, phone numbers, patient identifiers, OpenDental records, or message IDs in the public snapshot.",
     "_sanitization": {
@@ -20032,7 +20043,7 @@
     },
     "action_system": {
       "title": "Action system",
-      "as_of": "2026-09-14T12:07:31+00:00",
+      "as_of": "2026-09-14T12:09:13+00:00",
       "description": "Active marketing automations and tracked actions. Aggregate only \u2014 no PII, no private IDs, no tokens. Each entry shows status, next action, last action, and the impact metric to watch.",
       "actions": [
         {
@@ -22308,7 +22319,7 @@
   "operator_summary": {
     "title": "Operator Summary",
     "subtitle": "Live snapshot \u2014 refreshed daily at 5am PT from Google Ads, GMB, GSC, and Gmail.",
-    "generated_at": "2026-09-14T12:07:31+00:00",
+    "generated_at": "2026-09-14T12:09:13+00:00",
     "kpi_cards": [
       {
         "label": "Paid spend 30d",
@@ -22632,7 +22643,7 @@
   },
   "gmb_learning_engine": {
     "version": "v1.0",
-    "generated_at": "2026-09-14T12:07:31+00:00",
+    "generated_at": "2026-09-14T12:09:13+00:00",
     "corpus_summary": {
       "review_count": 355,
       "office_count": 9,
@@ -24218,7 +24229,7 @@
     "privacy": "No reviewer names, review IDs, profile URLs, location IDs, or staff names in this public block."
   },
   "b2b_outbound": {
-    "as_of": "2026-09-14T12:07:31+00:00",
+    "as_of": "2026-09-14T12:09:13+00:00",
     "source_of_truth": "Gmail SENT (verified) + Maps-sourced 5mi prospect pool",
     "status": "ACTIVE \u2014 running from personal Gmail",
     "verified_sends_last_30d": 11,
@@ -24892,9 +24903,9 @@
       }
     ],
     "stale": false,
-    "stale_hours": 0.0,
+    "stale_hours": 0.1,
     "truncated_offices": [],
-    "refreshed_at": "2026-09-14T12:07:22+00:00"
+    "refreshed_at": "2026-09-14T12:09:06+00:00"
   },
   "gmb_simple": {
     "title": "Google Reviews \u2014 daily first, then 30d rolling",
@@ -25224,12 +25235,12 @@
         "newest_review_at": "2026-09-08T19:38:57.684902+00:00"
       }
     ],
-    "refreshed_at": "2026-09-14T12:07:22+00:00"
+    "refreshed_at": "2026-09-14T12:09:06+00:00"
   },
   "organic_simple": {
     "title": "Organic \u2014 Google Search Console",
     "window_note": "Yesterday / Last 7d / Last 30d",
-    "refreshed_at": "2026-09-14T12:07:22+00:00",
+    "refreshed_at": "2026-09-14T12:09:06+00:00",
     "yesterday_date": "2026-09-12",
     "yesterday_clicks": 221,
     "yesterday_impressions": 22592,
@@ -25423,7 +25434,7 @@
     ]
   },
   "outreach_volume": {
-    "as_of": "2026-09-14T12:07:31+00:00",
+    "as_of": "2026-09-14T12:09:13+00:00",
     "totals": {
       "prospect_sends_last_7d": 0,
       "prospect_sends_last_30d": 0,
